@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2563eb; --bg: #e2e8f0; --surface: #ffffff; --text: #0f172a; --text-light: #64748b; --danger: #ef4444; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: var(--bg);
+            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .bg-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: -1; }
+
+        .back-btn { position: fixed; top: 20px; left: 20px; width: 44px; height: 44px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 50; transition: 0.2s; }
+        .back-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+
+        /* --- CARD PROFILE --- */
+        .profile-card {
+            background: var(--surface);
+            width: 100%; max-width: 420px;
+            border-radius: 24px;
+            padding: 0 24px 24px;
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.3);
+            position: relative;
+            margin-top: 40px;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Nút Cài đặt (Gear Icon) - Nằm góc phải Card */
+        .btn-gear {
+            position: absolute; top: 20px; right: 20px;
+            background: #f1f5f9; border: none;
+            width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; display: none;
+            align-items: center; justify-content: center;
+            color: var(--text-light); transition: 0.2s;
+            z-index: 10;
+        }
+        .btn-gear:hover { background: #e2e8f0; color: var(--primary); transform: rotate(90deg); }
+
+        .avt-container { width: 100px; height: 100px; margin: -50px auto 10px; position: relative; }
+        .avt-img { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--surface); box-shadow: 0 10px 20px rgba(0,0,0,0.15); background: white; object-fit: cover; }
+
+        .user-header { text-align: center; margin-bottom: 24px; }
+        .user-name { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+        .user-tag { font-size: 13px; color: var(--primary); font-weight: 700; background: #eff6ff; padding: 4px 12px; border-radius: 50px; display: inline-block; }
+
+        .bio-section { margin-bottom: 20px; }
+        .section-label { font-size: 11px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+        .bio-text { padding: 12px 16px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; font-size: 14px; color: #334155; line-height: 1.5; }
+
+        .topic-list { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; padding-right: 4px; }
+        .topic-list::-webkit-scrollbar { width: 4px; }
+        .topic-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        .topic-card { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: white; border: 1px solid #f1f5f9; transition: 0.2s; text-decoration: none; color: inherit; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .topic-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .t-img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; background: #f1f5f9; }
+        .t-info { flex: 1; overflow: hidden; }
+        .t-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .t-meta { font-size: 11px; color: var(--text-light); display: flex; gap: 8px; }
+
+        /* --- MODAL (POPUP) --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 100; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.2s; padding: 20px; }
+        .modal.active { opacity: 1; visibility: visible; }
+        .box { background: white; width: 100%; max-width: 450px; padding: 24px; border-radius: 24px; transform: scale(0.95); transition: 0.2s; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal.active .box { transform: scale(1); }
+
+        /* Form Styles trong Popup */
+        .upload-row { display: flex; gap: 10px; margin-bottom: 16px; }
+        .btn-upload { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px; border: 1px dashed #cbd5e1; border-radius: 12px; cursor: pointer; color: var(--text-light); font-size: 12px; font-weight: 600; background: #f8fafc; transition: 0.2s; }
+        .btn-upload:hover { border-color: var(--primary); background: #eff6ff; color: var(--primary); }
+
+        .inp-group { margin-bottom: 14px; }
+        .inp-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; }
+        .inp { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; outline: none; background: #f8fafc; transition: 0.2s; }
+        .inp:focus { border-color: var(--primary); background: white; }
+        .inp-clean { background: transparent; border: none; outline: none; width: 100%; font-size: 14px; }
+        .prefix-box { display: flex; align-items: center; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0 12px; background: #f8fafc; }
+        .prefix-box:focus-within { border-color: var(--primary); background: white; }
+
+        .btn-save { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn-save:hover { background: #1d4ed8; }
+        .btn-logout { width: 100%; padding: 12px; background: #fee2e2; color: #b91c1c; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 20px; }
+
+        .toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000; }
+        .toast { background: #1e293b; color: white; padding: 10px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: 0.3s; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="bg-overlay"></div>
+    <button class="back-btn" onclick="location.href='index.html'">⬅</button>
+
+    <div class="profile-card">
+        <button id="btnOpenSettings" class="btn-gear">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.04.17 0 .36.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.04-.22 0-.45-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
+
+        <div class="avt-container">
+            <img id="avt" src="https://via.placeholder.com/100" class="avt-img">
+        </div>
+
+        <div class="user-header">
+            <h1 class="user-name" id="dName">Đang tải...</h1>
+            <div class="user-tag" id="dUser">@...</div>
+        </div>
+
+        <div class="bio-section">
+            <span class="section-label">Tiểu sử</span>
+            <div class="bio-text" id="dBio">...</div>
+        </div>
+
+        <div class="bio-section">
+            <span class="section-label">Topic đã tạo 🚀</span>
+            <div id="topicList" class="topic-list">
+                <div style="text-align:center; color:#94a3b8; font-size:13px;">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalSettings" class="modal">
+        <div class="box">
+            <button onclick="document.getElementById('modalSettings').classList.remove('active')" style="position:absolute; top:15px; right:15px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
+            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800; text-align:center;">Chỉnh sửa hồ sơ</h3>
+
+            <div class="upload-row">
+                <label class="btn-upload">📷 Avatar<input type="file" id="fAvtFile" hidden></label>
+                <label class="btn-upload">🖼️ Ảnh nền<input type="file" id="fCoverFile" hidden></label>
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">Tên hiển thị</label>
+                <input type="text" id="inpName" class="inp" placeholder="Tên của bạn">
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">ID người dùng</label>
+                <div class="prefix-box">
+                    <span style="font-weight:700; color:#64748b; margin-right:4px;">@</span>
+                    <input type="text" id="inpUser" class="inp-clean" placeholder="username">
+                </div>
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">Tiểu sử</label>
+                <textarea id="inpBio" class="inp" rows="3" style="resize:none" placeholder="Giới thiệu bản thân..."></textarea>
+            </div>
+
+            <button id="btnSave" class="btn-save">Lưu Thay Đổi</button>
+            <button id="btnLogout" class="btn-logout">Đăng xuất</button>
+            
+            <div style="text-align:center; margin-top:15px;">
+                <button id="btnDeleteCheck" style="background:none; border:none; font-size:11px; color:#94a3b8; text-decoration:underline; cursor:pointer">Xóa tài khoản vĩnh viễn</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAlert" class="modal">
+        <div class="box" style="max-width:350px">
+            <div style="font-size:40px; margin-bottom:15px;" id="alertIcon">⚠️</div>
+            <h3 style="margin-bottom:10px;" id="alertTitle">Thông báo</h3>
+            <p style="color:var(--text-light); font-size:14px; margin-bottom:24px;" id="alertMsg">...</p>
+            <button onclick="document.getElementById('modalAlert').classList.remove('active')" class="btn-save">Đã hiểu</button>
+        </div>
+    </div>
+
+    <div id="modalConfirm" class="modal">
+        <div class="box" style="max-width:350px">
+            <div style="font-size:40px; margin-bottom:15px;">🗑️</div>
+            <h3 style="margin-bottom:10px; color:var(--danger);">Xóa vĩnh viễn?</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                <button onclick="document.getElementById('modalConfirm').classList.remove('active')" style="padding:12px; background:#f1f5f9; border:none; border-radius:12px; font-weight:600; cursor:pointer;">Hủy</button>
+                <button id="btnConfirmDelete" style="padding:12px; background:var(--danger); color:white; border:none; border-radius:12px; font-weight:600; cursor:pointer;">Xóa luôn</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const app = initializeApp(cfg); const db = getFirestore(app); const auth = getAuth(app);
+        
+        let targetUid = new URLSearchParams(window.location.search).get('uid');
+        let currentUser = null, userData = null;
+
+        // --- CÁC HÀM TIỆN ÍCH QUAN TRỌNG (ĐÃ SỬA LỖI UNCAUGHT TYPERROR) ---
+        window.showToast = (m)=>{ 
+            const t=document.createElement('div');
+            t.className='toast';
+            t.textContent=m;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(()=>t.classList.add('show'),10);
+            setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3000);
+        }
+        window.showAlert = (t,m,i="⚠️")=>{ 
+            document.getElementById('alertTitle').textContent=t;
+            document.getElementById('alertMsg').textContent=m;
+            document.getElementById('alertIcon').textContent=i;
+            document.getElementById('modalAlert').classList.add('active');
+        }
+        // -----------------------------------------------------------------
+
+        onAuthStateChanged(auth, async (u) => {
+            currentUser = u;
+            if(!targetUid && u) targetUid = u.uid;
+            if(targetUid) loadProfile(targetUid);
+            else window.location.href = 'login.html';
+        });
+
+        async function loadProfile(uid) {
+            const snap = await getDoc(doc(db, "users", uid));
+            if(snap.exists()) { 
+                userData = snap.data(); renderUI(userData, uid); 
+                if(userData.email) loadTopics(userData.email);
+            } else if(currentUser && currentUser.uid === uid) {
+                userData = { displayName: "Người mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "" };
+                renderUI(userData, uid);
+                document.getElementById('btnOpenSettings').click(); 
+            }
+        }
+
+        function renderUI(data, uid) {
+            document.getElementById('dName').textContent = data.displayName || "Chưa đặt tên";
+            let handle = data.username || (data.email ? data.email.split('@')[0] : uid.slice(0,8));
+            document.getElementById('dUser').textContent = "@" + handle; 
+            document.getElementById('dBio').textContent = data.bio || "Chưa có tiểu sử.";
+            document.getElementById('avt').src = data.photoURL || "https://via.placeholder.com/100";
+            
+            const bgUrl = data.coverURL || "https://via.placeholder.com/800x600/cbd5e1/ffffff?text=Background";
+            document.body.style.backgroundImage = `url('${bgUrl}')`;
+
+            if(currentUser && currentUser.uid === uid) {
+                const btn = document.getElementById('btnOpenSettings');
+                btn.style.display = 'flex';
+                btn.onclick = () => {
+                    document.getElementById('inpName').value = data.displayName || "";
+                    document.getElementById('inpBio').value = data.bio || "";
+                    document.getElementById('inpUser').value = data.username || "";
+                    document.getElementById('modalSettings').classList.add('active');
+                };
+            }
+        }
+
+        async function loadTopics(email) {
+            const list = document.getElementById('topicList');
+            try {
+                const q = query(collection(db, "topics"), where("owner", "==", email));
+                const snap = await getDocs(q);
+                if(snap.empty) { list.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; padding:10px;">Chưa tạo Topic nào.</div>`; return; }
+                list.innerHTML = "";
+                snap.forEach(d => {
+                    const t = d.data();
+                    list.innerHTML += `
+                        <a href="detail.html?tid=${d.id}" class="topic-card">
+                            <img src="${t.banner || 'https://via.placeholder.com/50'}" class="t-img">
+                            <div class="t-info"><div class="t-title">${t.title}</div><div class="t-meta">🔥 ${t.heat||0} • ${t.category||'Khác'}</div></div>
+                        </a>`;
+                });
+            } catch { list.innerHTML = "Lỗi tải topic."; }
+        }
+
+        async function up(f) { const d=new FormData();d.append("image",f); try{return(await(await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`,{method:"POST",body:d})).json()).data.url;}catch{return"";}}
+        
+        document.getElementById('fAvtFile').onchange = (e) => { if(e.target.files[0]) { document.getElementById('avt').src = URL.createObjectURL(e.target.files[0]); window.showToast("Đã chọn ảnh Avatar"); }}
+        document.getElementById('fCoverFile').onchange = (e) => { if(e.target.files[0]) { document.body.style.backgroundImage = `url('${URL.createObjectURL(e.target.files[0])}')`; window.showToast("Đã chọn ảnh Bìa"); }}
+
+        document.getElementById('btnSave').onclick = async function() {
+            const rawUser = document.getElementById('inpUser').value.trim();
+            const userRegex = /^[a-zA-Z0-9_.]+$/;
+            if (rawUser && !userRegex.test(rawUser)) return window.showAlert("Lỗi ID", "ID không hợp lệ (chỉ chữ, số, _, .)", "⚠️");
+
+            this.textContent = "Đang lưu..."; this.disabled = true;
+            let newAvt = userData?.photoURL || "", newCover = userData?.coverURL || "";
+            if(document.getElementById('fAvtFile').files[0]) newAvt = await up(document.getElementById('fAvtFile').files[0]);
+            if(document.getElementById('fCoverFile').files[0]) newCover = await up(document.getElementById('fCoverFile').files[0]);
+
+            await setDoc(doc(db, "users", currentUser.uid), {
+                email: currentUser.email, displayName: document.getElementById('inpName').value,
+                username: rawUser, bio: document.getElementById('inpBio').value, photoURL: newAvt, coverURL: newCover, lastUpdated: serverTimestamp()
+            }, {merge: true});
+            window.showToast("Đã lưu thành công!"); setTimeout(()=>location.reload(), 1000);
+        }
+
+        document.getElementById('btnDeleteCheck').onclick = () => {
+            // --- LOGIC XÓA TÀI KHOẢN 14 NGÀY ĐÃ ĐƯỢC PHỤC HỒI ---
+            let creationTime = new Date(currentUser.metadata.creationTime);
+            const days = Math.ceil(Math.abs(Date.now() - creationTime) / (1000 * 60 * 60 * 24));
+            
+            if(days < 14) {
+                window.showAlert("Chưa đủ điều kiện", `Bạn mới tham gia ${days} ngày. Cần hoạt động đủ 14 ngày để xóa tài khoản.`, "🛡️");
+            } else {
+                document.getElementById('modalConfirm').classList.add('active');
+            }
+        }
+        
+        document.getElementById('btnConfirmDelete').onclick = async () => {
+            try { await deleteUser(currentUser); window.showAlert("Tạm biệt", "Tài khoản đã được xóa."); setTimeout(()=>window.location.href='index.html',2000); }
+            catch { window.showAlert("Cần đăng nhập lại", "Để bảo mật, vui lòng đăng xuất và đăng nhập lại trước khi xóa tài khoản.", "🔐"); }
+        }
+        document.getElementById('btnLogout').onclick = () => signOut(auth).then(()=>window.location.href='index.html');
+    </script>
+</body>
+</html>
