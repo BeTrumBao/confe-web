@@ -99,7 +99,7 @@
 </head>
 <body>
     <div class="bg-overlay"></div>
-    <button class="back-btn" onclick="location.href='index.html'">⬅</button>
+    <button class="back-btn" onclick="history.back()">⬅</button>
 
     <div class="profile-card">
         <button id="btnOpenSettings" class="btn-gear">
@@ -218,9 +218,15 @@
 
         onAuthStateChanged(auth, async (u) => {
             currentUser = u;
+            // Nếu không có targetUid trên URL, thử dùng UID của người đang đăng nhập
             if(!targetUid && u) targetUid = u.uid;
-            if(targetUid) loadProfile(targetUid);
-            else window.location.href = 'login.html';
+            
+            if(targetUid) {
+                loadProfile(targetUid);
+            } else {
+                // Nếu không có UID nào cả => Về trang login
+                window.location.href = 'login.html';
+            }
         });
 
         async function loadProfile(uid) {
@@ -229,6 +235,7 @@
                 userData = snap.data(); renderUI(userData, uid); 
                 if(userData.email) loadTopics(userData.email);
             } else if(currentUser && currentUser.uid === uid) {
+                // Profile chưa tạo trong database nhưng đã login => Tạo profile rỗng
                 userData = { displayName: "Người mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "" };
                 renderUI(userData, uid);
                 document.getElementById('btnOpenSettings').click(); 

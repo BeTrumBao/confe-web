@@ -4,244 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Confe</title>
-    
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%);
-            --surface: #ffffff;
-            --text: #0f172a;
-            --gray: #64748b;
-            --danger: #ef4444;
-        }
-
+        :root { --primary: #2563eb; --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%); --text: #0f172a; --gray: #64748b; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; }
-
-        body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
 
         .auth-container {
-            width: 100%;
-            max-width: 420px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.98); 
+            border-radius: 24px; box-shadow: 0 20px 60px -10px rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 400px;
+            transition: width 0.4s ease-in-out;
+            display: flex; overflow: hidden; position: relative;
+            height: auto;
         }
+        .auth-container.register-mode { width: 850px; }
+        .form-side { flex: 1; padding: 40px; min-width: 400px; transition: 0.3s; display: flex; flex-direction: column; justify-content: center; }
+        .info-side {
+            width: 0; opacity: 0; background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white; padding: 0; display: flex; flex-direction: column; justify-content: center;
+            transition: all 0.4s ease-in-out; white-space: nowrap; overflow: hidden;
+        }
+        .auth-container.register-mode .info-side { width: 450px; opacity: 1; padding: 40px; }
 
-        .logo-wrap {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: white;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .logo-wrap { width: 64px; height: 64px; margin: 0 auto 15px; background: white; border-radius: 50%; padding: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
-        .form-box {
-            transition: 0.3s ease-in-out;
-        }
         
-        /* Class để ẩn form */
+        .title { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 5px; }
+        .subtitle { font-size: 13px; color: var(--gray); text-align: center; margin-bottom: 25px; }
+        
+        .inp-group { margin-bottom: 15px; }
+        .inp-label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+        .inp { width: 100%; padding: 12px 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background: #f8fafc; transition: 0.2s; }
+        .inp:focus { background: white; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        
+        .btn-main { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; font-size: 15px; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37,99,235,0.3); background: #1d4ed8; }
+
+        .switch-text { text-align: center; font-size: 13px; margin-top: 20px; color: var(--gray); }
+        .switch-btn { color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+        .perk-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+        .perk-item { display: flex; align-items: center; gap: 15px; }
+        .perk-icon { font-size: 24px; background: rgba(255,255,255,0.2); width: 45px; height: 45px; border-radius: 12px; display: flex; justify-content: center; align-items: center; }
+        .perk-text h4 { margin: 0 0 2px 0; font-size: 15px; }
+        .perk-text p { margin: 0; font-size: 12px; opacity: 0.8; }
+
         .hidden { display: none; }
 
-        .auth-title { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-        .auth-subtitle { font-size: 14px; color: var(--gray); margin-bottom: 30px; font-weight: 500; }
-
-        .input-group { margin-bottom: 16px; text-align: left; }
-        .input-label { display: block; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; margin-left: 4px; }
-        .input-field {
-            width: 100%; padding: 14px 16px; border: 2px solid transparent; background: #f1f5f9;
-            border-radius: 12px; font-size: 15px; outline: none; transition: 0.2s; color: var(--text); font-weight: 500;
-        }
-        .input-field:focus { background: white; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
-
-        .btn-submit {
-            width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
-            cursor: pointer; transition: 0.2s; margin-bottom: 15px; margin-top: 10px;
-            background: var(--primary); color: white; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
-        }
-        .btn-submit:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-
-        .switch-text { font-size: 14px; color: var(--gray); margin-top: 10px; }
-        .switch-link { color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: none; }
-        .switch-link:hover { text-decoration: underline; }
-
-        .error-msg {
-            background: #fee2e2; color: #ef4444; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600;
-            margin-bottom: 20px; display: none; text-align: left; border: 1px solid #fecaca;
-        }
+        /* TOAST STYLES */
+        .toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000; }
+        .toast { background: #1e293b; color: white; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
+        .toast.show { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <div class="auth-container">
-        <div class="logo-wrap">
-            <img src="assets/favicon.png" alt="Logo" class="logo-img" onerror="this.src='https://placehold.co/100x100?text=C'">
-        </div>
-
-        <div id="errorBox" class="error-msg">⚠️ Lỗi rồi!</div>
-
-        <div id="formLogin" class="form-box">
-            <h1 class="auth-title">Chào mừng trở lại!</h1>
-            <p class="auth-subtitle">Đăng nhập để vào chém gió.</p>
-
-            <div class="input-group">
-                <label class="input-label">Email</label>
-                <input type="email" id="lEmail" class="input-field" placeholder="nhap@email.cua.ban">
-            </div>
-            <div class="input-group">
-                <label class="input-label">Mật khẩu</label>
-                <input type="password" id="lPass" class="input-field" placeholder="••••••••">
+    <div class="auth-container" id="container">
+        <div class="form-side">
+            <div class="logo-wrap">
+                <img src="assets/favicon.png" alt="Logo" class="logo-img" onerror="this.src='https://placehold.co/100?text=C'">
             </div>
 
-            <button id="btnLoginAction" class="btn-submit">Đăng Nhập</button>
+            <div id="formLogin">
+                <div class="title">Chào mừng trở lại! 👋</div>
+                <div class="subtitle">Đăng nhập để vào chém gió nào.</div>
+                
+                <div class="inp-group">
+                    <label class="inp-label">Email</label>
+                    <input type="email" id="lEmail" class="inp" placeholder="email@cuaban.com">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="lPass" class="inp" placeholder="••••••••">
+                </div>
+                <button id="btnLogin" class="btn-main">Đăng Nhập</button>
+                <div class="switch-text">Chưa có tài khoản? <span class="switch-btn" onclick="toggleMode('register')">Đăng ký ngay</span></div>
+            </div>
+
+            <div id="formRegister" class="hidden">
+                <div class="title">Tạo tài khoản mới 🚀</div>
+                <div class="subtitle">Tham gia cộng đồng ngay hôm nay.</div>
+
+                <div class="inp-group">
+                    <label class="inp-label">Email</label>
+                    <input type="email" id="rEmail" class="inp" placeholder="email@cuaban.com">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="rPass" class="inp" placeholder="Ít nhất 6 ký tự">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Nhập lại mật khẩu</label>
+                    <input type="password" id="rPassConfirm" class="inp" placeholder="Nhập lại cho chắc">
+                </div>
+                <button id="btnReg" class="btn-main">Đăng Ký</button>
+                <div class="switch-text">Đã có tài khoản? <span class="switch-btn" onclick="toggleMode('login')">Đăng nhập</span></div>
+            </div>
             
-            <p class="switch-text">
-                Chưa có tài khoản? <span class="switch-link" onclick="toggleForm('register')">Đăng ký ngay</span>
-            </p>
-            <div style="margin-top: 20px;">
-                <a href="index.html" style="font-size:13px; color:var(--gray); text-decoration:none;">← Về trang chủ</a>
+            <div style="text-align:center; margin-top:20px;">
+                <a href="index.html" style="text-decoration:none; font-size:12px; color:#94a3b8;">← Về trang chủ</a>
             </div>
         </div>
 
-        <div id="formRegister" class="form-box hidden">
-            <h1 class="auth-title">Tạo tài khoản mới</h1>
-            <p class="auth-subtitle">Tham gia cộng đồng ngay hôm nay.</p>
-
-            <div class="input-group">
-                <label class="input-label">Email đăng ký</label>
-                <input type="email" id="rEmail" class="input-field" placeholder="Email của bạn">
-            </div>
-            <div class="input-group">
-                <label class="input-label">Mật khẩu</label>
-                <input type="password" id="rPass" class="input-field" placeholder="Ít nhất 6 ký tự">
-            </div>
-            <div class="input-group">
-                <label class="input-label">Nhập lại mật khẩu</label>
-                <input type="password" id="rPassConfirm" class="input-field" placeholder="Nhập lại cho chắc">
-            </div>
-
-            <button id="btnRegAction" class="btn-submit">Đăng Ký</button>
-
-            <p class="switch-text">
-                Đã có tài khoản rồi? <span class="switch-link" onclick="toggleForm('login')">Đăng nhập</span>
-            </p>
+        <div class="info-side">
+            <h2 style="font-size:24px; margin-bottom:30px;">Đặc quyền thành viên ✨</h2>
+            <ul class="perk-list">
+                <li class="perk-item">
+                    <div class="perk-icon">🕵️</div>
+                    <div class="perk-text"><h4>Ẩn danh tuyệt đối</h4><p>Thoải mái chia sẻ không lo lộ danh tính.</p></div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">👑</div>
+                    <div class="perk-text"><h4>Làm chủ Topic</h4><p>Tự tạo và quản lý sân chơi riêng.</p></div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">💬</div>
+                    <div class="perk-text"><h4>Tương tác thả ga</h4><p>Bình luận, thả tim, hóng drama.</p></div>
+                </li>
+            </ul>
         </div>
-
     </div>
+
+    <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const app = initializeApp(cfg);
-        const auth = getAuth(app);
+        const app = initializeApp(cfg); const auth = getAuth(app);
 
-        // Hàm chuyển đổi giữa 2 form
-        window.toggleForm = (type) => {
-            const loginForm = document.getElementById('formLogin');
-            const regForm = document.getElementById('formRegister');
-            const errBox = document.getElementById('errorBox');
-            
-            errBox.style.display = 'none'; // Xóa lỗi cũ
+        // HÀM SHOW TOAST (Thay cho alert cùi bắp)
+        window.showToast = (msg, icon="🔔") => {
+            const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
 
-            if (type === 'register') {
-                loginForm.classList.add('hidden');
-                regForm.classList.remove('hidden');
+        window.toggleMode = (mode) => {
+            const container = document.getElementById('container');
+            const fLogin = document.getElementById('formLogin');
+            const fReg = document.getElementById('formRegister');
+
+            if(mode === 'register') {
+                container.classList.add('register-mode');
+                setTimeout(() => { fLogin.classList.add('hidden'); fReg.classList.remove('hidden'); }, 150);
             } else {
-                regForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
+                container.classList.remove('register-mode');
+                setTimeout(() => { fReg.classList.add('hidden'); fLogin.classList.remove('hidden'); }, 150);
             }
         }
 
-        const showError = (msg) => {
-            const box = document.getElementById('errorBox');
-            box.style.display = 'block';
-            box.textContent = "⚠️ " + msg;
-        }
-
-        const setLoading = (btn, isLoading, text) => {
-            if(isLoading) {
-                btn.disabled = true;
-                btn.textContent = "Đang xử lý...";
-                btn.style.opacity = "0.7";
-            } else {
-                btn.disabled = false;
-                btn.textContent = text;
-                btn.style.opacity = "1";
+        document.getElementById('btnLogin').onclick = async function() {
+            const e = document.getElementById('lEmail').value, p = document.getElementById('lPass').value;
+            if(!e || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            this.innerText = "Đang xử lý...";
+            try { 
+                await signInWithEmailAndPassword(auth, e, p); 
+                showToast("Đăng nhập thành công!", "✅");
+                setTimeout(() => window.location.href='index.html', 1000); // Đợi 1s cho toast hiện rồi mới chuyển
             }
+            catch(err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Nhập"; }
         }
 
-        // --- XỬ LÝ ĐĂNG NHẬP ---
-        document.getElementById('btnLoginAction').onclick = () => {
-            const e = document.getElementById('lEmail').value.trim();
-            const p = document.getElementById('lPass').value;
-            const btn = document.getElementById('btnLoginAction');
-
-            if(!e || !p) return showError('Vui lòng nhập đủ thông tin!');
-            
-            setLoading(btn, true, "");
-            signInWithEmailAndPassword(auth, e, p)
-                .then(() => window.location.href='index.html')
-                .catch(err => {
-                    setLoading(btn, false, "Đăng Nhập");
-                    let msg = "Lỗi đăng nhập!";
-                    if(err.code === 'auth/invalid-credential') msg = "Email hoặc mật khẩu sai!";
-                    if(err.code === 'auth/user-not-found') msg = "Tài khoản không tồn tại!";
-                    if(err.code === 'auth/wrong-password') msg = "Sai mật khẩu!";
-                    showError(msg);
-                });
-        };
-
-        // --- XỬ LÝ ĐĂNG KÝ ---
-        document.getElementById('btnRegAction').onclick = () => {
-            const e = document.getElementById('rEmail').value.trim();
-            const p = document.getElementById('rPass').value;
-            const pc = document.getElementById('rPassConfirm').value;
-            const btn = document.getElementById('btnRegAction');
-
-            if(!e || !p || !pc) return showError('Nhập đầy đủ thông tin đi!');
-            if(p.length < 6) return showError('Mật khẩu phải trên 6 ký tự!');
-            if(p !== pc) return showError('Mật khẩu nhập lại không khớp!');
-
-            setLoading(btn, true, "");
-            createUserWithEmailAndPassword(auth, e, p)
-                .then((cred) => { 
-                    alert('✅ Đăng ký thành công! Đang chuyển hướng...'); 
-                    window.location.href='profile.html?uid=' + cred.user.uid; 
-                })
-                .catch(err => {
-                    setLoading(btn, false, "Đăng Ký");
-                    let msg = "Lỗi đăng ký!";
-                    if(err.code === 'auth/email-already-in-use') msg = "Email này đã có người dùng!";
-                    if(err.code === 'auth/weak-password') msg = "Mật khẩu quá yếu!";
-                    if(err.code === 'auth/invalid-email') msg = "Email không hợp lệ!";
-                    showError(msg);
-                });
-        };
+        document.getElementById('btnReg').onclick = async function() {
+            const e = document.getElementById('rEmail').value, p = document.getElementById('rPass').value, pc = document.getElementById('rPassConfirm').value;
+            if(!e || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            if(p !== pc) return showToast("Mật khẩu không khớp!", "❌");
+            this.innerText = "Đang tạo...";
+            try { 
+                const cred = await createUserWithEmailAndPassword(auth, e, p);
+                showToast("Đăng ký thành công!", "🚀");
+                // Chuyển thẳng tới profile.html (không cần ?uid vì đã login)
+                setTimeout(() => window.location.href='profile.html', 1500); 
+            } catch(err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Ký"; }
+        }
     </script>
 </body>
 </html>
