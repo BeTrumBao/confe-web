@@ -3,260 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confe</title>
+    <title>Confe - Cộng đồng ẩn danh</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root { 
+            /* M3 Blue Palette */
             --primary: #2563eb; 
-            --primary-dark: #1e40af; 
-            --primary-light: #dbeafe;
-            --bg: #f8fafc; 
-            --surface: #ffffff; 
+            --on-primary: #ffffff;
+            --primary-container: #dbeafe;
+            --on-primary-container: #1e40af;
+            
+            --surface: #ffffff;
+            --surface-container: #f1f5f9;
+            --surface-variant: #e2e8f0;
+            
+            --outline: #cbd5e1;
             --text: #0f172a; 
-            --text-light: #64748b; 
+            --text-secondary: #64748b; 
+            
             --danger: #ef4444;
-            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --radius-l: 24px;
+            --radius-m: 16px;
+            --radius-s: 12px;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--surface-container); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* === 1. NAVBAR === */
-        .navbar { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); height: 70px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .nav-logo { font-size: 26px; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; letter-spacing: -0.5px; }
+        /* === NAVBAR === */
+        .navbar { 
+            background: rgba(255,255,255,0.8); 
+            backdrop-filter: blur(12px); 
+            height: 64px; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-logo { 
+            font-size: 24px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            text-decoration: none; 
+            letter-spacing: -0.5px; 
+            display: flex; align-items: center; gap: 8px;
+        }
         .nav-user { position: relative; cursor: pointer; }
-        .nav-avt { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--surface); box-shadow: 0 0 0 2px #e2e8f0; transition: 0.2s; }
-        .nav-avt:hover { transform: scale(1.05); box-shadow: 0 0 0 2px var(--primary); }
-        .dropdown-menu { position: absolute; top: 55px; right: 0; background: white; width: 220px; border-radius: 16px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15); padding: 8px; display: none; border: 1px solid #f1f5f9; animation: slideDown 0.2s ease; }
-        .dropdown-menu.show { display: block; }
-        .menu-item { display: flex; align-items: center; gap: 10px; padding: 12px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 10px; transition: 0.2s; }
-        .menu-item:hover { background: var(--primary-light); color: var(--primary); }
-        .menu-item.danger { color: var(--danger); }
-        .menu-item.danger:hover { background: #fef2f2; }
-        .btn-login { padding: 10px 24px; background: var(--text); color: white; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 14px; transition: 0.2s; }
-        .btn-login:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37,99,235,0.3); }
-
-        /* === 2. HERO SECTION === */
-        .hero { 
-            position: relative;
-            background: radial-gradient(circle at 10% 20%, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 90%);
-            padding: 60px 20px 40px; 
-            text-align: center; 
-            overflow: hidden;
-        }
-        /* Họa tiết trang trí */
-        .hero::before {
-            content: ""; position: absolute; top: -50px; left: -50px; width: 300px; height: 300px;
-            background: linear-gradient(45deg, #3b82f633, #a855f733); filter: blur(80px); border-radius: 50%; z-index: 0;
-        }
-        .hero-content { position: relative; z-index: 1; }
-        .hero h1 { font-size: 42px; font-weight: 900; margin-bottom: 12px; color: var(--text); letter-spacing: -1.5px; line-height: 1.2; }
-        .hero p { font-size: 16px; color: var(--text-light); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .nav-avt { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--surface-variant); transition: 0.2s; }
+        .nav-avt:hover { transform: scale(1.05); }
         
-        .search-box { position: relative; max-width: 600px; margin: 0 auto; }
-        .search-inp { 
-            width: 100%; padding: 16px 24px 16px 54px; border: 1px solid #e2e8f0; 
-            border-radius: 20px; font-size: 16px; outline: none; transition: 0.3s; 
-            background: white; box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+        .dropdown-menu { 
+            position: absolute; top: 50px; right: 0; 
+            background: var(--surface); width: 200px; 
+            border-radius: var(--radius-m); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+            padding: 8px; display: none; 
+            border: 1px solid var(--surface-variant);
+            animation: fadeIn 0.2s ease;
         }
-        .search-inp:focus { border-color: var(--primary); box-shadow: 0 8px 30px -5px rgba(37,99,235,0.15); transform: translateY(-2px); }
-        .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 22px; fill: #94a3b8; }
+        .dropdown-menu.show { display: block; }
+        .menu-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 8px; transition: 0.2s; cursor: pointer; }
+        .menu-item:hover { background: var(--surface-container); }
+        .menu-item.danger { color: var(--danger); }
+        
+        .btn-login { 
+            padding: 8px 20px; background: var(--primary); color: var(--on-primary); 
+            border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 14px; transition: 0.2s; 
+        }
+        .btn-login:hover { background: var(--on-primary-container); box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
 
-        /* === 3. SUGGESTIONS (NEW FEATURE) === */
-        .suggestion-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 20px; }
-        .sec-title { font-size: 18px; font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .trend-icon { font-size: 20px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        /* === HERO === */
+        .hero { 
+            padding: 40px 20px 20px; 
+            text-align: center; 
+            background: linear-gradient(180deg, var(--surface) 0%, var(--surface-container) 100%);
+        }
+        .hero h1 { font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -1px; }
+        .hero p { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .search-wrapper { 
+            position: relative; max-width: 500px; margin: 0 auto; 
+            background: var(--surface); border-radius: 100px; 
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.1);
+            transition: 0.3s; border: 1px solid transparent;
+        }
+        .search-wrapper:focus-within { border-color: var(--primary); box-shadow: 0 4px 25px -5px rgba(37,99,235,0.2); }
+        .search-inp { 
+            width: 100%; padding: 14px 20px 14px 50px; border: none; background: transparent;
+            font-size: 15px; outline: none; border-radius: 100px;
+        }
+        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; fill: var(--text-secondary); }
 
-        .suggest-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .suggest-scroll::-webkit-scrollbar { display: none; }
+        /* === SUGGESTIONS (SCROLL) === */
+        .section-title { font-size: 18px; font-weight: 700; margin: 0 0 16px 20px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; width: 100%; }
+        
+        .suggest-list { 
+            display: flex; gap: 16px; overflow-x: auto; padding: 0 5px 20px 5px; 
+            scrollbar-width: none; -webkit-overflow-scrolling: touch; 
+        }
+        .suggest-list::-webkit-scrollbar { display: none; }
         
         .mini-card { 
-            min-width: 260px; height: 140px; background: white; border-radius: 16px; 
-            position: relative; overflow: hidden; cursor: pointer; transition: 0.3s;
-            border: 1px solid #f1f5f9; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column; justify-content: flex-end;
+            min-width: 240px; height: 130px; border-radius: var(--radius-m); 
+            position: relative; overflow: hidden; cursor: pointer; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s;
         }
-        .mini-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .mini-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .mini-card:hover .mini-bg { transform: scale(1.1); }
-        .mini-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
-        .mini-info { position: relative; padding: 12px; z-index: 2; color: white; }
-        .mini-title { font-size: 15px; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .mini-heat { font-size: 11px; font-weight: 600; color: #fbbf24; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+        .mini-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .mini-img { width: 100%; height: 100%; object-fit: cover; }
+        .mini-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; }
+        .mini-title { color: white; font-weight: 600; font-size: 14px; line-height: 1.3; }
+        .mini-heat { color: #fcd34d; font-size: 11px; font-weight: 700; margin-top: 4px; }
 
-        /* === 4. MAIN CONTENT === */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; flex: 1; }
-        
-        /* Filters */
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; background: white; padding: 10px; border-radius: 16px; border: 1px solid #f1f5f9; }
-        .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
-        .chips::-webkit-scrollbar { display: none; }
+        /* === MAIN CONTENT === */
+        /* SỬA ĐỔI: CĂN GIỮA THANH ĐIỀU KHIỂN */
+        .controls { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; /* Căn giữa */
+            margin-bottom: 20px; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; justify-content: center; }
         .chip { 
-            padding: 8px 16px; background: transparent; border-radius: 10px; 
-            font-size: 14px; font-weight: 600; color: var(--text-light); 
+            padding: 8px 16px; background: var(--surface); border: 1px solid var(--surface-variant); 
+            border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--text-secondary); 
             cursor: pointer; white-space: nowrap; transition: 0.2s; 
         }
-        .chip:hover { background: #f1f5f9; color: var(--text); }
-        .chip.active { background: var(--text); color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-        .btn-refresh { 
-            width: 36px; height: 36px; border-radius: 10px; border: none; background: #f1f5f9; 
-            color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s;
-        }
-        .btn-refresh:hover { background: #e2e8f0; transform: rotate(180deg); }
-
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .chip.active { background: var(--primary-container); color: var(--on-primary-container); border-color: var(--primary-container); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        
         .card { 
-            background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f1f5f9; 
-            cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; 
-            position: relative; opacity: 0; animation: fadeInUp 0.6s forwards;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            background: var(--surface); border-radius: var(--radius-l); overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer;
+            border: 1px solid transparent; display: flex; flex-direction: column;
         }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #e2e8f0; }
-        .card-banner-wrap { height: 150px; overflow: hidden; position: relative; }
-        .card-banner { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .card:hover .card-banner { transform: scale(1.05); }
-        .card-body { padding: 50px 20px 20px; position: relative; flex: 1; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--primary-container); }
+        .card-img-box { height: 140px; position: relative; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover .card-img { transform: scale(1.05); }
         
-        .card-avt { 
-            width: 64px; height: 64px; border-radius: 18px; border: 4px solid white; 
-            position: absolute; top: -32px; left: 20px; background: white; object-fit: cover; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        .card-body { padding: 40px 20px 20px; position: relative; flex: 1; display: flex; flex-direction: column; }
+        .card-logo { 
+            width: 56px; height: 56px; border-radius: 16px; border: 4px solid var(--surface); 
+            position: absolute; top: -28px; left: 16px; background: white; object-fit: cover;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .card-cat { position: absolute; top: 12px; right: 20px; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .card-title { font-weight: 800; font-size: 18px; line-height: 1.4; color: var(--text); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-light); font-weight: 600; border-top: 1px dashed #e2e8f0; padding-top: 12px; margin-top: 15px; }
-        .heat-badge { display: flex; align-items: center; gap: 4px; color: #f59e0b; background: #fffbeb; padding: 4px 8px; border-radius: 8px; font-size: 12px; font-weight: 800; }
+        .card-tag { 
+            position: absolute; top: 12px; right: 20px; font-size: 11px; font-weight: 700; 
+            padding: 4px 8px; border-radius: 6px; text-transform: uppercase; background: var(--surface-container); color: var(--text-secondary);
+        }
+        .card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-secondary); font-weight: 500; border-top: 1px solid var(--surface-container); padding-top: 12px; margin-top: 12px; }
+        .heat-tag { display: flex; align-items: center; gap: 4px; color: #f59e0b; background: #fffbeb; padding: 2px 8px; border-radius: 100px; font-weight: 700; }
 
-        /* Category Colors */
-        .cat-drama { background: #fee2e2; color: #be123c; }
-        .cat-love { background: #fce7f3; color: #be185d; }
-        .cat-school { background: #dbeafe; color: #1d4ed8; }
-        .cat-game { background: #dcfce7; color: #15803d; }
-        .cat-life { background: #f3f4f6; color: #4b5563; }
+        /* === FOOTER === */
+        footer { margin-top: auto; padding: 40px 20px; text-align: center; background: var(--surface); border-top: 1px solid var(--surface-variant); }
+        .ft-text { color: var(--text-secondary); font-size: 13px; font-weight: 500; }
+        .ft-heart { color: var(--danger); animation: heartbeat 1.5s infinite; display: inline-block; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        /* === 5. FOOTER (UPDATED) === */
-        footer { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f1f5f9; margin-top: auto; }
-        .ft-logo { font-size: 24px; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; display: inline-block; }
-        .ft-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .ft-link { color: var(--text-light); text-decoration: none; font-size: 14px; font-weight: 600; }
-        .ft-link:hover { color: var(--primary); }
-        /* Cập nhật style cho dòng chữ mới */
-        .copyright { color: var(--text); font-size: 14px; font-weight: 700; }
+        /* === FAB & MODAL === */
+        .fab { 
+            position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; 
+            background: var(--primary-container); color: var(--on-primary-container); 
+            border-radius: 16px; display: flex; justify-content: center; align-items: center; 
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3); cursor: pointer; border: none; 
+            transition: 0.3s; z-index: 90; 
+        }
+        .fab:hover { transform: scale(1.1) rotate(90deg); background: var(--primary); color: white; }
 
-        /* === 6. MODALS & UTILS === */
-        .skeleton { background: #f1f5f9; overflow: hidden; position: relative; }
-        .skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--text); border-radius: 18px; display: flex; justify-content: center; align-items: center; color: white; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3); cursor: pointer; border: none; transition: 0.3s; z-index: 90; }
-        .fab:hover { transform: scale(1.1) rotate(90deg); background: var(--primary); }
-        
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 200; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.2s; padding: 20px; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.2s; padding: 20px; }
         .modal.active { opacity: 1; visibility: visible; }
-        .box { background: white; width: 100%; max-width: 500px; padding: 30px; border-radius: 24px; transform: scale(0.9); transition: 0.3s; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .box { background: var(--surface); width: 100%; max-width: 450px; padding: 24px; border-radius: 28px; transform: scale(0.95); transition: 0.2s; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .modal.active .box { transform: scale(1); }
+
+        .inp-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+        .inp { width: 100%; padding: 12px 16px; border: 1px solid var(--outline); border-radius: 12px; font-size: 14px; outline: none; background: var(--surface); transition: 0.2s; }
+        .inp:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+        .btn-act { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 100px; font-weight: 600; cursor: pointer; margin-top: 16px; font-size: 15px; }
+        .btn-file { display: block; text-align: center; padding: 10px; border: 1px dashed var(--outline); border-radius: 12px; color: var(--text-secondary); font-size: 13px; cursor: pointer; margin-bottom: 12px; }
         
-        .inp-group { margin-bottom: 16px; }
-        .inp-label { display: block; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .inp { width: 100%; padding: 14px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 15px; outline: none; transition: 0.2s; background: #f8fafc; }
-        .inp:focus { border-color: var(--primary); background: white; }
-        .btn-up { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: white; border: 1px dashed #cbd5e1; border-radius: 12px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; transition: 0.2s; }
-        .btn-up:hover { background: #eff6ff; border-color: var(--primary); color: var(--primary); }
-        .btn-submit { width: 100%; padding: 16px; background: var(--text); color: white; border: none; border-radius: 14px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 16px; transition: 0.2s; }
-        .btn-submit:hover { background: var(--primary); box-shadow: 0 10px 25px -5px rgba(37,99,235,0.4); }
-
-        .toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000; }
-        .toast { background: #1e293b; color: white; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3); }
-        .toast.show { opacity: 1; transform: translateY(0); }
-
-        .option-group { display: flex; gap: 12px; }
-        .option-item { flex: 1; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: space-between; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: white; padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 500; opacity: 0; transition: 0.3s; z-index: 1000; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        
+        /* Skeleton */
+        .skeleton { background: #e2e8f0; position: relative; overflow: hidden; }
+        .skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <a href="#" class="nav-logo">Confe</a>
+        <a href="#" class="nav-logo">
+            Confe
+        </a>
         <div id="navAction"><a href="login.html" class="btn-login">Đăng nhập</a></div>
     </nav>
 
     <div class="hero">
-        <div class="hero-content">
-            <h1>Góc Khuất & Sự Thật 🤫</h1>
-            <p>Nơi chia sẻ những điều thầm kín, bóc phốt, drama, hay một thứ gì đó... hoàn toàn ẩn danh và miễn phí 100%</p>
-            <div class="search-box">
-                <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                <input type="text" id="search" class="search-inp" placeholder="Tìm kiếm Topic">
-            </div>
+        <h1>Góc Khuất & Im Lặng Nào 🤫</h1>
+        <p>Nơi chia sẻ những điều thầm kín, bóc phốt, drama, hay một thứ gì đó... hoàn toàn ẩn danh và miễn phí 100%</p>
+        <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="search" class="search-inp" placeholder="Tìm kiếm topic...">
         </div>
     </div>
 
-    <div class="suggestion-section">
-        <div class="sec-title"><span class="trend-icon">⚡</span> Đang Hot !</div>
-        <div class="suggest-scroll" id="suggestList">
-            <div class="mini-card skeleton" style="min-width:260px;"></div>
-            <div class="mini-card skeleton" style="min-width:260px;"></div>
-            <div class="mini-card skeleton" style="min-width:260px;"></div>
+    <div class="container" style="padding-bottom: 0;">
+        <div class="section-title">⚡ Đang Nổi Bật</div>
+        <div class="suggest-list" id="suggestList">
+            <div class="mini-card skeleton" style="min-width:240px"></div>
+            <div class="mini-card skeleton" style="min-width:240px"></div>
+            <div class="mini-card skeleton" style="min-width:240px"></div>
         </div>
     </div>
 
     <div class="container">
         <div class="controls">
             <div class="chips">
-                <div class="chip active" onclick="setFilter(this, 'all')">✨ Tất cả</div>
-                <div class="chip" onclick="setFilter(this, 'drama')">💣 Drama</div>
+                <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
+                <div class="chip" onclick="setFilter(this, 'drama')">🔥 Drama</div>
                 <div class="chip" onclick="setFilter(this, 'love')">❤️ Tình yêu</div>
-                <div class="chip" onclick="setFilter(this, 'school')">📚 Học tập</div>
+                <div class="chip" onclick="setFilter(this, 'school')">📚 Học đường</div>
                 <div class="chip" onclick="setFilter(this, 'game')">🎮 Game</div>
             </div>
-            <button class="btn-refresh" onclick="loadTopics()" title="Làm mới"><svg viewBox="0 0 24 24" width="20"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg></button>
         </div>
         <div id="grid" class="grid"></div>
     </div>
 
     <footer>
-        <a href="#" class="ft-logo">Confe</a>
-        <div class="copyright">Made By QjQI or Bao Neyako With Love <span style="color: #ef4444;">❤️</span></div>
+        <div class="ft-text">Made By QjQI or Bao Neyako With Love <span class="ft-heart">❤️</span></div>
     </footer>
 
-    <button id="fab" class="fab"><svg viewBox="0 0 24 24" width="28"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white"/></svg></button>
+    <button id="fab" class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
 
     <div id="modal" class="modal">
         <div class="box">
-            <button onclick="document.getElementById('modal').classList.remove('active')" style="position:absolute; top:20px; right:20px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
-            <h2 style="margin-bottom:20px; text-align:center; font-size:22px;">Tạo Topic Mới 🚀</h2>
-            <div class="inp-group">
+            <h3 style="margin-bottom:20px; font-size:20px;">Tạo Topic Mới</h3>
+            <div style="margin-bottom:15px">
                 <label class="inp-label">Tên Topic</label>
-                <input type="text" id="tTitle" class="inp" placeholder="VD: Phốt ...">
+                <input type="text" id="tTitle" class="inp" placeholder="Nhập tên chủ đề...">
             </div>
-            <div class="inp-group">
+            <div style="margin-bottom:15px">
                 <label class="inp-label">Thể loại</label>
-                <select id="tCat" class="inp" style="appearance:none; cursor:pointer;"><option value="life">🍃 Đời thường</option><option value="drama">🔥 Drama - Bóc phốt</option><option value="love">❤️ Tình yêu</option><option value="school">📚 Học tập</option><option value="game">🎮 Game</option></select>
+                <select id="tCat" class="inp">
+                    <option value="life">🍃 Đời thường</option>
+                    <option value="drama">🔥 Drama</option>
+                    <option value="love">❤️ Tình yêu</option>
+                    <option value="school">📚 Học đường</option>
+                    <option value="game">🎮 Game</option>
+                </select>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-                <label class="btn-up">📷 Ảnh bìa <input type="file" id="fBanner" hidden></label>
-                <label class="btn-up">🖼️ Logo <input type="file" id="fLogo" hidden></label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <label class="btn-file">📷 Ảnh bìa <input type="file" id="fBanner" hidden></label>
+                <label class="btn-file">🖼️ Logo <input type="file" id="fLogo" hidden></label>
             </div>
-            <div class="inp-group">
-                <label class="inp-label">Nội quy / Mô tả</label>
-                <textarea id="tRules" class="inp" rows="3" placeholder="Quy định của topic..."></textarea>
+            <div style="margin-bottom:15px">
+                <label class="inp-label">Mô tả / Nội quy</label>
+                <textarea id="tRules" class="inp" rows="3"></textarea>
             </div>
-            <div class="inp-group">
-                <label class="inp-label">Cài đặt (Admin)</label>
-                <div class="option-group">
-                    <label class="option-item"><span>🔓 Mở Topic</span><input type="checkbox" id="tStatus" checked></label>
-                    <label class="option-item"><span>🖼️ Cho phép ảnh</span><input type="checkbox" id="tAllowImg" checked></label>
-                </div>
+            <div style="display:flex; gap:15px; margin-bottom:10px;">
+                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox" id="tStatus" checked> Mở Topic</label>
+                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox" id="tAllowImg" checked> Cho phép ảnh</label>
             </div>
-            <button id="btnCreate" class="btn-submit">Tạo Topic</button>
+            <div style="display:flex; gap:10px; margin-top:20px">
+                <button onclick="document.getElementById('modal').classList.remove('active')" style="flex:1; padding:12px; background:var(--surface-container); border:none; border-radius:100px; font-weight:600; cursor:pointer;">Hủy</button>
+                <button id="btnCreate" class="btn-act" style="flex:2; margin-top:0;">Tạo Topic</button>
+            </div>
         </div>
     </div>
 
-    <div class="toast-container" id="toastContainer"></div>
+    <div id="toast" class="toast"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -270,16 +296,15 @@
         let user = null, allTopics = [], curFilter = 'all';
 
         window.showToast = (msg) => {
-            const t = document.createElement('div'); t.className='toast'; t.innerHTML=`✅ ${msg}`;
-            document.getElementById('toastContainer').appendChild(t);
-            setTimeout(()=>t.classList.add('show'),10); setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},3000);
+            const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
 
         onAuthStateChanged(auth, async (u) => {
             user = u;
             const nav = document.getElementById('navAction');
             if(u) {
-                let avt = "https://via.placeholder.com/50";
+                let avt = "https://via.placeholder.com/40";
                 try { const d = await getDoc(doc(db,"users",u.uid)); if(d.exists()) avt=d.data().photoURL||avt; } catch{}
                 nav.innerHTML = `
                     <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
@@ -295,41 +320,37 @@
 
         window.onclick = (e) => { if(!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show'); }
 
-        window.loadTopics = () => {
-            const grid = document.getElementById('grid');
-            
-            // Skeleton loader
-            grid.innerHTML = Array(4).fill(0).map(()=>`
-                <div style="background:white; border-radius:20px; overflow:hidden; border:1px solid #f1f5f9; height:320px;">
-                    <div class="skeleton" style="height:150px;"></div>
-                    <div style="padding:20px;">
-                        <div class="skeleton" style="width:64px; height:64px; border-radius:18px; margin-top:-50px; border:4px solid white;"></div>
-                        <div class="skeleton" style="height:24px; width:70%; margin-top:20px; border-radius:6px;"></div>
-                        <div class="skeleton" style="height:16px; width:40%; margin-top:12px; border-radius:4px;"></div>
-                    </div>
-                </div>`).join('');
+        // --- FETCH TOPICS ---
+        const grid = document.getElementById('grid');
+        const suggestList = document.getElementById('suggestList');
 
-            onSnapshot(query(collection(db,"topics"), orderBy("heat", "desc")), s => {
-                allTopics = []; 
-                s.forEach(d => allTopics.push({id:d.id, ...d.data()}));
-                render();
-                renderSuggestions();
-            });
-        }
-        loadTopics();
+        // Initial Skeleton
+        grid.innerHTML = Array(4).fill(0).map(()=>`
+            <div style="background:white; border-radius:24px; height:300px; border:1px solid #e2e8f0; overflow:hidden">
+                <div class="skeleton" style="height:140px"></div>
+                <div style="padding:20px">
+                    <div class="skeleton" style="width:56px; height:56px; border-radius:16px; margin-top:-48px; border:4px solid white"></div>
+                    <div class="skeleton" style="height:20px; width:70%; margin-top:20px; border-radius:4px"></div>
+                    <div class="skeleton" style="height:14px; width:40%; margin-top:10px; border-radius:4px"></div>
+                </div>
+            </div>`).join('');
+
+        onSnapshot(query(collection(db,"topics"), orderBy("heat", "desc")), s => {
+            allTopics = []; 
+            s.forEach(d => allTopics.push({id:d.id, ...d.data()}));
+            render();
+            renderSuggestions();
+        });
 
         function renderSuggestions() {
-            const topTopics = allTopics.slice(0, 5);
-            const el = document.getElementById('suggestList');
-            if(topTopics.length === 0) { el.innerHTML = '<p style="color:#94a3b8; font-size:14px;">Chưa có gợi ý nào...</p>'; return; }
-            
-            el.innerHTML = topTopics.map(d => `
+            const top = allTopics.slice(0, 5);
+            if(top.length === 0) { suggestList.innerHTML = '<div style="padding:10px; color:#64748b">Chưa có topic nào nổi bật.</div>'; return; }
+            suggestList.innerHTML = top.map(d => `
                 <div class="mini-card" onclick="location.href='detail.html?tid=${d.id}'">
-                    <img src="${d.banner||'https://placehold.co/600x300/e2e8f0/64748b?text=?'}" class="mini-bg">
-                    <div class="mini-overlay"></div>
-                    <div class="mini-info">
+                    <img src="${d.banner||'https://placehold.co/400x200/e2e8f0/64748b?text=Confe'}" class="mini-img">
+                    <div class="mini-overlay">
                         <div class="mini-title">${d.title}</div>
-                        <div class="mini-heat">🔥 ${d.heat||0} tương tác</div>
+                        <div class="mini-heat">🔥 ${d.heat||0}</div>
                     </div>
                 </div>
             `).join('');
@@ -341,47 +362,39 @@
             const key = document.getElementById('search').value.toLowerCase();
             if(key) arr = arr.filter(t => t.title.toLowerCase().includes(key));
             
-            const grid = document.getElementById('grid');
             if(arr.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px;">
-                    <div style="font-size:60px; margin-bottom:15px; opacity:0.5;">👻</div>
-                    <p style="color:var(--text-light); font-weight:600;">Không tìm thấy Topic nào.</p>
-                </div>`;
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8">Không tìm thấy kết quả nào.</div>`;
                 return;
             }
 
-            const catMap = { 'drama':['Drama 🔥','cat-drama'], 'love':['Tình yêu ❤️','cat-love'], 'school':['Học đường 📚','cat-school'], 'game':['Game 🎮','cat-game'], 'life':['Đời thường 🍃','cat-life'] };
+            const catMap = { 'drama':'🔥 Drama', 'love':'❤️ Tình yêu', 'school':'📚 Học đường', 'game':'🎮 Game', 'life':'🍃 Đời thường' };
             
-            grid.innerHTML = arr.map((d, index) => {
-                const c = catMap[d.category] || catMap['life'];
-                return `
-                <div class="card" onclick="location.href='detail.html?tid=${d.id}'" style="animation-delay: ${index * 0.05}s;">
-                    <div class="card-banner-wrap">
-                        <img src="${d.banner||'https://placehold.co/600x300/e2e8f0/64748b?text=?'}" class="card-banner">
+            grid.innerHTML = arr.map(d => `
+                <div class="card" onclick="location.href='detail.html?tid=${d.id}'">
+                    <div class="card-img-box">
+                        <img src="${d.banner||'https://placehold.co/600x300/e2e8f0/64748b?text=Background'}" class="card-img">
                     </div>
                     <div class="card-body">
-                        <img src="${d.logo||'https://placehold.co/100/ffffff/64748b?text=?'}" class="card-avt">
-                        <span class="card-cat ${c[1]}">${c[0]}</span>
+                        <img src="${d.logo||'https://placehold.co/100/ffffff/64748b?text=Logo'}" class="card-logo">
+                        <span class="card-tag">${catMap[d.category] || 'Chung'}</span>
                         <div class="card-title">${d.title}</div>
-                        <div class="card-meta">
+                        <div class="card-footer">
                             <span>Host: ${d.owner?d.owner.split('@')[0]:'Admin'}</span>
-                            <div class="heat-badge">🔥 ${d.heat||0}</div>
+                            <div class="heat-tag">🔥 ${d.heat||0}</div>
                         </div>
                     </div>
-                </div>`;
-            }).join('');
+                </div>`).join('');
         }
 
         window.setFilter = (el, type) => {
             document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
             el.classList.add('active'); curFilter = type; render();
         }
-
         document.getElementById('search').oninput = render;
-        
+
+        // --- CREATE TOPIC ---
         const modal = document.getElementById('modal');
         document.getElementById('fab').onclick = () => { if(!user) return location.href='login.html'; modal.classList.add('active'); }
-        
         async function up(f){ if(!f)return""; const d=new FormData();d.append("image",f); try{return(await(await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`,{method:"POST",body:d})).json()).data.url;}catch{return"";}}
         
         document.getElementById('btnCreate').onclick = async function() {
