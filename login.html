@@ -54,7 +54,6 @@
 
         .hidden { display: none; }
 
-        /* TOAST STYLES */
         .toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000; }
         .toast { background: #1e293b; color: white; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
         .toast.show { opacity: 1; transform: translateY(0); }
@@ -73,8 +72,8 @@
                 <div class="subtitle">Đăng nhập để vào chém gió nào.</div>
                 
                 <div class="inp-group">
-                    <label class="inp-label">Email</label>
-                    <input type="email" id="lEmail" class="inp" placeholder="email@cuaban.com">
+                    <label class="inp-label">Email hoặc Username</label>
+                    <input type="text" id="lEmail" class="inp" placeholder="user123 hoặc email@domain.com">
                 </div>
                 <div class="inp-group">
                     <label class="inp-label">Mật khẩu</label>
@@ -89,8 +88,8 @@
                 <div class="subtitle">Tham gia cộng đồng ngay hôm nay.</div>
 
                 <div class="inp-group">
-                    <label class="inp-label">Email</label>
-                    <input type="email" id="rEmail" class="inp" placeholder="email@cuaban.com">
+                    <label class="inp-label">Username hoặc Email</label>
+                    <input type="text" id="rEmail" class="inp" placeholder="Đặt tên cho ngầu nào...">
                 </div>
                 <div class="inp-group">
                     <label class="inp-label">Mật khẩu</label>
@@ -132,12 +131,14 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const app = initializeApp(cfg); const auth = getAuth(app);
+        const app = initializeApp(cfg); 
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // HÀM SHOW TOAST (Thay cho alert cùi bắp)
         window.showToast = (msg, icon="🔔") => {
             const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
             document.getElementById('toastContainer').appendChild(t);
@@ -159,29 +160,73 @@
             }
         }
 
+        const processInput = (val) => {
+            val = val.trim();
+            // Nếu có @ thì coi là email, không có thì thêm đuôi gmail
+            if(val.includes('@')) return val;
+            return `${val}@gmail.com`;
+        }
+
         document.getElementById('btnLogin').onclick = async function() {
-            const e = document.getElementById('lEmail').value, p = document.getElementById('lPass').value;
-            if(!e || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            let inp = document.getElementById('lEmail').value;
+            const p = document.getElementById('lPass').value;
+            
+            if(!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            
+            const e = processInput(inp);
+            
             this.innerText = "Đang xử lý...";
             try { 
                 await signInWithEmailAndPassword(auth, e, p); 
                 showToast("Đăng nhập thành công!", "✅");
-                setTimeout(() => window.location.href='index.html', 1000); // Đợi 1s cho toast hiện rồi mới chuyển
+                setTimeout(() => window.location.href='index.html', 1000); 
             }
             catch(err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Nhập"; }
         }
 
         document.getElementById('btnReg').onclick = async function() {
-            const e = document.getElementById('rEmail').value, p = document.getElementById('rPass').value, pc = document.getElementById('rPassConfirm').value;
-            if(!e || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            let inp = document.getElementById('rEmail').value.trim();
+            const p = document.getElementById('rPass').value, pc = document.getElementById('rPassConfirm').value;
+            
+            if(!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
             if(p !== pc) return showToast("Mật khẩu không khớp!", "❌");
+            
+            // Xử lý email để đăng ký auth
+            const e = processInput(inp);
+
+            // Xác định username gốc (để lưu hiển thị)
+            // Nếu người dùng nhập "abc" -> username là "abc"
+            // Nếu người dùng nhập "abc@gmail.com" -> username là "abc" (cắt bỏ đuôi)
+            let username = inp;
+            if(inp.includes('@')) {
+                username = inp.split('@')[0];
+            }
+
             this.innerText = "Đang tạo...";
             try { 
+                // 1. Tạo tài khoản Auth
                 const cred = await createUserWithEmailAndPassword(auth, e, p);
+                const user = cred.user;
+
+                // 2. Cập nhật Display Name trong Auth (để hiện tên nhanh)
+                await updateProfile(user, { displayName: username });
+
+                // 3. Lưu thông tin chi tiết vào Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    username: username,
+                    email: e,
+                    uid: user.uid,
+                    createdAt: new Date().toISOString(),
+                    role: 'member' // Mặc định là thành viên
+                });
+
                 showToast("Đăng ký thành công!", "🚀");
-                // Chuyển thẳng tới profile.html (không cần ?uid vì đã login)
                 setTimeout(() => window.location.href='profile.html', 1500); 
-            } catch(err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Ký"; }
+            } catch(err) { 
+                console.error(err);
+                showToast("Lỗi: " + err.message, "❌"); 
+                this.innerText = "Đăng Ký"; 
+            }
         }
     </script>
 </body>
