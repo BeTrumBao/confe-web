@@ -3,383 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confe </title>
+    <title>Confe</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    <meta name="google-site-verification" content="t5oQRvmsRPZ6Uz4014JmFfAFmfaQ14XoACmrDogErHg" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #2563eb; --on-primary: #ffffff; --primary-container: #dbeafe; --on-primary-container: #1e40af;
-            --surface: #ffffff; --surface-container: #f1f5f9; --surface-variant: #e2e8f0;
-            --outline: #cbd5e1; --text: #0f172a; --text-secondary: #64748b; --danger: #ef4444; --warn: #f59e0b;
-            --radius-l: 24px; --radius-m: 16px; --radius-s: 12px;
+        :root {
+            --m3-primary: #00639b;
+            --m3-on-primary: #ffffff;
+            --m3-surface: #f0f4f9; /* Màu nền xám xanh M3 */
+            --m3-surface-container: #ffffff;
+            --m3-outline: #747775;
+            --radius-xl: 28px;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--surface-container); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* NAVBAR */
-        .navbar { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); height: 64px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .nav-logo { font-size: 24px; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
-        .nav-right { display: flex; align-items: center; gap: 12px; }
-        .btn-icon-nav { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; position: relative; }
-        .btn-icon-nav:hover { background: var(--surface-variant); color: var(--primary); }
-        .btn-icon-nav svg { width: 24px; height: 24px; fill: currentColor; }
-        .badge { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; border: 2px solid var(--surface); }
-        .nav-user { position: relative; cursor: pointer; }
-        .nav-avt { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--surface-variant); transition: 0.2s; }
-        .nav-avt:hover { transform: scale(1.05); }
-        .dropdown-menu { position: absolute; top: 50px; right: 0; background: var(--surface); width: 200px; border-radius: var(--radius-m); box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 8px; display: none; border: 1px solid var(--surface-variant); animation: fadeIn 0.2s ease; }
-        .dropdown-menu.show { display: block; }
-        .menu-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 8px; transition: 0.2s; cursor: pointer; }
-        .menu-item:hover { background: var(--surface-container); }
-        .menu-item.danger { color: var(--danger); }
-        .btn-login { padding: 8px 20px; background: var(--primary); color: var(--on-primary); border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 14px; transition: 0.2s; }
-        .btn-login:hover { background: var(--on-primary-container); box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
-
-        /* HERO */
-        .hero { padding: 40px 20px 20px; text-align: center; background: linear-gradient(180deg, var(--surface) 0%, var(--surface-container) 100%); }
-        .hero h1 { font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -1px; }
-        .hero p { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .search-wrapper { position: relative; max-width: 500px; margin: 0 auto; background: var(--surface); border-radius: 100px; box-shadow: 0 4px 20px -5px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid transparent; }
-        .search-wrapper:focus-within { border-color: var(--primary); box-shadow: 0 4px 25px -5px rgba(37,99,235,0.2); }
-        .search-inp { width: 100%; padding: 14px 20px 14px 50px; border: none; background: transparent; font-size: 15px; outline: none; border-radius: 100px; }
-        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; fill: var(--text-secondary); }
-
-        /* SUGGESTIONS */
-        .section-title { font-size: 18px; font-weight: 700; margin: 0 0 16px 20px; color: var(--text); display: flex; align-items: center; gap: 8px; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; width: 100%; }
-        .suggest-list { display: flex; gap: 16px; overflow-x: auto; padding: 0 5px 20px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .suggest-list::-webkit-scrollbar { display: none; }
-        .mini-card { min-width: 240px; height: 130px; border-radius: var(--radius-m); position: relative; overflow: hidden; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: 0.3s; }
-        .mini-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .mini-img { width: 100%; height: 100%; object-fit: cover; }
-        .mini-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; }
-        .mini-title { color: white; font-weight: 600; font-size: 14px; line-height: 1.3; }
-        .mini-heat { color: #fcd34d; font-size: 11px; font-weight: 700; margin-top: 4px; }
-
-        /* MAIN CONTENT & CARD */
-        .controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; justify-content: center; }
-        .chip { padding: 8px 16px; background: var(--surface); border: 1px solid var(--surface-variant); border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: 0.2s; }
-        .chip.active { background: var(--primary-container); color: var(--on-primary-container); border-color: var(--primary-container); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--surface); border-radius: var(--radius-l); overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s; cursor: pointer; border: 1px solid transparent; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--primary-container); }
-        .card-img-box { height: 140px; position: relative; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .card:hover .card-img { transform: scale(1.05); }
-        .card-body { padding: 40px 20px 20px; position: relative; flex: 1; display: flex; flex-direction: column; }
-        .card-logo { width: 56px; height: 56px; border-radius: 16px; border: 4px solid var(--surface); position: absolute; top: -28px; left: 16px; background: white; object-fit: cover; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .card-tag { position: absolute; top: 12px; right: 20px; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; background: var(--surface-container); color: var(--text-secondary); }
-        .card-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-secondary); font-weight: 500; border-top: 1px solid var(--surface-container); padding-top: 12px; margin-top: 12px; }
-        .heat-tag { display: flex; align-items: center; gap: 4px; color: #f59e0b; background: #fffbeb; padding: 2px 8px; border-radius: 100px; font-weight: 700; }
-        
-        /* NÚT BÁO CÁO TRÊN CARD */
-        .btn-card-report { 
-            position: absolute; top: 10px; left: 10px; 
-            width: 32px; height: 32px; border-radius: 50%; 
-            background: rgba(255,255,255,0.9); border: none; 
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 5; transition: 0.2s;
-            color: var(--text-secondary); backdrop-filter: blur(4px);
+        body { 
+            background-color: var(--m3-surface); 
+            color: #1a1c1e;
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            overflow-x: hidden;
         }
-        .btn-card-report:hover { background: #fee2e2; color: var(--danger); transform: scale(1.1); }
 
-        /* FOOTER & MISC */
-        footer { margin-top: auto; padding: 40px 20px; text-align: center; background: var(--surface); border-top: 1px solid var(--surface-variant); }
-        .ft-text { color: var(--text-secondary); font-size: 13px; font-weight: 500; }
-        .ft-heart { color: var(--danger); animation: heartbeat 1.5s infinite; display: inline-block; }
-        .btn-feedback { border: none; background: none; color: var(--primary); font-weight: 600; cursor: pointer; text-decoration: underline; font-size: 13px; }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        /* --- NAVBAR --- */
+        .navbar {
+            height: 70px;
+            padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(240, 244, 249, 0.9); /* Trong suốt mờ */
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--m3-primary); text-decoration: none; }
         
-        .fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: var(--primary-container); color: var(--on-primary-container); border-radius: 16px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(37,99,235,0.3); cursor: pointer; border: none; transition: 0.3s; z-index: 90; }
-        .fab:hover { transform: scale(1.1) rotate(90deg); background: var(--primary); color: white; }
-
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.2s; padding: 20px; }
-        .modal.active { opacity: 1; visibility: visible; }
-        .box { background: var(--surface); width: 100%; max-width: 450px; padding: 24px; border-radius: 28px; transform: scale(0.95); transition: 0.2s; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: auto; }
-        .modal.active .box { transform: scale(1); }
-
-        .inp-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-        .inp-area { width: 100%; padding: 12px 16px; border: 1px solid var(--outline); border-radius: 12px; font-size: 14px; outline: none; background: var(--surface); transition: 0.2s; resize: none; }
-        .inp { width: 100%; padding: 12px 16px; border: 1px solid var(--outline); border-radius: 12px; font-size: 14px; outline: none; background: var(--surface); transition: 0.2s; }
-        .inp:focus, .inp-area:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
-        .btn-act { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 100px; font-weight: 600; cursor: pointer; margin-top: 16px; font-size: 15px; }
-        .btn-file { display: block; text-align: center; padding: 10px; border: 1px dashed var(--outline); border-radius: 12px; color: var(--text-secondary); font-size: 13px; cursor: pointer; margin-bottom: 12px; }
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: white; padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 500; opacity: 0; transition: 0.3s; z-index: 1000; }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-        /* CHANGELOG */
-        .changelog-list { display: flex; flex-direction: column; gap: 15px; }
-        .cl-item { display: flex; gap: 12px; padding-bottom: 15px; border-bottom: 1px solid var(--surface-variant); }
-        .cl-item:last-child { border-bottom: none; }
-        .cl-icon { width: 32px; height: 32px; background: var(--primary-container); color: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; font-size: 14px; }
-        .cl-content h4 { font-size: 14px; margin-bottom: 4px; color: var(--text); }
-        .cl-content p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
-        .cl-date { font-size: 11px; color: var(--text-secondary); font-weight: 700; margin-bottom: 2px; text-transform: uppercase; }
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
         
-        .skeleton { background: #e2e8f0; position: relative; overflow: hidden; }
-        .skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-icon {
+            width: 45px; height: 45px; border: none; background: transparent;
+            border-radius: 50%; cursor: pointer; color: #444746;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .btn-icon:hover { background: #e0e2e5; }
+
+        .user-avt {
+            width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+            border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .container {
+            flex: 1;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; /* Căn giữa dọc & ngang */
+            padding: 20px;
+            width: 100%;
+        }
+
+        .hero-text {
+            text-align: center; margin-bottom: 40px;
+        }
+        .hero-text h1 { font-size: 32px; font-weight: 700; color: #1f1f1f; margin-bottom: 8px; }
+        .hero-text p { color: #5e6066; font-size: 15px; }
+
+        /* --- SLIDER NGANG (Horizontal Scroll) --- */
+        .scroll-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Căn giữa nếu màn hình to */
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto; /* Cho phép cuộn ngang */
+            padding: 20px 20px 50px 20px; /* Padding dưới để bóng đổ đẹp */
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Ẩn thanh cuộn Firefox */
+            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+            max-width: 1200px; /* Giới hạn chiều rộng trên PC */
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; /* Ẩn thanh cuộn Chrome */ }
+
+        /* --- CARD STYLE (M3) --- */
+        .card-m3 {
+            flex: 0 0 auto; /* KHÔNG CO GIÃN - Giữ nguyên kích thước để scroll */
+            width: 280px; height: 350px;
+            background: linear-gradient(180deg, #00639b 0%, #004a77 100%);
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            scroll-snap-align: center;
+            transition: transform 0.3s cubic-bezier(0.3, 0, 0, 1), box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-m3:active { transform: scale(0.95); }
+        .card-m3:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 99, 155, 0.4); }
+
+        /* Số nền to phía sau */
+        .bg-number {
+            position: absolute; top: -20px; right: -20px;
+            font-size: 180px; font-weight: 900;
+            color: rgba(255,255,255,0.08);
+            line-height: 1; pointer-events: none;
+        }
+
+        /* Icon tròn nổi */
+        .float-icon {
+            position: absolute; top: 24px; left: 24px;
+            width: 56px; height: 56px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-info h3 { font-size: 28px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .card-info p { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; }
+        
+        .pill {
+            margin-top: 12px;
+            display: inline-block;
+            padding: 6px 14px;
+            background: white;
+            color: var(--m3-primary);
+            border-radius: 100px;
+            font-size: 12px; font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER --- */
+        footer { padding: 30px; text-align: center; color: var(--m3-outline); font-size: 13px; margin-top: auto; }
+        
+        /* Modal User */
+        .dropdown { position: absolute; top: 70px; right: 20px; background: white; width: 200px; padding: 8px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; animation: fadeIn 0.2s; z-index: 200; }
+        .dropdown.show { display: block; }
+        .menu-item { display: flex; padding: 12px; color: #1f1f1f; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }
+        .menu-item:hover { background: #f0f4f9; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+
     </style>
 </head>
 <body>
+
     <nav class="navbar">
-        <a href="#" class="nav-logo">Confe</a>
-        <div class="nav-right">
-            <button id="btnNews" class="btn-icon-nav"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><div class="badge"></div></button>
-            <div id="navAction"><a href="login.html" class="btn-login">Đăng nhập</a></div>
+        <a href="#" class="logo">Confe</a>
+        <div class="nav-actions">
+            <button class="btn-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg></button>
+            <div id="authBox">
+                <a href="login.html" style="text-decoration:none; background:#00639b; color:white; padding:10px 20px; border-radius:100px; font-weight:600; font-size:14px;">Đăng nhập</a>
+            </div>
+        </div>
+        
+        <div id="userDropdown" class="dropdown">
+            <div id="btnLogout" class="menu-item" style="color:#ba1a1a;">Đăng xuất</div>
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>Bí Mật & Im Lặng Nào 🤫</h1>
-        <p>Nơi chia sẻ những điều thầm kín, bóc phốt, drama, hay một thứ gì đó... hoàn toàn ẩn danh và miễn phí 100%</p>
-        <div class="search-wrapper">
-            <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            <input type="text" id="search" class="search-inp" placeholder="Tìm kiếm topic...">
-        </div>
-    </div>
-
-    <div class="container" style="padding-bottom: 0;">
-        <div class="section-title">⚡ Đang Nổi Bật</div>
-        <div class="suggest-list" id="suggestList">
-            <div class="mini-card skeleton" style="min-width:240px"></div>
-            <div class="mini-card skeleton" style="min-width:240px"></div>
-            <div class="mini-card skeleton" style="min-width:240px"></div>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="controls">
-            <div class="chips">
-                <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
-                <div class="chip" onclick="setFilter(this, 'drama')">🔥 Drama</div>
-                <div class="chip" onclick="setFilter(this, 'love')">❤️ Tình yêu</div>
-                <div class="chip" onclick="setFilter(this, 'school')">📚 Học đường</div>
-                <div class="chip" onclick="setFilter(this, 'game')">🎮 Game</div>
-            </div>
+        <div class="hero-text">
+            <h1>Góc Học Tập</h1>
+            <p>Chọn khối lớp để xem tài liệu & trao đổi</p>
         </div>
-        <div id="grid" class="grid"></div>
+
+        <div class="scroll-wrapper">
+            <div id="slider" class="horizontal-scroll">
+                </div>
+        </div>
     </div>
 
     <footer>
-        <div class="ft-text">Made By QjQI or Bao Neyako With Love <span class="ft-heart">❤️</span></div>
-        <div style="margin-top: 10px;">
-            <button class="btn-feedback" id="btnOpenFeedback">Góp ý cho Admin</button>
-        </div>
+        Made with by Bảo Neyako with Love <3
     </footer>
-
-    <button id="fab" class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-
-    <div id="modalReport" class="modal">
-        <div class="box">
-            <h3 style="margin-bottom:8px;">🚩 Báo cáo Topic</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo Topic này.</p>
-            <select id="rReason" class="inp" style="cursor:pointer; margin-bottom:10px;">
-                <option>Nội dung thô tục / Phản cảm</option>
-                <option>Spam / Quảng cáo rác</option>
-                <option>Bắt nạt / Quấy rối</option>
-                <option>Thông tin sai lệch</option>
-                <option>Vi phạm bản quyền</option>
-            </select>
-            <button id="btnSendReport" class="btn-act" style="background:var(--warn);">Gửi Báo Cáo</button>
-            <button onclick="document.getElementById('modalReport').classList.remove('active')" style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:8px;">Hủy</button>
-        </div>
-    </div>
-
-    <div id="modal" class="modal">
-        <div class="box">
-            <h3 style="margin-bottom:20px; font-size:20px;">Tạo Topic Mới</h3>
-            <div style="margin-bottom:15px"><label class="inp-label">Tên Topic</label><input type="text" id="tTitle" class="inp" placeholder="Nhập tên chủ đề..."></div>
-            <div style="margin-bottom:15px">
-                <label class="inp-label">Thể loại</label>
-                <select id="tCat" class="inp"><option value="life">🍃 Đời thường</option><option value="drama">🔥 Drama</option><option value="love">❤️ Tình yêu</option><option value="school">📚 Học đường</option><option value="game">🎮 Game</option></select>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"><label class="btn-file">📷 Ảnh bìa <input type="file" id="fBanner" hidden></label><label class="btn-file">🖼️ Logo <input type="file" id="fLogo" hidden></label></div>
-            <div style="margin-bottom:15px"><label class="inp-label">Mô tả / Nội quy</label><textarea id="tRules" class="inp" rows="3"></textarea></div>
-            <div style="display:flex; gap:15px; margin-bottom:10px;">
-                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox" id="tStatus" checked> Mở Topic</label>
-                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox" id="tAllowImg" checked> Cho phép ảnh</label>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:20px">
-                <button onclick="document.getElementById('modal').classList.remove('active')" style="flex:1; padding:12px; background:var(--surface-container); border:none; border-radius:100px; font-weight:600; cursor:pointer;">Hủy</button>
-                <button id="btnCreate" class="btn-act" style="flex:2; margin-top:0;">Tạo Topic</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modalNews" class="modal">
-        <div class="box">
-            <h3 style="margin-bottom:20px; font-size:20px;">📢 Cập nhật mới</h3>
-            <div class="changelog-list">
-                <div class="cl-item"><div class="cl-icon">🔥</div><div class="cl-content"><div class="cl-date">14/12</div><h4>Fix Bug Và Thêm Tính Năng Mới</h4><p>Hãy tự trải nghiệm nhé .</p></div></div>
-            </div>
-            <button onclick="document.getElementById('modalNews').classList.remove('active')" class="btn-act" style="background:var(--surface-variant); color:var(--text);">Đóng</button>
-        </div>
-    </div>
-
-    <div id="modalFeedback" class="modal">
-        <div class="box">
-            <h3 style="margin-bottom:20px; font-size:20px;"> Góp ý cho Admin</h3>
-            <div style="margin-bottom:15px"><label class="inp-label">Nội dung góp ý</label><textarea id="feedbackContent" class="inp-area" rows="5" placeholder="Bạn muốn thêm tính năng gì?"></textarea></div>
-            <button id="btnSendFeedback" class="btn-act">Gửi góp ý</button>
-            <button onclick="document.getElementById('modalFeedback').classList.remove('active')" style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:10px;">Hủy</button>
-        </div>
-    </div>
-
-    <div id="toast" class="toast"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const app = initializeApp({ apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web" });
+        const auth = getAuth(app); const db = getFirestore(app);
 
-        const app = initializeApp(cfg); const auth = getAuth(app); const db = getFirestore(app);
-        let user = null, allTopics = [], curFilter = 'all';
-        let reportTargetId = null; // ID Topic cần báo cáo
+        // DATA: Đã bỏ chữ Confession
+        const DATA = [
+            { id: 'cfs9', num: '9', title: 'Khối 9', desc: 'Tài liệu & Hỏi đáp Lớp 9' },
+            { id: 'cfs8', num: '8', title: 'Khối 8', desc: 'Tài liệu & Hỏi đáp Lớp 8' },
+            { id: 'cfs7', num: '7', title: 'Khối 7', desc: 'Tài liệu & Hỏi đáp Lớp 7' },
+            { id: 'cfs6', num: '6', title: 'Khối 6', desc: 'Tài liệu & Hỏi đáp Lớp 6' }
+        ];
 
-        window.showToast = (msg) => {
-            const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
+        // HÀM CLICK LẤY ID NHƯ YÊU CẦU
+        window.handleClick = (id) => {
+            console.log("Đã lấy được ID:", id); // Check console để thấy ID
+            // Chuyển hướng kèm ID
+            location.href = `detail.html?tid=${id}`;
         }
 
-        // --- XỬ LÝ REPORT TOPIC ---
-        window.openReport = (e, topicId) => {
-            e.stopPropagation(); // QUAN TRỌNG: Chặn sự kiện click lan ra ngoài (không mở trang detail)
-            reportTargetId = topicId;
-            document.getElementById('modalReport').classList.add('active');
-        }
+        // RENDER GIAO DIỆN
+        const slider = document.getElementById('slider');
+        slider.innerHTML = DATA.map(item => `
+            <div class="card-m3" onclick="handleClick('${item.id}')">
+                <div class="bg-number">${item.num}</div>
+                <div class="float-icon">${item.num}</div>
+                
+                <div class="card-info">
+                    <h3>${item.title}</h3>
+                    <p>${item.desc}</p>
+                    <span class="pill">Truy cập ngay</span>
+                </div>
+            </div>
+        `).join('');
 
-        document.getElementById('btnSendReport').onclick = async function() {
-            if(!reportTargetId) return;
-            const reason = document.getElementById('rReason').value;
-            this.textContent = "Đang gửi...";
-            try {
-                await addDoc(collection(db, "reports"), {
-                    targetId: reportTargetId,
-                    targetType: 'topic',
-                    reason: reason,
-                    reporter: user ? user.email : "Anonymous",
-                    createdAt: serverTimestamp()
-                });
-                window.showToast("Đã gửi báo cáo!");
-                document.getElementById('modalReport').classList.remove('active');
-            } catch(e) { window.showToast("Lỗi gửi báo cáo!"); }
-            this.textContent = "Gửi Báo Cáo";
-        }
-
-        // --- XỬ LÝ GÓP Ý & TIN TỨC ---
-        document.getElementById('btnNews').onclick = () => document.getElementById('modalNews').classList.add('active');
-        document.getElementById('btnOpenFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
-        document.getElementById('btnSendFeedback').onclick = async () => {
-            const txt = document.getElementById('feedbackContent').value;
-            if(!txt) return window.showToast("Bạn chưa nhập nội dung!");
-            document.getElementById('btnSendFeedback').textContent = "Đang gửi...";
-            try {
-                await addDoc(collection(db, "feedbacks"), { content: txt, user: user ? user.email : "Ẩn danh", uid: user ? user.uid : null, createdAt: serverTimestamp() });
-                window.showToast("Cảm ơn góp ý của bạn! ❤️");
-                document.getElementById('feedbackContent').value = "";
-                document.getElementById('modalFeedback').classList.remove('active');
-            } catch (e) { window.showToast("Lỗi khi gửi!"); }
-            document.getElementById('btnSendFeedback').textContent = "Gửi góp ý";
-        }
-
+        // XỬ LÝ ĐĂNG NHẬP
         onAuthStateChanged(auth, async (u) => {
-            user = u;
-            const nav = document.getElementById('navAction');
+            const box = document.getElementById('authBox');
             if(u) {
-                let avt = "https://via.placeholder.com/40";
-                try { const d = await getDoc(doc(db,"users",u.uid)); if(d.exists()) avt=d.data().photoURL||avt; } catch{}
-                nav.innerHTML = `
-                    <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
-                        <img src="${avt}" class="nav-avt">
-                        <div class="dropdown-menu">
-                            <a href="profile.html?uid=${u.uid}" class="menu-item">Hồ sơ của tôi</a>
-                            <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
-                        </div>
-                    </div>`;
+                let img = "https://via.placeholder.com/40";
+                try { const s = await getDoc(doc(db,"users",u.uid)); if(s.exists()) img = s.data().photoURL || img; } catch{}
+                
+                box.innerHTML = `<img src="${img}" class="user-avt" onclick="document.getElementById('userDropdown').classList.toggle('show')">`;
+                
                 document.getElementById('btnLogout').onclick = () => signOut(auth).then(()=>location.reload());
-            } else { nav.innerHTML = `<a href="login.html" class="btn-login">Đăng nhập</a>`; }
+            } else {
+                box.innerHTML = `<a href="login.html" style="text-decoration:none; background:#00639b; color:white; padding:10px 20px; border-radius:100px; font-weight:600; font-size:14px;">Đăng nhập</a>`;
+            }
         });
 
-        window.onclick = (e) => { 
-            if(!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show'); 
-            if(e.target.classList.contains('modal')) e.target.classList.remove('active');
+        // Đóng menu khi click ra ngoài
+        window.onclick = (e) => {
+            if(!e.target.closest('#authBox') && !e.target.closest('#userDropdown')) {
+                document.getElementById('userDropdown')?.classList.remove('show');
+            }
         }
-
-        // --- FETCH TOPICS ---
-        const grid = document.getElementById('grid');
-        const suggestList = document.getElementById('suggestList');
-
-        grid.innerHTML = Array(4).fill(0).map(()=>`<div style="background:white; border-radius:24px; height:300px; border:1px solid #e2e8f0; overflow:hidden"><div class="skeleton" style="height:140px"></div><div style="padding:20px"><div class="skeleton" style="width:56px; height:56px; border-radius:16px; margin-top:-48px; border:4px solid white"></div><div class="skeleton" style="height:20px; width:70%; margin-top:20px; border-radius:4px"></div><div class="skeleton" style="height:14px; width:40%; margin-top:10px; border-radius:4px"></div></div></div>`).join('');
-
-        onSnapshot(query(collection(db,"topics"), orderBy("heat", "desc")), s => {
-            allTopics = []; s.forEach(d => allTopics.push({id:d.id, ...d.data()}));
-            render(); renderSuggestions();
-        });
-
-        function renderSuggestions() {
-            const top = allTopics.slice(0, 5);
-            if(top.length === 0) { suggestList.innerHTML = '<div style="padding:10px; color:#64748b">Chưa có topic nào nổi bật.</div>'; return; }
-            suggestList.innerHTML = top.map(d => `
-                <div class="mini-card" onclick="location.href='detail.html?tid=${d.id}'">
-                    <img src="${d.banner||'https://placehold.co/400x200/e2e8f0/64748b?text=Confe'}" class="mini-img">
-                    <div class="mini-overlay"><div class="mini-title">${d.title}</div><div class="mini-heat">🔥 ${d.heat||0}</div></div>
-                </div>`).join('');
-        }
-
-        function render() {
-            let arr = [...allTopics];
-            if(curFilter !== 'all') arr = arr.filter(t => t.category === curFilter);
-            const key = document.getElementById('search').value.toLowerCase();
-            if(key) arr = arr.filter(t => t.title.toLowerCase().includes(key));
-            
-            if(arr.length === 0) { grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8">Không tìm thấy kết quả nào.</div>`; return; }
-
-            const catMap = { 'drama':'🔥 Drama', 'love':'❤️ Tình yêu', 'school':'📚 Học đường', 'game':'🎮 Game', 'life':'🍃 Đời thường' };
-            
-            grid.innerHTML = arr.map(d => `
-                <div class="card" onclick="location.href='detail.html?tid=${d.id}'">
-                    <div class="card-img-box">
-                        <img src="${d.banner||'https://placehold.co/600x300/e2e8f0/64748b?text=Background'}" class="card-img">
-                        <button class="btn-card-report" onclick="openReport(event, '${d.id}')">🚩</button>
-                    </div>
-                    <div class="card-body">
-                        <img src="${d.logo||'https://placehold.co/100/ffffff/64748b?text=Logo'}" class="card-logo">
-                        <span class="card-tag">${catMap[d.category] || 'Chung'}</span>
-                        <div class="card-title">${d.title}</div>
-                        <div class="card-footer">
-                            <span>Host: ${d.owner?d.owner.split('@')[0]:'Admin'}</span>
-                            <div class="heat-tag">🔥 ${d.heat||0}</div>
-                        </div>
-                    </div>
-                </div>`).join('');
-        }
-
-        window.setFilter = (el, type) => { document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); curFilter = type; render(); }
-        document.getElementById('search').oninput = render;
-
-        // --- CREATE TOPIC ---
-        const modal = document.getElementById('modal');
-        document.getElementById('fab').onclick = () => { if(!user) return location.href='login.html'; modal.classList.add('active'); }
-        async function up(f){ if(!f)return""; const d=new FormData();d.append("image",f); try{return(await(await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`,{method:"POST",body:d})).json()).data.url;}catch{return"";}}
-        
-        document.getElementById('btnCreate').onclick = async function() {
-            const t = document.getElementById('tTitle').value; if(!t) return window.showToast("Nhập tên Topic!");
-            this.textContent="Đang tạo..."; this.disabled=true;
-            const b = await up(document.getElementById('fBanner').files[0]);
-            const l = await up(document.getElementById('fLogo').files[0]);
-            const status = document.getElementById('tStatus').checked;
-            const allowImg = document.getElementById('tAllowImg').checked;
-            await addDoc(collection(db,"topics"), { title:t, owner:user.email, banner:b, logo:l, category:document.getElementById('tCat').value, rules:document.getElementById('tRules').value, heat:0, createdAt:serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, postRule: 'all' });
-            window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent="Tạo Topic"; this.disabled=false;
-        };
     </script>
 </body>
 </html>

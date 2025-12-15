@@ -12,13 +12,37 @@
         
         body { 
             background-color: var(--bg);
-            background-size: cover; background-position: center; background-attachment: fixed;
+            /* background-image removed from body */
             min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
-            backdrop-filter: blur(10px);
+            /* backdrop-filter moved to bg-overlay */
         }
-        .bg-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: -1; }
 
-        .back-btn { position: fixed; top: 20px; left: 20px; width: 44px; height: 44px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 50; transition: 0.2s; }
+        /* --- NEW BACKGROUND LAYERS --- */
+        /* 1. Blurred full-screen background */
+        .bg-overlay { 
+            position: fixed; inset: 0; z-index: -2; 
+            background-size: cover; background-position: center;
+            filter: blur(20px) brightness(0.7); /* Blur and darken */
+            transform: scale(1.1); /* Scale up to hide blur edges */
+        }
+
+        /* 2. Clear top cover image */
+        .bg-top-cover {
+            position: absolute; top: 0; left: 0; width: 100%; height: 300px;
+            background-size: cover; background-position: center top;
+            z-index: -1;
+            /* Optional: Fade out the bottom of the cover image */
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        /* --- FIXED BACK BUTTON --- */
+        .back-btn { 
+            position: fixed; 
+            top: 50px; /* Moved down from 20px to avoid top bar issues */
+            left: 20px; 
+            width: 44px; height: 44px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 50; transition: 0.2s; 
+        }
         .back-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
 
         /* --- CARD PROFILE --- */
@@ -99,6 +123,8 @@
 </head>
 <body>
     <div class="bg-overlay"></div>
+    <div class="bg-top-cover"></div>
+    
     <button class="back-btn" onclick="history.back()">⬅</button>
 
     <div class="profile-card">
@@ -249,8 +275,11 @@
             document.getElementById('dBio').textContent = data.bio || "Chưa có tiểu sử.";
             document.getElementById('avt').src = data.photoURL || "https://via.placeholder.com/100";
             
+            // --- UPDATED BACKGROUND IMAGE HANDLING ---
             const bgUrl = data.coverURL || "https://via.placeholder.com/800x600/cbd5e1/ffffff?text=Background";
-            document.body.style.backgroundImage = `url('${bgUrl}')`;
+            // Set background for both the blurred overlay and the top cover
+            document.querySelector('.bg-overlay').style.backgroundImage = `url('${bgUrl}')`;
+            document.querySelector('.bg-top-cover').style.backgroundImage = `url('${bgUrl}')`;
 
             if(currentUser && currentUser.uid === uid) {
                 const btn = document.getElementById('btnOpenSettings');
@@ -285,7 +314,17 @@
         async function up(f) { const d=new FormData();d.append("image",f); try{return(await(await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`,{method:"POST",body:d})).json()).data.url;}catch{return"";}}
         
         document.getElementById('fAvtFile').onchange = (e) => { if(e.target.files[0]) { document.getElementById('avt').src = URL.createObjectURL(e.target.files[0]); window.showToast("Đã chọn ảnh Avatar"); }}
-        document.getElementById('fCoverFile').onchange = (e) => { if(e.target.files[0]) { document.body.style.backgroundImage = `url('${URL.createObjectURL(e.target.files[0])}')`; window.showToast("Đã chọn ảnh Bìa"); }}
+        
+        // --- UPDATED COVER FILE CHANGE HANDLER ---
+        document.getElementById('fCoverFile').onchange = (e) => { 
+            if(e.target.files[0]) { 
+                const imgUrl = URL.createObjectURL(e.target.files[0]);
+                // Update both background layers instantly
+                document.querySelector('.bg-overlay').style.backgroundImage = `url('${imgUrl}')`;
+                document.querySelector('.bg-top-cover').style.backgroundImage = `url('${imgUrl}')`;
+                window.showToast("Đã chọn ảnh Bìa"); 
+            }
+        }
 
         document.getElementById('btnSave').onclick = async function() {
             const rawUser = document.getElementById('inpUser').value.trim();
