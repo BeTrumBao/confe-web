@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confe</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-light: #e7f3ff;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #4B5563;
+            --sidebar-hover: #F3F4F6;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background: #F9FAFB;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            min-width: 180px;
+            max-width: 500px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* RESIZER */
+        .resizer {
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: col-resize;
+            transition: background 0.2s;
+        }
+
+        .resizer:hover,
+        .resizer.dragging {
+            background: var(--primary);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-link i {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-items {
+            flex: 1;
+        }
+
+        .nav-footer {
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: #9CA3AF;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* MAIN CONTNET */
+        .content-area {
+            flex: 1;
+            background: #F3F4F6;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* SPLASH SCREEN */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-logo {
+            width: 80px;
+            height: 80px;
+            /* Animation Changed: Rotate from -90deg to 0deg */
+            animation: rotateIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+
+        @keyframes rotateIn {
+            0% {
+                transform: rotate(-90deg) scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .splash-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column-reverse;
+            }
+
+            .sidebar {
+                position: relative;
+                /* Remove fixed to stay in flow */
+                width: 100% !important;
+                height: 70px;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 0;
+                border-top: 1px solid var(--border);
+                border-right: none;
+                z-index: 1000;
+                background: white;
+                /* solid white for reliability */
+                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .logo,
+            .nav-footer,
+            .resizer {
+                display: none;
+            }
+
+            .nav-items {
+                display: flex;
+                width: 100%;
+                justify-content: space-around;
+                align-items: center;
+                height: 100%;
+            }
+
+            .nav-link {
+                flex: 1;
+                flex-direction: column;
+                gap: 4px;
+                padding: 10px;
+                font-size: 11px;
+                margin: 0;
+                border-radius: 0;
+                background: transparent !important;
+                color: #94a3b8;
+                justify-content: center;
+            }
+
+
+
+            .nav-link.active {
+                color: var(--primary);
+            }
+
+            .nav-link i {
+                font-size: 22px;
+                width: auto;
+            }
+
+            .nav-link span {
+                font-weight: 600;
+            }
+
+            .content-area {
+                flex: 1;
+                /* Take remaining space */
+                height: auto;
+                /* Let flex handle it */
+                width: 100%;
+                overflow: hidden;
+            }
+
+            body {
+                height: 100dvh;
+                /* Use dynamic viewport height */
+            }
+        }
+    </style>
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="splash-screen">
+        <img src="assets/favicon.png" class="splash-logo">
+        <div class="splash-text">Confe</div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 1500); });
+
+
+
+        window.setUid = (uid) => {
+            const el = document.getElementById('dbg-uid');
+            if (uid) {
+                el.style.display = 'inline';
+                el.textContent = `UID: ${uid}`;
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        function copyDebug(el, type) {
+            const text = el.textContent.replace(type + ': ', '');
+            navigator.clipboard.writeText(text).then(() => {
+                const original = el.textContent;
+                el.textContent = "Copied!";
+                setTimeout(() => el.textContent = original, 1000);
+            });
+        }
+    </script>
+
+    <div class="sidebar" id="sidebar">
+        <div class="resizer" id="resizer"></div>
+        <div class="logo">
+            <img src="assets/favicon.png" alt="Logo"> Confe
+        </div>
+
+        <div class="nav-items" id="navItems">
+            <div class="nav-link active" onclick="loadPage('home.html', this)">
+                <i class='bx bxs-home'></i>
+                <span>Trang chủ</span>
+            </div>
+            <div class="nav-link" onclick="loadPage('chat.html', this)">
+                <i class='bx bxs-message-rounded-dots'></i>
+                <span>Trò chuyện</span>
+            </div>
+            <!-- News Removed -->
+            <div class="nav-link" onclick="loadPage('profile.html', this)">
+                <i class='bx bxs-user'></i>
+                <span>Tôi</span>
+            </div>
+        </div>
+
+        <!-- Footer Removed -->
+    </div>
+
+    <!-- ANNOUNCEMENT MODAL -->
+    <div id="modalAnnounce" class="modal"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:5000; align-items:center; justify-content:center; backdrop-filter:blur(5px);">
+        <div
+            style="background:white; width:90%; max-width:350px; border-radius:24px; padding:20px; text-align:center; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.3);">
+            <button onclick="document.getElementById('modalAnnounce').style.display='none'"
+                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer;">✕</button>
+            <img id="annImg" src=""
+                style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
+            <h3 style="margin-bottom:10px; font-size:18px;">📢 Thông báo</h3>
+            <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
+
+            <div style="margin-top:15px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
+                <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
+                <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
+                    nay</label>
+            </div>
+            <button onclick="closeAnnounce()"
+                style="margin-top:20px; width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
+                hiểu</button>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <iframe name="contentFrame" id="mainFrame" src="home.html"></iframe>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-remote-config.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const remoteConfig = getRemoteConfig(app);
+
+        // AUTH & SETUP CHECK
+        onAuthStateChanged(auth, async (u) => {
+            if (u) {
+                const snap = await getDoc(doc(db, "users", u.uid));
+                if (snap.exists()) {
+                    const data = snap.data();
+
+                }
+            }
+        });
+
+        // REMOTE CONFIG ANNOUNCEMENT
+        remoteConfig.settings.minimumFetchIntervalMillis = 3600;
+
+        window.closeAnnounce = () => {
+            if (document.getElementById('chkNoShow').checked) {
+                localStorage.setItem('ann_hide_date', new Date().toDateString());
+            }
+            document.getElementById('modalAnnounce').style.display = 'none';
+        }
+
+        fetchAndActivate(remoteConfig).then(() => {
+            const today = new Date().toDateString();
+            if (localStorage.getItem('ann_hide_date') === today) return; // SKIP IF HIDDEN TODAY
+            const val = getValue(remoteConfig, "announcement_data");
+            try {
+                const data = JSON.parse(val.asString());
+                if (data && data.show) {
+                    const modal = document.getElementById('modalAnnounce');
+                    const img = document.getElementById('annImg');
+                    const txt = document.getElementById('annText');
+
+                    if (data.image) { img.src = data.image; img.style.display = 'block'; }
+                    else { img.style.display = 'none'; }
+
+                    txt.textContent = data.text || "Thông báo từ hệ thống.";
+                    modal.style.display = 'flex';
+                }
+            } catch (e) { console.log("No announcement or parse error"); }
+        });
+
+        window.loadPage = function (url, el) {
+            document.getElementById('mainFrame').src = url;
+
+            // UI Active State
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            if (el) el.classList.add('active');
+        }
+
+        // SIDEBAR RESIZER LOGIC
+        const sidebar = document.getElementById('sidebar');
+        const resizer = document.getElementById('resizer');
+        const iframe = document.getElementById('mainFrame');
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            resizer.classList.add('dragging');
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+            iframe.style.pointerEvents = 'none'; // Prevent iframe from stealing events
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            let newWidth = e.clientX;
+
+            // Clamp values
+            if (newWidth < 180) newWidth = 180;
+            if (newWidth > 500) newWidth = 500;
+
+            sidebar.style.width = newWidth + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                resizer.classList.remove('dragging');
+                document.body.style.cursor = 'default';
+                document.body.style.userSelect = 'auto';
+                iframe.style.pointerEvents = 'auto'; // Re-enable iframe events
+            }
+        });
+    </script>
+</body>
+
+</html>

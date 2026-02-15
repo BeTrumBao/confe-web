@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-grad: linear-gradient(135deg, #0084ff, #00c6ff);
+            --bg: #f8fafc;
+            --surface: rgba(255, 255, 255, 0.85);
+            --text: #0f172a;
+            --text-light: #64748b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .bg-cover {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            filter: blur(30px) brightness(0.9);
+            transform: scale(1.2);
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            clip-path: ellipse(100% 100% at 50% 0%);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .profile-card {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .avt-box {
+            width: 110px;
+            height: 110px;
+            margin: -95px auto 15px;
+            position: relative;
+        }
+
+        .avt-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            background: white;
+        }
+
+        .btn-top {
+            position: absolute;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            color: var(--text-light);
+            transition: 0.2s;
+            z-index: 10;
+        }
+
+        .btn-top:hover {
+            transform: scale(1.1);
+            color: var(--primary);
+        }
+
+        .btn-settings {
+            right: 20px;
+        }
+
+        .btn-notifications {
+            right: 70px;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--danger);
+            border: 2px solid white;
+            border-radius: 50%;
+            display: none;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .user-handle {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            padding: 15px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .section-box {
+            text-align: left;
+            margin-top: 25px;
+        }
+
+        .sec-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bio-box {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .topic-grid {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .topic-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 18px;
+            background: white;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.2s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .topic-mini:hover {
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .tm-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .tm-info {
+            flex: 1;
+        }
+
+        .tm-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .tm-meta {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        /* MODALS */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: 0.3s;
+        }
+
+        .modal.active .box {
+            transform: translateY(0);
+        }
+
+        .close-x {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inp-group {
+            margin-bottom: 15px;
+        }
+
+        .inp-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .inp {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+
+        .inp:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 132, 255, 0.1);
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-grad);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
+        }
+
+        .request-item {
+            padding: 12px;
+            border: 1px solid #f1f5f9;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        .req-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-req {
+            flex: 1;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .btn-reject {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-cover" id="bgBlur"></div>
+    <div class="cover-overlay" id="bgCover"></div>
+
+    <style>
+        /* SKELETON CSS */
+        .sk-pulse {
+            background: #e2e8f0;
+            border-radius: 8px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        .p-sk-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sk-avt {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin-top: -80px;
+            border: 5px solid white;
+        }
+
+        .sk-line {
+            height: 20px;
+            width: 60%;
+            border-radius: 6px;
+        }
+
+        .sk-line.sm {
+            height: 14px;
+            width: 40%;
+        }
+
+        .sk-stats {
+            display: flex;
+            gap: 30px;
+            margin: 10px 0;
+        }
+
+        .sk-stat {
+            width: 60px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        /* SETTINGS MODAL CSS */
+        .tick {
+            color: #3b82f6;
+            margin-left: 6px;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+        }
+
+        .upload-btn:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+            color: var(--primary);
+        }
+
+        .upload-btn i {
+            font-size: 24px;
+        }
+
+        .upload-btn span {
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+
+    <!-- SKELETON LOADER -->
+    <div id="profileSkeleton" class="container">
+        <div class="p-sk-card">
+            <div class="sk-pulse sk-avt"></div>
+            <div class="sk-pulse sk-line" style="width:50%; height:28px;"></div>
+            <div class="sk-pulse sk-line sm"></div>
+            <div class="sk-pulse sk-stats">
+                <div class="sk-pulse sk-stat"></div>
+            </div>
+            <div style="width:100%; text-align:left; margin-top:20px;">
+                <div class="sk-pulse sk-line" style="width:30%; margin-bottom:10px;"></div>
+                <div class="sk-pulse sk-line" style="width:100%; height:80px; border-radius:15px;"></div>
+            </div>
+            <div style="width:100%; text-align:left; margin-top:20px;">
+                <div class="sk-pulse sk-line" style="width:30%; margin-bottom:10px;"></div>
+                <div class="sk-pulse sk-line" style="width:100%; height:60px; border-radius:18px; margin-bottom:10px;">
+                </div>
+                <div class="sk-pulse sk-line" style="width:100%; height:60px; border-radius:18px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REAL CONTENT -->
+    <div id="profileContent" class="container" style="display:none;">
+        <div class="profile-card">
+            <button class="btn-top" style="left:20px; right:auto;" onclick="history.back()">
+                <i class='bx bx-arrow-back'></i>
+            </button>
+            <button id="btnNotif" class="btn-top btn-notifications"
+                onclick="document.getElementById('modalNotif').classList.add('active')">
+                <i class='bx bxs-bell'></i>
+                <div id="notifBadge" class="notif-badge"></div>
+            </button>
+            <button id="btnSettings" class="btn-top btn-settings" style="display:none;">
+                <i class='bx bxs-cog'></i>
+            </button>
+
+            <div class="avt-box">
+                <img id="avt" src="https://via.placeholder.com/120" class="avt-img">
+            </div>
+
+            <h1 class="user-name" id="dName"></h1>
+            <div class="user-handle" id="dUser"></div>
+
+            <div class="stats-row">
+                <div class="stat-item"><span class="stat-val" id="topicCount">0</span><span
+                        class="stat-label">Topic</span></div>
+            </div>
+
+            <div class="section-box">
+                <span class="sec-title"><i class='bx bxs-quote-left'></i> Tiểu sử</span>
+                <div class="bio-box" id="dBio"></div>
+            </div>
+
+            <div class="section-box">
+                <span class="sec-title"><i class='bx bxs-rocket'></i> Topic đã tạo</span>
+                <div id="topicList" class="topic-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION MODAL -->
+    <div id="modalNotif" class="modal">
+        <div class="box">
+            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
+                    class='bx bx-x'></i></button>
+            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800;">🔔 Thông báo</h3>
+            <div id="reqList" style="max-height:400px; overflow-y:auto;">
+                <p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="modalConfirm" class="modal">
+        <div class="box" style="text-align:center; max-width:320px;">
+            <div style="font-size:48px; margin-bottom:10px;">👋</div>
+            <h3 style="margin-bottom:10px; font-size:18px;">Bạn chắc chứ?</h3>
+            <p style="color:#64748b; margin-bottom:20px;" id="confirmMsg">Bạn có chắc chắn muốn đăng xuất không?</p>
+            <div style="display:flex; gap:10px;">
+                <button id="btnConfirmYes" class="btn-main" style="background:var(--danger);">Đăng xuất</button>
+                <button onclick="document.getElementById('modalConfirm').classList.remove('active')" class="btn-main"
+                    style="background:#f1f5f9; color:#475569;">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="modalSettings" class="modal">
+        <div class="box">
+            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
+                    class='bx bx-x'></i></button>
+            <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ ✨</h3>
+
+            <div class="settings-grid">
+                <label class="upload-btn">
+                    <i class='bx bxs-camera'></i>
+                    <span>Đổi Avatar</span>
+                    <input type="file" id="fAvtFile" hidden accept="image/*">
+                </label>
+                <label class="upload-btn">
+                    <i class='bx bxs-image'></i>
+                    <span>Đổi Ảnh bìa</span>
+                    <input type="file" id="fCoverFile" hidden accept="image/*">
+                </label>
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">Username <span style="color:red; margin-left:4px;">*</span></label>
+                <div style="position:relative;">
+                    <i class='bx bx-at' style="position:absolute; left:14px; top:12px; color:#94a3b8;"></i>
+                    <input type="text" id="inpUser" class="inp" placeholder="username" style="padding-left:36px;">
+                </div>
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">Tên hiển thị <span style="color:red; margin-left:4px;">*</span></label>
+                <input type="text" id="inpName" class="inp" placeholder="Tên của bạn">
+            </div>
+
+            <div class="inp-group">
+                <label class="inp-label">Tiểu sử</label>
+                <textarea id="inpBio" class="inp" rows="3" style="resize:none"
+                    placeholder="Hãy nói gì đó về bạn..."></textarea>
+            </div>
+
+            <button onclick="document.getElementById('modalVerify').classList.add('active')"
+                style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <i class='bx bxs-check-circle'></i> Đăng ký tích xanh
+            </button>
+
+            <button id="btnSave" class="btn-main">Lưu thay đổi</button>
+            <button id="btnLogout"
+                style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
+                <i class='bx bx-log-out'></i> Đăng xuất
+            </button>
+        </div>
+    </div>
+
+    <div id="modalVerify" class="modal">
+        <div class="box" style="text-align:center;">
+            <div style="font-size:48px; margin-bottom:10px;">✨</div>
+            <h3 style="margin-bottom:10px; font-size:18px;">Đăng ký Verified</h3>
+            <div style="text-align:left; margin-bottom:15px;">
+                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Tên đầy
+                    đủ (Giữ tên)</label>
+                <input type="text" id="reqName" class="inp" placeholder="Ví dụ: Nguyễn Văn A"
+                    style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px; margin-bottom:10px;">
+
+                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Lý do
+                    cấp tick xanh</label>
+                <textarea id="reqReason" class="inp" placeholder="Vì sao bạn xứng đáng?" rows="3"
+                    style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px;"></textarea>
+            </div>
+            <button id="btnReqVerify" class="btn-main" onclick="reqVerify()">Gửi đơn đăng ký</button>
+            <button id="btnCloseVerify" onclick="document.getElementById('modalVerify').classList.remove('active')"
+                class="btn-main" style="background:#f1f5f9; color:#475569; margin-top:10px;">Đóng</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const app = initializeApp(cfg); const db = getFirestore(app); const auth = getAuth(app);
+
+        let targetUid = new URLSearchParams(window.location.search).get('uid');
+        let currentUser = null, userData = null;
+
+        window.showToast = (m) => {
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = m;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        onAuthStateChanged(auth, async (u) => {
+            currentUser = u;
+            if (!targetUid && u) targetUid = u.uid;
+            if (targetUid) {
+                loadProfile(targetUid);
+                if (u && u.uid === targetUid) listenToRequests(u.email);
+            } else { location.href = 'login.html'; }
+        });
+
+        let isSetupRequired = false;
+
+        window.closeSettings = () => {
+            if (isSetupRequired) return showToast("Vui lòng hoàn tất hồ sơ trước!", "⚠️");
+            document.getElementById('modalSettings').classList.remove('active');
+        }
+
+        async function loadProfile(uid) {
+            const snap = await getDoc(doc(db, "users", uid));
+            if (snap.exists()) {
+                userData = snap.data(); renderUI(userData, uid);
+
+                // CHECK SETUP
+                if (currentUser && currentUser.uid === uid && (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới")) {
+                    isSetupRequired = true;
+                    document.getElementById('modalSettings').classList.add('active');
+                    // Fill data if exists
+                    document.getElementById('inpName').value = (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới") ? "" : (userData.displayName || "");
+                    document.getElementById('inpUser').value = userData.username || "";
+                }
+
+                if (userData.email) loadTopics(userData.email);
+            } else if (currentUser && currentUser.uid === uid) {
+                // New user without doc (should not happen if registration works, but fallback)
+                userData = { displayName: "Cư dân mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
+                renderUI(userData, uid);
+                isSetupRequired = true;
+                document.getElementById('btnSettings').click();
+
+            }
+        }
+
+        // ... existing renderUI ...
+
+        // LISTENER/HANDLERS
+        document.getElementById('btnSave').onclick = async function () {
+            try {
+                this.textContent = "Đang lưu..."; this.disabled = true;
+
+                // DATA CHECK
+                if (!userData) throw new Error("Dữ liệu chưa tải xong. Vui lòng thử lại.");
+
+                // VALIDATION
+                const inpName = document.getElementById('inpName').value.trim();
+                const inpUser = document.getElementById('inpUser').value.trim();
+                const inpBio = document.getElementById('inpBio').value;
+
+                if (!inpName) throw new Error("Tên hiển thị không được để trống!");
+                if (!inpUser) throw new Error("Username không được để trống!");
+
+                // COOLDOWN CHECK
+                const now = Date.now();
+                const ONE_DAY = 86400000;
+
+                // USERNAME (30 DAYS)
+                if (userData.username && inpUser !== userData.username) {
+                    const lastChange = userData.lastUserChange?.toMillis() || 0;
+                    if (now - lastChange < 30 * ONE_DAY) {
+                        const daysLeft = Math.ceil((30 * ONE_DAY - (now - lastChange)) / ONE_DAY);
+                        throw new Error(`Bạn chỉ được đổi Username sau ${daysLeft} ngày nữa!`);
+                    }
+                }
+
+                // DISPLAY NAME (7 DAYS)
+                if (userData.displayName && inpName !== userData.displayName) {
+                    const lastChange = userData.lastNameChange?.toMillis() || 0;
+                    if (now - lastChange < 7 * ONE_DAY) {
+                        const daysLeft = Math.ceil((7 * ONE_DAY - (now - lastChange)) / ONE_DAY);
+                        throw new Error(`Bạn chỉ được đổi Tên sau ${daysLeft} ngày nữa!`);
+                    }
+                }
+
+                let nAvt = userData?.photoURL || "", nCov = userData?.coverURL || "";
+                if (document.getElementById('fAvtFile').files[0]) nAvt = await upload(document.getElementById('fAvtFile').files[0]);
+                if (document.getElementById('fCoverFile').files[0]) nCov = await upload(document.getElementById('fCoverFile').files[0]);
+
+                const updateData = {
+                    displayName: inpName,
+                    username: inpUser,
+                    bio: inpBio,
+                    photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
+                    is_setup: true
+                };
+
+                if (inpUser !== userData.username) updateData.lastUserChange = serverTimestamp();
+                if (inpName !== userData.displayName) updateData.lastNameChange = serverTimestamp();
+
+                console.log("Updating user:", updateData);
+                await updateDoc(doc(db, "users", currentUser.uid), updateData);
+
+                document.getElementById('btnSave').textContent = "Lưu thay đổi";
+                document.getElementById('btnSave').disabled = false;
+
+                isSetupRequired = false;
+                window.showToast("Cập nhật thành công!");
+                setTimeout(() => window.top.location.reload(), 500);
+
+            } catch (e) {
+                console.error(e);
+                let msg = e.message;
+                if (msg.includes("requires an index")) msg = "Hệ thống đang tạo index, thử lại sau.";
+                window.showToast("Lỗi: " + msg, "❌");
+                document.getElementById('btnSave').textContent = "Lưu thay đổi";
+                document.getElementById('btnSave').disabled = false;
+            }
+        }
+
+        // GLOBAL FILE INPUT TOAST
+        document.body.addEventListener('change', (e) => {
+            if (e.target.type === 'file' && e.target.files[0]) {
+                const f = e.target.files[0];
+                window.showToast(`📷 Đã chọn: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`);
+            }
+        });
+
+        document.getElementById('btnLogout').onclick = () => {
+            document.getElementById('modalConfirm').classList.add('active');
+        }
+
+        document.getElementById('btnConfirmYes').onclick = () => {
+            signOut(auth).then(() => window.top.location.href = 'index.html');
+        }
+        function renderUI(data, uid) {
+            document.getElementById('profileSkeleton').style.display = 'none';
+            document.getElementById('profileContent').style.display = 'block';
+
+            document.getElementById('dName').innerHTML = (data.displayName || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
+            document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
+            document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
+            document.getElementById('avt').src = data.photoURL || `https://ui-avatars.com/api/?name=${data.displayName || 'U'}&background=random`;
+            const bgUrl = data.coverURL || "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000";
+            document.getElementById('bgBlur').style.backgroundImage = `url('${bgUrl}')`;
+            document.getElementById('bgCover').style.backgroundImage = `url('${bgUrl}')`;
+
+            if (currentUser && currentUser.uid === uid) {
+                const btn = document.getElementById('btnSettings');
+                btn.style.display = 'flex';
+                btn.onclick = () => {
+                    document.getElementById('inpName').value = data.displayName || "";
+                    document.getElementById('inpBio').value = data.bio || "";
+                    document.getElementById('inpUser').value = data.username || "";
+                    document.getElementById('modalSettings').classList.add('active');
+                };
+            }
+
+            // Calc Online Days (Mock)
+            if (currentUser && currentUser.uid === uid) {
+                // Determine days based on account age for now? Or just mock 30 for testing?
+                // Let's check creationTime -> but that's auth metadata.
+                // We'll use a random number or check `userData.createdAt`.
+                // For demo/testing: If created > 1 day, assume 30 days.
+                const created = (userData.createdAt && typeof userData.createdAt.toDate === 'function') ? userData.createdAt.toDate().getTime() : Date.now();
+                const days = Math.floor((Date.now() - created) / (86400000)) + 1; // +1 to count today
+                // Mock 30 if > 0 for now as requested "if enough 30 days show button"
+                const daysMock = (days > 0) ? 30 : days;
+
+                // document.getElementById('daysOnline').textContent = daysMock;
+                // Always show button now as per request "bỏ cái chờ xét duyệt"
+                // if (daysMock >= 30 && !userData.isVerified) {
+                if (!userData.isVerified) {
+                    document.getElementById('btnReqVerify').style.display = 'inline-block';
+                }
+            }
+
+            // Hide Notif if visitor
+            if (currentUser && currentUser.uid !== uid) {
+                document.getElementById('btnNotif').style.display = 'none';
+            } else {
+                document.getElementById('btnNotif').style.display = 'flex';
+            }
+        }
+
+        async function loadTopics(email) {
+            const list = document.getElementById('topicList');
+            try {
+                const q = query(collection(db, "topics"), where("owner", "==", email));
+                const snap = await getDocs(q);
+                document.getElementById('topicCount').textContent = snap.size;
+                if (snap.empty) { list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:12px;">Bạn chưa tạo topic nào.</p>`; return; }
+                list.innerHTML = "";
+                snap.forEach(d => {
+                    const t = d.data();
+                    list.innerHTML += `
+                        <a href="detail.html?tid=${d.id}" class="topic-mini">
+                            <img src="${t.banner || 'https://via.placeholder.com/50'}" class="tm-img">
+                            <div class="tm-info"><div class="tm-title">${t.title}</div><div class="tm-meta">🔥 ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}</div></div>
+                            <i class='bx bx-chevron-right' style="color:#cbd5e1"></i>
+                        </a>`;
+                });
+            } catch { list.innerHTML = "<p>Lỗi tải danh sách.</p>"; }
+        }
+
+        function listenToRequests(email) {
+            const q = query(collection(db, "requests"), where("ownerEmail", "==", email), where("status", "==", "pending"));
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById('reqList');
+                const badge = document.getElementById('notifBadge');
+                if (snap.empty) {
+                    list.innerHTML = `<p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>`;
+                    badge.style.display = 'none';
+                    return;
+                }
+                badge.style.display = 'block';
+                list.innerHTML = "";
+                snap.forEach(d => {
+                    const r = d.data();
+                    const item = document.createElement('div');
+                    item.className = 'request-item';
+                    item.innerHTML = `
+                        <div style="font-weight:700; font-size:14px;">${r.tTitle}</div>
+                        <div style="font-size:13px; color:#64748b; margin:4px 0;">👤 <b>${r.userName}</b> xin tham gia</div>
+                        <div class="req-actions">
+                            <button class="btn-req btn-approve">Duyệt</button>
+                            <button class="btn-req btn-reject">Từ chối</button>
+                        </div>`;
+                    item.querySelector('.btn-approve').onclick = () => handleReq(d.id, r.tid, r.userName, r.deviceId, true);
+                    item.querySelector('.btn-reject').onclick = () => handleReq(d.id, r.tid, r.userName, r.deviceId, false);
+                    list.appendChild(item);
+                });
+            });
+        }
+
+        async function handleReq(rid, tid, name, devId, isApprove) {
+            try {
+                if (isApprove) {
+                    await updateDoc(doc(db, "topics", tid), { whitelist: arrayUnion({ name, deviceId: devId }) });
+                    await updateDoc(doc(db, "requests", rid), { status: 'approved' });
+                } else {
+                    await updateDoc(doc(db, "requests", rid), { status: 'rejected' });
+                }
+                window.showToast(isApprove ? "Đã duyệt!" : "Đã từ chối.");
+            } catch (e) { window.showToast("Lỗi xử lý."); }
+        }
+
+        async function upload(f) { const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; } }
+
+        // Removed Duplicate Handler
+
+
+        window.reqVerify = async () => {
+            const name = document.getElementById('reqName').value.trim();
+            const reason = document.getElementById('reqReason').value.trim();
+            if (!name || !reason) return window.showToast("Vui lòng nhập đầy đủ!", "⚠️");
+
+            document.getElementById('btnReqVerify').textContent = "Đang gửi...";
+            try {
+                await addDoc(collection(db, "requests"), {
+                    type: 'verify',
+                    uid: currentUser.uid,
+                    realName: name,
+                    reason: reason,
+                    currentDisplayName: userData.displayName,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+                window.showToast("Đã gửi đơn đăng ký!");
+                document.getElementById('modalVerify').classList.remove('active');
+            } catch (e) { window.showToast("Lỗi gửi request."); }
+            document.getElementById('btnReqVerify').textContent = "Gửi đơn đăng ký";
+        }
+
+        document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => window.top.location.href = 'index.html');
+    </script>
+</body>
+
+</html>

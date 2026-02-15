@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang tải...</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --danger: #ef4444;
+            --gray: #64748b;
+            --warn: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 50;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+
+        .header {
+            background: var(--surface);
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .cover {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #cbd5e1;
+        }
+
+        .info-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .avt {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--surface);
+            position: absolute;
+            top: -50px;
+            background: #fff;
+            object-fit: cover;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .info {
+            padding-top: 60px;
+        }
+
+        .cat-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .host-info {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .host-badge {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: var(--text);
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border: 2px solid #93c5fd;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .desc-icon {
+            font-size: 24px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .admin-gear {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 40;
+            display: none;
+        }
+
+        .btn-gear {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-gear:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .btn-gear.rotate-active {
+            transform: rotate(180deg);
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-gear.rotate-active svg {
+            fill: white;
+        }
+
+        .admin-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            width: 180px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            display: none;
+            border: 1px solid #e2e8f0;
+            transform-origin: top right;
+            animation: scaleIn 0.2s;
+        }
+
+        .admin-menu.show {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            background: #f8fafc;
+            color: var(--primary);
+        }
+
+        .menu-item.danger {
+            color: var(--danger);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .post {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .post:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .post.pinned {
+            border: 2px solid #fbbf24;
+            background: #fffbeb;
+            box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.3);
+        }
+
+        .pin-badge {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #fbbf24;
+            color: #78350f;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .post-avt {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-author {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .post-author:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .post-time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .post-content {
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+
+        .post-img {
+            width: 100%;
+            border-radius: 12px;
+            max-height: 500px;
+            object-fit: contain;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            cursor: zoom-in;
+        }
+
+        .post-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-pin {
+            color: #cbd5e1;
+        }
+
+        .btn-pin:hover {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .btn-pin.active {
+            color: #d97706;
+            transform: rotate(45deg);
+        }
+
+        .btn-edit {
+            color: #cbd5e1;
+        }
+
+        .btn-edit:hover {
+            background: #eff6ff;
+            color: var(--primary);
+        }
+
+        .btn-trash {
+            color: #cbd5e1;
+        }
+
+        .btn-trash:hover {
+            background: #fef2f2;
+            color: var(--danger);
+        }
+
+        .btn-report {
+            color: #cbd5e1;
+        }
+
+        .btn-report:hover {
+            background: #fffbeb;
+            color: var(--warn);
+        }
+
+        .post-footer {
+            border-top: 1px solid #f8fafc;
+            padding-top: 12px;
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reaction-bar {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray);
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: 0.1s;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .reaction-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .reaction-btn.active {
+            background: #e0f2fe;
+            color: var(--primary);
+            border-color: #bae6fd;
+            transform: scale(1.05);
+            font-weight: 800;
+        }
+
+        .preview-comments {
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .preview-item {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+
+        .preview-content-box {
+            flex: 1;
+        }
+
+        .preview-bubble {
+            background: #ffffff;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: inline-block;
+        }
+
+        .preview-name {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text);
+            display: block;
+            margin-bottom: 2px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .preview-name:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .preview-text {
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+            margin-left: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .btn-del-cmt {
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .btn-del-cmt:hover {
+            color: var(--danger);
+        }
+
+        .view-more-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .view-more-text:hover {
+            text-decoration: underline;
+            color: var(--primary);
+        }
+
+        .cmt-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .inline-comment-wrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 12px;
+            position: relative;
+        }
+
+        .inline-avt {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+        }
+
+        .inline-inp-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .inline-inp {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            background: #f1f5f9;
+            border: 1px solid transparent;
+            border-radius: 20px;
+            outline: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .inline-inp:focus {
+            background: white;
+            border-color: #cbd5e1;
+        }
+
+        .btn-send-comment {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .poll-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .poll-opt-btn {
+            position: relative;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.1s;
+            background: white;
+        }
+
+        .poll-opt-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .poll-opt-btn.voted {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .poll-opt-btn.voted .poll-text {
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .poll-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #dbeafe;
+            z-index: 1;
+            transition: width 0.3s ease-out;
+            opacity: 0.5;
+        }
+
+        .poll-text {
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .poll-meta {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .add-opt-btn {
+            width: 100%;
+            padding: 8px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            background: #f8fafc;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .fab-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 90;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .fab-wrapper {
+                bottom: 100px;
+                /* Clear the 75px tab bar */
+            }
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 20px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+            font-size: 24px;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        .fab-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-item {
+            background: white;
+            color: var(--text);
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            border: none;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .box {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+            border-radius: 20px;
+            transform: scale(0.95);
+            transition: 0.2s;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal.active .box {
+            transform: scale(1);
+        }
+
+        .inp-area {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .inp-text {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            outline: none;
+            background: white;
+        }
+
+        .btn-act {
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .file-ok {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 8px;
+            display: none;
+            background: #eff6ff;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skeleton {
+            background: #e2e8f0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .header-skeleton {
+            position: absolute;
+            inset: 0;
+            z-index: 30;
+            background: var(--bg);
+        }
+
+        .option-group-full {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            padding: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .policy-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-confirm-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+
+        .btn-confirm-ok {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-confirm-cancel {
+            background: #e2e8f0;
+            color: var(--text);
+        }
+
+        /* EDIT IMG PREVIEW */
+        .edit-img-preview {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            display: none;
+            object-fit: contain;
+            max-height: 200px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .edit-img-preview.show {
+            display: block;
+        }
+
+        /* IMAGE VIEWER */
+        .modal-img-viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-img-viewer.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .full-img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-img-viewer.active .full-img {
+            transform: scale(1);
+        }
+
+        .close-img-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .close-img-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* SECURITY MODAL */
+        .security-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .security-tab {
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .security-tab.active {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .sec-content {
+            display: none;
+        }
+
+        .sec-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+            margin-left: auto;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(16px);
+        }
+
+        /* ACCESS DENIED OVERLAY */
+        .access-denied-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .access-denied-overlay.active {
+            display: flex;
+        }
+
+        .lock-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .denied-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .denied-desc {
+            color: #64748b;
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        .otp-input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .otp-digit {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .otp-digit:focus {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="back-btn" onclick="location.href='home.html'">⬅</button>
+    <div class="header" id="topicHeader">
+        <div id="headerSkeleton" class="header-skeleton">
+            <div class="skeleton" style="height:250px;"></div>
+            <div class="info-wrap">
+                <div class="skeleton"
+                    style="width:100px; height:100px; border-radius:50%; position:absolute; top:-50px; background:white; border:4px solid white;">
+                </div>
+                <div class="info">
+                    <div class="skeleton"
+                        style="height:16px; width:80px; margin-left:auto; margin-bottom:8px; border-radius:4px;"></div>
+                    <div class="skeleton" style="height:30px; width:70%; margin-top:20px; border-radius:6px;"></div>
+                </div>
+            </div>
+        </div>
+        <img id="banner" class="cover" src="">
+        <div id="adminGear" class="admin-gear">
+            <button id="btnGear" class="btn-gear">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path
+                        d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.04.17 0 .36.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.04-.22 0-.45-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                </svg>
+            </button>
+            <div id="adminMenu" class="admin-menu">
+                <div id="btnEditTopic" class="menu-item">✏️ Sửa thông tin</div>
+                <div id="btnSecurity" class="menu-item">🛡️ Cài đặt bảo mật</div>
+                <div id="btnDeleteTopic" class="menu-item danger">🗑️ Xóa Topic này</div>
+            </div>
+        </div>
+        <div class="info-wrap">
+            <img id="logo" class="avt" src="">
+            <div class="info">
+                <div id="catBadge"></div>
+                <h1 id="title" class="title">Đang tải...</h1>
+                <div class="host-info"><span class="host-badge">HOST</span><span id="hostName">...</span></div>
+                <div id="desc" class="desc">
+                    <div class="desc-icon">📜</div>
+                    <div id="descContent">...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="list"></div>
+    <div class="fab-wrapper" id="fabWrapper">
+        <button id="fab" class="fab">+</button>
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-item" id="btnCreatePoll">📊 Tạo Khảo sát</button>
+            <button class="fab-item" id="btnCreateConfession">📝 Viết Confession</button>
+        </div>
+    </div>
+
+    <div id="modalPost" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:16px; font-size:20px;">Viết Confession</h3>
+            <div id="guestNameInput" style="margin-bottom: 16px; display: none;">
+                <input type="text" id="guestName" class="inp-text"
+                    placeholder="Tên bạn muốn hiển thị (Bỏ trống = Ẩn danh)">
+            </div>
+            <textarea id="content" class="inp-area" rows="5" placeholder="Bạn đang nghĩ gì?"></textarea>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <label id="btnUploadImg" class="btn-act">📷 Chọn ảnh <input type="file" id="fImg" hidden></label>
+                <label class="btn-act"
+                    style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <input type="checkbox" id="chkAnon" checked> 🕵️ Ẩn danh
+                </label>
+            </div>
+            <div id="fileMsg" class="file-ok">✅ Đã chọn ảnh</div>
+            <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
+                <input type="checkbox" id="chkTermsPost" style="margin-top:3px; cursor:pointer;">
+                <label for="chkTermsPost" style="color:var(--text-secondary); cursor:pointer;">
+                    Tôi đồng ý với <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
+                        onclick="event.preventDefault(); document.getElementById('modalTerms').classList.add('active')">Quy
+                        định</span>. Tôi chịu trách nhiệm hoàn toàn về nội dung mình tạo ra.
+                </label>
+            </div>
+            <button id="btnSubmitPost" class="btn-main">Đăng Bài</button>
+            <button onclick="document.getElementById('modalPost').classList.remove('active')"
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Hủy
+                bỏ</button>
+        </div>
+    </div>
+
+    <div id="modalEditPost" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:16px;">✏️ Chỉnh sửa bài viết</h3>
+            <textarea id="editPostContent" class="inp-area" rows="5"></textarea>
+
+            <img id="editImgPreview" class="edit-img-preview" src="">
+
+            <div style="display:grid; grid-template-columns:1fr; gap:12px;">
+                <label class="btn-act" style="text-align:center;">
+                    📷 Đổi ảnh khác (hoặc thêm ảnh) <input type="file" id="editPostFile" hidden>
+                </label>
+            </div>
+            <div id="editFileMsg" class="file-ok">✅ Đã chọn ảnh mới</div>
+
+            <button id="btnSubmitEdit" class="btn-main">Lưu thay đổi</button>
+            <button onclick="document.getElementById('modalEditPost').classList.remove('active')"
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+        </div>
+    </div>
+
+    <div id="modalPoll" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:16px; font-size:20px;">Tạo cuộc khảo sát</h3>
+            <div id="pollGuestInput" style="margin-bottom: 16px; display: none;">
+                <input type="text" id="pollGuestName" class="inp-text" placeholder="Tên hiển thị (Bỏ trống = Ẩn danh)">
+            </div>
+            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">Câu
+                hỏi</label>
+            <input type="text" id="pollQuestion" class="inp-text" placeholder="Bạn muốn hỏi gì?">
+            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">Các lựa
+                chọn</label>
+            <div id="pollOptionsContainer">
+                <input type="text" class="inp-text poll-opt-inp" placeholder="Lựa chọn 1">
+                <input type="text" class="inp-text poll-opt-inp" placeholder="Lựa chọn 2">
+            </div>
+            <button onclick="window.addPollOption()" class="add-opt-btn">+ Thêm lựa chọn</button>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+                <input type="checkbox" id="chkAnonPoll" checked style="width:16px; height:16px;">
+                <label for="chkAnonPoll" style="font-weight:600; font-size:14px;">Đăng ẩn danh</label>
+            </div>
+            <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
+                <input type="checkbox" id="chkTermsPoll" style="margin-top:3px; cursor:pointer;">
+                <label for="chkTermsPoll" style="color:var(--text-secondary); cursor:pointer;">
+                    Tôi đồng ý với <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
+                        onclick="event.preventDefault(); document.getElementById('modalTerms').classList.add('active')">Quy
+                        định</span>. Tôi chịu trách nhiệm hoàn toàn về nội dung mình tạo ra.
+                </label>
+            </div>
+            <button id="btnSubmitPoll" class="btn-main">Tạo Khảo Sát</button>
+            <button onclick="document.getElementById('modalPoll').classList.remove('active')"
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Hủy
+                bỏ</button>
+        </div>
+    </div>
+
+    <div id="modalAllComments" class="modal">
+        <div class="box" style="max-width: 650px;">
+            <button onclick="document.getElementById('modalAllComments').classList.remove('active')"
+                style="position:absolute; top:15px; right:15px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;">✕</button>
+            <h3 class="modal-title" style="font-size:20px; margin-bottom:10px;">💬 Tất cả Bình luận</h3>
+            <div id="allCommentsList" style="max-height: 500px; overflow-y: auto; padding-right: 10px;"></div>
+        </div>
+    </div>
+
+    <div id="modalEdit" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:16px;">Chỉnh sửa Topic</h3>
+            <label style="font-size:12px; font-weight:700; color:#64748b">Tên Topic</label>
+            <input type="text" id="editTitle" class="inp-text">
+            <label style="font-size:12px; font-weight:700; color:#64748b; margin-top:10px; display:block;">Thể
+                loại</label>
+            <select id="editCat" class="inp-text" style="background:white">
+                <option value="life">🍃 Đời thường</option>
+                <option value="drama">🔥 Drama</option>
+                <option value="love">❤️ Tình yêu</option>
+                <option value="school">📚 Học đường</option>
+                <option value="game">🎮 Game</option>
+            </select>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                <label class="btn-up">📷 Đổi Bìa <input type="file" id="editBanner" hidden></label>
+                <label class="btn-up">🖼️ Đổi Logo <input type="file" id="editLogo" hidden></label>
+            </div>
+            <label style="font-size:12px; font-weight:700; color:#64748b">Nội quy / Mô tả</label>
+            <textarea id="editRules" class="inp-area" rows="3"></textarea>
+            <h4 style="font-size:14px; font-weight:700; color:var(--primary); margin-top:15px; margin-bottom:10px;">Tùy
+                chọn đăng bài</h4>
+            <div class="option-group-full">
+                <label class="option-item"><span>Trạng thái Topic</span><select id="editStatus"
+                        style="border:none; background:none; font-weight:600; color:var(--text); cursor:pointer;">
+                        <option value="open">🔓 Mở</option>
+                        <option value="closed">🔒 Đóng</option>
+                    </select></label>
+                <label class="option-item"><span>Ai được đăng Confession</span><select id="editPostRule"
+                        style="border:none; background:none; font-weight:600; color:var(--text); cursor:pointer;">
+                        <option value="all">Mọi người</option>
+                        <option value="logged">Chỉ đăng nhập</option>
+                    </select></label>
+                <label class="option-item"><span>Cho phép tải ảnh</span><input type="checkbox" id="editAllowImg"
+                        style="width:18px; height:18px;"></label>
+            </div>
+            <button id="btnSaveTopic" class="btn-main">Lưu thay đổi</button>
+            <button onclick="document.getElementById('modalEdit').classList.remove('active')"
+                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+        </div>
+    </div>
+
+    <div id="modalReport" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:8px;">🚩 Báo cáo bài viết</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo.</p>
+            <select id="rReason" class="inp-text" style="cursor:pointer">
+                <option>Nội dung thô tục / Phản cảm</option>
+                <option>Spam / Quảng cáo rác</option>
+                <option>Bắt nạt / Quấy rối</option>
+                <option>Thông tin sai lệch</option>
+            </select>
+            <button id="btnSendReport" class="btn-main" style="background:var(--warn);">Gửi Báo Cáo</button>
+            <button onclick="document.getElementById('modalReport').classList.remove('active')"
+                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+        </div>
+    </div>
+
+    <div id="modalConfirmAction" class="modal">
+        <div class="box" style="max-width:350px; text-align:center;">
+            <div style="font-size:30px; margin-bottom:10px;">🤔</div>
+            <div class="modal-title">Xác nhận</div>
+            <div class="modal-desc" id="confirmMsg">Bạn có chắc chắn không?</div>
+            <div class="modal-actions">
+                <button id="btnConfirmYes" class="btn-confirm-modal btn-confirm-ok">Đồng ý</button>
+                <button onclick="document.getElementById('modalConfirmAction').classList.remove('active')"
+                    class="btn-confirm-modal btn-confirm-cancel">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalImageViewer" class="modal-img-viewer">
+        <button class="close-img-btn"
+            onclick="document.getElementById('modalImageViewer').classList.remove('active')">✕</button>
+        <img id="fullImage" class="full-img" src="">
+    </div>
+
+    <div id="modalSecurity" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:20px;">🛡️ Cài đặt bảo mật</h3>
+            <div class="security-tabs">
+                <div class="security-tab active" onclick="switchSecTab('otp')">Mật khẩu (OTP) <span
+                        style="background:var(--primary-container); color:var(--primary); font-size:10px; padding:2px 6px; border-radius:4px; margin-left:4px;">Recommended</span>
+                </div>
+                <div class="security-tab" onclick="switchSecTab('whitelist')">Duyệt thành viên <span
+                        style="background:#f1f5f9; color:#64748b; font-size:10px; padding:2px 6px; border-radius:4px; margin-left:4px;">Beta</span>
+                </div>
+            </div>
+
+            <!-- OTP SETTINGS -->
+            <div id="tab-otp" class="sec-content active">
+                <div class="option-item" style="margin-bottom:15px;">
+                    <span>Kích hoạt OTP</span>
+                    <label class="switch">
+                        <input type="checkbox" id="secOtpEnabled" onchange="toggleOtpConfig()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div id="otpConfig"
+                    style="display:none; padding:15px; background:#f8fafc; border-radius:12px; margin-bottom:15px;">
+                    <label class="inp-label"
+                        style="display:block; margin-bottom:5px; font-weight:600; font-size:13px;">Mã OTP (4-6
+                        số)</label>
+                    <input type="text" id="secOtpCode" class="inp-text" placeholder="VD: 123456" maxlength="6">
+                    <label class="inp-label"
+                        style="display:block; margin-bottom:5px; font-weight:600; font-size:13px;">Hết hạn sau
+                        (ngày)</label>
+                    <input type="number" id="secOtpExpires" class="inp-text" value="30">
+                </div>
+            </div>
+
+            <!-- WHITELIST SETTINGS -->
+            <div id="tab-whitelist" class="sec-content">
+                <div class="option-item" style="margin-bottom:15px;">
+                    <span>Kích hoạt Duyệt thành viên</span>
+                    <label class="switch">
+                        <input type="checkbox" id="secWhitelistEnabled" onchange="toggleWhitelistConfig()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div id="whitelistConfig" style="display:none;">
+                    <p style="font-size:13px; color:#64748b; margin-bottom:10px;">Những người trong danh sách này mới
+                        xem được Topic.</p>
+                    <div id="whitelistItems"
+                        style="max-height:200px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:8px; padding:10px; margin-bottom:10px;">
+                        <!-- Items go here -->
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="newWlName" class="inp-text" placeholder="Tên thành viên"
+                            style="margin-bottom:0">
+                        <button onclick="addWhitelistItem()" class="btn-act" style="width:auto; white-space:nowrap;">+
+                            Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnSaveSecurity" class="btn-main" style="margin-top:20px;">Lưu Cài Đặt</button>
+            <button onclick="document.getElementById('modalSecurity').classList.remove('active')"
+                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Đóng</button>
+        </div>
+    </div>
+
+    <!-- ACCESS DENIED OVERLAY -->
+    <div id="overlayAccessDenied" class="access-denied-overlay">
+        <div class="lock-icon">🔒</div>
+        <h2 class="denied-title" id="deniedTitle">Topic Riêng Tư</h2>
+        <p class="denied-desc" id="deniedDesc">Topic này yêu cầu mật khẩu hoặc quyền truy cập để xem nội dung.</p>
+
+        <!-- OTP FORM -->
+        <div id="formOtp" style="display:none; flex-direction:column; align-items:center;">
+            <div class="otp-input-group">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+                <input type="text" class="otp-digit" maxlength="1" oninput="focusNext(this)">
+            </div>
+
+        </div>
+
+        <!-- REQUEST FORM -->
+        <div id="formRequest" style="display:none; flex-direction:column; align-items:center;">
+            <input type="text" id="reqName" class="inp-text" placeholder="Nhập tên bạn..."
+                style="width:300px; text-align:center;">
+            <button id="btnSendRequest" class="btn-main" style="width:200px;">Gửi Yêu Cầu</button>
+            <p style="font-size:12px; color:#64748b; margin-top:10px;">Chủ Topic sẽ duyệt yêu cầu của bạn.</p>
+        </div>
+
+        <button onclick="location.href='home.html'"
+            style="margin-top:20px; background:none; border:none; color:#64748b; cursor:pointer; font-weight:600;">Quay
+            lại trang chủ</button>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, doc, getDoc, updateDoc, deleteDoc, increment, getDocs, runTransaction, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // CONFIG
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+
+        // APP INIT
+        const app = initializeApp(cfg);
+        const db = getFirestore(app);
+        enableIndexedDbPersistence(db).catch((err) => { });
+        const auth = getAuth(app);
+
+        // VARIABLES
+        const urlParams = new URLSearchParams(window.location.search);
+        const tid = urlParams.get('tid') || urlParams.get('id');
+        let currentUser = null;
+        let topicData = null;
+        let userData = null;
+        let activePostId = null;
+        let editingPostId = null;
+        let currentEditingImg = "";
+        let userReactions = {};
+        let userVotes = {};
+        let reportTargetId = null;
+
+        // CONSTANTS - AVATARS
+        const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
+        const MISSING_AVATAR = "https://cdn-icons-png.flaticon.com/512/847/847969.png"; // Icon dau cham hoi
+
+        // if (!tid) location.href = 'index.html';
+
+        // HELPER FUNCTIONS
+        window.showToast = (msg, icon = "✅") => {
+            const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        window.showCustomConfirm = (msg, callback) => {
+            document.getElementById('confirmMsg').textContent = msg;
+            document.getElementById('modalConfirmAction').classList.add('active');
+            const yesBtn = document.getElementById('btnConfirmYes');
+
+            // Clone to remove old event listeners
+            const newYesBtn = yesBtn.cloneNode(true);
+            yesBtn.parentNode.replaceChild(newYesBtn, yesBtn);
+
+            newYesBtn.onclick = () => {
+                callback();
+                document.getElementById('modalConfirmAction').classList.remove('active');
+            }
+        }
+
+        window.handleProfileClick = (uid) => {
+            if (!uid || uid === 'null' || uid === 'undefined') {
+                window.showToast("Đây là tài khoản ẩn danh!", "🕵️");
+            } else {
+                location.href = `profile.html?uid=${uid}`;
+            }
+        }
+
+        function getCurrentUserAvatar() {
+            if (currentUser && userData && userData.photoURL) {
+                return userData.photoURL;
+            }
+            if (currentUser) {
+                return MISSING_AVATAR;
+            }
+            return ANON_AVATAR;
+        }
+
+        // AUTH LISTENER
+        onAuthStateChanged(auth, async (u) => {
+            currentUser = u;
+            if (u) {
+                const uDoc = await getDoc(doc(db, "users", u.uid));
+                if (uDoc.exists()) {
+                    userData = uDoc.data();
+                    document.querySelectorAll('.inline-avt').forEach(img => {
+                        img.src = getCurrentUserAvatar();
+                    });
+                }
+            }
+            checkAdmin();
+        });
+
+        // LOAD TOPIC
+        const headerSkeleton = document.getElementById('headerSkeleton');
+        headerSkeleton.style.display = 'block';
+        getDoc(doc(db, "topics", tid)).then(d => {
+            headerSkeleton.style.display = 'none';
+            if (d.exists()) {
+                topicData = d.data();
+                document.title = "Confession " + topicData.title;
+                document.getElementById('title').textContent = topicData.title;
+                document.getElementById('descContent').textContent = topicData.rules || "Chưa có nội quy.";
+                document.getElementById('banner').src = topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?';
+                document.getElementById('logo').src = topicData.logo || 'https://placehold.co/100/ffffff/64748b?text=?';
+                document.getElementById('hostName').textContent = topicData.owner ? topicData.owner.split('@')[0] : "Admin";
+
+                const catMap = { 'drama': ['#fee2e2', '#b91c1c', 'DRAMA 🔥'], 'love': ['#fce7f3', '#be185d', 'TÌNH YÊU ❤️'], 'school': ['#dbeafe', '#1d4ed8', 'HỌC ĐƯỜNG 📚'], 'game': ['#dcfce7', '#15803d', 'GAME 🎮'], 'life': ['#f3f4f6', '#4b5563', 'ĐỜI THƯỜNG 🍃'] };
+                const c = catMap[topicData.category] || catMap['life'];
+                document.getElementById('catBadge').innerHTML = `<span class="cat-tag" style="background:${c[0]}; color:${c[1]}">${c[2]}</span>`;
+
+                checkAdmin();
+                if (!checkAccess()) return; // Stop if access denied
+                checkPostPermission();
+                loadPosts();
+                loadPosts();
+            } else {
+                console.error("Topic not found or permission denied. ID:", tid);
+                // alert("Debug: Topic không tồn tại! ID: " + tid); 
+                // Don't auto redirect for now, just show toast
+                window.showToast("Lỗi: Topic không tồn tại hoặc đã bị xóa!");
+                // location.href = 'index.html'; 
+            }
+        });
+
+        function checkAdmin() {
+            if (currentUser && topicData && currentUser.email === topicData.owner) {
+                document.getElementById('adminGear').style.display = 'block';
+            }
+        }
+
+        function checkPostPermission(triggerByClick = false) {
+            if (!topicData) return false;
+            const fab = document.getElementById('fab');
+            const status = topicData.status || 'open';
+            const rule = topicData.postRule || 'all';
+
+            if (status === 'closed') {
+                if (triggerByClick) window.showToast("🔒 Topic đang tạm đóng.", "🔒");
+                fab.style.display = 'none'; return false;
+            }
+            if (rule === 'logged' && !currentUser) {
+                if (triggerByClick) window.showToast("🚫 Topic này cần đăng nhập.", "🚫");
+                fab.style.display = 'none'; return false;
+            }
+
+            fab.style.display = 'flex';
+            const guestInput = document.getElementById('guestNameInput');
+            const pollGuestInput = document.getElementById('pollGuestInput');
+
+            if (!currentUser) {
+                guestInput.style.display = 'block'; pollGuestInput.style.display = 'block';
+                document.querySelectorAll('.policy-check').forEach(e => e.style.display = 'flex');
+            } else {
+                guestInput.style.display = 'none'; pollGuestInput.style.display = 'none';
+                document.querySelectorAll('.policy-check').forEach(e => e.style.display = 'none');
+            }
+
+            const btnUploadImg = document.getElementById('btnUploadImg');
+            if (topicData.allowImages === false) btnUploadImg.style.display = 'none';
+            else btnUploadImg.style.display = 'flex';
+
+            return true;
+        }
+
+        // ADMIN EVENTS (GEAR EFFECT)
+        document.getElementById('btnGear').onclick = (e) => {
+            e.stopPropagation();
+            const gear = document.getElementById('btnGear');
+            const menu = document.getElementById('adminMenu');
+            gear.classList.toggle('rotate-active');
+            menu.classList.toggle('show');
+        }
+        window.onclick = (e) => {
+            if (!document.getElementById('btnGear').contains(e.target)) {
+                document.getElementById('adminMenu').classList.remove('show');
+                document.getElementById('btnGear').classList.remove('rotate-active');
+            }
+        }
+
+        document.getElementById('btnEditTopic').onclick = () => {
+            document.getElementById('editTitle').value = topicData.title;
+            document.getElementById('editRules').value = topicData.rules;
+            document.getElementById('editCat').value = topicData.category || 'life';
+            document.getElementById('editStatus').value = topicData.status || 'open';
+            document.getElementById('editPostRule').value = topicData.postRule || 'all';
+            document.getElementById('editAllowImg').checked = topicData.allowImages !== false;
+            document.getElementById('modalEdit').classList.add('active');
+        }
+
+        async function up(f) {
+            const d = new FormData(); d.append("image", f);
+            try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; }
+        }
+
+        document.getElementById('btnSaveTopic').onclick = async function () {
+            this.textContent = "Đang lưu...";
+            let nb = topicData.banner, nl = topicData.logo;
+            const fb = document.getElementById('editBanner').files[0], fl = document.getElementById('editLogo').files[0];
+            if (fb) nb = await up(fb); if (fl) nl = await up(fl);
+            await updateDoc(doc(db, "topics", tid), {
+                title: document.getElementById('editTitle').value, rules: document.getElementById('editRules').value, category: document.getElementById('editCat').value,
+                banner: nb, logo: nl, status: document.getElementById('editStatus').value, postRule: document.getElementById('editPostRule').value, allowImages: document.getElementById('editAllowImg').checked
+            });
+            window.showToast("Đã cập nhật Topic!"); location.reload();
+        }
+
+        document.getElementById('btnDeleteTopic').onclick = () => {
+            window.showCustomConfirm("Xóa vĩnh viễn Topic này?", async () => {
+                await deleteDoc(doc(db, "topics", tid));
+                window.showToast("Đã xóa!", "🗑️"); setTimeout(() => location.href = 'index.html', 1000);
+            });
+        }
+
+        // FAB EVENTS
+        const fab = document.getElementById('fab');
+        const fabMenu = document.getElementById('fabMenu');
+        const fabWrapper = document.getElementById('fabWrapper');
+        fabWrapper.onmouseenter = () => fabMenu.classList.add('show');
+        fabWrapper.onmouseleave = () => fabMenu.classList.remove('show');
+        fab.onclick = (e) => { e.stopPropagation(); fabMenu.classList.toggle('show'); }
+        document.getElementById('btnCreateConfession').onclick = () => { if (checkPostPermission(true)) document.getElementById('modalPost').classList.add('active'); fabMenu.classList.remove('show'); }
+        document.getElementById('btnCreatePoll').onclick = () => { if (checkPostPermission(true)) document.getElementById('modalPoll').classList.add('active'); fabMenu.classList.remove('show'); }
+        document.getElementById('fImg').onchange = (e) => { const f = e.target.files[0]; const msg = document.getElementById('fileMsg'); if (f) { msg.style.display = 'block'; msg.textContent = `✅ ${f.name}`; } else msg.style.display = 'none'; }
+
+        // SUBMIT POST
+        document.getElementById('btnSubmitPost').onclick = async function () {
+            const txt = document.getElementById('content').value;
+            if (!document.getElementById('chkTermsPost').checked) return window.showToast("Bạn chưa đồng ý quy định!", "⚠️");
+            if (!txt) return window.showToast("Viết gì đi!", "⚠️");
+            document.getElementById('modalPost').classList.remove('active');
+            document.getElementById('content').value = "";
+            document.getElementById('fileMsg').style.display = 'none';
+            let img = ""; const f = document.getElementById('fImg').files[0];
+            if (f && topicData.allowImages !== false) img = await up(f);
+
+            let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
+            if (currentUser) {
+                userAvt = userData?.photoURL || MISSING_AVATAR;
+                name = userData?.displayName || currentUser.email.split('@')[0];
+                authorUid = currentUser.uid;
+            } else {
+                const gn = document.getElementById('guestName').value.trim();
+                if (gn) name = gn;
+            }
+            if (document.getElementById('chkAnon').checked) { name = "Ẩn danh"; authorUid = null; userAvt = ANON_AVATAR; }
+
+            addDoc(collection(db, "posts"), { tid, content: txt, image: img, author: name, authorUid: authorUid, authorAvatar: userAvt, createdAt: serverTimestamp(), reactions: { heart: 0, sad: 0, laugh: 0 }, type: 'text', pinned: false, is_agree_terms: true })
+                .then(() => { updateDoc(doc(db, "topics", tid), { heat: increment(5) }); });
+        };
+
+        // SUBMIT POLL
+        window.addPollOption = () => {
+            const c = document.getElementById('pollOptionsContainer');
+            if (c.children.length >= 5) return window.showToast("Tối đa 5 lựa chọn", "⚠️");
+            const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'inp-text poll-opt-inp'; inp.placeholder = `Lựa chọn ${c.children.length + 1}`; c.appendChild(inp);
+        }
+
+        document.getElementById('btnSubmitPoll').onclick = async function () {
+            const q = document.getElementById('pollQuestion').value.trim();
+            if (!document.getElementById('chkTermsPoll').checked) return window.showToast("Bạn chưa đồng ý quy định!", "⚠️");
+            if (!q) return window.showToast("Nhập câu hỏi!", "⚠️");
+            let opts = {}; let has = false;
+            document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => { const v = i.value.trim(); if (v) { opts[`opt_${idx}`] = { text: v, count: 0 }; has = true; } });
+            if (!has) return window.showToast("Nhập lựa chọn!", "⚠️");
+            document.getElementById('modalPoll').classList.remove('active');
+
+            let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
+            if (currentUser) {
+                userAvt = userData?.photoURL || MISSING_AVATAR;
+                name = userData?.displayName || currentUser.email.split('@')[0];
+                authorUid = currentUser.uid;
+            } else {
+                const gn = document.getElementById('pollGuestName').value.trim();
+                if (gn) name = gn;
+            }
+            if (document.getElementById('chkAnonPoll').checked) { name = "Ẩn danh"; authorUid = null; userAvt = ANON_AVATAR; }
+
+            addDoc(collection(db, "posts"), { tid, content: q, author: name, authorUid: authorUid, authorAvatar: userAvt, createdAt: serverTimestamp(), reactions: { heart: 0, sad: 0, laugh: 0 }, type: 'poll', pollOptions: opts, totalVotes: 0, pinned: false, is_agree_terms: true })
+                .then(() => { updateDoc(doc(db, "topics", tid), { heat: increment(5) }); });
+        }
+
+        // EDIT POST LOGIC (WITH IMAGE & POLL CHECK)
+        window.openEditPost = (pid, type, imgUrl) => {
+            if (type === 'poll') {
+                return window.showToast("Không thể sửa khảo sát (để bảo đảm tính công bằng)!", "🚫");
+            }
+
+            editingPostId = pid;
+            currentEditingImg = imgUrl || "";
+            const content = document.querySelector(`#post-${pid} .post-content`).textContent;
+
+            document.getElementById('editPostContent').value = content;
+            document.getElementById('editPostFile').value = ""; // Reset file input
+            document.getElementById('editFileMsg').style.display = 'none';
+
+            // Show current image preview if exists
+            const imgPreview = document.getElementById('editImgPreview');
+            if (currentEditingImg) {
+                imgPreview.src = currentEditingImg;
+                imgPreview.classList.add('show');
+            } else {
+                imgPreview.src = "";
+                imgPreview.classList.remove('show');
+            }
+
+            document.getElementById('modalEditPost').classList.add('active');
+        }
+
+        // Handle File Selection in Edit Modal
+        document.getElementById('editPostFile').onchange = (e) => {
+            const f = e.target.files[0];
+            if (f) {
+                document.getElementById('editFileMsg').style.display = 'block';
+                const imgPreview = document.getElementById('editImgPreview');
+                imgPreview.src = URL.createObjectURL(f);
+                imgPreview.classList.add('show');
+            }
+        }
+
+        document.getElementById('btnSubmitEdit').onclick = async function () {
+            this.textContent = "Đang lưu...";
+            this.disabled = true;
+
+            const newContent = document.getElementById('editPostContent').value;
+            if (!newContent) {
+                this.textContent = "Lưu thay đổi";
+                this.disabled = false;
+                return window.showToast("Nội dung không được để trống!", "⚠️");
+            }
+
+            // Handle Image Upload logic
+            let finalImgUrl = currentEditingImg;
+            const newFile = document.getElementById('editPostFile').files[0];
+
+            if (newFile) {
+                finalImgUrl = await up(newFile);
+            }
+
+            await updateDoc(doc(db, "posts", editingPostId), {
+                content: newContent,
+                image: finalImgUrl
+            });
+
+            document.getElementById('modalEditPost').classList.remove('active');
+            window.showToast("Đã cập nhật bài viết!", "✏️");
+            this.textContent = "Lưu thay đổi";
+            this.disabled = false;
+        }
+
+        // VOTE POLL LOGIC
+        window.votePoll = async (pid, key) => {
+            if (!currentUser) return window.showToast("Đăng nhập để vote!", "🚫");
+            if (userVotes[pid] === key) return;
+
+            const optBtn = document.getElementById(`poll-${pid}-${key}`);
+            const meta = document.querySelector(`#post-${pid} .poll-meta`);
+
+            if (optBtn) {
+                optBtn.classList.add('voted');
+                const txtPct = optBtn.querySelector('.poll-text span:last-child');
+                if (txtPct) {
+                    txtPct.style.fontWeight = "bold";
+                    txtPct.style.color = "var(--primary)";
+                }
+            }
+            if (meta) {
+                let currentTotal = parseInt(meta.textContent) || 0;
+                meta.textContent = `${currentTotal + 1} lượt chọn`;
+            }
+
+            const voteRef = doc(db, "posts", pid, "votes", currentUser.uid);
+            const postRef = doc(db, "posts", pid);
+            runTransaction(db, async (t) => {
+                const vDoc = await t.get(voteRef); const pDoc = await t.get(postRef);
+                let opts = pDoc.data().pollOptions; let total = pDoc.data().totalVotes;
+                if (vDoc.exists()) {
+                    const old = vDoc.data().option;
+                    if (old === key) return;
+                    opts[old].count = Math.max(0, opts[old].count - 1);
+                    opts[key].count++;
+                    t.update(voteRef, { option: key });
+                } else {
+                    opts[key].count++; total++;
+                    t.set(voteRef, { option: key });
+                }
+                t.update(postRef, { pollOptions: opts, totalVotes: total });
+                userVotes[pid] = key;
+            }).catch(e => { });
+        }
+
+        // REACTION LOGIC
+        window.handleReaction = async (pid, type) => {
+            if (!currentUser) return window.showToast("Cần đăng nhập!", "🚫");
+            const btn = document.getElementById(`btn-react-${pid}-${type}`);
+
+            if (btn) {
+                if (btn.classList.contains('active')) {
+                    btn.classList.remove('active');
+                    let txt = btn.textContent.split(" ");
+                    btn.innerHTML = `${txt[0]} ${Math.max(0, parseInt(txt[1]) - 1)}`;
+                } else {
+                    const parent = btn.parentElement;
+                    const currentActive = parent.querySelector('.reaction-btn.active');
+                    if (currentActive) {
+                        currentActive.classList.remove('active');
+                        let txtOld = currentActive.textContent.split(" ");
+                        currentActive.innerHTML = `${txtOld[0]} ${Math.max(0, parseInt(txtOld[1]) - 1)}`;
+                    }
+                    btn.classList.add('active');
+                    let txt = btn.textContent.split(" ");
+                    btn.innerHTML = `${txt[0]} ${parseInt(txt[1]) + 1}`;
+                }
+            }
+
+            const reactionRef = doc(db, "posts", pid, "user_reactions", currentUser.uid);
+            const postRef = doc(db, "posts", pid);
+            runTransaction(db, async (transaction) => {
+                const reactionDoc = await transaction.get(reactionRef);
+                const postDoc = await transaction.get(postRef);
+                if (!postDoc.exists()) throw "Bài viết không tồn tại!";
+                let reactions = postDoc.data().reactions || { heart: 0, sad: 0, laugh: 0 };
+                if (reactionDoc.exists()) {
+                    const oldType = reactionDoc.data().type;
+                    if (oldType === type) {
+                        reactions[oldType] = Math.max(0, reactions[oldType] - 1);
+                        transaction.delete(reactionRef);
+                    } else {
+                        reactions[oldType] = Math.max(0, reactions[oldType] - 1);
+                        reactions[type] = (reactions[type] || 0) + 1;
+                        transaction.update(reactionRef, { type: type });
+                    }
+                } else {
+                    reactions[type] = (reactions[type] || 0) + 1;
+                    transaction.set(reactionRef, { type: type });
+                }
+                transaction.update(postRef, { reactions: reactions });
+            }).catch(e => { });
+        };
+
+        window.viewImage = (src) => {
+            if (!src) return;
+            document.getElementById('fullImage').src = src;
+            document.getElementById('modalImageViewer').classList.add('active');
+        }
+
+        // PIN POST LOGIC (REPLACED CONFIRM)
+        window.togglePin = async (pid, isPinned) => {
+            const msg = isPinned ? "Bỏ ghim bài viết này?" : "Ghim bài viết này lên đầu?";
+            window.showCustomConfirm(msg, async () => {
+                await updateDoc(doc(db, "posts", pid), { pinned: !isPinned });
+                window.showToast(isPinned ? "Đã bỏ ghim" : "Đã ghim bài viết", "📌");
+            });
+        }
+
+        // LOAD POSTS LIST
+        function loadPosts() {
+            onSnapshot(query(collection(db, "posts"), where("tid", "==", tid)), async (s) => {
+                const scrollY = window.scrollY;
+                const list = document.getElementById('list');
+
+                let postsData = [];
+                s.forEach(doc => postsData.push({ id: doc.id, ...doc.data() }));
+
+                if (postsData.length === 0) { list.innerHTML = `<div style="text-align:center; padding:60px; color:var(--gray);">Chưa có bài viết.</div>`; return; }
+
+                postsData.sort((a, b) => {
+                    // Pinned priority (True > False)
+                    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+
+                    // Then by createdAt DESC (Newest first)
+                    const timeA = a.createdAt ? a.createdAt.toMillis() : Date.now();
+                    const timeB = b.createdAt ? b.createdAt.toMillis() : Date.now();
+                    return timeB - timeA;
+                });
+
+                const postIds = postsData.map(p => p.id);
+
+                if (currentUser) {
+                    postIds.forEach(pid => {
+                        getDoc(doc(db, "posts", pid, "user_reactions", currentUser.uid)).then(d => {
+                            if (d.exists()) {
+                                userReactions[pid] = d.data().type;
+                                const b = document.getElementById(`btn-react-${pid}-${d.data().type}`); if (b) b.classList.add('active');
+                            }
+                        });
+                        getDoc(doc(db, "posts", pid, "votes", currentUser.uid)).then(d => {
+                            if (d.exists()) {
+                                const k = d.data().option;
+                                userVotes[pid] = k;
+                                const b = document.getElementById(`poll-${pid}-${k}`); if (b) b.classList.add('voted');
+                            }
+                        })
+                    });
+                }
+
+                const commentsQuery = query(collection(db, "comments"), where("pid", "in", postIds), orderBy("createdAt", "asc"));
+                onSnapshot(commentsQuery, cSnap => {
+                    const allComments = []; cSnap.forEach(d => allComments.push({ id: d.id, ...d.data() }));
+                    const htmls = [];
+
+                    postsData.forEach(data => {
+                        const pid = data.id;
+                        const pComments = allComments.filter(c => c.pid === pid);
+                        const totalCmt = pComments.length;
+                        const previewComments = pComments.slice(-3);
+                        const isMine = currentUser && data.authorUid === currentUser.uid;
+                        const isAdmin = currentUser && topicData && currentUser.email === topicData.owner;
+                        const imgUrl = data.image || "";
+
+                        let trashBtn = (isMine || isAdmin) ? `<button class="btn-icon btn-trash" onclick="window.deletePost('${pid}')">🗑️</button>` : '';
+                        let editBtn = (isMine) ? `<button class="btn-icon btn-edit" onclick="window.openEditPost('${pid}', '${data.type}', '${imgUrl}')">✏️</button>` : '';
+                        let reportBtn = `<button class="btn-icon btn-report" onclick="window.openReport('${pid}')">🚩</button>`;
+                        let pinBtn = isAdmin ? `<button class="btn-icon btn-pin ${data.pinned ? 'active' : ''}" onclick="window.togglePin('${pid}', ${data.pinned})">📌</button>` : '';
+
+                        let pinBadge = data.pinned ? `<div class="pin-badge">📌 Đã ghim</div>` : '';
+                        let pinClass = data.pinned ? 'pinned' : '';
+
+                        let contentBody = `<div class="post-content">${data.content}</div>`;
+                        if (data.type === 'poll' && data.pollOptions) {
+                            let pollHtml = ''; const total = data.totalVotes || 0;
+                            for (const [key, val] of Object.entries(data.pollOptions)) {
+                                const pct = total === 0 ? 0 : Math.round((val.count / total) * 100);
+                                pollHtml += `<div class="poll-opt-btn" id="poll-${pid}-${key}" onclick="window.votePoll('${pid}', '${key}')"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
+                            }
+                            contentBody += `<div class="poll-container">${pollHtml}<div class="poll-meta">${total} lượt chọn</div></div>`;
+                        } else if (data.image) {
+                            contentBody += `<img src="${data.image}" class="post-img" onclick="window.viewImage('${data.image}')">`;
+                        }
+
+                        const r = data.reactions || { heart: 0, sad: 0, laugh: 0 };
+                        let previewHtml = '';
+                        if (previewComments.length > 0) {
+                            previewHtml = `<div class="preview-comments">`;
+                            if (totalCmt > 3) {
+                                previewHtml += `<span class="view-more-text" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})">Xem tất cả ${totalCmt} bình luận...</span>`;
+                            }
+                            previewComments.forEach(c => {
+                                const isMineCmt = currentUser && c.authorUid === currentUser.uid;
+                                const delBtn = (isMineCmt || isAdmin) ? `<span class="btn-del-cmt" onclick="window.deleteComment('${c.id}')">Xóa</span>` : '';
+                                previewHtml += `
+                                    <div class="preview-item">
+                                        <img src="${c.authorAvt}" style="width:28px; height:28px; border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                        <div class="preview-content-box">
+                                            <div class="preview-bubble">
+                                                <span class="preview-name" onclick="window.handleProfileClick('${c.authorUid}')">${c.author}</span>
+                                                <span class="preview-text">${c.content}</span>
+                                            </div>
+                                            <div class="preview-actions">
+                                                <span>${timeAgo(c.createdAt)}</span>
+                                                ${delBtn}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            previewHtml += `</div>`;
+                        }
+
+                        htmls.push(`
+                            <div class="post ${pinClass}" id="post-${pid}">
+                                ${pinBadge}
+                                <div class="post-actions">${pinBtn}${editBtn}${reportBtn}${trashBtn}</div>
+                                <div class="post-header">
+                                    <img src="${data.authorAvatar}" class="post-avt" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                    <div class="post-info"><span class="post-author" onclick="window.handleProfileClick('${data.authorUid}')">${data.author}</span><span class="post-time">${timeAgo(data.createdAt)}</span></div>
+                                </div>
+                                ${contentBody}
+                                <div class="post-footer">
+                                    <div class="reaction-bar">
+                                        <div class="reaction-btn" id="btn-react-${pid}-heart" onclick="window.handleReaction('${pid}', 'heart')">❤️ ${r.heart}</div>
+                                        <div class="reaction-btn" id="btn-react-${pid}-sad" onclick="window.handleReaction('${pid}', 'sad')">😭 ${r.sad}</div>
+                                        <div class="reaction-btn" id="btn-react-${pid}-laugh" onclick="window.handleReaction('${pid}', 'laugh')">😂 ${r.laugh}</div>
+                                        <span onclick="window.openAllCommentsModal('${pid}', ${totalCmt})" style="margin-left:auto; font-size:12px; color:var(--gray); cursor:pointer;">${totalCmt} bình luận</span>
+                                    </div>
+                                    ${previewHtml}
+                                    <div class="inline-comment-wrap">
+                                        <img src="${getCurrentUserAvatar()}" class="inline-avt" onerror="this.src='${MISSING_AVATAR}'">
+                                        <div class="inline-inp-box">
+                                            <input type="text" id="inp-${pid}" class="inline-inp" placeholder="Viết bình luận..." onkeydown="if(event.key==='Enter') window.sendInlineComment('${pid}', 'inp-${pid}')">
+                                            <button class="btn-send-comment" onclick="window.sendInlineComment('${pid}', 'inp-${pid}')">➢</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                    list.innerHTML = htmls.join('');
+                    if (scrollY > 0) window.scrollTo(0, scrollY);
+                    checkAdmin();
+                });
+            });
+        }
+
+        // COMMENT LOGIC
+        window.sendInlineComment = async (pid, inpId) => {
+            if (!currentUser) return window.showToast("Đăng nhập đi!", "🚫");
+            const inp = document.getElementById(inpId); const txt = inp.value.trim();
+            if (!txt) return;
+            inp.value = '';
+
+            let userIp = "unknown";
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                userIp = ipData.ip;
+            } catch (e) { console.warn("IP fetch failed"); }
+
+            const payload = {
+                pid,
+                author: userData?.displayName || currentUser.email.split('@')[0],
+                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                authorUid: currentUser.uid,
+                content: txt,
+                ip: userIp,
+                createdAt: serverTimestamp()
+            };
+            addDoc(collection(db, "comments"), payload);
+        }
+
+        window.openAllCommentsModal = (pid, total) => {
+            activePostId = pid;
+            const box = document.getElementById('allCommentsList');
+            box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Đang tải...</div>`;
+            getDocs(query(collection(db, "comments"), where("pid", "==", pid), orderBy("createdAt", "asc"))).then(s => {
+                const comments = [];
+                s.forEach(d => comments.push({ id: d.id, ...d.data() }));
+                let html = '';
+                const renderRow = (c) => {
+                    const isMineCmt = currentUser && c.authorUid === currentUser.uid;
+                    const isAdmin = currentUser && topicData && currentUser.email === topicData.owner;
+                    const delBtn = (isMineCmt || isAdmin) ? `<span style="color:var(--danger); cursor:pointer;" onclick="window.deleteComment('${c.id}')">Xóa</span>` : '';
+                    return `
+                        <div class="cmt-row">
+                            <img src="${c.authorAvt}" style="width:30px;height:30px;border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                            <div style="flex:1">
+                                <div style="background:#f1f5f9; padding:8px 12px; border-radius:12px">
+                                    <div style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${c.author}</div>
+                                    <div style="font-size:14px; color:#334155">${c.content}</div>
+                                </div>
+                                <div style="display:flex; gap:12px; margin-top:4px; font-size:11px; font-weight:600; color:var(--gray); margin-left:2px;">
+                                    <span>${timeAgo(c.createdAt)}</span>
+                                    ${delBtn}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                if (comments.length === 0) {
+                    box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Chưa có bình luận.</div>`;
+                } else {
+                    comments.forEach(c => {
+                        html += renderRow(c);
+                    });
+                    box.innerHTML = html;
+                }
+                document.getElementById('modalAllComments').classList.add('active');
+            });
+        }
+
+        window.deleteComment = async (cid) => {
+            window.showCustomConfirm("Xóa bình luận này?", async () => {
+                await deleteDoc(doc(db, "comments", cid));
+                if (document.getElementById('modalAllComments').classList.contains('active') && activePostId) {
+                    window.openAllCommentsModal(activePostId, 0);
+                }
+            });
+        }
+
+        window.deletePost = async (pid) => {
+            window.showCustomConfirm("Xóa bài viết vĩnh viễn?", async () => {
+                await deleteDoc(doc(db, "posts", pid));
+            });
+        }
+        window.openReport = (pid) => { reportTargetId = pid; document.getElementById('modalReport').classList.add('active'); }
+
+        document.getElementById('btnSendReport').onclick = async function () {
+            if (!reportTargetId) return;
+            const reason = document.getElementById('rReason').value;
+            this.textContent = "Đang gửi...";
+            try {
+                await addDoc(collection(db, "reports"), {
+                    targetId: reportTargetId,
+                    targetType: 'post',
+                    reason: reason,
+                    reporter: currentUser ? currentUser.email : "Anonymous",
+                    tid: tid,
+                    createdAt: serverTimestamp()
+                });
+                window.showToast("Đã gửi báo cáo!");
+                document.getElementById('modalReport').classList.remove('active');
+            } catch (e) { window.showToast("Lỗi gửi báo cáo!"); }
+            this.textContent = "Gửi Báo Cáo";
+        }
+        window.timeAgo = (date) => { if (!date) return "Vừa xong"; const s = Math.floor((new Date() - date.toDate()) / 1000); if (s < 60) return "Vừa xong"; const m = Math.floor(s / 60); if (m < 60) return `${m} phút trước`; const h = Math.floor(m / 60); if (h < 24) return `${h} giờ trước`; return `${Math.floor(h / 24)} ngày trước`; }
+        // OPEN SECURITY MODAL
+        window.openSecurityModal = () => {
+            // Populate fields from different vars if needed, but here we use topicData
+            if (!topicData) return;
+            const sec = topicData.securityMode || 'none';
+            const whitelist = topicData.whitelist || [];
+
+            // Reset tabs
+            switchSecTab('otp');
+
+            // Set OTP values
+            document.getElementById('secOtpEnabled').checked = (sec === 'otp');
+            toggleOtpConfig();
+            document.getElementById('secOtpCode').value = topicData.otpCode || "";
+            document.getElementById('secOtpExpires').value = topicData.otpExpires || 30;
+
+            // Set Whitelist values
+            document.getElementById('secWhitelistEnabled').checked = (sec === 'whitelist');
+            toggleWhitelistConfig();
+            renderWhitelist(whitelist);
+
+            document.getElementById('modalSecurity').classList.add('active');
+            document.getElementById('adminMenu').classList.remove('show');
+            document.getElementById('btnGear').classList.remove('rotate-active');
+        }
+
+        document.getElementById('btnSecurity').onclick = window.openSecurityModal;
+
+        // SECURITY TABS & TOGGLES
+        window.switchSecTab = (tab) => {
+            document.querySelectorAll('.security-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sec-content').forEach(c => c.classList.remove('active'));
+
+            // Find tab by text content is hard, so we used explicit onclick with string arg
+            // Re-implementing logic based on the passed string 'otp' or 'whitelist'
+            const tabButtons = document.querySelectorAll('.security-tab');
+            if (tab === 'otp') { tabButtons[0].classList.add('active'); document.getElementById('tab-otp').classList.add('active'); }
+            else { tabButtons[1].classList.add('active'); document.getElementById('tab-whitelist').classList.add('active'); }
+        }
+
+        window.toggleOtpConfig = () => {
+            const c = document.getElementById('secOtpEnabled').checked;
+            document.getElementById('otpConfig').style.display = c ? 'block' : 'none';
+            if (c) document.getElementById('secWhitelistEnabled').checked = false; // logic: exclusive
+            toggleWhitelistConfig();
+        }
+
+        window.toggleWhitelistConfig = () => {
+            const c = document.getElementById('secWhitelistEnabled').checked;
+            document.getElementById('whitelistConfig').style.display = c ? 'block' : 'none';
+            if (c) document.getElementById('secOtpEnabled').checked = false; // logic: exclusive
+            // We don't call toggleOtpConfig here to avoid infinite loop, just hide it manually if needed, 
+            // but better relies on the checked state check in save.
+            if (c) document.getElementById('otpConfig').style.display = 'none';
+        }
+
+        // WHITELIST LOGIC
+        let tempWhitelist = [];
+        function renderWhitelist(list) {
+            tempWhitelist = [...list];
+            const div = document.getElementById('whitelistItems');
+            div.innerHTML = tempWhitelist.map((i, idx) => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom:1px solid #f1f5f9;">
+                    <div style="font-size:14px; font-weight:600;">${i.name} <span style="font-size:10px; color:#94a3b8;">(${i.deviceId ? 'Device Bound' : 'No ID'})</span></div>
+                    <button onclick="removeWhitelistItem(${idx})" style="color:red; background:none; border:none; cursor:pointer;">✕</button>
+                </div>
+            `).join('');
+        }
+
+        window.removeWhitelistItem = (idx) => {
+            tempWhitelist.splice(idx, 1);
+            renderWhitelist(tempWhitelist);
+        }
+
+        window.addWhitelistItem = () => {
+            const name = document.getElementById('newWlName').value.trim();
+            if (!name) return;
+            tempWhitelist.push({ name: name, deviceId: null }); // Null deviceId means added manually, might need 1st login to bind? Or strict name?
+            // For this version, let's assume manual add = name matching only OR prompt user logic. 
+            // Better: Manual add simply adds name. First person to claim it gets it? Or no device check for manual adds?
+            // Let's stick to Name-based for manual adds, but store deviceId if available (requests)
+            document.getElementById('newWlName').value = "";
+            renderWhitelist(tempWhitelist);
+        }
+
+        // SAVE SECURITY SETTINGS
+        document.getElementById('btnSaveSecurity').onclick = async function () {
+            this.textContent = "Đang lưu...";
+            const useOtp = document.getElementById('secOtpEnabled').checked;
+            const useWl = document.getElementById('secWhitelistEnabled').checked;
+
+            let mode = 'none';
+            let otp = "", expire = 30;
+
+            if (useOtp) {
+                mode = 'otp';
+                otp = document.getElementById('secOtpCode').value;
+                expire = document.getElementById('secOtpExpires').value;
+                if (!otp) return window.showToast("Chưa nhập mã OTP!", "⚠️");
+            } else if (useWl) {
+                mode = 'whitelist';
+            }
+
+            await updateDoc(doc(db, "topics", tid), {
+                securityMode: mode,
+                otpCode: otp,
+                otpExpires: expire,
+                whitelist: tempWhitelist
+            });
+
+            window.showToast("Đã lưu bảo mật!");
+            location.reload();
+        }
+
+        // if (!tid) location.href = 'index.html'; // Old redirect, handled by alert logic if needed or removed entirely as user satisfied.
+        if (!tid) {
+            // Silently fail or show toast if needed, but alert was annoying. 
+            console.error("No TID found");
+        }
+
+        // CHECK ACCESS LOGIC
+        function checkAccess() {
+            // 1. If Owner -> Pass
+            if (currentUser && topicData.owner === currentUser.email) return true;
+
+            const mode = topicData.securityMode || 'none';
+            if (mode === 'none') return true;
+
+            const overlay = document.getElementById('overlayAccessDenied');
+            const dTitle = document.getElementById('deniedTitle');
+            const dDesc = document.getElementById('deniedDesc');
+            const fOtp = document.getElementById('formOtp');
+            const fReq = document.getElementById('formRequest');
+
+            // Get Device ID
+            // Get Device ID
+            let deviceId = localStorage.getItem('confe_device_id');
+            if (!deviceId) {
+                if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+                    deviceId = crypto.randomUUID();
+                } else {
+                    deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                        return v.toString(16);
+                    });
+                }
+                localStorage.setItem('confe_device_id', deviceId);
+            }
+
+            if (mode === 'otp') {
+                // Check if blocked
+                const blockTime = localStorage.getItem(`confe_otp_block_${tid}`);
+                if (blockTime && Date.now() < parseInt(blockTime)) {
+                    const hrsLeft = Math.ceil((parseInt(blockTime) - Date.now()) / (3600 * 1000));
+                    overlay.classList.add('active');
+                    dTitle.textContent = "Tạm khóa truy cập";
+                    dDesc.textContent = `Bạn đã nhập sai OTP quá nhiều lần. Vui lòng thử lại sau ${hrsLeft} giờ.`;
+                    fOtp.style.display = 'none'; fReq.style.display = 'none';
+                    return false;
+                }
+
+                // Check if OTP verified in localStorage
+                const storedOtp = localStorage.getItem(`otp_${tid}`);
+                if (storedOtp === topicData.otpCode) return true;
+
+                // Show OTP Form
+                overlay.classList.add('active');
+                dTitle.textContent = "Nhập OTP";
+                dDesc.textContent = "Topic này yêu cầu mã mật khẩu.";
+                fOtp.style.display = 'flex'; fReq.style.display = 'none';
+                return false;
+            }
+
+            if (mode === 'whitelist') {
+                // Check Whitelist
+                const wl = topicData.whitelist || [];
+                // Check if user is in whitelist (Name + DeviceID match OR Name + Null DeviceID -> Bind it?)
+                // Simplest: Check if (Name + DeviceID) exists.
+                // If not, Show Request Form.
+
+                // BUT: How do we know the user's NAME if they aren't logged in? 
+                // We don't. We rely on the "Request" they sent previously.
+                // So we check if THIS deviceId is in the whitelist.
+
+                const found = wl.find(u => u.deviceId === deviceId);
+                if (found) return true;
+
+                overlay.classList.add('active');
+                dTitle.textContent = "Hạn Chế Truy Cập";
+                dDesc.textContent = "Topic này chỉ dành cho thành viên được duyệt.";
+                fOtp.style.display = 'none'; fReq.style.display = 'flex';
+                return false;
+            }
+
+            return true;
+        }
+
+        // OTP INPUT LOGIC
+        // OTP INPUT LOGIC
+        window.focusNext = (ele) => {
+            if (ele.value.length === 1) {
+                const next = ele.nextElementSibling;
+                if (next) {
+                    next.focus();
+                } else {
+                    ele.blur(); // Optional: Hide keyboard
+                    window.submitOtp();
+                }
+            }
+        }
+
+        window.submitOtp = () => {
+            const blockTime = localStorage.getItem(`confe_otp_block_${tid}`);
+            if (blockTime && Date.now() < parseInt(blockTime)) return window.showToast("Bạn đang bị khóa tạm thời!", "🚫");
+
+            const inputs = document.querySelectorAll('.otp-digit');
+            let code = ""; inputs.forEach(i => code += i.value);
+            if (code === topicData.otpCode) {
+                localStorage.removeItem(`confe_otp_fail_${tid}`);
+                localStorage.removeItem(`confe_otp_block_${tid}`);
+                localStorage.setItem(`otp_${tid}`, code);
+                location.reload();
+            } else {
+                let fails = parseInt(localStorage.getItem(`confe_otp_fail_${tid}`) || "0") + 1;
+                localStorage.setItem(`confe_otp_fail_${tid}`, fails);
+
+                if (fails >= 3) {
+                    localStorage.setItem(`confe_otp_block_${tid}`, Date.now() + 24 * 60 * 60 * 1000); // 24h
+                    window.showToast("Bạn đã bị khóa 24h do nhập sai 3 lần!", "🚫");
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    window.showToast(`Sai mã OTP! Còn ${3 - fails} lần thử.`, "⚠️");
+                    inputs.forEach(i => i.value = "");
+                    inputs[0].focus();
+                }
+            }
+        }
+
+        // REQUEST ACCESS LOGIC
+        document.getElementById('btnSendRequest').onclick = async function () {
+            const name = document.getElementById('reqName').value.trim();
+            if (!name) return window.showToast("Nhập tên của bạn!", "⚠️");
+
+            this.textContent = "Đang gửi...";
+            this.disabled = true;
+
+            let deviceId = localStorage.getItem('confe_device_id');
+
+            try {
+                await addDoc(collection(db, "requests"), {
+                    tid: tid,
+                    tTitle: topicData.title,
+                    ownerEmail: topicData.owner,
+                    userName: name,
+                    deviceId: deviceId,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+                window.showToast("Đã gửi yêu cầu! Chờ duyệt nhé.");
+                document.getElementById('formRequest').innerHTML = `<p style="color:#059669; font-weight:700;">✅ Đã gửi yêu cầu. Vui lòng chờ chủ Topic duyệt.</p>`;
+            } catch (e) {
+                window.showToast("Lỗi gửi yêu cầu.");
+                this.textContext = "Gửi Yêu Cầu"; this.disabled = false;
+            }
+        }
+    </script>
+    <div id="modalTerms" class="modal" style="z-index:2000;">
+        <div class="box">
+            <h3 style="margin-bottom:20px;">📜 Quy định Đăng bài</h3>
+            <div
+                style="max-height:60vh; overflow-y:auto; margin-bottom:20px; font-size:14px; color:var(--text-secondary); line-height:1.6;">
+                <p style="margin-bottom:10px;">1. <b>Nội dung cấm:</b> Không đăng tải nội dung vi phạm pháp luật, đồi
+                    trụy, phản động, hoặc trái với thuần phong mỹ tục Việt Nam.</p>
+                <p style="margin-bottom:10px;">2. <b>Tôn trọng:</b> Không xúc phạm, công kích, quấy rối cá nhân hoặc tổ
+                    chức khác.</p>
+                <p style="margin-bottom:10px;">3. <b>Spam:</b> Không spam, quảng cáo trái phép, lừa đảo.</p>
+                <p style="margin-bottom:10px;">4. <b>Trách nhiệm:</b> Bạn chịu hoàn toàn trách nhiệm pháp lý về nội dung
+                    mình đăng tải.</p>
+                <p style="margin-bottom:10px;">5. <b>Quyền hạn:</b> Admin có quyền xóa bài viết và chặn tài khoản vĩnh
+                    viễn nếu phát hiện vi phạm.</p>
+            </div>
+            <button onclick="document.getElementById('modalTerms').classList.remove('active')" class="btn-main">Đã
+                hiểu</button>
+        </div>
+    </div>
+</body>
+
+</html>

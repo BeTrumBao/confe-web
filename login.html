@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Confe</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%);
+            --text: #0f172a;
+            --gray: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px -10px rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 400px;
+            transition: width 0.4s ease-in-out;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            height: auto;
+        }
+
+        .auth-container.register-mode {
+            width: 850px;
+        }
+
+        .form-side {
+            flex: 1;
+            padding: 40px;
+            min-width: 400px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-side {
+            width: 0;
+            opacity: 0;
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s ease-in-out;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .auth-container.register-mode .info-side {
+            width: 450px;
+            opacity: 1;
+            padding: 40px;
+        }
+
+        .logo-wrap {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px;
+            background: white;
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .inp-group {
+            margin-bottom: 15px;
+        }
+
+        .inp-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .inp {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background: #f8fafc;
+            transition: 0.2s;
+        }
+
+        .inp:focus {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+            font-size: 15px;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            background: #1d4ed8;
+        }
+
+        .switch-text {
+            text-align: center;
+            font-size: 13px;
+            margin-top: 20px;
+            color: var(--gray);
+        }
+
+        .switch-btn {
+            color: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .perk-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .perk-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .perk-icon {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .perk-text h4 {
+            margin: 0 0 2px 0;
+            font-size: 15px;
+        }
+
+        .perk-text p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container" id="container">
+        <div class="form-side">
+            <div class="logo-wrap">
+                <img src="assets/favicon.png" alt="Logo" class="logo-img"
+                    onerror="this.src='https://placehold.co/100?text=C'">
+            </div>
+
+            <div id="formLogin">
+                <div class="title">Chào mừng trở lại! 👋</div>
+                <div class="subtitle">Đăng nhập để vào chém gió nào.</div>
+
+                <div class="inp-group">
+                    <label class="inp-label">Email hoặc Username</label>
+                    <input type="text" id="lEmail" class="inp" placeholder="user123 hoặc email@domain.com">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="lPass" class="inp" placeholder="••••••••">
+                </div>
+                <button id="btnLogin" class="btn-main">Đăng Nhập</button>
+                <div class="switch-text">Chưa có tài khoản? <span class="switch-btn"
+                        onclick="toggleMode('register')">Đăng ký ngay</span></div>
+            </div>
+
+            <div id="formRegister" class="hidden">
+                <div class="title">Tạo tài khoản mới 🚀</div>
+                <div class="subtitle">Tham gia cộng đồng ngay hôm nay.</div>
+
+                <div class="inp-group">
+                    <label class="inp-label">Username hoặc Email</label>
+                    <input type="text" id="rEmail" class="inp" placeholder="Đặt tên cho ngầu nào...">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="rPass" class="inp" placeholder="Ít nhất 6 ký tự">
+                </div>
+                <div class="inp-group">
+                    <label class="inp-label">Nhập lại mật khẩu</label>
+                    <input type="password" id="rPassConfirm" class="inp" placeholder="Nhập lại cho chắc">
+                </div>
+                <button id="btnReg" class="btn-main">Đăng Ký</button>
+                <div class="switch-text">Đã có tài khoản? <span class="switch-btn" onclick="toggleMode('login')">Đăng
+                        nhập</span></div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <a href="index.html" style="text-decoration:none; font-size:12px; color:#94a3b8;">← Về trang chủ</a>
+            </div>
+        </div>
+
+        <div class="info-side">
+            <h2 style="font-size:24px; margin-bottom:30px;">Đặc quyền thành viên ✨</h2>
+            <ul class="perk-list">
+                <li class="perk-item">
+                    <div class="perk-icon">🕵️</div>
+                    <div class="perk-text">
+                        <h4>Ẩn danh tuyệt đối</h4>
+                        <p>Thoải mái chia sẻ không lo lộ danh tính.</p>
+                    </div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">👑</div>
+                    <div class="perk-text">
+                        <h4>Làm chủ Topic</h4>
+                        <p>Tự tạo và quản lý sân chơi riêng.</p>
+                    </div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">💬</div>
+                    <div class="perk-text">
+                        <h4>Tương tác thả ga</h4>
+                        <p>Bình luận, thả tim, hóng drama.</p>
+                    </div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">💎</div>
+                    <div class="perk-text">
+                        <h4>Phòng Chat VIP</h4>
+                        <p>Tham gia phòng chat xịn xò, đẳng cấp.</p>
+                    </div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">📊</div>
+                    <div class="perk-text">
+                        <h4>Tạo Bình Chọn</h4>
+                        <p>Thăm dò ý kiến, xem trend cộng đồng.</p>
+                    </div>
+                </li>
+                <li class="perk-item">
+                    <div class="perk-icon">🎨</div>
+                    <div class="perk-text">
+                        <h4>Tùy biến Hồ Sơ</h4>
+                        <p>Xây dựng thương hiệu cá nhân độc chất.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.showToast = (msg, icon = "🔔") => {
+            const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
+            document.getElementById('toastContainer').appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        window.toggleMode = (mode) => {
+            const container = document.getElementById('container');
+            const fLogin = document.getElementById('formLogin');
+            const fReg = document.getElementById('formRegister');
+
+            if (mode === 'register') {
+                container.classList.add('register-mode');
+                setTimeout(() => { fLogin.classList.add('hidden'); fReg.classList.remove('hidden'); }, 150);
+            } else {
+                container.classList.remove('register-mode');
+                setTimeout(() => { fReg.classList.add('hidden'); fLogin.classList.remove('hidden'); }, 150);
+            }
+        }
+
+        const processInput = (val) => {
+            val = val.trim();
+            // Nếu có @ thì coi là email, không có thì thêm đuôi gmail
+            if (val.includes('@')) return val;
+            return `${val}@gmail.com`;
+        }
+
+        document.getElementById('btnLogin').onclick = async function () {
+            let inp = document.getElementById('lEmail').value;
+            const p = document.getElementById('lPass').value;
+
+            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+
+            const e = processInput(inp);
+
+            this.innerText = "Đang xử lý...";
+            try {
+                await signInWithEmailAndPassword(auth, e, p);
+                showToast("Đăng nhập thành công!", "✅");
+                setTimeout(() => window.top.location.href = 'index.html', 1000);
+            }
+            catch (err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Nhập"; }
+        }
+
+        document.getElementById('btnReg').onclick = async function () {
+            let inp = document.getElementById('rEmail').value.trim();
+            const p = document.getElementById('rPass').value, pc = document.getElementById('rPassConfirm').value;
+
+            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            if (p !== pc) return showToast("Mật khẩu không khớp!", "❌");
+
+            // Xử lý email để đăng ký auth
+            const e = processInput(inp);
+
+            // Xác định username gốc (để lưu hiển thị)
+            // Nếu người dùng nhập "abc" -> username là "abc"
+            // Nếu người dùng nhập "abc@gmail.com" -> username là "abc" (cắt bỏ đuôi)
+            let username = inp;
+            if (inp.includes('@')) {
+                username = inp.split('@')[0];
+            }
+
+            this.innerText = "Đang tạo...";
+            try {
+                // 1. Tạo tài khoản Auth
+                const cred = await createUserWithEmailAndPassword(auth, e, p);
+                const user = cred.user;
+
+                // 2. Cập nhật Display Name trong Auth (để hiện tên nhanh)
+                await updateProfile(user, { displayName: "Cư dân mới" });
+
+                // 3. Lưu thông tin chi tiết vào Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    username: username,
+                    displayName: "Cư dân mới",
+                    email: e,
+                    uid: user.uid,
+                    createdAt: new Date().toISOString(),
+                    role: 'member', // Mặc định là thành viên
+                    is_setup: false
+                });
+
+                showToast("Đăng ký thành công!", "🚀");
+                setTimeout(() => window.top.location.href = 'index.html', 1500);
+            } catch (err) {
+                console.error(err);
+                showToast("Lỗi: " + err.message, "❌");
+                this.innerText = "Đăng Ký";
+            }
+        }
+    </script>
+</body>
+
+</html>
