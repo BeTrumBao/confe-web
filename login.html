@@ -241,6 +241,65 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        @media (max-width: 900px) {
+            .auth-container {
+                width: 100% !important;
+                max-width: 450px;
+                flex-direction: column;
+            }
+
+            .auth-container.register-mode {
+                width: 100% !important;
+                max-width: 450px;
+            }
+
+            .form-side {
+                min-width: 100%;
+                padding: 30px 25px;
+            }
+
+            .info-side {
+                display: none !important;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+
+            .inp {
+                padding: 11px 14px;
+                font-size: 13px;
+            }
+
+            .btn-main {
+                padding: 13px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 15px;
+            }
+
+            .form-side {
+                padding: 25px 20px;
+            }
+
+            .logo-wrap {
+                width: 56px;
+                height: 56px;
+            }
+
+            .title {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -254,8 +313,8 @@
             </div>
 
             <div id="formLogin">
-                <div class="title">Chào mừng trở lại! 👋</div>
-                <div class="subtitle">Đăng nhập để vào chém gió nào.</div>
+                <div class="title">Chào mừng trở lại! </div>
+                <div class="subtitle">Đăng nhập để tiếp tục hành trình của bạn.</div>
 
                 <div class="inp-group">
                     <label class="inp-label">Email hoặc Username</label>
@@ -266,12 +325,32 @@
                     <input type="password" id="lPass" class="inp" placeholder="••••••••">
                 </div>
                 <button id="btnLogin" class="btn-main">Đăng Nhập</button>
+
+                <div style="display:flex; align-items:center; gap:10px; margin:16px 0 0;">
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoặc</span>
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                </div>
+                <button id="btnGoogleLogin" onclick="signInWithGoogle()"
+                    style="width:100%; padding:12px; background:white; border:1.5px solid #e2e8f0; border-radius:12px; font-weight:700; cursor:pointer; margin-top:12px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px; transition:.2s;"
+                    onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        style="width:20px; height:20px;">
+                    Đăng nhập với Google
+                </button>
+
+                <button onclick="showAnonInfo()"
+                    style="width:100%; padding:11px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; font-weight:700; cursor:pointer; margin-top:10px; font-size:13px; color:#64748b; transition:.2s;"
+                    onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
+                    Tiếp tục với tư cách khách
+                </button>
+
                 <div class="switch-text">Chưa có tài khoản? <span class="switch-btn"
                         onclick="toggleMode('register')">Đăng ký ngay</span></div>
             </div>
 
             <div id="formRegister" class="hidden">
-                <div class="title">Tạo tài khoản mới 🚀</div>
+                <div class="title">Tạo tài khoản mới </div>
                 <div class="subtitle">Tham gia cộng đồng ngay hôm nay.</div>
 
                 <div class="inp-group">
@@ -286,62 +365,231 @@
                     <label class="inp-label">Nhập lại mật khẩu</label>
                     <input type="password" id="rPassConfirm" class="inp" placeholder="Nhập lại cho chắc">
                 </div>
+
+                <div
+                    style="display:flex; align-items:center; gap:8px; margin-bottom:15px; font-size:13px; color:var(--text); cursor:pointer;">
+                    <input type="checkbox" id="agreePolicy"
+                        style="width:16px; height:16px; cursor:pointer; accent-color:var(--primary);">
+                    <label for="agreePolicy" style="cursor:pointer; user-select:none;">Tôi đồng ý với <span
+                            onclick="event.preventDefault(); document.getElementById('policyModal').style.display='flex'"
+                            style="color:var(--primary); font-weight:700; text-decoration:underline;">Chính sách & Nội
+                            quy</span></label>
+                </div>
+
                 <button id="btnReg" class="btn-main">Đăng Ký</button>
+
+                <div style="display:flex; align-items:center; gap:10px; margin:16px 0 0;">
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoặc</span>
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                </div>
+                <button onclick="signInWithGoogle()"
+                    style="width:100%; padding:12px; background:white; border:1.5px solid #e2e8f0; border-radius:12px; font-weight:700; cursor:pointer; margin-top:12px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px; transition:.2s;"
+                    onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        style="width:20px; height:20px;">
+                    Đăng ký với Google
+                </button>
+
                 <div class="switch-text">Đã có tài khoản? <span class="switch-btn" onclick="toggleMode('login')">Đăng
                         nhập</span></div>
             </div>
 
-            <div style="text-align:center; margin-top:20px;">
-                <a href="index.html" style="text-decoration:none; font-size:12px; color:#94a3b8;">← Về trang chủ</a>
-            </div>
+
         </div>
 
         <div class="info-side">
-            <h2 style="font-size:24px; margin-bottom:30px;">Đặc quyền thành viên ✨</h2>
-            <ul class="perk-list">
-                <li class="perk-item">
-                    <div class="perk-icon">🕵️</div>
-                    <div class="perk-text">
-                        <h4>Ẩn danh tuyệt đối</h4>
-                        <p>Thoải mái chia sẻ không lo lộ danh tính.</p>
+            <h2 style="font-size:24px; margin-bottom:25px; font-weight:700;">Đặc quyền thành viên </h2>
+
+            <div style="margin-bottom:25px;">
+                <h3
+                    style="font-size:13px; font-weight:700; opacity:0.7; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">
+                    Quyền riêng tư</h3>
+                <ul class="perk-list" style="gap:12px;">
+                    <li class="perk-item">
+                        <div class="perk-icon">️</div>
+                        <div class="perk-text">
+                            <h4>Ẩn danh tuyệt đối</h4>
+                            <p>Thoải mái chia sẻ không lo lộ danh tính.</p>
+                        </div>
+                    </li>
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Bảo mật Cao Cấp</h4>
+                            <p>Dữ liệu được mã hóa, an toàn tuyệt đối.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <h3
+                    style="font-size:13px; font-weight:700; opacity:0.7; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">
+                    ️ Tạo nội dung</h3>
+                <ul class="perk-list" style="gap:12px;">
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Làm chủ Topic</h4>
+                            <p>Tự tạo và quản lý sân chơi riêng.</p>
+                        </div>
+                    </li>
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Tạo Bình Chọn</h4>
+                            <p>Thăm dò ý kiến, xem trend cộng đồng.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <h3
+                    style="font-size:13px; font-weight:700; opacity:0.7; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">
+                    Tương tác</h3>
+                <ul class="perk-list" style="gap:12px;">
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Tương tác thả ga</h4>
+                            <p>Bình luận, thả tim, hóng drama.</p>
+                        </div>
+                    </li>
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Phòng Chat VIP</h4>
+                            <p>Tham gia phòng chat xịn xò, đẳng cấp.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3
+                    style="font-size:13px; font-weight:700; opacity:0.7; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">
+                    Cá nhân hóa</h3>
+                <ul class="perk-list" style="gap:12px;">
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Tùy biến Hồ Sơ</h4>
+                            <p>Xây dựng thương hiệu cá nhân độc chất.</p>
+                        </div>
+                    </li>
+                    <li class="perk-item">
+                        <div class="perk-icon"></div>
+                        <div class="perk-text">
+                            <h4>Hệ thống Huy Hiệu</h4>
+                            <p>Nhận badge xịn, khẳng định đẳng cấp.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="anonInfoModal"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:5000; align-items:center; justify-content:center; backdrop-filter:blur(6px);"
+        onclick="if(event.target===this)this.style.display='none'">
+        <div
+            style="background:white; width:90%; max-width:380px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+            <div style="text-align:center; margin-bottom:16px;">
+                <div style="font-size:40px; margin-bottom:8px;"></div>
+                <div style="font-size:18px; font-weight:800;">👤 Tư cách khách</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Hiểu trước khi vào nhé!</div>
+            </div>
+
+            <div style="background:#f0fdf4; border-radius:14px; padding:14px; margin-bottom:10px;">
+                <div style="font-weight:700; color:#16a34a; font-size:13px; margin-bottom:6px;"> Đặc quyền</div>
+                <ul style="padding-left:16px; font-size:13px; color:#374151; line-height:1.8; margin:0;">
+                    <li>Vào ngay không cần đăng ký</li>
+                    <li>Xem nội dung, chat, tương tác bình thường</li>
+                    <li>Không cần email hay mật khẩu</li>
+                </ul>
+            </div>
+
+            <div style="background:#fef2f2; border-radius:14px; padding:14px; margin-bottom:20px;">
+                <div style="font-weight:700; color:#dc2626; font-size:13px; margin-bottom:6px;">️ Nhược điểm</div>
+                <ul style="padding-left:16px; font-size:13px; color:#374151; line-height:1.8; margin:0;">
+                    <li>Tài khoản & dữ liệu mất vĩnh viễn khi đăng xuất nếu chưa lưu</li>
+                    <li>Không thể tạo Topic</li>
+                    <li>Không thể đăng ký tick xanh</li>
+                </ul>
+            </div>
+
+            <button onclick="signInAnon(); this.closest('[id]').style.display='none'"
+                style="width:100%; padding:13px; background:#475569; color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:8px;">Vào
+                với tư cách khách</button>
+            <button onclick="document.getElementById('anonInfoModal').style.display='none'"
+                style="width:100%; padding:12px; background:#f1f5f9; color:#333; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer;">Thôi,
+                đăng ký đi</button>
+        </div>
+    </div>
+
+    <!-- Policy Modal -->
+    <div id="policyModal"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:6000; align-items:center; justify-content:center; backdrop-filter:blur(6px);"
+        onclick="if(event.target===this)this.style.display='none'">
+        <div
+            style="background:white; width:90%; max-width:400px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2); max-height:80vh; overflow-y:auto;">
+            <div style="text-align:center; margin-bottom:16px;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Scroll"
+                    style="width: 48px; margin-bottom: 8px;">
+                <div style="font-size:20px; font-weight:800; color: #0f172a;">Chính sách & Nội quy</div>
+            </div>
+
+            <div style="font-size:14px; color:#475569; line-height:1.6; margin-bottom:24px;">
+                <p style="margin-bottom:16px;">Bằng việc đăng ký tài khoản, bạn đồng ý tuân thủ các điều khoản sau:</p>
+
+                <div
+                    style="background:#fff1f2; border:1px solid #fecaca; border-radius:12px; padding:16px; margin-bottom:16px;">
+                    <div
+                        style="font-weight:800; color:#e11d48; margin-bottom:8px; display: flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                        </svg>
+                        QUY ĐỊNH CHỤP MÀN HÌNH
                     </div>
-                </li>
-                <li class="perk-item">
-                    <div class="perk-icon">👑</div>
-                    <div class="perk-text">
-                        <h4>Làm chủ Topic</h4>
-                        <p>Tự tạo và quản lý sân chơi riêng.</p>
+                    <p style="margin:0 0 12px 0; font-weight:500; font-size: 13.5px;">Nghiêm cấm mọi hành vi chụp màn
+                        hình (screenshot) hoặc quay
+                        lướt các bài phốt/confession để phát tán ra ngoài.</p>
+                    <ul style="margin:0; padding-left: 20px; font-size:13px; color:#be123c;">
+                        <li style="margin-bottom: 6px;"><b>Vi phạm lần 1:</b> Khóa tài khoản 3 ngày.</li>
+                        <li style="margin-bottom: 6px;"><b>Vi phạm lần 2:</b> Khóa tài khoản 5 ngày.</li>
+                        <li><b>Vi phạm lần 3:</b> Ban vĩnh viễn khỏi nền tảng.</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:16px;">
+                    <div
+                        style="font-weight:800; color:#334155; margin-bottom:8px; display: flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#3b82f6" stroke-width="2.5"
+                            fill="#3b82f6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        QUYỀN RIÊNG TƯ
                     </div>
-                </li>
-                <li class="perk-item">
-                    <div class="perk-icon">💬</div>
-                    <div class="perk-text">
-                        <h4>Tương tác thả ga</h4>
-                        <p>Bình luận, thả tim, hóng drama.</p>
-                    </div>
-                </li>
-                <li class="perk-item">
-                    <div class="perk-icon">💎</div>
-                    <div class="perk-text">
-                        <h4>Phòng Chat VIP</h4>
-                        <p>Tham gia phòng chat xịn xò, đẳng cấp.</p>
-                    </div>
-                </li>
-                <li class="perk-item">
-                    <div class="perk-icon">📊</div>
-                    <div class="perk-text">
-                        <h4>Tạo Bình Chọn</h4>
-                        <p>Thăm dò ý kiến, xem trend cộng đồng.</p>
-                    </div>
-                </li>
-                <li class="perk-item">
-                    <div class="perk-icon">🎨</div>
-                    <div class="perk-text">
-                        <h4>Tùy biến Hồ Sơ</h4>
-                        <p>Xây dựng thương hiệu cá nhân độc chất.</p>
-                    </div>
-                </li>
-            </ul>
+                    <p style="margin:0; font-size: 13.5px; font-weight: 500;">Thông tin cá nhân được bảo vệ. Lời
+                        nói/hành vi xúc phạm nặng nề hoặc tiết lộ
+                        thông tin cá nhân của người khác sẽ bị xử lý.</p>
+                </div>
+
+                <p style="font-style:italic; font-size:12px; color:#94a3b8; text-align:center;">Admin có quyền thay đổi
+                    nội quy mọi lúc.</p>
+            </div>
+
+            <button
+                onclick="document.getElementById('agreePolicy').checked=true; document.getElementById('policyModal').style.display='none'"
+                style="width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:10px; transition: 0.2s;">Đồng
+                ý & Đóng</button>
+            <button onclick="document.getElementById('policyModal').style.display='none'"
+                style="width:100%; padding:14px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; transition: 0.2s;">Chỉ
+                đóng</button>
         </div>
     </div>
 
@@ -349,19 +597,72 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const app = initializeApp(cfg);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        window.showToast = (msg, icon = "🔔") => {
+        window.showToast = (msg, icon = "") => {
             const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
             document.getElementById('toastContainer').appendChild(t);
             setTimeout(() => t.classList.add('show'), 10);
             setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        window.showGoogleInfo = () => {
+            document.getElementById('googleInfoModal')?.remove(); // cleanup if exists
+        }
+
+        window.showAnonInfo = () => {
+            document.getElementById('anonInfoModal').style.display = 'flex';
+        }
+
+        window.signInWithGoogle = async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                // Ensure user doc exists
+                const snap = await getDoc(doc(db, 'users', user.uid));
+                if (!snap.exists()) {
+                    await setDoc(doc(db, 'users', user.uid), {
+                        username: user.displayName || user.email.split('@')[0],
+                        displayName: user.displayName || 'Cư dân mới',
+                        email: user.email,
+                        uid: user.uid,
+                        photoURL: user.photoURL || '',
+                        createdAt: new Date().toISOString(),
+                        role: 'member',
+                        is_setup: false,
+                        provider: 'google'
+                    });
+                }
+                showToast('Đăng nhập Google thành công!', '');
+                setTimeout(() => window.top.location.href = 'index.html', 1000);
+            } catch (err) {
+                showToast('Lỗi: ' + err.message, '');
+            }
+        }
+
+        window.toggleGoogleInfo = () => {
+            const d = document.getElementById('googleInfoDropdown');
+            const arrow = document.getElementById('googleDropArrow');
+            const open = d.style.display === 'block';
+            d.style.display = open ? 'none' : 'block';
+            arrow.style.transform = open ? '' : 'rotate(180deg)';
+        }
+
+        window.signInAnon = async () => {
+            try {
+                await signInAnonymously(auth);
+                showToast('Đang vào với tư cách khách...', '');
+                setTimeout(() => window.top.location.href = 'index.html', 800);
+            } catch (err) {
+                showToast('Lỗi: ' + err.message, '');
+            }
         }
 
         window.toggleMode = (mode) => {
@@ -389,25 +690,27 @@
             let inp = document.getElementById('lEmail').value;
             const p = document.getElementById('lPass').value;
 
-            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
+            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "️");
 
             const e = processInput(inp);
 
             this.innerText = "Đang xử lý...";
             try {
                 await signInWithEmailAndPassword(auth, e, p);
-                showToast("Đăng nhập thành công!", "✅");
+                showToast("Đăng nhập thành công!", "");
                 setTimeout(() => window.top.location.href = 'index.html', 1000);
             }
-            catch (err) { showToast("Lỗi: " + err.message, "❌"); this.innerText = "Đăng Nhập"; }
+            catch (err) { showToast("Lỗi: " + err.message, ""); this.innerText = "Đăng Nhập"; }
         }
 
         document.getElementById('btnReg').onclick = async function () {
             let inp = document.getElementById('rEmail').value.trim();
             const p = document.getElementById('rPass').value, pc = document.getElementById('rPassConfirm').value;
+            const agreed = document.getElementById('agreePolicy').checked;
 
-            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "⚠️");
-            if (p !== pc) return showToast("Mật khẩu không khớp!", "❌");
+            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "️");
+            if (p !== pc) return showToast("Mật khẩu không khớp!", "");
+            if (!agreed) return showToast("Vui lòng đồng ý với Chính sách & Nội quy!", "️");
 
             // Xử lý email để đăng ký auth
             const e = processInput(inp);
@@ -440,11 +743,11 @@
                     is_setup: false
                 });
 
-                showToast("Đăng ký thành công!", "🚀");
+                showToast("Đăng ký thành công!", "");
                 setTimeout(() => window.top.location.href = 'index.html', 1500);
             } catch (err) {
                 console.error(err);
-                showToast("Lỗi: " + err.message, "❌");
+                showToast("Lỗi: " + err.message, "");
                 this.innerText = "Đăng Ký";
             }
         }

@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tường nhà - Confe</title>
+  <link rel="icon" type="image/png" href="Res/favicon.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --accent-1: #0084ff;
+      --accent-2: #2563eb;
+      --bg-dark: #0f172a;
+      --bg-light: #111827;
+      --bg-nav: #0b1220;
+      --glass-border: rgba(255, 255, 255, .08);
+      --glass: rgba(255, 255, 255, .06);
+      --glass-3: rgba(17, 24, 39, .9);
+      --text-primary: #e5e7eb;
+      --text-secondary: #9ca3af;
+      --post-bg: #0f172a;
+      --input-bg: rgba(0, 0, 0, .28);
+      --toast-bg: rgba(17, 24, 39, .92);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --skeleton-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    .light {
+      --accent-1: #0084ff;
+      --accent-2: #0056b3;
+      --bg-dark: #f0f2f5;
+      --bg-light: #ffffff;
+      --bg-nav: #ffffff;
+      --glass-border: rgba(0, 0, 0, .1);
+      --glass: rgba(0, 0, 0, .04);
+      --glass-3: rgba(255, 255, 255, .9);
+      --text-primary: #050505;
+      --text-secondary: #65676b;
+      --post-bg: #ffffff;
+      --input-bg: rgba(0, 0, 0, .05);
+      --toast-bg: rgba(255, 255, 255, .95);
+      --shadow: 0 6px 18px rgba(0, 0, 0, .1);
+      --skeleton-bg: rgba(0, 0, 0, 0.08);
+    }
+
+    .light .wall-header {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .8));
+      border-bottom-color: var(--glass-border);
+    }
+
+    .light .search-input {
+      background: var(--input-bg);
+      border-color: var(--glass-border);
+      color: var(--text-primary);
+    }
+
+    .light .post-card {
+      background: var(--post-bg);
+      border-color: var(--glass-border);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+    }
+
+    .light .action-btn {
+      background: var(--input-bg);
+      border-color: var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .light .action-btn.liked {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .light .modal-content {
+      background: var(--glass-3);
+      border-color: var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .light .modal-content textarea,
+    .light .modal-content input,
+    .light .modal-content select {
+      background: var(--input-bg);
+      border-color: var(--glass-border);
+      color: var(--text-primary);
+    }
+
+    .light .btn-ghost {
+      background: rgba(0, 0, 0, .05);
+      border-color: var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .light .chip {
+      background: var(--input-bg);
+      border-color: var(--glass-border);
+    }
+
+    .light .mention-suggest {
+      background: var(--glass-3);
+      border-color: var(--glass-border);
+    }
+
+    .light .mention-item:hover {
+      background: rgba(0, 0, 0, .05);
+    }
+
+    .light .skeleton::after {
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), transparent);
+    }
+
+    .light .verified-tick {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230056b3'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.06 0l4-5.5z' clip-rule='evenodd' /%3E%3C/svg%3E");
+    }
+
+    .skeleton {
+      background: var(--skeleton-bg);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton-circle {
+      border-radius: 50%;
+    }
+
+    .skeleton-line {
+      border-radius: 6px;
+    }
+
+    .skeleton::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    body:not(.wall-loading) #post-list .post-card-placeholder {
+      display: none;
+    }
+
+    body.wall-loading #post-list .post-card-placeholder {
+      display: block;
+    }
+
+    body.wall-loading #post-list .post-card:not(.post-card-placeholder) {
+      display: none;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      padding-top: 72px
+    }
+
+    .wall-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: linear-gradient(180deg, rgba(2, 6, 23, .8), rgba(2, 6, 23, .6));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000
+    }
+
+    .back-btn {
+      display: none !important
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden
+    }
+
+    .header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--glass-border)
+    }
+
+    .header-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .search-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .search-input {
+      width: 230px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--input-bg);
+      outline: none;
+      color: var(--text-primary)
+    }
+
+    #search-icon-btn {
+      display: none;
+      padding: 8px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--input-bg);
+      color: var(--text-secondary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    #search-icon-btn svg {
+      display: block;
+    }
+
+    .add-post-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer
+    }
+
+    .wall-container {
+      max-width: 720px;
+      margin: 18px auto;
+      padding: 0 16px
+    }
+
+    #post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    .post-card {
+      background: var(--post-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .18)
+    }
+
+    .post-card-placeholder {
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-style: italic
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px
+    }
+
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--glass-border);
+      cursor: pointer
+    }
+
+    .author-info {
+      flex: 1
+    }
+
+    .author-name {
+      font-weight: 600;
+      cursor: pointer
+    }
+
+    .author-name:hover {
+      text-decoration: underline
+    }
+
+    .post-timestamp {
+      font-size: 12px;
+      color: var(--text-secondary)
+    }
+
+    .post-content {
+      margin-top: 4px
+    }
+
+    .post-text {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-bottom: 8px
+    }
+
+    .mentions {
+      color: #93c5fd;
+      font-weight: 600
+    }
+
+    .post-image {
+      display: block;
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+      border: 1px solid var(--glass-border)
+    }
+
+    .post-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 12px;
+      padding-top: 10px
+    }
+
+    .action-btn {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .action-btn.liked {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border-color: transparent;
+      color: #fff
+    }
+
+    .count {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--text-secondary)
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 10000;
+    }
+
+    .toast {
+      background: white;
+      color: #1A1C1E;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-left: 4px solid var(--accent-1);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000
+    }
+
+    .modal-content {
+      width: min(92vw, 640px);
+      background: var(--glass-3);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+      padding: 20px 22px
+    }
+
+    .modal-content h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      text-align: left
+    }
+
+    .modal-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start
+    }
+
+    .modal-col {
+      flex: 1
+    }
+
+    .modal-content label {
+      display: block;
+      margin: 10px 0 6px;
+      color: var(--text-secondary);
+      font-size: 14px
+    }
+
+    .modal-content textarea,
+    .modal-content input,
+    .modal-content select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      outline: none
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      cursor: pointer
+    }
+
+    .btn-ghost {
+      padding: 10px 16px;
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      font-size: 13px
+    }
+
+    .remove-x {
+      cursor: pointer;
+      opacity: .85
+    }
+
+    .mention-suggest {
+      position: absolute;
+      z-index: 3000;
+      background: var(--glass-3);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 6px;
+      max-height: 240px;
+      overflow: auto;
+      box-shadow: var(--shadow);
+      display: none
+    }
+
+    .mention-item {
+      padding: 8px 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer
+    }
+
+    .mention-item:hover {
+      background: var(--glass)
+    }
+
+    .mention-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--glass-border)
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+
+      .wall-header {
+        height: 60px;
+        padding: 10px 12px;
+      }
+
+      .header-info {
+        gap: 8px;
+      }
+
+      .header-avatar {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-name {
+        font-size: 15px;
+      }
+
+      .search-wrap {
+        gap: 8px;
+      }
+
+      .search-input {
+        display: none;
+      }
+
+      #search-icon-btn {
+        display: block;
+      }
+
+      .add-post-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+      }
+
+      .wall-container {
+        max-width: 100%;
+        margin-top: 12px;
+        padding: 0 8px;
+      }
+
+      #post-list {
+        gap: 12px;
+      }
+
+      .post-card {
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      .post-header {
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .author-avatar {
+        width: 36px;
+        height: 36px;
+      }
+
+      .author-name {
+        font-size: 15px;
+      }
+
+      .post-timestamp {
+        font-size: 11px;
+      }
+
+      .post-text {
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .post-image {
+        border-radius: 8px;
+      }
+
+      .post-actions {
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 8px;
+      }
+
+      .action-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+
+      .count {
+        font-size: 12px;
+      }
+
+      .modal-content {
+        width: min(95vw, 640px);
+        padding: 15px;
+      }
+
+      .modal-content h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .modal-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .modal-row>div {
+        width: 100% !important;
+      }
+
+      .modal-content textarea,
+      .modal-content input,
+      .modal-content select {
+        padding: 10px;
+        font-size: 15px;
+      }
+
+      #post-image-filename {
+        font-size: 12px;
+      }
+
+      .btn,
+      .btn-ghost {
+        padding: 8px 14px;
+        font-size: 15px;
+      }
+    }
+
+    .verified-tick {
+      display: inline-block;
+      width: 0.9em;
+      height: 0.9em;
+      margin-left: 4px;
+      vertical-align: -0.1em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2360a5fa'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.06 0l4-5.5z' clip-rule='evenodd' /%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #selected-images-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px dashed var(--glass-border);
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .img-preview-item {
+      position: relative;
+      width: 60px;
+      height: 60px;
+    }
+
+    .img-preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .img-preview-item button {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body class="wall-loading light">
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="wall-header">
+    <button id="back-to-profile-btn" class="back-btn" title="Quay lại">‹</button>
+    <div class="header-info">
+      <img id="header-avatar" class="header-avatar" src="https://placehold.co/40x40" alt="avatar">
+      <span id="header-name">Đang tải...</span>
+    </div>
+    <div class="search-wrap">
+      <input id="search-input" class="search-input" type="text" placeholder="Tìm bài đăng..." />
+      <button id="search-icon-btn" title="Tìm kiếm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button id="open-create-post-modal-btn" class="add-post-btn" title="Tạo bài đăng mới"
+        style="display:none;">+</button>
+    </div>
+  </div>
+
+  <div class="wall-container">
+    <div id="post-list">
+      <div class="post-card post-card-placeholder">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="skeleton skeleton-circle" style="width: 40px; height: 40px; flex-shrink: 0;"></div>
+          <div style="flex-grow: 1;">
+            <div class="skeleton skeleton-line" style="height: 16px; width: 40%; margin-bottom: 6px;"></div>
+            <div class="skeleton skeleton-line" style="height: 12px; width: 30%;"></div>
+          </div>
+        </div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 90%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 95%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 70%;"></div>
+      </div>
+      <div class="post-card post-card-placeholder">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="skeleton skeleton-circle" style="width: 40px; height: 40px; flex-shrink: 0;"></div>
+          <div style="flex-grow: 1;">
+            <div class="skeleton skeleton-line" style="height: 16px; width: 40%; margin-bottom: 6px;"></div>
+            <div class="skeleton skeleton-line" style="height: 12px; width: 30%;"></div>
+          </div>
+        </div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 90%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 95%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 70%;"></div>
+      </div>
+      <div class="post-card post-card-placeholder">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="skeleton skeleton-circle" style="width: 40px; height: 40px; flex-shrink: 0;"></div>
+          <div style="flex-grow: 1;">
+            <div class="skeleton skeleton-line" style="height: 16px; width: 40%; margin-bottom: 6px;"></div>
+            <div class="skeleton skeleton-line" style="height: 12px; width: 30%;"></div>
+          </div>
+        </div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 90%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 95%; margin-bottom: 8px;"></div>
+        <div class="skeleton skeleton-line" style="height: 14px; width: 70%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="create-post-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Tạo bài đăng mới</h2>
+      <div>
+        <label for="post-text-input">Nội dung</label>
+        <div style="position:relative">
+          <textarea id="post-text-input" rows="5" placeholder="Bạn đang nghĩ gì?"></textarea>
+          <div id="mention-list" class="mention-suggest"></div>
+        </div>
+
+        <div class="modal-row">
+          <div class="modal-col">
+            <label>Tag bạn bè</label>
+            <div id="tag-chips" class="chips"></div>
+          </div>
+          <div style="width:220px">
+            <label>Quyền xem</label>
+            <select id="visibility-select">
+              <option value="public">Công khai</option>
+              <option value="friends">Bạn bè</option>
+              <option value="only_me">Chỉ mình tôi</option>
+              <option value="friends_except">Bạn bè trừ…</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="except-wrap" style="display:none">
+          <label>Loại trừ (chọn bạn không muốn họ thấy)</label>
+          <div id="except-chips" class="chips"></div>
+        </div>
+
+        <label>Ảnh/Video</label>
+        <div class="modal-row" style="align-items:center">
+          <input type="file" id="post-image-input" accept="image/*,video/*" multiple />
+          <div id="post-image-filename" style="color:var(--text-secondary);font-size:13px"></div>
+        </div>
+        <div id="selected-images-preview"></div>
+
+      </div>
+
+      <div class="modal-actions">
+        <button id="cancel-create-post-btn" class="btn-ghost">Hủy</button>
+        <button id="submit-post-btn" class="btn">Đăng bài</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp,
+      onSnapshot, setDoc, deleteDoc
+    } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+      authDomain: "confe-web.firebaseapp.com",
+      databaseURL: "https://confe-web-default-rtdb.firebaseio.com",
+      projectId: "confe-web",
+      storageBucket: "confe-web.appspot.com",
+      messagingSenderId: "677778119372",
+      appId: "1:677778119372:web:ee3f1132871332743b0069"
+    };
+    const IMGBB_API_KEY = "e6c2724ff8344c073410da4876c3d35f";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+
+    const toast = document.getElementById('toast');
+    const headerAvatar = document.getElementById('header-avatar');
+    const headerName = document.getElementById('header-name');
+    const postList = document.getElementById('post-list');
+    const openCreatePostModalBtn = document.getElementById('open-create-post-modal-btn');
+    const createPostModal = document.getElementById('create-post-modal');
+    const cancelCreatePostBtn = document.getElementById('cancel-create-post-btn');
+    const submitPostBtn = document.getElementById('submit-post-btn');
+    const postTextInput = document.getElementById('post-text-input');
+    const mentionList = document.getElementById('mention-list');
+    const postImageInput = document.getElementById('post-image-input');
+    const postImageFilename = document.getElementById('post-image-filename');
+    const tagChips = document.getElementById('tag-chips');
+    const exceptWrap = document.getElementById('except-wrap');
+    const exceptChips = document.getElementById('except-chips');
+    const visibilitySelect = document.getElementById('visibility-select');
+    const searchInput = document.getElementById('search-input');
+    const selectedImagesPreview = document.getElementById('selected-images-preview'); // Khai báo biến này
+
+    const params = new URLSearchParams(window.location.search);
+    const wallUserId = params.get("id");
+
+    let toastTimer, currentUser, wallUserData;
+    let friends = [];
+    let selectedTags = new Set();
+    let selectedExcept = new Set();
+    let loadedPosts = [];
+    let selectedFiles = []; // Biến lưu file đã chọn
+
+    function showToast(msg, type = 'info') {
+      let icon = "";
+      if (type === "success") icon = "";
+      else if (type === "error" || type === "danger") icon = "";
+      else if (type === "warning") icon = "️";
+
+      let container = document.getElementById("toastContainer");
+      if (!container) {
+        container = document.createElement("div");
+        container.id = "toastContainer";
+        container.className = "toast-container";
+        document.body.appendChild(container);
+      }
+      const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
+      container.appendChild(t);
+      setTimeout(() => { t.classList.add('show'); }, 10);
+      setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+    }
+    function formatTimestamp(date) { const now = new Date(); const diff = (now - date) / 1000 | 0; if (diff < 60) return `${diff} giây`; const m = diff / 60 | 0; if (m < 60) return `${m} phút`; const h = m / 60 | 0; if (h < 24) return `${h} giờ`; const d = h / 24 | 0; if (d < 7) return `${d} ngày`; return date.toLocaleDateString('vi-VN'); }
+    async function uploadImage(file) { if (!IMGBB_API_KEY) throw new Error('Thiếu API ImgBB'); const fd = new FormData(); fd.append('image', file); const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd }); const data = await res.json(); if (data.success) return data.data.url; throw new Error(data.error?.message || 'Upload thất bại'); }
+    function el(tag, attrs = {}, ...children) { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'className') e.className = v; else if (k === 'dataset') Object.assign(e.dataset, v); else if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v) } children.forEach(c => e.append(c)); return e; }
+    function FileListItems(files) { let b = new ClipboardEvent("").clipboardData || new DataTransfer(); if (files) { for (let i = 0, len = files.length; i < len; i++) { if (files[i] instanceof File) b.items.add(files[i]); } } return b.files; }
+
+    onAuthStateChanged(auth, async (u) => {
+      if (!u) { window.location.href = 'login.html'; return; }
+      currentUser = u;
+      document.body.classList.add('wall-loading');
+      if (!wallUserId) {
+        headerName.textContent = "Lỗi: Không tìm thấy ID người dùng";
+        postList.innerHTML = '<div class="post-card post-card-placeholder" style="color: red;">URL không hợp lệ.</div>';
+        document.body.classList.remove('wall-loading'); return;
+      }
+      try {
+        const userSnap = await getDoc(doc(db, 'users', wallUserId));
+        if (!userSnap.exists() || userSnap.data().isDeactivated) {
+          headerName.textContent = "Người dùng không tồn tại";
+          postList.innerHTML = '<div class="post-card post-card-placeholder">Tài khoản này không tồn tại hoặc đã ngừng hoạt động.</div>';
+          document.body.classList.remove('wall-loading'); return;
+        }
+        wallUserData = userSnap.data();
+        const headerInitial = (wallUserData.displayName || wallUserData.email || '?')[0].toUpperCase();
+        headerAvatar.src = wallUserData.avatarUrl || `https://placehold.co/40x40?text=${headerInitial}`;
+        headerName.textContent = wallUserData.displayName || wallUserData.email || 'Người dùng Confe';
+        document.title = `Tường nhà ${wallUserData.displayName || ''} - Confe`;
+        const isOwnWall = (wallUserId === currentUser.uid);
+        openCreatePostModalBtn.style.display = isOwnWall ? 'flex' : 'none';
+        if (isOwnWall) {
+          openCreatePostModalBtn.onclick = () => { resetCreateForm(); createPostModal.style.display = 'flex'; };
+          cancelCreatePostBtn.onclick = () => createPostModal.style.display = 'none';
+          submitPostBtn.onclick = createPost;
+          // Gắn handler mới
+          visibilitySelect.onchange = () => exceptWrap.style.display = (visibilitySelect.value === 'friends_except') ? 'block' : 'none';
+          friends = await loadFriends(currentUser.uid);
+          renderChipLists(); attachMentionSuggest();
+        } else {
+          openCreatePostModalBtn.onclick = null; cancelCreatePostBtn.onclick = null; submitPostBtn.onclick = null; postImageInput.onchange = null; visibilitySelect.onchange = null; friends = [];
+        }
+        if (isOwnWall) await loadUnifiedFeed(); else await loadOnlyWallUser();
+      } catch (error) {
+        console.error("Lỗi tải tường nhà:", error);
+        headerName.textContent = "Lỗi tải trang";
+        postList.innerHTML = '<div class="post-card post-card-placeholder" style="color: red;">Đã xảy ra lỗi khi tải dữ liệu!</div>';
+      } finally {
+        document.body.classList.remove('wall-loading');
+      }
+      searchInput.addEventListener('input', filterAndRenderPosts);
+    });
+
+    async function loadFriends(uid) {
+      const out = new Map(); try { const snap = await getDocs(collection(db, 'users', uid, 'friends')); for (const d of snap.docs) { const fid = d.id; const us = await getDoc(doc(db, 'users', fid)); if (us.exists()) out.set(fid, { uid: fid, displayName: us.data().displayName || 'Bạn bè', avatarUrl: us.data().avatarUrl || null }); } } catch (_) { } try { const me = await getDoc(doc(db, 'users', uid)); if (me.exists()) { const arr = me.data().friends || []; for (const fid of arr) { if (out.has(fid)) continue; const us = await getDoc(doc(db, 'users', fid)); if (us.exists()) out.set(fid, { uid: fid, displayName: us.data().displayName || 'Bạn bè', avatarUrl: us.data().avatarUrl || null }); } } } catch (_) { } return Array.from(out.values());
+    }
+    function renderChipLists() { tagChips.innerHTML = ''; exceptChips.innerHTML = ''; for (const f of friends) { if (selectedTags.has(f.uid)) tagChips.appendChild(chip(f, () => { selectedTags.delete(f.uid); renderChipLists(); })); if (selectedExcept.has(f.uid)) exceptChips.appendChild(chip(f, () => { selectedExcept.delete(f.uid); renderChipLists(); })); } }
+    function chip(friend, onRemove) { return el('span', { className: 'chip' }, el('img', { src: friend.avatarUrl || 'https://placehold.co/20x20', style: 'width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--glass-border)' }), document.createTextNode(friend.displayName || 'Bạn'), el('span', { className: 'remove-x', onclick: onRemove, title: 'Bỏ' }, '')); }
+
+    function resetCreateForm() {
+      postTextInput.value = '';
+      postImageInput.value = '';
+      postImageFilename.textContent = '';
+      selectedFiles = [];
+      selectedTags = new Set();
+      selectedExcept = new Set();
+      visibilitySelect.value = 'public';
+      exceptWrap.style.display = 'none';
+      renderChipLists();
+      if (selectedImagesPreview) selectedImagesPreview.innerHTML = '';
+    }
+
+    postImageInput.onchange = (event) => {
+      selectedFiles = Array.from(event.target.files);
+      if (selectedImagesPreview) selectedImagesPreview.innerHTML = '';
+
+      if (selectedFiles.length > 0) {
+        postImageFilename.textContent = `${selectedFiles.length} ảnh/video đã chọn`;
+        selectedFiles.forEach((file, index) => {
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const previewItem = el('div', { className: 'img-preview-item' });
+              const img = el('img', { src: e.target.result, alt: file.name });
+              const removeBtn = el('button', {
+                textContent: '', title: `Bỏ chọn ${file.name}`, onclick: (evt) => {
+                  evt.stopPropagation();
+                  const fileIndexToRemove = selectedFiles.findIndex(f => f.name === file.name && f.lastModified === file.lastModified);
+                  if (fileIndexToRemove > -1) selectedFiles.splice(fileIndexToRemove, 1);
+                  try { postImageInput.files = new FileListItems(selectedFiles); }
+                  catch (err) { console.warn("Cannot update FileList:", err); postImageInput.value = ''; }
+                  previewItem.remove();
+                  postImageFilename.textContent = selectedFiles.length > 0 ? `${selectedFiles.length} ảnh/video đã chọn` : '';
+                }
+              });
+              previewItem.append(img, removeBtn);
+              if (selectedImagesPreview) selectedImagesPreview.appendChild(previewItem);
+            }
+            reader.readAsDataURL(file);
+          } else {
+            const fileItem = el('div', { textContent: `Video/File: ${file.name}`, style: 'font-size: 12px; color: var(--text-secondary); width: 100%;' }); // Hiển thị tên file khác
+            // Thêm nút xóa cho file khác nếu cần
+            if (selectedImagesPreview) selectedImagesPreview.appendChild(fileItem);
+          }
+        });
+      } else {
+        postImageFilename.textContent = '';
+      }
+    };
+
+    function attachMentionSuggest() {
+      let atMode = false, atStart = 0; const close = () => mentionList.style.display = 'none';
+      const open = (items) => { mentionList.innerHTML = ''; items.slice(0, 20).forEach(f => { const row = el('div', { className: 'mention-item', onclick: () => select(f) }, el('img', { src: f.avatarUrl || 'https://placehold.co/28x28', className: 'mention-avatar' }), el('span', {}, f.displayName || 'Bạn')); mentionList.appendChild(row); }); const r = postTextInput.getBoundingClientRect(); mentionList.style.left = r.left + 'px'; mentionList.style.top = (r.top + window.scrollY - mentionList.offsetHeight - 6) + 'px'; mentionList.style.display = 'block'; };
+      const select = (friend) => { const t = postTextInput.value; const end = postTextInput.selectionStart; const before = t.slice(0, atStart); const after = t.slice(end); const insert = '@' + (friend.displayName || 'Ban') + ' '; postTextInput.value = before + insert + after; const caret = (before + insert).length; postTextInput.setSelectionRange(caret, caret); atMode = false; close(); selectedTags.add(friend.uid); renderChipLists(); };
+      postTextInput.addEventListener('keydown', e => { if (e.key === 'Escape') { atMode = false; close(); } });
+      postTextInput.addEventListener('input', () => { const pos = postTextInput.selectionStart; const text = postTextInput.value; const sub = text.slice(0, pos); const i = sub.lastIndexOf('@'); if (i >= 0) { const token = sub.slice(i + 1, pos); if (token.includes(' ') || token.includes('\n')) { atMode = false; close(); return; } atMode = true; atStart = i; const key = token.trim().toLowerCase(); const list = key ? friends.filter(f => (f.displayName || '').toLowerCase().includes(key)) : friends; if (list.length) open(list); else close(); } else { atMode = false; close(); } });
+      document.addEventListener('click', e => { if (!mentionList.contains(e.target) && e.target !== postTextInput) close(); });
+    }
+
+    async function loadUnifiedFeed() {
+      loadedPosts = []; const ids = [currentUser.uid, ...friends.map(f => f.uid)]; const chunks = []; for (let i = 0; i < ids.length; i += 10) chunks.push(ids.slice(i, i + 10)); const postsRef = collection(db, 'posts'); for (const group of chunks) { const qy = query(postsRef, where('userId', 'in', group), orderBy('timestamp', 'desc')); const snap = await getDocs(qy); snap.forEach(d => loadedPosts.push({ id: d.id, ...d.data() })); } loadedPosts.sort((a, b) => (b.timestamp?.toMillis?.() || 0) - (a.timestamp?.toMillis?.() || 0)); filterAndRenderPosts();
+    }
+    async function loadOnlyWallUser() {
+      postList.innerHTML = ''; loadedPosts = []; const postsRef = collection(db, 'posts'); const qy = query(postsRef, where('userId', '==', wallUserId), orderBy('timestamp', 'desc')); const snap = await getDocs(qy); snap.forEach(d => loadedPosts.push({ id: d.id, ...d.data() })); filterAndRenderPosts();
+    }
+
+    function isFriend(viewerId) { /*return friends.some(f=>f.uid===viewerId);*/ return currentUser?.uid === wallUserId || friends.some(f => f.uid === viewerId); } // Sửa lại logic isFriend
+    function canViewPost(p, viewerId) { const v = p.visibility || 'public'; if (p.userId === viewerId) return true; if (v === 'public') return true; if (v === 'only_me') return false; const viewerIsFriend = currentUser?.uid === wallUserId || friends.some(f => f.uid === viewerId); if (v === 'friends') return viewerIsFriend; if (v === 'friends_except') { if (!viewerIsFriend) return false; return !(p.exceptList || []).includes(viewerId); } return true; }
+
+    function filterAndRenderPosts() {
+      const kw = (searchInput.value || '').trim().toLowerCase();
+      let list = loadedPosts.filter(p => canViewPost(p, currentUser.uid));
+      if (kw) { list = list.filter(p => { const text = (p.text || '').toLowerCase(); const author = (p.displayName || '').toLowerCase(); const tags = (p.taggedFriends || []).map(uid => friends.find(x => x.uid === uid)?.displayName?.toLowerCase() || '').join(' '); return text.includes(kw) || author.includes(kw) || tags.includes(kw); }); }
+      renderPostList(list);
+    }
+    function renderPostList(posts) {
+      // Dọn dẹp listener cũ trước khi render lại
+      Array.from(postList.children).forEach(card => {
+        card._unsubscribeListeners?.forEach(unsub => unsub());
+        card._unsubscribeListeners = []; // Reset mảng
+      });
+      postList.innerHTML = '';
+      if (!posts.length) { postList.innerHTML = '<div class="post-card post-card-placeholder">Không có bài đăng nào.</div>'; return; }
+      posts.forEach(p => postList.appendChild(createPostElement(p.id, p)));
+    }
+
+    function createPostElement(postId, postData) {
+      const card = el('div', { className: 'post-card', dataset: { postId } });
+      const header = el('div', { className: 'post-header' });
+      const ava = el('img', { className: 'author-avatar', src: postData.avatarUrl || `https://placehold.co/40x40?text=${(postData.displayName || '?')[0]}`, onclick: () => window.location.href = `profile.html?id=${postData.userId}` });
+      const info = el('div', { className: 'author-info' });
+      const nameContainer = el('div');
+      const nameSpan = el('span', { className: 'author-name', onclick: () => window.location.href = `profile.html?id=${postData.userId}` }, postData.displayName || 'Người dùng Confe');
+      nameContainer.appendChild(nameSpan);
+      if (postData.isVerified === true) nameContainer.appendChild(el('span', { className: 'verified-tick' }));
+      const time = el('div', { className: 'post-timestamp' }, postData.timestamp?.toDate ? formatTimestamp(postData.timestamp.toDate()) : '');
+      info.append(nameContainer, time); header.append(ava, info);
+      const content = el('div', { className: 'post-content' });
+      if (postData.text) { const txt = el('p', { className: 'post-text' }, postData.text); content.append(txt); if ((postData.taggedFriends || []).length) { const taggedNames = (postData.taggedFriends || []).map(uid => { const friend = friends.find(f => f.uid === uid); return friend ? friend.displayName : uid.substring(0, 6) + '...'; }).join(', '); const mentions = el('div', { className: 'mentions' }, 'Tag: ' + taggedNames); content.append(mentions); } }
+      if (postData.imageUrls && postData.imageUrls.length > 0) { content.append(el('img', { className: 'post-image', src: postData.imageUrls[0] })); if (postData.imageUrls.length > 1) { const more = el('div', { style: 'font-size: 12px; color: var(--text-secondary); margin-top: 5px;' }, `+ ${postData.imageUrls.length - 1} ảnh/video`); content.append(more); } }
+      const actions = el('div', { className: 'post-actions' }); const likeBtn = el('button', { className: 'action-btn' }, '️ Thích'); const likeCount = el('span', { className: 'count' }, '0 lượt thích');
+      const likesCol = collection(db, 'posts', postId, 'likes'); const likeDocRef = doc(db, 'posts', postId, 'likes', currentUser.uid);
+      const unsubLikesCount = onSnapshot(likesCol, (snap) => { likeCount.textContent = `${snap.size} lượt thích`; });
+      let unsubLikeStatus = onSnapshot(likeDocRef, (s) => { likeBtn.classList.toggle('liked', s.exists()); likeBtn.innerHTML = s.exists() ? ' <span style="margin-left: 4px;">Đã thích</span>' : '️ <span style="margin-left: 4px;">Thích</span>'; });
+      likeBtn.onclick = async () => { unsubLikeStatus(); try { const currentLikeSnap = await getDoc(likeDocRef); if (currentLikeSnap.exists()) await deleteDoc(likeDocRef); else await setDoc(likeDocRef, { at: serverTimestamp() }); } catch (err) { console.error("Lỗi like/unlike:", err); showToast("Có lỗi!", "error"); } finally { unsubLikeStatus = onSnapshot(likeDocRef, (s) => { likeBtn.classList.toggle('liked', s.exists()); likeBtn.innerHTML = s.exists() ? ' <span style="margin-left: 4px;">Đã thích</span>' : '️ <span style="margin-left: 4px;">Thích</span>'; }); } };
+      if (postData.userId === currentUser.uid) { const deleteBtn = el('button', { className: 'action-btn danger-btn', style: 'margin-left: 8px; background: #5f1a1a; border-color: #902828; color: #fca5a5;', onclick: async () => { if (confirm('Xóa bài đăng này?')) { try { unsubLikesCount(); unsubLikeStatus(); await deleteDoc(doc(db, 'posts', postId)); showToast('Đã xóa.', 'info'); card.remove(); loadedPosts = loadedPosts.filter(p => p.id !== postId); } catch (err) { console.error("Lỗi xóa:", err); showToast("Xóa thất bại!", "error"); } } } }, '️ Xóa'); actions.appendChild(deleteBtn); }
+      actions.append(likeBtn, likeCount); card.append(header, content, actions);
+      card._unsubscribeListeners = [unsubLikesCount, unsubLikeStatus]; // Lưu lại để hủy
+      return card;
+    }
+    async function createPost() {
+      if (!currentUser) return; const text = postTextInput.value.trim();
+      if (!text && selectedFiles.length === 0) return showToast('Vui lòng nhập nội dung hoặc chọn ảnh/video.', 'error');
+      submitPostBtn.disabled = true; submitPostBtn.textContent = 'Đang đăng…';
+      try {
+        let imageUrls = []; if (selectedFiles.length > 0) { const toastMsg = `Đang tải lên ${selectedFiles.length} file...`; showToast(toastMsg, 'info'); const uploadPromises = selectedFiles.map(file => uploadImage(file).catch(err => { console.error(`Lỗi tải ${file.name}:`, err); showToast(`Lỗi: ${file.name}`, 'error'); return null; })); const results = await Promise.all(uploadPromises); imageUrls = results.filter(url => url !== null); if (imageUrls.length === 0 && selectedFiles.length > 0) throw new Error("Tất cả file tải lên thất bại."); else if (imageUrls.length < selectedFiles.length) showToast(`Tải lên ${imageUrls.length}/${selectedFiles.length} file.`, 'info'); else showToast('Tải lên hoàn tất!', 'success'); }
+        const me = await getDoc(doc(db, 'users', currentUser.uid)); const meData = me.exists() ? me.data() : {};
+        const visibility = visibilitySelect.value; const exceptList = (visibility === 'friends_except') ? Array.from(selectedExcept) : [];
+        const postData = { userId: currentUser.uid, displayName: meData.displayName || currentUser.email || 'Người dùng Confe', avatarUrl: meData.avatarUrl || null, isVerified: meData.isVerified || false, text: text || null, imageUrls: imageUrls.length ? imageUrls : null, taggedFriends: Array.from(selectedTags), visibility, exceptList: exceptList.length ? exceptList : null, timestamp: serverTimestamp() };
+        const newPostRef = await addDoc(collection(db, 'posts'), postData); showToast('Đăng bài thành công!', 'success'); createPostModal.style.display = 'none'; resetCreateForm();
+        const newPostDataWithId = { id: newPostRef.id, ...postData }; newPostDataWithId.timestamp = { toDate: () => new Date() }; loadedPosts.unshift(newPostDataWithId); filterAndRenderPosts();
+      } catch (e) { console.error("Lỗi đăng bài:", e); showToast('Đăng thất bại: ' + e.message, 'error'); }
+      finally { submitPostBtn.disabled = false; submitPostBtn.textContent = 'Đăng bài'; }
+    }
+
+    // DÁN HÀM NÀY VÀO TRONG <script type="module">
+
+    function handleImageSelection(event) {
+      // Lấy các file mới chọn và nối vào danh sách cũ (nếu muốn cho chọn nhiều lần)
+      // Hoặc thay thế hoàn toàn:
+      selectedFiles = Array.from(event.target.files); // Lưu lại danh sách file MỚI
+      if (selectedImagesPreview) selectedImagesPreview.innerHTML = ''; // Xóa preview cũ
+
+      if (selectedFiles.length > 0) {
+        postImageFilename.textContent = `${selectedFiles.length} ảnh/video đã chọn`; // Hiển thị số lượng
+
+        selectedFiles.forEach((file, index) => {
+          // Chỉ preview ảnh để tránh lỗi
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const previewItem = el('div', { className: 'img-preview-item' });
+              const img = el('img', { src: e.target.result, alt: file.name });
+              const removeBtn = el('button', {
+                textContent: '', title: `Bỏ chọn ${file.name}`, onclick: (evt) => {
+                  evt.stopPropagation();
+                  // Tìm index thực sự trong mảng selectedFiles hiện tại
+                  const fileIndexToRemove = selectedFiles.findIndex(f => f.name === file.name && f.lastModified === file.lastModified);
+                  if (fileIndexToRemove > -1) selectedFiles.splice(fileIndexToRemove, 1);
+                  // Cập nhật lại FileList cho input (phần này hơi phức tạp)
+                  try { postImageInput.files = new FileListItems(selectedFiles); }
+                  catch (err) { console.warn("Cannot update FileList:", err); postImageInput.value = ''; }
+                  previewItem.remove(); // Xóa preview khỏi DOM
+                  postImageFilename.textContent = selectedFiles.length > 0 ? `${selectedFiles.length} ảnh/video đã chọn` : '';
+                }
+              });
+              previewItem.append(img, removeBtn);
+              if (selectedImagesPreview) selectedImagesPreview.appendChild(previewItem);
+            }
+            reader.readAsDataURL(file);
+          } else {
+            // Hiển thị tên file video/khác
+            const fileItem = el('div', { textContent: `File: ${file.name}`, style: 'font-size: 12px; color: var(--text-secondary); width: 100%;' });
+            // Thêm nút xóa cho file khác nếu cần
+            if (selectedImagesPreview) selectedImagesPreview.appendChild(fileItem);
+          }
+        });
+      } else {
+        postImageFilename.textContent = '';
+      }
+    }
+
+  </script>
+</body>
+
+</html>

@@ -16,6 +16,8 @@
             --sidebar-text: #4B5563;
             --sidebar-hover: #F3F4F6;
             --border: #E5E7EB;
+            --bg: #F9FAFB;
+            --content-bg: #F3F4F6;
         }
 
         * {
@@ -29,10 +31,10 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
-            background: #F9FAFB;
+            background: var(--bg);
+            transition: background 0.3s ease;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: 260px;
             min-width: 180px;
@@ -47,7 +49,6 @@
             position: relative;
         }
 
-        /* RESIZER */
         .resizer {
             width: 4px;
             height: 100%;
@@ -127,11 +128,11 @@
             overflow: hidden;
         }
 
-        /* MAIN CONTNET */
         .content-area {
             flex: 1;
-            background: #F3F4F6;
+            background: var(--content-bg);
             position: relative;
+            transition: background 0.3s ease;
         }
 
         iframe {
@@ -139,9 +140,9 @@
             height: 100%;
             border: none;
             display: block;
+            overflow-y: auto;
         }
 
-        /* SPLASH SCREEN */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -167,7 +168,7 @@
         .splash-logo {
             width: 80px;
             height: 80px;
-            /* Animation Changed: Rotate from -90deg to 0deg */
+
             animation: rotateIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             margin-bottom: 20px;
             opacity: 0;
@@ -201,7 +202,6 @@
             }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             body {
                 flex-direction: column-reverse;
@@ -209,7 +209,7 @@
 
             .sidebar {
                 position: relative;
-                /* Remove fixed to stay in flow */
+
                 width: 100% !important;
                 height: 70px;
                 flex-direction: row;
@@ -219,14 +219,15 @@
                 border-right: none;
                 z-index: 1000;
                 background: white;
-                /* solid white for reliability */
+
                 box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
             }
 
             .logo,
             .nav-footer,
-            .resizer {
-                display: none;
+            .resizer,
+            #sidebarFooter {
+                display: none !important;
             }
 
             .nav-items {
@@ -241,13 +242,14 @@
                 flex: 1;
                 flex-direction: column;
                 gap: 4px;
-                padding: 10px;
-                font-size: 11px;
+                padding: 6px;
+                font-size: 10px;
                 margin: 0;
                 border-radius: 0;
                 background: transparent !important;
                 color: #94a3b8;
                 justify-content: center;
+                text-align: center;
             }
 
 
@@ -267,20 +269,20 @@
 
             .content-area {
                 flex: 1;
-                /* Take remaining space */
+
                 height: auto;
-                /* Let flex handle it */
+
                 width: 100%;
                 overflow: hidden;
             }
 
             body {
                 height: 100dvh;
-                /* Use dynamic viewport height */
+
             }
         }
     </style>
-    <!-- Icons -->
+
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
@@ -296,21 +298,27 @@
 
 
         window.setUid = (uid) => {
-            const el = document.getElementById('dbg-uid');
-            if (uid) {
-                el.style.display = 'inline';
-                el.textContent = `UID: ${uid}`;
-            } else {
-                el.style.display = 'none';
-            }
+            const el = document.getElementById('uidText');
+            if (el) el.textContent = uid || '—';
         }
 
-        function copyDebug(el, type) {
-            const text = el.textContent.replace(type + ': ', '');
-            navigator.clipboard.writeText(text).then(() => {
-                const original = el.textContent;
-                el.textContent = "Copied!";
-                setTimeout(() => el.textContent = original, 1000);
+        // Generate or recover a persistent deviceId
+        function getDeviceId() {
+            let did = localStorage.getItem('confe_device_id');
+            if (!did) { did = 'dev-' + Math.random().toString(36).slice(2, 10); localStorage.setItem('confe_device_id', did); }
+            const el = document.getElementById('deviceText');
+            if (el) el.textContent = did;
+        }
+        getDeviceId();
+
+        window.copyDbgField = (spanId, label) => {
+            const el = document.getElementById(spanId);
+            if (!el) return;
+            const val = el.textContent;
+            navigator.clipboard.writeText(val).then(() => {
+                const orig = el.textContent;
+                el.textContent = 'Đã chép!';
+                setTimeout(() => el.textContent = orig, 1200);
             });
         }
     </script>
@@ -322,58 +330,435 @@
         </div>
 
         <div class="nav-items" id="navItems">
-            <div class="nav-link active" onclick="loadPage('home.html', this)">
-                <i class='bx bxs-home'></i>
+            <div class="nav-link active" onclick="loadPage('dashboard.html', this)">
+                <i class='bx bxs-home-smile'></i>
                 <span>Trang chủ</span>
             </div>
-            <div class="nav-link" onclick="loadPage('chat.html', this)">
+            <div class="nav-link" onclick="loadPage('chat.html', this)" style="position: relative;">
                 <i class='bx bxs-message-rounded-dots'></i>
+                <div id="chatBadge" class="badge-dot" style="display:none;"></div>
                 <span>Trò chuyện</span>
             </div>
-            <!-- News Removed -->
+            <div class="nav-link" onclick="loadPage('home.html', this)">
+                <i class='bx bxs-category'></i>
+                <span>Chủ đề</span>
+            </div>
             <div class="nav-link" onclick="loadPage('profile.html', this)">
                 <i class='bx bxs-user'></i>
                 <span>Tôi</span>
             </div>
         </div>
 
-        <!-- Footer Removed -->
-    </div>
+        <div id="sidebarFooter"
+            style="padding: 12px 16px; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; margin-top: 8px;">
+            <div style="font-weight: 600; margin-bottom: 4px;">Confe Web</div>
+            <div id="dbg-ver">ver: <span style="font-weight:700; color: #64748b;" id="versionText">1.5.0</span></div>
+            <div id="dbg-configver" style="margin-top:2px;">configver: <span style="font-weight:700; color: #64748b;"
+                    id="configVerText">—</span></div>
 
-    <!-- ANNOUNCEMENT MODAL -->
+        </div>
+    </div>
     <div id="modalAnnounce" class="modal"
         style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:5000; align-items:center; justify-content:center; backdrop-filter:blur(5px);">
         <div
             style="background:white; width:90%; max-width:350px; border-radius:24px; padding:20px; text-align:center; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.3);">
             <button onclick="document.getElementById('modalAnnounce').style.display='none'"
-                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer;">✕</button>
+                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer;"></button>
             <img id="annImg" src=""
                 style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
-            <h3 style="margin-bottom:10px; font-size:18px;">📢 Thông báo</h3>
+            <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
             <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
 
-            <div style="margin-top:15px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
+            <div
+                style="margin-top:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
                 <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
                 <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
                     nay</label>
             </div>
             <button onclick="closeAnnounce()"
-                style="margin-top:20px; width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
+                style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
                 hiểu</button>
         </div>
     </div>
 
+    <div id="modalMaintenance"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:6000; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
+        <div
+            style="background:#FDFBFF; width:90%; max-width:420px; border-radius:28px; padding:40px 32px; text-align:center; box-shadow:0px 8px 32px rgba(0,0,0,0.24);">
+
+            <h1
+                style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
+                Đang bảo trì hệ thống
+            </h1>
+
+            <p id="maintenanceMessage"
+                style="font-size:15px; font-weight:400; color:#44464F; line-height:22px; letter-spacing:0.25px; font-family:'Roboto',sans-serif;">
+                Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
+            </p>
+        </div>
+    </div>
+    <div id="tutorialOverlay" class="tutorial-overlay" onclick="closeTutorial()">
+        <div class="tutorial-card" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom: 8px; font-size: 18px;"> Trò chuyện</h3>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">
+                Bấm vào đây để nhắn tin với bạn bè ngay nhé!
+            </p>
+            <button onclick="closeTutorial()"
+                style="padding: 8px 24px; background: var(--primary); color: white; border: none; border-radius: 99px; font-weight: 600; cursor: pointer;">
+                Đã hiểu
+            </button>
+        </div>
+    </div>
+    <div id="modalGuidelines" class="modal-guidelines" style="display: none;">
+        <div class="guidelines-box">
+            <div class="guidelines-header">
+                <h2>️ Quy tắc cộng đồng</h2>
+                <p>Vui lòng đọc kỹ và kéo xuống cuối để đồng ý.</p>
+            </div>
+
+            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)">
+                <ul class="rule-list">
+                    <li> <strong>Không spam:</strong> Không đăng liên tục các topic giống nhau, bình luận vô nghĩa
+                        hoặc spam icon.</li>
+                    <li> <strong>Ngôn từ:</strong> Không sử dụng ngôn từ tục tĩu, chửi thề, xúc phạm danh dự nhân phẩm
+                        người khác.</li>
+                    <li> <strong>Nội dung cấm:</strong> Nghiêm cấm mọi hành vi chia sẻ nội dung đồi trụy, bạo lực,
+                        kích động thù hằn hoặc vi phạm pháp luật Việt Nam.</li>
+                    <li>fake <strong>Tin giả:</strong> Không lan truyền thông tin sai lệch, tin đồn thất thiệt chưa được
+                        kiểm chứng gây hoang mang dư luận.</li>
+                    <li> <strong>Quảng cáo:</strong> Không quảng cáo trái phép, spam link cờ bạc, cá độ, vay nặng lãi
+                        hoặc các dịch vụ không được phép.</li>
+                    <li> <strong>Tôn trọng:</strong> Tôn trọng sự khác biệt, thảo luận trên tinh thần xây dựng, không
+                        công kích cá nhân.</li>
+                    <li> <strong>Bảo mật:</strong> Tuyệt đối không chia sẻ mật khẩu, mã OTP, số điện thoại, địa chỉ
+                        nhà riêng hoặc thông tin nhạy cảm của bản thân và người khác công khai.</li>
+                    <li>u <strong>Tiếng Việt trong sáng:</strong> Giữ gìn sự trong sáng của Tiếng Việt, hạn chế viết tắt
+                        quá mức gây khó hiểu, không teencode quá đà.</li>
+                    <li> <strong>Quấy rối:</strong> Nghiêm cấm hành vi nhắn tin làm phiền, quấy rối tình dục, đe dọa
+                        hoặc khủng bố tinh thần thành viên khác.</li>
+                    <li> <strong>Link lạ:</strong> Cẩn thận với các đường link lạ, không click nếu không rõ nguồn gốc
+                        để tránh mất tài khoản.</li>
+                    <li> <strong>Bot/Tool:</strong> Không sử dụng tool, bot spam tin nhắn, auto comment gây ảnh hưởng
+                        đến trải nghiệm người dùng khác.</li>
+                    <li>impersonate <strong>Mạo danh:</strong> Không mạo danh Admin, Moderator hoặc người nổi tiếng để
+                        lừa đảo trục lợi.</li>
+                    <li>copyright <strong>Bản quyền:</strong> Tôn trọng bản quyền tác giả, ghi rõ nguồn khi chia sẻ nội
+                        dung không phải của mình.</li>
+                    <li>report <strong>Báo cáo vi phạm:</strong> Tích cực báo cáo các nội dung xấu độc để cùng đội ngũ
+                        quản trị xây dựng cộng đồng sạch đẹp.</li>
+                    <li>punish <strong>Xử lý vi phạm:</strong> Các tài khoản vi phạm sẽ bị khóa tạm thời hoặc vĩnh viễn
+                        tùy theo mức độ nghiêm trọng mà không cần báo trước.</li>
+                    <li> <strong>Tài khoản:</strong> Bạn chịu trách nhiệm hoàn toàn về các hoạt động diễn ra trên tài
+                        khoản của mình. Hãy bảo mật mật khẩu cẩn thận.</li>
+
+                    <li> <strong>Cờ bạc:</strong> Nghiêm cấm tổ chức, rủ rê cá độ, lô đề, cờ bạc dưới mọi hình thức.
+                    </li>
+                    <li>🩸 <strong>Kích động:</strong> Không đăng tải nội dung kích động bạo lực, tự làm hại bản thân
+                        hoặc cổ súy cho các hành vi nguy hiểm.</li>
+                    <li>️ <strong>Thù ghét:</strong> Không phân biệt chủng tộc, tôn giáo, giới tính, vùng miền. Mọi
+                        hành vi kỳ thị đều bị nghiêm cấm.</li>
+                    <li> <strong>Avatar/Bìa:</strong> Không sử dụng hình ảnh nhạy cảm, đồi trụy, kinh dị hoặc vi phạm
+                        bản quyền làm ảnh đại diện, ảnh bìa.</li>
+                    <li>️ <strong>Tên hiển thị:</strong> Không đặt tên giả mạo người nổi tiếng, tên chứa từ ngữ thô
+                        tục hoặc tên gây nhầm lẫn với đội ngũ quản trị.</li>
+                    <li> <strong>Spam Flooding:</strong> Không gửi tin nhắn liên tiếp quá nhanh (flood) gây trôi tin
+                        nhắn của người khác trong nhóm chat.</li>
+                    <li> <strong>Lợi dụng lỗi:</strong> Nếu phát hiện lỗi (bug) của hệ thống, vui lòng báo cáo cho
+                        Admin, không lợi dụng lỗi để trục lợi hoặc phá hoại.</li>
+                    <li> <strong>Kêu gọi:</strong> Không kêu gọi tẩy chay, tấn công cá nhân hoặc tổ chức khác trên nền
+                        tảng.</li>
+                    <li> <strong>Giao dịch:</strong> Cẩn trọng khi giao dịch tiền bạc, vật phẩm với người lạ. Confe
+                        không chịu trách nhiệm về các giao dịch cá nhân.</li>
+                    <li>️ <strong>Doxxing:</strong> Tuyệt đối không tìm kiếm, chia sẻ thông tin đời tư của người khác
+                        (doxxing) khi chưa được sự đồng ý.</li>
+                    <li>️ <strong>Tuân thủ pháp luật:</strong> Mọi hành vi vi phạm pháp luật nước Cộng hòa Xã hội Chủ
+                        nghĩa Việt Nam đều bị cấm và có thể bị truy tố.</li>
+                    <li>️ <strong>Hợp tác:</strong> Vui lòng hợp tác với Mod/Admin khi được yêu cầu cung cấp thông tin
+                        để giải quyết khiếu nại, tố cáo.</li>
+                    <li> <strong>Sửa đổi:</strong> Quy tắc này có thể được cập nhật bất cứ lúc nào để phù hợp với tình
+                        hình thực tế. Việc bạn tiếp tục sử dụng Confe đồng nghĩa với việc bạn đồng ý với các thay đổi
+                        đó.</li>
+                </ul>
+                <div style="height: 20px;"></div>
+            </div>
+
+            <div class="actions-area">
+                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
+                    ý</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .spinner-circular {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #E1E2EC;
+            border-top-color: #1565C0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .badge-dot {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        .tutorial-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 8000;
+            display: none;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .tutorial-card {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 300px;
+            animation: zoomIn 0.3s ease;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-overlay {
+                justify-content: flex-end;
+                padding-bottom: 90px;
+
+            }
+        }
+
+        .modal-guidelines {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 7000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .guidelines-box {
+            background: #ffffff;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .guidelines-header {
+            text-align: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .guidelines-header h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .guidelines-header p {
+            font-size: 14px;
+            color: var(--text-light, #64748b);
+        }
+
+        .guide-content-scroll {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 8px;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .guide-content-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .guide-content-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .guide-content-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .guide-content-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .rule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rule-list li {
+            font-size: 14px;
+            color: var(--text-main, #4B5563);
+            margin-bottom: 12px;
+            line-height: 1.6;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .rule-list li strong {
+            color: var(--primary);
+        }
+
+        .actions-area {
+            flex-shrink: 0;
+        }
+
+        .btn-agree {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
+        }
+
+        .btn-agree:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 132, 255, 0.4);
+        }
+
+        .btn-agree.disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+
     <div class="content-area">
-        <iframe name="contentFrame" id="mainFrame" src="home.html"></iframe>
+        <iframe name="contentFrame" id="mainFrame" src="dashboard.html"></iframe>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-remote-config.js";
 
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        import {
+            getAuth,
+            onAuthStateChanged
+        }
+
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        import {
+            getFirestore,
+            doc,
+            getDoc
+        }
+
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        import {
+            getRemoteConfig,
+            fetchAndActivate,
+            getValue
+        }
+
+            from "https://www.gstatic.com/firebasejs/10.7.1/firebase-remote-config.js";
+
+        const cfg = {
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069"
+        }
+
+            ;
         const app = initializeApp(cfg);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -382,11 +767,15 @@
         // AUTH & SETUP CHECK
         onAuthStateChanged(auth, async (u) => {
             if (u) {
+                localStorage.setItem('confe_current_uid', u.uid);
                 const snap = await getDoc(doc(db, "users", u.uid));
+
                 if (snap.exists()) {
                     const data = snap.data();
 
                 }
+            } else {
+                localStorage.removeItem('confe_current_uid');
             }
         });
 
@@ -397,28 +786,270 @@
             if (document.getElementById('chkNoShow').checked) {
                 localStorage.setItem('ann_hide_date', new Date().toDateString());
             }
+
             document.getElementById('modalAnnounce').style.display = 'none';
         }
 
         fetchAndActivate(remoteConfig).then(() => {
+            // SHOW CONFIG VERSION
+            try {
+                const configVer = getValue(remoteConfig, 'config_version').asString();
+                const configVerEl = document.getElementById('configVerText');
+                if (configVerEl && configVer) configVerEl.textContent = configVer;
+            } catch (e) { }
+
+            // CHECK MAINTENANCE MODE
+            const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
+
+            if (maintenanceMode) {
+                // Show maintenance modal instead of redirect
+                const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
+
+                if (customMessage) {
+                    document.getElementById('maintenanceMessage').textContent = customMessage;
+                }
+
+                document.getElementById('modalMaintenance').style.display = 'flex';
+                return;
+            }
+
+
             const today = new Date().toDateString();
             if (localStorage.getItem('ann_hide_date') === today) return; // SKIP IF HIDDEN TODAY
             const val = getValue(remoteConfig, "announcement_data");
+
             try {
                 const data = JSON.parse(val.asString());
+
                 if (data && data.show) {
                     const modal = document.getElementById('modalAnnounce');
                     const img = document.getElementById('annImg');
                     const txt = document.getElementById('annText');
 
-                    if (data.image) { img.src = data.image; img.style.display = 'block'; }
-                    else { img.style.display = 'none'; }
+                    if (data.image) {
+                        img.src = data.image; img.style.display = 'block';
+                    }
+
+                    else {
+                        img.style.display = 'none';
+                    }
 
                     txt.textContent = data.text || "Thông báo từ hệ thống.";
                     modal.style.display = 'flex';
                 }
-            } catch (e) { console.log("No announcement or parse error"); }
+            }
+
+            catch (e) {
+                console.log("No announcement or parse error");
+            }
         });
+
+        // GUIDELINES LOGIC
+        function checkGuidelines() {
+            console.log("Checking guidelines...");
+            const lastSeen = localStorage.getItem('confe_guidelines_last_seen');
+            const now = new Date().getTime();
+            const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+            // FOR DEBUG: Always clear last seen to force show on refresh if user wants testing
+            // localStorage.removeItem('confe_guidelines_last_seen'); 
+
+            if (!lastSeen || (now - parseInt(lastSeen)) > oneWeek) {
+                console.log("Showing guidelines modal");
+                const modal = document.getElementById('modalGuidelines');
+                modal.style.display = 'flex';
+                // Reset button state and check scroll position immediately
+                const btn = document.getElementById('btnAgree');
+                btn.classList.add('disabled');
+                btn.setAttribute('disabled', 'true');
+                btn.textContent = "Đọc hết để đồng ý";
+                const guideContent = document.getElementById('guideContent');
+
+                if (guideContent) {
+                    // Ensure content is rendered before checking scroll
+                    setTimeout(() => checkScroll(guideContent), 100);
+                }
+            }
+
+            else {
+                console.log("Guidelines already seen recently.");
+            }
+        }
+
+        // Run immediately
+        checkGuidelines();
+
+        // TUTORIAL & BADGE LOGIC
+        function checkTutorial() {
+            const hasSeenTutorial = localStorage.getItem('confe_chat_tutorial_seen');
+            const chatBadge = document.getElementById('chatBadge');
+
+            if (!hasSeenTutorial) {
+                // Show badge
+                if (chatBadge) chatBadge.style.display = 'block';
+
+                // Show tutorial overlay
+                const tutorial = document.getElementById('tutorialOverlay');
+                if (tutorial) {
+                    tutorial.style.display = 'block'; // Changed from flex to block for absolute positioning
+
+                    // SPOTLIGHT EFFECT & POSITIONING
+                    const chatLink = document.querySelector('.nav-link[onclick*="chat.html"]');
+                    const sidebar = document.getElementById('sidebar');
+                    const card = tutorial.querySelector('.tutorial-card');
+
+                    if (chatLink && sidebar && card) {
+                        // High z-index for spotlight
+                        sidebar.style.zIndex = '8001';
+                        chatLink.style.zIndex = '8002';
+                        chatLink.style.position = 'relative';
+                        chatLink.style.background = '#fff'; // Highlight background
+                        chatLink.style.borderRadius = '12px';
+                        chatLink.id = 'tut-highlight-link'; // Marker to clear later
+
+                        // Calculate Position
+                        const rect = chatLink.getBoundingClientRect();
+                        const isMobile = window.innerWidth <= 768;
+
+                        if (isMobile) {
+                            // Mobile: Position above (Arrow points DOWN)
+                            card.style.position = 'absolute';
+                            card.style.left = (rect.left + rect.width / 2) + 'px';
+                            card.style.top = (rect.top - card.offsetHeight - 40) + 'px'; // Move up for arrow (40px)
+                            card.style.transform = 'translateX(-50%)';
+
+                            // Arrow pointing DOWN (to the button)
+                            const arrow = document.createElement('div');
+                            arrow.id = 'tut-arrow-icon';
+                            arrow.innerHTML = `
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 4px rgba(255,255,255,0.5));">
+                                    <path d="M12 4V20M12 20L18 14M12 20L6 14" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            `;
+                            arrow.style.position = 'absolute';
+                            arrow.style.zIndex = '9999';
+                            // Position directly below the card
+                            // Card Top + Height + Spacing? No, arrow top = Card Bottom
+                            // Let's use Rect Top - Arrow Height
+                            arrow.style.top = (rect.top - 45) + 'px';
+                            arrow.style.left = (rect.left + rect.width / 2) + 'px';
+                            arrow.style.transform = 'translateX(-50%)';
+                            arrow.style.animation = 'bounceDown 1s infinite';
+                            document.body.appendChild(arrow);
+
+                        } else {
+                            // Desktop: Position to the right (Arrow points LEFT)
+                            card.style.position = 'absolute';
+                            card.style.left = (rect.right + 50) + 'px'; // Move right for arrow space (50px)
+                            card.style.top = (rect.top + rect.height / 2) + 'px';
+                            card.style.transform = 'translateY(-50%)';
+
+                            // Arrow pointing LEFT (to the button)
+                            const arrow = document.createElement('div');
+                            arrow.id = 'tut-arrow-icon';
+                            arrow.innerHTML = `
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 4px rgba(255,255,255,0.5));">
+                                    <path d="M20 12H4M4 12L10 18M4 12L10 6" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            `;
+                            arrow.style.position = 'absolute';
+                            arrow.style.zIndex = '9999';
+                            // Position to the left of card
+                            // Arrow Right = Card Left? No, arrow left = Rect Right + Spacing
+                            arrow.style.left = (rect.right + 10) + 'px'; // 10px from button
+                            arrow.style.top = (rect.top + rect.height / 2) + 'px';
+                            arrow.style.transform = 'translateY(-50%)';
+                            arrow.style.animation = 'bounceLeft 1s infinite';
+                            document.body.appendChild(arrow);
+                        }
+
+                        // Add Animations
+                        const animStyle = document.createElement('style');
+                        animStyle.id = 'tut-anim-style';
+                        animStyle.innerHTML = `
+                            @keyframes bounceDown {
+                                0%, 100% { transform: translateX(-50%) translateY(0); }
+                                50% { transform: translateX(-50%) translateY(5px); }
+                            }
+                            @keyframes bounceLeft {
+                                0%, 100% { transform: translateY(-50%) translateX(0); }
+                                50% { transform: translateY(-50%) translateX(-5px); }
+                            }
+                        `;
+                        document.head.appendChild(animStyle);
+                    }
+                }
+            }
+        }
+
+        window.closeTutorial = () => {
+            const tutorial = document.getElementById('tutorialOverlay');
+            if (tutorial) tutorial.style.display = 'none';
+
+            // SAVE STATE
+            localStorage.setItem('confe_chat_tutorial_seen', 'true');
+
+            // CLEANUP SPOTLIGHT
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) sidebar.style.zIndex = '';
+
+            const chatLink = document.getElementById('tut-highlight-link');
+            if (chatLink) {
+                chatLink.style.zIndex = '';
+                chatLink.style.position = 'relative'; // Keep relative for badge
+                chatLink.style.background = '';
+                chatLink.style.borderRadius = '';
+                chatLink.id = '';
+            }
+
+            const arrow = document.getElementById('tut-arrow-icon');
+            if (arrow) arrow.remove();
+
+            const animStyle = document.getElementById('tut-anim-style');
+            if (animStyle) animStyle.remove();
+        }
+
+        // Hook into loadPage to hide badge and tutorial when Chat is clicked
+        const originalLoadPage = window.loadPage;
+        window.loadPage = function (url, el) {
+            if (url.includes('chat.html')) {
+                localStorage.setItem('confe_chat_tutorial_seen', 'true');
+                const chatBadge = document.getElementById('chatBadge');
+                if (chatBadge) chatBadge.style.display = 'none';
+                closeTutorial();
+            }
+            // Call original logic (which is defined below, so we need to move this hook or redefining it)
+            document.getElementById('mainFrame').src = url;
+
+            // UI Active State
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            if (el) el.classList.add('active');
+        }
+
+        // Run tutorial check
+        setTimeout(checkTutorial, 1000);
+
+        window.closeGuidelines = () => {
+            localStorage.setItem('confe_guidelines_last_seen', new Date().getTime().toString());
+            document.getElementById('modalGuidelines').style.display = 'none';
+        }
+
+        window.checkScroll = (el) => {
+            const btn = document.getElementById('btnAgree');
+
+            // Check if scrolled to bottom (with small buffer)
+            if (el.scrollHeight - el.scrollTop <= el.clientHeight + 20) {
+                btn.classList.remove('disabled');
+                btn.removeAttribute('disabled');
+                btn.textContent = "Tôi đã hiểu và đồng ý";
+            }
+
+            else {
+                btn.classList.add('disabled');
+                btn.setAttribute('disabled', 'true');
+                btn.textContent = "Đọc hết để đồng ý";
+            }
+        }
 
         window.loadPage = function (url, el) {
             document.getElementById('mainFrame').src = url;
@@ -427,6 +1058,7 @@
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             if (el) el.classList.add('active');
         }
+
 
         // SIDEBAR RESIZER LOGIC
         const sidebar = document.getElementById('sidebar');
@@ -460,6 +1092,23 @@
                 document.body.style.cursor = 'default';
                 document.body.style.userSelect = 'auto';
                 iframe.style.pointerEvents = 'auto'; // Re-enable iframe events
+            }
+        });
+
+        // Xử lý Deep Link khi mới vào trang
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const uidParam = urlParams.get('uid');
+            const viewParam = urlParams.get('view');
+            const chatParam = urlParams.get('chat');
+            const mainFrame = document.getElementById('mainFrame');
+
+            if (uidParam) {
+                // Remove active state from all nav links
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                mainFrame.src = `profile.html?uid=${uidParam}`;
+            } else if (chatParam) {
+                mainFrame.src = `chat.html?chat=${chatParam}`;
             }
         });
     </script>

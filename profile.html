@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ sơ cá nhân</title>
+    <title>👤 Hồ sơ cá nhân</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -59,9 +59,12 @@
 
         .container {
             max-width: 500px;
-            margin: 60px auto 40px;
+            margin: 140px auto 40px;
             padding: 0 20px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .profile-card {
@@ -74,6 +77,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative;
+            width: 100%;
         }
 
         .avt-box {
@@ -248,7 +252,6 @@
             color: var(--text-light);
         }
 
-        /* MODALS */
         .modal {
             position: fixed;
             inset: 0;
@@ -273,6 +276,8 @@
             background: white;
             width: 100%;
             max-width: 400px;
+            max-height: 85vh;
+            overflow-y: auto;
             border-radius: 28px;
             padding: 24px;
             position: relative;
@@ -413,7 +418,6 @@
     <div class="cover-overlay" id="bgCover"></div>
 
     <style>
-        /* SKELETON CSS */
         .sk-pulse {
             background: #e2e8f0;
             border-radius: 8px;
@@ -477,7 +481,6 @@
             border-radius: 8px;
         }
 
-        /* SETTINGS MODAL CSS */
         .tick {
             color: #3b82f6;
             margin-left: 6px;
@@ -522,8 +525,6 @@
             font-weight: 600;
         }
     </style>
-
-    <!-- SKELETON LOADER -->
     <div id="profileSkeleton" class="container">
         <div class="p-sk-card">
             <div class="sk-pulse sk-avt"></div>
@@ -544,8 +545,6 @@
             </div>
         </div>
     </div>
-
-    <!-- REAL CONTENT -->
     <div id="profileContent" class="container" style="display:none;">
         <div class="profile-card">
             <button class="btn-top" style="left:20px; right:auto;" onclick="history.back()">
@@ -583,23 +582,19 @@
             </div>
         </div>
     </div>
-
-    <!-- NOTIFICATION MODAL -->
     <div id="modalNotif" class="modal">
         <div class="box">
             <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
                     class='bx bx-x'></i></button>
-            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800;">🔔 Thông báo</h3>
+            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800;"> Thông báo</h3>
             <div id="reqList" style="max-height:400px; overflow-y:auto;">
                 <p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>
             </div>
         </div>
     </div>
-
-    <!-- CONFIRMATION MODAL -->
-    <div id="modalConfirm" class="modal">
+    <div id="modalConfirm" class="modal" style="z-index: 2500;">
         <div class="box" style="text-align:center; max-width:320px;">
-            <div style="font-size:48px; margin-bottom:10px;">👋</div>
+            <div style="font-size:48px; margin-bottom:10px;"></div>
             <h3 style="margin-bottom:10px; font-size:18px;">Bạn chắc chứ?</h3>
             <p style="color:#64748b; margin-bottom:20px;" id="confirmMsg">Bạn có chắc chắn muốn đăng xuất không?</p>
             <div style="display:flex; gap:10px;">
@@ -609,13 +604,11 @@
             </div>
         </div>
     </div>
-
-    <!-- SETTINGS MODAL -->
     <div id="modalSettings" class="modal">
         <div class="box">
             <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
                     class='bx bx-x'></i></button>
-            <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ ✨</h3>
+            <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ </h3>
 
             <div class="settings-grid">
                 <label class="upload-btn">
@@ -649,22 +642,64 @@
                     placeholder="Hãy nói gì đó về bạn..."></textarea>
             </div>
 
-            <button onclick="document.getElementById('modalVerify').classList.add('active')"
+            <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
                 <i class='bx bxs-check-circle'></i> Đăng ký tích xanh
             </button>
 
             <button id="btnSave" class="btn-main">Lưu thay đổi</button>
+
+            <div id="googleLinkSection"
+                style="display:none; margin-top:16px; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden;">
+                <button onclick="toggleGuestSection()"
+                    style="width:100%; padding:14px 16px; background:#fafafa; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:14px;">
+                    <span> Tạo tài khoản từ tư cách khách</span>
+                    <span id="guestSectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
+                </button>
+                <div id="guestSectionBody" style="display:none; padding:16px; border-top:1px solid #f1f5f9;">
+                    <div style="font-size:12px; color:#64748b; margin-bottom:12px;">Bạn đang dùng tư cách khách. Đặt
+                        email & mật khẩu để lưu tài khoản vĩnh viễn!</div>
+                    <div class="inp-group">
+                        <label class="inp-label">Gmail mới (tùy chọn)</label>
+                        <input type="email" id="linkEmail" class="inp" placeholder="email@gmail.com">
+                    </div>
+                    <div class="inp-group">
+                        <label class="inp-label">Mật khẩu mới <span style="color:red">*</span></label>
+                        <input type="password" id="linkPass" class="inp" placeholder="Ít nhất 6 ký tự">
+                    </div>
+                    <div class="inp-group">
+                        <label class="inp-label">Nhập lại mật khẩu <span style="color:red">*</span></label>
+                        <input type="password" id="linkPassConfirm" class="inp" placeholder="Nhập lại">
+                    </div>
+                    <button onclick="saveLinkEmailPass()"
+                        style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">Lưu
+                        tài khoản</button>
+                </div>
+            </div>
+
             <button id="btnLogout"
                 style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
                 <i class='bx bx-log-out'></i> Đăng xuất
             </button>
         </div>
     </div>
+    <div id="modalAnonLogout" class="modal" style="z-index:9999;">
+        <div class="box" style="text-align:center; max-width:340px;">
+            <div style="font-size:48px; margin-bottom:10px;">️</div>
+            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800;">Chưa lưu tài khoản!</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Bạn đang dùng <b>tư cách
+                    khách</b>. Nếu đăng xuất bây giờ, <b style="color:#ef4444;">tài khoản và dữ liệu sẽ mất vĩnh
+                    viễn!</b><br><br>Hãy tạo tài khoản trước để giữ lại mọi thứ.</p>
+            <button onclick="openGuestSectionAndClose()" class="btn-main" style="margin-bottom:10px;">Lưu tài khoản
+                ngay</button>
+            <button onclick="forceLogout()" class="btn-main" style="background:rgba(239,68,68,0.1); color:#ef4444;">Vẫn
+                đăng xuất (mất dữ liệu)</button>
+        </div>
+    </div>
 
     <div id="modalVerify" class="modal">
         <div class="box" style="text-align:center;">
-            <div style="font-size:48px; margin-bottom:10px;">✨</div>
+            <div style="font-size:48px; margin-bottom:10px;"></div>
             <h3 style="margin-bottom:10px; font-size:18px;">Đăng ký Verified</h3>
             <div style="text-align:left; margin-bottom:15px;">
                 <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Tên đầy
@@ -687,14 +722,15 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
         const app = initializeApp(cfg); const db = getFirestore(app); const auth = getAuth(app);
 
-        let targetUid = new URLSearchParams(window.location.search).get('uid');
+        const urlParams = new URLSearchParams(window.location.search);
+        let targetUid = urlParams.get('uid') || urlParams.get('id');
         let currentUser = null, userData = null;
 
         window.showToast = (m) => {
@@ -710,13 +746,43 @@
             if (targetUid) {
                 loadProfile(targetUid);
                 if (u && u.uid === targetUid) listenToRequests(u.email);
+
+                // Show link section only for anonymous users
+                if (u && u.uid === targetUid && u.isAnonymous) {
+                    document.getElementById('googleLinkSection').style.display = 'block';
+                }
             } else { location.href = 'login.html'; }
         });
+
+        window.saveLinkEmailPass = async () => {
+            const emailVal = document.getElementById('linkEmail').value.trim();
+            const passVal = document.getElementById('linkPass').value;
+            const passConfirm = document.getElementById('linkPassConfirm').value;
+            if (!passVal) return showToast('Vui lòng nhập mật khẩu!');
+            if (passVal !== passConfirm) return showToast('Mật khẩu không khớp!');
+            if (passVal.length < 6) return showToast('Mật khẩu ít nhất 6 ký tự!');
+            try {
+                const u = auth.currentUser;
+                const emailToUse = emailVal || u.email;
+                const credential = EmailAuthProvider.credential(emailToUse, passVal);
+                await linkWithCredential(u, credential);
+                // Update email if different
+                if (emailVal && emailVal !== u.email) {
+                    await updateEmail(u, emailVal);
+                    await updateDoc(doc(db, 'users', u.uid), { email: emailVal });
+                }
+                showToast('Liên kết thành công! Bây giờ bạn có thể đăng nhập bằng email & mật khẩu.');
+                document.getElementById('googleLinkSection').style.display = 'none';
+            } catch (err) {
+                if (err.code === 'auth/provider-already-linked') showToast('Đã liên kết rồi!');
+                else showToast('Lỗi: ' + err.message);
+            }
+        }
 
         let isSetupRequired = false;
 
         window.closeSettings = () => {
-            if (isSetupRequired) return showToast("Vui lòng hoàn tất hồ sơ trước!", "⚠️");
+            if (isSetupRequired) return showToast("Vui lòng hoàn tất hồ sơ trước!", "️");
             document.getElementById('modalSettings').classList.remove('active');
         }
 
@@ -814,7 +880,7 @@
                 console.error(e);
                 let msg = e.message;
                 if (msg.includes("requires an index")) msg = "Hệ thống đang tạo index, thử lại sau.";
-                window.showToast("Lỗi: " + msg, "❌");
+                window.showToast("Lỗi: " + msg, "");
                 document.getElementById('btnSave').textContent = "Lưu thay đổi";
                 document.getElementById('btnSave').disabled = false;
             }
@@ -824,15 +890,46 @@
         document.body.addEventListener('change', (e) => {
             if (e.target.type === 'file' && e.target.files[0]) {
                 const f = e.target.files[0];
-                window.showToast(`📷 Đã chọn: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`);
+                window.showToast(` Đã chọn: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`);
             }
         });
 
         document.getElementById('btnLogout').onclick = () => {
-            document.getElementById('modalConfirm').classList.add('active');
+            if (auth.currentUser?.isAnonymous) {
+                document.getElementById('modalAnonLogout').classList.add('active');
+            } else {
+                document.getElementById('modalConfirm').classList.add('active');
+            }
         }
 
         document.getElementById('btnConfirmYes').onclick = () => {
+            signOut(auth).then(() => window.top.location.href = 'index.html');
+        }
+
+        window.toggleGuestSection = () => {
+            const body = document.getElementById('guestSectionBody');
+            const arrow = document.getElementById('guestSectionArrow');
+            const open = body.style.display === 'block';
+            body.style.display = open ? 'none' : 'block';
+            arrow.style.transform = open ? '' : 'rotate(180deg)';
+        }
+
+        window.openGuestSectionAndClose = () => {
+            document.getElementById('modalAnonLogout').classList.remove('active');
+            document.getElementById('modalSettings').classList.add('active');
+            // Auto-open the accordion
+            setTimeout(() => {
+                const body = document.getElementById('guestSectionBody');
+                const arrow = document.getElementById('guestSectionArrow');
+                if (body.style.display !== 'block') {
+                    body.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                }
+            }, 200);
+        }
+
+        window.forceLogout = () => {
+            document.getElementById('modalAnonLogout').classList.remove('active');
             signOut(auth).then(() => window.top.location.href = 'index.html');
         }
         function renderUI(data, uid) {
@@ -854,6 +951,15 @@
                     document.getElementById('inpName').value = data.displayName || "";
                     document.getElementById('inpBio').value = data.bio || "";
                     document.getElementById('inpUser').value = data.username || "";
+
+                    // Hide verification button if already verified
+                    const verifyBtn = document.getElementById('btnVerifyRequest');
+                    if (data.isVerified) {
+                        verifyBtn.style.display = 'none';
+                    } else {
+                        verifyBtn.style.display = 'flex';
+                    }
+
                     document.getElementById('modalSettings').classList.add('active');
                 };
             }
@@ -869,19 +975,98 @@
                 // Mock 30 if > 0 for now as requested "if enough 30 days show button"
                 const daysMock = (days > 0) ? 30 : days;
 
-                // document.getElementById('daysOnline').textContent = daysMock;
-                // Always show button now as per request "bỏ cái chờ xét duyệt"
-                // if (daysMock >= 30 && !userData.isVerified) {
-                if (!userData.isVerified) {
-                    document.getElementById('btnReqVerify').style.display = 'inline-block';
+                // Hide verification button in modal if already verified (initial load)
+                const verifyBtn = document.getElementById('btnVerifyRequest');
+                if (verifyBtn && !userData.isVerified) {
+                    verifyBtn.style.display = 'flex';
+                } else if (verifyBtn) {
+                    verifyBtn.style.display = 'none';
                 }
             }
 
-            // Hide Notif if visitor
+            // Hide Notif if visitor, but show action buttons
             if (currentUser && currentUser.uid !== uid) {
                 document.getElementById('btnNotif').style.display = 'none';
+
+                // Show Friend Actions
+                const actionContainer = document.getElementById('actionContainer');
+                if (actionContainer) {
+                    actionContainer.style.display = 'flex';
+                    const addFriendBtn = document.getElementById('addFriendBtn');
+                    const messageBtn = document.getElementById('messageBtn');
+
+                    messageBtn.onclick = () => { window.location.href = `chatv2.html?chat=${uid}`; };
+
+                    addFriendBtn.textContent = 'Đang tải...';
+                    addFriendBtn.disabled = true;
+
+                    // Fetch my friends array
+                    getDoc(doc(db, 'users', currentUser.uid)).then(meSnap => {
+                        const myFriends = meSnap.data()?.friends || [];
+                        if (myFriends.includes(uid)) {
+                            addFriendBtn.textContent = 'Bạn bè';
+                            addFriendBtn.style.background = '#e2e8f0';
+                            addFriendBtn.style.color = '#475569';
+                            addFriendBtn.disabled = true;
+                        } else {
+                            const qSent = query(collection(db, 'friend_requests'), where('from_uid', '==', currentUser.uid), where('to_uid', '==', uid), where('status', '==', 'pending'));
+                            const qReceived = query(collection(db, 'friend_requests'), where('from_uid', '==', uid), where('to_uid', '==', currentUser.uid), where('status', '==', 'pending'));
+
+                            Promise.all([getDocs(qSent), getDocs(qReceived)]).then(([sentSnap, receivedSnap]) => {
+                                if (!sentSnap.empty) {
+                                    addFriendBtn.textContent = 'Đã gửi lời mời';
+                                    addFriendBtn.style.background = '#e2e8f0';
+                                    addFriendBtn.style.color = '#475569';
+                                    addFriendBtn.disabled = true;
+                                } else if (!receivedSnap.empty) {
+                                    addFriendBtn.textContent = 'Chấp nhận';
+                                    addFriendBtn.disabled = false;
+                                    addFriendBtn.onclick = async () => {
+                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Đang xử lý...';
+                                        try {
+                                            const reqId = receivedSnap.docs[0].id;
+                                            await updateDoc(doc(db, 'friend_requests', reqId), { status: 'accepted' });
+                                            await updateDoc(doc(db, 'users', currentUser.uid), { friends: arrayUnion(uid) });
+                                            await updateDoc(doc(db, 'users', uid), { friends: arrayUnion(currentUser.uid) });
+
+                                            addFriendBtn.textContent = 'Bạn bè';
+                                            addFriendBtn.style.background = '#e2e8f0';
+                                            addFriendBtn.style.color = '#475569';
+                                            window.showToast('Đã kết bạn!', 'success');
+                                        } catch (e) {
+                                            window.showToast("Lỗi: " + e.message, "error");
+                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Chấp nhận';
+                                        }
+                                    };
+                                } else {
+                                    addFriendBtn.textContent = 'Kết bạn';
+                                    addFriendBtn.disabled = false;
+                                    addFriendBtn.onclick = async () => {
+                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Đang gửi...';
+                                        try {
+                                            await addDoc(collection(db, 'friend_requests'), {
+                                                from_uid: currentUser.uid,
+                                                to_uid: uid,
+                                                status: 'pending',
+                                                timestamp: serverTimestamp()
+                                            });
+                                            addFriendBtn.textContent = 'Đã gửi lời mời';
+                                            addFriendBtn.style.background = '#e2e8f0';
+                                            addFriendBtn.style.color = '#475569';
+                                            window.showToast('Đã gửi lời mời kết bạn!', 'success');
+                                        } catch (e) {
+                                            window.showToast("Lỗi: " + e.message, "error");
+                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Kết bạn';
+                                        }
+                                    };
+                                }
+                            });
+                        }
+                    });
+                }
             } else {
                 document.getElementById('btnNotif').style.display = 'flex';
+                if (document.getElementById('actionContainer')) document.getElementById('actionContainer').style.display = 'none';
             }
         }
 
@@ -898,7 +1083,7 @@
                     list.innerHTML += `
                         <a href="detail.html?tid=${d.id}" class="topic-mini">
                             <img src="${t.banner || 'https://via.placeholder.com/50'}" class="tm-img">
-                            <div class="tm-info"><div class="tm-title">${t.title}</div><div class="tm-meta">🔥 ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}</div></div>
+                            <div class="tm-info"><div class="tm-title">${t.title}</div><div class="tm-meta"> ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}</div></div>
                             <i class='bx bx-chevron-right' style="color:#cbd5e1"></i>
                         </a>`;
                 });
@@ -923,7 +1108,7 @@
                     item.className = 'request-item';
                     item.innerHTML = `
                         <div style="font-weight:700; font-size:14px;">${r.tTitle}</div>
-                        <div style="font-size:13px; color:#64748b; margin:4px 0;">👤 <b>${r.userName}</b> xin tham gia</div>
+                        <div style="font-size:13px; color:#64748b; margin:4px 0;"> <b>${r.userName}</b> xin tham gia</div>
                         <div class="req-actions">
                             <button class="btn-req btn-approve">Duyệt</button>
                             <button class="btn-req btn-reject">Từ chối</button>
@@ -953,9 +1138,14 @@
 
 
         window.reqVerify = async () => {
+            if (auth.currentUser?.isAnonymous) {
+                window.showToast('Tư cách khách không thể đăng ký tick xanh! Hãy tạo tài khoản trước.', '️');
+                document.getElementById('modalVerify').classList.remove('active');
+                return;
+            }
             const name = document.getElementById('reqName').value.trim();
             const reason = document.getElementById('reqReason').value.trim();
-            if (!name || !reason) return window.showToast("Vui lòng nhập đầy đủ!", "⚠️");
+            if (!name || !reason) return window.showToast("Vui lòng nhập đầy đủ!", "️");
 
             document.getElementById('btnReqVerify').textContent = "Đang gửi...";
             try {
@@ -974,7 +1164,6 @@
             document.getElementById('btnReqVerify').textContent = "Gửi đơn đăng ký";
         }
 
-        document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => window.top.location.href = 'index.html');
     </script>
 </body>
 

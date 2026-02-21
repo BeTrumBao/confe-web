@@ -44,9 +44,8 @@
             flex-direction: column;
         }
 
-        /* NAVBAR */
         .navbar {
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--surface);
             backdrop-filter: blur(12px);
             height: 64px;
             padding: 0 20px;
@@ -56,7 +55,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--outline);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .nav-logo {
@@ -177,7 +177,6 @@
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
         }
 
-        /* HERO */
         .hero {
             padding: 40px 20px 20px;
             text-align: center;
@@ -236,7 +235,6 @@
             fill: var(--text-secondary);
         }
 
-        /* SUGGESTIONS */
         .section-title {
             font-size: 18px;
             font-weight: 700;
@@ -313,7 +311,17 @@
             margin-top: 4px;
         }
 
-        /* MAIN CONTENT & CARD */
+        .spoiler-text {
+            color: transparent;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 0 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
         .controls {
             display: flex;
             align-items: center;
@@ -489,7 +497,6 @@
             font-weight: 700;
         }
 
-        /* NÚT BÁO CÁO TRÊN CARD */
         .btn-card-report {
             position: absolute;
             top: 10px;
@@ -515,7 +522,6 @@
             transform: scale(1.1);
         }
 
-        /* FOOTER & MISC */
         footer {
             margin-top: auto;
             padding: 40px 20px;
@@ -580,7 +586,7 @@
         @media (max-width: 768px) {
             .fab {
                 bottom: 100px;
-                /* Clear the 75px tab bar */
+
             }
         }
 
@@ -710,7 +716,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* CHANGELOG */
         .changelog-list {
             display: flex;
             flex-direction: column;
@@ -800,22 +805,7 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-logo"></div>
-        <div class="nav-right">
-            <button id="btnNews" class="btn-icon-nav"><svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z" />
-                </svg>
-                <div class="badge"></div>
-            </button>
-            <div id="navAction"><a href="login.html" class="btn-login" target="_top">Đăng nhập</a></div>
-        </div>
-    </nav>
-
     <div class="hero">
-        <h1>Bí Mật & Im Lặng Nào 🤫</h1>
-        <p>Nơi chia sẻ những điều thầm kín, bóc phốt, drama, hay một thứ gì đó... hoàn toàn ẩn danh và miễn phí 100%</p>
         <div class="search-wrapper">
             <svg class="search-icon" viewBox="0 0 24 24">
                 <path
@@ -826,7 +816,7 @@
     </div>
 
     <div class="container" style="padding-bottom: 0;">
-        <div class="section-title">⚡ Đang Nổi Bật</div>
+        <div class="section-title"> Đang Nổi Bật</div>
         <div class="suggest-list" id="suggestList">
             <div class="mini-card skeleton" style="min-width:240px"></div>
             <div class="mini-card skeleton" style="min-width:240px"></div>
@@ -834,24 +824,21 @@
         </div>
     </div>
 
+
     <div class="container">
         <div class="controls">
             <div class="chips">
                 <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
-                <div class="chip" onclick="setFilter(this, 'drama')">🔥 Drama</div>
-                <div class="chip" onclick="setFilter(this, 'love')">❤️ Tình yêu</div>
-                <div class="chip" onclick="setFilter(this, 'school')">📚 Học đường</div>
-                <div class="chip" onclick="setFilter(this, 'game')">🎮 Game</div>
+                <div class="chip" onclick="setFilter(this, 'drama')"> Drama</div>
+                <div class="chip" onclick="setFilter(this, 'love')">️ Tình yêu</div>
+                <div class="chip" onclick="setFilter(this, 'school')"> Học đường</div>
+                <div class="chip" onclick="setFilter(this, 'game')"> Game</div>
             </div>
         </div>
         <div id="grid" class="grid"></div>
     </div>
 
     <footer>
-        <div class="ft-text">Made By QjQI or Bao Neyako With Love <span class="ft-heart">❤️</span></div>
-        <div style="margin-top: 10px;">
-            <button class="btn-feedback" id="btnOpenFeedback">Góp ý cho Admin</button>
-        </div>
     </footer>
 
     <div id="fab" class="fab">
@@ -865,7 +852,7 @@
 
     <div id="modalReport" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:8px;">🚩 Báo cáo Topic</h3>
+            <h3 style="margin-bottom:8px;"> Báo cáo Topic</h3>
             <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo Topic này.</p>
             <select id="rReason" class="inp" style="cursor:pointer; margin-bottom:10px;">
                 <option>Nội dung thô tục / Phản cảm</option>
@@ -888,15 +875,15 @@
             <div style="margin-bottom:15px">
                 <label class="inp-label">Thể loại</label>
                 <select id="tCat" class="inp">
-                    <option value="life">🍃 Đời thường</option>
-                    <option value="drama">🔥 Drama</option>
-                    <option value="love">❤️ Tình yêu</option>
-                    <option value="school">📚 Học đường</option>
-                    <option value="game">🎮 Game</option>
+                    <option value="life"> Đời thường</option>
+                    <option value="drama"> Drama</option>
+                    <option value="love">️ Tình yêu</option>
+                    <option value="school"> Học đường</option>
+                    <option value="game"> Game</option>
                 </select>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"><label class="btn-file">📷 Ảnh bìa
-                    <input type="file" id="fBanner" hidden></label><label class="btn-file">🖼️ Logo <input type="file"
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"><label class="btn-file"> Ảnh bìa
+                    <input type="file" id="fBanner" hidden></label><label class="btn-file">️ Logo <input type="file"
                         id="fLogo" hidden></label></div>
             <div style="margin-bottom:15px"><label class="inp-label">Mô tả / Nội quy</label><textarea id="tRules"
                     class="inp" rows="3"></textarea></div>
@@ -924,10 +911,10 @@
 
     <div id="modalNews" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:20px; font-size:20px;">📢 Cập nhật mới</h3>
+            <h3 style="margin-bottom:20px; font-size:20px;"> Cập nhật mới</h3>
             <div class="changelog-list">
                 <div class="cl-item">
-                    <div class="cl-icon">🛡️</div>
+                    <div class="cl-icon">️</div>
                     <div class="cl-content">
                         <div class="cl-date">Mới</div>
                         <h4>Bảo mật Topic & Notification</h4>
@@ -935,7 +922,7 @@
                     </div>
                 </div>
                 <div class="cl-item">
-                    <div class="cl-icon">🔥</div>
+                    <div class="cl-icon"></div>
                     <div class="cl-content">
                         <div class="cl-date">14/12</div>
                         <h4>Fix Bug Và Thêm Tính Năng Mới</h4>
@@ -948,14 +935,12 @@
         </div>
     </div>
     </div>
-
-    <!-- REQUESTS MODAL -->
     <div id="modalRequests" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:20px; font-size:20px;">🔔 Yêu cầu tham gia</h3>
+            <h3 style="margin-bottom:20px; font-size:20px;"> Yêu cầu tham gia</h3>
             <p id="noReqMsg" style="text-align:center; color:#64748b; font-size:14px;">Không có yêu cầu nào.</p>
             <div id="reqList" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;">
-                <!-- Requests will be loaded here -->
+
             </div>
             <button onclick="document.getElementById('modalRequests').classList.remove('active')" class="btn-act"
                 style="background:#f1f5f9; color:#475569; margin-top:20px;">Đóng</button>
@@ -976,7 +961,7 @@
 
     <div id="modalTerms" class="modal" style="z-index:2000;">
         <div class="box">
-            <h3 style="margin-bottom:20px;">📜 Quy định Tạo Topic</h3>
+            <h3 style="margin-bottom:20px;"> Quy định Tạo Topic</h3>
             <div
                 style="max-height:60vh; overflow-y:auto; margin-bottom:20px; font-size:14px; color:var(--text-secondary); line-height:1.6;">
                 <p style="margin-bottom:10px;">1. <b>Nội dung cấm:</b> Không đăng tải nội dung vi phạm pháp luật, đồi
@@ -1013,7 +998,6 @@
             setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // --- XỬ LÝ REPORT TOPIC ---
         window.openReport = (e, topicId) => {
             e.stopPropagation(); // QUAN TRỌNG: Chặn sự kiện click lan ra ngoài (không mở trang detail)
             reportTargetId = topicId;
@@ -1038,16 +1022,14 @@
             this.textContent = "Gửi Báo Cáo";
         }
 
-        // --- XỬ LÝ GÓP Ý & TIN TỨC ---
         // btnNews handler moved to updateBadge logic section below
-        document.getElementById('btnOpenFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
         document.getElementById('btnSendFeedback').onclick = async () => {
             const txt = document.getElementById('feedbackContent').value;
             if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
             document.getElementById('btnSendFeedback').textContent = "Đang gửi...";
             try {
                 await addDoc(collection(db, "feedbacks"), { content: txt, user: user ? user.email : "Ẩn danh", uid: user ? user.uid : null, createdAt: serverTimestamp() });
-                window.showToast("Cảm ơn góp ý của bạn! ❤️");
+                window.showToast("Cảm ơn góp ý của bạn! ️");
                 document.getElementById('feedbackContent').value = "";
                 document.getElementById('modalFeedback').classList.remove('active');
             } catch (e) { window.showToast("Lỗi khi gửi!"); }
@@ -1056,36 +1038,53 @@
 
         onAuthStateChanged(auth, async (u) => {
             user = u;
+            if (u) loadRequests();
             try { if (window.parent && window.parent.setUid) window.parent.setUid(u ? u.uid : null); } catch (e) { }
             const nav = document.getElementById('navAction');
-            if (u) {
-                let avt = "https://via.placeholder.com/40";
-                try { const d = await getDoc(doc(db, "users", u.uid)); if (d.exists()) avt = d.data().photoURL || avt; } catch { }
-                nav.innerHTML = `
-                    <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
-                        <img src="${avt}" class="nav-avt">
-                        <div class="dropdown-menu">
-                            <a href="profile.html?uid=${u.uid}" class="menu-item">Hồ sơ của tôi</a>
-                            <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
-                        </div>
-                    </div>`;
-                document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
-            } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
+            if (nav) {
+                if (u) {
+                    let avt = "https://via.placeholder.com/40";
+                    try { const d = await getDoc(doc(db, "users", u.uid)); if (d.exists()) avt = d.data().photoURL || avt; } catch { }
+                    const guestBanner = u.isAnonymous ? `
+                        <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
+                             <b>👤 Tư cách khách</b><br>
+                            <span style="font-weight:400;">Bấm để đặt email & mật khẩu lưu tài khoản vĩnh viễn</span>
+                        </a>` : '';
+                    nav.innerHTML = `
+                        <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
+                            <img src="${avt}" class="nav-avt">
+                            <div class="dropdown-menu">
+                                ${guestBanner}
+                                <a href="profile.html?uid=${u.uid}" class="menu-item">👤 Hồ sơ của tôi</a>
+                                <div id="btnNavFeedback" class="menu-item">💡 Góp ý cho Admin</div>
+                                <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
+                            </div>
+                        </div>`;
+                    document.getElementById('btnNavFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
+                    document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
+                } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
+            }
         });
 
         window.onclick = (e) => {
             if (!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show');
             if (e.target.classList.contains('modal')) e.target.classList.remove('active');
         }
-
-        // --- CREATE TOPIC ---
         const modal = document.getElementById('modal');
-        document.getElementById('fab').onclick = () => { if (!user) return location.href = 'login.html'; modal.classList.add('active'); }
+        document.getElementById('fab').onclick = () => {
+            if (!user) return location.href = 'login.html';
+            if (user.isAnonymous) return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
+            modal.classList.add('active');
+        }
         async function up(f) { if (!f) return ""; const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; } }
 
         document.getElementById('btnCreate').onclick = async function () {
+            if (!user || user.isAnonymous) {
+                modal.classList.remove('active');
+                return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
+            }
             const t = document.getElementById('tTitle').value; if (!t) return window.showToast("Nhập tên Topic!");
-            if (!document.getElementById('chkTerms').checked) return window.showToast("Bạn chưa đồng ý quy định!", "⚠️");
+            if (!document.getElementById('chkTerms').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
             this.textContent = "Đang tạo..."; this.disabled = true;
             const b = await up(document.getElementById('fBanner').files[0]);
             const l = await up(document.getElementById('fLogo').files[0]);
@@ -1094,8 +1093,6 @@
             await addDoc(collection(db, "topics"), { title: t, owner: user.email, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, postRule: 'all', is_agree_terms: true });
             window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent = "Tạo Topic"; this.disabled = false;
         };
-
-        // --- FETCH TOPICS & RENDER ---
         const grid = document.getElementById('grid');
         const suggestList = document.getElementById('suggestList');
 
@@ -1112,36 +1109,47 @@
                 return matchSearch && matchCat;
             });
 
-            grid.innerHTML = list.map(t => `
+            grid.innerHTML = list.map(t => {
+                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner);
+                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn phải xác thực để xem nội dung này!')">Nội dung ẩn</span>` : t.title;
+                const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
+                const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
+
+                return `
                 <div class="card" onclick="location.href='detail.html?id=${t.id}'">
                     <button class="btn-card-report" onclick="openReport(event, '${t.id}')" title="Báo cáo">🚩</button>
-                    ${t.securityMode === 'otp' || t.securityMode === 'whitelist' ? '<div class="card-badge-private">🔒 Riêng tư</div>' : ''}
+                    ${t.securityMode === 'otp' || t.securityMode === 'whitelist' ? '<div class="card-badge-private"> Riêng tư</div>' : ''}
                     <div class="card-img-box">
-                        <img src="${t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background'}" class="card-img" onerror="this.style.display='none'; this.parentElement.innerText='Background'">
+                        <img src="${displayBanner}" class="card-img" onerror="this.style.display='none'; this.parentElement.innerText='Background'">
                     </div>
                     <div class="card-body">
-                        <img src="${t.logo || 'https://via.placeholder.com/50'}" class="card-logo">
-                        <div class="card-tag">${t.category === 'love' ? '❤️ Tình yêu' : t.category === 'drama' ? '🔥 Drama' : t.category === 'school' ? '📚 Học đường' : t.category === 'game' ? '🎮 Game' : '🍃 Đời thường'}</div>
-                        <h3 class="card-title">${t.title}</h3>
+                        <img src="${displayLogo}" class="card-logo">
+                        <div class="card-tag">${t.category === 'love' ? '️ Tình yêu' : t.category === 'drama' ? ' Drama' : t.category === 'school' ? ' Học đường' : t.category === 'game' ? ' Game' : ' Đời thường'}</div>
+                        <h3 class="card-title">${displayTitle}</h3>
                         <div class="card-footer">
-                            <span>${t.status === 'open' ? '🟢 Đang mở' : '🔴 Đã đóng'}</span>
-                            <div class="heat-tag">🔥 ${t.heat || 0}</div>
+                            <span>${t.status === 'open' ? '🟢' : ''}</span>
+                            <div class="heat-tag"> ${t.heat || 0}</div>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
 
             // Render Suggestions (Top 3 Heat)
             const top = [...allTopics].sort((a, b) => (b.heat || 0) - (a.heat || 0)).slice(0, 3);
-            suggestList.innerHTML = top.map(t => `
+            suggestList.innerHTML = top.map(t => {
+                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner);
+                const displayTitle = isProtected ? `Nội dung ẩn` : t.title;
+                const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://via.placeholder.com/300x150');
+
+                return `
                  <div class="mini-card" onclick="location.href='detail.html?id=${t.id}'">
-                    <img src="${t.banner || 'https://via.placeholder.com/300x150'}" class="mini-img">
+                    <img src="${displayBanner}" class="mini-img">
                     <div class="mini-overlay">
-                        <div class="mini-title">${t.title}</div>
-                        <div class="mini-heat">🔥 ${t.heat || 0} đang bàn tán</div>
+                        <div class="mini-title">${displayTitle}</div>
+                        <div class="mini-heat"> ${t.heat || 0} đang bàn tán</div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         window.setFilter = (el, cat) => {
@@ -1149,8 +1157,6 @@
             el.classList.add('active'); curFilter = cat; render();
         }
         document.getElementById('search').oninput = render;
-
-        // --- NOTIFICATIONS & REQUESTS ---
         let pendingReqs = [];
 
         function loadRequests() {
@@ -1166,6 +1172,7 @@
         function updateBadge() {
             // Update Navbar Bell Badge
             const bellBtn = document.getElementById('btnNews');
+            if (!bellBtn) return;
             const badge = bellBtn.querySelector('.badge');
 
             if (pendingReqs.length > 0) {
@@ -1180,11 +1187,14 @@
         }
 
         // Updated Bell Click Handler
-        document.getElementById('btnNews').onclick = () => {
-            if (pendingReqs.length > 0) {
-                document.getElementById('modalRequests').classList.add('active');
-            } else {
-                document.getElementById('modalNews').classList.add('active');
+        const btnNews = document.getElementById('btnNews');
+        if (btnNews) {
+            btnNews.onclick = () => {
+                if (pendingReqs.length > 0) {
+                    document.getElementById('modalRequests').classList.add('active');
+                } else {
+                    document.getElementById('modalNews').classList.add('active');
+                }
             }
         }
 
@@ -1196,7 +1206,7 @@
             list.innerHTML = pendingReqs.map(r => `
                  <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:white;">
                      <div style="font-weight:700; font-size:14px; margin-bottom:4px;">${r.tTitle}</div>
-                     <div style="font-size:13px; color:#64748b; margin-bottom:10px;">👤 ${r.userName} xin tham gia</div>
+                     <div style="font-size:13px; color:#64748b; margin-bottom:10px;"> ${r.userName} xin tham gia</div>
                      <div style="display:flex; gap:10px;">
                          <button onclick="approveReq('${r.id}', '${r.tid}', '${r.userName}', '${r.deviceId}')" class="btn-act" style="padding:6px; font-size:12px; margin:0; flex:1;">Duyệt</button>
                          <button onclick="rejectReq('${r.id}')" class="btn-act" style="padding:6px; font-size:12px; margin:0; flex:1; background:#fee2e2; color:#ef4444;">Từ chối</button>
@@ -1234,12 +1244,6 @@
             }
         }
 
-        // Hooks
-        onAuthStateChanged(auth, (u) => {
-            user = u;
-            // ... existing navbar logic ...
-            if (u) loadRequests();
-        });
     </script>
 </body>
 

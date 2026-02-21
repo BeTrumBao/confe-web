@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Confe</title>
+    <link rel="icon" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-grad: linear-gradient(135deg, #2563eb, #7c3aed);
+            --bg: #f0f4ff;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --radius: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px 20px calc(env(safe-area-inset-bottom, 16px) + 24px);
+            transition: background 0.3s;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 16px calc(env(safe-area-inset-bottom, 16px) + 80px);
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .greeting-text {
+                font-size: 20px;
+            }
+        }
+
+        .header {
+            display: none;
+
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                display: flex;
+            }
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-row img {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+        }
+
+        .logo-row span {
+            font-size: 18px;
+            font-weight: 800;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .greeting-card {
+            background: var(--primary-grad);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .greeting-time {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .greeting-text {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .greeting-sub {
+            font-size: 13px;
+            opacity: 0.75;
+        }
+
+        .greeting-emoji {
+            font-size: 48px;
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .news-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            border-color: #c7d2fe;
+        }
+
+        .news-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #f0f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .news-body {
+            flex: 1;
+        }
+
+        .news-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .news-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .news-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: #eff6ff;
+            color: #2563eb;
+            align-self: flex-start;
+            flex-shrink: 0;
+        }
+
+        .nav-question {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .nav-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: #c7d2fe;
+        }
+
+        .nav-card-icon {
+            font-size: 28px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-card-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .nav-card-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--border) 25%, var(--bg) 50%, var(--border) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.2s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .skel-news {
+            height: 70px;
+            border-radius: 16px;
+        }
+
+        .sheet-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 900;
+            backdrop-filter: blur(4px);
+        }
+
+        .sheet-backdrop.open {
+            display: block;
+        }
+
+        .news-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 24px 24px 0 0;
+            padding: 20px 20px 40px;
+            z-index: 901;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .news-sheet.open {
+            transform: translateY(0);
+        }
+
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 100px;
+            margin: 0 auto 20px;
+        }
+
+        .sheet-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .sheet-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .sheet-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .sheet-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--primary-grad);
+            color: white;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        @media (min-width: 768px) {
+            .news-sheet {
+                top: 50%;
+                left: 50%;
+                right: auto;
+                bottom: auto;
+                width: 90%;
+                max-width: 450px;
+                transform: translate(-50%, 50px);
+                border-radius: 24px;
+                padding: 30px;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .news-sheet.open {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .sheet-handle {
+                display: none;
+            }
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .box {
+            background: var(--surface);
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+            border-radius: 28px;
+            transform: scale(0.95);
+            transition: 0.2s;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .box {
+            transform: scale(1);
+        }
+
+        .inp-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .inp-area {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background: var(--surface);
+            transition: 0.2s;
+            resize: none;
+        }
+
+        .inp-area:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-act {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            font-size: 15px;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .poll-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+        }
+
+        .poll-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .poll-box {
+            background: var(--surface);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .poll-badge {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+        }
+
+        .poll-q {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .poll-opt {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.1s;
+        }
+
+        .poll-opt:hover {
+            border-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .poll-opt.voted {
+            border-color: #2563eb;
+            cursor: default;
+        }
+
+        .poll-opt.voted:hover {
+            transform: none;
+        }
+
+        .poll-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: #dbeafe;
+            transition: width 0.6s ease;
+            z-index: 0;
+        }
+
+        .poll-opt.voted .poll-bar {
+            background: #bfdbfe;
+        }
+
+        .poll-opt-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .poll-opt-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .poll-opt-pct {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .poll-foot {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-row">
+            <img src="assets/favicon.png" alt="Confe">
+            <span>Confe</span>
+        </div>
+    </div>
+    <div class="greeting-card">
+        <div class="greeting-time" id="greetTimeLabel"> BUỔI SÁNG</div>
+        <div class="greeting-text" id="greetMsg">Xin chào!</div>
+        <div class="greeting-sub" id="greetSub">Chúc bạn một ngày năng động </div>
+        <div class="greeting-emoji" id="greetEmoji">️</div>
+    </div>
+
+    <div class="section-title"> Tin tức & Thông báo</div>
+    <div class="news-list" id="newsList">
+        <div class="skeleton skel-news"></div>
+        <div class="skeleton skel-news"></div>
+    </div>
+    <div class="nav-question">Bạn muốn đi đâu? 🧭</div>
+    <div class="nav-grid">
+        <a class="nav-card" onclick="go('chat.html', this)">
+            <div class="nav-card-icon" style="background: #eff6ff;">💬</div>
+            <div>
+                <div class="nav-card-title">Trò chuyện</div>
+                <div class="nav-card-desc">Nhắn tin cùng mọi người</div>
+            </div>
+        </a>
+        <a class="nav-card" onclick="go('home.html', this)">
+            <div class="nav-card-icon" style="background: #fef9c3;">🔥</div>
+            <div>
+                <div class="nav-card-title">Chủ đề</div>
+                <div class="nav-card-desc">Khám phá topic nổi bật</div>
+            </div>
+        </a>
+        <a class="nav-card" onclick="go('profile.html', this)">
+            <div class="nav-card-icon" style="background: #f0fdf4;">👤</div>
+            <div>
+                <div class="nav-card-title">Hồ sơ</div>
+                <div class="nav-card-desc">Xem và chỉnh sửa trang cá nhân</div>
+            </div>
+        </a>
+        <a class="nav-card" onclick="showToast('Sắp có điều bất ngờ thú vị!')">
+            <div class="nav-card-icon" style="background: #f3f4f6;">❓</div>
+            <div>
+                <div class="nav-card-title">???</div>
+                <div class="nav-card-desc">Coming Soon</div>
+            </div>
+        </a>
+        <a class="nav-card" onclick="document.getElementById('modalFeedback').classList.add('active')">
+            <div class="nav-card-icon" style="background: #fff1f2;">💡</div>
+            <div>
+                <div class="nav-card-title">Góp ý / Báo lỗi</div>
+                <div class="nav-card-desc">Gửi phản hồi cho Admin</div>
+            </div>
+        </a>
+    </div>
+    <div class="sheet-backdrop" id="sheetBackdrop" onclick="closeSheet()"></div>
+    <div class="news-sheet" id="newsSheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-icon" id="sheetIcon">📌</div>
+        <div class="sheet-title" id="sheetTitle"></div>
+        <div class="sheet-desc" id="sheetDesc"></div>
+        <a class="sheet-link" id="sheetLink" href="#" target="_blank" style="display:none;"> Xem chi tiết</a>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div id="modalFeedback" class="modal">
+        <div class="box">
+            <h3 style="margin-bottom:20px; font-size:20px;"> Góp ý cho Admin</h3>
+            <div style="margin-bottom:15px"><label class="inp-label">Nội dung góp ý</label><textarea
+                    id="feedbackContent" class="inp-area" rows="5" placeholder="Bạn muốn thêm tính năng gì?"></textarea>
+            </div>
+            <button id="btnSendFeedback" class="btn-act">Gửi góp ý</button>
+            <button onclick="document.getElementById('modalFeedback').classList.remove('active')"
+                style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:10px;">Hủy</button>
+        </div>
+    </div>
+
+    <div id="modalPoll" class="poll-modal">
+        <div class="poll-box">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                <span class="poll-badge" style="margin-bottom:0;">Vote</span>
+                <svg onclick="document.getElementById('modalPollInfo').classList.add('active')" viewBox="0 0 24 24"
+                    width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" style="cursor:pointer; color:#64748b; margin-top:-2px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </div>
+            <div class="poll-q" id="pollQuestion">Đang tải...</div>
+            <div id="pollOptions"></div>
+            <div class="poll-foot" id="pollFoot"></div>
+            <button onclick="document.getElementById('modalPoll').classList.remove('active')"
+                style="width:100%;padding:12px;background:none;border:none;color:var(--text-secondary);cursor:pointer;margin-top:10px;font-size:14px;">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Info Modal for Poll -->
+    <div id="modalPollInfo" class="modal" style="z-index: 2500;">
+        <div class="box" style="text-align:center; max-width:320px;">
+            <div style="font-size:40px; margin-bottom:10px;">ℹ️</div>
+            <h3 style="margin-bottom:15px; font-size:18px;">Thông tin thu thập</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">Hệ thống chỉ lưu <b>UID (ẩn
+                    danh)</b> của bạn để đảm bảo mỗi người vote 1 lần. Không thu thập thông tin cá nhân nào khác!</p>
+            <button onclick="document.getElementById('modalPollInfo').classList.remove('active')" class="btn-act"
+                style="width:100%;">Đã hiểu</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, setDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-remote-config.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let user = null;
+        const remoteConfig = getRemoteConfig(app);
+        remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
+
+        window.showToast = (msg) => {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            c.appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+        }
+
+        let currentPoll = null;
+
+        window.openPollModal = () => document.getElementById('modalPoll').classList.add('active');
+
+        async function loadCommunityPoll() {
+            try {
+                await fetchAndActivate(remoteConfig);
+                const raw = getValue(remoteConfig, 'community_poll').asString();
+                if (!raw) return;
+                const poll = JSON.parse(raw);
+                if (!poll.active) return;
+                currentPoll = poll;
+
+                document.getElementById('pollQuestion').textContent = poll.question;
+
+                const voteRef = doc(db, 'community_votes', poll.id);
+                const snap = await getDoc(voteRef);
+                const voteData = snap.exists() ? snap.data() : {};
+
+                let total = 0;
+                let myVote = null;
+
+                if (poll.type === 'survey') {
+                    total = Object.keys(voteData).filter(k => k.startsWith('user_')).length;
+                    if (user && voteData['user_' + user.uid]) myVote = voteData['user_' + user.uid];
+                } else {
+                    poll.options.forEach(o => { total += (voteData['votes_' + o.id] || []).length; });
+                    if (user) poll.options.forEach(o => {
+                        if ((voteData['votes_' + o.id] || []).includes(user.uid)) myVote = o.id;
+                    });
+                }
+
+                renderOpts(poll, voteData, total, myVote);
+
+                // Auto open if user hasn't voted yet
+                if (!myVote) setTimeout(() => document.getElementById('modalPoll').classList.add('active'), 1500);
+            } catch (e) { console.warn('Poll error:', e); }
+        }
+
+        function renderOpts(poll, voteData, total, myVote) {
+            const box = document.getElementById('pollOptions');
+            box.innerHTML = '';
+
+            if (poll.type === 'survey') {
+                if (myVote) {
+                    box.innerHTML = `<div style="padding:15px; border-radius:12px; background:#f1f5f9; color:#334155; font-size:14px; border:1px solid #e2e8f0; text-align:left;"><b>Câu trả lời của bạn:</b><br><br>${myVote.replace(/</g, "&lt;")}</div>`;
+                } else {
+                    box.innerHTML = `
+                        <textarea id="surveyInput" rows="3" style="width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:12px; font-size:14px; resize:none; font-family:inherit; outline:none; transition:0.2s;" placeholder="Nhập câu trả lời của bạn..." onfocus="this.style.borderColor='#2563eb'" onblur="this.style.borderColor='#e2e8f0'"></textarea>
+                        <button onclick="submitSurvey('${poll.id}')" class="btn-act" style="width:100%; margin-top:10px;">Gửi câu trả lời</button>
+                    `;
+                }
+                document.getElementById('pollFoot').textContent = total > 0 ? `${total} người đã trả lời` : 'Hãy là người đầu tiên trả lời!';
+                return;
+            }
+
+            const showPct = !!myVote || !user;
+            poll.options.forEach(opt => {
+                const cnt = (voteData['votes_' + opt.id] || []).length;
+                const pct = total > 0 ? Math.round((cnt / total) * 100) : 0;
+                const isMine = myVote === opt.id;
+                const el = document.createElement('div');
+                el.className = 'poll-opt' + (isMine ? ' voted' : '');
+                el.innerHTML = `<div class="poll-bar" style="width:${showPct ? pct : 0}%"></div>
+                    <div class="poll-opt-inner">
+                        <span class="poll-opt-label">${isMine ? '✓ ' : ''}${opt.label}</span>
+                        <span class="poll-opt-pct">${showPct ? pct + '%' : ''}</span>
+                    </div>`;
+                if (!myVote && user) el.onclick = () => castVote(poll, opt.id);
+                else if (!user) el.onclick = () => showToast('Đăng nhập để vote nhé!');
+                box.appendChild(el);
+            });
+            document.getElementById('pollFoot').textContent =
+                total > 0 ? `${total} lượt vote` : 'Hãy là người đầu tiên vote!';
+        }
+
+        async function castVote(poll, optId) {
+            if (!user) return;
+            const voteRef = doc(db, 'community_votes', poll.id);
+            await setDoc(voteRef, { ['votes_' + optId]: arrayUnion(user.uid) }, { merge: true });
+            const snap = await getDoc(voteRef);
+            const data = snap.data() || {};
+            let total = 0;
+            poll.options.forEach(o => { total += (data['votes_' + o.id] || []).length; });
+            renderOpts(poll, data, total, optId);
+            window.showToast('Đã vote! 🗳️');
+        }
+
+        window.submitSurvey = async (pollId) => {
+            if (!user) return window.showToast('Đăng nhập để trả lời nhé!');
+            const txt = document.getElementById('surveyInput').value.trim();
+            if (!txt) return window.showToast('Vui lòng nhập câu trả lời!');
+            const btn = document.querySelector('#pollOptions button');
+            if (btn) { btn.textContent = "Đang gửi..."; btn.disabled = true; }
+
+            const voteRef = doc(db, 'community_votes', pollId);
+            await setDoc(voteRef, { ['user_' + user.uid]: txt }, { merge: true });
+
+            const snap = await getDoc(voteRef);
+            const data = snap.data() || {};
+            let total = Object.keys(data).filter(k => k.startsWith('user_')).length;
+
+            renderOpts(currentPoll, data, total, txt);
+            window.showToast('Đã gửi câu trả lời! 🎉');
+        }
+
+        window.go = (url, el) => {
+            try {
+                if (window.parent && window.parent.loadPage) {
+                    window.parent.loadPage(url, null);
+                } else {
+                    window.location.href = url;
+                }
+            } catch (e) { window.location.href = url; }
+        }
+
+        document.getElementById('btnSendFeedback').onclick = async () => {
+            const txt = document.getElementById('feedbackContent').value;
+            if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
+            document.getElementById('btnSendFeedback').textContent = "Đang gửi...";
+            try {
+                await addDoc(collection(db, "feedbacks"), { content: txt, user: user ? user.email : "Ẩn danh", uid: user ? user.uid : null, createdAt: serverTimestamp() });
+                window.showToast("Cảm ơn góp ý của bạn! ️");
+                document.getElementById('feedbackContent').value = "";
+                document.getElementById('modalFeedback').classList.remove('active');
+            } catch (e) { window.showToast("Lỗi khi gửi!"); }
+            document.getElementById('btnSendFeedback').textContent = "Gửi góp ý";
+        }
+
+        // GREETING
+        function applyGreeting(name) {
+            const h = new Date().getHours();
+            let label, msg, sub, emoji;
+            if (h >= 5 && h < 12) {
+                label = ' '; emoji = '️'; sub = 'Chúc bạn một ngày năng động và đầy cảm hứng! ';
+                msg = `Chào buổi sáng, ${name}!`;
+            } else if (h >= 12 && h < 18) {
+                label = ''; emoji = '️'; sub = 'Đừng quên uống nước và nghỉ ngơi đầy đủ nhé! ';
+                msg = `Buổi chiều vui vẻ, ${name}!`;
+            } else if (h >= 18 && h < 22) {
+                label = ''; emoji = ''; sub = 'Hôm nay thế nào rồi bạn? ';
+                msg = `Chào buổi tối, ${name}!`;
+            } else {
+                label = ''; emoji = ''; sub = 'Khuya rồi đó, nhớ ngủ đủ giấc nha bạn ơi! ️';
+                msg = `Còn thức à, ${name}?`;
+            }
+            document.getElementById('greetTimeLabel').textContent = label;
+            document.getElementById('greetMsg').textContent = msg;
+            document.getElementById('greetSub').textContent = sub;
+            document.getElementById('greetEmoji').textContent = emoji;
+        }
+
+        // AUTH
+        onAuthStateChanged(auth, async (u) => {
+            user = u;
+            if (!u) { location.href = 'login.html'; return; }
+            loadCommunityPoll();
+            let displayName = u.displayName || u.email?.split('@')[0] || 'bạn';
+            try {
+                const snap = await getDoc(doc(db, 'users', u.uid));
+                if (snap.exists() && snap.data().displayName) displayName = snap.data().displayName;
+            } catch (e) { }
+            applyGreeting(displayName);
+        });
+
+        let newsItems = [];
+
+        window.openNews = (i) => {
+            const item = newsItems[i];
+            if (!item) return;
+            document.getElementById('sheetIcon').textContent = item.icon || '';
+            document.getElementById('sheetTitle').textContent = item.title;
+            document.getElementById('sheetDesc').textContent = item.detail || item.desc || '';
+            const linkEl = document.getElementById('sheetLink');
+            if (item.link) { linkEl.href = item.link; linkEl.style.display = 'inline-flex'; }
+            else { linkEl.style.display = 'none'; }
+            document.getElementById('sheetBackdrop').classList.add('open');
+            document.getElementById('newsSheet').classList.add('open');
+        }
+
+        window.closeSheet = () => {
+            document.getElementById('sheetBackdrop').classList.remove('open');
+            document.getElementById('newsSheet').classList.remove('open');
+        }
+
+        // NEWS FROM REMOTE CONFIG
+        async function loadNews() {
+            const newsList = document.getElementById('newsList');
+            try {
+                await fetchAndActivate(remoteConfig);
+                const raw = getValue(remoteConfig, 'dashboard_news').asString();
+                newsItems = JSON.parse(raw);
+                if (!newsItems || !newsItems.length) throw new Error('empty');
+                newsList.innerHTML = newsItems.map((item, i) => `
+                    <div class="news-card" onclick="openNews(${i})" style="cursor:pointer;">
+                        <div class="news-icon">${item.icon || ''}</div>
+                        <div class="news-body">
+                            <div class="news-title">${item.title}</div>
+                            <div class="news-desc">${item.short || item.desc || ''}</div>
+                        </div>
+                        ${item.tag ? `<span class="news-tag">${item.tag}</span>` : ''}
+                        <span style="color:#94a3b8; font-size:16px; flex-shrink:0;">›</span>
+                    </div>
+                `).join('');
+            } catch (e) {
+                newsList.innerHTML = `
+                    <div class="news-card" style="opacity:0.6; cursor:default;">
+                        <div class="news-icon"></div>
+                        <div class="news-body">
+                            <div class="news-title">Chưa có tin tức mới</div>
+                            <div class="news-desc">Quay lại sau nhé!</div>
+                        </div>
+                    </div>`;
+            }
+        }
+        loadNews();
+    </script>
+</body>
+
+</html>

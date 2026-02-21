@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang bảo trì - Confe</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        :root {
+            --md-sys-color-primary: #1565C0;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #D3E4FD;
+            --md-sys-color-on-primary-container: #001C38;
+            --md-sys-color-surface: #FDFBFF;
+            --md-sys-color-on-surface: #1A1C1E;
+            --md-sys-color-surface-variant: #E1E2EC;
+            --md-sys-color-on-surface-variant: #44464F;
+            --md-sys-color-outline: #74777F;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #0D47A1 0%, #1565C0 50%, #1976D2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--md-sys-color-surface);
+            border-radius: 28px;
+            max-width: 480px;
+            width: 100%;
+            padding: 48px 32px;
+            box-shadow:
+                0px 1px 2px rgba(0, 0, 0, 0.3),
+                0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--md-sys-color-primary-container);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .material-symbols-outlined {
+            font-size: 48px;
+            color: var(--md-sys-color-on-primary-container);
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 48;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 12px;
+            letter-spacing: 0;
+            line-height: 36px;
+        }
+
+        .message {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--md-sys-color-on-surface-variant);
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+        }
+
+        .progress-container {
+            margin: 32px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--md-sys-color-surface-variant);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 40%;
+            background: var(--md-sys-color-primary);
+            animation: progress 1.5s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                left: -40%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .btn-retry {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            min-width: 120px;
+            height: 40px;
+        }
+
+        .btn-retry:hover {
+            box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+            background: #1976D2;
+        }
+
+        .btn-retry:active {
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        }
+
+        .info {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--md-sys-color-outline);
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface-variant);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+            letter-spacing: 0.25px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+                line-height: 32px;
+            }
+
+            .message {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-container">
+            <span class="material-symbols-outlined">construction</span>
+        </div>
+
+        <h1>Đang bảo trì hệ thống</h1>
+
+        <p class="message" id="maintenanceMessage">
+            Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
+        </p>
+
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <button class="btn-retry" onclick="location.reload()">Thử lại</button>
+
+        <div class="info">
+            <div class="info-label">Liên hệ hỗ trợ</div>
+            <div class="info-value">support@confe.com</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-remote-config.js";
+
+        const cfg = {
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+            authDomain: "confe-web.firebaseapp.com",
+            projectId: "confe-web",
+            storageBucket: "confe-web.firebasestorage.app",
+            messagingSenderId: "677778119372",
+            appId: "1:677778119372:web:ee3f1132871332743b0069"
+        };
+
+        const app = initializeApp(cfg);
+        const remoteConfig = getRemoteConfig(app);
+        remoteConfig.settings.minimumFetchIntervalMillis = 60000;
+
+        try {
+            await fetchAndActivate(remoteConfig);
+            const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
+
+            if (customMessage) {
+                document.getElementById('maintenanceMessage').textContent = customMessage;
+            }
+        } catch (error) {
+            console.log('Could not fetch remote config:', error);
+        }
+    </script>
+</body>
+
+</html>
