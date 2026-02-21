@@ -1144,6 +1144,66 @@
             border-color: var(--primary);
             transform: translateY(-2px);
         }
+
+        /* NESTED COMMENT CSS */
+        .cmt-tree-line {
+            position: absolute;
+            left: -15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .cmt-reply-container {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .cmt-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+            margin-left: 2px;
+            align-items: center;
+        }
+
+        .btn-reply {
+            cursor: pointer;
+            color: var(--gray);
+            transition: 0.2s;
+        }
+
+        .btn-reply:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .reply-box {
+            display: none;
+            margin-top: 10px;
+            animation: fadeIn 0.2s;
+            position: relative;
+        }
+
+        .reply-box.show {
+            display: block;
+        }
+
+        .nested-connector {
+            position: absolute;
+            left: -22px;
+            top: -15px;
+            width: 15px;
+            height: 35px;
+            border-bottom-left-radius: 12px;
+            border-left: 2px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
+            z-index: 0;
+        }
     </style>
 </head>
 
@@ -2061,7 +2121,7 @@
         }
 
         // COMMENT LOGIC
-        window.sendInlineComment = async (pid, inpId) => {
+        window.sendInlineComment = async (pid, inpId, parentId = null) => {
             if (!currentUser) return window.showToast("Đăng nhập đi!", "🚫");
             const inp = document.getElementById(inpId); const txt = inp.value.trim();
             if (!txt) return;
@@ -2081,50 +2141,123 @@
                 authorUid: currentUser.uid,
                 content: txt,
                 ip: userIp,
-                createdAt: serverTimestamp()
+                createdAt: serverTimestamp(),
+                parentId: parentId
             };
             addDoc(collection(db, "comments"), payload);
+
+            // If it was a reply, hide the box after sending
+            if (parentId) {
+                const box = document.getElementById(`reply-box-${parentId}`);
+                if (box) box.classList.remove('show');
+                // Refresh modal if open
+                if (document.getElementById('modalAllComments').classList.contains('active')) {
+                    // Small delay to let DB update
+                    setTimeout(() => window.openAllCommentsModal(pid, 0), 500);
+                }
+            }
+        }
+
+        window.toggleReplyInput = (cid) => {
+            const box = document.getElementById(`reply-box-${cid}`);
+            if (box) {
+                if (box.classList.contains('show')) {
+                    box.classList.remove('show');
+                } else {
+                    document.querySelectorAll('.reply-box').forEach(b => b.classList.remove('show'));
+                    box.classList.add('show');
+                    setTimeout(() => {
+                        const inp = document.getElementById(`reply-inp-${cid}`);
+                        if (inp) inp.focus();
+                    }, 100);
+                }
+            }
         }
 
         window.openAllCommentsModal = (pid, total) => {
             activePostId = pid;
             const box = document.getElementById('allCommentsList');
             box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Đang tải...</div>`;
+
             getDocs(query(collection(db, "comments"), where("pid", "==", pid), orderBy("createdAt", "asc"))).then(s => {
                 const comments = [];
                 s.forEach(d => comments.push({ id: d.id, ...d.data() }));
-                let html = '';
-                const renderRow = (c) => {
+
+                // ORGANIZE COMMENTS INTO TREE
+                const commentMap = {};
+                const roots = [];
+
+                comments.forEach(c => {
+                    commentMap[c.id] = { ...c, children: [] };
+                });
+
+                comments.forEach(c => {
+                    if (c.parentId && commentMap[c.parentId]) {
+                        commentMap[c.parentId].children.push(commentMap[c.id]);
+                    } else {
+                        roots.push(commentMap[c.id]);
+                    }
+                });
+
+                // RENDER FUNCTION
+                const renderComment = (c, level = 0) => {
                     const isMineCmt = currentUser && c.authorUid === currentUser.uid;
                     const isAdmin = currentUser && topicData && currentUser.email === topicData.owner;
                     const delBtn = (isMineCmt || isAdmin) ? `<span style="color:var(--danger); cursor:pointer;" onclick="window.deleteComment('${c.id}')">Xóa</span>` : '';
+                    const replyBtn = `<span class="btn-reply" onclick="window.toggleReplyInput('${c.id}')">Phản hồi</span>`;
+
+                    let childHtml = '';
+                    if (c.children && c.children.length > 0) {
+                        c.children.forEach(child => childHtml += renderComment(child, level + 1));
+                    }
+
+                    // Render Reply Box
+                    const replyBox = `
+                        <div id="reply-box-${c.id}" class="reply-box">
+                            <div class="nested-connector"></div>
+                            <div style="display:flex; gap:5px;">
+                                <input type="text" id="reply-inp-${c.id}" class="inp-text" style="font-size:13px; margin-bottom:0;" placeholder="Viết phản hồi..." onkeydown="if(event.key==='Enter') window.sendInlineComment('${activePostId}', 'reply-inp-${c.id}', '${c.id}')">
+                                <button class="btn-act" style="padding:8px 12px;" onclick="window.sendInlineComment('${activePostId}', 'reply-inp-${c.id}', '${c.id}')">➢</button>
+                            </div>
+                        </div>
+                    `;
+
                     return `
-                        <div class="cmt-row">
-                            <img src="${c.authorAvt}" style="width:30px;height:30px;border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
-                            <div style="flex:1">
-                                <div style="background:#f1f5f9; padding:8px 12px; border-radius:12px">
-                                    <div style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${c.author}</div>
-                                    <div style="font-size:14px; color:#334155">${c.content}</div>
+                        <div class="cmt-row" style="flex-direction:column; gap:0; margin-bottom:15px; position:relative; ${level > 0 ? 'margin-left:30px;' : ''}">
+                            <div style="display:flex; gap:10px; position:relative;">
+                                <img src="${c.authorAvt}" style="width:30px;height:30px;border-radius:50%; z-index:1;" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                <div style="flex:1">
+                                    <div style="background:#f1f5f9; padding:8px 12px; border-radius:12px; display:inline-block;">
+                                        <div style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${c.author}</div>
+                                        <div style="font-size:14px; color:#334155; white-space:pre-wrap;">${c.content}</div>
+                                    </div>
+                                    <div class="cmt-actions">
+                                        <span>${timeAgo(c.createdAt)}</span>
+                                        ${replyBtn}
+                                        ${delBtn}
+                                    </div>
+                                    ${replyBox}
                                 </div>
-                                <div style="display:flex; gap:12px; margin-top:4px; font-size:11px; font-weight:600; color:var(--gray); margin-left:2px;">
-                                    <span>${timeAgo(c.createdAt)}</span>
-                                    ${delBtn}
-                                </div>
+                            </div>
+                            <div class="cmt-reply-container">
+                                ${childHtml}
                             </div>
                         </div>
                     `;
                 }
-                if (comments.length === 0) {
+
+                if (roots.length === 0) {
                     box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Chưa có bình luận.</div>`;
                 } else {
-                    comments.forEach(c => {
-                        html += renderRow(c);
-                    });
+                    let html = '';
+                    roots.forEach(c => html += renderComment(c));
                     box.innerHTML = html;
                 }
                 document.getElementById('modalAllComments').classList.add('active');
             });
         }
+
+
 
         window.deleteComment = async (cid) => {
             window.showCustomConfirm("Xóa bình luận này?", async () => {
@@ -2227,7 +2360,7 @@
                     <div style="font-size:14px; font-weight:600;">${i.name} <span style="font-size:10px; color:#94a3b8;">(${i.deviceId ? 'Device Bound' : 'No ID'})</span></div>
                     <button onclick="removeWhitelistItem(${idx})" style="color:red; background:none; border:none; cursor:pointer;">✕</button>
                 </div>
-            `).join('');
+                `).join('');
         }
 
         window.removeWhitelistItem = (idx) => {
