@@ -585,8 +585,14 @@
 
         @media (max-width: 768px) {
             .fab {
-                bottom: 100px;
+                bottom: 110px;
+                transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s, background 0.3s;
+            }
 
+            .fab.fab-hidden {
+                transform: translateY(100px);
+                opacity: 0;
+                pointer-events: none;
             }
         }
 
@@ -1243,6 +1249,20 @@
                 document.getElementById('modal').classList.add('active');
             }
         }
+
+        // FAB scroll-to-hide on mobile
+        (() => {
+            const fab = document.getElementById('fab');
+            if (!fab) return;
+            let lastY = 0;
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                if (window.innerWidth > 768) { fab.classList.remove('fab-hidden'); return; }
+                if (y > lastY && y > 60) fab.classList.add('fab-hidden');
+                else fab.classList.remove('fab-hidden');
+                lastY = y;
+            }, { passive: true });
+        })();
 
     </script>
 </body>

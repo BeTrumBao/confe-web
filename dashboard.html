@@ -157,6 +157,40 @@
             margin-bottom: 28px;
         }
 
+        .skeleton {
+            background: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: skel-load 1.2s infinite;
+        }
+
+        @keyframes skel-load {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .skel-news {
+            height: 72px;
+            width: 100%;
+            border-radius: 16px;
+        }
+
         .news-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -608,6 +642,50 @@
             color: var(--text-secondary);
             text-align: right;
         }
+
+        .news-extra {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .news-extra.open {
+            display: flex;
+        }
+
+        .news-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px dashed #cbd5e1;
+            background: transparent;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .news-toggle:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+            color: #334155;
+        }
+
+        .news-toggle-icon {
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+
+        .news-toggle.expanded .news-toggle-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 
@@ -931,6 +1009,7 @@
         }
 
         // NEWS FROM REMOTE CONFIG
+        const MAX_VISIBLE = 3;
         async function loadNews() {
             const newsList = document.getElementById('newsList');
             try {
@@ -938,7 +1017,8 @@
                 const raw = getValue(remoteConfig, 'dashboard_news').asString();
                 newsItems = JSON.parse(raw);
                 if (!newsItems || !newsItems.length) throw new Error('empty');
-                newsList.innerHTML = newsItems.map((item, i) => `
+
+                const renderCard = (item, i) => `
                     <div class="news-card" onclick="openNews(${i})" style="cursor:pointer;">
                         <div class="news-icon">${item.icon || ''}</div>
                         <div class="news-body">
@@ -948,7 +1028,26 @@
                         ${item.tag ? `<span class="news-tag">${item.tag}</span>` : ''}
                         <span style="color:#94a3b8; font-size:16px; flex-shrink:0;">›</span>
                     </div>
-                `).join('');
+                `;
+
+                const visible = newsItems.slice(0, MAX_VISIBLE);
+                const hidden = newsItems.slice(MAX_VISIBLE);
+
+                let html = visible.map((item, i) => renderCard(item, i)).join('');
+
+                if (hidden.length > 0) {
+                    html += `
+                        <div class="news-extra" id="newsExtra">
+                            ${hidden.map((item, i) => renderCard(item, i + MAX_VISIBLE)).join('')}
+                        </div>
+                        <button class="news-toggle" id="newsToggle" onclick="toggleNews()">
+                            <span>Xem thêm ${hidden.length} tin</span>
+                            <span class="news-toggle-icon">⌄</span>
+                        </button>
+                    `;
+                }
+
+                newsList.innerHTML = html;
             } catch (e) {
                 newsList.innerHTML = `
                     <div class="news-card" style="opacity:0.6; cursor:default;">
@@ -960,6 +1059,16 @@
                     </div>`;
             }
         }
+
+        window.toggleNews = () => {
+            const extra = document.getElementById('newsExtra');
+            const btn = document.getElementById('newsToggle');
+            const isOpen = extra.classList.toggle('open');
+            btn.classList.toggle('expanded', isOpen);
+            const hiddenCount = newsItems.length - MAX_VISIBLE;
+            btn.querySelector('span').textContent = isOpen ? 'Thu lại' : `Xem thêm ${hiddenCount} tin`;
+        }
+
         loadNews();
     </script>
 </body>

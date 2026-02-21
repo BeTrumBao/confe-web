@@ -687,8 +687,14 @@
 
         @media (max-width: 768px) {
             .fab-wrapper {
-                bottom: 100px;
+                bottom: 110px;
+                transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s;
+            }
 
+            .fab-wrapper.fab-hidden {
+                transform: translateY(120px);
+                opacity: 0;
+                pointer-events: none;
             }
         }
 
@@ -2694,6 +2700,19 @@
                 this.textContext = "Gửi Yêu Cầu"; this.disabled = false;
             }
         }
+            // FAB scroll-to-hide on mobile
+            ; (() => {
+                const wrapper = document.getElementById('fabWrapper');
+                if (!wrapper) return;
+                let lastY = 0;
+                window.addEventListener('scroll', () => {
+                    const y = window.scrollY;
+                    if (window.innerWidth > 768) { wrapper.classList.remove('fab-hidden'); return; }
+                    if (y > lastY && y > 60) wrapper.classList.add('fab-hidden');
+                    else wrapper.classList.remove('fab-hidden');
+                    lastY = y;
+                }, { passive: true });
+            })();
     </script>
     <div id="modalTerms" class="modal" style="z-index:2000;">
         <div class="box">

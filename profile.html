@@ -1075,15 +1075,23 @@
             try {
                 const q = query(collection(db, "topics"), where("owner", "==", email));
                 const snap = await getDocs(q);
+                const isOwner = currentUser && currentUser.email === email;
                 document.getElementById('topicCount').textContent = snap.size;
-                if (snap.empty) { list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:12px;">Bạn chưa tạo topic nào.</p>`; return; }
+                if (snap.empty) { list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:12px;">${isOwner ? 'Bạn' : 'Người dùng này'} chưa tạo topic nào.</p>`; return; }
                 list.innerHTML = "";
                 snap.forEach(d => {
                     const t = d.data();
+                    // Hide content if topic is private AND viewer is not the owner
+                    const isPrivate = !isOwner && t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist');
+                    const displayTitle = isPrivate ? '🔒 Topic riêng tư' : (t.title || 'Không tên');
+                    const displayBanner = isPrivate ? 'https://placehold.co/50/e2e8f0/64748b?text=?' : (t.banner || 'https://via.placeholder.com/50');
                     list.innerHTML += `
                         <a href="detail.html?tid=${d.id}" class="topic-mini">
-                            <img src="${t.banner || 'https://via.placeholder.com/50'}" class="tm-img">
-                            <div class="tm-info"><div class="tm-title">${t.title}</div><div class="tm-meta"> ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}</div></div>
+                            <img src="${displayBanner}" class="tm-img" style="${isPrivate ? 'filter:blur(4px);' : ''}">
+                            <div class="tm-info">
+                                <div class="tm-title">${displayTitle}</div>
+                                <div class="tm-meta">${isPrivate ? '🔐 Nội dung được bảo vệ' : `🔥 ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}`}</div>
+                            </div>
                             <i class='bx bx-chevron-right' style="color:#cbd5e1"></i>
                         </a>`;
                 });
