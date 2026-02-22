@@ -33,7 +33,15 @@ service cloud.firestore {
       // Any authenticated user can create a topic
       allow create: if isAuth(); 
       // Only the author can update or delete their topic
-      allow update, delete: if isAuth() && resource.data.authorId == request.auth.uid;
+      allow update, delete: if isAuth() && (resource.data.authorId == request.auth.uid || resource.data.owner == request.auth.token.email);
+
+      // Topic-specific chat
+      match /chat/{docId} {
+        allow read, write: if isAuth();
+      }
+      match /typing/{docId} {
+        allow read, write: if isAuth();
+      }
     }
     
     // 3. Comments Collection
@@ -43,7 +51,7 @@ service cloud.firestore {
       // Any authenticated user can create a comment
       allow create: if isAuth();
       // Only the author can update or delete their comment
-      allow update, delete: if isAuth() && resource.data.authorId == request.auth.uid;
+      allow update, delete: if isAuth() && resource.data.authorUid == request.auth.uid;
     }
 
     // 4. Friend Requests
@@ -56,17 +64,18 @@ service cloud.firestore {
       allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
     }
 
-    // 5. Topic Join Requests
-    match /requests/{requestId} {
-      // The topic owner (who is the receiver of the request) can read it. 
-      // The sender should ideally be able to read it too, but based on your app's flow, checking ownerEmail is key.
-      allow read: if isAuth(); 
-      // Authenticated users can request to join
+    // 5a. Posts (Confessions) Collection
+    match /posts/{postId} {
+      allow read: if true;
       allow create: if isAuth();
-      // Only the topic owner (ownerEmail) or the requester (deviceId/uid) should be able to update/delete
-      // Note: A more strict rule requires matching the user's email with resource.data.ownerEmail, 
-      // but if the client only uses UID, allow any auth user to update for now to avoid breaking the approve/reject flow.
       allow update, delete: if isAuth();
+    }
+
+    // 5. Topic Members Collection 
+    // Replaces the old 'requests' collection for robust membership management
+    match /topic_members/{docId} {
+      // Allow read/write for everyone to support guest deviceId testing
+      allow read, create, update, delete: if true;
     }
 
     // 6. Community Votes
@@ -101,6 +110,12 @@ service cloud.firestore {
     match /bug_reports/{reportId} {
       allow create: if isAuth();
       allow read, update, delete: if false; 
+    }
+
+    // 9. Click Speed Game Leaderboard
+    match /leaderboard_clicks/{userId} {
+      allow read: if true;
+      allow create, update: if isOwner(userId);
     }
 
     // Default deny for everything else

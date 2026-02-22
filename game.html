@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khu Vui Chơi - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --radius-m: 16px;
+            --radius-l: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f8fafc;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .hub-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        .game-card {
+            background: var(--surface);
+            border-radius: var(--radius-l);
+            padding: 24px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 16 / 10;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            width: 56px;
+            height: 56px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+
+        .game-card:hover .game-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .game-name {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .game-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-hot {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .badge-soon {
+            background: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        .btn-play {
+            margin-top: 16px;
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+        }
+
+        .game-card:hover .btn-play {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .coming-soon {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.03);
+        }
+
+        /* SKELETON LOADING */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        .sk-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+
+        .sk-name {
+            width: 120px;
+            height: 20px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .sk-desc {
+            width: 100%;
+            height: 40px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hub-container">
+        <div class="header">
+            <h1>🎮 Khu Vui Chơi</h1>
+            <p>Nơi giải tỏa căng thẳng sau những giờ thảo luận sôi nổi với Khu Vui Chơi ? </p>
+        </div>
+
+        <div id="loadingGrid" class="game-grid">
+            <!-- Skeleton Cards -->
+            <div class="game-card">
+                <div class="sk-icon skeleton"></div>
+                <div class="sk-name skeleton"></div>
+                <div class="sk-desc skeleton"></div>
+            </div>
+            <div class="game-card">
+                <div class="sk-icon skeleton"></div>
+                <div class="sk-name skeleton"></div>
+                <div class="sk-desc skeleton"></div>
+            </div>
+        </div>
+
+        <div id="realGrid" class="game-grid" style="display: none;">
+            <!-- 1 cái Nút -->
+            <div class="game-card" onclick="location.href='click-game.html'">
+                <div class="game-badge badge-hot">HOT</div>
+                <div class="game-icon">⚡</div>
+                <div class="game-name">1 cái nút</div>
+                <div class="game-desc">Thử thách tốc độ ngón tay của bạn trong 60 giây. Cạnh Tranh Với Top 10 cao thủ!
+                </div>
+                <button class="btn-play">Chơi ngay</button>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="game-card coming-soon">
+                <div class="game-badge badge-soon">Comming Soon</div>
+                <div class="game-icon">⏳</div>
+                <div class="game-name">Sắp Ra Mắt...</div>
+                <div class="game-desc">Chờ đi ...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate loading for professional hub feel
+        setTimeout(() => {
+            document.getElementById('loadingGrid').style.display = 'none';
+            document.getElementById('realGrid').style.display = 'grid';
+        }, 800);
+    </script>
+</body>
+
+</html>

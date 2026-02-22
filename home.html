@@ -201,15 +201,23 @@
         }
 
         .hero-subtitle {
-            background: linear-gradient(90deg, #64748b, #2563eb, #64748b);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent !important;
-            animation: shine 4s linear infinite, fadeUp 1s ease-out;
-            font-weight: 600;
+            color: var(--text-secondary) !important;
+            font-weight: 500;
             position: relative;
             z-index: 2;
+            animation: fadeUp 1s ease-out, floatSubtitle 6s ease-in-out infinite;
+        }
+
+        @keyframes floatSubtitle {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         /* Cloud Animation Styles */
@@ -403,9 +411,9 @@
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding-bottom: 5px;
+            padding: 0 20px 5px;
             scrollbar-width: none;
-            justify-content: center;
+            -webkit-overflow-scrolling: touch;
         }
 
         .chip {
@@ -440,7 +448,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: 0.3s;
             cursor: pointer;
-            border: 1px solid transparent;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -448,8 +455,7 @@
 
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border-color: var(--primary-container);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .card-img-box {
@@ -589,6 +595,42 @@
             background: #fee2e2;
             color: var(--danger);
             transform: scale(1.1);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--surface);
+            border-radius: var(--radius-l);
+            border: 1.5px dashed var(--outline);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            filter: grayscale(0.5);
+            opacity: 0.7;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .empty-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 300px;
+            line-height: 1.5;
         }
 
         footer {
@@ -880,6 +922,44 @@
                 transform: translateY(0);
             }
         }
+
+        /* Ranking Styles */
+        .rank-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .rank-1 {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #7c2d12;
+            border: 1px solid #fbbf24;
+        }
+
+        .rank-2 {
+            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .rank-3 {
+            background: linear-gradient(135deg, #f97316, #c2410c);
+            color: #fff;
+            border: 1px solid #fdba74;
+        }
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -954,8 +1034,8 @@
 
 
 
-    <div class="container" style="padding-bottom: 0;">
-        <div class="section-title"> Đang Nổi Bật</div>
+    <div id="rankingSection" class="container" style="padding-bottom: 0; display: none;">
+        <div class="section-title"> Bảng Xếp Hạng Năng Động Tuần</div>
         <div class="suggest-list" id="suggestList">
             <div class="mini-card skeleton" style="min-width:240px"></div>
             <div class="mini-card skeleton" style="min-width:240px"></div>
@@ -968,6 +1048,7 @@
         <div class="controls">
             <div class="chips">
                 <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
+                <div class="chip" onclick="setFilter(this, 'joined')">🔑 Đã tham gia</div>
                 <div class="chip" onclick="setFilter(this, 'drama')"> Drama</div>
                 <div class="chip" onclick="setFilter(this, 'love')">️ Tình yêu</div>
                 <div class="chip" onclick="setFilter(this, 'school')"> Học đường</div>
@@ -1186,9 +1267,27 @@
             document.getElementById('btnSendFeedback').textContent = "Gửi góp ý";
         }
 
+        let joinedTopicIds = [];
+
         onAuthStateChanged(auth, async (u) => {
             user = u;
-            if (u) loadRequests();
+            if (u) {
+                loadRequests();
+                onSnapshot(query(collection(db, "topic_members"), where("userId", "==", u.uid)), (snap) => {
+                    joinedTopicIds = [];
+                    snap.forEach(d => { if (d.data().status === 'approved') joinedTopicIds.push(d.data().tid); });
+                    if (curFilter === 'joined') render();
+                });
+            } else {
+                let deviceId = localStorage.getItem('confe_device_id');
+                if (deviceId) {
+                    onSnapshot(query(collection(db, "topic_members"), where("userId", "==", deviceId)), (snap) => {
+                        joinedTopicIds = [];
+                        snap.forEach(d => { if (d.data().status === 'approved') joinedTopicIds.push(d.data().tid); });
+                        if (curFilter === 'joined') render();
+                    });
+                }
+            }
             try { if (window.parent && window.parent.setUid) window.parent.setUid(u ? u.uid : null); } catch (e) { }
             const nav = document.getElementById('navAction');
             if (nav) {
@@ -1240,7 +1339,7 @@
             const l = await up(document.getElementById('fLogo').files[0]);
             const status = document.getElementById('tStatus').checked;
             const allowImg = document.getElementById('tAllowImg').checked;
-            await addDoc(collection(db, "topics"), { title: t, owner: user.email, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, postRule: 'all', is_agree_terms: true });
+            await addDoc(collection(db, "topics"), { title: t, owner: user.email, authorId: user.uid, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, allowChat: false, postRule: 'all', is_agree_terms: true });
             window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent = "Tạo Topic"; this.disabled = false;
         };
         const grid = document.getElementById('grid');
@@ -1255,22 +1354,46 @@
         function render() {
             const list = allTopics.filter(t => {
                 const matchSearch = !document.getElementById('search').value || t.title.toLowerCase().includes(document.getElementById('search').value.toLowerCase());
-                const matchCat = curFilter === 'all' || t.category === curFilter;
+                let matchCat = false;
+                if (curFilter === 'joined') {
+                    matchCat = joinedTopicIds.includes(t.id);
+                } else {
+                    matchCat = curFilter === 'all' || t.category === curFilter;
+                }
                 return matchSearch && matchCat;
             });
 
+            if (list.length === 0) {
+                const searchVal = document.getElementById('search').value;
+                const catName = curFilter === 'all' ? '' : ` trong danh mục "${document.querySelector('.chip.active').textContent.trim()}"`;
+
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">${searchVal ? '🔍' : '📂'}</div>
+                        <div class="empty-title">Không tìm thấy kết quả</div>
+                        <div class="empty-desc">
+                            ${searchVal
+                        ? `Chúng mình không tìm thấy chủ đề nào khớp với "<b>${window.escapeHTML(searchVal)}</b>"${catName}.`
+                        : `Hiện tại chưa có chủ đề nào${catName}. Hãy là người đầu tiên tạo chủ đề mới nhé!`}
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
             grid.innerHTML = list.map(t => {
-                const deviceId = localStorage.getItem('confe_device_id');
-                const isWhitelisted = t.whitelist && t.whitelist.includes(deviceId);
-                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner) && !isWhitelisted;
-                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn phải xác thực để xem nội dung này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
-                const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
+                const isJoined = joinedTopicIds.includes(t.id);
+                const isOwner = user && t.owner === user.email;
+                const isProtected = t.protectResource === true && !isJoined && !isOwner;
+
+                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn chưa tham gia Topic này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
+                const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
                 const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
 
                 return `
                 <div class="card" onclick="location.href='detail.html?id=${t.id}'">
                     <button class="btn-card-report" onclick="openReport(event, '${t.id}')" title="Báo cáo">🚩</button>
-                    ${t.securityMode === 'otp' || t.securityMode === 'whitelist' ? '<div class="card-badge-private"> Riêng tư</div>' : ''}
+                    ${t.privacyMode === 'private' ? '<div class="card-badge-private"> 🔒 Cần duyệt</div>' : ''}
                     <div class="card-img-box">
                         <img src="${displayBanner}" class="card-img" onerror="this.style.display='none'; this.parentElement.innerText='Background'">
                     </div>
@@ -1279,31 +1402,43 @@
                         <div class="card-tag">${t.category === 'love' ? '️ Tình yêu' : t.category === 'drama' ? ' Drama' : t.category === 'school' ? ' Học đường' : t.category === 'game' ? ' Game' : ' Đời thường'}</div>
                         <h3 class="card-title">${displayTitle}</h3>
                         <div class="card-footer">
-                            <span>${t.status === 'open' ? '🟢' : ''}</span>
-                            <div class="heat-tag"> ${t.heat || 0}</div>
                         </div>
                     </div>
                 </div>
             `}).join('');
 
-            // Render Suggestions (Top 3 Heat)
-            const top = [...allTopics].sort((a, b) => (b.heat || 0) - (a.heat || 0)).slice(0, 3);
-            suggestList.innerHTML = top.map(t => {
-                const deviceId = localStorage.getItem('confe_device_id');
-                const isWhitelisted = t.whitelist && t.whitelist.includes(deviceId);
-                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner) && !isWhitelisted;
-                const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
-                const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://via.placeholder.com/300x150');
+            // Render Suggestions (Top 10 Heat, min 10)
+            const top = allTopics
+                .filter(t => (t.heat || 0) >= 10)
+                .sort((a, b) => (b.heat || 0) - (a.heat || 0))
+                .slice(0, 10);
 
-                return `
-                 <div class="mini-card" onclick="location.href='detail.html?id=${t.id}'">
-                    <img src="${displayBanner}" class="mini-img">
-                    <div class="mini-overlay">
-                        <div class="mini-title">${displayTitle}</div>
-                        <div class="mini-heat"> ${t.heat || 0} đang bàn tán</div>
+            const section = document.getElementById('rankingSection');
+            if (top.length > 0) {
+                section.style.display = 'block';
+                suggestList.innerHTML = top.map((t, i) => {
+                    const isJoined = joinedTopicIds.includes(t.id);
+                    const isOwner = user && t.owner === user.email;
+                    const isProtected = t.protectResource === true && !isJoined && !isOwner;
+
+                    const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
+                    const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://via.placeholder.com/300x150');
+                    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+                    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+
+                    return `
+                     <div class="mini-card" onclick="location.href='detail.html?id=${t.id}'">
+                        <div class="rank-badge ${rankClass}">${medal}</div>
+                        <img src="${displayBanner}" class="mini-img">
+                        <div class="mini-overlay">
+                            <div class="mini-title">${displayTitle}</div>
+                            <div class="mini-heat">🔥 ${t.heat || 0} năng động</div>
+                        </div>
                     </div>
-                </div>
-            `}).join('');
+                `}).join('');
+            } else {
+                section.style.display = 'none';
+            }
         }
 
         window.setFilter = (el, cat) => {

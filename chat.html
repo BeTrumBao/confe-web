@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -615,6 +615,36 @@
                 transform: translateX(100%);
             }
         }
+
+        .chat-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            animation: popIn 0.5s ease;
+        }
+
+        .chat-empty-icon {
+            font-size: 50px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .chat-empty-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #050505;
+            margin-bottom: 6px;
+        }
+
+        .chat-empty-desc {
+            font-size: 13px;
+            color: var(--gray);
+            max-width: 240px;
+            line-height: 1.5;
+        }
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -656,11 +686,11 @@
 </head>
 
 <body>
-    <!-- <header class="chat-header">
-        <a href="home.html" class="btn-back">←</a>
-        <h1 class="header-title">Chat Room Vip</h1>
+    <header class="chat-header">
+        <a id="btnBack" href="home.html" class="btn-back">←</a>
+        <h1 class="header-title">Phòng Chat</h1>
         <div style="width:38px;"></div>
-    </header> -->
+    </header>
 
     <div class="chat-box" id="chatBox">
         <div id="chatSkeleton" class="chat-skeleton" style="padding-top:20px;">
@@ -884,6 +914,24 @@
         let selectedMsgId = null;
         const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
 
+        // ROOM LOGIC
+        const urlParams = new URLSearchParams(window.location.search);
+        const tid = urlParams.get('tid');
+        const CHAT_COL = tid ? `topics/${tid}/chat` : "public_chat";
+        const TYPING_COL = tid ? `topics/${tid}/typing` : "public_typing";
+
+        if (tid) {
+            document.getElementById('btnBack').href = `detail.html?id=${tid}`;
+            getDoc(doc(db, "topics", tid)).then(snap => {
+                if (snap.exists() && snap.data().title) {
+                    document.querySelector('.header-title').textContent = snap.data().title;
+                }
+            }).catch(e => console.error(e));
+        } else {
+            document.querySelector('.chat-header').style.display = 'none';
+        }
+
+
         onAuthStateChanged(auth, async (u) => {
             if (!u) return window.location.href = 'login.html';
             currentUser = u;
@@ -919,7 +967,7 @@
         function updateTyping() {
             if (!currentUser) return;
             // Debounce update to avoid spamming writes
-            const userRef = doc(db, "public_typing", currentUser.uid);
+            const userRef = doc(db, TYPING_COL, currentUser.uid);
             setDoc(userRef, {
                 name: currentUser.displayName,
                 timestamp: serverTimestamp()
@@ -929,7 +977,7 @@
         function initTypingListener() {
             // Cleanup old typing entries? We can't easily on client without cloud functions. 
             // We'll just filter on read.
-            onSnapshot(collection(db, "public_typing"), (snap) => {
+            onSnapshot(collection(db, TYPING_COL), (snap) => {
                 const now = Date.now();
                 const typers = [];
                 snap.forEach(d => {
@@ -1012,14 +1060,14 @@
             document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => { if (i.value) opts.push({ id: idx, text: i.value, votes: [] }) });
             if (!q || opts.length < 2) return window.showToast("Nhập câu hỏi và ít nhất 2 lựa chọn!");
             closePollModal();
-            await addDoc(collection(db, "public_chat"), {
+            await addDoc(collection(db, CHAT_COL), {
                 type: 'poll', question: q, options: opts, uid: currentUser.uid,
                 name: currentUser.displayName || currentUser.email.split('@')[0], avatar: currentUser.photoURL, createdAt: serverTimestamp()
             });
         }
 
         window.vote = async (msgId, optId) => {
-            const msgRef = doc(db, "public_chat", msgId); const msgSnap = await getDoc(msgRef);
+            const msgRef = doc(db, CHAT_COL, msgId); const msgSnap = await getDoc(msgRef);
             let opts = msgSnap.data().options;
             opts.forEach(o => { if (o.votes.includes(currentUser.uid)) o.votes = o.votes.filter(v => v !== currentUser.uid); });
             opts[optId].votes.push(currentUser.uid);
@@ -1048,7 +1096,7 @@
                 cancelReply();
             }
 
-            await addDoc(collection(db, "public_chat"), payload);
+            await addDoc(collection(db, CHAT_COL), payload);
         }
 
         document.getElementById('msgInput').addEventListener('input', () => {
@@ -1088,7 +1136,7 @@
         window.closeMsgMenu = () => document.getElementById('msgMenuModal').classList.remove('active');
 
         window.handleHeart = async () => {
-            const msgRef = doc(db, "public_chat", selectedMsgId); const snap = await getDoc(msgRef);
+            const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             const likes = snap.data().likes || [];
             if (likes.includes(currentUser.uid)) await updateDoc(msgRef, { likes: arrayRemove(currentUser.uid) });
             else await updateDoc(msgRef, { likes: arrayUnion(currentUser.uid) });
@@ -1126,19 +1174,19 @@
         window.handleDelete = async () => {
             const confirmed = await showConfirm("Thu hồi tin nhắn này?", "Xác nhận thu hồi");
             if (confirmed) {
-                await deleteDoc(doc(db, "public_chat", selectedMsgId));
+                await deleteDoc(doc(db, CHAT_COL, selectedMsgId));
                 closeMsgMenu();
             }
         }
 
         window.handleEdit = async () => {
-            const msgRef = doc(db, "public_chat", selectedMsgId); const snap = await getDoc(msgRef);
+            const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             if (snap.exists()) window.startEdit(selectedMsgId, snap.data().text);
         }
 
         window.replyData = null;
         window.handleReply = async () => {
-            const msgRef = doc(db, "public_chat", selectedMsgId); const snap = await getDoc(msgRef);
+            const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             if (snap.exists() && snap.data().text) {
                 window.replyData = { id: selectedMsgId, text: snap.data().text, name: snap.data().name };
                 document.getElementById('replyToName').textContent = snap.data().name;
@@ -1155,7 +1203,7 @@
         }
 
         window.handleCopy = async () => {
-            const msgRef = doc(db, "public_chat", selectedMsgId); const snap = await getDoc(msgRef);
+            const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             if (snap.exists() && snap.data().text) {
                 navigator.clipboard.writeText(snap.data().text);
                 window.showToast("Đã sao chép tin nhắn!");
@@ -1245,9 +1293,28 @@
         }
 
         function loadMessages() {
-            const q = query(collection(db, "public_chat"), orderBy("createdAt", "asc"), limit(100));
+            const q = query(collection(db, CHAT_COL), orderBy("createdAt", "asc"), limit(100));
             onSnapshot(q, (snapshot) => {
-                const box = document.getElementById('chatBox'); if (document.getElementById('chatSkeleton')) document.getElementById('chatSkeleton').remove();
+                const box = document.getElementById('chatBox');
+                if (document.getElementById('chatSkeleton')) document.getElementById('chatSkeleton').remove();
+
+                // EMPTY STATE CHECK
+                const existingEmpty = box.querySelector('.chat-empty');
+                if (snapshot.empty) {
+                    if (!existingEmpty) {
+                        box.innerHTML = `
+                            <div class="chat-empty">
+                                <div class="chat-empty-icon">💬</div>
+                                <div class="chat-empty-title">Chưa có tin nhắn nào</div>
+                                <div class="chat-empty-desc">Hãy là người đầu tiên gửi lời chào trong phòng chat này nhé!</div>
+                            </div>
+                        `;
+                    }
+                    return;
+                } else if (existingEmpty) {
+                    existingEmpty.remove();
+                }
+
                 let shouldScroll = box.scrollTop + box.clientHeight >= box.scrollHeight - 50;
                 snapshot.docChanges().forEach((change) => {
                     const msg = change.doc.data(); const docId = change.doc.id;

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 cái nút - Confe Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --radius-m: 16px;
+            --radius-l: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f8fafc;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--radius-l);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: var(--radius-m);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .click-btn {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+            transition: 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .click-btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .click-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .leaderboard {
+            width: 100%;
+            max-width: 500px;
+            background: var(--surface);
+            border-radius: var(--radius-l);
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .lb-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lb-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .lb-row:last-child {
+            border: none;
+        }
+
+        .lb-rank {
+            width: 30px;
+            font-weight: 800;
+            color: var(--text-secondary);
+        }
+
+        .rank-1 .lb-rank {
+            color: #f59e0b;
+        }
+
+        .lb-crown {
+            font-size: 14px;
+            margin-left: 4px;
+            display: inline-block;
+            animation: crownPulse 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes crownPulse {
+            from {
+                transform: scale(1) rotate(-5deg);
+                filter: drop-shadow(0 0 2px #f59e0b);
+            }
+
+            to {
+                transform: scale(1.2) rotate(5deg);
+                filter: drop-shadow(0 0 8px #f59e0b);
+            }
+        }
+
+        .rank-1 {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+            border-left: 4px solid #f59e0b !important;
+            padding-left: 10px !important;
+        }
+
+        .rank-2 .lb-rank {
+            color: #94a3b8;
+        }
+
+        .rank-3 .lb-rank {
+            color: #b45309;
+        }
+
+        .lb-name {
+            flex: 1;
+            font-weight: 600;
+            padding-left: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lb-name:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .lb-info {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .lb-score {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .lb-time {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .report-btn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 14px;
+            transition: 0.2s;
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .report-btn:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .btn-start {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .btn-start:hover {
+            opacity: 0.9;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        /* CUSTOM MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: var(--radius-l);
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* CELEBRATION MODAL */
+        .celebration-box {
+            background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+            border: 2px solid #f59e0b;
+        }
+
+        .celebration-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+            animation: celebrate 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+        }
+
+        @keyframes celebrate {
+            from {
+                transform: scale(1) rotate(-10deg);
+            }
+
+            to {
+                transform: scale(1.2) rotate(10deg);
+            }
+        }
+
+        .record-value {
+            font-size: 48px;
+            font-weight: 900;
+            color: #f59e0b;
+            margin: 20px 0;
+            text-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+        }
+
+        .btn-celebrate {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* SKELETON LOADING */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        .sk-text {
+            height: 14px;
+            border-radius: 4px;
+        }
+
+        .sk-name {
+            width: 100px;
+        }
+
+        .sk-score {
+            width: 40px;
+        }
+
+        .sk-time {
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <h1> 1 cái nút</h1>
+        <p class="desc">Bạn có 60 giây để bấm nút nhiều nhất có thể! Sẵn sàng chưa?</p>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Thời gian</div>
+                <div class="stat-value" id="timer">60s</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Lượt bấm</div>
+                <div class="stat-value" id="counter">0</div>
+            </div>
+        </div>
+
+        <button class="click-btn" id="clickBtn" disabled>BẤM!</button>
+        <button class="btn-start" id="startBtn">Bắt đầu ngay</button>
+    </div>
+
+    <div class="leaderboard">
+        <div class="lb-title"> Bảng Xếp Hạng Cao Thủ</div>
+        <div id="lbContent">
+            <!-- Skeleton items -->
+            <div class="lb-row">
+                <div class="lb-rank">1</div>
+                <div class="sk-text sk-name skeleton"></div>
+                <div class="lb-info">
+                    <div class="sk-text sk-score skeleton"></div>
+                </div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">2</div>
+                <div class="sk-text sk-name skeleton"></div>
+                <div class="lb-info">
+                    <div class="sk-text sk-score skeleton"></div>
+                </div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">3</div>
+                <div class="sk-text sk-name skeleton"></div>
+                <div class="lb-info">
+                    <div class="sk-text sk-score skeleton"></div>
+                </div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">4</div>
+                <div class="sk-text sk-name skeleton"></div>
+                <div class="lb-info">
+                    <div class="sk-text sk-score skeleton"></div>
+                </div>
+            </div>
+            <div class="lb-row">
+                <div class="lb-rank">5</div>
+                <div class="sk-text sk-name skeleton"></div>
+                <div class="lb-info">
+                    <div class="sk-text sk-score skeleton"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- CUSTOM MODAL -->
+    <!-- CELEBRATION MODAL -->
+    <div id="modalCelebration" class="modal-overlay">
+        <div class="modal-box celebration-box">
+            <div class="celebration-icon">🎉</div>
+            <div class="modal-title" style="color:#d97706">SIÊU CẤP ĐỈNH CAO!</div>
+            <div class="modal-desc">Bạn vừa lập một kỷ lục mới vô cùng ấn tượng!</div>
+            <div class="record-value" id="finalRecord">0</div>
+            <div style="font-size:14px; color:#92400e; margin-bottom:24px; font-weight:600;">Kỷ lục của bạn đã được ghi
+                danh bảng vàng.</div>
+            <button class="modal-btn btn-celebrate"
+                onclick="document.getElementById('modalCelebration').classList.remove('active')">Tuyệt vời!</button>
+        </div>
+    </div>
+
+    <!-- CUSTOM CONFIRM MODAL -->
+    <div id="modalConfirm" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">🚩</div>
+            <div class="modal-title" id="mTitle">Báo cáo người chơi</div>
+            <div class="modal-desc" id="mDesc">Bạn có chắc chắn muốn thực hiện hành động này?</div>
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" id="mCancel">Hủy bỏ</button>
+                <button class="modal-btn btn-confirm" id="mConfirm">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let score = 0;
+        let timeLeft = 60;
+        let timerId = null;
+        let isPlaying = false;
+
+        onAuthStateChanged(auth, u => { currentUser = u; });
+
+        const timerEl = document.getElementById('timer');
+        const counterEl = document.getElementById('counter');
+        const clickBtn = document.getElementById('clickBtn');
+        const startBtn = document.getElementById('startBtn');
+        const lbContent = document.getElementById('lbContent');
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // Time ago helper
+        function timeAgo(date) {
+            if (!date) return '';
+            const seconds = Math.floor((new Date() - date.toDate()) / 1000);
+            if (seconds < 60) return 'vừa xong';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}p trước`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h trước`;
+            return `${Math.floor(hours / 24)} ngày trước`;
+        }
+
+        // Realtime update labels every 30s
+        setInterval(() => {
+            const labels = document.querySelectorAll('.lb-time');
+            labels.forEach(l => {
+                const ts = l.getAttribute('data-ts');
+                if (ts) {
+                    const date = { toDate: () => new Date(parseInt(ts)) };
+                    l.textContent = timeAgo(date);
+                }
+            });
+        }, 30000);
+
+        // Custom confirm helper
+        let confirmAction = null;
+        const modalConfirm = document.getElementById('modalConfirm');
+        const mDesc = document.getElementById('mDesc');
+        const btnMConfirm = document.getElementById('mConfirm');
+        const btnMCancel = document.getElementById('mCancel');
+
+        function showConfirmPopup(msg, onConfirm) {
+            mDesc.textContent = msg;
+            confirmAction = onConfirm;
+            modalConfirm.classList.add('active');
+        }
+
+        btnMCancel.onclick = () => modalConfirm.classList.remove('active');
+        btnMConfirm.onclick = () => {
+            modalConfirm.classList.remove('active');
+            if (confirmAction) confirmAction();
+        };
+
+        window.reportUser = async (uid, name) => {
+            if (!currentUser) {
+                showToast("Bạn cần đăng nhập để báo cáo.");
+                return;
+            }
+            showConfirmPopup(`Bạn muốn báo cáo tài khoản "${name}" vì nghi ngờ gian lận?`, async () => {
+                try {
+                    await setDoc(doc(collection(db, 'reports')), {
+                        reporterId: currentUser.uid,
+                        targetId: uid,
+                        targetName: name,
+                        type: 'game_cheat',
+                        game: '1_cai_nut',
+                        timestamp: serverTimestamp()
+                    });
+                    showToast("Đã gửi báo cáo. Cảm ơn bạn!");
+                } catch (e) {
+                    showToast("Lỗi khi gửi báo cáo.");
+                }
+            });
+        };
+
+        // Leaderboard listener
+        const q = query(collection(db, 'leaderboard_clicks'), orderBy('score', 'desc'), limit(10));
+        onSnapshot(q, snap => {
+            lbContent.innerHTML = snap.docs.map((d, i) => {
+                const data = d.data();
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+                const ts = data.updatedAt ? data.updatedAt.toMillis() : Date.now();
+                return `
+                    <div class="lb-row ${rankClass}">
+                        <div class="lb-rank">${i + 1}</div>
+                        <div style="display:flex; align-items:center; flex:1;">
+                            <div class="lb-name" onclick="window.parent.loadPage('profile.html?uid=${data.uid}', this)">
+                                ${data.displayName || 'Người dùng ẩn'}
+                                ${i === 0 ? '<span class="lb-crown">👑</span>' : ''}
+                            </div>
+                            <button class="report-btn" title="Báo cáo gian lận" onclick="reportUser('${data.uid}', '${data.displayName || 'Ẩn'}')">🚩</button>
+                        </div>
+                        <div class="lb-info">
+                            <div class="lb-score">${data.score}</div>
+                            <div class="lb-time" data-ts="${ts}">${timeAgo(data.updatedAt)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        });
+
+        startBtn.onclick = () => {
+            if (!currentUser) {
+                showToast("Vui lòng đăng nhập để lưu kết quả nhé!");
+                return;
+            }
+            startGame();
+        };
+
+        clickBtn.onclick = () => {
+            if (!isPlaying) return;
+            score++;
+            counterEl.textContent = score;
+        };
+
+        function startGame() {
+            isPlaying = true;
+            score = 0;
+            timeLeft = 60;
+            counterEl.textContent = "0";
+            timerEl.textContent = "60s";
+            clickBtn.disabled = false;
+            startBtn.style.display = 'none';
+
+            timerId = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft + "s";
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        async function endGame() {
+            clearInterval(timerId);
+            isPlaying = false;
+            clickBtn.disabled = true;
+            startBtn.style.display = 'block';
+            startBtn.textContent = "Chơi lại";
+
+            showToast(`Hết giờ! Bạn đạt được ${score} lượt bấm.`);
+
+            if (currentUser && score > 0) {
+                try {
+                    // FIX: Fetch profile info to ensure displayName exists
+                    const profileSnap = await getDoc(doc(db, 'users', currentUser.uid));
+                    let finalName = 'Người dùng ẩn';
+                    if (profileSnap.exists()) {
+                        finalName = profileSnap.data().displayName || profileSnap.data().username || 'Cư dân mới';
+                    } else {
+                        finalName = currentUser.displayName || 'Cư dân mới';
+                    }
+
+                    const userRef = doc(db, 'leaderboard_clicks', currentUser.uid);
+                    const snap = await getDoc(userRef);
+                    if (!snap.exists() || snap.data().score < score) {
+                        await setDoc(userRef, {
+                            uid: currentUser.uid,
+                            displayName: finalName,
+                            score: score,
+                            updatedAt: serverTimestamp()
+                        });
+                        document.getElementById('finalRecord').textContent = score;
+                        document.getElementById('modalCelebration').classList.add('active');
+                    } else {
+                        showToast(`Cố lên! Bạn còn thiếu ${snap.data().score - score + 1} điểm nữa để phá kỷ lục cũ.`);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1003,42 +1003,42 @@
 
             if (isWeekday) {
                 if (h >= 5 && h < 12) {
-                    label = 'STUDY TIME'; emoji = '📚';
+                    label = ''; emoji = '📚';
                     msg = `Chào buổi sáng, ${name}!`;
-                    sub = 'Chắc giờ này bạn đã đi học rồi 😊. Cố gắng lên nhé!';
+                    sub = 'Chắc giờ này bạn đã đi học rồi 😊. Đi học zui zẻ nhé!';
                 } else if (h >= 16 && h < 18) {
-                    label = 'WELCOME HOME'; emoji = '🍵';
+                    label = ''; emoji = '🍵';
                     msg = `Học về rồi hả, ${name}?`;
-                    sub = 'Mừng bạn đã đi học về! Nghỉ ngơi xíu cho khỏe nha! 🧡';
+                    sub = 'Đi học về rồi à ? Nghỉ ngơi xíu cho khỏe nha! 🧡';
                 } else if (d === 5 && h >= 18) {
-                    label = 'WEEKEND VIBES'; emoji = '💃';
+                    label = ''; emoji = '💃';
                     msg = `Cuối tuần tới rồi, ${name}!`;
-                    sub = 'Thứ Sáu máu chảy về tim! Quẩy nốt tối nay rồi nghỉ ngơi thôi!';
+                    sub = 'Quẩy nốt tối nay rồi nghỉ ngơi thôi!';
                 } else {
                     // Default weekday
                     if (h < 12) {
-                        label = 'MORNING'; emoji = '☀️';
+                        label = ''; emoji = '☀️';
                         msg = `Chào buổi sáng, ${name}!`;
                         sub = 'Chúc bạn một ngày năng động và đầy cảm hứng!';
                     } else if (h < 18) {
-                        label = 'AFTERNOON'; emoji = '🌤️';
+                        label = ''; emoji = '🌤️';
                         msg = `Buổi chiều vui vẻ, ${name}!`;
                         sub = 'Đừng quên uống nước và nghỉ ngơi đầy đủ nhé!';
                     } else {
-                        label = 'EVENING'; emoji = '🌙';
+                        label = ''; emoji = '🌙';
                         msg = `Chào buổi tối, ${name}!`;
                         sub = 'Hôm nay thế nào rồi bạn? Cùng thư giãn nhé!';
                     }
                 }
             } else if (isWeekend) {
-                label = 'CHILL TIME'; emoji = '🎮';
+                label = ''; emoji = '🎮';
                 msg = `Cuối tuần cực chill, ${name}!`;
-                sub = 'Xõa thôi! Chúc bạn có những phút giây thư giãn thật tuyệt vời! ✨';
+                sub = 'Xõa đê! Chúc bạn có những phút giây thư giãn thật tuyệt vời! ✨';
             }
 
             // Late night (shared)
             if (h >= 22 || h < 5) {
-                label = 'NIGHT OWL'; emoji = '🦉';
+                label = ''; emoji = '🦉';
                 msg = `Còn thức à, ${name}?`;
                 sub = 'Khuya rồi đó, nhớ ngủ đủ giấc nha bạn ơi! 💤';
             }
