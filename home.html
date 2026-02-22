@@ -1212,6 +1212,28 @@
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
 
         const app = initializeApp(cfg); const auth = getAuth(app); const db = getFirestore(app);
+
+        // CHECK DB VERSION
+        const CLIENT_DB_VERSION = 1;
+        getDoc(doc(db, "system", "config")).then(d => {
+            if (d.exists() && d.data().db_version > CLIENT_DB_VERSION) {
+                const alertBox = document.createElement('div');
+                alertBox.innerHTML = `
+                    <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+                        <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
+                        <div style="display:flex; align-items:flex-start; gap:15px;">
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
+                            <div>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
+                            </div>
+                        </div>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
+                    </div>
+                `;
+                document.body.appendChild(alertBox);
+            }
+        }).catch(e => { });
         let user = null, allTopics = [], curFilter = 'all';
         let reportTargetId = null; // ID Topic cần báo cáo
 
@@ -1287,6 +1309,8 @@
                         if (curFilter === 'joined') render();
                     });
                 }
+                window.top.location.href = 'login.html';
+                return;
             }
             try { if (window.parent && window.parent.setUid) window.parent.setUid(u ? u.uid : null); } catch (e) { }
             const nav = document.getElementById('navAction');
@@ -1313,84 +1337,83 @@
                     document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
                 } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
             }
-        });
 
-        window.onclick = (e) => {
-            if (!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show');
-            if (e.target.classList.contains('modal')) e.target.classList.remove('active');
-        }
-        const modal = document.getElementById('modal');
-        document.getElementById('fab').onclick = () => {
-            if (!user) return location.href = 'login.html';
-            if (user.isAnonymous) return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
-            modal.classList.add('active');
-        }
-        async function up(f) { if (!f) return ""; const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; } }
-
-        document.getElementById('btnCreate').onclick = async function () {
-            if (!user || user.isAnonymous) {
-                modal.classList.remove('active');
-                return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
+            window.onclick = (e) => {
+                if (!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show');
+                if (e.target.classList.contains('modal')) e.target.classList.remove('active');
             }
-            const t = document.getElementById('tTitle').value; if (!t) return window.showToast("Nhập tên Topic!");
-            if (!document.getElementById('chkTerms').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
-            this.textContent = "Đang tạo..."; this.disabled = true;
-            const b = await up(document.getElementById('fBanner').files[0]);
-            const l = await up(document.getElementById('fLogo').files[0]);
-            const status = document.getElementById('tStatus').checked;
-            const allowImg = document.getElementById('tAllowImg').checked;
-            await addDoc(collection(db, "topics"), { title: t, owner: user.email, authorId: user.uid, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, allowChat: false, postRule: 'all', is_agree_terms: true });
-            window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent = "Tạo Topic"; this.disabled = false;
-        };
-        const grid = document.getElementById('grid');
-        const suggestList = document.getElementById('suggestList');
+            const modal = document.getElementById('modal');
+            document.getElementById('fab').onclick = () => {
+                if (!user) return location.href = 'login.html';
+                if (user.isAnonymous) return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
+                modal.classList.add('active');
+            }
+            async function up(f) { if (!f) return ""; const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; } }
 
-        onSnapshot(query(collection(db, "topics"), orderBy("createdAt", "desc")), (snap) => {
-            allTopics = [];
-            snap.forEach(d => allTopics.push({ id: d.id, ...d.data() }));
-            render();
-        });
-
-        function render() {
-            const list = allTopics.filter(t => {
-                const matchSearch = !document.getElementById('search').value || t.title.toLowerCase().includes(document.getElementById('search').value.toLowerCase());
-                let matchCat = false;
-                if (curFilter === 'joined') {
-                    matchCat = joinedTopicIds.includes(t.id);
-                } else {
-                    matchCat = curFilter === 'all' || t.category === curFilter;
+            document.getElementById('btnCreate').onclick = async function () {
+                if (!user || user.isAnonymous) {
+                    modal.classList.remove('active');
+                    return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
                 }
-                return matchSearch && matchCat;
+                const t = document.getElementById('tTitle').value; if (!t) return window.showToast("Nhập tên Topic!");
+                if (!document.getElementById('chkTerms').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
+                this.textContent = "Đang tạo..."; this.disabled = true;
+                const b = await up(document.getElementById('fBanner').files[0]);
+                const l = await up(document.getElementById('fLogo').files[0]);
+                const status = document.getElementById('tStatus').checked;
+                const allowImg = document.getElementById('tAllowImg').checked;
+                await addDoc(collection(db, "topics"), { title: t, owner: user.email, authorId: user.uid, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, allowChat: false, postRule: 'all', is_agree_terms: true });
+                window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent = "Tạo Topic"; this.disabled = false;
+            };
+            const grid = document.getElementById('grid');
+            const suggestList = document.getElementById('suggestList');
+
+            onSnapshot(query(collection(db, "topics"), orderBy("createdAt", "desc")), (snap) => {
+                allTopics = [];
+                snap.forEach(d => allTopics.push({ id: d.id, ...d.data() }));
+                render();
             });
 
-            if (list.length === 0) {
-                const searchVal = document.getElementById('search').value;
-                const catName = curFilter === 'all' ? '' : ` trong danh mục "${document.querySelector('.chip.active').textContent.trim()}"`;
+            function render() {
+                const list = allTopics.filter(t => {
+                    const matchSearch = !document.getElementById('search').value || t.title.toLowerCase().includes(document.getElementById('search').value.toLowerCase());
+                    let matchCat = false;
+                    if (curFilter === 'joined') {
+                        matchCat = joinedTopicIds.includes(t.id);
+                    } else {
+                        matchCat = curFilter === 'all' || t.category === curFilter;
+                    }
+                    return matchSearch && matchCat;
+                });
 
-                grid.innerHTML = `
+                if (list.length === 0) {
+                    const searchVal = document.getElementById('search').value;
+                    const catName = curFilter === 'all' ? '' : ` trong danh mục "${document.querySelector('.chip.active').textContent.trim()}"`;
+
+                    grid.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">${searchVal ? '🔍' : '📂'}</div>
                         <div class="empty-title">Không tìm thấy kết quả</div>
                         <div class="empty-desc">
                             ${searchVal
-                        ? `Chúng mình không tìm thấy chủ đề nào khớp với "<b>${window.escapeHTML(searchVal)}</b>"${catName}.`
-                        : `Hiện tại chưa có chủ đề nào${catName}. Hãy là người đầu tiên tạo chủ đề mới nhé!`}
+                            ? `Chúng mình không tìm thấy chủ đề nào khớp với "<b>${window.escapeHTML(searchVal)}</b>"${catName}.`
+                            : `Hiện tại chưa có chủ đề nào${catName}. Hãy là người đầu tiên tạo chủ đề mới nhé!`}
                         </div>
                     </div>
                 `;
-                return;
-            }
+                    return;
+                }
 
-            grid.innerHTML = list.map(t => {
-                const isJoined = joinedTopicIds.includes(t.id);
-                const isOwner = user && t.owner === user.email;
-                const isProtected = t.protectResource === true && !isJoined && !isOwner;
+                grid.innerHTML = list.map(t => {
+                    const isJoined = joinedTopicIds.includes(t.id);
+                    const isOwner = user && t.owner === user.email;
+                    const isProtected = t.protectResource === true && !isJoined && !isOwner;
 
-                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn chưa tham gia Topic này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
-                const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
-                const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
+                    const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn chưa tham gia Topic này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
+                    const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
+                    const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
 
-                return `
+                    return `
                 <div class="card" onclick="location.href='detail.html?id=${t.id}'">
                     <button class="btn-card-report" onclick="openReport(event, '${t.id}')" title="Báo cáo">🚩</button>
                     ${t.privacyMode === 'private' ? '<div class="card-badge-private"> 🔒 Cần duyệt</div>' : ''}
@@ -1407,26 +1430,26 @@
                 </div>
             `}).join('');
 
-            // Render Suggestions (Top 10 Heat, min 10)
-            const top = allTopics
-                .filter(t => (t.heat || 0) >= 10)
-                .sort((a, b) => (b.heat || 0) - (a.heat || 0))
-                .slice(0, 10);
+                // Render Suggestions (Top 10 Heat, min 10)
+                const top = allTopics
+                    .filter(t => (t.heat || 0) >= 10)
+                    .sort((a, b) => (b.heat || 0) - (a.heat || 0))
+                    .slice(0, 10);
 
-            const section = document.getElementById('rankingSection');
-            if (top.length > 0) {
-                section.style.display = 'block';
-                suggestList.innerHTML = top.map((t, i) => {
-                    const isJoined = joinedTopicIds.includes(t.id);
-                    const isOwner = user && t.owner === user.email;
-                    const isProtected = t.protectResource === true && !isJoined && !isOwner;
+                const section = document.getElementById('rankingSection');
+                if (top.length > 0) {
+                    section.style.display = 'block';
+                    suggestList.innerHTML = top.map((t, i) => {
+                        const isJoined = joinedTopicIds.includes(t.id);
+                        const isOwner = user && t.owner === user.email;
+                        const isProtected = t.protectResource === true && !isJoined && !isOwner;
 
-                    const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
-                    const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://via.placeholder.com/300x150');
-                    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
-                    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+                        const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
+                        const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://via.placeholder.com/300x150');
+                        const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+                        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
 
-                    return `
+                        return `
                      <div class="mini-card" onclick="location.href='detail.html?id=${t.id}'">
                         <div class="rank-badge ${rankClass}">${medal}</div>
                         <img src="${displayBanner}" class="mini-img">
@@ -1436,63 +1459,63 @@
                         </div>
                     </div>
                 `}).join('');
-            } else {
-                section.style.display = 'none';
-            }
-        }
-
-        window.setFilter = (el, cat) => {
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            el.classList.add('active'); curFilter = cat; render();
-        }
-        document.getElementById('search').oninput = render;
-        let pendingReqs = [];
-
-        function loadRequests() {
-            if (!user) return;
-            onSnapshot(query(collection(db, "requests"), where("ownerEmail", "==", user.email), where("status", "==", "pending")), (snap) => {
-                pendingReqs = [];
-                snap.forEach(d => pendingReqs.push({ id: d.id, ...d.data() }));
-                updateBadge();
-                renderRequests();
-            });
-        }
-
-        function updateBadge() {
-            // Update Navbar Bell Badge
-            const bellBtn = document.getElementById('btnNews');
-            if (!bellBtn) return;
-            const badge = bellBtn.querySelector('.badge');
-
-            if (pendingReqs.length > 0) {
-                badge.style.display = 'block';
-                badge.textContent = pendingReqs.length;
-                // Pulsing effect for attention
-                bellBtn.style.color = 'var(--danger)';
-            } else {
-                badge.style.display = 'none';
-                bellBtn.style.color = ''; // Reset color
-            }
-        }
-
-        // Updated Bell Click Handler
-        const btnNews = document.getElementById('btnNews');
-        if (btnNews) {
-            btnNews.onclick = () => {
-                if (pendingReqs.length > 0) {
-                    document.getElementById('modalRequests').classList.add('active');
                 } else {
-                    document.getElementById('modalNews').classList.add('active');
+                    section.style.display = 'none';
                 }
             }
-        }
 
-        function renderRequests() {
-            const list = document.getElementById('reqList');
-            const msg = document.getElementById('noReqMsg');
-            if (pendingReqs.length === 0) { list.innerHTML = ''; msg.style.display = 'block'; return; }
-            msg.style.display = 'none';
-            list.innerHTML = pendingReqs.map(r => `
+            window.setFilter = (el, cat) => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                el.classList.add('active'); curFilter = cat; render();
+            }
+            document.getElementById('search').oninput = render;
+            let pendingReqs = [];
+
+            function loadRequests() {
+                if (!user) return;
+                onSnapshot(query(collection(db, "requests"), where("ownerEmail", "==", user.email), where("status", "==", "pending")), (snap) => {
+                    pendingReqs = [];
+                    snap.forEach(d => pendingReqs.push({ id: d.id, ...d.data() }));
+                    updateBadge();
+                    renderRequests();
+                });
+            }
+
+            function updateBadge() {
+                // Update Navbar Bell Badge
+                const bellBtn = document.getElementById('btnNews');
+                if (!bellBtn) return;
+                const badge = bellBtn.querySelector('.badge');
+
+                if (pendingReqs.length > 0) {
+                    badge.style.display = 'block';
+                    badge.textContent = pendingReqs.length;
+                    // Pulsing effect for attention
+                    bellBtn.style.color = 'var(--danger)';
+                } else {
+                    badge.style.display = 'none';
+                    bellBtn.style.color = ''; // Reset color
+                }
+            }
+
+            // Updated Bell Click Handler
+            const btnNews = document.getElementById('btnNews');
+            if (btnNews) {
+                btnNews.onclick = () => {
+                    if (pendingReqs.length > 0) {
+                        document.getElementById('modalRequests').classList.add('active');
+                    } else {
+                        document.getElementById('modalNews').classList.add('active');
+                    }
+                }
+            }
+
+            function renderRequests() {
+                const list = document.getElementById('reqList');
+                const msg = document.getElementById('noReqMsg');
+                if (pendingReqs.length === 0) { list.innerHTML = ''; msg.style.display = 'block'; return; }
+                msg.style.display = 'none';
+                list.innerHTML = pendingReqs.map(r => `
                  <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:white;">
                      <div style="font-weight:700; font-size:14px; margin-bottom:4px;">${r.tTitle}</div>
                      <div style="font-size:13px; color:#64748b; margin-bottom:10px;"> ${r.userName} xin tham gia</div>
@@ -1502,43 +1525,45 @@
                      </div>
                  </div>
              `).join('');
-        }
+            }
 
-        window.approveReq = async (rid, tid, name, devId) => {
-            // 1. Add to Whitelist in Topic
-            try {
-                await updateDoc(doc(db, "topics", tid), {
-                    whitelist: arrayUnion({ name: name, deviceId: devId })
-                });
-                // 2. Update Request Status
-                await updateDoc(doc(db, "requests", rid), { status: 'approved' });
-                window.showToast("Đã duyệt thành công!");
-            } catch (e) { window.showToast("Lỗi khi duyệt."); console.error(e); }
-        }
+            window.approveReq = async (rid, tid, name, devId) => {
+                // 1. Add to Whitelist in Topic
+                try {
+                    await updateDoc(doc(db, "topics", tid), {
+                        whitelist: arrayUnion({ name: name, deviceId: devId })
+                    });
+                    // 2. Update Request Status
+                    await updateDoc(doc(db, "requests", rid), { status: 'approved' });
+                    window.showToast("Đã duyệt thành công!");
+                } catch (e) { window.showToast("Lỗi khi duyệt."); console.error(e); }
+            }
 
-        window.rejectReq = async (rid) => {
-            try {
-                await updateDoc(doc(db, "requests", rid), { status: 'rejected' });
-                window.showToast("Đã từ chối!");
-            } catch (e) { window.showToast("Lỗi khi từ chối."); }
-        }
+            window.rejectReq = async (rid) => {
+                try {
+                    await updateDoc(doc(db, "requests", rid), { status: 'rejected' });
+                    window.showToast("Đã từ chối!");
+                } catch (e) { window.showToast("Lỗi khi từ chối."); }
+            }
 
-        // FAB click handler is already defined above at line 1296.
-        // The duplicate/broken one here is removed to avoid confusion.
+            // FAB click handler is already defined above at line 1296.
+            // The duplicate/broken one here is removed to avoid confusion.
 
-        // FAB scroll-to-hide on mobile
-        (() => {
-            const fab = document.getElementById('fab');
-            if (!fab) return;
-            let lastY = 0;
-            window.addEventListener('scroll', () => {
-                const y = window.scrollY;
-                if (window.innerWidth > 768) { fab.classList.remove('fab-hidden'); return; }
-                if (y > lastY && y > 60) fab.classList.add('fab-hidden');
-                else fab.classList.remove('fab-hidden');
-                lastY = y;
-            }, { passive: true });
-        })();
+            // FAB scroll-to-hide on mobile
+            (() => {
+                const fab = document.getElementById('fab');
+                if (!fab) return;
+                let lastY = 0;
+                window.addEventListener('scroll', () => {
+                    const y = window.scrollY;
+                    if (window.innerWidth > 768) { fab.classList.remove('fab-hidden'); return; }
+                    if (y > lastY && y > 60) fab.classList.add('fab-hidden');
+                    else fab.classList.remove('fab-hidden');
+                    lastY = y;
+                }, { passive: true });
+            })();
+
+        });
 
     </script>
 </body>

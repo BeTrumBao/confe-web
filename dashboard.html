@@ -786,6 +786,9 @@
     <div class="sheet-backdrop" id="sheetBackdrop" onclick="closeSheet()"></div>
     <div class="news-sheet" id="newsSheet">
         <div class="sheet-handle"></div>
+        <button onclick="closeSheet()"
+            style="position:absolute; top:12px; right:14px; background:none; border:none; font-size:20px; color:#94a3b8; cursor:pointer; line-height:1; padding:4px 8px; border-radius:50%;"
+            title="Đóng">×</button>
         <div class="sheet-icon" id="sheetIcon">📌</div>
         <div class="sheet-title" id="sheetTitle"></div>
         <div class="sheet-desc" id="sheetDesc"></div>
@@ -1052,7 +1055,7 @@
         // AUTH
         onAuthStateChanged(auth, async (u) => {
             user = u;
-            if (!u) { location.href = 'login.html'; return; }
+            if (!u) { window.top.location.href = 'login.html'; return; }
             loadCommunityPoll();
             let displayName = u.displayName || u.email?.split('@')[0] || 'bạn';
             try {

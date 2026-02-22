@@ -442,6 +442,16 @@
         window.showToast = (msg) => {
             const container = document.getElementById('globalToastContainer');
             if (!container) return;
+
+            // Xóa các toast cũ có cùng nội dung để tránh tình trạng hiển thị chồng chéo (spam click)
+            const existingToasts = container.querySelectorAll('.toast');
+            existingToasts.forEach((t) => {
+                if (t.textContent === msg) {
+                    t.style.display = 'none';
+                    t.remove();
+                }
+            });
+
             const t = document.createElement('div');
             t.className = 'toast';
             t.textContent = msg;
@@ -503,7 +513,7 @@
         <div
             style="background:white; width:90%; max-width:350px; border-radius:24px; padding:20px; text-align:center; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.3);">
             <button onclick="document.getElementById('modalAnnounce').style.display='none'"
-                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer;"></button>
+                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer; font-size:16px; color:#64748b; display:flex; align-items:center; justify-content:center;">×</button>
             <img id="annImg" src=""
                 style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
             <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
@@ -538,84 +548,90 @@
         </div>
     </div>
     <div id="modalGuidelines" class="modal-guidelines" style="display: none;">
-        <div class="guidelines-box">
-            <div class="guidelines-header">
-                <h2>️ Quy tắc cộng đồng</h2>
-                <p>Vui lòng đọc kỹ và kéo xuống cuối để đồng ý.</p>
+        <div class="guidelines-box"
+            style="background:white; width:90%; max-width:440px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2); max-height:87vh; overflow-y:auto; margin:auto;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:36px; margin-bottom:8px;">📋</div>
+                <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
             </div>
 
-            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)">
-                <ul class="rule-list">
-                    <li> <strong>Không spam:</strong> Không đăng liên tục các topic giống nhau, bình luận vô nghĩa
-                        hoặc spam icon.</li>
-                    <li> <strong>Ngôn từ:</strong> Không sử dụng ngôn từ tục tĩu, chửi thề, xúc phạm danh dự nhân phẩm
-                        người khác.</li>
-                    <li> <strong>Nội dung cấm:</strong> Nghiêm cấm mọi hành vi chia sẻ nội dung đồi trụy, bạo lực,
-                        kích động thù hằn hoặc vi phạm pháp luật Việt Nam.</li>
-                    <li>fake <strong>Tin giả:</strong> Không lan truyền thông tin sai lệch, tin đồn thất thiệt chưa được
-                        kiểm chứng gây hoang mang dư luận.</li>
-                    <li> <strong>Quảng cáo:</strong> Không quảng cáo trái phép, spam link cờ bạc, cá độ, vay nặng lãi
-                        hoặc các dịch vụ không được phép.</li>
-                    <li> <strong>Tôn trọng:</strong> Tôn trọng sự khác biệt, thảo luận trên tinh thần xây dựng, không
-                        công kích cá nhân.</li>
-                    <li> <strong>Bảo mật:</strong> Tuyệt đối không chia sẻ mật khẩu, mã OTP, số điện thoại, địa chỉ
-                        nhà riêng hoặc thông tin nhạy cảm của bản thân và người khác công khai.</li>
-                    <li>u <strong>Tiếng Việt trong sáng:</strong> Giữ gìn sự trong sáng của Tiếng Việt, hạn chế viết tắt
-                        quá mức gây khó hiểu, không teencode quá đà.</li>
-                    <li> <strong>Quấy rối:</strong> Nghiêm cấm hành vi nhắn tin làm phiền, quấy rối tình dục, đe dọa
-                        hoặc khủng bố tinh thần thành viên khác.</li>
-                    <li> <strong>Link lạ:</strong> Cẩn thận với các đường link lạ, không click nếu không rõ nguồn gốc
-                        để tránh mất tài khoản.</li>
-                    <li> <strong>Bot/Tool:</strong> Không sử dụng tool, bot spam tin nhắn, auto comment gây ảnh hưởng
-                        đến trải nghiệm người dùng khác.</li>
-                    <li>impersonate <strong>Mạo danh:</strong> Không mạo danh Admin, Moderator hoặc người nổi tiếng để
-                        lừa đảo trục lợi.</li>
-                    <li>copyright <strong>Bản quyền:</strong> Tôn trọng bản quyền tác giả, ghi rõ nguồn khi chia sẻ nội
-                        dung không phải của mình.</li>
-                    <li>report <strong>Báo cáo vi phạm:</strong> Tích cực báo cáo các nội dung xấu độc để cùng đội ngũ
-                        quản trị xây dựng cộng đồng sạch đẹp.</li>
-                    <li>punish <strong>Xử lý vi phạm:</strong> Các tài khoản vi phạm sẽ bị khóa tạm thời hoặc vĩnh viễn
-                        tùy theo mức độ nghiêm trọng mà không cần báo trước.</li>
-                    <li> <strong>Tài khoản:</strong> Bạn chịu trách nhiệm hoàn toàn về các hoạt động diễn ra trên tài
-                        khoản của mình. Hãy bảo mật mật khẩu cẩn thận.</li>
+            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)" style="overflow-y:auto;">
 
-                    <li> <strong>Cờ bạc:</strong> Nghiêm cấm tổ chức, rủ rê cá độ, lô đề, cờ bạc dưới mọi hình thức.
-                    </li>
-                    <li>🩸 <strong>Kích động:</strong> Không đăng tải nội dung kích động bạo lực, tự làm hại bản thân
-                        hoặc cổ súy cho các hành vi nguy hiểm.</li>
-                    <li>️ <strong>Thù ghét:</strong> Không phân biệt chủng tộc, tôn giáo, giới tính, vùng miền. Mọi
-                        hành vi kỳ thị đều bị nghiêm cấm.</li>
-                    <li> <strong>Avatar/Bìa:</strong> Không sử dụng hình ảnh nhạy cảm, đồi trụy, kinh dị hoặc vi phạm
-                        bản quyền làm ảnh đại diện, ảnh bìa.</li>
-                    <li>️ <strong>Tên hiển thị:</strong> Không đặt tên giả mạo người nổi tiếng, tên chứa từ ngữ thô
-                        tục hoặc tên gây nhầm lẫn với đội ngũ quản trị.</li>
-                    <li> <strong>Spam Flooding:</strong> Không gửi tin nhắn liên tiếp quá nhanh (flood) gây trôi tin
-                        nhắn của người khác trong nhóm chat.</li>
-                    <li> <strong>Lợi dụng lỗi:</strong> Nếu phát hiện lỗi (bug) của hệ thống, vui lòng báo cáo cho
-                        Admin, không lợi dụng lỗi để trục lợi hoặc phá hoại.</li>
-                    <li> <strong>Kêu gọi:</strong> Không kêu gọi tẩy chay, tấn công cá nhân hoặc tổ chức khác trên nền
-                        tảng.</li>
-                    <li> <strong>Giao dịch:</strong> Cẩn trọng khi giao dịch tiền bạc, vật phẩm với người lạ. Confe
-                        không chịu trách nhiệm về các giao dịch cá nhân.</li>
-                    <li>️ <strong>Doxxing:</strong> Tuyệt đối không tìm kiếm, chia sẻ thông tin đời tư của người khác
-                        (doxxing) khi chưa được sự đồng ý.</li>
-                    <li>️ <strong>Tuân thủ pháp luật:</strong> Mọi hành vi vi phạm pháp luật nước Cộng hòa Xã hội Chủ
-                        nghĩa Việt Nam đều bị cấm và có thể bị truy tố.</li>
-                    <li>️ <strong>Hợp tác:</strong> Vui lòng hợp tác với Mod/Admin khi được yêu cầu cung cấp thông tin
-                        để giải quyết khiếu nại, tố cáo.</li>
-                    <li> <strong>Sửa đổi:</strong> Quy tắc này có thể được cập nhật bất cứ lúc nào để phù hợp với tình
-                        hình thực tế. Việc bạn tiếp tục sử dụng Confe đồng nghĩa với việc bạn đồng ý với các thay đổi
-                        đó.</li>
-                </ul>
-                <div style="height: 20px;"></div>
+                <!-- Nội dung cấm -->
+                <div
+                    style="background:#fdf4ff; border:1px solid #e9d5ff; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    <div
+                        style="font-weight:800; color:#7c3aed; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        🚫 NỘI DUNG CẤM
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
+                        <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
+                        <li><b>Tin giả:</b> Không lan truyền thông tin sai sự thật.</li>
+                        <li><b>Quảng cáo trái phép:</b> Cờ bạc, cá độ, vay nặng lãi đều bị cấm.</li>
+                        <li><b>Kích động, thù ghét:</b> Không phân biệt chủng tộc, tôn giáo, giới tính.</li>
+                        <li><b>Kêu gọi tẩy chay, tấn công:</b> Cá nhân hoặc tổ chức khác.</li>
+                    </ul>
+                </div>
+
+                <!-- Quyền riêng tư & Bảo mật -->
+                <div
+                    style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    <div
+                        style="font-weight:800; color:#15803d; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        🔒 QUYỀN RIÊNG TƯ & BẢO MẬT
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
+                        <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
+                        <li><b>Quấy rối:</b> Nghiêm cấm nhắn tin làm phiền, đe dọa, khủng bố tinh thần.</li>
+                        <li><b>Chụp màn hình:</b> Không phát tán nội dung từ nền tảng ra bên ngoài.</li>
+                    </ul>
+                </div>
+
+                <!-- Ứng xử -->
+                <div
+                    style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    <div
+                        style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        🤝 ỨNG XỬ & TÔN TRỌNG
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
+                        <li><b>Tôn trọng:</b> Thảo luận trên tinh thần xây dựng, không công kích cá nhân.</li>
+                        <li><b>Mạo danh:</b> Không giả danh Admin, Mod, người nổi tiếng.</li>
+                        <li><b>Tên hiển thị &amp; Avatar:</b> Không dùng tên/ảnh nhạy cảm, giả mạo.</li>
+                    </ul>
+                </div>
+
+                <!-- Tài khoản & Xử lý -->
+                <div
+                    style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
+                    <div
+                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        👤 TÀI KHOẢN & XỬ LÝ VI PHẠM
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
+                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
+                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
+                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
+                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
+                    </ul>
+                </div>
+
+                <div style="height:10px;"></div>
             </div>
 
-            <div class="actions-area">
-                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
-                    ý</button>
+            <div class="actions-area" style="margin-top:16px;">
+                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>
+                    Đọc hết để đồng ý
+                </button>
             </div>
         </div>
     </div>
+
 
     <style>
         .spinner-circular {
@@ -849,6 +865,8 @@
                 try { await getDoc(doc(db, "users", u.uid)); } catch (e) { }
             } else {
                 localStorage.removeItem('confe_current_uid');
+                window.top.location.href = 'login.html';
+                return;
             }
 
             // Profile badge dot — cleanup previous listeners

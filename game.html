@@ -265,12 +265,19 @@
         </div>
     </div>
 
-    <script>
-        // Simulate loading for professional hub feel
-        setTimeout(() => {
-            document.getElementById('loadingGrid').style.display = 'none';
-            document.getElementById('realGrid').style.display = 'grid';
-        }, 800);
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        const app = initializeApp({ apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" });
+        const auth = getAuth(app);
+        onAuthStateChanged(auth, (u) => {
+            if (!u) { window.top.location.href = 'login.html'; return; }
+            // Simulate loading for professional hub feel
+            setTimeout(() => {
+                document.getElementById('loadingGrid').style.display = 'none';
+                document.getElementById('realGrid').style.display = 'grid';
+            }, 800);
+        });
     </script>
 </body>
 

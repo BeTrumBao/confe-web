@@ -1315,10 +1315,14 @@
             <h1 id="title" class="title">Đang tải...</h1>
             <div class="host-info">
                 <span class="host-badge">HOST</span>
-                <span id="hostName">...</span>
+                <span id="hostName" class="skeleton"
+                    style="display:inline-block; width:100px; height:18px; vertical-align:middle; border-radius:4px;"></span>
                 <button id="btnGoChat" class="btn-act"
                     style="margin-left:auto; width:auto; padding:6px 14px; font-size:13px; display:none; align-items:center; gap:6px;">💬
                     Vào phòng Chat</button>
+                <button id="btnLeaveTopicHeader" onclick="window.leaveTopic()"
+                    style="display:none; width:auto; padding:6px 14px; font-size:13px; align-items:center; gap:5px; background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; cursor:pointer; font-weight:600;">🚪
+                    Rời khỏi</button>
             </div>
             <div id="desc" class="desc" style="flex-direction: column;">
                 <div
@@ -1588,6 +1592,31 @@
         const app = initializeApp(cfg);
         const db = getFirestore(app);
 
+        // ENABLE CACHE FIRST
+        enableIndexedDbPersistence(db).catch((err) => { console.warn("Persistence error:", err.code); });
+
+        // CHECK DB VERSION
+        const CLIENT_DB_VERSION = 1;
+        getDoc(doc(db, "system", "config")).then(d => {
+            if (d.exists() && d.data().db_version > CLIENT_DB_VERSION) {
+                const alertBox = document.createElement('div');
+                alertBox.innerHTML = `
+                    <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+                        <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
+                        <div style="display:flex; align-items:flex-start; gap:15px;">
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
+                            <div>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
+                            </div>
+                        </div>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
+                    </div>
+                `;
+                document.body.appendChild(alertBox);
+            }
+        }).catch(e => { });
+
         window.showToast = (msg) => {
             if (window.parent && window.parent.showToast) {
                 window.parent.showToast(msg);
@@ -1597,7 +1626,6 @@
             console.log("Toast:", msg);
         };
 
-        enableIndexedDbPersistence(db).catch((err) => { });
         const auth = getAuth(app);
 
         // VARIABLES
@@ -1703,6 +1731,9 @@
                         img.src = getCurrentUserAvatar();
                     });
                 }
+            } else {
+                window.top.location.href = 'login.html';
+                return;
             }
             checkAdmin();
         });
@@ -1725,14 +1756,37 @@
                     document.getElementById('descContent').textContent = isProtected ? 'Nội dung nội quy đã bị ẩn do Topic đang trong chế độ bảo vệ.' : (topicData.rules || "Chưa có nội quy.");
                     document.getElementById('banner').src = isProtected ? 'https://placehold.co/800x250/e2e8f0/64748b?text=Topic+Bảo+Mật' : (topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?');
                     document.getElementById('logo').src = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (topicData.logo || 'https://placehold.co/100/ffffff/64748b?text=?');
-                    document.getElementById('hostName').textContent = topicData.owner ? topicData.owner.split('@')[0] : "Admin";
+
+                    const hostEl = document.getElementById('hostName');
+                    hostEl.classList.remove('skeleton');
+                    hostEl.style = ''; // Clear skeleton inline styles
+                    const actualHost = topicData.owner ? topicData.owner.split('@')[0] : "Admin";
+                    hostEl.textContent = actualHost;
+                    if (isProtected) {
+                        hostEl.style.filter = 'blur(5px)';
+                        hostEl.style.userSelect = 'none';
+                        hostEl.title = 'Tham gia Topic để xem chi tiết';
+                    } else {
+                        hostEl.style.filter = 'none';
+                        hostEl.style.userSelect = 'auto';
+                        hostEl.title = '';
+                    }
 
                     // CHAT BUTTON VISIBILITY
                     const btnGoChat = document.getElementById('btnGoChat');
-                    if (topicData.allowChat === false || isProtected) {
+                    if (topicData.allowChat === false || !hasAccess) {
                         btnGoChat.style.display = 'none';
                     } else {
                         btnGoChat.style.display = 'flex';
+                    }
+
+                    // LEAVE BUTTON VISIBILITY (visible for non-owner members with access)
+                    const btnLeave = document.getElementById('btnLeaveTopicHeader');
+                    const isOwnerCheck = currentUser && topicData.owner === currentUser.email;
+                    if (hasAccess && !isOwnerCheck) {
+                        btnLeave.style.display = 'flex';
+                    } else {
+                        btnLeave.style.display = 'none';
                     }
 
                     const catMap = { 'drama': ['#fee2e2', '#b91c1c', 'DRAMA '], 'love': ['#fce7f3', '#be185d', 'TÌNH YÊU ️'], 'school': ['#dbeafe', '#1d4ed8', 'HỌC ĐƯỜNG '], 'game': ['#dcfce7', '#15803d', 'GAME '], 'life': ['#f3f4f6', '#4b5563', 'ĐỜI THƯỜNG '] };
@@ -1740,7 +1794,7 @@
                     document.getElementById('catBadge').innerHTML = `<span class="cat-tag" style="background:${c[0]}; color:${c[1]}">${c[2]}</span>`;
 
                     const fab = document.getElementById('fab');
-                    if (isProtected) {
+                    if (!hasAccess) {
                         fab.style.display = 'none';
                     } else {
                         checkPostPermission();
@@ -2612,6 +2666,16 @@
             });
         }
 
+        window.leaveTopic = () => {
+            if (!currentUser || !tid) return;
+            window.showCustomConfirm("🙏 Bạn chắc chắn muốn rời khỏi Topic này chứ? Bạn có thể tham gia lại sau!", async () => {
+                const memberRef = doc(db, "topic_members", `${tid}_${currentUser.uid}`);
+                await deleteDoc(memberRef);
+                window.showToast("👋 Đã rời khỏi Topic!");
+                setTimeout(() => location.reload(), 800);
+            });
+        }
+
         // CHECK ACCESS LOGIC (Topic Membership)
         window.hasMembershipAccess = false;
         async function verifyMembershipAndLoadPosts() {
@@ -2670,7 +2734,7 @@
 
             let deviceId = localStorage.getItem('confe_device_id');
             const uid = currentUser ? currentUser.uid : deviceId;
-            let name = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Guest_" + deviceId.substring(0, 4);
+            let name = currentUser ? (currentUser.displayName || currentUser.email?.split('@')[0] || 'Thành viên') : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
             let avt = currentUser ? currentUser.photoURL : ANON_AVATAR;
 
             const mode = topicData.privacyMode || 'public';

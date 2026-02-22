@@ -556,13 +556,31 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // CHECK DB VERSION
+        const CLIENT_DB_VERSION = 1;
+        getDoc(doc(db, "system", "config")).then(d => {
+            if (d.exists() && d.data().db_version > CLIENT_DB_VERSION) {
+                document.body.innerHTML = `
+                    <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#fee2e2; color:#b91c1c; padding:20px; text-align:center; font-family:sans-serif; z-index:99999; position:fixed; inset:0;">
+                        <span style="font-size:60px; margin-bottom:20px;">⚠️</span>
+                        <h1 style="font-size:28px; margin-bottom:10px; font-weight:800;">Lỗi Phiên Bản Web</h1>
+                        <p style="font-size:16px; max-width:500px; line-height:1.5;">Hệ thống Máy chủ vừa được nâng cấp cấu trúc mới. Phiên bản hiện tại của bạn đã cũ nên tạm thời bị khóa để tránh gây rủi ro dữ liệu.</p>
+                        <p style="font-size:16px; margin-top:20px; font-weight:bold; background:#b91c1c; color:white; padding:10px 20px; border-radius:10px;">👉 Vui lòng Tải lại trang (F5) hoặc Xóa Cache trình duyệt!</p>
+                    </div>
+                `;
+            }
+        }).catch(e => { });
+
         let currentUser = null;
         let score = 0;
         let timeLeft = 60;
         let timerId = null;
         let isPlaying = false;
 
-        onAuthStateChanged(auth, u => { currentUser = u; });
+        onAuthStateChanged(auth, u => {
+            currentUser = u;
+            if (!u) { window.top.location.href = 'login.html'; return; }
+        });
 
         const timerEl = document.getElementById('timer');
         const counterEl = document.getElementById('counter');

@@ -897,6 +897,28 @@
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
         const app = initializeApp(cfg); const auth = getAuth(app); const db = getFirestore(app);
 
+        // CHECK DB VERSION
+        const CLIENT_DB_VERSION = 1;
+        getDoc(doc(db, "system", "config")).then(d => {
+            if (d.exists() && d.data().db_version > CLIENT_DB_VERSION) {
+                const alertBox = document.createElement('div');
+                alertBox.innerHTML = `
+                    <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+                        <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
+                        <div style="display:flex; align-items:flex-start; gap:15px;">
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
+                            <div>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
+                            </div>
+                        </div>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
+                    </div>
+                `;
+                document.body.appendChild(alertBox);
+            }
+        }).catch(e => { });
+
         window.showToast = (msg) => {
             if (window.parent && window.parent.showToast) {
                 window.parent.showToast(msg);
@@ -933,7 +955,7 @@
 
 
         onAuthStateChanged(auth, async (u) => {
-            if (!u) return window.location.href = 'login.html';
+            if (!u) { window.top.location.href = 'login.html'; return; }
             currentUser = u;
             const uDoc = await getDoc(doc(db, "users", u.uid));
             if (uDoc.exists()) {
@@ -969,7 +991,7 @@
             // Debounce update to avoid spamming writes
             const userRef = doc(db, TYPING_COL, currentUser.uid);
             setDoc(userRef, {
-                name: currentUser.displayName,
+                name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "Khách"),
                 timestamp: serverTimestamp()
             }); // Fire and forget
         }
@@ -1062,7 +1084,7 @@
             closePollModal();
             await addDoc(collection(db, CHAT_COL), {
                 type: 'poll', question: q, options: opts, uid: currentUser.uid,
-                name: currentUser.displayName || currentUser.email.split('@')[0], avatar: currentUser.photoURL, createdAt: serverTimestamp()
+                name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL, createdAt: serverTimestamp()
             });
         }
 
@@ -1086,7 +1108,7 @@
 
             const payload = {
                 text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
-                uid: currentUser.uid, name: currentUser.displayName || currentUser.email.split('@')[0], avatar: currentUser.photoURL,
+                uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                 isVerified: currentUser.isVerified || false,
                 createdAt: serverTimestamp(), likes: []
             };
