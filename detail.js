@@ -45,7 +45,7 @@ onSnapshot(query(collection(db, "posts"), where("tid", "==", tid), orderBy("crea
         const data = d.data();
         list.innerHTML += `
             <div class="post-card">
-                <div style="white-space: pre-wrap;">${data.content}</div>
+                <div style="white-space: pre-wrap;">${window.escapeHTML(data.content)}</div>
                 <div class="post-meta">Vừa xong • Ẩn danh</div>
             </div>
         `;

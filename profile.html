@@ -1,14 +1,23 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👤 Hồ sơ cá nhân</title>
+    <script>
+        // -- Block Direct URL Access --
+        if (!document.referrer && !sessionStorage.getItem('profileAccessAllowed')) {
+            window.location.href = 'index.html';
+        } else {
+            sessionStorage.setItem('profileAccessAllowed', 'true');
+        }
+    </script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #0084ff;
@@ -24,7 +33,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -40,21 +49,13 @@
             inset: 0;
             z-index: -2;
             background-size: cover;
-            background-position: center;
-            filter: blur(30px) brightness(0.9);
-            transform: scale(1.2);
+            background-position: center top;
+            filter: brightness(0.9);
+            transform: scale(1.1);
         }
 
         .cover-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 280px;
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            clip-path: ellipse(100% 100% at 50% 0%);
+            display: none;
         }
 
         .container {
@@ -68,12 +69,12 @@
         }
 
         .profile-card {
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 30px;
             padding: 40px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative;
@@ -189,7 +190,6 @@
             font-size: 13px;
             font-weight: 800;
             color: var(--text-light);
-            text-transform: uppercase;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -390,7 +390,7 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2000;
+            z-index: 9999;
         }
 
         .toast {
@@ -411,6 +411,43 @@
             transform: translateY(0);
         }
     </style>
+    <!-- Security Enhancements -->
+    <script>
+        window.escapeHTML = function (str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, function (tag) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag];
+            });
+        };
+        document.addEventListener('contextmenu', function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            e.preventDefault();
+        });
+        document.onkeydown = function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        };
+        (function () {
+            setInterval(function () {
+                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
+                var before = new Date().getTime();
+                debugger;
+                var after = new Date().getTime();
+                if (after - before > 100) {
+                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
+                }
+            }, 1000);
+        })();
+    </script>
 </head>
 
 <body>
@@ -572,12 +609,12 @@
             </div>
 
             <div class="section-box">
-                <span class="sec-title"><i class='bx bxs-quote-left'></i> Tiểu sử</span>
+                <span class="sec-title"><i class='bx bxs-quote-left'></i> Tiểu Sử</span>
                 <div class="bio-box" id="dBio"></div>
             </div>
 
             <div class="section-box">
-                <span class="sec-title"><i class='bx bxs-rocket'></i> Topic đã tạo</span>
+                <span class="sec-title"><i class='bx bxs-rocket'></i> Topic Đã Tạo</span>
                 <div id="topicList" class="topic-grid"></div>
             </div>
         </div>
@@ -637,7 +674,7 @@
             </div>
 
             <div class="inp-group">
-                <label class="inp-label">Tiểu sử</label>
+                <label class="inp-label">Tiểu Sử</label>
                 <textarea id="inpBio" class="inp" rows="3" style="resize:none"
                     placeholder="Hãy nói gì đó về bạn..."></textarea>
             </div>
@@ -718,6 +755,22 @@
         </div>
     </div>
 
+    <!-- Cropper Modal -->
+    <div id="modalCropper" class="modal" style="z-index:9999;">
+        <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
+            <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
+            <div
+                style="width:100%; max-height:400px; background:#f1f5f9; border-radius:15px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;">
+                <img id="cropperImage" src="" style="max-width:100%; display:block;">
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cắt & Xem trước</button>
+                <button onclick="document.getElementById('modalCropper').classList.remove('active')" class="btn-main"
+                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
@@ -733,9 +786,15 @@
         let targetUid = urlParams.get('uid') || urlParams.get('id');
         let currentUser = null, userData = null;
 
-        window.showToast = (m) => {
-            const t = document.createElement('div'); t.className = 'toast'; t.textContent = m;
-            document.getElementById('toastContainer').appendChild(t);
+        window.showToast = (msg) => {
+            if (window.parent && window.parent.showToast) {
+                window.parent.showToast(msg);
+                return;
+            }
+            const c = document.getElementById('toastContainer');
+            if (!c) return;
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            c.appendChild(t);
             setTimeout(() => t.classList.add('show'), 10);
             setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
         }
@@ -852,8 +911,19 @@
                 }
 
                 let nAvt = userData?.photoURL || "", nCov = userData?.coverURL || "";
-                if (document.getElementById('fAvtFile').files[0]) nAvt = await upload(document.getElementById('fAvtFile').files[0]);
-                if (document.getElementById('fCoverFile').files[0]) nCov = await upload(document.getElementById('fCoverFile').files[0]);
+                if (window.croppedAvtBlob) {
+                    const avtFile = new File([window.croppedAvtBlob], "avatar.jpg", { type: "image/jpeg" });
+                    nAvt = await upload(avtFile);
+                } else if (document.getElementById('fAvtFile').files && document.getElementById('fAvtFile').files[0]) {
+                    nAvt = await upload(document.getElementById('fAvtFile').files[0]);
+                }
+
+                if (window.croppedCovBlob) {
+                    const covFile = new File([window.croppedCovBlob], "cover.jpg", { type: "image/jpeg" });
+                    nCov = await upload(covFile);
+                } else if (document.getElementById('fCoverFile').files && document.getElementById('fCoverFile').files[0]) {
+                    nCov = await upload(document.getElementById('fCoverFile').files[0]);
+                }
 
                 const updateData = {
                     displayName: inpName,
@@ -873,6 +943,8 @@
                 document.getElementById('btnSave').disabled = false;
 
                 isSetupRequired = false;
+                window.croppedAvtBlob = null;
+                window.croppedCovBlob = null;
                 window.showToast("Cập nhật thành công!");
                 setTimeout(() => window.top.location.reload(), 500);
 
@@ -936,7 +1008,7 @@
             document.getElementById('profileSkeleton').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            document.getElementById('dName').innerHTML = (data.displayName || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
+            document.getElementById('dName').innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
             document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
             document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
             document.getElementById('avt').src = data.photoURL || `https://ui-avatars.com/api/?name=${data.displayName || 'U'}&background=random`;
@@ -1083,7 +1155,7 @@
                     const t = d.data();
                     // Hide content if topic is private AND viewer is not the owner
                     const isPrivate = !isOwner && t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist');
-                    const displayTitle = isPrivate ? '🔒 Topic riêng tư' : (t.title || 'Không tên');
+                    const displayTitle = isPrivate ? '🔒 Topic riêng tư' : (window.escapeHTML(t.title) || 'Không tên');
                     const displayBanner = isPrivate ? 'https://placehold.co/50/e2e8f0/64748b?text=?' : (t.banner || 'https://via.placeholder.com/50');
                     list.innerHTML += `
                         <a href="detail.html?tid=${d.id}" class="topic-mini">
@@ -1172,7 +1244,70 @@
             document.getElementById('btnReqVerify').textContent = "Gửi đơn đăng ký";
         }
 
+        // -- CROPPER LOGIC --
+        let cropper = null;
+        let cropType = 'avt';
+        window.croppedAvtBlob = null;
+        window.croppedCovBlob = null;
+
+        const cropperImg = document.getElementById('cropperImage');
+        const modalCropper = document.getElementById('modalCropper');
+
+        function initCropper(file, type) {
+            cropType = type;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                cropperImg.src = e.target.result;
+                modalCropper.classList.add('active');
+
+                if (cropper) cropper.destroy();
+
+                cropper = new Cropper(cropperImg, {
+                    aspectRatio: type === 'avt' ? 1 / 1 : 16 / 9,
+                    viewMode: 1,
+                    autoCropArea: 1,
+                    background: false,
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.getElementById('fAvtFile').addEventListener('change', function (e) {
+            if (this.files && this.files[0]) {
+                initCropper(this.files[0], 'avt');
+                this.value = ''; // Reset so same file can trigger change again
+            }
+        });
+
+        document.getElementById('fCoverFile').addEventListener('change', function (e) {
+            if (this.files && this.files[0]) {
+                initCropper(this.files[0], 'cover');
+                this.value = ''; // Reset
+            }
+        });
+
+        document.getElementById('btnCropConfirm').onclick = () => {
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({
+                width: cropType === 'avt' ? 500 : 1280,
+                height: cropType === 'avt' ? 500 : 720,
+            });
+
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                if (cropType === 'avt') {
+                    window.croppedAvtBlob = blob;
+                    document.getElementById('avt').src = url;
+                } else {
+                    window.croppedCovBlob = blob;
+                    document.getElementById('bgCover').style.backgroundImage = `url('${url}')`;
+                    document.getElementById('bgBlur').style.backgroundImage = `url('${url}')`;
+                }
+                modalCropper.classList.remove('active');
+            }, 'image/jpeg', 0.85);
+        };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>
 
 </html>

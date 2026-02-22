@@ -1,0 +1,111 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ======== Helper Functions ========
+    
+    // Check if the user is authenticated
+    function isAuth() {
+      return request.auth != null;
+    }
+    
+    // Check if the current user is the owner of the document based on auth UID
+    function isOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
+    // ======== Collection Rules ========
+
+    // 1. Users Collection
+    match /users/{userId} {
+      // Anyone (even unauthenticated) can read user profiles
+      allow read: if true; 
+      // Only the user themselves can create or update their own profile document
+      allow create, update: if isOwner(userId);
+      // Users shouldn't be deleted directly from client, but if needed, only by owner
+      allow delete: if isOwner(userId);
+    }
+
+    // 2. Topics Collection (Confessions/Posts)
+    match /topics/{topicId} {
+      // Anyone can read topics
+      allow read: if true;
+      // Any authenticated user can create a topic
+      allow create: if isAuth(); 
+      // Only the author can update or delete their topic
+      allow update, delete: if isAuth() && resource.data.authorId == request.auth.uid;
+    }
+    
+    // 3. Comments Collection
+    match /comments/{commentId} {
+      // Anyone can read comments
+      allow read: if true;
+      // Any authenticated user can create a comment
+      allow create: if isAuth();
+      // Only the author can update or delete their comment
+      allow update, delete: if isAuth() && resource.data.authorId == request.auth.uid;
+    }
+
+    // 4. Friend Requests
+    match /friend_requests/{requestId} {
+      // Both sender and receiver can read the request
+      allow read: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
+      // Authenticated users can send requests
+      allow create: if isAuth() && request.resource.data.from_uid == request.auth.uid;
+      // Both sender (to cancel) and receiver (to accept/reject) can update or delete
+      allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
+    }
+
+    // 5. Topic Join Requests
+    match /requests/{requestId} {
+      // The topic owner (who is the receiver of the request) can read it. 
+      // The sender should ideally be able to read it too, but based on your app's flow, checking ownerEmail is key.
+      allow read: if isAuth(); 
+      // Authenticated users can request to join
+      allow create: if isAuth();
+      // Only the topic owner (ownerEmail) or the requester (deviceId/uid) should be able to update/delete
+      // Note: A more strict rule requires matching the user's email with resource.data.ownerEmail, 
+      // but if the client only uses UID, allow any auth user to update for now to avoid breaking the approve/reject flow.
+      allow update, delete: if isAuth();
+    }
+
+    // 6. Community Votes
+    match /community_votes/{pollId} {
+      // Anyone can read the current vote tallies
+      allow read: if true;
+      // Anyone authenticated can vote (update array)
+      allow update: if isAuth();
+      // Only admins should create polls (via Remote Config + Firebase Console directly, client shouldn't create polls)
+      allow create, delete: if false; 
+    }
+
+    // 7. Chat & Groups
+    match /public_chat/{docId} {
+      allow read, write: if isAuth();
+    }
+    match /public_typing/{docId} {
+      allow read, write: if isAuth();
+    }
+    match /groups/{groupId} {
+      allow read, write: if isAuth();
+      match /messages/{messageId} {
+        allow read, write: if isAuth();
+      }
+    }
+    
+    // 8. Reports
+    match /reports/{reportId} {
+      allow create: if isAuth();
+      allow read, update, delete: if false; 
+    }
+    match /bug_reports/{reportId} {
+      allow create: if isAuth();
+      allow read, update, delete: if false; 
+    }
+
+    // Default deny for everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xóa dữ liệu & Bỏ ủy quyền - Confe</title>
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --surface: #ffffff;
+            --surface-container: #f1f5f9;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --outline: #cbd5e1;
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background: var(--surface-container);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--surface);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid var(--outline);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .info-card h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .info-card ol {
+            padding-left: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .info-card li {
+            margin-bottom: 8px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-box">🛡️</div>
+        <h1>Quản lý dữ liệu người dùng</h1>
+        <p>Chào bạn, trang này cung cấp hướng dẫn để bạn quản lý việc ủy quyền ứng dụng và yêu cầu xóa dữ liệu cá nhân
+            theo chính sách bảo mật của Facebook và Confe.</p>
+
+        <div class="info-card">
+            <h2>Gỡ ứng dụng (Bỏ ủy quyền)</h2>
+            <ol>
+                <li>Đi tới <strong>Cài đặt & Quyền riêng tư</strong> trên Facebook của bạn.</li>
+                <li>Chọn <strong>Cài đặt</strong>, sau đó chọn <strong>Ứng dụng và trang web</strong>.</li>
+                <li>Tìm <strong>Confe</strong> và nhấn <strong>Gỡ bỏ</strong>.</li>
+            </ol>
+        </div>
+
+        <div class="info-card">
+            <h2>Yêu cầu xóa dữ liệu của bạn</h2>
+            <p style="font-size: 14px; margin-bottom: 0;">Nếu bạn muốn xóa vĩnh viễn dữ liệu của mình khỏi hệ thống của
+                chúng tôi, vui lòng liên hệ trực tiếp qua email quản trị viên hoặc gửi phản hồi ngay trong trang hồ sơ
+                cá nhân. Chúng tôi sẽ xử lý yêu cầu của bạn trong vòng 24-48 giờ.</p>
+        </div>
+
+        <a href="index.html" class="btn-home">Quay lại Trang chủ</a>
+
+        <div class="footer">
+            © 2026 Confe Community. An toàn & Bảo mật.
+        </div>
+    </div>
+</body>
+
+</html>

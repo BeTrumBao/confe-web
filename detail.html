@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -854,7 +854,7 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000;
+            z-index: 9999;
         }
 
         .toast {
@@ -1234,6 +1234,43 @@
             z-index: 0;
         }
     </style>
+    <!-- Security Enhancements -->
+    <script>
+        window.escapeHTML = function (str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, function (tag) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag];
+            });
+        };
+        document.addEventListener('contextmenu', function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            e.preventDefault();
+        });
+        document.onkeydown = function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        };
+        (function () {
+            setInterval(function () {
+                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
+                var before = new Date().getTime();
+                debugger;
+                var after = new Date().getTime();
+                if (after - before > 100) {
+                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
+                }
+            }, 1000);
+        })();
+    </script>
 </head>
 
 <body>
@@ -1390,7 +1427,13 @@
     <div id="modalAllComments" class="modal">
         <div class="box" style="max-width: 650px;">
             <button onclick="document.getElementById('modalAllComments').classList.remove('active')"
-                style="position:absolute; top:15px; right:15px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;"></button>
+                style="position:absolute; top:15px; right:15px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; color:#64748b; display:flex; align-items:center; justify-content:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
             <h3 class="modal-title" style="font-size:20px; margin-bottom:10px;"> Tất cả Bình luận</h3>
             <div id="allCommentsList" style="max-height: 500px; overflow-y: auto; padding-right: 10px;"></div>
         </div>
@@ -1469,7 +1512,7 @@
 
     <div id="modalImageViewer" class="modal-img-viewer">
         <button class="close-img-btn"
-            onclick="document.getElementById('modalImageViewer').classList.remove('active')"></button>
+            onclick="document.getElementById('modalImageViewer').classList.remove('active')">×</button>
         <img id="fullImage" class="full-img" src="">
     </div>
 
@@ -1586,6 +1629,16 @@
         // APP INIT
         const app = initializeApp(cfg);
         const db = getFirestore(app);
+
+        window.showToast = (msg) => {
+            if (window.parent && window.parent.showToast) {
+                window.parent.showToast(msg);
+                return;
+            }
+            // Fallback if not in iframe or parent doesn't have showToast
+            console.log("Toast:", msg);
+        };
+
         enableIndexedDbPersistence(db).catch((err) => { });
         const auth = getAuth(app);
 
@@ -1609,12 +1662,7 @@
         // if (!tid) location.href = 'index.html';
 
         // HELPER FUNCTIONS
-        window.showToast = (msg, icon = "") => {
-            const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${icon} ${msg}`;
-            document.getElementById('toastContainer').appendChild(t);
-            setTimeout(() => t.classList.add('show'), 10);
-            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
-        }
+        // The original window.showToast definition was here. It has been moved and modified above.
 
         window.showCustomConfirm = (msg, callback) => {
             document.getElementById('confirmMsg').textContent = msg;
@@ -1664,6 +1712,7 @@
         // LINKIFY & SPOILER HELPER
         window.linkifyText = (text) => {
             if (!text) return "";
+            text = window.escapeHTML(text);
 
             // First parse spoilers ||text||
             let result = text.replace(/\|\|(.*?)\|\|/g, function (match, spoilerContent) {
@@ -2152,7 +2201,7 @@
                                         <img src="${c.authorAvt}" style="width:28px; height:28px; border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
                                         <div class="preview-content-box">
                                             <div class="preview-bubble">
-                                                <span class="preview-name" onclick="window.handleProfileClick('${c.authorUid}')">${c.author}</span>
+                                                <span class="preview-name" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(c.author)}</span>
                                                 <span class="preview-text">${window.linkifyText(c.content)}</span>
                                             </div>
                                             <div class="preview-actions">
@@ -2172,7 +2221,7 @@
                                 <div class="post-actions">${pinBtn}${editBtn}${reportBtn}${trashBtn}</div>
                                 <div class="post-header">
                                     <img src="${data.authorAvatar}" class="post-avt" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
-                                    <div class="post-info"><span class="post-author" onclick="window.handleProfileClick('${data.authorUid}')">${data.author}</span><span class="post-time">${timeAgo(data.createdAt)}</span></div>
+                                    <div class="post-info"><span class="post-author" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(data.author)}</span><span class="post-time">${timeAgo(data.createdAt)}</span></div>
                                 </div>
                                 ${contentBody}
                                 <div class="post-footer">
@@ -2415,7 +2464,8 @@
 
         document.getElementById('btnSendReport').onclick = async function () {
             if (!reportTargetId) return;
-            const reason = document.getElementById('rReason').value;
+            const reason = document.getElementById('rReason').value.trim();
+            if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
             this.textContent = "Đang gửi...";
             try {
                 await addDoc(collection(db, "reports"), {

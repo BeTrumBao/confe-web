@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -30,7 +30,7 @@
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3000;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -616,6 +616,43 @@
             }
         }
     </style>
+    <!-- Security Enhancements -->
+    <script>
+        window.escapeHTML = function (str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, function (tag) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag];
+            });
+        };
+        document.addEventListener('contextmenu', function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            e.preventDefault();
+        });
+        document.onkeydown = function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        };
+        (function () {
+            setInterval(function () {
+                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
+                var before = new Date().getTime();
+                debugger;
+                var after = new Date().getTime();
+                if (after - before > 100) {
+                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
+                }
+            }, 1000);
+        })();
+    </script>
 </head>
 
 <body>
@@ -831,6 +868,10 @@
         const app = initializeApp(cfg); const auth = getAuth(app); const db = getFirestore(app);
 
         window.showToast = (msg) => {
+            if (window.parent && window.parent.showToast) {
+                window.parent.showToast(msg);
+                return;
+            }
             let c = document.getElementById('toastContainer');
             if (!c) { c = document.createElement('div'); c.id = 'toastContainer'; c.className = 'toast-container'; document.body.appendChild(c); }
             const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;

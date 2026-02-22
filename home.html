@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -198,6 +198,74 @@
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .hero-subtitle {
+            background: linear-gradient(90deg, #64748b, #2563eb, #64748b);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            animation: shine 4s linear infinite, fadeUp 1s ease-out;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Cloud Animation Styles */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cloud-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cloud {
+            position: absolute;
+            opacity: 0.4;
+            animation: floatCloud linear infinite;
+        }
+
+        .cloud svg {
+            fill: #e2e8f0;
+            width: 60px;
+            height: auto;
+        }
+
+        @keyframes floatCloud {
+            from {
+                transform: translateX(-100px);
+            }
+
+            to {
+                transform: translateX(calc(100vw + 100px));
+            }
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .search-wrapper {
@@ -469,6 +537,7 @@
             line-height: 1.4;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -598,8 +667,12 @@
 
         .fab:hover {
             transform: scale(1.1) rotate(90deg);
+        }
+
+        .chip.active {
             background: var(--primary);
             color: white;
+            border-color: var(--primary);
         }
 
         .modal {
@@ -714,7 +787,7 @@
             font-weight: 500;
             opacity: 0;
             transition: 0.3s;
-            z-index: 1000;
+            z-index: 9999;
         }
 
         .toast.show {
@@ -808,18 +881,78 @@
             }
         }
     </style>
+    <!-- Security Enhancements -->
+    <script>
+        window.escapeHTML = function (str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, function (tag) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag];
+            });
+        };
+        document.addEventListener('contextmenu', function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            e.preventDefault();
+        });
+        document.onkeydown = function (e) {
+            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        };
+        (function () {
+            setInterval(function () {
+                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
+                var before = new Date().getTime();
+                debugger;
+                var after = new Date().getTime();
+                if (after - before > 100) {
+                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
+                }
+            }, 1000);
+        })();
+    </script>
 </head>
 
 <body>
     <div class="hero">
-        <div class="search-wrapper">
+        <div class="cloud-wrapper">
+            <div class="cloud" style="top: 20%; animation-duration: 25s; animation-delay: -5s;">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
+                </svg>
+            </div>
+            <div class="cloud" style="top: 50%; animation-duration: 35s; animation-delay: -15s;">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
+                </svg>
+            </div>
+            <div class="cloud" style="top: 70%; animation-duration: 30s; animation-delay: -2s;">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
+                </svg>
+            </div>
+        </div>
+        <div class="search-wrapper" style="position: relative; z-index: 2;">
             <svg class="search-icon" viewBox="0 0 24 24">
                 <path
                     d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
             </svg>
-            <input type="text" id="search" class="search-inp" placeholder="Tìm kiếm topic...">
+            <input type="text" id="search" class="search-inp" placeholder="Tìm Topic bạn muốn...">
         </div>
+        <p class="hero-subtitle" style="margin-top: 16px;">Phiền muộn hôm nay, gói gọn gửi mây.</p>
     </div>
+
+
 
     <div class="container" style="padding-bottom: 0;">
         <div class="section-title"> Đang Nổi Bật</div>
@@ -841,7 +974,9 @@
                 <div class="chip" onclick="setFilter(this, 'game')"> Game</div>
             </div>
         </div>
+        <div class="section-title"> Tất Cả Chủ Đề</div>
         <div id="grid" class="grid"></div>
+
     </div>
 
     <footer>
@@ -1000,8 +1135,16 @@
         let reportTargetId = null; // ID Topic cần báo cáo
 
         window.showToast = (msg) => {
-            const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
+            if (window.parent && window.parent.showToast) {
+                window.parent.showToast(msg);
+                return;
+            }
+            const t = document.getElementById('toast');
+            if (t) {
+                t.textContent = msg;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 3000);
+            }
         }
 
         window.openReport = (e, topicId) => {
@@ -1012,7 +1155,8 @@
 
         document.getElementById('btnSendReport').onclick = async function () {
             if (!reportTargetId) return;
-            const reason = document.getElementById('rReason').value;
+            const reason = document.getElementById('rReason').value.trim();
+            if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
             this.textContent = "Đang gửi...";
             try {
                 await addDoc(collection(db, "reports"), {
@@ -1116,8 +1260,10 @@
             });
 
             grid.innerHTML = list.map(t => {
-                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner);
-                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn phải xác thực để xem nội dung này!')">Nội dung ẩn</span>` : t.title;
+                const deviceId = localStorage.getItem('confe_device_id');
+                const isWhitelisted = t.whitelist && t.whitelist.includes(deviceId);
+                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner) && !isWhitelisted;
+                const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn phải xác thực để xem nội dung này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
                 const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
                 const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
 
@@ -1143,8 +1289,10 @@
             // Render Suggestions (Top 3 Heat)
             const top = [...allTopics].sort((a, b) => (b.heat || 0) - (a.heat || 0)).slice(0, 3);
             suggestList.innerHTML = top.map(t => {
-                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner);
-                const displayTitle = isProtected ? `Nội dung ẩn` : t.title;
+                const deviceId = localStorage.getItem('confe_device_id');
+                const isWhitelisted = t.whitelist && t.whitelist.includes(deviceId);
+                const isProtected = t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist') && (!user || user.email !== t.owner) && !isWhitelisted;
+                const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
                 const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Riêng+Tư' : (t.banner || 'https://via.placeholder.com/300x150');
 
                 return `
@@ -1240,15 +1388,8 @@
             } catch (e) { window.showToast("Lỗi khi từ chối."); }
         }
 
-        // Modified FAB Click - Open Requests if Pending, else Create Topic
-        document.getElementById('fab').onclick = () => {
-            if (!user) return location.href = 'login.html';
-            if (pendingReqs.length > 0) {
-                document.getElementById('modalRequests').classList.add('active');
-            } else {
-                document.getElementById('modal').classList.add('active');
-            }
-        }
+        // FAB click handler is already defined above at line 1296.
+        // The duplicate/broken one here is removed to avoid confusion.
 
         // FAB scroll-to-hide on mobile
         (() => {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -7,7 +7,7 @@
   <title>Tường nhà - Confe</title>
   <link rel="icon" type="image/png" href="Res/favicon.png">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     :root {
       --accent-1: #0084ff;
@@ -165,7 +165,7 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg-dark);
       color: var(--text-primary);
       padding-top: 72px
@@ -385,7 +385,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 10000;
+      z-index: 9999;
     }
 
     .toast {
@@ -744,6 +744,43 @@
       padding: 0;
     }
   </style>
+  <!-- Security Enhancements -->
+  <script>
+    window.escapeHTML = function (str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>'"]/g, function (tag) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag];
+      });
+    };
+    document.addEventListener('contextmenu', function (e) {
+      if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+      e.preventDefault();
+    });
+    document.onkeydown = function (e) {
+      if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
+      if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+    };
+    (function () {
+      setInterval(function () {
+        if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
+        var before = new Date().getTime();
+        debugger;
+        var after = new Date().getTime();
+        if (after - before > 100) {
+          document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
+        }
+      }, 1000);
+    })();
+  </script>
 </head>
 
 <body class="wall-loading light">
@@ -911,6 +948,10 @@
     let selectedFiles = []; // Biến lưu file đã chọn
 
     function showToast(msg, type = 'info') {
+      if (window.parent && window.parent.showToast) {
+        window.parent.showToast(msg);
+        return;
+      }
       let icon = "";
       if (type === "success") icon = "";
       else if (type === "error" || type === "danger") icon = "";
@@ -932,7 +973,6 @@
     async function uploadImage(file) { if (!IMGBB_API_KEY) throw new Error('Thiếu API ImgBB'); const fd = new FormData(); fd.append('image', file); const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: fd }); const data = await res.json(); if (data.success) return data.data.url; throw new Error(data.error?.message || 'Upload thất bại'); }
     function el(tag, attrs = {}, ...children) { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'className') e.className = v; else if (k === 'dataset') Object.assign(e.dataset, v); else if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v) } children.forEach(c => e.append(c)); return e; }
     function FileListItems(files) { let b = new ClipboardEvent("").clipboardData || new DataTransfer(); if (files) { for (let i = 0, len = files.length; i < len; i++) { if (files[i] instanceof File) b.items.add(files[i]); } } return b.files; }
-
     onAuthStateChanged(auth, async (u) => {
       if (!u) { window.location.href = 'login.html'; return; }
       currentUser = u;
