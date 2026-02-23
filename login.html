@@ -280,6 +280,10 @@
                 padding: 13px;
                 font-size: 14px;
             }
+
+            .btn-fb-login {
+                display: none !important;
+            }
         }
 
         @media (max-width: 400px) {
@@ -342,14 +346,14 @@
 
 <body>
 
-    <div class="auth-container" id="container">
+    <div class="auth-container register-mode" id="container">
         <div class="form-side">
             <div class="logo-wrap">
                 <img src="assets/favicon.png" alt="Logo" class="logo-img"
                     onerror="this.src='https://placehold.co/100?text=C'">
             </div>
 
-            <div id="formLogin">
+            <div id="formLogin" class="hidden">
                 <div class="title">Chào mừng trở lại! </div>
                 <div class="subtitle">Đăng nhập để tiếp tục hành trình của bạn.</div>
 
@@ -376,7 +380,7 @@
                     Đăng nhập với Google
                 </button>
 
-                <button id="btnFacebookLogin" onclick="signInWithFacebook()"
+                <button id="btnFacebookLogin" onclick="signInWithFacebook()" class="btn-fb-login"
                     style="width:100%; padding:12px; background:#1877F2; border:none; border-radius:12px; color:white; font-weight:700; cursor:pointer; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px; transition:.2s;"
                     onmouseover="this.style.background='#166fe5'" onmouseout="this.style.background='#1877F2'">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -396,7 +400,7 @@
                         onclick="toggleMode('register')">Đăng ký ngay</span></div>
             </div>
 
-            <div id="formRegister" class="hidden">
+            <div id="formRegister">
                 <div class="title">Tạo tài khoản mới </div>
                 <div class="subtitle">Tham gia cộng đồng ngay hôm nay.</div>
 
@@ -437,7 +441,7 @@
                         style="width:20px; height:20px;">
                     Đăng ký với Google
                 </button>
-                <button onclick="signInWithFacebook()"
+                <button onclick="signInWithFacebook()" class="btn-fb-login"
                     style="width:100%; padding:12px; background:#1877F2; border:none; border-radius:12px; color:white; font-weight:700; cursor:pointer; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px; transition:.2s;"
                     onmouseover="this.style.background='#166fe5'" onmouseout="this.style.background='#1877F2'">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
