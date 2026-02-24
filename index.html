@@ -835,6 +835,53 @@
             transform: none;
             box-shadow: none;
         }
+
+        /* Site Down Overlay */
+        #siteDownOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #ffffff;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 24px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        #siteDownOverlay .sd-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        #siteDownOverlay h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+            max-width: 400px;
+        }
+
+        #siteDownOverlay p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.7;
+            max-width: 360px;
+        }
+
+        @keyframes blink-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
     </style>
 
     <div class="content-area">
@@ -842,6 +889,13 @@
     </div>
 
     <div class="toast-container" id="globalToastContainer"></div>
+
+    <!-- Site Down Overlay (toggled via Remote Config `site_down`) -->
+    <div id="siteDownOverlay">
+        <div class="sd-icon">🔧</div>
+        <h1>Confe đang đi nghỉ dưỡng r ((((=</h1>
+        <p id="siteDownMessage">Hệ thống đang được bảo trì. Vui lòng quay lại sau ít phút.</p>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -901,6 +955,18 @@
                 const configVerEl = document.getElementById('configVerText');
                 if (configVerEl && configVer) configVerEl.textContent = configVer;
             } catch (e) { }
+
+            const siteDown = getValue(remoteConfig, 'site_down').asBoolean();
+            if (siteDown) {
+                const siteDownMsg = getValue(remoteConfig, 'site_down_message').asString();
+                if (siteDownMsg) document.getElementById('siteDownMessage').textContent = siteDownMsg;
+                const overlay = document.getElementById('siteDownOverlay');
+                overlay.style.display = 'flex';
+                // Block iframe and sidebar
+                const frame = document.getElementById('mainFrame');
+                if (frame) frame.src = 'about:blank';
+                return;
+            }
 
             const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
             if (maintenanceMode) {
