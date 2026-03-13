@@ -7,8 +7,9 @@
     <title>Confe </title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <meta name="google-site-verification" content="t5oQRvmsRPZ6Uz4014JmFfAFmfaQ14XoACmrDogErHg" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         :root {
             --primary: #0057db;
@@ -32,7 +33,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Be Vietnam Pro', sans-serif;
+            font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -45,7 +46,7 @@
         }
 
         .navbar {
-            background: var(--surface);
+            background: var(--surface-container);
             backdrop-filter: blur(12px);
             height: 64px;
             padding: 0 20px;
@@ -180,7 +181,7 @@
         .hero {
             padding: 40px 20px 20px;
             text-align: center;
-            background: var(--surface);
+            background: var(--surface-container);
         }
 
         .hero h1 {
@@ -205,20 +206,9 @@
             font-weight: 500;
             position: relative;
             z-index: 2;
-            animation: fadeUp 1s ease-out, floatSubtitle 6s ease-in-out infinite;
         }
 
-        @keyframes floatSubtitle {
 
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-4px);
-            }
-        }
 
         /* Cloud Animation Styles */
         .hero {
@@ -257,6 +247,8 @@
                 transform: translateX(calc(100vw + 100px));
             }
         }
+
+
 
         @keyframes shine {
             to {
@@ -417,22 +409,34 @@
         }
 
         .chip {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: var(--surface);
-            border: 1px solid var(--surface-variant);
+            border: 1.5px solid var(--surface-variant);
             border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--text-secondary);
             cursor: pointer;
             white-space: nowrap;
             transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chip .material-symbols-rounded {
+            font-size: 20px;
+            font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 20;
         }
 
         .chip.active {
-            background: var(--primary-container);
-            color: var(--on-primary-container);
-            border-color: var(--primary-container);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .chip.active .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 20;
         }
 
         .grid {
@@ -508,11 +512,18 @@
             top: 12px;
             right: 20px;
             font-size: 11px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 6px;
-            background: var(--surface-container);
-            color: var(--text-secondary);
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .card-badge-private {
@@ -892,8 +903,13 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         .skeleton::after {
@@ -938,8 +954,13 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .frame-none { border: none; padding: 0; box-shadow: none; border-radius: 50% !important; }
-        
+        .frame-none {
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            border-radius: 50% !important;
+        }
+
         .frame-glow {
             border: 2px solid var(--primary);
             padding: 1px;
@@ -956,8 +977,13 @@
         }
 
         @keyframes neon-pulse {
-            from { box-shadow: 0 0 5px rgba(255, 0, 255, 0.4); }
-            to { box-shadow: 0 0 12px rgba(255, 0, 255, 0.7); }
+            from {
+                box-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
+            }
+
+            to {
+                box-shadow: 0 0 12px rgba(255, 0, 255, 0.7);
+            }
         }
 
         .frame-royal {
@@ -968,9 +994,9 @@
         }
 
         .frame-glass {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 1.5px;
             border-radius: 50% !important;
         }
@@ -1080,11 +1106,11 @@
         <div class="controls">
             <div class="chips">
                 <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
-                <div class="chip" onclick="setFilter(this, 'joined')">🔑 Đã tham gia</div>
-                <div class="chip" onclick="setFilter(this, 'drama')"> Drama</div>
-                <div class="chip" onclick="setFilter(this, 'love')">️ Tình yêu</div>
-                <div class="chip" onclick="setFilter(this, 'school')"> Học đường</div>
-                <div class="chip" onclick="setFilter(this, 'game')"> Game</div>
+                <div class="chip" onclick="setFilter(this, 'joined')"><span class="material-symbols-rounded">key</span> Đã tham gia</div>
+                <div class="chip" onclick="setFilter(this, 'drama')"><span class="material-symbols-rounded">article</span> Drama</div>
+                <div class="chip" onclick="setFilter(this, 'love')"><span class="material-symbols-rounded">favorite</span> Tình yêu</div>
+                <div class="chip" onclick="setFilter(this, 'school')"><span class="material-symbols-rounded">school</span> Học đường</div>
+                <div class="chip" onclick="setFilter(this, 'game')"><span class="material-symbols-rounded">stadia_controller</span> Game</div>
             </div>
         </div>
         <div class="section-title"> Tất Cả Chủ Đề</div>
@@ -1122,7 +1148,11 @@
     </div>
 
     <div id="modal" class="modal">
-        <div class="box">
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modal').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px; font-size:20px;">Tạo Topic Mới</h3>
             <div style="margin-bottom:15px"><label class="inp-label">Tên Topic</label><input type="text" id="tTitle"
                     class="inp" placeholder="Nhập tên chủ đề..."></div>
@@ -1156,15 +1186,17 @@
                 </label>
             </div>
             <div style="display:flex; gap:10px; margin-top:20px">
-                <button onclick="document.getElementById('modal').classList.remove('active')"
-                    style="flex:1; padding:12px; background:var(--surface-container); border:none; border-radius:100px; font-weight:600; cursor:pointer;">Hủy</button>
-                <button id="btnCreate" class="btn-act" style="flex:2; margin-top:0;">Tạo Topic</button>
+                <button id="btnCreate" class="btn-act" style="flex:1; margin-top:0;">Tạo Topic</button>
             </div>
         </div>
     </div>
 
     <div id="modalNews" class="modal">
-        <div class="box">
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modalNews').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px; font-size:20px;"> Cập nhật mới</h3>
             <div class="changelog-list">
                 <div class="cl-item">
@@ -1184,37 +1216,44 @@
                     </div>
                 </div>
             </div>
-            <button onclick="document.getElementById('modalNews').classList.remove('active')" class="btn-act"
-                style="background:var(--surface-variant); color:var(--text);">Đóng</button>
+                document.getElementById('modalNews').classList.remove('active');
         </div>
     </div>
     </div>
     <div id="modalRequests" class="modal">
-        <div class="box">
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modalRequests').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px; font-size:20px;"> Yêu cầu tham gia</h3>
             <p id="noReqMsg" style="text-align:center; color:#64748b; font-size:14px;">Không có yêu cầu nào.</p>
             <div id="reqList" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;">
 
             </div>
-            <button onclick="document.getElementById('modalRequests').classList.remove('active')" class="btn-act"
-                style="background:#f1f5f9; color:#475569; margin-top:20px;">Đóng</button>
         </div>
     </div>
 
     <div id="modalFeedback" class="modal">
-        <div class="box">
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modalFeedback').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px; font-size:20px;"> Góp ý cho Admin</h3>
             <div style="margin-bottom:15px"><label class="inp-label">Nội dung góp ý</label><textarea
                     id="feedbackContent" class="inp-area" rows="5" placeholder="Bạn muốn thêm tính năng gì?"></textarea>
             </div>
             <button id="btnSendFeedback" class="btn-act">Gửi góp ý</button>
-            <button onclick="document.getElementById('modalFeedback').classList.remove('active')"
-                style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:10px;">Hủy</button>
         </div>
     </div>
 
     <div id="modalTerms" class="modal" style="z-index:2000;">
-        <div class="box">
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modalTerms').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px;"> Quy định Tạo Topic</h3>
             <div
                 style="max-height:60vh; overflow-y:auto; margin-bottom:20px; font-size:14px; color:var(--text-secondary); line-height:1.6;">
@@ -1228,8 +1267,6 @@
                 <p style="margin-bottom:10px;">5. <b>Quyền hạn:</b> Admin có quyền xóa Topic và khóa tài khoản vĩnh viễn
                     nếu phát hiện vi phạm mà không cần báo trước.</p>
             </div>
-            <button onclick="document.getElementById('modalTerms').classList.remove('active')" class="btn-act">Đã
-                hiểu</button>
         </div>
     </div>
 
@@ -1282,8 +1319,7 @@
             }
         }
 
-        window.openReport = (e, topicId) => {
-            e.stopPropagation(); // QUAN TRỌNG: Chặn sự kiện click lan ra ngoài (không mở trang detail)
+        window.openReport = (topicId) => {
             reportTargetId = topicId;
             document.getElementById('modalReport').classList.add('active');
         }
@@ -1350,10 +1386,10 @@
                 if (u) {
                     let avt = "https://via.placeholder.com/40";
                     let frame = 'none';
-                    try { 
-                        const d = await getDoc(doc(db, "users", u.uid)); 
+                    try {
+                        const d = await getDoc(doc(db, "users", u.uid));
                         if (d.exists()) {
-                            avt = d.data().photoURL || avt; 
+                            avt = d.data().photoURL || avt;
                             frame = d.data().avatarFrame || 'none';
                         }
                     } catch { }
@@ -1431,7 +1467,7 @@
 
                     grid.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">${searchVal ? '🔍' : '📂'}</div>
+                        <div class="empty-icon">${searchVal ? '<span class="material-symbols-rounded">search</span>' : '<span class="material-symbols-rounded">folder_open</span>'}</div>
                         <div class="empty-title">Không tìm thấy kết quả</div>
                         <div class="empty-desc">
                             ${searchVal
@@ -1454,14 +1490,14 @@
 
                     return `
                 <div class="card" onclick="location.href='detail.html?id=${t.id}'">
-                    <button class="btn-card-report" onclick="openReport(event, '${t.id}')" title="Báo cáo">🚩</button>
-                    ${t.privacyMode === 'private' ? '<div class="card-badge-private"> 🔒 Cần duyệt</div>' : ''}
+                    <button class="btn-card-report" onclick="event.stopPropagation(); openReport('${t.id}')" title="Báo cáo"><span class="material-symbols-rounded" style="font-size: 20px;">report</span></button>
+                    ${t.privacyMode === 'private' ? '<div class="card-badge-private"><span class="material-symbols-rounded" style="font-size: 16px;">lock</span> Cần duyệt</div>' : ''}
                     <div class="card-img-box">
                         <img src="${displayBanner}" class="card-img" onerror="this.style.display='none'; this.parentElement.innerText='Background'">
                     </div>
                     <div class="card-body">
                         <img src="${displayLogo}" class="card-logo">
-                        <div class="card-tag">${t.category === 'love' ? '️ Tình yêu' : t.category === 'drama' ? ' Drama' : t.category === 'school' ? ' Học đường' : t.category === 'game' ? ' Game' : ' Đời thường'}</div>
+                        <div class="card-tag">${t.category === 'love' ? '<span class="material-symbols-rounded" style="font-size: 16px;">favorite</span> Tình yêu' : t.category === 'drama' ? '<span class="material-symbols-rounded" style="font-size: 16px;">article</span> Drama' : t.category === 'school' ? '<span class="material-symbols-rounded" style="font-size: 16px;">school</span> Học đường' : t.category === 'game' ? '<span class="material-symbols-rounded" style="font-size: 16px;">stadia_controller</span> Game' : '<span class="material-symbols-rounded" style="font-size: 16px;">public</span> Đời thường'}</div>
                         <h3 class="card-title">${displayTitle}</h3>
                         <div class="card-footer">
                         </div>
@@ -1494,7 +1530,7 @@
                         <img src="${displayBanner}" class="mini-img">
                         <div class="mini-overlay">
                             <div class="mini-title">${displayTitle}</div>
-                            <div class="mini-heat">🔥 ${t.heat || 0} năng động</div>
+                            <div class="mini-heat"><span class="material-symbols-rounded" style="font-size: 16px; font-variation-settings: 'FILL' 1">local_fire_department</span> ${t.heat || 0} năng động</div>
                         </div>
                     </div>
                 `}).join('');

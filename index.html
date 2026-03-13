@@ -8,6 +8,9 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <link rel="shortcut icon" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         :root {
             --primary: #0084ff;
@@ -33,6 +36,43 @@
             overflow: hidden;
             background: var(--bg);
             transition: background 0.3s ease;
+        }
+
+        /* Modal Animation Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            padding: 24px;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
         }
 
         .sidebar {
@@ -81,19 +121,6 @@
         .logo-text {
             color: var(--primary);
             display: inline-block;
-            animation: floatLogo 3s ease-in-out infinite;
-        }
-
-        @keyframes floatLogo {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-3px);
-            }
         }
 
         .logo img {
@@ -112,7 +139,7 @@
             border-radius: 12px;
             color: var(--sidebar-text);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 8px;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -126,11 +153,13 @@
             color: var(--primary);
         }
 
-        .nav-link i {
+        .nav-link i,
+        .nav-link .material-symbols-rounded {
             font-size: 20px;
             width: 24px;
             text-align: center;
             flex-shrink: 0;
+            font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
         }
 
         .nav-items {
@@ -187,7 +216,6 @@
         .splash-logo {
             width: 80px;
             height: 80px;
-
             animation: rotateIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             margin-bottom: 20px;
             opacity: 0;
@@ -236,7 +264,7 @@
                 flex-direction: row;
                 border-right: none;
                 border-top: none;
-                z-index: 1000;
+                z-index: 10000;
                 background: #ffffff;
                 border: 1px solid #e2e8f0;
                 border-radius: 28px;
@@ -295,7 +323,8 @@
                 color: var(--primary);
             }
 
-            .nav-link i {
+            .nav-link i,
+            .nav-link .material-symbols-rounded {
                 font-size: 22px;
                 width: auto;
                 transition: color 0.2s;
@@ -378,7 +407,6 @@
         }
 
         @keyframes pulse-dot {
-
             0%,
             100% {
                 transform: scale(1);
@@ -512,23 +540,14 @@
         /* AD CONTAINER FOR ADSENSE */
         .ads-container {
             width: 100%;
-            min-height: 250px;
-            background: #f1f5f9;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #cbd5e1;
+            min-height: 280px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
             position: relative;
             overflow: hidden;
             margin-bottom: 20px;
-        }
-
-        .ads-container::before {
-            content: 'Quảng cáo AdSense sẽ hiện ở đây';
-            font-size: 12px;
-            color: #94a3b8;
-            font-style: italic;
+            padding: 10px;
         }
 
         .btn-ad-primary {
@@ -552,9 +571,11 @@
         }
     </style>
 
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2887374486290948" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2887374486290948"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -564,30 +585,24 @@
     </div>
 
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('splash-screen').classList.add('hidden');
-                // Hiển thị quảng cáo ngay sau khi splash screen biến mất
-                showAdPopup();
-            }, 1800);
-        });
+        function openAnimatedModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = 'flex';
+            setTimeout(() => el.classList.add('active'), 10);
+        }
 
-        function showAdPopup() {
-            console.log("Showing Ad Popup...");
-            const popup = document.getElementById('adPopup');
-            if (popup) {
-                popup.classList.add('show');
-            }
+        function closeAnimatedModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.remove('active');
+            setTimeout(() => {
+                if (!el.classList.contains('active')) el.style.display = 'none';
+            }, 300);
         }
 
         function closeAdPopup() {
-            const popup = document.getElementById('adPopup');
-            if (popup) {
-                popup.classList.remove('show');
-                setTimeout(() => {
-                    popup.style.display = 'none';
-                }, 400);
-            }
+            closeAnimatedModal('adPopup');
         }
 
 
@@ -650,31 +665,31 @@
 
         <div class="nav-items" id="navItems">
             <div class="nav-link active" onclick="loadPage('dashboard.html', this)">
-                <div class="nav-icon-wrap"><i class='bx bxs-home-smile'></i></div>
+                <div class="nav-icon-wrap"><span class="material-symbols-rounded">home</span></div>
                 <span>Trang chủ</span>
             </div>
             <div class="nav-link" onclick="loadPage('chat.html', this)" style="position: relative;">
                 <div class="nav-icon-wrap">
-                    <i class='bx bxs-message-rounded-dots'></i>
+                    <span class="material-symbols-rounded">forum</span>
                     <div id="chatBadge" class="badge-dot" style="display:none;"></div>
                 </div>
                 <span>Trò chuyện</span>
             </div>
             <div class="nav-link" onclick="loadPage('home.html', this)">
-                <div class="nav-icon-wrap"><i class='bx bxs-category'></i></div>
+                <div class="nav-icon-wrap"><span class="material-symbols-rounded">category</span></div>
                 <span>Chủ đề</span>
             </div>
             <div class="nav-link" onclick="loadPage('game.html', this)">
-                <div class="nav-icon-wrap"><i class='bx bxs-game'></i></div>
+                <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
                 <span>Trò chơi</span>
             </div>
             <div class="nav-link" onclick="loadPage('reviewtest.html', this)">
-                <div class="nav-icon-wrap"><i class='bx bx-book-open'></i></div>
+                <div class="nav-icon-wrap"><span class="material-symbols-rounded">menu_book</span></div>
                 <span>Ôn tập</span>
             </div>
             <div class="nav-link" onclick="loadPage('profile.html?src=tab', this)" style="position: relative;">
                 <div class="nav-icon-wrap">
-                    <i class='bx bxs-user'></i>
+                    <span class="material-symbols-rounded">person</span>
                     <div id="profileBadge" class="nav-notif-dot"></div>
                 </div>
                 <span>Tôi</span>
@@ -693,34 +708,60 @@
     <!-- AD POPUP -->
     <div id="adPopup" class="ad-popup-overlay">
         <div class="ad-popup-content">
-            <button class="ad-close-btn" onclick="closeAdPopup()" style="top: 12px; right: 12px; color: #64748b; background: #f1f5f9;">×</button>
-            <div class="ad-popup-body" style="width: 100%; padding: 0; display: flex; flex-direction: column; align-items: center;">
-                <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; line-height: 1.4; padding: 0 10px;">
-                    Hãy coi quảng cáo để ủng hộ cho <span style="color: var(--primary);">thằng làm web này</span> nhé! ❤️
+            <button class="ad-close-btn" onclick="closeAdPopup()"
+                style="top: 12px; right: 12px; color: #64748b; background: #f1f5f9;">×</button>
+            <div class="ad-popup-body"
+                style="width: 100%; padding: 0; display: flex; flex-direction: column; align-items: center;">
+                <p
+                    style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; line-height: 1.4; padding: 0 10px;">
+                    Hãy coi quảng cáo để ủng hộ cho <span style="color: var(--primary);">thằng làm web này</span> nhé!
+                    ❤️
                 </p>
 
                 <!-- VÙNG DÁN MÃ ADSENSE -->
                 <div class="ads-container">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-2887374486290948"
-                         data-ad-slot="auto"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2887374486290948"
+                        data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
                     <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
+                        let adPushed = false;
+                        function checkAndPushAd() {
+                            if (adPushed) return;
+                            const container = document.querySelector('.ads-container');
+                            const popup = document.getElementById('adPopup');
+                            if (!container || !popup) return;
+
+                            const isVisible = popup.classList.contains('show');
+                            const width = container.offsetWidth;
+
+                            if (isVisible && width > 200) {
+                                setTimeout(() => {
+                                    if (popup.classList.contains('show') && container.offsetWidth > 200) {
+                                        try {
+                                            adPushed = true;
+                                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                        } catch (e) {
+                                            console.error("AdSense push failed:", e);
+                                            adPushed = false;
+                                        }
+                                    }
+                                }, 800);
+                            } else {
+                                setTimeout(checkAndPushAd, 500);
+                            }
+                        }
+                        window.triggerAdPush = checkAndPushAd;
                     </script>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="modalAnnounce" class="modal"
-        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:5000; align-items:center; justify-content:center; backdrop-filter:blur(5px);">
-        <div
-            style="background:white; width:90%; max-width:350px; border-radius:24px; padding:20px; text-align:center; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.3);">
-            <button onclick="document.getElementById('modalAnnounce').style.display='none'"
-                style="position:absolute; top:15px; right:15px; width:30px; height:30px; border-radius:50%; background:#f1f5f9; border:none; cursor:pointer; font-size:16px; color:#64748b; display:flex; align-items:center; justify-content:center;">×</button>
+    <div id="modalAnnounce" class="modal-overlay">
+        <div class="modal-content" style="text-align:center; position:relative;">
+            <button onclick="closeAnnounce()"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <img id="annImg" src=""
                 style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
             <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
@@ -738,11 +779,8 @@
         </div>
     </div>
 
-    <div id="modalMaintenance"
-        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:6000; align-items:center; justify-content:center; backdrop-filter:blur(8px);">
-        <div
-            style="background:#FDFBFF; width:90%; max-width:420px; border-radius:28px; padding:40px 32px; text-align:center; box-shadow:0px 8px 32px rgba(0,0,0,0.24);">
-
+    <div id="modalMaintenance" class="modal-overlay" style="z-index: 200000; backdrop-filter: blur(15px);">
+        <div class="modal-content" style="max-width: 420px; padding: 40px 32px; text-align: center;">
             <h1
                 style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
                 Đang bảo trì hệ thống
@@ -754,11 +792,12 @@
             </p>
         </div>
     </div>
-    <div id="modalGuidelines" class="modal-guidelines" style="display: none;">
-        <div class="guidelines-box"
-            style="background:white; width:90%; max-width:440px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2); max-height:87vh; overflow-y:auto; margin:auto;">
+    <div id="modalGuidelines" class="modal-overlay" style="z-index: 100000;">
+        <div class="modal-content" style="max-width:440px; padding:28px; max-height:87vh; overflow-y:auto;">
             <div style="text-align:center; margin-bottom:20px;">
-                <div style="font-size:36px; margin-bottom:8px;">📋</div>
+                <div style="font-size:64px; margin-bottom:24px; animation: bounce 2s infinite;"><span
+                        class="material-symbols-rounded" style="font-size: 64px; color: var(--primary);">book</span>
+                </div>
                 <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
                 <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
             </div>
@@ -767,11 +806,12 @@
 
                 <!-- Nội dung cấm -->
                 <div
-                    style="background:#fdf4ff; border:1px solid #e9d5ff; border-radius:14px; padding:16px; margin-bottom:12px;">
-                    <div
-                        style="font-weight:800; color:#7c3aed; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        🚫 NỘI DUNG CẤM
-                    </div>
+                    style="background: #fff1f2; padding: 12px; border-radius: 16px; border: 1px solid #fee2e2; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#e11d48; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #e11d48; font-size: 16px;">block</span> NỘI
+                        DUNG CẤM
+                    </h4>
                     <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
                         <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
                         <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
@@ -784,11 +824,12 @@
 
                 <!-- Quyền riêng tư & Bảo mật -->
                 <div
-                    style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:14px; padding:16px; margin-bottom:12px;">
-                    <div
-                        style="font-weight:800; color:#15803d; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        🔒 QUYỀN RIÊNG TƯ & BẢO MẬT
-                    </div>
+                    style="background: #f0f9ff; padding: 12px; border-radius: 16px; border: 1px solid #e0f2fe; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#0284c7; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #0284c7; font-size: 16px;">lock</span>
+                        QUYỀN RIÊNG TƯ & BẢO MẬT
+                    </h4>
                     <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
                         <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
                         <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
@@ -799,10 +840,11 @@
 
                 <!-- Ứng xử -->
                 <div
-                    style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    style="background: #eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
                     <div
                         style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        🤝 ỨNG XỬ & TÔN TRỌNG
+                        <span class="material-symbols-rounded"
+                            style="color: #1d4ed8; font-size: 16px;">waving_hand</span> ỨNG XỬ & TÔN TRỌNG
                     </div>
                     <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
                         <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
@@ -817,7 +859,8 @@
                     style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
                     <div
                         style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        👤 TÀI KHOẢN & XỬ LÝ VI PHẠM
+                        <span class="material-symbols-rounded"
+                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
                     </div>
                     <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
                         <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
@@ -853,18 +896,6 @@
         @keyframes spin {
             to {
                 transform: rotate(360deg);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
             }
         }
 
@@ -1079,7 +1110,6 @@
         }
 
         @keyframes blink-dot {
-
             0%,
             100% {
                 opacity: 1;
@@ -1166,7 +1196,7 @@
             if (document.getElementById('chkNoShow').checked) {
                 localStorage.setItem('ann_hide_date', new Date().toDateString());
             }
-            document.getElementById('modalAnnounce').style.display = 'none';
+            document.getElementById('modalAnnounce').classList.remove('active');
         }
 
         fetchAndActivate(remoteConfig).then(() => {
@@ -1192,9 +1222,28 @@
             if (maintenanceMode) {
                 const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
                 if (customMessage) document.getElementById('maintenanceMessage').textContent = customMessage;
-                document.getElementById('modalMaintenance').style.display = 'flex';
+                document.getElementById('modalMaintenance').classList.add('active');
                 return;
             }
+
+            try {
+                const adEnabled = getValue(remoteConfig, "ad_popup_enabled").asBoolean();
+                if (adEnabled) {
+                    const lastAdTime = localStorage.getItem('confe_ad_last_time');
+                    const now = new Date().getTime();
+                    // Nếu chưa từng hiện hoặc đã qua 1 tiếng (3600000 ms)
+                    if (!lastAdTime || (now - parseInt(lastAdTime)) > 3600000) {
+                        setTimeout(() => {
+                            const popup = document.getElementById('adPopup');
+                            if (popup) {
+                                popup.classList.add('show');
+                                localStorage.setItem('confe_ad_last_time', now.toString());
+                                if (window.triggerAdPush) window.triggerAdPush();
+                            }
+                        }, 1000);
+                    }
+                }
+            } catch (e) { console.log("Ad popup config error"); }
 
             const today = new Date().toDateString();
             if (localStorage.getItem('ann_hide_date') === today) return;
@@ -1204,7 +1253,7 @@
                     const img = document.getElementById('annImg');
                     if (data.image) { img.src = data.image; img.style.display = 'block'; } else { img.style.display = 'none'; }
                     document.getElementById('annText').textContent = data.text || "Thông báo từ hệ thống.";
-                    document.getElementById('modalAnnounce').style.display = 'flex';
+                    document.getElementById('modalAnnounce').classList.add('active');
                 }
             } catch (e) { console.log("No announcement or parse error"); }
         });
@@ -1239,7 +1288,7 @@
 
         window.closeGuidelines = () => {
             localStorage.setItem('confe_guidelines_last_seen', new Date().getTime().toString());
-            document.getElementById('modalGuidelines').style.display = 'none';
+            document.getElementById('modalGuidelines').classList.remove('active');
         }
 
         window.checkScroll = (el) => {
@@ -1254,7 +1303,7 @@
         function checkGuidelines() {
             const lastSeen = localStorage.getItem('confe_guidelines_last_seen');
             if (!lastSeen || (Date.now() - parseInt(lastSeen)) > 7 * 24 * 60 * 60 * 1000) {
-                document.getElementById('modalGuidelines').style.display = 'flex';
+                document.getElementById('modalGuidelines').classList.add('active');
                 const btn = document.getElementById('btnAgree');
                 btn.classList.add('disabled'); btn.setAttribute('disabled', 'true'); btn.textContent = "Đọc hết để đồng ý";
                 const gc = document.getElementById('guideContent');

@@ -1,4 +1,3 @@
-/* IMPORT FONT CHỮ XỊN */
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
 
 /* KHAI BÁO BIẾN MÀU SẮC CHUNG */
@@ -30,7 +29,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Outfit', sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -692,3 +691,12 @@ textarea {
     transform: none;
     box-shadow: none;
 }
+
+/* Improved Name Colors - Global */
+.name-color-default { color: inherit !important; }
+.name-color-blue { color: #0084ff !important; font-weight: 800 !important; }
+.name-color-red { color: #ff4b2b !important; font-weight: 800 !important; }
+.name-color-green { color: #2ecc71 !important; font-weight: 800 !important; }
+.name-color-purple { color: #a55eea !important; font-weight: 800 !important; }
+.name-color-orange { color: #fa8231 !important; font-weight: 800 !important; }
+.name-color-pink { color: #fd79a8 !important; font-weight: 800 !important; }

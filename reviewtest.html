@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KHTN 7 - Quang Hợp & Hô Hấp</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&subset=vietnamese&display=swap');
-
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             background-color: #F9FAFB;
             margin: 0;
             padding: 20px 10px;
@@ -51,15 +51,30 @@
 
         .action-btn {
             border: none;
-            padding: 10px 24px;
-            border-radius: 999px;
+            padding: 12px 24px;
+            border-radius: 100px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
             font-family: inherit;
             color: white;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn span {
+            font-size: 20px;
+            font-variation-settings: 'FILL' 1;
         }
 
         .solo-btn {
@@ -361,15 +376,17 @@
         }
 
         .correct-answer {
-            background-color: #064e3b !important;
-            border-color: #059669 !important;
-            color: #a7f3d0 !important;
+            background-color: #dcfce7 !important;
+            border: 4px solid #22c55e !important;
+            color: #166534 !important;
+            font-weight: 700;
         }
 
         .wrong-answer {
-            background-color: #7f1d1d !important;
-            border-color: #dc2626 !important;
-            color: #fecaca !important;
+            background-color: #fee2e2 !important;
+            border: 4px solid #ef4444 !important;
+            color: #991b1b !important;
+            font-weight: 700;
         }
 
         .neutral-answer {
@@ -774,7 +791,7 @@
             font-size: 32px;
             font-weight: 800;
             color: #1e293b;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             text-transform: none;
         }
@@ -824,43 +841,47 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .end-win-bg {
-            background: radial-gradient(circle, #bae6fd 0%, #0284c7 100%);
-            animation: winGlow 2s infinite alternate;
+            background: radial-gradient(circle at center, rgba(14, 165, 233, 0.4) 0%, rgba(2, 132, 199, 0.95) 100%);
         }
 
         .end-lose-bg {
-            background: radial-gradient(circle, #fecaca 0%, #dc2626 100%);
-            animation: loseDark 2s forwards;
+            background: radial-gradient(circle at center, rgba(239, 68, 68, 0.4) 0%, rgba(127, 29, 29, 0.95) 100%);
         }
 
         .victory-text {
-            font-size: 50px;
+            font-size: 64px;
             font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            transform: translateY(100px) scale(0.5);
+            color: #fbbf24;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.4), 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(50px);
             opacity: 0;
             animation: riseVictory 1s 0.3s forwards cubic-bezier(0.1, 0.9, 0.2, 1.2);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            letter-spacing: -2px;
         }
 
         .defeat-text {
-            font-size: 50px;
+            font-size: 64px;
             font-weight: 900;
             color: #ffffff;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            transform: translateY(-100px);
+            transform: translateY(-50px);
             opacity: 0;
             animation: dropDefeat 1s 0.3s forwards cubic-bezier(0.5, 0, 0.8, 1.5);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            letter-spacing: -2px;
         }
 
         .confetti {
             position: absolute;
             width: 10px;
             height: 20px;
-            background: #fbbf24;
             animation: fall linear forwards;
         }
 
@@ -963,7 +984,7 @@
         }
 
         .achievement-text {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             font-weight: 900;
             font-size: 60px;
             opacity: 0;
@@ -1123,21 +1144,44 @@
 
             .intro-left,
             .intro-right {
-                font-size: 24px;
+                font-size: 18px;
+            }
+
+            .intro-avatar {
+                width: 80px !important;
+                height: 80px !important;
+            }
+
+            .intro-name {
+                font-size: 14px !important;
             }
 
             .intro-vs {
-                font-size: 60px;
+                font-size: 40px;
             }
 
             .round-text {
-                font-size: 35px;
+                font-size: 30px;
                 text-align: center;
             }
 
             .victory-text,
             .defeat-text {
-                font-size: 50px;
+                font-size: 44px;
+                letter-spacing: -1px;
+            }
+
+            .victory-avatar-ring img {
+                width: 120px !important;
+                height: 120px !important;
+            }
+
+            .achievement-text {
+                font-size: 32px !important;
+            }
+
+            .perfect-text {
+                font-size: 40px !important;
             }
 
             .study-nav-row {
@@ -1237,6 +1281,95 @@
             transition: transform 0.2s;
         }
 
+        /* Skeleton Loading Styles */
+        .skeleton-loader {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .skeleton-item {
+            background-color: #e2e8f0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton-item::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: skeleton-pulse 1.5s infinite;
+        }
+
+        @keyframes skeleton-pulse {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .skeleton-title {
+            height: 40px;
+            width: 60%;
+            margin: 0 auto 20px;
+            border-radius: 100px;
+        }
+
+        .skeleton-button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .skeleton-btn {
+            height: 44px;
+            width: 120px;
+            border-radius: 20px;
+        }
+
+        .skeleton-status-bar {
+            height: 60px;
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        .skeleton-quiz-card {
+            height: 200px;
+            width: 100%;
+            border-radius: 24px;
+        }
+
+        /* Initial state of main content */
+        #main-content-wrapper {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #main-content-wrapper.loaded {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #skeleton-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F9FAFB;
+            z-index: 9999;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         /* Podium UI removed */
     </style>
 </head>
@@ -1249,225 +1382,248 @@
 
     <div id="match-end-overlay"></div>
 
-    <div class="container">
-        <h1>KHTN 7 - QUANG HỢP & HÔ HẤP</h1>
-        <div class="header-actions">
-            <!-- Row 1: Primary Actions -->
-            <div
-                style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%; margin-bottom: 5px;">
-                <button id="solo-btn" class="action-btn solo-btn">Chế Độ Solo BO3</button>
-                <button id="wrong-btn" class="action-btn wrong-btn">Ôn Câu Sai</button>
-                <button id="study-btn" class="action-btn study-btn">Luyện Trí Nhớ</button>
-                <button id="match-btn" class="action-btn match-btn">Trò Chơi Ghép Thẻ</button>
+    <div id="skeleton-overlay">
+        <div class="skeleton-loader" style="max-width: 600px; margin: 20px auto; width: 100%;">
+            <div class="skeleton-item skeleton-title"></div>
+            <div class="skeleton-button-row">
+                <div class="skeleton-item skeleton-btn"></div>
+                <div class="skeleton-item skeleton-btn"></div>
             </div>
-            <!-- Row 2: Secondary & Helpers -->
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%;">
-                <button id="shop-btn" class="action-btn shop-btn">Cửa Hàng Thẻ</button>
-            </div>
+            <div class="skeleton-item skeleton-status-bar"></div>
+            <div class="skeleton-item skeleton-quiz-card"></div>
         </div>
+    </div>
 
-        <div id="status-bar"
-            style="display: flex; gap: 15px; background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 25px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-            <div id="coin-display"
-                style="font-weight: 700; color: #0369a1; font-size: 16px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
-                Tài sản hiện tại: 1000 Xu</div>
-            <div id="inventory-display"
-                style="font-weight: 500; color: #0284c7; font-size: 14px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
-                Kho đồ: 0 Thẻ Pass | 0 Thẻ 50/50 | 0 Thẻ Bảo Vệ</div>
-        </div>
-
-        <div id="solo-mode-container">
-            <div class="review-title" style="display: block;">Thách đấu BO3</div>
-            <div id="solo-lobby" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <p style="color: #64748b; font-weight: 500; line-height: 1.6; text-align: center; max-width: 400px;">
-                    Thi đấu trắc nghiệm Solo BO3. Mỗi ván 10 điểm, ai thắng 2 ván đầu tiên sẽ nhận phần thưởng cực kỳ
-                    hấp dẫn!
-                </p>
-
+    <div id="main-content-wrapper">
+        <div class="container">
+            <h1
+                style="text-align: center; color: #0084ff; margin-top: 0; margin-bottom: 20px; font-size: 24px; font-weight: 700; letter-spacing: 0.5px;">
+                Ôn tập môn Khoa học tự nhiên 7</h1>
+            <div class="header-actions">
+                <!-- Row 1: Primary Actions -->
                 <div
-                    style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #f1f5f9;">
-                    <button onclick="createSoloRoom()" class="nav-btn solo-btn"
-                        style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">Tạo
-                        Phòng Mới</button>
-
-                    <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
-                        <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
-                        <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Hoặc</span>
-                        <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
-                    </div>
-
-                    <input type="text" id="room-code-input" placeholder="Nhập mã phòng..."
-                        style="padding: 18px; border-radius: 16px; border: 2px solid #e2e8f0; background: #f8fafc; color: #1e293b; font-size: 20px; font-family: inherit; font-weight: 800; text-align: center; width: 100%; transition: all 0.2s; outline: none; box-sizing: border-box;"
-                        onfocus="this.style.borderColor='#0084ff'; this.style.boxShadow='0 0 0 4px rgba(0, 132, 255, 0.1)'"
-                        onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
-                    <button onclick="joinSoloRoom()" class="nav-btn shop-btn"
-                        style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px;">Vào Phòng Thách
-                        Đấu</button>
-                    <div id="solo-error-msg" class="info-msg"
-                        style="margin-top: 5px; display: none; background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px; border-radius: 12px; font-size: 14px;">
-                    </div>
+                    style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%; margin-bottom: 12px;">
+                    <button id="solo-btn" class="action-btn solo-btn"><span class="material-symbols-rounded">swords</span> Chế Độ Solo BO3</button>
+                    <button id="wrong-btn" class="action-btn wrong-btn"><span class="material-symbols-rounded">assignment_late</span> Ôn Câu Sai</button>
+                    <button id="study-btn" class="action-btn study-btn"><span class="material-symbols-rounded">psychology</span> Luyện Trí Nhớ</button>
+                    <button id="match-btn" class="action-btn match-btn"><span class="material-symbols-rounded">style</span> Trò Chơi Ghép Thẻ</button>
                 </div>
-
-                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
-                    style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Quay
-                    Lại</button>
+                <!-- Row 2: Secondary & Helpers -->
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%;">
+                    <button id="shop-btn" class="action-btn shop-btn"><span class="material-symbols-rounded">shopping_bag</span> Cửa Hàng Thẻ</button>
+                </div>
             </div>
 
-            <div id="solo-waiting" style="display: none; text-align: center;">
-                <div
-                    style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; margin-bottom: 20px;">
-                    <h3 style="color: #475569; margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: 700;">
-                        Mã phòng của cậu</h3>
+            <div id="status-bar"
+                style="display: flex; gap: 15px; background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 25px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div id="coin-display"
+                    style="font-weight: 700; color: #0369a1; font-size: 16px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                    Tài sản hiện tại: 1000 Xu</div>
+                <div id="inventory-display"
+                    style="font-weight: 500; color: #0284c7; font-size: 14px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                    Kho đồ: 0 Thẻ Pass | 0 Thẻ 50/50 | 0 Thẻ Bảo Vệ</div>
+            </div>
+
+            <div id="solo-mode-container">
+                <div class="review-title" style="display: block;">Thách đấu BO3</div>
+                <div id="solo-lobby" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                    <p
+                        style="color: #64748b; font-weight: 500; line-height: 1.6; text-align: center; max-width: 400px;">
+                        Thi đấu trắc nghiệm Solo BO3. Mỗi ván 10 điểm, ai thắng 2 ván đầu tiên sẽ nhận phần thưởng cực
+                        kỳ
+                        hấp dẫn!
+                    </p>
+
                     <div
-                        style="background: #eff6ff; border: 2px dashed #93c5fd; padding: 15px 30px; border-radius: 16px; display: inline-block; margin-bottom: 15px; position: relative;">
-                        <span id="display-room-code"
-                            style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
-                    </div>
-                    <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 20px;">Đang chờ đối thủ
-                        tham gia...</p>
-                    <div class="loader" style="margin-top: 20px;"></div>
-                </div>
-                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
-                    style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Hủy
-                    Xóa Phòng</button>
-            </div>
+                        style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #f1f5f9;">
+                        <button onclick="createSoloRoom()" class="nav-btn solo-btn"
+                            style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">Tạo
+                            Phòng Mới</button>
 
-            <div id="solo-playing" style="display: none; position: relative;">
-                <div id="solo-match-msg" class="info-msg motivate-msg" style="margin-bottom: 20px; display: none;">
-                </div>
-
-                <div id="solo-progress-area"
-                    style="background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
-                    <div style="margin-bottom: 15px;">
-                        <div
-                            style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #10b981; font-size: 14px;">
-                            <span id="p1-label">Cậu - Điểm: 0</span>
-                            <span>Đích: 10</span>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+                            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                            <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Hoặc</span>
+                            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
                         </div>
-                        <div class="progress-container" style="margin-bottom: 0;">
-                            <div id="p1-progress-bar" class="progress-bar"
-                                style="background: #10b981; width: 0%; transition: width 0.4s ease;"></div>
+
+                        <input type="text" id="room-code-input" placeholder="Nhập mã phòng..."
+                            style="padding: 18px; border-radius: 16px; border: 2px solid #e2e8f0; background: #f8fafc; color: #1e293b; font-size: 20px; font-family: inherit; font-weight: 800; text-align: center; width: 100%; transition: all 0.2s; outline: none; box-sizing: border-box;"
+                            onfocus="this.style.borderColor='#0084ff'; this.style.boxShadow='0 0 0 4px rgba(0, 132, 255, 0.1)'"
+                            onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <button onclick="joinSoloRoom()" class="nav-btn shop-btn"
+                            style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px;">Vào Phòng Thách
+                            Đấu</button>
+                        <div id="solo-error-msg" class="info-msg"
+                            style="margin-top: 5px; display: none; background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px; border-radius: 12px; font-size: 14px;">
                         </div>
                     </div>
-                    <div>
-                        <div
-                            style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #f43f5e; font-size: 14px;">
-                            <span id="p2-label">Đối thủ - Điểm: 0</span>
-                            <span>Đích: 10</span>
-                        </div>
-                        <div class="progress-container" style="margin-bottom: 0;">
-                            <div id="p2-progress-bar" class="progress-bar"
-                                style="background: #f43f5e; width: 0%; transition: width 0.4s ease;"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div id="solo-app"></div>
-            </div>
-
-            <div id="solo-result"
-                style="display: none; text-align: center; padding: 40px; border-radius: 28px; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0;">
-                <h2
-                    style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 30px; letter-spacing: 2px;">
-                    KẾT QUẢ TRẬN ĐẤU</h2>
-
-                <div id="podium-wrapper" class="podium-container">
-                    <!-- Dynamic Podium -->
-                </div>
-
-                <div id="solo-result-text"
-                    style="font-size: 28px; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1e293b;">
-                </div>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button id="solo-remake-btn" onclick="requestRemake()" class="nav-btn next-btn"
-                        style="width: auto; padding: 15px 30px; display: none;">Chơi lại ván mới</button>
                     <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
-                        style="width: auto; padding: 15px 30px; margin-top: 0; background: #e2e8f0; color: #1e293b;">Rời
-                        phòng</button>
+                        style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Quay
+                        Lại</button>
                 </div>
-            </div>
-        </div>
 
-        <div id="shop-mode-container">
-            <div class="review-title" style="display: block;">CỬA HÀNG THẺ BÀI</div>
-            <div id="shop-message" class="info-msg motivate-msg"></div>
-            <div class="match-grid">
-                <div class="study-item" style="text-align: center;">
-                    <div class="study-q">Thẻ Pass 1 Câu</div>
-                    <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Vượt qua câu hiện tại ngay lập tức.
+                <div id="solo-waiting" style="display: none; text-align: center;">
+                    <div
+                        style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; margin-bottom: 20px;">
+                        <h3
+                            style="color: #475569; margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: 700;">
+                            Mã phòng của cậu</h3>
+                        <div
+                            style="background: #eff6ff; border: 2px dashed #93c5fd; padding: 15px 30px; border-radius: 16px; display: inline-block; margin-bottom: 15px; position: relative;">
+                            <span id="display-room-code"
+                                style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
+                        </div>
+                        <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 20px;">Đang chờ đối thủ
+                            tham gia...</p>
+                        <div class="loader" style="margin-top: 20px;"></div>
                     </div>
-                    <div class="study-a">Giá: 500 Xu</div>
-                    <button onclick="buyCard('pass1', 500)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
-                        ngay</button>
+                    <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                        style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Hủy
+                        Xóa Phòng</button>
                 </div>
-                <div class="study-item" style="text-align: center;">
-                    <div class="study-q">Thẻ Trợ Giúp 50/50</div>
-                    <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Loại bỏ 2 đáp án sai.</div>
-                    <div class="study-a">Giá: 50 Xu</div>
-                    <button onclick="buyCard('help', 50)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
-                        ngay</button>
+
+                <div id="solo-playing" style="display: none; position: relative;">
+                    <div id="solo-match-msg" class="info-msg motivate-msg" style="margin-bottom: 20px; display: none;">
+                    </div>
+
+                    <div id="solo-progress-area"
+                        style="background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
+                        <div style="margin-bottom: 15px;">
+                            <div
+                                style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #10b981; font-size: 14px;">
+                                <span id="p1-label">Cậu - Điểm: 0</span>
+                                <span>Đích: 10</span>
+                            </div>
+                            <div class="progress-container" style="margin-bottom: 0;">
+                                <div id="p1-progress-bar" class="progress-bar"
+                                    style="background: #10b981; width: 0%; transition: width 0.4s ease;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #f43f5e; font-size: 14px;">
+                                <span id="p2-label">Đối thủ - Điểm: 0</span>
+                                <span>Đích: 10</span>
+                            </div>
+                            <div class="progress-container" style="margin-bottom: 0;">
+                                <div id="p2-progress-bar" class="progress-bar"
+                                    style="background: #f43f5e; width: 0%; transition: width 0.4s ease;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="solo-app"></div>
                 </div>
-                <div class="study-item" style="text-align: center; grid-column: 1 / -1;">
-                    <div class="study-q">Thẻ Bảo Vệ Tiền</div>
-                    <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Bảo toàn Xu khi trả lời sai.</div>
-                    <div class="study-a">Giá: 150 Xu</div>
-                    <button onclick="buyCard('protect', 150)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
-                        ngay</button>
+
+                <div id="solo-result"
+                    style="display: none; text-align: center; padding: 40px; border-radius: 28px; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0;">
+                    <h2
+                        style="font-family: 'Be Vietnam Pro', sans-serif; font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 30px; letter-spacing: 2px;">
+                        KẾT QUẢ TRẬN ĐẤU</h2>
+
+                    <div id="podium-wrapper" class="podium-container">
+                        <!-- Dynamic Podium -->
+                    </div>
+
+                    <div id="solo-result-text"
+                        style="font-size: 28px; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1e293b;">
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <button id="solo-remake-btn" onclick="requestRemake()" class="nav-btn next-btn"
+                            style="width: auto; padding: 15px 30px; display: none;">Chơi lại ván mới</button>
+                        <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                            style="width: auto; padding: 15px 30px; margin-top: 0; background: #e2e8f0; color: #1e293b;">Rời
+                            phòng</button>
+                    </div>
                 </div>
             </div>
-            <button id="back-quiz-from-shop-btn" class="nav-btn back-quiz-btn">Quay lại</button>
-        </div>
 
-        <div id="match-mode-container">
-            <div class="review-title" style="display: block;">GHÉP THẺ TÌM ĐÁP ÁN</div>
-            <div id="match-win-msg" class="match-win-msg">Chúc mừng! Cậu đã ghép đúng toàn bộ!</div>
-            <div id="match-grid" class="match-grid"></div>
-            <button id="play-match-again-btn" class="nav-btn next-btn" style="display: none; margin-bottom: 15px;">Chơi
-                ván mới</button>
-            <button id="back-quiz-from-match-btn" class="nav-btn back-quiz-btn" style="margin-top: 0;">Quay lại</button>
-        </div>
-
-        <div id="study-mode-container">
-            <div class="review-title" style="display: block;">THẺ GHI NHỚ FLASHCARD</div>
-            <div id="study-list"></div>
-            <button id="back-quiz-from-study-btn" class="nav-btn back-quiz-btn">Quay lại</button>
-        </div>
-
-        <div id="wrong-mode-container">
-            <div class="review-title" style="display: block;">DANH SÁCH CÂU SAI</div>
-            <div id="wrong-list"></div>
-            <button id="back-quiz-from-wrong-btn" class="nav-btn back-quiz-btn">Quay lại</button>
-        </div>
-
-        <div id="quiz-mode-container"
-            style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-
-            <div class="filter-container"
-                style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; margin-bottom: 24px;">
-                <button class="filter-btn filter-active" onclick="setFilter('all')">Tất cả</button>
-                <button class="filter-btn" onclick="setFilter('mc')">Trắc nghiệm</button>
-                <button class="filter-btn" onclick="setFilter('arrange')">Tự luận (Kéo thả)</button>
-                <button class="filter-btn" onclick="setFilter('tf')">Tự luận (Đúng/Sai)</button>
-                <button class="filter-btn" onclick="setFilter('quanghop')">Quang hợp</button>
-                <button class="filter-btn" onclick="setFilter('hohap')">Hô hấp</button>
+            <div id="shop-mode-container">
+                <div class="review-title" style="display: block;">CỬA HÀNG THẺ BÀI</div>
+                <div id="shop-message" class="info-msg motivate-msg"></div>
+                <div class="match-grid">
+                    <div class="study-item" style="text-align: center;">
+                        <div class="study-q">Thẻ Pass 1 Câu</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Vượt qua câu hiện tại ngay lập
+                            tức.
+                        </div>
+                        <div class="study-a">Giá: 500 Xu</div>
+                        <button onclick="buyCard('pass1', 500)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                    <div class="study-item" style="text-align: center;">
+                        <div class="study-q">Thẻ Trợ Giúp 50/50</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Loại bỏ 2 đáp án sai.</div>
+                        <div class="study-a">Giá: 50 Xu</div>
+                        <button onclick="buyCard('help', 50)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                    <div class="study-item" style="text-align: center; grid-column: 1 / -1;">
+                        <div class="study-q">Thẻ Bảo Vệ Tiền</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Bảo toàn Xu khi trả lời sai.
+                        </div>
+                        <div class="study-a">Giá: 150 Xu</div>
+                        <button onclick="buyCard('protect', 150)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                </div>
+                <button id="back-quiz-from-shop-btn" class="nav-btn back-quiz-btn">Quay lại</button>
             </div>
 
-            <div id="result" class="result-container">
-                <div id="result-text" class="result-text"></div>
-                <div id="compliment-text" class="compliment-text"></div>
+            <div id="match-mode-container">
+                <div class="review-title" style="display: block;">GHÉP THẺ TÌM ĐÁP ÁN</div>
+                <div id="match-win-msg" class="match-win-msg">Chúc mừng! Cậu đã ghép đúng toàn bộ!</div>
+                <div id="match-grid" class="match-grid"></div>
+                <button id="play-match-again-btn" class="nav-btn next-btn"
+                    style="display: none; margin-bottom: 15px;">Chơi
+                    ván mới</button>
+                <button id="back-quiz-from-match-btn" class="nav-btn back-quiz-btn" style="margin-top: 0;">Quay
+                    lại</button>
             </div>
 
-            <div id="progress-container" class="progress-container">
-                <div id="progress-bar" class="progress-bar"></div>
+            <div id="study-mode-container">
+                <div class="review-title" style="display: block;">THẺ GHI NHỚ FLASHCARD</div>
+                <div id="study-list"></div>
+                <button id="back-quiz-from-study-btn" class="nav-btn back-quiz-btn">Quay lại</button>
             </div>
-            <div id="progress-text" class="progress-text"></div>
 
-            <div id="review-title" class="review-title">XEM LẠI ĐÁP ÁN</div>
+            <div id="wrong-mode-container">
+                <div class="review-title" style="display: block;">DANH SÁCH CÂU SAI</div>
+                <div id="wrong-list"></div>
+                <button id="back-quiz-from-wrong-btn" class="nav-btn back-quiz-btn">Quay lại</button>
+            </div>
 
-            <div id="app" style="min-height: 250px;"></div>
+            <div id="quiz-mode-container"
+                style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
 
-            <div id="navigation" class="navigation-buttons">
-                <button id="next-btn" class="nav-btn next-btn">Câu tiếp theo</button>
+                <div class="filter-container"
+                    style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; margin-bottom: 24px;">
+                    <button class="filter-btn filter-active" onclick="setFilter('all')">Tất cả</button>
+                    <button class="filter-btn" onclick="setFilter('mc')">Trắc nghiệm</button>
+                    <button class="filter-btn" onclick="setFilter('arrange')">Tự luận (Kéo thả)</button>
+                    <button class="filter-btn" onclick="setFilter('tf')">Tự luận (Đúng/Sai)</button>
+                    <button class="filter-btn" onclick="setFilter('quanghop')">Quang hợp</button>
+                    <button class="filter-btn" onclick="setFilter('hohap')">Hô hấp</button>
+                </div>
+
+                <div id="result" class="result-container">
+                    <div id="result-text" class="result-text"></div>
+                    <div id="compliment-text" class="compliment-text"></div>
+                </div>
+
+                <div id="progress-container" class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-text" class="progress-text"></div>
+
+                <div id="review-title" class="review-title">XEM LẠI ĐÁP ÁN</div>
+
+                <div id="app" style="min-height: 250px;"></div>
+
+                <div id="navigation" class="navigation-buttons">
+                    <button id="next-btn" class="nav-btn next-btn">Câu tiếp theo</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1476,7 +1632,7 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
         import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getDatabase, ref, set, get, onValue, update } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js';
-        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+        import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
@@ -1496,6 +1652,46 @@
         let currentUser = null;
         let myProfile = { displayName: 'Khách', photoURL: 'https://ui-avatars.com/api/?name=K&background=random' };
 
+        // Global variables moved to top for consistent initialization
+        let userCoins = 1000;
+        let inventory = { pass1: 0, help: 0, protect: 0 };
+        let activeQuestions = [];
+        let correctCounts = [];
+        let wrongCounts = [];
+        let totalAttempts = 0;
+        let currentQuestionAnswered = false;
+        let currentSelection = null;
+        let currentIndex = 0;
+        let selectedArrangeWords = [];
+        let poolArrangeWords = [];
+        let currentStudyIndex = 0;
+        let isStudyFlipped = false;
+        let matchCards = [];
+        let matchFirstCard = null;
+        let matchedPairsCount = 0;
+        let isMatchingCards = false;
+        let currentBet = 10;
+        let betWonLost = 0;
+        let selectedBetStr = '10';
+        let isPassUsed = false;
+        let soloRoomId = null;
+        let isPlayer1 = false;
+        let soloQs = [];
+        let soloCurrentIdx = 0;
+        let soloMyScore = 0;
+        let soloUnsubscribe = null;
+        let soloRoomData = null;
+        let soloRewardGiven = false;
+
+        const TARGET_MASTERY = 2;
+
+        function finishLoading() {
+            const skeleton = document.getElementById('skeleton-overlay');
+            const wrapper = document.getElementById('main-content-wrapper');
+            if (skeleton) skeleton.style.display = 'none';
+            if (wrapper) wrapper.classList.add('loaded');
+        }
+
         onAuthStateChanged(auth, async user => {
             if (user) {
                 currentUser = user;
@@ -1509,7 +1705,7 @@
                             myProfile.photoURL = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.displayName) + '&background=random';
                         }
                         if (data.photoURL) myProfile.photoURL = data.photoURL;
-                        
+
                         // Load coins and inventory
                         if (data.coins !== undefined) userCoins = data.coins;
                         if (data.inventory) inventory = { ...inventory, ...data.inventory };
@@ -1547,22 +1743,27 @@
                     }
                 } catch (e) {
                     console.error("Firestore Error:", e);
+                } finally {
+                    finishLoading();
                 }
             } else {
                 try {
                     await signInAnonymously(auth);
                 } catch (e) { }
+                finishLoading();
             }
         });
 
         async function syncUserData() {
             if (!currentUser || currentUser.isAnonymous) return;
             try {
+                console.log("Syncing user data: coins=" + userCoins);
                 const userDocRef = doc(firestore, 'users', currentUser.uid);
                 await updateDoc(userDocRef, {
                     coins: userCoins,
                     inventory: inventory
                 });
+                console.log("Firestore sync successful");
             } catch (e) {
                 console.error("Error syncing user data:", e);
             }
@@ -1691,41 +1892,10 @@
             { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Việc phơi khô lúa, ngô trước khi bảo quản là để tăng cường độ hô hấp của hạt.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Phơi khô làm giảm hàm lượng nước để làm GIẢM cường độ hô hấp." }
         ];
 
-        let activeQuestions = [...allQuestions];
-        const TARGET_MASTERY = 2;
-        let correctCounts = new Array(activeQuestions.length).fill(0);
-        let wrongCounts = new Array(activeQuestions.length).fill(0);
-        let totalAttempts = 0;
-        let currentQuestionAnswered = false;
-        let currentSelection = null;
-        let currentIndex = 0;
-        let selectedArrangeWords = [];
-        let poolArrangeWords = [];
-
-        let currentStudyIndex = 0;
-        let isStudyFlipped = false;
-
-        let matchCards = [];
-        let matchFirstCard = null;
-        let matchedPairsCount = 0;
-        let isMatchingCards = false;
-
-        let userCoins = 1000;
-        let inventory = { pass1: 0, help: 0, protect: 0 };
-
-        let currentBet = 10;
-        let betWonLost = 0;
-        let selectedBetStr = '10';
-        let isPassUsed = false;
-
-        let soloRoomId = null;
-        let isPlayer1 = false;
-        let soloQs = [];
-        let soloCurrentIdx = 0;
-        let soloMyScore = 0;
-        let soloUnsubscribe = null;
-        let soloRoomData = null;
-        let soloRewardGiven = false;
+        // Initializing questions and counts
+        activeQuestions = [...allQuestions];
+        correctCounts = new Array(activeQuestions.length).fill(0);
+        wrongCounts = new Array(activeQuestions.length).fill(0);
 
         const app = document.getElementById('app');
         const nextBtn = document.getElementById('next-btn');
@@ -1921,64 +2091,91 @@
             const overlay = document.getElementById('match-end-overlay');
             overlay.innerHTML = '';
             overlay.style.display = 'flex';
+            overlay.className = isWin ? 'end-win-bg' : 'end-lose-bg';
 
-            // Add Avatar and Name
+            // Create Premium Container
+            const container = document.createElement('div');
+            container.style.textAlign = 'center';
+            container.style.zIndex = '10';
+
+            // Avatar with Ring
+            const ring = document.createElement('div');
+            ring.className = 'victory-avatar-ring';
+            if (!isWin) {
+                ring.style.background = 'linear-gradient(45deg, #ef4444, #7f1d1d, #ef4444)';
+                ring.style.boxShadow = '0 0 50px rgba(239, 68, 68, 0.3)';
+            }
+
             const avatarImg = document.createElement('img');
             avatarImg.src = playerAvatar || 'https://ui-avatars.com/api/?name=U&background=random';
-            avatarImg.style.width = '140px';
-            avatarImg.style.height = '140px';
+            avatarImg.style.width = '160px';
+            avatarImg.style.height = '160px';
             avatarImg.style.borderRadius = '50%';
             avatarImg.style.objectFit = 'cover';
-            avatarImg.style.border = '5px solid white';
-            avatarImg.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-            avatarImg.style.marginBottom = '20px';
-            avatarImg.style.opacity = '0';
-            avatarImg.style.animation = 'achievementPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            avatarImg.style.display = 'block';
+            avatarImg.style.border = '4px solid white';
+
+            ring.appendChild(avatarImg);
 
             const nameDiv = document.createElement('div');
             nameDiv.textContent = playerName || 'Người chơi';
-            nameDiv.style.fontSize = '36px';
-            nameDiv.style.fontWeight = '900';
+            nameDiv.style.fontSize = '24px';
+            nameDiv.style.fontWeight = '700';
             nameDiv.style.color = 'white';
-            nameDiv.style.fontFamily = "'Outfit', sans-serif";
-            nameDiv.style.textShadow = '0 4px 15px rgba(0,0,0,0.3)';
-            nameDiv.style.marginBottom = '30px';
+            nameDiv.style.marginTop = '15px';
             nameDiv.style.opacity = '0';
-            nameDiv.style.animation = 'riseVictory 1s 0.2s forwards cubic-bezier(0.1, 0.9, 0.2, 1.2)';
+            nameDiv.style.animation = 'victoryPop 0.8s 0.2s forwards';
+            nameDiv.style.textShadow = '0 2px 10px rgba(0,0,0,0.5)';
 
-            overlay.appendChild(avatarImg);
-            overlay.appendChild(nameDiv);
+            const text = document.createElement('div');
+            text.className = isWin ? 'victory-text' : 'defeat-text';
+            text.textContent = isWin ? 'CHIẾN THẮNG!' : 'THẤT BẠI!';
+
+            container.appendChild(ring);
+            container.appendChild(nameDiv);
+            container.appendChild(text);
+            overlay.appendChild(container);
 
             if (isWin) {
-                overlay.className = 'end-win-bg';
-                const text = document.createElement('div');
-                text.className = 'victory-text';
-                text.textContent = 'Chiến Thắng!';
-                overlay.appendChild(text);
-
-                for (let i = 0; i < 50; i++) {
+                // Better confetti with gravity
+                for (let i = 0; i < 60; i++) {
                     let c = document.createElement('div');
                     c.className = 'confetti';
                     c.style.left = Math.random() * 100 + 'vw';
                     c.style.top = -20 + 'px';
-                    c.style.backgroundColor = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6'][Math.floor(Math.random() * 4)];
-                    c.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    c.style.animationDelay = (Math.random() * 1) + 's';
+                    c.style.backgroundColor = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#ffffff'][Math.floor(Math.random() * 5)];
+                    c.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    c.style.animationDelay = (Math.random() * 2) + 's';
+                    c.style.width = (Math.random() * 8 + 4) + 'px';
+                    c.style.height = (Math.random() * 12 + 8) + 'px';
+                    c.style.borderRadius = '2px';
                     overlay.appendChild(c);
                 }
             } else {
-                overlay.className = 'end-lose-bg';
-                const text = document.createElement('div');
-                text.className = 'defeat-text';
-                text.textContent = 'Thất Bại!';
-                overlay.appendChild(text);
+                // Gloomy particles for defeat
+                for (let i = 0; i < 20; i++) {
+                    let p = document.createElement('div');
+                    p.style.position = 'absolute';
+                    p.style.width = '100px';
+                    p.style.height = '100px';
+                    p.style.background = 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)';
+                    p.style.left = Math.random() * 100 + 'vw';
+                    p.style.top = Math.random() * 100 + 'vh';
+                    p.style.animation = `skeleton-pulse ${Math.random() * 3 + 2}s infinite`;
+                    overlay.appendChild(p);
+                }
             }
 
             setTimeout(function () {
-                overlay.style.display = 'none';
-                overlay.innerHTML = '';
-                if (callback) callback();
-            }, 4000);
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '1';
+                    overlay.innerHTML = '';
+                    if (callback) callback();
+                }, 800);
+            }, 4500);
         }
 
         window.showAchievement = function (type) {

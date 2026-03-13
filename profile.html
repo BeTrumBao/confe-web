@@ -14,9 +14,9 @@
         }
     </script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
     <style>
         :root {
@@ -32,7 +32,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -410,52 +410,15 @@
             transform: translateY(0);
         }
 
-        /* NAME COLOR PRESETS */
-        .name-color-default { color: inherit; }
-        .name-color-blue { color: #2563eb; }
-        .name-color-red { color: #dc2626; }
-        .name-color-green { color: #16a34a; }
-        .name-color-purple { color: #9333ea; }
-        .name-color-orange { color: #ea580c; }
-        .name-color-pink { color: #f472b6; }
+        /* Improved Name Colors */
+        .name-color-default { color: inherit !important; }
+        .name-color-blue { color: #0084ff !important; font-weight: 800 !important; }
+        .name-color-red { color: #ff4b2b !important; font-weight: 800 !important; }
+        .name-color-green { color: #2ecc71 !important; font-weight: 800 !important; }
+        .name-color-purple { color: #a55eea !important; font-weight: 800 !important; }
+        .name-color-orange { color: #fa8231 !important; font-weight: 800 !important; }
+        .name-color-pink { color: #fd79a8 !important; font-weight: 800 !important; }
         
-        /* AVATAR FRAMES */
-        .frame-none { border: none; padding: 0; box-shadow: none; border-radius: 50%; }
-        
-        .frame-glow {
-            border: 3px solid var(--primary);
-            padding: 2px;
-            box-shadow: 0 0 15px rgba(0, 87, 219, 0.4);
-            border-radius: 50% !important;
-        }
-
-        .frame-neon {
-            border: 3px solid #ff00ff;
-            padding: 2px;
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), inset 0 0 10px rgba(255, 0, 255, 0.4);
-            animation: neon-pulse 1.5s infinite alternate;
-            border-radius: 50% !important;
-        }
-
-        @keyframes neon-pulse {
-            from { box-shadow: 0 0 10px rgba(255, 0, 255, 0.4); }
-            to { box-shadow: 0 0 20px rgba(255, 0, 255, 0.8); }
-        }
-
-        .frame-royal {
-            border: 4px double #fbbf24;
-            padding: 3px;
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-            border-radius: 50% !important;
-        }
-
-        .frame-glass {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(4px);
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 4px;
-            border-radius: 50% !important;
-        }
 
         .color-picker, .frame-picker {
             display: grid;
@@ -593,11 +556,12 @@
             border-radius: 8px;
         }
 
-        .tick {
-            color: #3b82f6;
-            margin-left: 6px;
-            font-size: 18px;
+        .verified-badge {
+            color: #1d9bf0;
+            font-size: 22px;
             vertical-align: middle;
+            margin-left: 6px;
+            font-variation-settings: 'FILL' 1;
         }
 
         .settings-grid {
@@ -660,15 +624,15 @@
     <div id="profileContent" class="container" style="display:none;">
         <div class="profile-card">
             <button class="btn-top" style="left:20px; right:auto;" onclick="history.back()">
-                <i class='bx bx-arrow-back'></i>
+                <span class="material-symbols-rounded">arrow_back</span>
             </button>
             <button id="btnNotif" class="btn-top btn-notifications"
                 onclick="document.getElementById('modalNotif').classList.add('active')">
-                <i class='bx bxs-bell'></i>
+                <span class="material-symbols-rounded">notifications</span>
                 <div id="notifBadge" class="notif-badge"></div>
             </button>
             <button id="btnSettings" class="btn-top btn-settings" style="display:none;">
-                <i class='bx bxs-cog'></i>
+                <span class="material-symbols-rounded">settings</span>
             </button>
 
             <div class="avt-box">
@@ -684,20 +648,21 @@
             </div>
 
             <div class="section-box">
-                <span class="sec-title"><i class='bx bxs-quote-left'></i> Tiểu Sử</span>
+                <span class="sec-title"><span class="material-symbols-rounded" style="font-size: 18px;">format_quote</span> Tiểu Sử</span>
                 <div class="bio-box" id="dBio"></div>
             </div>
 
             <div class="section-box">
-                <span class="sec-title"><i class='bx bxs-rocket'></i> Topic Đã Tạo</span>
+                <span class="sec-title"><span class="material-symbols-rounded" style="font-size: 18px;">rocket_launch</span> Topic Đã Tạo</span>
                 <div id="topicList" class="topic-grid"></div>
             </div>
         </div>
     </div>
     <div id="modalNotif" class="modal">
         <div class="box">
-            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
-                    class='bx bx-x'></i></button>
+            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:20px; font-size:18px; font-weight:800;"> Thông báo</h3>
             <div id="reqList" style="max-height:400px; overflow-y:auto;">
                 <p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>
@@ -718,18 +683,19 @@
     </div>
     <div id="modalSettings" class="modal">
         <div class="box">
-            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')"><i
-                    class='bx bx-x'></i></button>
+            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
+                <span class="material-symbols-rounded">close</span>
+            </button>
             <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ </h3>
 
             <div class="settings-grid">
                 <label class="upload-btn">
-                    <i class='bx bxs-camera'></i>
+                    <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
                     <span>Đổi Avatar</span>
                     <input type="file" id="fAvtFile" hidden accept="image/*">
                 </label>
                 <label class="upload-btn">
-                    <i class='bx bxs-image'></i>
+                    <span class="material-symbols-rounded" style="font-size: 24px;">image</span>
                     <span>Đổi Ảnh bìa</span>
                     <input type="file" id="fCoverFile" hidden accept="image/*">
                 </label>
@@ -738,7 +704,7 @@
             <div class="inp-group">
                 <label class="inp-label">Username <span style="color:red; margin-left:4px;">*</span></label>
                 <div style="position:relative;">
-                    <i class='bx bx-at' style="position:absolute; left:14px; top:12px; color:#94a3b8;"></i>
+                    <span class="material-symbols-rounded" style="position:absolute; left:14px; top:12px; color:#94a3b8; font-size: 18px;">alternate_email</span>
                     <input type="text" id="inpUser" class="inp" placeholder="username" style="padding-left:36px;">
                 </div>
             </div>
@@ -767,20 +733,10 @@
                 </div>
             </div>
 
-            <div class="inp-group" style="margin-top:20px;">
-                <label class="inp-label">Khung Avatar (CSS)</label>
-                <div class="frame-picker" id="framePicker">
-                    <div class="frame-opt active" data-frame="none">Không</div>
-                    <div class="frame-opt" data-frame="glow">Cơ bản</div>
-                    <div class="frame-opt" data-frame="neon">Neon Pin</div>
-                    <div class="frame-opt" data-frame="royal">Hoàng gia</div>
-                    <div class="frame-opt" data-frame="glass">Thủy tinh</div>
-                </div>
-            </div>
 
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
-                <i class='bx bxs-check-circle'></i> Đăng ký tích xanh
+                <span class="material-symbols-rounded">verified</span> Đăng ký tích xanh
             </button>
 
             <button id="btnSave" class="btn-main">Lưu thay đổi</button>
@@ -815,7 +771,7 @@
 
             <button id="btnLogout"
                 style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
-                <i class='bx bx-log-out'></i> Đăng xuất
+                <span class="material-symbols-rounded" style="vertical-align: middle;">logout</span> Đăng xuất
             </button>
         </div>
     </div>
@@ -834,23 +790,25 @@
     </div>
 
     <div id="modalVerify" class="modal">
-        <div class="box" style="text-align:center;">
-            <div style="font-size:48px; margin-bottom:10px;"></div>
-            <h3 style="margin-bottom:10px; font-size:18px;">Đăng ký Verified</h3>
-            <div style="text-align:left; margin-bottom:15px;">
-                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Tên đầy
-                    đủ (Giữ tên)</label>
-                <input type="text" id="reqName" class="inp" placeholder="Ví dụ: Nguyễn Văn A"
-                    style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px; margin-bottom:10px;">
-
+        <div class="box" style="position:relative;">
+            <button onclick="document.getElementById('modalVerify').classList.remove('active')" 
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+            <h3 style="margin-bottom:20px; font-size:20px;">Đăng ký Tick Xanh</h3>
+            <div style="margin-bottom:15px">
+                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Họ và
+                    tên thật</label>
+                <input type="text" id="reqName" class="inp" placeholder="Nhập tên của bạn"
+                    style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px;">
+            </div>
+            <div style="margin-bottom:15px">
                 <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Lý do
                     cấp tick xanh</label>
                 <textarea id="reqReason" class="inp" placeholder="Vì sao bạn xứng đáng?" rows="3"
                     style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px;"></textarea>
             </div>
             <button id="btnReqVerify" class="btn-main" onclick="reqVerify()">Gửi đơn đăng ký</button>
-            <button id="btnCloseVerify" onclick="document.getElementById('modalVerify').classList.remove('active')"
-                class="btn-main" style="background:#f1f5f9; color:#475569; margin-top:10px;">Đóng</button>
         </div>
     </div>
 
@@ -984,7 +942,6 @@
                 const inpUser = document.getElementById('inpUser').value.trim();
                 const inpBio = document.getElementById('inpBio').value;
                 const activeColor = document.querySelector('.color-opt.active')?.dataset.color || 'default';
-                const activeFrame = document.querySelector('.frame-opt.active')?.dataset.frame || 'none';
 
                 if (!inpName) throw new Error("Tên hiển thị không được để trống!");
                 if (!inpUser) throw new Error("Username không được để trống!");
@@ -1031,7 +988,6 @@
                     username: inpUser,
                     bio: inpBio,
                     nameColor: activeColor,
-                    avatarFrame: activeFrame,
                     photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
                     is_setup: true
                 };
@@ -1112,7 +1068,7 @@
             document.getElementById('profileContent').style.display = 'block';
 
             const dName = document.getElementById('dName');
-            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <span class="material-symbols-rounded verified-badge">verified</span>' : '');
             
             // Apply name color
             dName.className = "user-name"; // reset
@@ -1120,12 +1076,7 @@
                 dName.classList.add(`name-color-${data.nameColor}`);
             }
 
-            // Apply avatar frame
-            const avtImg = document.getElementById('avt');
-            avtImg.className = "avt-img"; // reset to original class
-            if (data.avatarFrame) {
-                avtImg.classList.add(`frame-${data.avatarFrame}`);
-            }
+            // Avatar frame removed
 
             document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
             document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
@@ -1148,11 +1099,6 @@
                         opt.classList.toggle('active', opt.dataset.color === color);
                     });
 
-                    // Sync Frame Picker
-                    const frame = data.avatarFrame || 'none';
-                    document.querySelectorAll('.frame-opt').forEach(opt => {
-                        opt.classList.toggle('active', opt.dataset.frame === frame);
-                    });
 
                     // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
@@ -1294,7 +1240,7 @@
                                 <div class="tm-title">${displayTitle}</div>
                                 <div class="tm-meta">${isPrivate ? '🔐 Nội dung được bảo vệ' : `🔥 ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}`}</div>
                             </div>
-                            <i class='bx bx-chevron-right' style="color:#cbd5e1"></i>
+                            <span class="material-symbols-rounded" style="color:#cbd5e1">chevron_right</span>
                         </a>`;
                 });
             } catch { list.innerHTML = "<p>Lỗi tải danh sách.</p>"; }
@@ -1428,13 +1374,6 @@
             opt.classList.add('active');
         };
 
-        // Avatar Frame Picker Logic
-        document.getElementById('framePicker').onclick = (e) => {
-            const opt = e.target.closest('.frame-opt');
-            if (!opt) return;
-            document.querySelectorAll('.frame-opt').forEach(i => i.classList.remove('active'));
-            opt.classList.add('active');
-        };
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>

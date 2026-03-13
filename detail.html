@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đang tải...</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         :root {
             --primary: #2563eb;
@@ -23,7 +23,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Be Vietnam Pro', sans-serif;
+            font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -646,11 +646,11 @@
         .poll-text {
             position: relative;
             z-index: 2;
-            font-weight: 600;
+            font-weight: 800;
             display: flex;
             justify-content: space-between;
-            color: var(--text);
-            font-size: 14px;
+            color: #000;
+            font-size: 13px;
         }
 
         .poll-meta {
@@ -803,10 +803,46 @@
             width: 100%;
             padding: 12px;
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 12px;
             outline: none;
+            background: #f8fafc;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .inp-text:focus {
+            border-color: var(--primary);
             background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-up {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .btn-up:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-up .material-symbols-rounded {
+            font-size: 20px;
         }
 
         .btn-act {
@@ -883,8 +919,13 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         .skeleton::after {
@@ -1108,17 +1149,42 @@
         }
 
         /* NAME COLORS */
-        .name-color-default { color: inherit; }
-        .name-color-blue { color: #2563eb; }
-        .name-color-red { color: #dc2626; }
-        .name-color-green { color: #16a34a; }
-        .name-color-purple { color: #9333ea; }
-        .name-color-orange { color: #ea580c; }
-        .name-color-pink { color: #f472b6; }
-        
+        .name-color-default {
+            color: inherit;
+        }
+
+        .name-color-blue {
+            color: #2563eb;
+        }
+
+        .name-color-red {
+            color: #dc2626;
+        }
+
+        .name-color-green {
+            color: #16a34a;
+        }
+
+        .name-color-purple {
+            color: #9333ea;
+        }
+
+        .name-color-orange {
+            color: #ea580c;
+        }
+
+        .name-color-pink {
+            color: #f472b6;
+        }
+
         /* AVATAR FRAMES */
-        .frame-none { border: none !important; padding: 0 !important; box-shadow: none !important; border-radius: 50% !important; }
-        
+        .frame-none {
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border-radius: 50% !important;
+        }
+
         .frame-glow {
             border: 2px solid var(--primary) !important;
             padding: 1px !important;
@@ -1135,8 +1201,13 @@
         }
 
         @keyframes neon-pulse {
-            from { box-shadow: 0 0 8px rgba(255, 0, 255, 0.4) !important; }
-            to { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7) !important; }
+            from {
+                box-shadow: 0 0 8px rgba(255, 0, 255, 0.4) !important;
+            }
+
+            to {
+                box-shadow: 0 0 15px rgba(255, 0, 255, 0.7) !important;
+            }
         }
 
         .frame-royal {
@@ -1147,13 +1218,13 @@
         }
 
         .frame-glass {
-            background: rgba(255,255,255,0.2) !important;
+            background: rgba(255, 255, 255, 0.2) !important;
             backdrop-filter: blur(4px) !important;
-            border: 1px solid rgba(255,255,255,0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
             padding: 1px !important;
             border-radius: 50% !important;
         }
-    </style>
+
         input:checked+.slider {
             background-color: var(--primary);
         }
@@ -1323,7 +1394,7 @@
 </head>
 
 <body>
-    <button class="back-btn" onclick="location.href='home.html'">⬅</button>
+    <button class="back-btn" onclick="location.href='home.html'"><span class="material-symbols-rounded">arrow_back</span></button>
     <div class="header" id="topicHeader">
         <div id="headerSkeleton" class="header-skeleton">
             <div class="skeleton" style="height:250px;"></div>
@@ -1341,15 +1412,12 @@
         <img id="banner" class="cover" src="">
         <div id="adminGear" class="admin-gear">
             <button id="btnGear" class="btn-gear">
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path
-                        d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.04.17 0 .36.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.04-.22 0-.45-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
-                </svg>
+                <span class="material-symbols-rounded" style="font-size: 24px;">settings</span>
             </button>
             <div id="adminMenu" class="admin-menu">
-                <div id="btnEditTopic" class="menu-item">️ Sửa thông tin</div>
-                <div id="btnManageMembers" class="menu-item">️ Quản lý thành viên</div>
-                <div id="btnDeleteTopic" class="menu-item danger">️ Xóa Topic này</div>
+                <div id="btnEditTopic" class="menu-item"><span class="material-symbols-rounded">edit</span> Sửa thông tin</div>
+                <div id="btnManageMembers" class="menu-item"><span class="material-symbols-rounded">group</span> Quản lý thành viên</div>
+                <div id="btnDeleteTopic" class="menu-item danger"><span class="material-symbols-rounded">delete</span> Xóa Topic này</div>
             </div>
         </div>
     </div>
@@ -1363,16 +1431,16 @@
                 <span id="hostName" class="skeleton"
                     style="display:inline-block; width:100px; height:18px; vertical-align:middle; border-radius:4px;"></span>
                 <button id="btnGoChat" class="btn-act"
-                    style="margin-left:auto; width:auto; padding:6px 14px; font-size:13px; display:none; align-items:center; gap:6px;">💬
+                    style="margin-left:auto; width:auto; padding:6px 14px; font-size:13px; display:none; align-items:center; gap:6px;"><span class="material-symbols-rounded" style="font-size: 18px;">forum</span>
                     Vào phòng Chat</button>
                 <button id="btnLeaveTopicHeader" onclick="window.leaveTopic()"
-                    style="display:none; width:auto; padding:6px 14px; font-size:13px; align-items:center; gap:5px; background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; cursor:pointer; font-weight:600;">🚪
+                    style="display:none; width:auto; padding:6px 14px; font-size:13px; align-items:center; gap:5px; background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; cursor:pointer; font-weight:600;"><span class="material-symbols-rounded" style="font-size: 18px;">logout</span>
                     Rời khỏi</button>
             </div>
             <div id="desc" class="desc" style="flex-direction: column;">
                 <div
                     style="display:flex; align-items:center; gap:8px; margin-bottom:8px; width:100%; border-bottom:1px solid #93c5fd; padding-bottom:8px;">
-                    <span style="font-size:18px;">📝</span>
+                    <span class="material-symbols-rounded" style="font-size:18px;">description</span>
                     <span style="font-weight:800; color:#1e40af; font-size:16px;">Ghi chú của Admin</span>
                 </div>
                 <div id="descContent" style="width:100%;">...</div>
@@ -1401,14 +1469,15 @@
                 placeholder="Viết confession thả thính, bốc phốt..."></textarea>
 
             <button onclick="insertSpoiler('content')"
-                style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer;"
-                title="In chữ mờ">️ Chữ mờ</button>
+                style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer; display:flex; align-items:center; gap:4px;"
+                title="In chữ mờ"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span> Chữ mờ</button>
 
             <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <label id="btnUploadImg" class="btn-act"> Chọn ảnh <input type="file" id="fImg" hidden></label>
                 <label class="btn-act"
-                    style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
-                    <input type="checkbox" id="chkAnon" checked> ️ Ẩn danh
+                    style="cursor:pointer; display:flex; align-items:center; justify-content:flex-start; gap:8px; flex:1; padding-left:15px;">
+                    <input type="checkbox" id="chkAnon" checked style="width:18px; height:18px; cursor:pointer;">
+                    <span style="font-size:14px; font-weight:700;">Đăng ẩn danh</span>
                 </label>
             </div>
             <div id="fileMsg" class="file-ok"> Đã chọn ảnh</div>
@@ -1429,11 +1498,11 @@
 
     <div id="modalEditPost" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:16px;">️ Chỉnh sửa bài viết</h3>
+            <h3 style="margin-bottom:16px;"><span class="material-symbols-rounded" style="font-size: 20px; vertical-align: middle;">edit</span> Chỉnh sửa bài viết</h3>
             <textarea id="editPostContent" class="inp-area" rows="4"></textarea>
             <button onclick="insertSpoiler('editPostContent')"
-                style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer;"
-                title="In chữ mờ">️ Chữ mờ</button>
+                style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer; display:flex; align-items:center; gap:4px;"
+                title="In chữ mờ"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span> Chữ mờ</button>
 
             <img id="editImgPreview" class="edit-img-preview" src="">
 
@@ -1466,10 +1535,11 @@
                 <input type="text" class="inp-text poll-opt-inp" placeholder="Lựa chọn 2">
             </div>
             <button onclick="window.addPollOption()" class="add-opt-btn">+ Thêm lựa chọn</button>
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
-                <input type="checkbox" id="chkAnonPoll" checked style="width:16px; height:16px;">
-                <label for="chkAnonPoll" style="font-weight:600; font-size:14px;">Đăng ẩn danh</label>
-            </div>
+            <label class="btn-act"
+                style="cursor:pointer; display:flex; align-items:center; justify-content:flex-start; gap:8px; padding-left:15px; margin-bottom:15px;">
+                <input type="checkbox" id="chkAnonPoll" checked style="width:18px; height:18px; cursor:pointer;">
+                <span style="font-size:14px; font-weight:700;">Đăng ẩn danh</span>
+            </label>
             <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
                 <input type="checkbox" id="chkTermsPoll" style="margin-top:3px; cursor:pointer;">
                 <label for="chkTermsPoll" style="color:var(--text-secondary); cursor:pointer;">
@@ -1510,13 +1580,21 @@
             <select id="editCat" class="inp-text" style="background:white">
                 <option value="life"> Đời thường</option>
                 <option value="drama"> Drama</option>
-                <option value="love">️ Tình yêu</option>
+                <option value="love"> Tình yêu</option>
                 <option value="school"> Học đường</option>
                 <option value="game"> Game</option>
             </select>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
-                <label class="btn-up"> Đổi Bìa <input type="file" id="editBanner" hidden></label>
-                <label class="btn-up">️ Đổi Logo <input type="file" id="editLogo" hidden></label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
+                <label class="btn-up">
+                    <span class="material-symbols-rounded">image</span>
+                    Đổi Bìa
+                    <input type="file" id="editBanner" hidden>
+                </label>
+                <label class="btn-up">
+                    <span class="material-symbols-rounded">perm_media</span>
+                    Đổi Logo
+                    <input type="file" id="editLogo" hidden>
+                </label>
             </div>
             <label style="font-size:12px; font-weight:700; color:#64748b">Nội quy / Mô tả</label>
             <textarea id="editRules" class="inp-area" rows="3"></textarea>
@@ -1586,13 +1664,13 @@
 
     <div id="modalImageViewer" class="modal-img-viewer">
         <button class="close-img-btn"
-            onclick="document.getElementById('modalImageViewer').classList.remove('active')">×</button>
+            onclick="document.getElementById('modalImageViewer').classList.remove('active')"><span class="material-symbols-rounded">close</span></button>
         <img id="fullImage" class="full-img" src="">
     </div>
 
     <div id="notJoinedState" class="container"
         style="display:none; text-align:center; padding: 60px 20px; background:var(--surface); border-radius:16px; border:1px solid #e2e8f0; margin-top:20px;">
-        <div style="font-size:48px; margin-bottom:16px;">🔒</div>
+        <div style="font-size:48px; margin-bottom:16px; color:#64748b;"><span class="material-symbols-rounded" style="font-size: 64px;">lock</span></div>
         <h3 style="font-size:20px; margin-bottom:10px;">Bạn chưa tham gia Topic này</h3>
         <p id="notJoinedDesc" style="color:#64748b; margin-bottom:20px;">Vui lòng tham gia để có thể xem bài viết và
             bình luận.</p>
@@ -1604,9 +1682,11 @@
         <div class="box" style="max-width: 500px;">
             <button onclick="document.getElementById('modalManageMembers').classList.remove('active')"
                 style="position:absolute; top:15px; right:15px; background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; color:#64748b; display:flex; align-items:center; justify-content:center;">
-                ✖
+                <span class="material-symbols-rounded" style="font-size: 18px;">close</span>
             </button>
-            <h3 style="margin-bottom:16px; font-size:20px;">👥 Quản lý thành viên</h3>
+            <h3 style="margin-bottom:16px; font-size:20px; display:flex; align-items:center; gap:8px;">
+                <span class="material-symbols-rounded">group</span> Quản lý thành viên
+            </h3>
 
             <div style="display:flex; border-bottom:1px solid #e2e8f0; margin-bottom:10px;">
                 <button class="tab-btn active" id="tabPendingMembers" onclick="switchMemberTab('pending')"
@@ -1805,16 +1885,28 @@
                     const hostEl = document.getElementById('hostName');
                     hostEl.classList.remove('skeleton');
                     hostEl.style = ''; // Clear skeleton inline styles
-                    const actualHost = topicData.owner ? topicData.owner.split('@')[0] : "Admin";
-                    hostEl.textContent = actualHost;
-                    if (isProtected) {
-                        hostEl.style.filter = 'blur(5px)';
-                        hostEl.style.userSelect = 'none';
-                        hostEl.title = 'Tham gia Topic để xem chi tiết';
+
+                    const renderHost = (name, color) => {
+                        hostEl.textContent = name;
+                        hostEl.className = `name-color-${color}`;
+                        if (isProtected) {
+                            hostEl.style.filter = 'blur(5px)';
+                            hostEl.style.userSelect = 'none';
+                            hostEl.title = 'Tham gia Topic để xem chi tiết';
+                        } else {
+                            hostEl.style.filter = 'none';
+                            hostEl.style.userSelect = 'auto';
+                            hostEl.title = '';
+                        }
+                    };
+
+                    const fallbackHost = topicData.owner ? topicData.owner.split('@')[0] : "Admin";
+                    if (topicData.authorId) {
+                        window.getLatestUserInfo(topicData.authorId, fallbackHost, '').then(info => {
+                            renderHost(info.name, info.color);
+                        });
                     } else {
-                        hostEl.style.filter = 'none';
-                        hostEl.style.userSelect = 'auto';
-                        hostEl.title = '';
+                        renderHost(fallbackHost, 'default');
                     }
 
                     // CHAT BUTTON VISIBILITY
@@ -2015,11 +2107,17 @@
 
         document.getElementById('btnSubmitPoll').onclick = async function () {
             const q = document.getElementById('pollQuestion').value.trim();
-            if (!document.getElementById('chkTermsPoll').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
             if (!q) return window.showToast("Nhập câu hỏi!", "️");
-            let opts = {}; let has = false;
-            document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => { const v = i.value.trim(); if (v) { opts[`opt_${idx}`] = { text: v, count: 0 }; has = true; } });
-            if (!has) return window.showToast("Nhập lựa chọn!", "️");
+            if (!document.getElementById('chkTermsPoll').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
+            
+            let opts = [];
+            document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => { 
+                const v = i.value.trim(); 
+                if (v) { 
+                    opts.push({ id: idx, text: v, votes: [] }); 
+                } 
+            });
+            if (opts.length < 2) return window.showToast("Nhập ít nhất 2 lựa chọn!", "️");
             document.getElementById('modalPoll').classList.remove('active');
 
             let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
@@ -2105,69 +2203,54 @@
             this.disabled = false;
         }
 
-        // VOTE POLL LOGIC
-        window.votePoll = async (pid, key) => {
+        // VOTE POLL LOGIC (PORTED FROM CHAT)
+        window.votePoll = async (pid, optId) => {
             if (!currentUser) return window.showToast("Đăng nhập để vote!", "");
-            if (userVotes[pid] === key) return;
-
-            const optBtn = document.getElementById(`poll-${pid}-${key}`);
-            const meta = document.querySelector(`#post-${pid} .poll-meta`);
-
-            if (optBtn) {
-                optBtn.classList.add('voted');
-                const txtPct = optBtn.querySelector('.poll-text span:last-child');
-                if (txtPct) {
-                    txtPct.style.fontWeight = "bold";
-                    txtPct.style.color = "var(--primary)";
-                }
-            }
-            if (meta) {
-                let currentTotal = parseInt(meta.textContent) || 0;
-                meta.textContent = `${currentTotal + 1} lượt chọn`;
-            }
-
-            const voteRef = doc(db, "posts", pid, "votes", currentUser.uid);
+            
             const postRef = doc(db, "posts", pid);
-            runTransaction(db, async (t) => {
-                const vDoc = await t.get(voteRef); const pDoc = await t.get(postRef);
-                let opts = pDoc.data().pollOptions; let total = pDoc.data().totalVotes;
-                if (vDoc.exists()) {
-                    const old = vDoc.data().option;
-                    if (old === key) return;
-                    opts[old].count = Math.max(0, opts[old].count - 1);
-                    opts[key].count++;
-                    t.update(voteRef, { option: key });
-                } else {
-                    opts[key].count++; total++;
-                    t.set(voteRef, { option: key });
+            const pDoc = await getDoc(postRef);
+            if (!pDoc.exists()) return;
+
+            let opts = pDoc.data().pollOptions;
+            if (!Array.isArray(opts)) return window.showToast("Bình chọn này sử dụng phiên bản cũ!", "");
+
+            // Logic: remove from any other option, add to this one
+            opts.forEach(o => {
+                if (o.votes.includes(currentUser.uid)) {
+                    o.votes = o.votes.filter(v => v !== currentUser.uid);
                 }
-                t.update(postRef, { pollOptions: opts, totalVotes: total });
-                userVotes[pid] = key;
-            }).catch(e => { });
+            });
+            
+            opts[optId].votes.push(currentUser.uid);
+            const total = opts.reduce((a, b) => a + b.votes.length, 0);
+
+            await updateDoc(postRef, { pollOptions: opts, totalVotes: total });
+            userVotes[pid] = optId;
         }
 
         // REACTION LOGIC
         window.handleReaction = async (pid, type) => {
             if (!currentUser) return window.showToast("Cần đăng nhập!", "");
             const btn = document.getElementById(`btn-react-${pid}-${type}`);
+            if (!btn) return;
 
-            if (btn) {
-                if (btn.classList.contains('active')) {
-                    btn.classList.remove('active');
-                    let txt = btn.textContent.split(" ");
-                    btn.innerHTML = `${txt[0]} ${Math.max(0, parseInt(txt[1]) - 1)}`;
-                } else {
-                    const parent = btn.parentElement;
-                    const currentActive = parent.querySelector('.reaction-btn.active');
-                    if (currentActive) {
-                        currentActive.classList.remove('active');
-                        let txtOld = currentActive.textContent.split(" ");
-                        currentActive.innerHTML = `${txtOld[0]} ${Math.max(0, parseInt(txtOld[1]) - 1)}`;
-                    }
-                    btn.classList.add('active');
-                    let txt = btn.textContent.split(" ");
-                    btn.innerHTML = `${txt[0]} ${parseInt(txt[1]) + 1}`;
+            const countEl = btn.querySelector('.react-count');
+            const isActive = btn.classList.contains('active');
+
+            // Optimistic UI Update
+            if (isActive) {
+                btn.classList.remove('active');
+                if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+            } else {
+                const parent = btn.parentElement;
+                const currentActive = parent.querySelector('.reaction-btn.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                    const oldInC = currentActive.querySelector('.react-count');
+                    if (oldInC) oldInC.textContent = Math.max(0, parseInt(oldInC.textContent) - 1);
                 }
+                btn.classList.add('active');
+                if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
             }
 
             const reactionRef = doc(db, "posts", pid, "user_reactions", currentUser.uid);
@@ -2192,7 +2275,7 @@
                     transaction.set(reactionRef, { type: type });
                 }
                 transaction.update(postRef, { reactions: reactions });
-            }).catch(e => { });
+            }).catch(e => { console.error("Reaction failed:", e); });
         };
 
         window.viewImage = (src) => {
@@ -2219,8 +2302,8 @@
                 const docSnap = await getDoc(doc(db, "users", uid));
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    const info = { 
-                        name: data.displayName || data.email?.split('@')[0] || "Cư dân", 
+                    const info = {
+                        name: data.displayName || data.email?.split('@')[0] || "Cư dân",
                         avt: data.photoURL || MISSING_AVATAR,
                         color: data.nameColor || 'default',
                         frame: data.avatarFrame || 'none'
@@ -2265,13 +2348,8 @@
                                 const b = document.getElementById(`btn-react-${pid}-${d.data().type}`); if (b) b.classList.add('active');
                             }
                         });
-                        getDoc(doc(db, "posts", pid, "votes", currentUser.uid)).then(d => {
-                            if (d.exists()) {
-                                const k = d.data().option;
-                                userVotes[pid] = k;
-                                const b = document.getElementById(`poll-${pid}-${k}`); if (b) b.classList.add('voted');
-                            }
-                        })
+                        // User vote state is now handled in the rendering logic below 
+                        // by checking the 'votes' array within pollOptions
                     });
                 }
 
@@ -2315,20 +2393,34 @@
                         const finalPostColor = dynamicPostInfo.color;
                         const finalPostFrame = dynamicPostInfo.frame;
 
-                        let trashBtn = (isMine || isAdmin) ? `<button class="btn-icon btn-trash" onclick="window.deletePost('${pid}')">🗑️</button>` : '';
-                        let editBtn = (isMine) ? `<button class="btn-icon btn-edit" onclick="window.openEditPost('${pid}', '${data.type}', '${imgUrl}')">✏️</button>` : '';
-                        let reportBtn = `<button class="btn-icon btn-report" onclick="window.openReport('${pid}')">🚩</button>`;
-                        let pinBtn = isAdmin ? `<button class="btn-icon btn-pin ${data.pinned ? 'active' : ''}" onclick="window.togglePin('${pid}', ${data.pinned})">📌</button>` : '';
+                        let trashBtn = (isMine || isAdmin) ? `<button class="btn-icon btn-trash" onclick="window.deletePost('${pid}')"><span class="material-symbols-rounded" style="font-size: 20px;">delete</span></button>` : '';
+                        let editBtn = (isMine) ? `<button class="btn-icon btn-edit" onclick="window.openEditPost('${pid}', '${data.type}', '${imgUrl}')"><span class="material-symbols-rounded" style="font-size: 20px;">edit</span></button>` : '';
+                        let reportBtn = `<button class="btn-icon btn-report" onclick="window.openReport('${pid}')"><span class="material-symbols-rounded" style="font-size: 20px;">report</span></button>`;
+                        let pinBtn = isAdmin ? `<button class="btn-icon btn-pin ${data.pinned ? 'active' : ''}" onclick="window.togglePin('${pid}', ${data.pinned})"><span class="material-symbols-rounded" style="font-size: 20px;">push_pin</span></button>` : '';
 
                         let pinBadge = data.pinned ? `<div class="pin-badge"> Đã ghim</div>` : '';
                         let pinClass = data.pinned ? 'pinned' : '';
 
                         let contentBody = `<div class="post-content">${window.linkifyText(data.content)}</div>`;
                         if (data.type === 'poll' && data.pollOptions) {
-                            let pollHtml = ''; const total = data.totalVotes || 0;
-                            for (const [key, val] of Object.entries(data.pollOptions)) {
-                                const pct = total === 0 ? 0 : Math.round((val.count / total) * 100);
-                                pollHtml += `<div class="poll-opt-btn" id="poll-${pid}-${key}" onclick="window.votePoll('${pid}', '${key}')"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
+                            let pollHtml = ''; 
+                            const opts = data.pollOptions;
+                            const total = data.totalVotes || 0;
+                            
+                            if (Array.isArray(opts)) {
+                                opts.forEach(val => {
+                                    const count = val.votes ? val.votes.length : 0;
+                                    const pct = total === 0 ? 0 : Math.round((count / total) * 100);
+                                    const isVoted = currentUser && val.votes && val.votes.includes(currentUser.uid);
+                                    const votedClass = isVoted ? 'voted' : '';
+                                    pollHtml += `<div class="poll-opt-btn ${votedClass}" id="poll-${pid}-${val.id}" onclick="window.votePoll('${pid}', ${val.id})"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
+                                });
+                            } else {
+                                // Fallback for old map-based polls
+                                for (const [key, val] of Object.entries(opts)) {
+                                    const pct = total === 0 ? 0 : Math.round((val.count / total) * 100);
+                                    pollHtml += `<div class="poll-opt-btn" id="poll-${pid}-${key}" onclick="window.showToast('Bình chọn này quá cũ!')"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
+                                }
                             }
                             contentBody += `<div class="poll-container">${pollHtml}<div class="poll-meta">${total} lượt chọn</div></div>`;
                         } else if (data.image) {
@@ -2380,9 +2472,9 @@
                                 ${contentBody}
                                 <div class="post-footer">
                                     <div class="reaction-bar">
-                                        <div class="reaction-btn" id="btn-react-${pid}-heart" onclick="window.handleReaction('${pid}', 'heart')">❤️ ${r.heart || 0}</div>
-                                        <div class="reaction-btn" id="btn-react-${pid}-sad" onclick="window.handleReaction('${pid}', 'sad')">😢 ${r.sad || 0}</div>
-                                        <div class="reaction-btn" id="btn-react-${pid}-laugh" onclick="window.handleReaction('${pid}', 'laugh')">😂 ${r.laugh || 0}</div>
+                                        <div class="reaction-btn" id="btn-react-${pid}-heart" onclick="window.handleReaction('${pid}', 'heart')"><span class="material-symbols-rounded" style="font-size: 18px; color:#ff4757; font-variation-settings: 'FILL' 1">favorite</span> <span class="react-count">${r.heart || 0}</span></div>
+                                        <div class="reaction-btn" id="btn-react-${pid}-sad" onclick="window.handleReaction('${pid}', 'sad')"><span class="material-symbols-rounded" style="font-size: 18px; color:#2563eb;">sentiment_very_dissatisfied</span> <span class="react-count">${r.sad || 0}</span></div>
+                                        <div class="reaction-btn" id="btn-react-${pid}-laugh" onclick="window.handleReaction('${pid}', 'laugh')"><span class="material-symbols-rounded" style="font-size: 18px; color:#f59e0b;">sentiment_very_satisfied</span> <span class="react-count">${r.laugh || 0}</span></div>
                                         <span onclick="window.openAllCommentsModal('${pid}', ${totalCmt})" style="margin-left:auto; font-size:12px; color:var(--gray); cursor:pointer;">${totalCmt} bình luận</span>
                                     </div>
                                     ${previewHtml}
