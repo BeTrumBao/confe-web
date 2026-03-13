@@ -10,7 +10,7 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary-grad: linear-gradient(135deg, #0084ff 0%, #3bb2ff 100%);
+            --primary: #0084ff;
             --bg: #ffffff;
             --surface: #f7f9fc;
             --bubble-mine: #0084ff;
@@ -62,7 +62,7 @@
         }
 
         .btn-main {
-            background: var(--primary-grad);
+            background: var(--primary);
             color: white;
             border: none;
             padding: 10px 16px;
@@ -161,6 +161,10 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        input, button, textarea, select {
+            font-family: inherit;
+        }
+
         html,
         body {
             height: 100dvh;
@@ -189,10 +193,7 @@
         .header-title {
             font-size: 20px;
             font-weight: 800;
-            background: var(--primary-grad);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             letter-spacing: -0.5px;
         }
 
@@ -597,23 +598,20 @@
             overflow: hidden;
         }
 
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
         .skeleton-bubble::after,
         .skeleton-avt::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(100%);
-            }
+            background: #e2e8f0;
+            background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
         }
 
         .chat-empty {
@@ -644,6 +642,53 @@
             color: var(--gray);
             max-width: 240px;
             line-height: 1.5;
+        }
+
+        /* NAME COLORS */
+        .name-color-default { color: inherit; }
+        .name-color-blue { color: #2563eb; }
+        .name-color-red { color: #dc2626; }
+        .name-color-green { color: #16a34a; }
+        .name-color-purple { color: #9333ea; }
+        .name-color-orange { color: #ea580c; }
+        .name-color-pink { color: #f472b6; }
+        
+        /* AVATAR FRAMES */
+        .frame-none { border: none; padding: 0; box-shadow: none; border-radius: 50% !important; }
+        
+        .frame-glow {
+            border: 2px solid var(--primary);
+            padding: 1px;
+            box-shadow: 0 0 10px rgba(0, 87, 219, 0.4);
+            border-radius: 50% !important;
+        }
+
+        .frame-neon {
+            border: 2px solid #ff00ff;
+            padding: 1px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+            animation: neon-pulse 1.5s infinite alternate;
+            border-radius: 50% !important;
+        }
+
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 8px rgba(255, 0, 255, 0.4); }
+            to { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
+        }
+
+        .frame-royal {
+            border: 2px double #fbbf24;
+            padding: 2px;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+            border-radius: 50% !important;
+        }
+
+        .frame-glass {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 2px;
+            border-radius: 50% !important;
         }
     </style>
     <!-- Security Enhancements -->
@@ -834,7 +879,7 @@
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
                     <label
-                        style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block; text-transform:uppercase;">Câu
+                        style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">Câu
                         hỏi</label>
                     <input type="text" id="pollQ" class="inp"
                         style="border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500;"
@@ -842,7 +887,7 @@
                 </div>
                 <div id="pollOptionsContainer" style="display:flex; flex-direction:column; gap:8px;">
                     <label
-                        style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block; text-transform:uppercase;">Lựa
+                        style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">Lựa
                         chọn</label>
                     <input type="text" class="inp poll-opt-inp"
                         style="border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500;"
@@ -886,7 +931,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
-            getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit,
+            getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
             updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -963,10 +1008,14 @@
                 currentUser.photoURL = ud.photoURL || ANON_AVATAR;
                 currentUser.isVerified = !!ud.isVerified; // Force boolean
                 currentUser.displayName = ud.displayName || u.displayName || u.email?.split('@')[0];
+                window.myNameColor = ud.nameColor || 'default';
+                window.myAvatarFrame = ud.avatarFrame || 'none';
             } else {
                 currentUser.photoURL = ANON_AVATAR;
                 currentUser.isVerified = false;
                 currentUser.displayName = u.displayName || u.email?.split('@')[0];
+                window.myNameColor = 'default';
+                window.myAvatarFrame = 'none';
             }
             loadMessages();
             initTypingListener();
@@ -1102,7 +1151,7 @@
             document.getElementById('msgInput').value = '';
             let imgUrl = ""; if (selectedFile) { imgUrl = await uploadImage(selectedFile); clearImage(); }
             if (isEditing && editingMsgId) {
-                await updateDoc(doc(db, "public_chat", editingMsgId), { text: txt, isEdited: true });
+                await updateDoc(doc(db, CHAT_COL, editingMsgId), { text: txt, isEdited: true });
                 cancelEdit(); return;
             }
 
@@ -1110,6 +1159,8 @@
                 text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
                 uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                 isVerified: currentUser.isVerified || false,
+                nameColor: window.myNameColor || 'default',
+                avatarFrame: window.myAvatarFrame || 'none',
                 createdAt: serverTimestamp(), likes: []
             };
 
@@ -1304,49 +1355,142 @@
 
             const verifiedHtml = isVerified ? '<i class="bx bxs-check-circle" style="color:#3b82f6; font-size:12px; margin-left:3px; vertical-align:middle;"></i>' : '';
             const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}</div>`;
+            
+            const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
+            const avatarFrameClass = msg.avatarFrame ? `frame-${msg.avatarFrame}` : '';
 
             return `<div class="msg-row ${rowClass}" id="msg-${docId}">
-                ${!isMine ? `<img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'">` : ''}
+                ${!isMine ? `<img src="${msg.avatar}" class="msg-avt ${avatarFrameClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'">` : ''}
                 <div class="msg-content-wrapper">
-                    ${!isMine ? `<div class="msg-name" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${verifiedHtml}</div>` : ''}
+                    ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${verifiedHtml}</div>` : ''}
                     ${contentHtml}${statusHtml}
                 </div>
             </div>`;
         }
 
+        let messageLimit = 40;
+        let unsubscribeMessages = null;
+        let lastScrollHeight = 0;
+        let isFetchingOlder = false;
+        let hasMoreMessages = true;
+        let loadedDocIds = new Set();
+
         function loadMessages() {
-            const q = query(collection(db, CHAT_COL), orderBy("createdAt", "asc"), limit(100));
-            onSnapshot(q, (snapshot) => {
+            if (unsubscribeMessages) unsubscribeMessages();
+
+            const q = query(collection(db, CHAT_COL), orderBy("createdAt", "asc"), limitToLast(messageLimit));
+            
+            unsubscribeMessages = onSnapshot(q, (snapshot) => {
                 const box = document.getElementById('chatBox');
                 if (document.getElementById('chatSkeleton')) document.getElementById('chatSkeleton').remove();
 
-                // EMPTY STATE CHECK
-                const existingEmpty = box.querySelector('.chat-empty');
                 if (snapshot.empty) {
-                    if (!existingEmpty) {
-                        box.innerHTML = `
-                            <div class="chat-empty">
-                                <div class="chat-empty-icon">💬</div>
-                                <div class="chat-empty-title">Chưa có tin nhắn nào</div>
-                                <div class="chat-empty-desc">Hãy là người đầu tiên gửi lời chào trong phòng chat này nhé!</div>
-                            </div>
-                        `;
+                    if (!box.querySelector('.chat-empty')) {
+                        box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon">💬</div><div class="chat-empty-title">Chưa có tin nhắn nào</div></div>`;
                     }
                     return;
-                } else if (existingEmpty) {
-                    existingEmpty.remove();
+                } else {
+                    const empty = box.querySelector('.chat-empty');
+                    if (empty) empty.remove();
                 }
 
-                let shouldScroll = box.scrollTop + box.clientHeight >= box.scrollHeight - 50;
-                snapshot.docChanges().forEach((change) => {
-                    const msg = change.doc.data(); const docId = change.doc.id;
-                    if (change.type === "added") { box.insertAdjacentHTML('beforeend', renderMessage(docId, msg)); if (msg.uid === currentUser.uid) shouldScroll = true; }
-                    if (change.type === "modified") { const ex = document.getElementById(`msg-${docId}`); if (ex) ex.outerHTML = renderMessage(docId, msg); }
-                    if (change.type === "removed") { const ex = document.getElementById(`msg-${docId}`); if (ex) ex.remove(); }
+                // If we got fewer docs than the limit, we've reached the beginning
+                if (snapshot.size < messageLimit) {
+                    hasMoreMessages = false;
+                }
+
+                const oldHeight = box.scrollHeight;
+                const wasAtBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 50;
+
+                // Process changes
+                const changes = snapshot.docChanges();
+                
+                // Sort added changes by createdAt to ensure correct insertion order if needed
+                // But onSnapshot normally gives them in order.
+                
+                changes.forEach((change) => {
+                    const docId = change.doc.id;
+                    const msg = change.doc.data();
+
+                    if (change.type === "added") {
+                        if (!loadedDocIds.has(docId)) {
+                            loadedDocIds.add(docId);
+                            // If it's the first load or a new message at the bottom
+                            const messageHtml = renderMessage(docId, msg);
+                            
+                            // Check if this is an "older" message being added due to limit increase
+                            // We determine this by comparing createdAt with the newest message we have?
+                            // Simple way: if we are "isFetchingOlder", we prepend. Otherwise append.
+                            // But docChanges for a NEW listener (limit increase) will have ALL as "added".
+                            
+                            // Let's use a more robust way: find where to insert.
+                            // For simplicity with insertAdjacentHTML, we'll append if newest, prepend if oldest.
+                            // Actually, just maintain a sorted list in the DOM is hard.
+                            
+                            // Alternative: Clear and re-render if it's a structural change, 
+                            // or just use a simple append for now and fix ordering.
+                            
+                            box.insertAdjacentHTML('beforeend', messageHtml);
+                        }
+                    } else if (change.type === "modified") {
+                        const el = document.getElementById(`msg-${docId}`);
+                        if (el) el.outerHTML = renderMessage(docId, msg);
+                    } else if (change.type === "removed") {
+                        const el = document.getElementById(`msg-${docId}`);
+                        if (el) el.remove();
+                    }
                 });
-                if (shouldScroll) setTimeout(() => box.scrollTop = box.scrollHeight, 100);
+
+                // Sort the messages in the DOM based on their timestamp data attribute or similar
+                // Or just rebuild the whole list for simplicity when the limit changes.
+                if (isFetchingOlder) {
+                    rebuildChatBox(snapshot.docs);
+                    box.scrollTop = box.scrollHeight - oldHeight;
+                    isFetchingOlder = false;
+                } else {
+                    // Improved scrolling: try immediately and after short delays for images
+                    const triggerScroll = () => {
+                        if (wasAtBottom || loadedDocIds.size <= messageLimit) {
+                            box.scrollTop = box.scrollHeight;
+                        }
+                    };
+                    
+                    triggerScroll();
+                    setTimeout(triggerScroll, 100);
+                    setTimeout(triggerScroll, 300);
+                    setTimeout(triggerScroll, 1000); // Final insurance for slow images
+                }
             });
         }
+
+        function rebuildChatBox(docs) {
+            const box = document.getElementById('chatBox');
+            box.innerHTML = '';
+            loadedDocIds.clear();
+            docs.forEach(doc => {
+                box.insertAdjacentHTML('beforeend', renderMessage(doc.id, doc.data()));
+                loadedDocIds.add(doc.id);
+            });
+        }
+
+        // Add scroll listener for infinite scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const box = document.getElementById('chatBox');
+            box.onscroll = () => {
+                if (box.scrollTop === 0 && hasMoreMessages && !isFetchingOlder) {
+                    isFetchingOlder = true;
+                    messageLimit += 30;
+                    loadMessages();
+                }
+                
+                const btnScroll = document.getElementById('btnScrollBottom');
+                if (box.scrollHeight - box.scrollTop - box.clientHeight > 200) {
+                    btnScroll.style.display = 'flex';
+                } else {
+                    btnScroll.style.display = 'none';
+                }
+            };
+        });
         window.viewImg = (src) => { document.getElementById('fullImg').src = src; document.getElementById('modalImg').classList.add('active'); }
         // GLOBAL FILE INPUT TOAST
         document.body.addEventListener('change', (e) => {

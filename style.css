@@ -80,9 +80,7 @@ textarea {
 .nav-logo {
     font-size: 24px;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary);
     letter-spacing: -0.5px;
 }
 
@@ -414,7 +412,7 @@ textarea {
 .hero {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(180deg, #dbeafe 0%, var(--bg) 100%);
+    background: #dbeafe;
 }
 
 .hero h1 {
@@ -670,7 +668,7 @@ textarea {
 
 .btn-agree {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary), #1e40af);
+    background: var(--primary);
     color: white;
     border: none;
     padding: 14px;

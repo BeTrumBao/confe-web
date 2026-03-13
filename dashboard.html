@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -11,14 +11,13 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-grad: linear-gradient(135deg, #2563eb, #7c3aed);
+            --primary: #0057db;
             --bg: #f0f4ff;
             --surface: #ffffff;
-            --text: #0f172a;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --radius: 20px;
+            --text: #1a1c1e;
+            --text-secondary: #43474e;
+            --border: #c3c7cf;
+            --radius: 28px;
         }
 
         * {
@@ -82,14 +81,11 @@
         .logo-row span {
             font-size: 18px;
             font-weight: 800;
-            background: var(--primary-grad);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .greeting-card {
-            background: var(--primary-grad);
+            background: var(--primary);
             border-radius: var(--radius);
             padding: 28px 24px;
             color: white;
@@ -142,7 +138,6 @@
             font-size: 14px;
             font-weight: 800;
             color: var(--text-secondary);
-            text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 14px;
             display: flex;
@@ -171,7 +166,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background: rgba(255, 255, 255, 0.4);
             animation: skel-load 1.2s infinite;
         }
 
@@ -306,8 +301,7 @@
         }
 
         .skeleton {
-            background: linear-gradient(90deg, var(--border) 25%, var(--bg) 50%, var(--border) 75%);
-            background-size: 200% 100%;
+            background: var(--border);
             animation: shimmer 1.2s infinite;
             border-radius: 8px;
         }
@@ -391,7 +385,7 @@
             align-items: center;
             gap: 6px;
             padding: 10px 20px;
-            background: var(--primary-grad);
+            background: var(--primary);
             color: white;
             border-radius: 100px;
             font-weight: 700;
@@ -768,11 +762,11 @@
                 <div class="nav-card-desc">Xem và chỉnh sửa trang cá nhân</div>
             </div>
         </a>
-        <a class="nav-card" onclick="showToast('Sắp có điều bất ngờ thú vị!')">
-            <div class="nav-card-icon" style="background: #f3f4f6;">❓</div>
+        <a class="nav-card" onclick="go('reviewtest.html', this)">
+            <div class="nav-card-icon" style="background: #ede9fe;">📚</div>
             <div>
-                <div class="nav-card-title">???</div>
-                <div class="nav-card-desc">Coming Soon</div>
+                <div class="nav-card-title">Ôn Tập</div>
+                <div class="nav-card-desc">Trắc nghiệm & đấu 1v1</div>
             </div>
         </a>
         <a class="nav-card" onclick="document.getElementById('modalFeedback').classList.add('active')">

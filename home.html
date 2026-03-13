@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -11,19 +11,19 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
+            --primary: #0057db;
             --on-primary: #ffffff;
-            --primary-container: #dbeafe;
-            --on-primary-container: #1e40af;
+            --primary-container: #dce8ff;
+            --on-primary-container: #001849;
             --surface: #ffffff;
-            --surface-container: #f1f5f9;
-            --surface-variant: #e2e8f0;
-            --outline: #cbd5e1;
-            --text: #0f172a;
-            --text-secondary: #64748b;
+            --surface-container: #f0f4ff;
+            --surface-variant: #dfe2eb;
+            --outline: #c3c7cf;
+            --text: #1a1c1e;
+            --text-secondary: #43474e;
             --danger: #ef4444;
             --warn: #f59e0b;
-            --radius-l: 24px;
+            --radius-l: 28px;
             --radius-m: 16px;
             --radius-s: 12px;
         }
@@ -180,7 +180,7 @@
         .hero {
             padding: 40px 20px 20px;
             text-align: center;
-            background: linear-gradient(180deg, var(--surface) 0%, var(--surface-container) 100%);
+            background: var(--surface);
         }
 
         .hero h1 {
@@ -366,7 +366,7 @@
         .mini-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            background: rgba(0, 0, 0, 0.7);
             padding: 12px;
             display: flex;
             flex-direction: column;
@@ -511,7 +511,6 @@
             font-weight: 700;
             padding: 4px 8px;
             border-radius: 6px;
-            text-transform: uppercase;
             background: var(--surface-container);
             color: var(--text-secondary);
         }
@@ -884,7 +883,6 @@
             color: var(--text-secondary);
             font-weight: 700;
             margin-bottom: 2px;
-            text-transform: uppercase;
         }
 
         .skeleton {
@@ -893,22 +891,19 @@
             overflow: hidden;
         }
 
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
         .skeleton::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(100%);
-            }
+            background: #e2e8f0;
+            background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
         }
 
         @keyframes fadeIn {
@@ -943,20 +938,57 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .frame-none { border: none; padding: 0; box-shadow: none; border-radius: 50% !important; }
+        
+        .frame-glow {
+            border: 2px solid var(--primary);
+            padding: 1px;
+            box-shadow: 0 0 10px rgba(0, 87, 219, 0.4);
+            border-radius: 50% !important;
+        }
+
+        .frame-neon {
+            border: 2px solid #ff00ff;
+            padding: 1px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+            animation: neon-pulse 1.5s infinite alternate;
+            border-radius: 50% !important;
+        }
+
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 5px rgba(255, 0, 255, 0.4); }
+            to { box-shadow: 0 0 12px rgba(255, 0, 255, 0.7); }
+        }
+
+        .frame-royal {
+            border: 1.5px double #fbbf24;
+            padding: 1.5px;
+            box-shadow: 0 0 5px rgba(251, 191, 36, 0.3);
+            border-radius: 50% !important;
+        }
+
+        .frame-glass {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 1.5px;
+            border-radius: 50% !important;
+        }
+
         .rank-1 {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
+            background: #ffd700;
             color: #7c2d12;
             border: 1px solid #fbbf24;
         }
 
         .rank-2 {
-            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+            background: #e2e8f0;
             color: #1e293b;
             border: 1px solid #cbd5e1;
         }
 
         .rank-3 {
-            background: linear-gradient(135deg, #f97316, #c2410c);
+            background: #f97316;
             color: #fff;
             border: 1px solid #fdba74;
         }
@@ -1317,7 +1349,14 @@
             if (nav) {
                 if (u) {
                     let avt = "https://via.placeholder.com/40";
-                    try { const d = await getDoc(doc(db, "users", u.uid)); if (d.exists()) avt = d.data().photoURL || avt; } catch { }
+                    let frame = 'none';
+                    try { 
+                        const d = await getDoc(doc(db, "users", u.uid)); 
+                        if (d.exists()) {
+                            avt = d.data().photoURL || avt; 
+                            frame = d.data().avatarFrame || 'none';
+                        }
+                    } catch { }
                     const guestBanner = u.isAnonymous ? `
                         <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
                              <b>👤 Tư cách khách</b><br>
@@ -1325,7 +1364,7 @@
                         </a>` : '';
                     nav.innerHTML = `
                         <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
-                            <img src="${avt}" class="nav-avt">
+                            <img src="${avt}" class="nav-avt frame-${frame}">
                             <div class="dropdown-menu">
                                 ${guestBanner}
                                 <a href="profile.html?uid=${u.uid}" class="menu-item">👤 Hồ sơ của tôi</a>

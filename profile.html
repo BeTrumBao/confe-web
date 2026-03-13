@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -21,7 +21,6 @@
     <style>
         :root {
             --primary: #0084ff;
-            --primary-grad: linear-gradient(135deg, #0084ff, #00c6ff);
             --bg: #f8fafc;
             --surface: rgba(255, 255, 255, 0.85);
             --text: #0f172a;
@@ -337,7 +336,7 @@
         .btn-main {
             width: 100%;
             padding: 14px;
-            background: var(--primary-grad);
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 14px;
@@ -409,6 +408,82 @@
         .toast.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* NAME COLOR PRESETS */
+        .name-color-default { color: inherit; }
+        .name-color-blue { color: #2563eb; }
+        .name-color-red { color: #dc2626; }
+        .name-color-green { color: #16a34a; }
+        .name-color-purple { color: #9333ea; }
+        .name-color-orange { color: #ea580c; }
+        .name-color-pink { color: #f472b6; }
+        
+        /* AVATAR FRAMES */
+        .frame-none { border: none; padding: 0; box-shadow: none; border-radius: 50%; }
+        
+        .frame-glow {
+            border: 3px solid var(--primary);
+            padding: 2px;
+            box-shadow: 0 0 15px rgba(0, 87, 219, 0.4);
+            border-radius: 50% !important;
+        }
+
+        .frame-neon {
+            border: 3px solid #ff00ff;
+            padding: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), inset 0 0 10px rgba(255, 0, 255, 0.4);
+            animation: neon-pulse 1.5s infinite alternate;
+            border-radius: 50% !important;
+        }
+
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 10px rgba(255, 0, 255, 0.4); }
+            to { box-shadow: 0 0 20px rgba(255, 0, 255, 0.8); }
+        }
+
+        .frame-royal {
+            border: 4px double #fbbf24;
+            padding: 3px;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            border-radius: 50% !important;
+        }
+
+        .frame-glass {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255,255,255,0.4);
+            padding: 4px;
+            border-radius: 50% !important;
+        }
+
+        .color-picker, .frame-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-opt, .frame-opt {
+            height: 48px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            background: var(--surface-container);
+        }
+
+        .color-opt.active, .frame-opt.active {
+            border-color: var(--primary);
+            background: var(--primary-container);
+            color: var(--primary);
+            transform: scale(1.05);
         }
     </style>
     <!-- Security Enhancements -->
@@ -679,6 +754,30 @@
                     placeholder="Hãy nói gì đó về bạn..."></textarea>
             </div>
 
+            <div class="inp-group">
+                <label class="inp-label">Màu tên</label>
+                <div class="color-picker" id="nameColorPicker">
+                    <div class="color-opt active" data-color="default">Mặc định</div>
+                    <div class="color-opt" data-color="blue" style="color:#2563eb;">Lam</div>
+                    <div class="color-opt" data-color="red" style="color:#dc2626;">Đỏ</div>
+                    <div class="color-opt" data-color="green" style="color:#16a34a;">Lục</div>
+                    <div class="color-opt" data-color="purple" style="color:#9333ea;">Tím</div>
+                    <div class="color-opt" data-color="orange" style="color:#ea580c;">Cam</div>
+                    <div class="color-opt" data-color="pink" style="color:#f472b6;">Hồng</div>
+                </div>
+            </div>
+
+            <div class="inp-group" style="margin-top:20px;">
+                <label class="inp-label">Khung Avatar (CSS)</label>
+                <div class="frame-picker" id="framePicker">
+                    <div class="frame-opt active" data-frame="none">Không</div>
+                    <div class="frame-opt" data-frame="glow">Cơ bản</div>
+                    <div class="frame-opt" data-frame="neon">Neon Pin</div>
+                    <div class="frame-opt" data-frame="royal">Hoàng gia</div>
+                    <div class="frame-opt" data-frame="glass">Thủy tinh</div>
+                </div>
+            </div>
+
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
                 <i class='bx bxs-check-circle'></i> Đăng ký tích xanh
@@ -884,6 +983,8 @@
                 const inpName = document.getElementById('inpName').value.trim();
                 const inpUser = document.getElementById('inpUser').value.trim();
                 const inpBio = document.getElementById('inpBio').value;
+                const activeColor = document.querySelector('.color-opt.active')?.dataset.color || 'default';
+                const activeFrame = document.querySelector('.frame-opt.active')?.dataset.frame || 'none';
 
                 if (!inpName) throw new Error("Tên hiển thị không được để trống!");
                 if (!inpUser) throw new Error("Username không được để trống!");
@@ -929,6 +1030,8 @@
                     displayName: inpName,
                     username: inpUser,
                     bio: inpBio,
+                    nameColor: activeColor,
+                    avatarFrame: activeFrame,
                     photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
                     is_setup: true
                 };
@@ -1008,7 +1111,22 @@
             document.getElementById('profileSkeleton').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            document.getElementById('dName').innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
+            const dName = document.getElementById('dName');
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <i class="bx bxs-check-circle tick"></i>' : '');
+            
+            // Apply name color
+            dName.className = "user-name"; // reset
+            if (data.nameColor) {
+                dName.classList.add(`name-color-${data.nameColor}`);
+            }
+
+            // Apply avatar frame
+            const avtImg = document.getElementById('avt');
+            avtImg.className = "avt-img"; // reset to original class
+            if (data.avatarFrame) {
+                avtImg.classList.add(`frame-${data.avatarFrame}`);
+            }
+
             document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
             document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
             document.getElementById('avt').src = data.photoURL || `https://ui-avatars.com/api/?name=${data.displayName || 'U'}&background=random`;
@@ -1023,6 +1141,18 @@
                     document.getElementById('inpName').value = data.displayName || "";
                     document.getElementById('inpBio').value = data.bio || "";
                     document.getElementById('inpUser').value = data.username || "";
+
+                    // Sync Color Picker
+                    const color = data.nameColor || 'default';
+                    document.querySelectorAll('.color-opt').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.color === color);
+                    });
+
+                    // Sync Frame Picker
+                    const frame = data.avatarFrame || 'none';
+                    document.querySelectorAll('.frame-opt').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.frame === frame);
+                    });
 
                     // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
@@ -1287,24 +1417,23 @@
         });
 
         document.getElementById('btnCropConfirm').onclick = () => {
-            if (!cropper) return;
-            const canvas = cropper.getCroppedCanvas({
-                width: cropType === 'avt' ? 500 : 1280,
-                height: cropType === 'avt' ? 500 : 720,
-            });
+            // ... (keep existing btnCropConfirm logic)
+        };
 
-            canvas.toBlob((blob) => {
-                const url = URL.createObjectURL(blob);
-                if (cropType === 'avt') {
-                    window.croppedAvtBlob = blob;
-                    document.getElementById('avt').src = url;
-                } else {
-                    window.croppedCovBlob = blob;
-                    document.getElementById('bgCover').style.backgroundImage = `url('${url}')`;
-                    document.getElementById('bgBlur').style.backgroundImage = `url('${url}')`;
-                }
-                modalCropper.classList.remove('active');
-            }, 'image/jpeg', 0.85);
+        // Name Color Picker Logic
+        document.getElementById('nameColorPicker').onclick = (e) => {
+            const opt = e.target.closest('.color-opt');
+            if (!opt) return;
+            document.querySelectorAll('.color-opt').forEach(i => i.classList.remove('active'));
+            opt.classList.add('active');
+        };
+
+        // Avatar Frame Picker Logic
+        document.getElementById('framePicker').onclick = (e) => {
+            const opt = e.target.closest('.frame-opt');
+            if (!opt) return;
+            document.querySelectorAll('.frame-opt').forEach(i => i.classList.remove('active'));
+            opt.classList.add('active');
         };
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>

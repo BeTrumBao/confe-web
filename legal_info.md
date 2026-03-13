@@ -1,6 +1,4 @@
-# Facebook Configuration Links (Deep Link & Policies)
 
-Dưới đây là các đường dẫn cần thiết để bạn điền vào trang cài đặt của **Facebook for Developers**:
 
 ### 1. Deep Link (Liên kết sâu)
 Dùng để mở ứng dụng hoặc chuyển hướng người dùng:

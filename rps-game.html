@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kéo Búa Bao Online - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --pri: #0061ff;
+            --pri-light: #60a5fa;
+            --bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --on-sur: #0f172a;
+            --on-sur-v: #475569;
+            --out: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--on-sur);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* FLOATING BACK BUTTON */
+        .back-btn-float {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            z-index: 20000;
+            transition: 0.3s;
+            color: var(--on-sur);
+            font-size: 24px;
+        }
+
+        .back-btn-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            color: var(--pri);
+        }
+
+        /* SCREENS */
+        .screen {
+            display: none;
+            padding: 24px 20px;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GLASS CARD */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 28px;
+            padding: 32px 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* TYPOGRAPHY */
+        .hero-emoji {
+            font-size: 64px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 950;
+            color: var(--pri);
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--on-sur-v);
+            margin-bottom: 10px;
+        }
+
+        /* INPUTS & BUTTONS */
+        .label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--on-sur-v);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .join-inp-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .join-inp {
+            flex: 1;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 14px 18px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--on-sur);
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .join-inp:focus {
+            border-color: var(--pri-light);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 97, 255, 0.1);
+        }
+
+        .btn-join {
+            background: var(--pri);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-join:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--pri);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 97, 255, 0.15);
+            width: 100%;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 97, 255, 0.2);
+            background: #0056e0;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+
+
+        /* ROOM CODE BOX */
+        .room-code-display {
+            background: white;
+            border: 2px dashed var(--pri-light);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .room-code-display:hover {
+            background: #f0f7ff;
+            border-style: solid;
+        }
+
+        .room-code-val {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: var(--pri);
+        }
+
+        .copy-hint {
+            font-size: 11px;
+            color: var(--pri-light);
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        /* ROUND CHIPS */
+        .chips {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chip {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.2s;
+            color: var(--on-sur-v);
+        }
+
+        .chip.on {
+            border-color: var(--pri);
+            background: var(--pri);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 97, 255, 0.2);
+        }
+
+        /* LOBBY / WAIT SCREEN */
+        .player-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .player-item {
+            background: white;
+            border-radius: 16px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .p-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--pri);
+            font-size: 14px;
+        }
+
+        .p-name {
+            flex: 1;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .p-tag {
+            font-size: 10px;
+            font-weight: 800;
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        /* GAMEPLAY */
+        #gameScreen {
+            padding-top: 80px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .round-badge {
+            background: var(--on-sur);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 450px;
+            margin: 20px 0;
+        }
+
+        .choice-btn {
+            aspect-ratio: 1;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .choice-btn:hover:not(:disabled) {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 97, 255, 0.15);
+            border-color: var(--pri-light);
+        }
+
+        .choice-emoji { font-size: 48px; }
+        .choice-label { font-size: 13px; font-weight: 800; color: var(--on-sur-v); }
+
+        .choice-btn:disabled { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+        .choice-btn.selected { border-color: var(--pri); background: #eff6ff; }
+
+        /* SCOREBOARD */
+        .scoreboard {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .sb-head {
+            background: #f8fafc;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--on-sur-v);
+        }
+
+        .sb-row {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        .sb-row:last-child { border: none; }
+        .sb-score { font-size: 20px; font-weight: 900; color: var(--pri); }
+        .sb-status { font-size: 14px; margin-left: auto; }
+
+        /* RESULT OVERLAY */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .overlay.active { opacity: 1; pointer-events: all; }
+
+        .res-modal {
+            background: white;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 380px;
+            padding: 40px 24px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .overlay.active .res-modal { transform: scale(1); }
+
+        .res-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
+        .res-vs { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 30px 0; }
+        .p-pick { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .p-pick-e { font-size: 60px; }
+        .p-pick-n { font-size: 12px; font-weight: 700; color: var(--on-sur-v); }
+        .vs-text { font-size: 14px; font-weight: 900; color: var(--out); }
+
+        .btn-next {
+            width: 100%;
+            background: var(--on-sur);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* CONFETTI */
+        #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 3000; }
+
+        /* LOADING */
+        #loadingScreen { display: flex; align-items: center; justify-content: center; }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 97, 255, 0.1);
+            border-left-color: var(--pri);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+        .toast {
+            background: white;
+            color: var(--on-sur);
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            animation: toastIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 250px;
+        }
+        @keyframes toastIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .toast.error { border-left: 4px solid #ef4444; }
+        .toast.success { border-left: 4px solid #10b981; }
+
+        /* COUNTDOWN OVERLAY */
+        #countdownOverlay {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .cd-card {
+            background: #f8fafc;
+            border-radius: 32px;
+            padding: 40px 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .cd-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .cd-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--pri);
+            margin-bottom: 8px;
+        }
+
+        .cd-timer {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        .timer-unit {
+            background: white;
+            padding: 12px;
+            border-radius: 16px;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+        }
+
+        .unit-val {
+            font-size: 24px;
+            font-weight: 900;
+            display: block;
+            color: var(--on-sur);
+        }
+
+        .unit-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--on-sur-v);
+            text-transform: uppercase;
+        }
+
+        .cd-footer {
+            font-size: 14px;
+            color: var(--on-sur-v);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<button class="back-btn-float" onclick="goBack()">
+    <i class='bx bx-chevron-left'></i>
+</button>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen" class="screen active">
+    <div class="spinner"></div>
+</div>
+
+<!-- COUNTDOWN OVERLAY -->
+<div id="countdownOverlay">
+    <div class="cd-card">
+        <span class="cd-emoji">⏳</span>
+        <h2 class="cd-title">Sắp bắt đầu!</h2>
+        <p class="subtitle">Trò chơi sẽ chính thức mở cửa vào Thứ 7 tuần này.</p>
+        
+        <div class="cd-timer">
+            <div class="timer-unit">
+                <span class="unit-val" id="cdDays">00</span>
+                <span class="unit-label">Ngày</span>
+            </div>
+            <div class="timer-unit">
+                <span class="unit-val" id="cdHours">00</span>
+                <span class="unit-label">Giờ</span>
+            </div>
+            <div class="timer-unit">
+                <span class="unit-val" id="cdMins">00</span>
+                <span class="unit-label">Phút</span>
+            </div>
+            <div class="timer-unit">
+                <span class="unit-val" id="cdSecs">00</span>
+                <span class="unit-label">Giây</span>
+            </div>
+        </div>
+
+        <p class="cd-footer">Hẹn gặp bạn tại đấu trường! ✊✌️🖐️</p>
+    </div>
+</div>
+
+<!-- LOBBY SCREEN (MAIN) -->
+<div id="lobbyScreen" class="screen">
+    <div class="glass-card">
+        <div style="text-align: center;">
+            <div class="hero-emoji">✊</div>
+            <h1 class="title">Kéo Búa Bao</h1>
+            <p class="subtitle">Tạo phòng và thách đấu bạn bè Online!</p>
+        </div>
+
+        <div>
+            <label class="label">Gia nhập phòng</label>
+            <div class="join-inp-group">
+                <input type="text" id="joinCodeInp" class="join-inp" placeholder="MÃ SỐ" maxlength="6">
+                <button class="btn-join" onclick="joinRoom()">
+                    <i class='bx bx-right-arrow-alt'></i>
+                </button>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="flex: 1; height: 1px; background: #eee;"></div>
+            <span style="font-size: 11px; font-weight: 700; color: var(--out);">Hoặc tự tạo</span>
+            <div style="flex: 1; height: 1px; background: #eee;"></div>
+        </div>
+
+        <div>
+            <label class="label">Số hiệp đấu</label>
+            <div class="chips" id="roundSelection">
+                <button class="chip" data-r="1" onclick="selRounds(1)">1 Hiệp</button>
+                <button class="chip on" data-r="3" onclick="selRounds(3)">3 Hiệp</button>
+                <button class="chip" data-r="5" onclick="selRounds(5)">5 Hiệp</button>
+            </div>
+        </div>
+
+        <button class="btn-primary" id="btnCreateRoom" onclick="createRoom()">
+            <i class='bx bx-plus-circle' style="vertical-align: middle; margin-right: 6px;"></i> Tạo phòng mới
+        </button>
+    </div>
+
+
+</div>
+
+<!-- WAIT SCREEN -->
+<div id="waitScreen" class="screen">
+    <div class="glass-card">
+        <div style="text-align: center;">
+            <label class="label">Mã phòng của bạn</label>
+            <div class="room-code-display" onclick="copyRoomLink()">
+                <div class="room-code-val" id="waitCode">XXXXXX</div>
+                <div class="copy-hint">Chạm để sao chép link phòng 🔗</div>
+            </div>
+            <p class="subtitle" style="margin-top: 16px;">Đang chờ người chơi khác tham gia...</p>
+        </div>
+
+        <div class="player-list" id="playerListEl">
+            <!-- Players added here -->
+        </div>
+
+        <div id="waitActions" style="width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+            <button class="btn-primary" id="btnStartGame" style="display: none;" onclick="hostStart()">
+                Bắt đầu ngay 🚀
+            </button>
+            <p id="waitMsg" style="text-align: center; font-size: 13px; color: var(--on-sur-v); display: none;">
+                Chờ chủ phòng bắt đầu...
+            </p>
+            <button onclick="leaveRoom()" style="background: none; border: none; font-size: 14px; font-weight: 700; color: #ef4444; cursor: pointer; padding: 10px;">
+                Rời khỏi phòng
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="gameScreen" class="screen">
+    <div class="game-header">
+        <div class="round-badge" id="roundInfo">HIỆP 1 / 3</div>
+        <h2 id="pickStatus">Chọn của bạn...</h2>
+        <p class="subtitle">Lựa chọn của bạn được giữ bí mật 🔒</p>
+    </div>
+
+    <div class="choices-grid">
+        <button class="choice-btn" onclick="onlineChoice('scissors')" id="btn-scissors">
+            <span class="choice-emoji">✌️</span>
+            <span class="choice-label">Kéo</span>
+        </button>
+        <button class="choice-btn" onclick="onlineChoice('rock')" id="btn-rock">
+            <span class="choice-emoji">✊</span>
+            <span class="choice-label">Búa</span>
+        </button>
+        <button class="choice-btn" onclick="onlineChoice('paper')" id="btn-paper">
+            <span class="choice-emoji">🖐</span>
+            <span class="choice-label">Bao</span>
+        </button>
+    </div>
+
+    <div class="scoreboard">
+        <div class="sb-head">Bảng điểm hiện tại</div>
+        <div id="onlineSbRows">
+            <!-- Scores added here -->
+        </div>
+    </div>
+</div>
+
+<!-- RESULT SCREEN (END) -->
+<div id="finalScreen" class="screen">
+    <div class="glass-card" style="text-align: center;">
+        <div class="hero-emoji" id="finalEmoji">🏆</div>
+        <h1 class="title" id="finalTitle">Chiến thắng!</h1>
+        <p class="subtitle" id="finalWinnerName">Người chơi đã thắng cả trận đấu</p>
+        
+        <div class="scoreboard" style="margin: 10px 0;">
+            <div class="sb-head">Kết quả chung cuộc</div>
+            <div id="finalSbRows"></div>
+        </div>
+
+        <button class="btn-primary" id="btnReplay" onclick="hostRestart()" style="display: none;">Chơi lại vòng mới</button>
+        <button class="btn-primary" onclick="leaveRoom()">Về trang chủ</button>
+    </div>
+</div>
+
+<!-- OVERLAY RESULT -->
+<div class="overlay" id="roundResultOverlay">
+    <div class="res-modal">
+        <p class="label">Kết quả hiệp đấu</p>
+        <h2 class="res-title" id="resTitle">Hòa!</h2>
+        
+        <div class="res-vs" id="resPairs">
+            <!-- Results like "Me: Rock vs You: Scissors" -->
+        </div>
+
+        <p class="subtitle" id="resWinnerMsg">Không ai ghi điểm vòng này.</p>
+        <button class="btn-next" id="btnNextRound" style="display: none;" onclick="hostNextRound()">Tiếp hiệp sau →</button>
+        <p id="waitNextMsg" style="font-size: 13px; color: var(--on-sur-v); margin-top:15px; display:none;">Chờ chủ phòng tiếp tục...</p>
+    </div>
+</div>
+
+    // Consolidation started below...
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, set, onValue, off, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
+    
+    let db_rtdb, auth;
+    let myUid = null, myName = 'Người chơi';
+    let roomCode = null, isHost = false, selectedRounds = 3;
+    let roomListener = null;
+
+    // ── UTILS ──
+    const EM = { rock: '✊', paper: '🖐', scissors: '✌️' };
+    const NM = { rock: 'Búa', paper: 'Bao', scissors: 'Kéo' };
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    const toastContainer = document.getElementById('toastContainer');
+    function showToast(msg, type = 'info') {
+        const t = document.createElement('div');
+        t.className = `toast ${type}`;
+        const icon = type === 'error' ? '❌' : (type === 'success' ? '✅' : 'ℹ️');
+        t.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+        toastContainer.appendChild(t);
+        setTimeout(() => {
+            t.style.opacity = '0';
+            t.style.transform = 'translateY(-20px)';
+            t.style.transition = '0.4s';
+            setTimeout(() => t.remove(), 400);
+        }, 3000);
+    }
+
+    window.goBack = () => {
+        if (roomCode) {
+            if (confirm("Rời khỏi phòng đấu?")) leaveRoom();
+            else return;
+        }
+        if (window.parent !== window) window.parent.history.back();
+        else history.back();
+    }
+
+    window.selRounds = (n) => {
+        selectedRounds = n;
+        document.querySelectorAll('#roundSelection .chip').forEach(c => c.classList.toggle('on', +c.dataset.r === n));
+    }
+
+    function genCode() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let code = '';
+        for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+        return code;
+    }
+
+    // ── ROOM LOGIC ──
+    window.createRoom = async () => {
+        if (!myUid) { showToast('Đang xác thực, vui lòng đợi giây lát...', 'error'); return; }
+        const code = genCode(); 
+        roomCode = code; isHost = true;
+
+        const data = {
+            host: myUid,
+            hostName: myName,
+            rounds: selectedRounds,
+            status: 'waiting',
+            currentRound: 1,
+            players: {
+                [myUid]: { name: myName, score: 0, choice: null }
+            }
+        };
+
+        try {
+            await set(ref(db_rtdb, `rps_rooms/${code}`), data);
+            document.getElementById('waitCode').textContent = code;
+            document.getElementById('btnStartGame').style.display = 'block';
+            document.getElementById('waitMsg').style.display = 'none';
+            listenRoom(code);
+            showScreen('waitScreen');
+            showToast('Đã tạo phòng thành công!', 'success');
+        } catch (e) {
+            console.error(e);
+            showToast('Lỗi khi tạo phòng: ' + e.message, 'error');
+        }
+    }
+
+    window.joinRoom = async (pCode) => {
+        const code = pCode || document.getElementById('joinCodeInp').value.trim().toUpperCase();
+        if (code.length !== 6) { showToast('Nhập mã phòng 6 ký tự!', 'error'); return; }
+        if (!myUid) { showToast('Đang xác thực, vui lòng đợi...', 'error'); return; }
+
+        try {
+            const snap = await new Promise((res, rej) => onValue(ref(db_rtdb, `rps_rooms/${code}`), s => res(s), { onlyOnce: true }));
+            if (!snap.exists()) { showToast('Không tìm thấy phòng này!', 'error'); return; }
+            
+            const data = snap.val();
+            if (data.status !== 'waiting') { showToast('Phòng này đã bắt đầu hoặc đã kết thúc!', 'error'); return; }
+            if (Object.keys(data.players || {}).length >= 8) { showToast('Phòng đã đầy (tối đa 8 người)!', 'error'); return; }
+
+            roomCode = code; isHost = false;
+            await update(ref(db_rtdb, `rps_rooms/${code}/players/${myUid}`), {
+                name: myName, score: 0, choice: null
+            });
+
+            document.getElementById('waitCode').textContent = code;
+            document.getElementById('btnStartGame').style.display = 'none';
+            document.getElementById('waitMsg').style.display = 'block';
+            listenRoom(code);
+            showScreen('waitScreen');
+            showToast('Đã tham gia phòng!', 'success');
+        } catch (e) {
+            console.error(e);
+            showToast('Lỗi khi vào phòng: ' + e.message, 'error');
+        }
+    }
+
+    function listenRoom(code) {
+        if (roomListener) off(roomListener);
+        const r = ref(db_rtdb, `rps_rooms/${code}`);
+        roomListener = r;
+        onValue(r, (snap) => {
+            if (!snap.exists()) {
+                if (roomCode) { showToast('Phòng đã bị hủy hoặc bạn đã rời đi.', 'error'); leaveRoom(); }
+                return;
+            }
+            handleUpdate(snap.val());
+        });
+    }
+
+    function handleUpdate(data) {
+        const status = data.status || 'waiting';
+        const players = data.players || {};
+        const pArr = Object.entries(players).map(([uid, p]) => ({ uid, ...p }));
+
+        if (status === 'waiting') {
+            document.getElementById('playerListEl').innerHTML = pArr.map(p => `
+                <div class="player-item">
+                    <div class="p-avatar">${p.name[0]}</div>
+                    <div class="p-name">${p.name} ${p.uid === myUid ? '(Bạn)' : ''}</div>
+                    ${p.uid === data.host ? '<span class="p-tag">Chủ</span>' : ''}
+                </div>
+            `).join('');
+            if (isHost) document.getElementById('btnStartGame').disabled = pArr.length < 2;
+        } 
+        else if (status === 'playing') {
+            document.getElementById('roundResultOverlay').classList.remove('active');
+            showScreen('gameScreen');
+            updateGameUI(data, pArr);
+        }
+        else if (status === 'resolving') {
+            if (isHost) calculateResult(data, pArr);
+        }
+        else if (status === 'result') {
+            showResultOverlay(data, pArr);
+            updateGameUI(data, pArr);
+        }
+        else if (status === 'finished') {
+            document.getElementById('roundResultOverlay').classList.remove('active');
+            showFinal(data, pArr);
+        }
+    }
+
+    function updateGameUI(data, pArr) {
+        document.getElementById('roundInfo').textContent = `HIỆP ${data.currentRound} / ${data.rounds}`;
+        const myData = data.players[myUid];
+        
+        if (myData && myData.choice) {
+            document.getElementById('pickStatus').textContent = "Đã khóa lựa chọn ✅";
+            document.querySelectorAll('.choice-btn').forEach(b => {
+                b.disabled = true;
+                b.classList.toggle('selected', b.id === `btn-${myData.choice}`);
+            });
+        } else {
+            document.getElementById('pickStatus').textContent = "Hãy chọn của bạn...";
+            document.querySelectorAll('.choice-btn').forEach(b => {
+                b.disabled = false;
+                b.classList.remove('selected');
+            });
+        }
+
+        const sorted = [...pArr].sort((a, b) => b.score - a.score);
+        document.getElementById('onlineSbRows').innerHTML = sorted.map(p => `
+            <div class="sb-row">
+                <div class="p-avatar" style="width:24px;height:24px;font-size:10px;">${p.name[0]}</div>
+                <div class="p-name" style="font-size:13px;">${p.name}</div>
+                <div class="sb-status">${p.choice ? '✅' : '...'}</div>
+                <div class="sb-score">${p.score}</div>
+            </div>
+        `).join('');
+    }
+
+    window.onlineChoice = async (ch) => {
+        if (!roomCode || !myUid) return;
+        await update(ref(db_rtdb, `rps_rooms/${roomCode}/players/${myUid}`), { choice: ch });
+        
+        const snap = await new Promise(res => onValue(ref(db_rtdb, `rps_rooms/${roomCode}`), s => res(s), { onlyOnce: true }));
+        const data = snap.val();
+        const allPicked = Object.values(data.players).every(p => p.choice);
+        if (allPicked && data.status === 'playing') {
+            await update(ref(db_rtdb, `rps_rooms/${roomCode}`), { status: 'resolving' });
+        }
+    }
+
+    function calculateResult(data, pArr) {
+        const unique = [...new Set(pArr.map(p => p.choice))];
+        let winners = [], isTie = true;
+
+        if (unique.length === 2) {
+            isTie = false;
+            const beats = (a, b) => (a==='rock'&&b==='scissors')||(a==='scissors'&&b==='paper')||(a==='paper'&&b==='rock');
+            const winnerChoice = beats(unique[0], unique[1]) ? unique[0] : unique[1];
+            pArr.forEach(p => { if (p.choice === winnerChoice) winners.push(p.uid); });
+        }
+
+        const updates = {};
+        updates[`rps_rooms/${roomCode}/status`] = 'result';
+        if (!isTie) {
+            winners.forEach(uid => {
+                updates[`rps_rooms/${roomCode}/players/${uid}/score`] = (data.players[uid].score || 0) + 1;
+            });
+        }
+        update(ref(db_rtdb), updates);
+    }
+
+    function showResultOverlay(data, pArr) {
+        const overlay = document.getElementById('roundResultOverlay');
+        overlay.classList.add('active');
+
+        const unique = [...new Set(pArr.map(p => p.choice))];
+        const isTie = unique.length !== 2;
+        
+        document.getElementById('resTitle').textContent = isTie ? "HIỆP NÀY HÒA!" : "CÓ NGƯỜI THẮNG!";
+        document.getElementById('resWinnerMsg').textContent = isTie ? "Mọi người chọn giống nhau hoặc đủ bộ Kéo-Búa-Bao." : "Những người chọn đúng đã được +1 điểm.";
+
+        document.getElementById('resPairs').innerHTML = pArr.map(p => `
+            <div class="p-pick">
+                <div class="p-pick-e">${EM[p.choice]}</div>
+                <div class="p-pick-n">${p.name}</div>
+            </div>
+        `).join('');
+
+        if (isHost) {
+            document.getElementById('btnNextRound').style.display = 'block';
+            document.getElementById('waitNextMsg').style.display = 'none';
+        } else {
+            document.getElementById('btnNextRound').style.display = 'none';
+            document.getElementById('waitNextMsg').style.display = 'block';
+        }
+    }
+
+    window.hostNextRound = async () => {
+        const snap = await new Promise(res => onValue(ref(db_rtdb, `rps_rooms/${roomCode}`), s => res(s), { onlyOnce: true }));
+        const data = snap.val();
+        const nextRound = data.currentRound + 1;
+        
+        const updates = {};
+        if (nextRound > data.rounds) {
+            updates[`rps_rooms/${roomCode}/status`] = 'finished';
+        } else {
+            updates[`rps_rooms/${roomCode}/currentRound`] = nextRound;
+            updates[`rps_rooms/${roomCode}/status`] = 'playing';
+            Object.keys(data.players).forEach(uid => {
+                updates[`rps_rooms/${roomCode}/players/${uid}/choice`] = null;
+            });
+        }
+        update(ref(db_rtdb), updates);
+    }
+
+    function showFinal(data, pArr) {
+        showScreen('finalScreen');
+        const sorted = [...pArr].sort((a, b) => b.score - a.score);
+        const top = sorted[0];
+        
+        document.getElementById('finalWinnerName').textContent = sorted.filter(p => p.score === top.score).map(p => p.name).join(' & ') + " đã chiến thắng chung cuộc!";
+        document.getElementById('finalSbRows').innerHTML = sorted.map((p, i) => `
+            <div class="sb-row">
+                <div class="sb-score">#${i+1}</div>
+                <div class="p-name">${p.name}</div>
+                <div class="sb-score">${p.score}</div>
+            </div>
+        `).join('');
+
+        if (isHost) document.getElementById('btnReplay').style.display = 'block';
+        confettiEffect();
+    }
+
+    window.hostRestart = async () => {
+        const updates = {};
+        updates[`rps_rooms/${roomCode}/status`] = 'playing';
+        updates[`rps_rooms/${roomCode}/currentRound`] = 1;
+        const snap = await new Promise(res => onValue(ref(db_rtdb, `rps_rooms/${roomCode}`), s => res(s), { onlyOnce: true }));
+        Object.keys(snap.val().players).forEach(uid => {
+            updates[`rps_rooms/${roomCode}/players/${uid}/choice`] = null;
+            updates[`rps_rooms/${roomCode}/players/${uid}/score`] = 0;
+        });
+        update(ref(db_rtdb), updates);
+    }
+
+    window.hostStart = async () => {
+        update(ref(db_rtdb, `rps_rooms/${roomCode}`), { status: 'playing' });
+    }
+
+    window.copyRoomLink = () => {
+        const url = window.location.origin + window.location.pathname + '?room=' + roomCode;
+        navigator.clipboard.writeText(url).then(() => showToast('Đã sao chép link phòng!', 'success'));
+    }
+
+    window.leaveRoom = async () => {
+        if (roomCode && myUid) {
+            if (isHost) await remove(ref(db_rtdb, `rps_rooms/${roomCode}`));
+            else await remove(ref(db_rtdb, `rps_rooms/${roomCode}/players/${myUid}`));
+        }
+        location.search = ""; 
+    }
+
+    function confettiEffect() {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const colors = ['#0061ff', '#60a5fa', '#34d399', '#fbbf24', '#f87171'];
+
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * 150,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                tilt: Math.random() * 10 - 10,
+                tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+                tiltAngle: 0
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                ctx.beginPath();
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                ctx.stroke();
+            });
+            updateParticles();
+        }
+
+        function updateParticles() {
+            particles.forEach((p, i) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.tilt = Math.sin(p.tiltAngle) * 15;
+                if (p.y > canvas.height) {
+                    p.x = Math.random() * canvas.width;
+                    p.y = -20;
+                }
+            });
+        }
+        let int = setInterval(draw, 20);
+        setTimeout(() => { clearInterval(int); ctx.clearRect(0,0,canvas.width,canvas.height); }, 5000);
+    }
+
+    // ── FIREBASE INIT ──
+    try {
+        const app = initializeApp(cfg);
+        auth = getAuth(app);
+        db_rtdb = getDatabase(app);
+
+        onAuthStateChanged(auth, u => {
+            if (!u) { window.top.location.href = 'login.html'; return; }
+            myUid = u.uid;
+            myName = u.displayName || u.email?.split('@')[0] || 'Khách';
+            
+            document.getElementById('loadingScreen').style.display = 'none';
+            
+            const params = new URLSearchParams(window.location.search);
+            const autoJoin = params.get('room');
+            if (autoJoin && autoJoin.length === 6) {
+                document.getElementById('joinCodeInp').value = autoJoin;
+                window.joinRoom(autoJoin);
+            } else {
+                checkCountdown();
+            }
+        });
+        
+        // Safety timeout to hide spinner if Firebase takes too long or fails
+        setTimeout(() => {
+            const ls = document.getElementById('loadingScreen');
+            if (ls.style.display !== 'none') {
+                console.warn("Firebase took too long, showing lobby anyway.");
+                ls.style.display = 'none';
+                checkCountdown();
+            }
+        }, 5000);
+
+    } catch (e) {
+        console.error("Firebase Init Error:", e);
+        document.getElementById('loadingScreen').style.display = 'none';
+        checkCountdown();
+    }
+
+    // ── COUNTDOWN LOGIC ──
+    function checkCountdown() {
+        // Target: Saturday, March 14, 2026 00:00:00
+        const targetDate = new Date('2026-03-14T00:00:00').getTime();
+        const overlay = document.getElementById('countdownOverlay');
+        
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                overlay.style.display = 'none';
+                showScreen('lobbyScreen');
+                clearInterval(timerInt);
+                return;
+            }
+
+            overlay.style.display = 'flex';
+            
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+            document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+            document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
+            document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
+        };
+
+        const timerInt = setInterval(updateTimer, 1000);
+        updateTimer();
+    }
+</script>
+</body>
+</html>

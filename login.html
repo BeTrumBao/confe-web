@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -11,7 +11,7 @@
     <style>
         :root {
             --primary: #2563eb;
-            --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%);
+            --bg-solid: #f0f9ff;
             --text: #0f172a;
             --gray: #64748b;
         }
@@ -24,7 +24,7 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background: var(--bg-solid);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -62,7 +62,7 @@
         .info-side {
             width: 0;
             opacity: 0;
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            background: var(--primary);
             color: white;
             padding: 0;
             display: flex;

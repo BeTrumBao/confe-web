@@ -38,7 +38,6 @@
             margin-bottom: 20px;
             font-size: 24px;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
@@ -469,7 +468,6 @@
             margin-bottom: 20px;
             text-align: center;
             display: none;
-            text-transform: uppercase;
         }
 
         #study-mode-container,
@@ -713,7 +711,6 @@
             justify-content: center;
             font-size: 40px;
             font-weight: 900;
-            text-transform: uppercase;
             color: white;
         }
 
@@ -722,7 +719,7 @@
             background: #ffffff;
             color: #1e293b;
             animation: slideRight 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .intro-right {
@@ -730,7 +727,7 @@
             background: #f8fafc;
             color: #1e293b;
             animation: slideLeft 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .intro-vs {
@@ -768,7 +765,7 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             border: 4px solid #fff;
             background: #e2e8f0;
         }
@@ -778,7 +775,7 @@
             font-weight: 800;
             color: #1e293b;
             font-family: 'Outfit', sans-serif;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             text-transform: none;
         }
 
@@ -986,11 +983,30 @@
         }
 
         @keyframes achievementPop {
-            0% { transform: scale(0.5); opacity: 0; }
-            20% { transform: scale(1.1); opacity: 1; }
-            30% { transform: scale(1); opacity: 1; }
-            80% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            30% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            80% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
         }
 
         .sparkle {
@@ -1003,8 +1019,17 @@
         }
 
         @keyframes sparkleGlow {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.5); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
         }
 
         @keyframes dropDefeat {
@@ -1148,7 +1173,7 @@
             border-radius: 50%;
             margin-bottom: 6px;
             border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             object-fit: cover;
         }
 
@@ -1183,7 +1208,7 @@
             padding: 15px;
             margin-bottom: 25px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .leaderboard-header {
@@ -1228,7 +1253,8 @@
         <h1>KHTN 7 - QUANG HỢP & HÔ HẤP</h1>
         <div class="header-actions">
             <!-- Row 1: Primary Actions -->
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%; margin-bottom: 5px;">
+            <div
+                style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%; margin-bottom: 5px;">
                 <button id="solo-btn" class="action-btn solo-btn">Chế Độ Solo BO3</button>
                 <button id="wrong-btn" class="action-btn wrong-btn">Ôn Câu Sai</button>
                 <button id="study-btn" class="action-btn study-btn">Luyện Trí Nhớ</button>
@@ -1236,25 +1262,34 @@
             </div>
             <!-- Row 2: Secondary & Helpers -->
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%;">
-                 <button id="shop-btn" class="action-btn shop-btn">Cửa Hàng Thẻ</button>
+                <button id="shop-btn" class="action-btn shop-btn">Cửa Hàng Thẻ</button>
             </div>
         </div>
 
-        <div id="status-bar" style="display: flex; gap: 15px; background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 25px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-             <div id="coin-display" style="font-weight: 700; color: #0369a1; font-size: 16px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">Tài sản hiện tại: 1000 Xu</div>
-             <div id="inventory-display" style="font-weight: 500; color: #0284c7; font-size: 14px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">Kho đồ: 0 Thẻ Pass | 0 Thẻ 50/50 | 0 Thẻ Bảo Vệ</div>
+        <div id="status-bar"
+            style="display: flex; gap: 15px; background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 25px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <div id="coin-display"
+                style="font-weight: 700; color: #0369a1; font-size: 16px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                Tài sản hiện tại: 1000 Xu</div>
+            <div id="inventory-display"
+                style="font-weight: 500; color: #0284c7; font-size: 14px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                Kho đồ: 0 Thẻ Pass | 0 Thẻ 50/50 | 0 Thẻ Bảo Vệ</div>
         </div>
 
         <div id="solo-mode-container">
             <div class="review-title" style="display: block;">Thách đấu BO3</div>
             <div id="solo-lobby" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
                 <p style="color: #64748b; font-weight: 500; line-height: 1.6; text-align: center; max-width: 400px;">
-                    Thi đấu trắc nghiệm Solo BO3. Mỗi ván 10 điểm, ai thắng 2 ván đầu tiên sẽ nhận phần thưởng cực kỳ hấp dẫn!
+                    Thi đấu trắc nghiệm Solo BO3. Mỗi ván 10 điểm, ai thắng 2 ván đầu tiên sẽ nhận phần thưởng cực kỳ
+                    hấp dẫn!
                 </p>
-                
-                <div style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #f1f5f9;">
-                    <button onclick="createSoloRoom()" class="nav-btn solo-btn" style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">Tạo Phòng Mới</button>
-                    
+
+                <div
+                    style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #f1f5f9;">
+                    <button onclick="createSoloRoom()" class="nav-btn solo-btn"
+                        style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">Tạo
+                        Phòng Mới</button>
+
                     <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
                         <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
                         <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Hoặc</span>
@@ -1265,46 +1300,64 @@
                         style="padding: 18px; border-radius: 16px; border: 2px solid #e2e8f0; background: #f8fafc; color: #1e293b; font-size: 20px; font-family: inherit; font-weight: 800; text-align: center; width: 100%; transition: all 0.2s; outline: none; box-sizing: border-box;"
                         onfocus="this.style.borderColor='#0084ff'; this.style.boxShadow='0 0 0 4px rgba(0, 132, 255, 0.1)'"
                         onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
-                    <button onclick="joinSoloRoom()" class="nav-btn shop-btn" style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px;">Vào Phòng Thách Đấu</button>
-                    <div id="solo-error-msg" class="info-msg" style="margin-top: 5px; display: none; background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px; border-radius: 12px; font-size: 14px;"></div>
+                    <button onclick="joinSoloRoom()" class="nav-btn shop-btn"
+                        style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px;">Vào Phòng Thách
+                        Đấu</button>
+                    <div id="solo-error-msg" class="info-msg"
+                        style="margin-top: 5px; display: none; background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px; border-radius: 12px; font-size: 14px;">
+                    </div>
                 </div>
 
-                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn" style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Quay Lại</button>
+                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                    style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Quay
+                    Lại</button>
             </div>
 
             <div id="solo-waiting" style="display: none; text-align: center;">
-                <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; margin-bottom: 20px;">
-                    <h3 style="color: #475569; margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: 700;">Mã phòng của cậu</h3>
-                    <div style="background: #eff6ff; border: 2px dashed #93c5fd; padding: 15px 30px; border-radius: 16px; display: inline-block; margin-bottom: 15px; position: relative;">
-                        <span id="display-room-code" style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
+                <div
+                    style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; margin-bottom: 20px;">
+                    <h3 style="color: #475569; margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: 700;">
+                        Mã phòng của cậu</h3>
+                    <div
+                        style="background: #eff6ff; border: 2px dashed #93c5fd; padding: 15px 30px; border-radius: 16px; display: inline-block; margin-bottom: 15px; position: relative;">
+                        <span id="display-room-code"
+                            style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
                     </div>
-                    <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 20px;">Đang chờ đối thủ tham gia...</p>
+                    <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 20px;">Đang chờ đối thủ
+                        tham gia...</p>
                     <div class="loader" style="margin-top: 20px;"></div>
                 </div>
-                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn" style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Hủy Xóa Phòng</button>
+                <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                    style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Hủy
+                    Xóa Phòng</button>
             </div>
 
             <div id="solo-playing" style="display: none; position: relative;">
                 <div id="solo-match-msg" class="info-msg motivate-msg" style="margin-bottom: 20px; display: none;">
                 </div>
-                
-                <div id="solo-progress-area" style="background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
+
+                <div id="solo-progress-area"
+                    style="background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
                     <div style="margin-bottom: 15px;">
-                        <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #10b981; font-size: 14px;">
+                        <div
+                            style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #10b981; font-size: 14px;">
                             <span id="p1-label">Cậu - Điểm: 0</span>
                             <span>Đích: 10</span>
                         </div>
                         <div class="progress-container" style="margin-bottom: 0;">
-                            <div id="p1-progress-bar" class="progress-bar" style="background: #10b981; width: 0%; transition: width 0.4s ease;"></div>
+                            <div id="p1-progress-bar" class="progress-bar"
+                                style="background: #10b981; width: 0%; transition: width 0.4s ease;"></div>
                         </div>
                     </div>
                     <div>
-                        <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #f43f5e; font-size: 14px;">
+                        <div
+                            style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #f43f5e; font-size: 14px;">
                             <span id="p2-label">Đối thủ - Điểm: 0</span>
                             <span>Đích: 10</span>
                         </div>
                         <div class="progress-container" style="margin-bottom: 0;">
-                            <div id="p2-progress-bar" class="progress-bar" style="background: #f43f5e; width: 0%; transition: width 0.4s ease;"></div>
+                            <div id="p2-progress-bar" class="progress-bar"
+                                style="background: #f43f5e; width: 0%; transition: width 0.4s ease;"></div>
                         </div>
                     </div>
                 </div>
@@ -1314,19 +1367,23 @@
 
             <div id="solo-result"
                 style="display: none; text-align: center; padding: 40px; border-radius: 28px; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0;">
-                <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 30px; letter-spacing: 2px;">KẾT QUẢ TRẬN ĐẤU</h2>
-                
+                <h2
+                    style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 30px; letter-spacing: 2px;">
+                    KẾT QUẢ TRẬN ĐẤU</h2>
+
                 <div id="podium-wrapper" class="podium-container">
                     <!-- Dynamic Podium -->
                 </div>
 
                 <div id="solo-result-text"
-                    style="font-size: 28px; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1e293b;"></div>
+                    style="font-size: 28px; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1e293b;">
+                </div>
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     <button id="solo-remake-btn" onclick="requestRemake()" class="nav-btn next-btn"
                         style="width: auto; padding: 15px 30px; display: none;">Chơi lại ván mới</button>
                     <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
-                        style="width: auto; padding: 15px 30px; margin-top: 0; background: #e2e8f0; color: #1e293b;">Rời phòng</button>
+                        style="width: auto; padding: 15px 30px; margin-top: 0; background: #e2e8f0; color: #1e293b;">Rời
+                        phòng</button>
                 </div>
             </div>
         </div>
@@ -1382,9 +1439,11 @@
             <button id="back-quiz-from-wrong-btn" class="nav-btn back-quiz-btn">Quay lại</button>
         </div>
 
-        <div id="quiz-mode-container" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <div id="quiz-mode-container"
+            style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
 
-            <div class="filter-container" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; margin-bottom: 24px;">
+            <div class="filter-container"
+                style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; margin-bottom: 24px;">
                 <button class="filter-btn filter-active" onclick="setFilter('all')">Tất cả</button>
                 <button class="filter-btn" onclick="setFilter('mc')">Trắc nghiệm</button>
                 <button class="filter-btn" onclick="setFilter('arrange')">Tự luận (Kéo thả)</button>
@@ -1450,8 +1509,14 @@
                             myProfile.photoURL = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.displayName) + '&background=random';
                         }
                         if (data.photoURL) myProfile.photoURL = data.photoURL;
+                        
+                        // Load coins and inventory
+                        if (data.coins !== undefined) userCoins = data.coins;
+                        if (data.inventory) inventory = { ...inventory, ...data.inventory };
+                        updateCoinDisplay();
+                        updateInventoryDisplay();
                     }
-                    
+
                     const activeRoomRef = ref(db, 'users/' + user.uid + '/activeSoloRoom');
                     const activeSnap = await get(activeRoomRef);
                     if (activeSnap.exists() && activeSnap.val()) {
@@ -1476,11 +1541,11 @@
                                 window.joinSoloRoomWithId(roomFromUrl.toUpperCase());
                                 // Clear URL params without reload
                                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                                window.history.replaceState({path:newUrl},'',newUrl);
+                                window.history.replaceState({ path: newUrl }, '', newUrl);
                             }
                         }, 1000);
                     }
-                } catch(e) {
+                } catch (e) {
                     console.error("Firestore Error:", e);
                 }
             } else {
@@ -1489,6 +1554,19 @@
                 } catch (e) { }
             }
         });
+
+        async function syncUserData() {
+            if (!currentUser || currentUser.isAnonymous) return;
+            try {
+                const userDocRef = doc(firestore, 'users', currentUser.uid);
+                await updateDoc(userDocRef, {
+                    coins: userCoins,
+                    inventory: inventory
+                });
+            } catch (e) {
+                console.error("Error syncing user data:", e);
+            }
+        }
 
         let shopMsgTimeout;
         function showShopMsg(text, isError) {
@@ -1504,7 +1582,7 @@
             }, 3000);
         }
 
-        window.copyRoomLink = function() {
+        window.copyRoomLink = function () {
             if (!soloRoomId) return;
             const url = new URL(window.location.href);
             url.searchParams.set('room', soloRoomId);
@@ -1714,7 +1792,7 @@
             renderQuestion(currentIndex);
         };
 
-        window.playBo3Intro = function(callback, myName, myAvatar, oppName, oppAvatar) {
+        window.playBo3Intro = function (callback, myName, myAvatar, oppName, oppAvatar) {
             myName = myName || 'Cậu';
             oppName = oppName || 'Đối thủ';
             myAvatar = myAvatar || 'https://ui-avatars.com/api/?name=C&background=random';
@@ -1789,14 +1867,14 @@
             overlay.style.background = '';
         }
 
-        window.showRoundResultEffect = function(didIWin, isDraw) {
+        window.showRoundResultEffect = function (didIWin, isDraw) {
             if (!soloRoomData) return;
             const isP1 = soloRoomData.p1ID === currentUser.uid;
             const myName = myProfile.displayName;
             const myAvatar = myProfile.photoURL;
             const oppName = isP1 ? soloRoomData.p2Name : soloRoomData.p1Name;
             const oppAvatar = isP1 ? soloRoomData.p2Avatar : soloRoomData.p1Avatar;
-            
+
             if (isDraw) {
                 showRoundEffect('draw', null, null, myAvatar, myName, oppAvatar, oppName);
             } else if (didIWin) {
@@ -1806,7 +1884,7 @@
             }
         };
 
-        window.playDeciderIntro = function(callback, myName, myAvatar, oppName, oppAvatar) {
+        window.playDeciderIntro = function (callback, myName, myAvatar, oppName, oppAvatar) {
             myName = myName || 'Cậu';
             oppName = oppName || 'Đối thủ';
             myAvatar = myAvatar || 'https://ui-avatars.com/api/?name=C&background=random';
@@ -1856,7 +1934,7 @@
             avatarImg.style.marginBottom = '20px';
             avatarImg.style.opacity = '0';
             avatarImg.style.animation = 'achievementPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            
+
             const nameDiv = document.createElement('div');
             nameDiv.textContent = playerName || 'Người chơi';
             nameDiv.style.fontSize = '36px';
@@ -1903,14 +1981,14 @@
             }, 4000);
         }
 
-        window.showAchievement = function(type) {
+        window.showAchievement = function (type) {
             const container = document.createElement('div');
             container.className = 'achievement-overlay';
-            
+
             const text = document.createElement('div');
             text.className = 'achievement-text ' + (type === 'streak' ? 'streak-text' : 'perfect-text');
             text.textContent = type === 'streak' ? '🔥 Tuyệt vời! 🔥' : '✨ Xuất sắc! ✨';
-            
+
             container.appendChild(text);
             document.body.appendChild(container);
 
@@ -1935,7 +2013,7 @@
             el.textContent = msg;
             el.style.display = 'block';
             setTimeout(() => el.style.display = 'none', 3000);
-            
+
             // Temporary alert to ensure error doesn't go unnoticed
             alert(msg);
         };
@@ -1965,6 +2043,7 @@
                 else if (type === 'protect') inventory.protect++;
                 updateCoinDisplay();
                 updateInventoryDisplay();
+                syncUserData();
                 showShopMsg('Mua thành công!', false);
             } else {
                 showShopMsg('Không đủ Xu!', true);
@@ -1993,7 +2072,7 @@
 
         window.createSoloRoom = async function () {
             if (!currentUser) return window.showSoloError('Đang kết nối...');
-            
+
             // Sync profile
             if (myProfile.displayName === 'Khách') {
                 try {
@@ -2006,12 +2085,12 @@
                             myProfile.photoURL = data.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.displayName) + '&background=random';
                         }
                     }
-                } catch(e) {}
+                } catch (e) { }
             }
 
             const code = Math.random().toString(36).substring(2, 8).toUpperCase();
             soloRoomId = code;
-            
+
             let mcQs = [];
             allQuestions.forEach((q, i) => {
                 if (q.type === 'mc' || q.type === 'tf') mcQs.push(i);
@@ -2076,16 +2155,16 @@
 
                     soloRoomId = codeInput;
                     soloQs = data.qs;
-                    
+
                     if (isReconnect) {
                         if (data.status === 'closed') {
-                            set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e=>{});
+                            set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
                             return;
                         }
                         hideAllModes();
                         soloModeContainer.style.display = 'block';
                         document.getElementById('solo-lobby').style.display = 'none';
-                        
+
                         if (data.status === 'waiting') {
                             document.getElementById('solo-waiting').style.display = 'block';
                             document.getElementById('display-room-code').textContent = soloRoomId;
@@ -2112,13 +2191,13 @@
                     hideAllModes();
                     soloModeContainer.style.display = 'block';
                     document.getElementById('solo-lobby').style.display = 'none';
-                    
+
                     if (data.status === 'waiting' && data.hostId === currentUser.uid) {
-                         document.getElementById('solo-waiting').style.display = 'block';
-                         document.getElementById('display-room-code').textContent = soloRoomId;
+                        document.getElementById('solo-waiting').style.display = 'block';
+                        document.getElementById('display-room-code').textContent = soloRoomId;
                     } else if (data.status === 'waiting') {
-                         document.getElementById('solo-waiting').style.display = 'block';
-                         document.getElementById('display-room-code').textContent = soloRoomId;
+                        document.getElementById('solo-waiting').style.display = 'block';
+                        document.getElementById('display-room-code').textContent = soloRoomId;
                     }
 
                     if (currentUser) {
@@ -2161,7 +2240,7 @@
             document.getElementById('solo-playing').style.display = 'none';
             document.getElementById('solo-result').style.display = 'none';
             if (currentUser && !msg) {
-                set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e=>{});
+                set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
             }
         }
 
@@ -2188,7 +2267,7 @@
             let updates = {};
             const isP1 = soloRoomData.p1ID === currentUser.uid;
             if (isP1) updates.remake_p1 = true; else updates.remake_p2 = true;
-            
+
             const oppRemake = isP1 ? (soloRoomData.remake_p2 || false) : (soloRoomData.remake_p1 || false);
 
             if (oppRemake) {
@@ -2258,7 +2337,7 @@
                             listEl.appendChild(card);
                         }
                     }
-                    
+
                     document.getElementById('solo-waiting').style.display = 'block';
                     document.getElementById('solo-playing').style.display = 'none';
                     document.getElementById('host-start-container').style.display = (data.hostId === currentUser.uid && data.p2ID) ? 'block' : 'none';
@@ -2292,8 +2371,8 @@
                         window.playDeciderIntro(() => {
                             renderSoloQuestion();
                         }, myProfile.displayName, myProfile.photoURL,
-                           isP1_ ? data.p2Name : data.p1Name,
-                           isP1_ ? data.p2Avatar : data.p1Avatar);
+                            isP1_ ? data.p2Name : data.p1Name,
+                            isP1_ ? data.p2Avatar : data.p1Avatar);
                     } else {
                         renderSoloQuestion();
                     }
@@ -2305,7 +2384,7 @@
                     const myScore = isP1 ? data.p1Score : data.p2Score;
                     const oppScore = isP1 ? data.p2Score : data.p1Score;
                     const oppName = isP1 ? (data.p2Name || 'Đối thủ') : (data.p1Name || 'Đối thủ');
-                    
+
                     const p1RoundsWon = data.p1Rounds || 0;
                     const p2RoundsWon = data.p2Rounds || 0;
                     const myRounds = isP1 ? p1RoundsWon : p2RoundsWon;
@@ -2328,7 +2407,7 @@
                     if (myDone || oppDone || data.p1Score >= 10 || data.p2Score >= 10) {
                         const p1Score = data.p1Score || 0;
                         const p2Score = data.p2Score || 0;
-                        
+
                         // Show client-side result first for BOTH players
                         if (!window.roundEndingVisualTriggered) {
                             window.roundEndingVisualTriggered = true;
@@ -2337,13 +2416,13 @@
                             else if (p2Score >= 10 && p2Score > p1Score) winnerNum = 2;
                             else if (p1Score > p2Score) winnerNum = 1;
                             else if (p2Score > p1Score) winnerNum = 2;
-                            
+
                             const isDraw = winnerNum === 0;
                             const isP1 = data.p1ID === currentUser.uid;
                             const didIWin = (!isDraw) && ((winnerNum === 1 && isP1) || (winnerNum === 2 && !isP1));
-                            
+
                             showRoundResultEffect(didIWin, isDraw);
-                            
+
                             // Let the animation play before starting next round
                             setTimeout(() => {
                                 window.roundEndingVisualTriggered = false;
@@ -2354,7 +2433,7 @@
                         // Host handles the database reset logic
                         if (data.hostId === currentUser.uid && !window.roundResetTriggered) {
                             window.roundResetTriggered = true;
-                            
+
                             let winner = 0; // 0: draw, 1: p1, 2: p2
                             if (p1Score > p2Score) winner = 1; else if (p2Score > p1Score) winner = 2;
 
@@ -2371,7 +2450,7 @@
                                         winnerId: (p1R > p2R) ? data.p1ID : (p2R > p1R ? data.p2ID : 'draw')
                                     });
                                     window.roundResetTriggered = false;
-                                }, 3000); 
+                                }, 3000);
                             } else {
                                 setTimeout(() => {
                                     // Generate new questions for the new round
@@ -2427,7 +2506,7 @@
 
             if (isDone) {
                 appDiv.innerHTML = '<div style="text-align:center; padding: 40px; font-weight: 700; color: #64748b; font-size: 18px;">Bạn đã hoàn thành!<br>Đang chờ đối thủ...<br><div class="loader" style="margin-top: 20px;"></div></div>';
-                
+
                 if (soloMyScore === 10) {
                     showAchievement('perfect');
                 }
@@ -2541,7 +2620,7 @@
                 otherList.style.display = 'flex';
                 otherList.style.flexDirection = 'column';
                 otherList.style.gap = '8px';
-                
+
                 sortedPlayers.slice(3).forEach((p, idx) => {
                     const row = document.createElement('div');
                     row.style.background = '#f1f5f9';
@@ -2551,7 +2630,7 @@
                     row.style.justifyContent = 'space-between';
                     row.style.fontSize = '14px';
                     row.style.fontWeight = '700';
-                    row.innerHTML = `<span>#${idx+4} ${p.name}</span> <span style="color:#0084ff">${p.score}đ</span>`;
+                    row.innerHTML = `<span>#${idx + 4} ${p.name}</span> <span style="color:#0084ff">${p.score}đ</span>`;
                     otherList.appendChild(row);
                 });
                 resultContainer.insertBefore(otherList, resText);
@@ -2564,6 +2643,7 @@
                 if (!soloRewardGiven) {
                     userCoins += 100;
                     updateCoinDisplay();
+                    syncUserData();
                     soloRewardGiven = true;
                 }
             } else {
@@ -2886,6 +2966,7 @@
             }
             updateCoinDisplay();
             updateInventoryDisplay();
+            syncUserData();
             renderQuestion(index);
         }
 
@@ -2988,6 +3069,7 @@
                 currentBet = 10;
                 selectedBetStr = '10';
                 updateCoinDisplay();
+                syncUserData();
 
                 const bailoutMsg = document.createElement('div');
                 bailoutMsg.style.padding = '10px';
@@ -3127,6 +3209,7 @@
                             fiftyBtn.onclick = function () {
                                 userCoins -= 20;
                                 updateCoinDisplay();
+                                syncUserData();
                                 let wrongIndexes = [];
                                 for (let i = 0; i < q.o.length; i++) { if (i !== q.a) wrongIndexes.push(i); }
                                 wrongIndexes.sort(() => Math.random() - 0.5);

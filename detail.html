@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -113,7 +113,6 @@
             border-radius: 6px;
             font-size: 11px;
             font-weight: 800;
-            text-transform: uppercase;
             margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
@@ -142,7 +141,6 @@
             border-radius: 4px;
             font-size: 11px;
             font-weight: 800;
-            text-transform: uppercase;
         }
 
         .desc {
@@ -884,19 +882,19 @@
             position: relative;
         }
 
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
         .skeleton::after {
             content: "";
             position: absolute;
             inset: 0;
-            transform: translateX(-100%);
-            background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 100%);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            100% {
-                transform: translateX(100%);
-            }
+            background: #e2e8f0;
+            background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
         }
 
         .header-skeleton {
@@ -1109,6 +1107,53 @@
             border-radius: 50%;
         }
 
+        /* NAME COLORS */
+        .name-color-default { color: inherit; }
+        .name-color-blue { color: #2563eb; }
+        .name-color-red { color: #dc2626; }
+        .name-color-green { color: #16a34a; }
+        .name-color-purple { color: #9333ea; }
+        .name-color-orange { color: #ea580c; }
+        .name-color-pink { color: #f472b6; }
+        
+        /* AVATAR FRAMES */
+        .frame-none { border: none !important; padding: 0 !important; box-shadow: none !important; border-radius: 50% !important; }
+        
+        .frame-glow {
+            border: 2px solid var(--primary) !important;
+            padding: 1px !important;
+            box-shadow: 0 0 10px rgba(0, 87, 219, 0.4) !important;
+            border-radius: 50% !important;
+        }
+
+        .frame-neon {
+            border: 2px solid #ff00ff !important;
+            padding: 1px !important;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.6) !important;
+            animation: neon-pulse 1.5s infinite alternate;
+            border-radius: 50% !important;
+        }
+
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 8px rgba(255, 0, 255, 0.4) !important; }
+            to { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7) !important; }
+        }
+
+        .frame-royal {
+            border: 2px double #fbbf24 !important;
+            padding: 2px !important;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.3) !important;
+            border-radius: 50% !important;
+        }
+
+        .frame-glass {
+            background: rgba(255,255,255,0.2) !important;
+            backdrop-filter: blur(4px) !important;
+            border: 1px solid rgba(255,255,255,0.4) !important;
+            padding: 1px !important;
+            border-radius: 50% !important;
+        }
+    </style>
         input:checked+.slider {
             background-color: var(--primary);
         }
@@ -2168,18 +2213,23 @@
         // DYNAMIC PROFILE CACHE
         window.userProfilesCache = {};
         window.getLatestUserInfo = async (uid, fallbackName, fallbackAvt) => {
-            if (!uid) return { name: fallbackName, avt: fallbackAvt };
+            if (!uid) return { name: fallbackName, avt: fallbackAvt, color: 'default', frame: 'none' };
             if (window.userProfilesCache[uid]) return window.userProfilesCache[uid];
             try {
                 const docSnap = await getDoc(doc(db, "users", uid));
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    const info = { name: data.displayName || data.email.split('@')[0], avt: data.photoURL || MISSING_AVATAR };
+                    const info = { 
+                        name: data.displayName || data.email?.split('@')[0] || "Cư dân", 
+                        avt: data.photoURL || MISSING_AVATAR,
+                        color: data.nameColor || 'default',
+                        frame: data.avatarFrame || 'none'
+                    };
                     window.userProfilesCache[uid] = info;
                     return info;
                 }
             } catch (e) { console.warn("Could not fetch user info for", uid); }
-            const info = { name: fallbackName, avt: fallbackAvt };
+            const info = { name: fallbackName, avt: fallbackAvt, color: 'default', frame: 'none' };
             window.userProfilesCache[uid] = info;
             return info;
         };
@@ -2259,9 +2309,11 @@
                         // Inject Dynamic Info
                         const dynamicPostInfo = data.authorUid && window.userProfilesCache[data.authorUid]
                             ? window.userProfilesCache[data.authorUid]
-                            : { name: data.author, avt: data.authorAvatar };
+                            : { name: data.author, avt: data.authorAvatar, color: data.nameColor || 'default', frame: data.avatarFrame || 'none' };
                         const finalPostAuthor = dynamicPostInfo.name;
                         const finalPostAvt = dynamicPostInfo.avt;
+                        const finalPostColor = dynamicPostInfo.color;
+                        const finalPostFrame = dynamicPostInfo.frame;
 
                         let trashBtn = (isMine || isAdmin) ? `<button class="btn-icon btn-trash" onclick="window.deletePost('${pid}')">🗑️</button>` : '';
                         let editBtn = (isMine) ? `<button class="btn-icon btn-edit" onclick="window.openEditPost('${pid}', '${data.type}', '${imgUrl}')">✏️</button>` : '';
@@ -2300,10 +2352,10 @@
 
                                 previewHtml += `
                                     <div class="preview-item">
-                                        <img src="${dynamicCmtInfo.avt}" style="width:28px; height:28px; border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                        <img src="${dynamicCmtInfo.avt}" class="frame-${dynamicCmtInfo.frame}" style="width:28px; height:28px; border-radius:50%" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
                                         <div class="preview-content-box">
                                             <div class="preview-bubble">
-                                                <span class="preview-name" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</span>
+                                                <span class="preview-name name-color-${dynamicCmtInfo.color}" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</span>
                                                 <span class="preview-text">${window.linkifyText(c.content)}</span>
                                             </div>
                                             <div class="preview-actions">
@@ -2322,8 +2374,8 @@
                                 ${pinBadge}
                                 <div class="post-actions">${pinBtn}${editBtn}${reportBtn}${trashBtn}</div>
                                 <div class="post-header">
-                                    <img src="${finalPostAvt}" class="post-avt" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
-                                    <div class="post-info"><span class="post-author" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(finalPostAuthor)}</span><span class="post-time">${timeAgo(data.createdAt)}</span></div>
+                                    <img src="${finalPostAvt}" class="post-avt frame-${finalPostFrame}" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                    <div class="post-info"><span class="post-author name-color-${finalPostColor}" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(finalPostAuthor)}</span><span class="post-time">${timeAgo(data.createdAt)}</span></div>
                                 </div>
                                 ${contentBody}
                                 <div class="post-footer">
@@ -2371,6 +2423,8 @@
                 author: userData?.displayName || currentUser.email.split('@')[0],
                 authorAvt: userData?.photoURL || MISSING_AVATAR,
                 authorUid: currentUser.uid,
+                nameColor: userData?.nameColor || 'default',
+                avatarFrame: userData?.avatarFrame || 'none',
                 content: txt,
                 ip: userIp,
                 createdAt: serverTimestamp(),
@@ -2521,15 +2575,15 @@
 
                     const dynamicCmtInfo = c.authorUid && window.userProfilesCache[c.authorUid]
                         ? window.userProfilesCache[c.authorUid]
-                        : { name: c.author, avt: c.authorAvt };
+                        : { name: c.author, avt: c.authorAvt, color: c.nameColor || 'default', frame: c.avatarFrame || 'none' };
 
                     return `
                         <div class="cmt-row" style="flex-direction:column; gap:0; margin-bottom:15px; position:relative; ${level > 0 ? 'margin-left:30px;' : ''}">
                             <div style="display:flex; gap:10px; position:relative;">
-                                <img src="${dynamicCmtInfo.avt}" style="width:30px;height:30px;border-radius:50%; z-index:1;" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                                <img src="${dynamicCmtInfo.avt}" class="frame-${dynamicCmtInfo.frame}" style="width:30px;height:30px;border-radius:50%; z-index:1;" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
                                 <div style="flex:1">
                                     <div style="background:#f1f5f9; padding:8px 12px; border-radius:12px; display:inline-block;">
-                                        <div style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</div>
+                                        <div class="name-color-${dynamicCmtInfo.color}" style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</div>
                                         <div style="font-size:14px; color:#334155; white-space:pre-wrap;">${window.linkifyText(c.content)}</div>
                                     </div>
                                     <div class="cmt-actions">
