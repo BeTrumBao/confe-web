@@ -136,30 +136,45 @@
             align-items: center;
             gap: 12px;
             padding: 14px 16px;
-            border-radius: 12px;
+            border-radius: 16px;
             color: var(--sidebar-text);
             text-decoration: none;
             font-weight: 700;
             margin-bottom: 8px;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             white-space: nowrap;
             overflow: hidden;
+            border: 1px solid transparent;
         }
 
-        .nav-link:hover,
+        .nav-link:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+            transform: translateX(6px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
         .nav-link.active {
             background: var(--primary-light);
             color: var(--primary);
+            border-color: rgba(0, 132, 255, 0.1);
         }
 
         .nav-link i,
         .nav-link .material-symbols-rounded {
-            font-size: 20px;
+            font-size: 22px;
             width: 24px;
             text-align: center;
             flex-shrink: 0;
+            font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+            transition: font-variation-settings 0.3s, transform 0.3s;
+        }
+
+        .nav-link:hover .material-symbols-rounded,
+        .nav-link.active .material-symbols-rounded {
             font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+            transform: scale(1.1);
         }
 
         .nav-items {
@@ -407,6 +422,7 @@
         }
 
         @keyframes pulse-dot {
+
             0%,
             100% {
                 transform: scale(1);
@@ -677,7 +693,7 @@
             </div>
             <div class="nav-link" onclick="loadPage('home.html', this)">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">category</span></div>
-                <span>Chủ đề</span>
+                <span>Bài đăng</span>
             </div>
             <div class="nav-link" onclick="loadPage('game.html', this)">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
@@ -698,7 +714,7 @@
 
         <div id="sidebarFooter"
             style="padding: 12px 16px; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; margin-top: 8px;">
-            <div style="font-weight: 600; margin-bottom: 4px;">Confe Web</div>
+            <div style="font-weight: 600; margin-bottom: 4px;"></div>
             <div id="dbg-ver">ver: <span style="font-weight:700; color: #64748b;" id="versionText">26.2.3r</span></div>
             <div id="dbg-configver" style="margin-top:2px;">configver: <span style="font-weight:700; color: #64748b;"
                     id="configVerText">—</span></div>
@@ -759,7 +775,8 @@
     <div id="modalAnnounce" class="modal-overlay">
         <div class="modal-content" style="text-align:center; position:relative;">
             <button onclick="closeAnnounce()"
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
+                title="Đóng">
                 <span class="material-symbols-rounded">close</span>
             </button>
             <img id="annImg" src=""
@@ -1110,6 +1127,7 @@
         }
 
         @keyframes blink-dot {
+
             0%,
             100% {
                 opacity: 1;
@@ -1126,8 +1144,6 @@
     </div>
 
     <div class="toast-container" id="globalToastContainer"></div>
-
-    <!-- Site Down Overlay (toggled via Remote Config `site_down`) -->
     <div id="siteDownOverlay">
         <div class="sd-icon">🔧</div>
         <h1>Confe đang đi nghỉ dưỡng r ((((=</h1>

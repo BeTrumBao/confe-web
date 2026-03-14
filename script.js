@@ -56,7 +56,7 @@ onSnapshot(query(collection(db, "topics"), orderBy("heat", "desc")), (snap) => {
     snap.forEach(doc => {
         const d = doc.data();
         const html = `
-            <div class="topic-item" onclick="localStorage.setItem('tid','${doc.id}');localStorage.setItem('tname','${d.title}');window.location.href='detail.html'">
+            <div class="topic-item" onclick="localStorage.setItem('tid','${doc.id}');localStorage.setItem('tname','${d.title}');window.location.href='detailv2.html'">
                 <span>${d.title}</span>
                 <span>🔥 ${d.heat}</span>
             </div>

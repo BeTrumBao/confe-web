@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
@@ -30,14 +31,31 @@
         }
 
         body {
-            background: var(--bg);
-            color: var(--text);
+            background: #ffffff;
+            /* Threads uses clean white */
+            color: #000000;
             min-height: 100vh;
             padding-bottom: 100px;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-cover {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-size: cover;
+            background-position: center top;
+            filter: brightness(0.9);
+            transform: scale(1.1);
+        }
+
+        .cover-overlay {
+            display: none;
         }
 
         input,
@@ -72,10 +90,43 @@
             transform: scale(1.1);
         }
 
+        .main-content {
+            max-width: 850px;
+            margin: 140px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 550px) {
+            .main-content {
+                margin: 80px auto 20px;
+                padding: 0 10px;
+                max-width: 100%;
+            }
+        }
+
         .header {
-            background: var(--surface);
+            background: transparent;
             padding-bottom: 24px;
-            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .glass-card-top {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            max-width: 850px;
+            width: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
             position: relative;
         }
 
@@ -87,26 +138,32 @@
         }
 
         .info-wrap {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
+            width: 100%;
+            padding: 40px;
             position: relative;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .avt {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid var(--surface);
-            position: absolute;
-            top: -50px;
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
+            border: 4px solid white;
             background: #fff;
             object-fit: cover;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            margin-bottom: 20px;
         }
 
         .info {
-            padding-top: 60px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         .cat-tag {
@@ -139,23 +196,67 @@
         .host-badge {
             background: #fef3c7;
             color: #d97706;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
             font-size: 11px;
             font-weight: 800;
         }
 
-        .desc {
+        .btn-chat,
+        .btn-leave {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 8px 18px;
+            border-radius: 50px;
             font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-chat {
+            background: rgba(59, 130, 246, 0.15);
+            color: #1d4ed8;
+        }
+
+        .btn-chat:hover {
+            background: rgba(59, 130, 246, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-leave {
+            background: rgba(239, 68, 68, 0.1);
+            color: #b91c1c;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-leave:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15);
+        }
+
+        .desc {
+            font-size: 16px;
             color: var(--text);
-            background: #f0f9ff;
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.35);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(147, 197, 253, 0.4);
+            width: 100%;
+            max-width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            border: 2px solid #93c5fd;
-            line-height: 1.6;
+            gap: 20px;
+            line-height: 1.7;
             font-weight: 500;
         }
 
@@ -167,25 +268,31 @@
 
         .spoiler-text {
             color: transparent;
-            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-            background-color: var(--surface-variant);
-            border-radius: 4px;
-            padding: 0 4px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            padding: 2px 6px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             user-select: none;
+            text-shadow: none;
+            font-size: 0.9em;
+        }
+
+        .spoiler-text:hover {
+            background: #e2e8f0;
         }
 
         .spoiler-text.revealed {
-            color: inherit;
-            text-shadow: none;
-            background-color: transparent;
+            color: #000;
+            background: transparent;
+            font-size: 1em;
+            padding: 0;
         }
 
         .admin-gear {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             z-index: 40;
             display: none;
         }
@@ -267,18 +374,18 @@
         }
 
         .post {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
+            background: transparent;
+            padding: 16px 0;
+            margin-bottom: 0;
+            border-bottom: 1px solid #f0f0f0;
             position: relative;
             transition: 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
         .post:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            background: rgba(0, 0, 0, 0.01);
         }
 
         .post.pinned {
@@ -338,8 +445,9 @@
         }
 
         .post-time {
-            font-size: 12px;
-            color: var(--gray);
+            font-size: 14px;
+            color: #999;
+            font-weight: 400;
         }
 
         .post-content {
@@ -359,14 +467,50 @@
             font-weight: 700;
         }
 
-        .post-img {
+        .post-img-wrap {
+            position: relative;
             width: 100%;
             border-radius: 12px;
+            overflow: hidden;
+            margin-top: 8px;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .post-img {
+            width: 100%;
             max-height: 500px;
-            object-fit: contain;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            cursor: zoom-in;
+            object-fit: cover;
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .post-img.blurred {
+            filter: blur(30px);
+            transform: scale(1.05);
+        }
+
+        .blur-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.1);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .post-img-wrap.revealed .blur-overlay {
+            opacity: 0;
+        }
+
+        .post-img-wrap.revealed .post-img {
+            filter: blur(0);
+            transform: scale(1);
         }
 
         .post-actions {
@@ -446,6 +590,62 @@
             color: var(--gray);
             align-items: center;
             margin-bottom: 10px;
+        }
+
+        #chatIframe {
+            display: none;
+        }
+
+        .cmt-preview-box {
+            display: none;
+            padding: 8px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .preview-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preview-item {
+            position: relative;
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .preview-item-close {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .reaction-btn {
@@ -540,17 +740,15 @@
         }
 
         .view-more-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--gray);
+            font-size: 14px;
+            color: #999;
             cursor: pointer;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             display: inline-block;
         }
 
         .view-more-text:hover {
-            text-decoration: underline;
-            color: var(--primary);
+            color: #000;
         }
 
         .cmt-row {
@@ -1338,15 +1536,56 @@
             text-decoration: underline;
         }
 
-        .reply-box {
-            display: none;
-            margin-top: 10px;
-            animation: fadeIn 0.2s;
+        .thread-line {
+            position: absolute;
+            top: 60px;
+            /* Below avatar */
+            left: 20px;
+            /* Center of 40px avatar */
+            bottom: 20px;
+            width: 2px;
+            background: #f0f0f0;
+            z-index: 1;
+        }
+
+        .thread-node {
+            display: flex;
+            gap: 12px;
             position: relative;
         }
 
-        .reply-box.show {
-            display: block;
+        .thread-content {
+            flex: 1;
+            padding-right: 40px;
+            /* Space for actions if needed */
+        }
+
+        /* Inline Creator Styles */
+        .inline-creator {
+            display: flex;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f0;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .creator-inp-fake {
+            flex: 1;
+            color: #999;
+            font-size: 16px;
+            padding: 8px 0;
+        }
+
+        .creator-btn {
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            align-self: flex-end;
         }
 
         .nested-connector {
@@ -1363,58 +1602,6 @@
 
         #chatIframe {
             display: none;
-        }
-
-        .cmt-preview-box {
-            display: none;
-            padding: 8px;
-            background: #fff;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: 1px solid #f1f5f9;
-        }
-
-        .preview-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .preview-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .preview-item {
-            position: relative;
-            flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-        }
-
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #eee;
-        }
-
-        .preview-item-close {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 18px;
-            height: 18px;
-            background: #1e293b;
-            color: white;
-            border-radius: 50%;
-            border: 2px solid white;
-            cursor: pointer;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
     </style>
     <!-- Security Enhancements -->
@@ -1457,68 +1644,82 @@
 </head>
 
 <body>
+    <div class="bg-cover" id="bgBlur"></div>
+    <div class="cover-overlay" id="bgCover"></div>
     <button class="back-btn" onclick="location.href='home.html'"><span
             class="material-symbols-rounded">arrow_back</span></button>
-    <div class="header" id="topicHeader">
-        <div id="headerSkeleton" class="header-skeleton">
-            <div class="skeleton" style="height:250px;"></div>
-            <div class="info-wrap">
-                <div class="skeleton"
-                    style="width:100px; height:100px; border-radius:50%; position:absolute; top:-50px; background:white; border:4px solid white;">
+    <div class="main-content">
+        <div class="glass-card-top">
+            <div id="adminGear" class="admin-gear">
+                <button id="btnGear" class="btn-gear">
+                    <span class="material-symbols-rounded" style="font-size: 24px;">settings</span>
+                </button>
+                <div id="adminMenu" class="admin-menu">
+                    <div id="btnEditTopic" class="menu-item"><span class="material-symbols-rounded">edit</span> Sửa
+                        thông tin</div>
+                    <div id="btnManageMembers" class="menu-item"><span class="material-symbols-rounded">group</span>
+                        Quản lý thành viên</div>
+                    <div id="btnDeleteTopic" class="menu-item danger"><span
+                            class="material-symbols-rounded">delete</span> Xóa Chủ đề này</div>
                 </div>
-                <div class="info">
-                    <div class="skeleton"
-                        style="height:16px; width:80px; margin-left:auto; margin-bottom:8px; border-radius:4px;"></div>
-                    <div class="skeleton" style="height:30px; width:70%; margin-top:20px; border-radius:6px;"></div>
-                </div>
             </div>
-        </div>
-        <img id="banner" class="cover" src="">
-        <div id="adminGear" class="admin-gear">
-            <button id="btnGear" class="btn-gear">
-                <span class="material-symbols-rounded" style="font-size: 24px;">settings</span>
-            </button>
-            <div id="adminMenu" class="admin-menu">
-                <div id="btnEditTopic" class="menu-item"><span class="material-symbols-rounded">edit</span> Sửa thông
-                    tin</div>
-                <div id="btnManageMembers" class="menu-item"><span class="material-symbols-rounded">group</span> Quản lý
-                    thành viên</div>
-                <div id="btnDeleteTopic" class="menu-item danger"><span class="material-symbols-rounded">delete</span>
-                    Xóa Chủ đề này</div>
-            </div>
-        </div>
-    </div>
-    <div class="info-wrap">
-        <img id="logo" class="avt" src="">
-        <div class="info">
-            <div id="catBadge"></div>
-            <h1 id="title" class="title">Đang tải...</h1>
-            <div class="host-info">
-                <span class="host-badge">HOST</span>
-                <span id="hostName" class="skeleton"
-                    style="display:inline-block; width:100px; height:18px; vertical-align:middle; border-radius:4px;"></span>
-                <button id="btnGoChat" class="btn-act"
-                    style="margin-left:auto; width:auto; padding:6px 14px; font-size:13px; display:none; align-items:center; gap:6px;"><span
-                        class="material-symbols-rounded" style="font-size: 18px;">forum</span>
-                    Vào phòng Chat</button>
-                <button id="btnLeaveTopicHeader" onclick="window.leaveTopic()"
-                    style="display:none; width:auto; padding:6px 14px; font-size:13px; align-items:center; gap:5px; background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; border-radius:8px; cursor:pointer; font-weight:600;"><span
-                        class="material-symbols-rounded" style="font-size: 18px;">logout</span>
-                    Rời khỏi</button>
-            </div>
-            <div id="desc" class="desc" style="flex-direction: column;">
-                <div
-                    style="display:flex; align-items:center; gap:8px; margin-bottom:8px; width:100%; border-bottom:1px solid #93c5fd; padding-bottom:8px;">
-                    <span class="material-symbols-rounded" style="font-size:18px;">description</span>
-                    <span style="font-weight:800; color:#1e40af; font-size:16px;">Ghi chú của Admin</span>
-                </div>
-                <div id="descContent" style="width:100%;">...</div>
-            </div>
-        </div>
-    </div>
-    </div>
 
-    <div class="container" id="list"></div>
+            <!-- SKELETON -->
+            <div id="headerSkeleton" class="info-wrap">
+                <div class="avt skeleton" style="margin-top: 20px;"></div>
+                <div class="info">
+                    <div class="skeleton" style="height:16px; width:80px; margin-bottom:12px; border-radius:4px;"></div>
+                    <div class="skeleton" style="height:35px; width:70%; border-radius:6px; margin-bottom:20px;"></div>
+                    <div class="skeleton" style="height:14px; width:120px; border-radius:4px;"></div>
+                </div>
+            </div>
+
+            <!-- ACTUAL CONTENT -->
+            <div id="mainInfoCard" class="info-wrap">
+                <img id="logo" class="avt" src="">
+                <div class="info">
+                    <div id="catBadge"></div>
+                    <h1 id="title" class="title">Đang tải...</h1>
+                    <div class="host-info">
+                        <span class="host-badge">HOST</span>
+                        <span id="hostName" class="skeleton"
+                            style="display:inline-block; width:100px; height:20px; vertical-align:middle; border-radius:4px;"></span>
+
+                        <button id="btnGoChat" class="btn-chat" style="display:none;">
+                            <span class="material-symbols-rounded" style="font-size: 18px;">chat_bubble_outline</span>
+                            Vào phòng Chat
+                        </button>
+
+                        <button id="btnLeaveTopicHeader" class="btn-leave" style="display:none;"
+                            onclick="window.leaveTopic()">
+                            <span class="material-symbols-rounded" style="font-size: 18px;">logout</span> Rời Chủ đề
+                        </button>
+                    </div>
+
+                    <div id="desc" class="desc">
+                        <span class="material-symbols-rounded desc-icon">description</span>
+                        <div style="flex:1; text-align:left;">
+                            <div style="font-weight:800; color:#1e40af; font-size:16px; margin-bottom: 4px;">Ghi chú của
+                                Admin</div>
+                            <div id="descContent" style="width:100%;">Vui lòng tham gia để xem nội quy...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="width:100%; padding: 0 20px;">
+            <div class="inline-creator" onclick="document.getElementById('modalPost').classList.add('active')">
+                <img src="" class="post-avt inline-creator-avt"
+                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/847/847969.png'"
+                    style="width:40px; height:40px;">
+                <div class="creator-inp-fake">Có gì mới?</div>
+                <button class="creator-btn">Đăng</button>
+            </div>
+        </div>
+        <div class="container" id="list" style="width:100%; padding: 20px 0;"></div>
+    </div>
+    </div>
     <div class="fab-wrapper" id="fabWrapper">
         <button id="fab" class="fab">+</button>
         <div class="fab-menu" id="fabMenu">
@@ -1741,7 +1942,7 @@
     </div>
 
     <div id="notJoinedState" class="container"
-        style="display:none; text-align:center; padding: 60px 20px; background:var(--surface); border-radius:16px; border:1px solid #e2e8f0; margin-top:20px;">
+        style="display:none; text-align:center; padding: 60px 20px; background:rgba(255, 255, 255, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius:16px; border:1px solid rgba(255, 255, 255, 0.4); margin-top:20px;">
         <div style="font-size:48px; margin-bottom:16px; color:#64748b;"><span class="material-symbols-rounded"
                 style="font-size: 64px;">lock</span></div>
         <h3 style="font-size:20px; margin-bottom:10px;">Bạn chưa tham gia Chủ đề này</h3>
@@ -1772,6 +1973,22 @@
 
             <div id="membersList" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
                 <div style="text-align:center; padding:20px; color:#64748b;">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cropper Modal -->
+    <div id="modalCropper" class="modal" style="z-index:9999;">
+        <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
+            <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
+            <div
+                style="width:100%; max-height:400px; background:#f1f5f9; border-radius:15px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;">
+                <img id="cropperImage" src="" style="max-width:100%; display:block;">
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cắt & Xem trước</button>
+                <button onclick="document.getElementById('modalCropper').classList.remove('active')" class="btn-main"
+                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
             </div>
         </div>
     </div>
@@ -1838,6 +2055,13 @@
         let userReactions = {};
         let userVotes = {};
         let reportTargetId = null;
+
+        // CROPPER LOGIC
+        let cropper = null;
+        let cropType = 'logo'; // 'logo' or 'banner'
+        window.croppedLogoBlob = null;
+        window.croppedBannerBlob = null;
+        const cropperImg = document.getElementById('cropperImage');
 
         // CHAT BUTTON LOGIC
         document.getElementById('btnGoChat').onclick = () => {
@@ -1914,7 +2138,7 @@
                 return `<a href="${url}" target="_blank" onclick="event.stopPropagation()">${url}</a>`;
             });
 
-            // Hashtags (if needed later, but keeping it robust like home.html)
+            // Hashtags (Consume tags)
             r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {
                 if (aTag || spanTag) return match; 
                 return `<span class="hashtag" onclick="event.stopPropagation(); window.showHashtag('${tagText}')">#${tagText}</span>`;
@@ -1930,7 +2154,7 @@
                 const uDoc = await getDoc(doc(db, "users", u.uid));
                 if (uDoc.exists()) {
                     userData = uDoc.data();
-                    document.querySelectorAll('.inline-avt').forEach(img => {
+                    document.querySelectorAll('.inline-avt, .inline-creator-avt').forEach(img => {
                         img.src = getCurrentUserAvatar();
                     });
                 }
@@ -1957,7 +2181,11 @@
                     document.title = isProtected ? "Confession (Nội dung ẩn)" : "Confession " + topicData.title;
                     document.getElementById('title').innerHTML = isProtected ? '<span class="spoiler-text" onclick="window.showToast(\'Bạn chưa tham gia Chủ đề này!\')">Nội dung ẩn</span>' : window.escapeHTML(topicData.title);
                     document.getElementById('descContent').textContent = isProtected ? 'Nội dung nội quy đã bị ẩn do Topic đang trong chế độ bảo vệ.' : (topicData.rules || "Chưa có nội quy.");
-                    document.getElementById('banner').src = isProtected ? 'https://placehold.co/800x250/e2e8f0/64748b?text=Topic+Bảo+Mật' : (topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?');
+
+                    const bgUrl = isProtected ? 'https://placehold.co/800x250/e2e8f0/64748b?text=Chủ+đề+Bảo+Mật' : (topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?');
+                    document.getElementById('bgBlur').style.backgroundImage = `url('${bgUrl}')`;
+                    document.getElementById('bgCover').style.backgroundImage = `url('${bgUrl}')`;
+
                     document.getElementById('logo').src = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (topicData.logo || 'https://placehold.co/100/ffffff/64748b?text=?');
 
                     const hostEl = document.getElementById('hostName');
@@ -2118,11 +2346,67 @@
             try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; }
         }
 
+        // Cropper Functionality
+        const openCropper = (file, type) => {
+            cropType = type;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                cropperImg.src = e.target.result;
+                document.getElementById('modalCropper').classList.add('active');
+                if (cropper) cropper.destroy();
+                cropper = new Cropper(cropperImg, {
+                    aspectRatio: type === 'logo' ? 1 : 3.2 / 1,
+                    viewMode: 1,
+                    dragMode: 'move',
+                    autoCropArea: 1,
+                    restore: false,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+
+        document.getElementById('editLogo').onchange = (e) => {
+            if (e.target.files[0]) openCropper(e.target.files[0], 'logo');
+        };
+        document.getElementById('editBanner').onchange = (e) => {
+            if (e.target.files[0]) openCropper(e.target.files[0], 'banner');
+        };
+
+        document.getElementById('btnCropConfirm').onclick = () => {
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({
+                width: cropType === 'logo' ? 400 : 1200,
+                height: cropType === 'logo' ? 400 : 375,
+            });
+            canvas.toBlob((blob) => {
+                if (cropType === 'logo') {
+                    window.croppedLogoBlob = blob;
+                } else {
+                    window.croppedBannerBlob = blob;
+                }
+                document.getElementById('modalCropper').classList.remove('active');
+                window.showToast("Đã cắt ảnh thành công!");
+            }, 'image/jpeg', 0.9);
+        };
+
         document.getElementById('btnSaveTopic').onclick = async function () {
             this.textContent = "Đang lưu...";
             let nb = topicData.banner, nl = topicData.logo;
-            const fb = document.getElementById('editBanner').files[0], fl = document.getElementById('editLogo').files[0];
-            if (fb) nb = await up(fb); if (fl) nl = await up(fl);
+
+            if (window.croppedBannerBlob) {
+                const bannerFile = new File([window.croppedBannerBlob], "banner.jpg", { type: "image/jpeg" });
+                nb = await up(bannerFile);
+            }
+            if (window.croppedLogoBlob) {
+                const logoFile = new File([window.croppedLogoBlob], "logo.jpg", { type: "image/jpeg" });
+                nl = await up(logoFile);
+            }
             await updateDoc(doc(db, "topics", tid), {
                 title: document.getElementById('editTitle').value, rules: document.getElementById('editRules').value, category: document.getElementById('editCat').value,
                 banner: nb, logo: nl, status: document.getElementById('editStatus').value, postRule: document.getElementById('editPostRule').value,
@@ -2354,6 +2638,8 @@
                     transaction.set(reactionRef, { type: type });
                 }
                 transaction.update(postRef, { reactions: reactions });
+                if (isActive) delete userReactions[pid];
+                else userReactions[pid] = type;
             }).catch(e => { console.error("Reaction failed:", e); });
         };
 
@@ -2503,10 +2789,17 @@
                             }
                             contentBody += `<div class="poll-container">${pollHtml}<div class="poll-meta">${total} lượt chọn</div></div>`;
                         } else if (data.image) {
-                            contentBody += `<img src="${data.image}" class="post-img" onclick="window.viewImage('${data.image}')">`;
+                            contentBody += `
+                                <div class="post-img-wrap" id="img-wrap-${pid}" onclick="this.classList.toggle('revealed'); event.stopPropagation();">
+                                    <div class="blur-overlay">Nhấn để xem ảnh</div>
+                                    <img src="${data.image}" class="post-img blurred" onerror="this.src='https://placehold.co/600x400?text=Lỗi+ảnh'">
+                                </div>
+                            `;
                         }
 
                         const r = data.reactions || { heart: 0, sad: 0, laugh: 0 };
+                        const myReaction = userReactions[pid] || "";
+
                         let previewHtml = '';
                         if (previewComments.length > 0) {
                             previewHtml = `<div class="preview-comments">`;
@@ -2528,7 +2821,7 @@
                                             <div class="preview-bubble">
                                                 <span class="preview-name name-color-${dynamicCmtInfo.color}" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</span>
                                                 <span class="preview-text">${window.linkifyText(c.content)}</span>
-                                                ${c.image ? `<img src="${c.image}" style="width:100%; max-width:200px; border-radius:12px; margin-top:8px; cursor:pointer;" onclick="viewImg('${c.image}')">` : ''}
+                                                ${c.image ? `<img src="${c.image}" style="width:100%; max-width:200px; border-radius:12px; margin-top:8px; cursor:pointer;" onclick="viewImage('${c.image}')">` : ''}
                                                 ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImage('${img}')">`).join('')}</div>` : ''}
                                             </div>
                                             <div class="preview-actions">
@@ -2545,35 +2838,33 @@
                         htmls.push(`
                             <div class="post ${pinClass}" id="post-${pid}">
                                 ${pinBadge}
-                                <div class="post-actions">${pinBtn}${editBtn}${reportBtn}${trashBtn}</div>
-                                <div class="post-header">
-                                    <img src="${finalPostAvt}" class="post-avt frame-${finalPostFrame}" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
-                                    <div class="post-info"><span class="post-author name-color-${finalPostColor}" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(finalPostAuthor)}</span><span class="post-time">${timeAgo(data.createdAt)}${data.updatedAt ? ' (đã chỉnh sửa)' : ''}</span></div>
-                                </div>
-                                ${contentBody}
-                                <div class="post-footer">
-                                    <div class="reaction-bar">
-                                        <div class="reaction-btn" id="btn-react-${pid}-heart" onclick="window.handleReaction('${pid}', 'heart')"><span class="material-symbols-rounded" style="font-size: 18px; color:#ff4757; font-variation-settings: 'FILL' 1">favorite</span> <span class="react-count">${r.heart || 0}</span></div>
-                                        <div class="reaction-btn" id="btn-react-${pid}-sad" onclick="window.handleReaction('${pid}', 'sad')"><span class="material-symbols-rounded" style="font-size: 18px; color:#2563eb;">sentiment_very_dissatisfied</span> <span class="react-count">${r.sad || 0}</span></div>
-                                        <div class="reaction-btn" id="btn-react-${pid}-laugh" onclick="window.handleReaction('${pid}', 'laugh')"><span class="material-symbols-rounded" style="font-size: 18px; color:#f59e0b;">sentiment_very_satisfied</span> <span class="react-count">${r.laugh || 0}</span></div>
-                                        <span onclick="window.openAllCommentsModal('${pid}', ${totalCmt})" style="margin-left:auto; font-size:12px; color:var(--gray); cursor:pointer;">${totalCmt} bình luận</span>
-                                    </div>
-                                    ${previewHtml}
-                                    <div class="inline-comment-wrap">
-                                        <img src="${getCurrentUserAvatar()}" class="inline-avt" onerror="this.src='${MISSING_AVATAR}'">
-                                        <div class="inline-inp-box">
+                                <div class="thread-node">
+                                    <div class="thread-line"></div>
+                                    <img src="${finalPostAvt}" class="post-avt frame-${finalPostFrame}" onclick="window.handleProfileClick('${data.authorUid}')" onerror="this.src='${ANON_AVATAR}'" style="z-index: 2;">
+                                    <div class="thread-content">
+                                        <div class="post-header" style="margin-bottom: 4px;">
+                                            <div class="post-info" style="flex-direction: row; align-items: center; gap: 8px;">
+                                                <span class="post-author name-color-${finalPostColor}" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(finalPostAuthor)}</span>
+                                                <span class="post-time">• ${timeAgo(data.createdAt)}${data.updatedAt ? ' (đã chỉnh sửa)' : ''}</span>
+                                            </div>
+                                        </div>
+                                        ${contentBody}
+                                        <div class="post-footer" style="border-top: none; padding-top: 8px; margin-top: 0;">
                                             <div id="inline-preview-wrap-${pid}" class="cmt-preview-box">
                                                 <div id="inline-preview-container-${pid}" class="preview-container"></div>
                                             </div>
-                                            <div style="display:flex; align-items:center; width:100%;">
-                                                <input type="text" id="inp-${pid}" class="inline-inp" placeholder="Viết bình luận..." 
-                                                    onkeydown="if(event.key==='Enter') window.sendInlineComment('${pid}', 'inp-${pid}')"
-                                                    onpaste="window.handleInlinePaste(event, '${pid}')">
-                                                <span class="material-symbols-rounded" style="cursor:pointer; color:#0084ff; font-size:20px; margin:0 8px;" onclick="window.triggerInlineFile('${pid}')">image</span>
-                                                <button class="btn-send-comment" onclick="window.sendInlineComment('${pid}', 'inp-${pid}')"></button>
+                                            <div class="reaction-bar" style="margin-bottom: 0;">
+                                                <div class="reaction-btn ${myReaction === 'heart' ? 'active' : ''}" id="btn-react-${pid}-heart" onclick="window.handleReaction('${pid}', 'heart')"><span class="material-symbols-rounded" style="font-size: 20px;">favorite</span></div>
+                                                <div class="reaction-btn ${myReaction === 'sad' ? 'active' : ''}" id="btn-react-${pid}-sad" onclick="window.handleReaction('${pid}', 'sad')"><span class="material-symbols-rounded" style="font-size: 20px;">sentiment_very_dissatisfied</span></div>
+                                                <div class="reaction-btn ${myReaction === 'laugh' ? 'active' : ''}" id="btn-react-${pid}-laugh" onclick="window.handleReaction('${pid}', 'laugh')"><span class="material-symbols-rounded" style="font-size: 20px;">sentiment_very_satisfied</span></div>
+                                                <div class="reaction-btn" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})"><span class="material-symbols-rounded" style="font-size: 20px;">chat_bubble</span></div>
+                                            </div>
+                                            <div style="font-size: 13px; color: #999; margin-top: 4px; cursor: pointer;" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})">
+                                                ${totalCmt > 0 ? `${totalCmt} câu trả lời` : 'Chưa có câu trả lời'}
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="post-actions" style="top: 0; right: 0;">${pinBtn}${editBtn}${reportBtn}${trashBtn}</div>
                                 </div>
                             </div>
                         `);
@@ -2625,6 +2916,12 @@
             if (document.getElementById('modalAllComments').classList.contains('active')) {
                 setTimeout(() => window.openAllCommentsModal(pid, 0), 300);
             }
+        }
+
+        window.deletePost = async (pid) => {
+            window.showCustomConfirm("Xóa bài viết vĩnh viễn?", async () => {
+                await deleteDoc(doc(db, "posts", pid));
+            });
         }
 
         window.selectedInlineFiles = {};
@@ -2681,14 +2978,16 @@
                     container.appendChild(item);
                 });
                 wrap.style.display = 'block';
+            } else {
+                wrap.style.display = 'none';
             }
-            if (window.selectedInlineFiles[pid].length > 1) window.showToast(`Đã chọn ${window.selectedInlineFiles[pid].length} ảnh`);
         };
 
         window.clearInlineFiles = (pid) => {
-            delete window.selectedInlineFiles[pid];
-            const wrap = document.getElementById(`inline-preview-wrap-${pid}`);
-            if (wrap) wrap.style.display = 'none';
+            window.selectedInlineFiles[pid] = [];
+            window.renderInlinePreview(pid);
+            const input = document.getElementById('globalInlineFileInput');
+            if (input) input.value = '';
         };
 
         window.toggleReplies = (cid) => {
@@ -2794,16 +3093,17 @@
 
                     return `
                         <div class="cmt-row" style="flex-direction:column; gap:0; margin-bottom:15px; position:relative; ${level > 0 ? 'margin-left:30px;' : ''}">
-                            <div style="display:flex; gap:10px; position:relative;">
-                                <img src="${dynamicCmtInfo.avt}" class="frame-${dynamicCmtInfo.frame}" style="width:30px;height:30px;border-radius:50%; z-index:1;" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                            <div style="display:flex; gap:12px; position:relative;">
+                                <div class="thread-line" style="top: 35px; left: 15px; bottom: 0;"></div>
+                                <img src="${dynamicCmtInfo.avt}" class="frame-${dynamicCmtInfo.frame}" style="width:32px;height:32px;border-radius:50%; z-index:1;" onclick="window.handleProfileClick('${c.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
                                 <div style="flex:1">
-                                    <div style="background:#f1f5f9; padding:8px 12px; border-radius:12px; display:inline-block;">
-                                        <div class="name-color-${dynamicCmtInfo.color}" style="font-weight:700; font-size:13px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</div>
-                                    <div style="font-size:14px; color:#334155; white-space:pre-wrap;">${window.linkifyText(c.content)}</div>
-                                    ${c.image ? `<img src="${c.image}" style="width:100%; max-width:200px; border-radius:12px; margin-top:8px; cursor:pointer;" onclick="viewImage('${c.image}')">` : ''}
-                                    ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImage('${img}')">`).join('')}</div>` : ''}
+                                    <div style="padding: 0 0 4px 0;">
+                                        <div class="name-color-${dynamicCmtInfo.color}" style="font-weight:700; font-size:14px; cursor:pointer" onclick="window.handleProfileClick('${c.authorUid}')">${window.escapeHTML(dynamicCmtInfo.name)}</div>
+                                        <div style="font-size:15px; color:#000; white-space:pre-wrap; margin-top: 2px;">${window.linkifyText(c.content)}</div>
+                                        ${c.image ? `<img src="${c.image}" style="width:100%; max-width:200px; border-radius:12px; margin-top:8px; cursor:pointer;" onclick="viewImage('${c.image}')">` : ''}
+                                        ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImage('${img}')">`).join('')}</div>` : ''}
                                     </div>
-                                    <div class="cmt-actions">
+                                    <div class="cmt-actions" style="margin-top: 4px; color: #999;">
                                         <span>${timeAgo(c.createdAt)}${c.isEdited ? ' (đã chỉnh sửa)' : ''}</span>
                                         ${replyBtn}
                                         ${toggleBtn}
@@ -3068,6 +3368,7 @@
                 hiểu</button>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>
 
 </html>

@@ -7,9 +7,10 @@
     <title>Confe </title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <meta name="google-site-verification" content="t5oQRvmsRPZ6Uz4014JmFfAFmfaQ14XoACmrDogErHg" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         :root {
             --primary: #0057db;
@@ -33,7 +34,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -1018,6 +1019,814 @@
             color: #fff;
             border: 1px solid #fdba74;
         }
+
+        /* TAB BAR */
+        .tab-bar {
+            display: flex;
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 20px;
+            border: 1px solid var(--surface-variant);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: none;
+            border-radius: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-container);
+            color: var(--primary);
+        }
+
+        /* FEED & COMPOSE */
+        .compose-box {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--surface-variant);
+        }
+
+        .compose-input-area {
+            flex: 1;
+            background: var(--surface-container);
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .compose-input-area:hover {
+            background: var(--surface-variant);
+        }
+
+        .compose-img-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .compose-img-btn:hover {
+            background: var(--primary-container);
+        }
+
+        .feed-post {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--surface-variant);
+            animation: fadeUp 0.4s ease;
+        }
+
+        .feed-post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .feed-post-avt {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .feed-post-author {
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .feed-post-time {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .feed-post-content {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .feed-post-content a,
+        .preview-cmt-text a {
+            color: #1d9bf0;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .feed-post-content a:hover,
+        .preview-cmt-text a:hover {
+            text-decoration: underline;
+        }
+
+        .feed-post-img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            max-height: 400px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+
+        .feed-post-img.blurred {
+            filter: blur(25px);
+        }
+
+        /* POST MODAL REFINEMENT */
+        .post-textarea {
+            width: 100%;
+            min-height: 140px;
+            border: none;
+            outline: none;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #1e293b;
+            background: transparent;
+            resize: none;
+            padding: 0;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+
+        .post-img-preview {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            display: none;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+        }
+
+        .post-options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 16px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .post-opt-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: 0.2s all cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .post-opt-chip:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .post-opt-chip input[type="checkbox"] {
+            display: none;
+        }
+
+        .post-opt-chip.active {
+            background: #eff6ff;
+            color: var(--primary);
+            border-color: #bfdbfe;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+        }
+
+        .feed-img-wrap {
+            position: relative;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #000;
+        }
+
+        .feed-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .reveal-hint {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .feed-post-actions {
+            display: flex;
+            gap: 16px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+        }
+
+        .feed-react-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .feed-react-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .feed-react-btn.active {
+            color: var(--primary);
+        }
+
+        .feed-react-btn.liked {
+            color: #ff4757;
+        }
+
+        .feed-cmt-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .feed-cmt-input {
+            flex: 1;
+            background: var(--surface-container);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .feed-cmt-send {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .preview-cmt-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .preview-cmt-avt {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .preview-cmt-bubble {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 14px;
+        }
+
+        .preview-cmt-name {
+            font-weight: 700;
+            font-size: 13px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .preview-cmt-text {
+            font-size: 13px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .cmt-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+            padding-left: 8px;
+        }
+
+        .cmt-btn {
+            border: none;
+            background: none;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .cmt-btn:hover {
+            color: var(--primary);
+        }
+
+        .cmt-btn.danger:hover {
+            color: var(--danger);
+        }
+
+        .cmt-reply-banner {
+            display: none;
+            background: #f0f9ff;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cmt-preview-box {
+            display: none;
+            padding: 8px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 4px;
+        }
+
+        .preview-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preview-item {
+            position: relative;
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--surface-variant);
+        }
+
+        .preview-item-close {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 24px;
+            height: 24px;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Multi-image layout in feed */
+        .post-images-grid {
+            display: grid;
+            gap: 4px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 12px;
+            background: #f1f5f9;
+        }
+
+        .post-images-grid[data-count="1"] { grid-template-columns: 1fr; }
+        .post-images-grid[data-count="2"] { grid-template-columns: 1fr 1fr; }
+        .post-images-grid[data-count="3"] { 
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 200px 200px;
+        }
+        .post-images-grid[data-count="3"] img:first-child { grid-row: span 2; }
+        
+        .post-images-grid[data-count="4"], .post-images-grid[data-count="5"] { 
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: 200px 200px;
+        }
+
+        .post-img-item {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .post-img-item:hover {
+            filter: brightness(0.9);
+        }
+
+        .post-img-more {
+            position: relative;
+        }
+
+        .post-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+
+
+        .cmt-reply-banner.active {
+            display: flex;
+        }
+
+        .name-color-default {
+            color: inherit;
+        }
+
+        .name-color-blue {
+            color: #2563eb;
+        }
+
+        .name-color-purple {
+            color: #9333ea;
+        }
+
+        .name-color-pink {
+            color: #db2777;
+        }
+
+        .name-color-gold {
+            color: #d97706;
+        }
+
+        .name-color-green {
+            color: #16a34a;
+        }
+
+        .post-menu-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-menu-btn:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .post-menu-btn.danger:hover {
+            color: var(--danger);
+        }
+
+
+        /* Custom Confirm Modal */
+        #modalConfirm {
+            z-index: 10001;
+        }
+
+        #modalConfirm .box {
+            max-width: 320px;
+            text-align: center;
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .confirm-btns button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .btn-confirm {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .btn-confirm:hover {
+            background: #dc2626;
+        }
+
+        .edit-img-remove {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .edit-img-remove:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .hashtag {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .hashtag:hover {
+            background: #f1f5f9;
+            text-decoration: underline;
+        }
+
+        .trending-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .cmt-replies {
+            margin-left: 24px;
+            border-left: 2px solid #e2e8f0;
+            padding-left: 12px;
+            margin-top: 4px;
+        }
+
+        .preview-cmt-row.is-reply .preview-cmt-avt {
+            width: 24px;
+            height: 24px;
+        }
+
+        .preview-cmt-row.is-reply .preview-cmt-bubble {
+            padding: 6px 10px;
+        }
+
+        .spoiler-text {
+            background: #cbd5e1;
+            color: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0 4px;
+            user-select: none;
+        }
+
+        .spoiler-text.revealed {
+            background: rgba(203, 213, 225, 0.3);
+            color: inherit;
+            user-select: text;
+        }
+
+        /* SKELETON LOADING */
+        .skeleton-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--surface-variant);
+        }
+
+        .skeleton-item {
+            background: #e2e8f0;
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: sk-shimmer 1.5s infinite linear;
+            border-radius: 8px;
+        }
+
+        @keyframes sk-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .sk-avt {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+
+        .sk-line {
+            height: 12px;
+            margin-bottom: 10px;
+        }
+
+        .sk-img {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        /* IMAGE PREVIEW MODAL */
+        .modal-img {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(20px);
+            user-select: none;
+        }
+
+        .modal-img.active {
+            display: flex;
+        }
+
+        .full-img-container {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .full-img {
+            max-width: 95%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5); /* Darker for visibility */
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .gallery-nav:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .gallery-nav.prev { left: 20px; }
+        .gallery-nav.next { right: 20px; }
+
+        .gallery-thumbs {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar { display: none; }
+
+        .gallery-thumb-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumb-item.active {
+            opacity: 1;
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,132,255,0.3);
+        }
+
+        .close-img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: 0.2s;
+        }
+
+        .close-img:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -1033,107 +1842,114 @@
                 }[tag];
             });
         };
-        document.addEventListener('contextmenu', function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            e.preventDefault();
-        });
-        document.onkeydown = function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        };
-        (function () {
-            setInterval(function () {
-                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
-                var before = new Date().getTime();
-                debugger;
-                var after = new Date().getTime();
-                if (after - before > 100) {
-                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
-                }
-            }, 1000);
-        })();
     </script>
 </head>
 
 <body>
-    <div class="hero">
-        <div class="cloud-wrapper">
-            <div class="cloud" style="top: 20%; animation-duration: 25s; animation-delay: -5s;">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
-                </svg>
+    <div class="container" style="margin-top: 24px;">
+        <div id="tabFeed">
+            <!-- Reaction List Modal -->
+    <div id="modalReactions" class="modal">
+        <div class="box" style="max-width: 400px; padding: 0;">
+            <div style="padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0; position: relative;">
+                <h3 style="margin: 0; font-size: 18px; color: #0f172a;">Lượt bày tỏ cảm xúc</h3>
+                <button onclick="document.getElementById('modalReactions').classList.remove('active')" style="position: absolute; right: 20px; top: 16px; background: none; border: none; font-size: 24px; color: #64748b; cursor: pointer;">&times;</button>
             </div>
-            <div class="cloud" style="top: 50%; animation-duration: 35s; animation-delay: -15s;">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
-                </svg>
+            <div id="reactionsListBody" style="max-height: 60vh; overflow-y: auto; padding: 10px;">
+                <div style="text-align:center; padding: 20px; color: #94a3b8;">Đang tải...</div>
             </div>
-            <div class="cloud" style="top: 70%; animation-duration: 30s; animation-delay: -2s;">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M17.5 19c-3.037 0-5.5-2.463-5.5-5.5 0-1.127.342-2.17.925-3.041C11.531 9.3 9.613 8.5 7.5 8.5 4.463 8.5 2 10.963 2 14c0 1.956 1.025 3.67 2.568 4.634.505.314.932.723 1.251 1.216C6.549 20.9 7.915 21.5 9.5 21.5c1.173 0 2.23-.404 3.064-1.079.434-.35.955-.571 1.517-.611.46-.033.92-.01 1.369.07 1.063.195 2.126.315 3.15.205C20.65 20.088 22 18.237 22 16.5c0-1.38-1-2.5-2.25-2.5a2.54 2.54 0 0 0-.583.067c-.203.047-.417.033-.612-.041A4 4 0 0 0 17.5 12.5C14.463 12.5 12 14.963 12 18c0 1.127.342 2.17.925 3.041" />
-                </svg>
-            </div>
-        </div>
-        <div class="search-wrapper" style="position: relative; z-index: 2;">
-            <svg class="search-icon" viewBox="0 0 24 24">
-                <path
-                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
-            </svg>
-            <input type="text" id="search" class="search-inp" placeholder="Tìm Topic bạn muốn...">
-        </div>
-        <p class="hero-subtitle" style="margin-top: 16px;">Phiền muộn hôm nay, gói gọn gửi mây.</p>
-    </div>
-
-
-
-    <div id="rankingSection" class="container" style="padding-bottom: 0; display: none;">
-        <div class="section-title"> Bảng Xếp Hạng Năng Động Tuần</div>
-        <div class="suggest-list" id="suggestList">
-            <div class="mini-card skeleton" style="min-width:240px"></div>
-            <div class="mini-card skeleton" style="min-width:240px"></div>
-            <div class="mini-card skeleton" style="min-width:240px"></div>
         </div>
     </div>
 
+    <!-- Edit Post Modal -->
+            <!-- Compose box -->
+            <div class="compose-box" id="composeBox">
+                <img id="composeAvt"
+                    src="https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg"
+                    style="width:40px;height:40px;border-radius:50%;flex-shrink:0;">
+                <div class="compose-input-area" onclick="openPostModal()">
+                    <span id="composePlaceholder" style="color:#94a3b8; font-size:14px;">Hôm nay bạn muốn chia sẻ
+                        gì?</span>
+                </div>
+                <button class="compose-img-btn" onclick="document.getElementById('fPostImg').click()" title="Thêm ảnh">
+                    <span class="material-symbols-rounded">add_photo_alternate</span>
+                </button>
+                <input type="file" id="fPostImg" hidden accept="image/*" multiple>
+            </div>
 
-    <div class="container">
-        <div class="controls">
-            <div class="chips">
-                <div class="chip active" onclick="setFilter(this, 'all')">Tất cả</div>
-                <div class="chip" onclick="setFilter(this, 'joined')"><span class="material-symbols-rounded">key</span> Đã tham gia</div>
-                <div class="chip" onclick="setFilter(this, 'drama')"><span class="material-symbols-rounded">article</span> Drama</div>
-                <div class="chip" onclick="setFilter(this, 'love')"><span class="material-symbols-rounded">favorite</span> Tình yêu</div>
-                <div class="chip" onclick="setFilter(this, 'school')"><span class="material-symbols-rounded">school</span> Học đường</div>
-                <div class="chip" onclick="setFilter(this, 'game')"><span class="material-symbols-rounded">stadia_controller</span> Game</div>
+            <!-- Feed list -->
+            <div id="feedSkeleton" style="display:none;">
+                <div class="skeleton-card">
+                    <div style="display:flex; gap:12px; margin-bottom:15px;">
+                        <div class="skeleton-item sk-avt"></div>
+                        <div style="flex:1">
+                            <div class="skeleton-item sk-line" style="width:40%"></div>
+                            <div class="skeleton-item sk-line" style="width:20%"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-item sk-line"></div>
+                    <div class="skeleton-item sk-line" style="width:80%"></div>
+                    <div class="skeleton-item sk-img"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div style="display:flex; gap:12px; margin-bottom:15px;">
+                        <div class="skeleton-item sk-avt"></div>
+                        <div style="flex:1">
+                            <div class="skeleton-item sk-line" style="width:30%"></div>
+                            <div class="skeleton-item sk-line" style="width:15%"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-item sk-line"></div>
+                    <div class="skeleton-item sk-img"></div>
+                </div>
+            </div>
+            <div id="feedList"></div>
+            <div id="feedEmpty" style="display:none; text-align:center; padding:40px; color:#94a3b8;">
+                <span class="material-symbols-rounded"
+                    style="font-size:48px; display:block; margin-bottom:12px;">inbox</span>
+                Chưa có bài viết nào. Hãy là người đầu tiên!
+            </div>
+            <!-- SPOILER INPUT MODAL -->
+            <div id="modalSpoilerInput" class="modal" style="z-index:6000;">
+                <div class="box" style="max-width:320px;">
+                    <h3 style="font-size:17px; margin-bottom:12px;">Nhập nội dung mờ</h3>
+                    <textarea id="spoilerInputText" class="inp-area" rows="3" style="width:100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom:15px;" placeholder="Nội dung sẽ bị tàng hình..."></textarea>
+                    <div class="confirm-btns">
+                        <button class="btn-cancel" onclick="document.getElementById('modalSpoilerInput').classList.remove('active')">Hủy</button>
+                        <button id="btnConfirmSpoiler" class="btn-confirm">Chèn ngay</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE GALLERY MODAL -->
+            <div id="modalImg" class="modal-img">
+                <button class="close-img" onclick="document.getElementById('modalImg').classList.remove('active')">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+                <div class="full-img-container">
+                    <button class="gallery-nav prev" id="galleryPrev"><span class="material-symbols-rounded">chevron_left</span></button>
+                    <img id="fullImg" class="full-img">
+                    <button class="gallery-nav next" id="galleryNext"><span class="material-symbols-rounded">chevron_right</span></button>
+                </div>
+                <div id="galleryThumbs" class="gallery-thumbs"></div>
             </div>
         </div>
-        <div class="section-title"> Tất Cả Chủ Đề</div>
-        <div id="grid" class="grid"></div>
-
     </div>
+
 
     <footer>
     </footer>
 
-    <div id="fab" class="fab">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-        </svg>
-        <div id="reqBadge" class="badge"
-            style="top:0; right:0; width:20px; height:20px; display:none; align-items:center; justify-content:center; color:white; font-size:10px; font-weight:bold;">
-            0</div>
-    </div>
+
+
+
+
+
 
     <div id="modalReport" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:8px;"> Báo cáo Topic</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo Topic này.</p>
+            <h3 style="margin-bottom:8px;"> Báo cáo</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo nội dung này.</p>
             <select id="rReason" class="inp" style="cursor:pointer; margin-bottom:10px;">
                 <option>Nội dung thô tục / Phản cảm</option>
                 <option>Spam / Quảng cáo rác</option>
@@ -1147,54 +1963,11 @@
         </div>
     </div>
 
-    <div id="modal" class="modal">
-        <div class="box" style="position:relative;">
-            <button onclick="document.getElementById('modal').classList.remove('active')" 
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <h3 style="margin-bottom:20px; font-size:20px;">Tạo Topic Mới</h3>
-            <div style="margin-bottom:15px"><label class="inp-label">Tên Topic</label><input type="text" id="tTitle"
-                    class="inp" placeholder="Nhập tên chủ đề..."></div>
-            <div style="margin-bottom:15px">
-                <label class="inp-label">Thể loại</label>
-                <select id="tCat" class="inp">
-                    <option value="life"> Đời thường</option>
-                    <option value="drama"> Drama</option>
-                    <option value="love">️ Tình yêu</option>
-                    <option value="school"> Học đường</option>
-                    <option value="game"> Game</option>
-                </select>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"><label class="btn-file"> Ảnh bìa
-                    <input type="file" id="fBanner" hidden></label><label class="btn-file">️ Logo <input type="file"
-                        id="fLogo" hidden></label></div>
-            <div style="margin-bottom:15px"><label class="inp-label">Mô tả / Nội quy</label><textarea id="tRules"
-                    class="inp" rows="3"></textarea></div>
-            <div style="display:flex; gap:15px; margin-bottom:10px;">
-                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox"
-                        id="tStatus" checked> Mở Topic</label>
-                <label style="font-size:13px; display:flex; align-items:center; gap:5px"><input type="checkbox"
-                        id="tAllowImg" checked> Cho phép ảnh</label>
-            </div>
-            <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
-                <input type="checkbox" id="chkTerms" style="margin-top:3px; cursor:pointer;">
-                <label for="chkTerms" style="color:var(--text-secondary); cursor:pointer;">
-                    Tôi đồng ý với <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
-                        onclick="event.preventDefault(); document.getElementById('modalTerms').classList.add('active')">Quy
-                        định tạo Topic</span>. Tôi chịu trách nhiệm hoàn toàn về nội dung mình tạo ra.
-                </label>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:20px">
-                <button id="btnCreate" class="btn-act" style="flex:1; margin-top:0;">Tạo Topic</button>
-            </div>
-        </div>
-    </div>
-
     <div id="modalNews" class="modal">
         <div class="box" style="position:relative;">
-            <button onclick="document.getElementById('modalNews').classList.remove('active')" 
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+            <button onclick="document.getElementById('modalNews').classList.remove('active')"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
+                title="Đóng">
                 <span class="material-symbols-rounded">close</span>
             </button>
             <h3 style="margin-bottom:20px; font-size:20px;"> Cập nhật mới</h3>
@@ -1203,41 +1976,29 @@
                     <div class="cl-icon">️</div>
                     <div class="cl-content">
                         <div class="cl-date">Mới</div>
-                        <h4>Bảo mật Topic & Notification</h4>
-                        <p>Topic riêng tư với OTP và Duyệt người tham gia. Thông báo xét duyệt ngay trang chủ!</p>
+                        <h4>Bảo mật & Trải nghiệm mới</h4>
+                        <p>Hệ thống Đăng bài (Feed) đã thay thế hoàn toàn mục Chủ đề. Trải nghiệm nhanh hơn, mượt hơn!
+                        </p>
                     </div>
                 </div>
                 <div class="cl-item">
                     <div class="cl-icon"></div>
                     <div class="cl-content">
                         <div class="cl-date">14/12</div>
-                        <h4>Fix Bug Và Thêm Tính Năng Mới</h4>
-                        <p>Hãy tự trải nghiệm nhé .</p>
+                        <h4>Cải thiện giao diện</h4>
+                        <p>Bảng tạo bài viết mới cực "xịn", hỗ trợ làm mờ chữ và ảnh.</p>
                     </div>
                 </div>
             </div>
-                document.getElementById('modalNews').classList.remove('active');
-        </div>
-    </div>
-    </div>
-    <div id="modalRequests" class="modal">
-        <div class="box" style="position:relative;">
-            <button onclick="document.getElementById('modalRequests').classList.remove('active')" 
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <h3 style="margin-bottom:20px; font-size:20px;"> Yêu cầu tham gia</h3>
-            <p id="noReqMsg" style="text-align:center; color:#64748b; font-size:14px;">Không có yêu cầu nào.</p>
-            <div id="reqList" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;">
 
-            </div>
         </div>
     </div>
 
     <div id="modalFeedback" class="modal">
         <div class="box" style="position:relative;">
-            <button onclick="document.getElementById('modalFeedback').classList.remove('active')" 
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
+            <button onclick="document.getElementById('modalFeedback').classList.remove('active')"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
+                title="Đóng">
                 <span class="material-symbols-rounded">close</span>
             </button>
             <h3 style="margin-bottom:20px; font-size:20px;"> Góp ý cho Admin</h3>
@@ -1248,34 +2009,142 @@
         </div>
     </div>
 
-    <div id="modalTerms" class="modal" style="z-index:2000;">
-        <div class="box" style="position:relative;">
-            <button onclick="document.getElementById('modalTerms').classList.remove('active')" 
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;" title="Đóng">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <h3 style="margin-bottom:20px;"> Quy định Tạo Topic</h3>
-            <div
-                style="max-height:60vh; overflow-y:auto; margin-bottom:20px; font-size:14px; color:var(--text-secondary); line-height:1.6;">
-                <p style="margin-bottom:10px;">1. <b>Nội dung cấm:</b> Không đăng tải nội dung vi phạm pháp luật, đồi
-                    trụy, phản động, hoặc trái với thuần phong mỹ tục Việt Nam.</p>
-                <p style="margin-bottom:10px;">2. <b>Tôn trọng:</b> Không xúc phạm, công kích, quấy rối cá nhân hoặc tổ
-                    chức khác.</p>
-                <p style="margin-bottom:10px;">3. <b>Spam:</b> Không spam, quảng cáo trái phép, lừa đảo.</p>
-                <p style="margin-bottom:10px;">4. <b>Trách nhiệm:</b> Chủ Topic chịu hoàn toàn trách nhiệm pháp lý về
-                    nội dung và hoạt động trong Topic của mình.</p>
-                <p style="margin-bottom:10px;">5. <b>Quyền hạn:</b> Admin có quyền xóa Topic và khóa tài khoản vĩnh viễn
-                    nếu phát hiện vi phạm mà không cần báo trước.</p>
+    <!-- CUSTOM CONFIRM MODAL -->
+    <div id="modalConfirm" class="modal">
+        <div class="box">
+            <h3 id="confirmTitle" style="font-size:18px; margin-bottom:10px;">Xác nhận</h3>
+            <p id="confirmDesc" style="color:#64748b; font-size:14px; line-height:1.5;">Bạn có chắc chắn muốn thực hiện
+                hành động này không?</p>
+            <div class="confirm-btns">
+                <button class="btn-cancel" id="btnConfirmCancel"
+                    onclick="document.getElementById('modalConfirm').classList.remove('active')">Hủy</button>
+                <button id="btnConfirmOk" class="btn-confirm">Xác nhận</button>
             </div>
         </div>
     </div>
 
+
+
     <div id="toast" class="toast"></div>
+
+    <!-- POST MODAL -->
+    <div id="modalPost" class="modal">
+        <div class="box"
+            style="position:relative; max-width:500px; border-radius:24px; padding:24px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);">
+            <button onclick="closePostModal()" style="position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%; border:none; background:#f1f5f9; color:#64748b; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.2s; z-index:10;" onmouseover="this.style.background='#e2e8f0'; this.style.color='#0f172a'" onmouseout="this.style.background='#f1f5f9'; this.style.color='#64748b'"><span class="material-symbols-rounded" style="font-size:20px;">close</span></button>
+            <h3 id="modalPostTitle"
+                style="margin-bottom:20px; font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#1e293b;">Tạo
+                bài viết mới</h3>
+            <div class="post-modal-header" style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+                <img id="postModalAvt"
+                    src="https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg"
+                    class="post-modal-avt"
+                    style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                <div style="flex:1;">
+                    <div class="post-modal-name" id="postModalName"
+                        style="font-weight:800; font-size:16px; color:#1e293b;">Bạn</div>
+                    <div
+                        style="font-size:13px; color:#94a3b8; font-weight:500; display:flex; align-items:center; gap:4px;">
+                        <span class="material-symbols-rounded" style="font-size:14px;">public</span> Công khai
+                    </div>
+                </div>
+            </div>
+            <textarea id="postContent" class="post-textarea"
+                placeholder="Hôm nay bạn muốn chia sẻ gì? Dùng ||text|| để làm mờ chữ..." maxlength="1000"></textarea>
+            <div id="postImgPreviewBox" class="cmt-preview-box">
+                <div id="postImgPreviewContainer" class="preview-container"></div>
+            </div>
+
+            <div class="post-options-row">
+                <div class="post-opt-chip" onclick="document.getElementById('fPostImg').click()">
+                    <span class="material-symbols-rounded" style="font-size:18px;">add_photo_alternate</span> Ảnh
+                </div>
+                <div class="post-opt-chip" onclick="window.insertSpoiler()">
+                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Mờ chữ
+                </div>
+                <label class="post-opt-chip" id="btnBlurImg" style="display:none;">
+                    <input type="checkbox" id="chkBlurImg"
+                        onchange="this.parentElement.classList.toggle('active', this.checked)">
+                    <span class="material-symbols-rounded" style="font-size:18px;">image_not_supported</span> Mờ ảnh
+                </label>
+                <label class="post-opt-chip">
+                    <input type="checkbox" id="chkAnon"
+                        onchange="this.parentElement.classList.toggle('active', this.checked)">
+                    <span class="material-symbols-rounded" style="font-size:18px;">person_off</span> Ẩn danh
+                </label>
+            </div>
+            <div class="post-modal-footer"
+                style="padding-top:15px; border-top:1px solid #f1f5f9; display:flex; align-items:center; justify-content:space-between;">
+                <button id="btnDeletePostInModal" onclick="confirmDeletePost()"
+                    style="display:none; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:13px; font-weight:600; padding:8px 0; transition:0.2s;">
+                    <span class="material-symbols-rounded"
+                        style="vertical-align:middle; font-size:18px; margin-right:4px;">delete</span> Xóa bài viết
+                </button>
+                <div style="flex:1;"></div>
+                <button id="btnSubmitPost" class="btn-post-submit"
+                    style="width:auto; padding:10px 24px; border-radius:12px; font-weight:700; background:var(--primary); color:white; border:none; cursor:pointer;">Đăng bài</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALL COMMENTS MODAL -->
+    <div id="modalAllCmts" class="modal" style="z-index:3000;">
+        <div class="box" style="position:relative; max-width:500px;">
+            <button onclick="document.getElementById('modalAllCmts').classList.remove('active')"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+            <h3 style="margin-bottom:16px;">Bình luận</h3>
+            <div id="allCmtsList" style="max-height:55vh; overflow-y:auto; margin-bottom:16px;"></div>
+            <div id="cmtReplyBanner" class="cmt-reply-banner">
+                <div style="font-size: 12px; color: #0084ff; font-weight: 700;">Đang trả lời <span
+                        id="replyingToName"></span></div>
+                <button onclick="cancelCmtReply()"
+                    style="background:none; border:none; color:#94a3b8; cursor:pointer;"><span
+                        class="material-symbols-rounded" style="font-size:16px;">close</span></button>
+            </div>
+            <div id="cmtPreviewBox" class="cmt-preview-box">
+                <div id="cmtPreviewContainer" class="preview-container"></div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <img id="allCmtsAvt"
+                    src="https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg"
+                    style="width:32px;height:32px;border-radius:50%;">
+                <label for="fCmtImg" style="cursor:pointer; color:var(--primary); display:flex; align-items:center;">
+                    <span class="material-symbols-rounded" style="font-size:24px;">image</span>
+                </label>
+                <input type="file" id="fCmtImg" accept="image/*" multiple hidden>
+                <input type="text" id="allCmtsInput" class="feed-cmt-input" placeholder="Viết bình luận...">
+                <button class="feed-cmt-send" onclick="sendAllCmtsComment()">
+                    <span class="material-symbols-rounded" style="font-size:16px;">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT COMMENT MODAL -->
+    <div id="modalEditComment" class="modal" style="z-index:5000;">
+        <div class="box">
+            <h3 style="font-size:18px; margin-bottom:15px;">Chỉnh sửa bình luận</h3>
+            <div style="margin-bottom:15px">
+                <textarea id="editCmtInput" class="inp-area" rows="4" style="width:100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;" placeholder="Nội dung bình luận..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button class="post-opt-chip" onclick="window.insertSpoiler('editCmtInput')" style="border:none;">
+                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Mờ chữ
+                </button>
+            </div>
+            <div class="confirm-btns">
+                <button class="btn-cancel" onclick="document.getElementById('modalEditComment').classList.remove('active')">Hủy</button>
+                <button id="btnSaveEditCmt" class="btn-confirm">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDoc, doc, where, updateDoc, deleteDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDoc, doc, where, updateDoc, deleteDoc, arrayUnion, increment, runTransaction, getDocs, limit, setDoc, limitToLast } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
@@ -1304,7 +2173,99 @@
             }
         }).catch(e => { });
         let user = null, allTopics = [], curFilter = 'all';
-        let reportTargetId = null; // ID Topic cần báo cáo
+        let reportTargetId = null;
+        let selectedPostFiles = [];
+        let userData = null;
+        let feedUnsub = null;
+
+        let galleryImages = [];
+        let galleryIndex = 0;
+        window.openGallery = async (imgs, index) => {
+            const modal = document.getElementById('modalImg');
+            if (!modal) return;
+            
+            modal.classList.add('active');
+            const fullImg = document.getElementById('fullImg');
+            
+            // Immediate state: current image(s) from the post
+            const initialImgs = Array.isArray(imgs) ? imgs : [imgs];
+            galleryImages = initialImgs;
+            galleryIndex = index || 0;
+            
+            if (fullImg) {
+                fullImg.style.opacity = '1';
+                fullImg.src = galleryImages[galleryIndex];
+            }
+            renderGallery();
+
+            // Background fetch full feed history to allow swiping through all posts
+            try {
+                const q = query(collection(db, "posts"), where("tid", "==", "home"), limitToLast(50));
+                const snap = await getDocs(q);
+                const sortedDocs = snap.docs.sort((a, b) => (b.data().createdAt?.toMillis() || 0) - (a.data().createdAt?.toMillis() || 0));
+                
+                let allFeedImgs = [];
+                sortedDocs.forEach(d => {
+                    const data = d.data();
+                    const pImgs = data.images || (data.image ? [data.image] : []);
+                    allFeedImgs = [...allFeedImgs, ...pImgs];
+                });
+                
+                if (allFeedImgs.length > 0) {
+                    const targetImg = initialImgs[index || 0];
+                    // Ensure allFeedImgs contains the targetImg and deduplicate
+                    const set = new Set(allFeedImgs);
+                    initialImgs.forEach(ui => set.add(ui));
+                    const finalImgs = Array.from(set);
+                    
+                    // The order should ideally be chronological, but let's just make sure 
+                    // the target image is at the right index if we can find it.
+                    galleryImages = finalImgs;
+                    galleryIndex = finalImgs.indexOf(targetImg);
+                    if (galleryIndex === -1) galleryIndex = 0;
+                    
+                    renderGallery();
+                }
+            } catch (err) {
+                console.error("Home gallery history fetch error:", err);
+            }
+        };
+        function renderGallery() {
+            const fullImg = document.getElementById('fullImg');
+            const thumbContainer = document.getElementById('galleryThumbs');
+            const prevBtn = document.getElementById('galleryPrev');
+            const nextBtn = document.getElementById('galleryNext');
+            if (!fullImg || !galleryImages.length) return;
+            fullImg.src = galleryImages[galleryIndex];
+            if (galleryImages.length > 1) {
+                thumbContainer.style.display = 'flex';
+                thumbContainer.innerHTML = '';
+                galleryImages.forEach((src, i) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = src;
+                    thumb.className = `gallery-thumb-item ${i === galleryIndex ? 'active' : ''}`;
+                    thumb.onclick = (e) => { e.stopPropagation(); galleryIndex = i; renderGallery(); };
+                    thumbContainer.appendChild(thumb);
+                });
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            } else {
+                thumbContainer.style.display = 'none';
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+                renderGallery();
+            };
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                galleryIndex = (galleryIndex + 1) % galleryImages.length;
+                renderGallery();
+            };
+        }
+        window.viewImg = (src) => window.openGallery([src], 0);
 
         window.showToast = (msg) => {
             if (window.parent && window.parent.showToast) {
@@ -1324,321 +2285,1094 @@
             document.getElementById('modalReport').classList.add('active');
         }
 
-        document.getElementById('btnSendReport').onclick = async function () {
-            if (!reportTargetId) return;
-            const reason = document.getElementById('rReason').value.trim();
-            if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
-            this.textContent = "Đang gửi...";
-            try {
-                await addDoc(collection(db, "reports"), {
-                    targetId: reportTargetId,
-                    targetType: 'topic',
-                    reason: reason,
-                    reporter: user ? user.email : "Anonymous",
-                    createdAt: serverTimestamp()
-                });
-                window.showToast("Đã gửi báo cáo!");
-                document.getElementById('modalReport').classList.remove('active');
-            } catch (e) { window.showToast("Lỗi gửi báo cáo!"); }
-            this.textContent = "Gửi Báo Cáo";
+        const btnSendReport = document.getElementById('btnSendReport');
+        if (btnSendReport) {
+            btnSendReport.onclick = async function () {
+                if (!reportTargetId) return;
+                const reason = document.getElementById('rReason').value.trim();
+                if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
+                this.textContent = "Đang gửi...";
+                try {
+                    await addDoc(collection(db, "reports"), {
+                        targetId: reportTargetId,
+                        targetType: 'content',
+                        reason: reason,
+                        reporter: user ? user.email : "Anonymous",
+                        createdAt: serverTimestamp()
+                    });
+                    window.showToast("Đã gửi báo cáo!");
+                    document.getElementById('modalReport').classList.remove('active');
+                } catch (e) { window.showToast("Lỗi gửi báo cáo!"); }
+                this.textContent = "Gửi Báo Cáo";
+            }
         }
 
         // btnNews handler moved to updateBadge logic section below
-        document.getElementById('btnSendFeedback').onclick = async () => {
-            const txt = document.getElementById('feedbackContent').value;
-            if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
-            document.getElementById('btnSendFeedback').textContent = "Đang gửi...";
-            try {
-                await addDoc(collection(db, "feedbacks"), { content: txt, user: user ? user.email : "Ẩn danh", uid: user ? user.uid : null, createdAt: serverTimestamp() });
-                window.showToast("Cảm ơn góp ý của bạn! ️");
-                document.getElementById('feedbackContent').value = "";
-                document.getElementById('modalFeedback').classList.remove('active');
-            } catch (e) { window.showToast("Lỗi khi gửi!"); }
-            document.getElementById('btnSendFeedback').textContent = "Gửi góp ý";
+        const btnSendFeedback = document.getElementById('btnSendFeedback');
+        if (btnSendFeedback) {
+            btnSendFeedback.onclick = async () => {
+                const txt = document.getElementById('feedbackContent').value;
+                if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
+                btnSendFeedback.textContent = "Đang gửi...";
+                try {
+                    await addDoc(collection(db, "feedbacks"), {
+                        content: txt,
+                        user: user ? user.email : "Ẩn danh",
+                        uid: user ? user.uid : null,
+                        createdAt: serverTimestamp()
+                    });
+                    window.showToast("Cảm ơn góp ý của bạn! ️");
+                    document.getElementById('feedbackContent').value = "";
+                    document.getElementById('modalFeedback').classList.remove('active');
+                } catch (e) { window.showToast("Lỗi khi gửi!"); }
+                btnSendFeedback.textContent = "Gửi góp ý";
+            }
         }
 
-        let joinedTopicIds = [];
+        async function loadFeedUserData() {
+            if (!user) return;
+            try {
+                const snap = await getDoc(doc(db, "users", user.uid));
+                if (snap.exists()) {
+                    userData = snap.data();
+                    if (typeof updateComposeAvatar === 'function') updateComposeAvatar();
+                }
+            } catch (e) { console.error("Error loading user data:", e); }
+        }
 
         onAuthStateChanged(auth, async (u) => {
             user = u;
+            if (u) loadFeedUserData();
+            updateNav();
+            loadFeed();
+        });
+
+        window.switchTab = () => { };
+        async function render() { }
+        async function loadRequests() { }
+
+        async function updateNav() {
+            const u = user;
+            const nav = document.getElementById('navAction');
+            if (!nav) return;
             if (u) {
-                loadRequests();
-                onSnapshot(query(collection(db, "topic_members"), where("userId", "==", u.uid)), (snap) => {
-                    joinedTopicIds = [];
-                    snap.forEach(d => { if (d.data().status === 'approved') joinedTopicIds.push(d.data().tid); });
-                    if (curFilter === 'joined') render();
+                let avt = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
+                let frame = 'none';
+                try {
+                    const d = await getDoc(doc(db, "users", u.uid));
+                    if (d.exists()) {
+                        avt = d.data().photoURL || avt;
+                        frame = d.data().avatarFrame || 'none';
+                    }
+                } catch { }
+                const guestBanner = u.isAnonymous ? `
+                    <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
+                         <b>👤 Tư cách khách</b><br>
+                        <span style="font-weight:400;">Bấm để đặt email & mật khẩu lưu tài khoản vĩnh viễn</span>
+                    </a>` : '';
+                nav.innerHTML = `
+                    <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
+                        <img src="${avt}" class="nav-avt frame-${frame}">
+                        <div class="dropdown-menu">
+                            ${guestBanner}
+                            <a href="profile.html?uid=${u.uid}" class="menu-item">👤 Hồ sơ của tôi</a>
+                            <div id="btnNavFeedback" class="menu-item">💡 Góp ý cho Admin</div>
+                            <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
+                        </div>
+                    </div>`;
+                document.getElementById('btnNavFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
+                document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
+            } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
+        }
+        // FAB scroll-to-hide on mobile
+        (() => {
+            const fab = document.getElementById('fab');
+            if (!fab) return;
+            let lastY = 0;
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                if (window.innerWidth > 768) { fab.classList.remove('fab-hidden'); return; }
+                if (y > lastY && y > 60) fab.classList.add('fab-hidden');
+                else fab.classList.remove('fab-hidden');
+                lastY = y;
+            }, { passive: true });
+        })();
+
+
+        // ========== FEED (Đăng Bài) LOGIC ==========
+        const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
+        const MISSING_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
+
+        window.escapeHTML = (str) => {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": "&#39;", '"': '&quot;' }[t]));
+        };
+
+        const selectedCommentFiles = {}; // { pid: [File, File, ...] }
+
+        window.addEventListener('paste', async (e) => {
+            const target = e.target;
+            if (!target || !target.classList.contains('feed-cmt-input')) return;
+            
+            const pid = target.id.split('-')[1];
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            const files = [];
+            for (let item of items) {
+                if (item.type.indexOf("image") === 0) {
+                    files.push(item.getAsFile());
+                }
+            }
+            if (files.length > 0) {
+                handleCommentFiles(pid, files);
+            }
+        });
+
+        function handleCommentFiles(pid, files) {
+            if (!selectedCommentFiles[pid]) selectedCommentFiles[pid] = [];
+            selectedCommentFiles[pid] = [...selectedCommentFiles[pid], ...Array.from(files)];
+            renderCommentPreview(pid);
+        }
+
+        function renderCommentPreview(pid) {
+            const previewBox = document.getElementById(`cmtPreviewBox-${pid}`);
+            const container = document.getElementById(`cmtPreviewContainer-${pid}`);
+            if (!previewBox || !container) return;
+
+            container.innerHTML = '';
+            const files = selectedCommentFiles[pid] || [];
+
+            if (files.length > 0) {
+                files.forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'preview-item';
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'preview-item-close';
+                    closeBtn.innerHTML = '×';
+                    closeBtn.onclick = () => {
+                        selectedCommentFiles[pid].splice(index, 1);
+                        renderCommentPreview(pid);
+                    };
+                    item.appendChild(img);
+                    item.appendChild(closeBtn);
+                    container.appendChild(item);
                 });
+                previewBox.style.display = 'block';
             } else {
-                let deviceId = localStorage.getItem('confe_device_id');
-                if (deviceId) {
-                    onSnapshot(query(collection(db, "topic_members"), where("userId", "==", deviceId)), (snap) => {
-                        joinedTopicIds = [];
-                        snap.forEach(d => { if (d.data().status === 'approved') joinedTopicIds.push(d.data().tid); });
-                        if (curFilter === 'joined') render();
+                previewBox.style.display = 'none';
+            }
+        }
+
+        window.linkifyText = (text) => {
+            if (!text) return '';
+            let r = window.escapeHTML(text);
+            
+            // Spoilers
+            r = r.replace(/\|\|(.*?)\|\|/g, (m, c) => `<span class="spoiler-text" onclick="this.classList.toggle('revealed')">${c}</span>`);
+            
+            // URLs
+            const urlRegex = /(https?:\/\/[^\s<]+)/g;
+            r = r.replace(urlRegex, u => `<a href="${u}" target="_blank">${u}</a>`);
+            
+            // Hashtags - Avoid matching inside already created HTML tags
+            r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {
+                if (aTag || spanTag) return match; 
+                return `<span class="hashtag" onclick="event.stopPropagation(); window.showHashtag('${tagText}')">#${tagText}</span>`;
+            });
+            
+            return r;
+        };
+
+        window.showHashtag = async (tag) => {
+            const q = query(collection(db, "posts"), where("tid", "==", "home"));
+            const snap = await getDocs(q);
+            let count = 0;
+            snap.forEach(d => {
+                if (d.data().content && d.data().content.includes(`#${tag}`)) count++;
+            });
+            const confirmed = await window.showConfirm(`Hashtag #${tag}`, `Đang có ${count} bài viết sử dụng hashtag này. Bạn muốn xem tất cả? (Tính năng lọc đang phát triển)`);
+        };
+
+        let trendingPost = null;
+        async function updateTrending() {
+            const q = query(collection(db, "posts"), where("tid", "==", "home"), orderBy("createdAt", "desc"), limit(50));
+            const snap = await getDocs(q);
+            const tags = {};
+            snap.forEach(d => {
+                const text = d.data().content || "";
+                const matches = text.match(/#(\w+)/g);
+                if (matches) {
+                    matches.forEach(m => {
+                        const t = m.substring(1);
+                        tags[t] = (tags[t] || 0) + 1;
                     });
                 }
-                window.top.location.href = 'login.html';
-                return;
-            }
-            try { if (window.parent && window.parent.setUid) window.parent.setUid(u ? u.uid : null); } catch (e) { }
-            const nav = document.getElementById('navAction');
-            if (nav) {
-                if (u) {
-                    let avt = "https://via.placeholder.com/40";
-                    let frame = 'none';
-                    try {
-                        const d = await getDoc(doc(db, "users", u.uid));
-                        if (d.exists()) {
-                            avt = d.data().photoURL || avt;
-                            frame = d.data().avatarFrame || 'none';
-                        }
-                    } catch { }
-                    const guestBanner = u.isAnonymous ? `
-                        <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
-                             <b>👤 Tư cách khách</b><br>
-                            <span style="font-weight:400;">Bấm để đặt email & mật khẩu lưu tài khoản vĩnh viễn</span>
-                        </a>` : '';
-                    nav.innerHTML = `
-                        <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
-                            <img src="${avt}" class="nav-avt frame-${frame}">
-                            <div class="dropdown-menu">
-                                ${guestBanner}
-                                <a href="profile.html?uid=${u.uid}" class="menu-item">👤 Hồ sơ của tôi</a>
-                                <div id="btnNavFeedback" class="menu-item">💡 Góp ý cho Admin</div>
-                                <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
-                            </div>
-                        </div>`;
-                    document.getElementById('btnNavFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
-                    document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
-                } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
-            }
-
-            window.onclick = (e) => {
-                if (!e.target.closest('.nav-user')) document.querySelector('.dropdown-menu')?.classList.remove('show');
-                if (e.target.classList.contains('modal')) e.target.classList.remove('active');
-            }
-            const modal = document.getElementById('modal');
-            document.getElementById('fab').onclick = () => {
-                if (!user) return location.href = 'login.html';
-                if (user.isAnonymous) return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
-                modal.classList.add('active');
-            }
-            async function up(f) { if (!f) return ""; const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch { return ""; } }
-
-            document.getElementById('btnCreate').onclick = async function () {
-                if (!user || user.isAnonymous) {
-                    modal.classList.remove('active');
-                    return window.showToast(' Tư cách khách không thể tạo Topic! Hãy tạo tài khoản trước.');
-                }
-                const t = document.getElementById('tTitle').value; if (!t) return window.showToast("Nhập tên Topic!");
-                if (!document.getElementById('chkTerms').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
-                this.textContent = "Đang tạo..."; this.disabled = true;
-                const b = await up(document.getElementById('fBanner').files[0]);
-                const l = await up(document.getElementById('fLogo').files[0]);
-                const status = document.getElementById('tStatus').checked;
-                const allowImg = document.getElementById('tAllowImg').checked;
-                await addDoc(collection(db, "topics"), { title: t, owner: user.email, authorId: user.uid, banner: b, logo: l, category: document.getElementById('tCat').value, rules: document.getElementById('tRules').value, heat: 0, createdAt: serverTimestamp(), status: status ? 'open' : 'closed', allowImages: allowImg, allowChat: false, postRule: 'all', is_agree_terms: true });
-                window.showToast("Đã tạo Topic thành công!"); modal.classList.remove('active'); this.textContent = "Tạo Topic"; this.disabled = false;
-            };
-            const grid = document.getElementById('grid');
-            const suggestList = document.getElementById('suggestList');
-
-            onSnapshot(query(collection(db, "topics"), orderBy("createdAt", "desc")), (snap) => {
-                allTopics = [];
-                snap.forEach(d => allTopics.push({ id: d.id, ...d.data() }));
-                render();
             });
 
-            function render() {
-                const list = allTopics.filter(t => {
-                    const matchSearch = !document.getElementById('search').value || t.title.toLowerCase().includes(document.getElementById('search').value.toLowerCase());
-                    let matchCat = false;
-                    if (curFilter === 'joined') {
-                        matchCat = joinedTopicIds.includes(t.id);
-                    } else {
-                        matchCat = curFilter === 'all' || t.category === curFilter;
+            let topTag = null;
+            let max = 0;
+            for (let t in tags) {
+                if (tags[t] > max) { max = tags[t]; topTag = t; }
+            }
+
+            if (topTag && max >= 2) {
+                // Find a post with this tag to hoist
+                snap.forEach(d => {
+                    if (!trendingPost && d.data().content.includes(`#${topTag}`)) {
+                        trendingPost = { ...d.data(), id: d.id, isTrending: true };
                     }
-                    return matchSearch && matchCat;
                 });
+            } else {
+                trendingPost = null;
+            }
+        }
 
-                if (list.length === 0) {
-                    const searchVal = document.getElementById('search').value;
-                    const catName = curFilter === 'all' ? '' : ` trong danh mục "${document.querySelector('.chip.active').textContent.trim()}"`;
+        window.showConfirm = (title, desc) => {
+            return new Promise((resolve) => {
+                document.getElementById('confirmTitle').textContent = title;
+                document.getElementById('confirmDesc').textContent = desc;
+                const modal = document.getElementById('modalConfirm');
+                modal.classList.add('active');
+                
+                const onOk = () => {
+                    modal.classList.remove('active');
+                    document.getElementById('btnConfirmOk').removeEventListener('click', onOk);
+                    document.getElementById('btnConfirmCancel').removeEventListener('click', onCancel);
+                    resolve(true);
+                };
+                const onCancel = () => {
+                    modal.classList.remove('active');
+                    document.getElementById('btnConfirmOk').removeEventListener('click', onOk);
+                    document.getElementById('btnConfirmCancel').removeEventListener('click', onCancel);
+                    resolve(false);
+                };
 
-                    grid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">${searchVal ? '<span class="material-symbols-rounded">search</span>' : '<span class="material-symbols-rounded">folder_open</span>'}</div>
-                        <div class="empty-title">Không tìm thấy kết quả</div>
-                        <div class="empty-desc">
-                            ${searchVal
-                            ? `Chúng mình không tìm thấy chủ đề nào khớp với "<b>${window.escapeHTML(searchVal)}</b>"${catName}.`
-                            : `Hiện tại chưa có chủ đề nào${catName}. Hãy là người đầu tiên tạo chủ đề mới nhé!`}
-                        </div>
-                    </div>
-                `;
+                document.getElementById('btnConfirmOk').addEventListener('click', onOk);
+                document.getElementById('btnConfirmCancel').addEventListener('click', onCancel);
+            });
+        };
+
+        function timeAgo(ts) {
+            if (!ts) return '';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            const s = Math.floor((Date.now() - d.getTime()) / 1000);
+            if (s < 60) return 'Vừa xong';
+            if (s < 3600) return `${Math.floor(s / 60)} phút trước`;
+            if (s < 86400) return `${Math.floor(s / 3600)} giờ trước`;
+            return `${Math.floor(s / 86400)} ngày trước`;
+        }
+
+        let activeFeedPid = null;
+        const userReactions = {};
+        const userProfilesCache = {};
+
+        async function getLatestUserInfo(uid, fallbackName, fallbackAvt) {
+            if (!uid) return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false };
+            if (userProfilesCache[uid]) return userProfilesCache[uid];
+            try {
+                const snap = await getDoc(doc(db, "users", uid));
+                if (snap.exists()) {
+                    const data = snap.data();
+                    const info = { 
+                        name: data.displayName || fallbackName, 
+                        avt: data.photoURL || fallbackAvt, 
+                        color: data.nameColor || 'default',
+                        verified: !!(data.isVerified || data.verified)
+                    };
+                    userProfilesCache[uid] = info;
+                    return info;
+                }
+            } catch (e) { }
+            return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false };
+        }
+
+
+
+        // Compose box click
+        window.openPostModal = () => {
+            if (!user) return window.showToast("Đăng nhập để đăng bài!");
+            const modal = document.getElementById('modalPost');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 1);
+        };
+
+        window.closePostModal = async (force = false) => {
+            const txt = document.getElementById('postContent').value.trim();
+            const hasImg = selectedPostFiles.length > 0 || editingPostExistingImages.length > 0;
+            const isDirty = (txt.length > 0 || hasImg) && !force;
+
+            const executeClose = () => {
+                const modal = document.getElementById('modalPost');
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    if (!modal.classList.contains('active')) {
+                        modal.style.display = 'none';
+                    }
+                }, 200);
+
+                document.getElementById('postContent').value = '';
+                document.getElementById('postImgPreviewContainer').innerHTML = '';
+                document.getElementById('postImgPreviewBox').style.display = 'none';
+                document.getElementById('btnBlurImg').style.display = 'none';
+                document.getElementById('chkBlurImg').checked = false;
+                document.getElementById('chkAnon').checked = false;
+                const btnDel = document.getElementById('btnDeletePostInModal');
+                if (btnDel) btnDel.style.display = 'none';
+                
+                selectedPostFiles = [];
+                editingPostId = null;
+                editingPostExistingImg = "";
+                editingPostExistingImages = [];
+                document.getElementById('modalPostTitle').textContent = "Tạo bài viết mới";
+                document.getElementById('btnSubmitPost').textContent = "Đăng bài";
+            };
+
+            if (isDirty) {
+                const confirmed = await window.showConfirm("Hủy bài viết?", "Bạn có nội dung chưa đăng tải. Bạn có thực sự muốn đóng không?");
+                if (confirmed) {
+                    executeClose();
+                }
+            } else {
+                executeClose();
+            }
+        };
+
+        const isPostModalActive = () => document.getElementById('modalPost').classList.contains('active');
+
+        let editingPostId = null;
+        let editingPostExistingImg = "";
+        let editingPostExistingImages = [];
+        window.openEditFeedPost = (pid, content, img, images = []) => {
+            editingPostId = pid;
+            editingPostExistingImg = img || "";
+            editingPostExistingImages = images || [];
+            if (img && images.length === 0) editingPostExistingImages = [img];
+
+            const modal = document.getElementById('modalPost');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 1);
+            
+            document.getElementById('modalPostTitle').textContent = "Chỉnh sửa bài viết";
+            document.getElementById('postContent').value = content;
+            document.getElementById('btnDeletePostInModal').style.display = 'block';
+
+            renderPostPreview();
+        };
+
+        window.removePostImg = (index, isExisting = false) => {
+            if (isExisting) {
+                editingPostExistingImages.splice(index, 1);
+            } else {
+                selectedPostFiles.splice(index, 1);
+            }
+            renderPostPreview();
+        };
+
+        function renderPostPreview() {
+            const container = document.getElementById('postImgPreviewContainer');
+            const box = document.getElementById('postImgPreviewBox');
+            if (!container || !box) return;
+
+            container.innerHTML = '';
+            const allImages = [
+                ...editingPostExistingImages.map((src, i) => ({ src, index: i, isExisting: true })),
+                ...selectedPostFiles.map((file, i) => ({ src: URL.createObjectURL(file), index: i, isExisting: false }))
+            ];
+
+            if (allImages.length > 0) {
+                allImages.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'preview-item';
+                    item.innerHTML = `
+                        <img src="${img.src}">
+                        <div class="preview-item-close" onclick="removePostImg(${img.index}, ${img.isExisting})">×</div>
+                    `;
+                    container.appendChild(item);
+                });
+                box.style.display = 'block';
+                document.getElementById('btnBlurImg').style.display = 'flex';
+            } else {
+                box.style.display = 'none';
+                document.getElementById('btnBlurImg').style.display = 'none';
+                document.getElementById('fPostImg').value = "";
+            }
+        }
+
+        window.confirmDeletePost = async () => {
+            if (!editingPostId) return;
+            const confirmed = await window.showConfirm("Xóa bài viết?", "Dữ liệu sẽ bị xóa vĩnh viễn và không thể khôi phục.");
+            if (confirmed) {
+                try {
+                    await deleteDoc(doc(db, "posts", editingPostId));
+                    window.showToast("Đã xóa bài viết");
+                    closePostModal(true);
+                } catch (e) {
+                    window.showToast("Lỗi khi xóa bài viết");
+                }
+            }
+        };
+
+        window.deleteFeedPost = async (pid) => {
+            // This is the old cards-based delete, we can keep it for admin or remove
+            // But the user wants it in the edit modal, so we'll mainly use confirmDeletePost
+            const confirmed = await window.showConfirm("Xóa bài viết?", "Bạn có chắc chắn muốn xóa bài viết này không?");
+            if (confirmed) {
+                try {
+                    await deleteDoc(doc(db, "posts", pid));
+                    window.showToast("Đã xóa bài viết");
+                } catch (e) {
+                    window.showToast("Lỗi khi xóa bài viết");
+                }
+            }
+        };
+
+        let targetSpoilerInputId = 'postContent';
+        window.insertSpoiler = (targetId = 'postContent') => {
+            targetSpoilerInputId = targetId;
+            const modal = document.getElementById('modalSpoilerInput');
+            const input = document.getElementById('spoilerInputText');
+            if (!modal || !input) return;
+
+            const area = document.getElementById(targetId);
+            const selected = area ? area.value.substring(area.selectionStart, area.selectionEnd) : "";
+            
+            input.value = selected;
+            modal.classList.add('active');
+            input.focus();
+
+            document.getElementById('btnConfirmSpoiler').onclick = () => {
+                const text = input.value.trim();
+                const area = document.getElementById(targetSpoilerInputId);
+                if (area) {
+                    const start = area.selectionStart;
+                    const end = area.selectionEnd;
+                    const val = area.value;
+                    const before = val.substring(0, start);
+                    const after = val.substring(end);
+                    area.value = before + "||" + (text || "văn bản ẩn") + "||" + after;
+                    area.focus();
+                    const newPos = start + 2 + (text ? text.length : 10) + 2;
+                    area.setSelectionRange(newPos, newPos);
+                }
+                modal.classList.remove('active');
+            };
+        };
+
+        // File input for post image
+        document.getElementById('fPostImg').onchange = (e) => {
+            const files = Array.from(e.target.files);
+            if (files.length === 0) return;
+            
+            selectedPostFiles = [...selectedPostFiles, ...files];
+            renderPostPreview();
+            
+            if (!isPostModalActive()) {
+                openPostModal();
+            }
+        };
+
+        // Update compose avatar when user loads
+        function updateComposeAvatar() {
+            if (!user || !userData) return;
+            const avt = userData.photoURL || MISSING_AVATAR;
+            const name = userData.displayName || user.email?.split('@')[0] || 'Cư dân mới';
+            document.getElementById('composeAvt').src = avt;
+            document.getElementById('postModalAvt').src = avt;
+            document.getElementById('postModalName').textContent = name;
+            document.getElementById('allCmtsAvt').src = avt;
+        }
+
+
+        // Submit post
+        document.getElementById('btnSubmitPost').onclick = async function () {
+            if (!user) return window.showToast("Đăng nhập để đăng bài!");
+            const txt = document.getElementById('postContent').value.trim();
+            if (!txt && selectedPostFiles.length === 0 && editingPostExistingImages.length === 0) return window.showToast("Viết gì đó đi!");
+            
+            this.textContent = editingPostId ? "Đang cập nhật..." : "Đang đăng..."; 
+            this.disabled = true;
+
+            try {
+                const uploadTasks = selectedPostFiles.map(f => uploadImg(f));
+                const newUrls = (await Promise.all(uploadTasks)).filter(u => !!u);
+                const finalImages = [...editingPostExistingImages, ...newUrls];
+                const finalImg = finalImages[0] || "";
+
+                if (editingPostId) {
+                    await updateDoc(doc(db, "posts", editingPostId), {
+                        content: txt,
+                        image: finalImg,
+                        images: finalImages,
+                        updatedAt: serverTimestamp()
+                    });
+                    window.showToast("Đã cập nhật bài viết!");
+                } else {
+                    const isAnon = document.getElementById('chkAnon').checked;
+                    const blurImage = document.getElementById('chkBlurImg')?.checked || false;
+
+                    let postData = {
+                        tid: "home",
+                        content: txt,
+                        image: finalImg,
+                        images: finalImages,
+                        blurImage: blurImage && finalImages.length > 0,
+                        author: isAnon ? "Ẩn danh" : (userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới'),
+                        authorUid: isAnon ? null : user.uid,
+                        authorAvatar: isAnon ? ANON_AVATAR : (userData?.photoURL || MISSING_AVATAR),
+                        createdAt: serverTimestamp(),
+                        reactions: { heart: 0, sad: 0, laugh: 0 },
+                        type: 'text',
+                        pinned: false,
+                        is_agree_terms: true
+                    };
+                    await addDoc(collection(db, "posts"), postData);
+                    window.showToast("Đã đăng bài!");
+                }
+                closePostModal(true);
+            } catch (err) {
+                console.error("Submit error:", err);
+                window.showToast("Lỗi khi đăng bài. Vui lòng thử lại!");
+            } finally {
+                this.textContent = "Đăng bài"; 
+                this.disabled = false;
+            }
+        };
+
+        async function uploadImg(file) {
+            const d = new FormData(); d.append("image", file);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d });
+                if (!res.ok) {
+                    const errTxt = await res.text();
+                    console.error("ImgBB Upload Error:", errTxt);
+                    return "";
+                }
+                const json = await res.json();
+                return json.data?.url || "";
+            } catch (err) {
+                console.error("Upload Catch Error:", err);
+                return "";
+            }
+        }
+
+        // Reaction list viewer
+        window.viewReactions = async (pid) => {
+            const modal = document.getElementById('modalReactions');
+            const body = document.getElementById('reactionsListBody');
+            modal.classList.add('active');
+            body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">Đang tải...</div>';
+            
+            try {
+                const snap = await getDocs(collection(db, "posts", pid, "user_reactions"));
+                if (snap.empty) {
+                    body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">Chưa có lượt bày tỏ cảm xúc nào.</div>';
                     return;
                 }
+                
+                let html = '';
+                const typeMap = { 'heart': '❤️', 'laugh': '😆', 'sad': '😢' };
+                for (const d of snap.docs) {
+                    const data = d.data();
+                    const info = await getLatestUserInfo(d.id, 'Người dùng', MISSING_AVATAR);
+                    html += `
+                        <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9;">
+                            <img src="${info.avt}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" onerror="this.src='${MISSING_AVATAR}'">
+                            <div style="flex: 1; font-weight: 500; font-size: 14px;" class="name-color-${info.color}">
+                                ${window.escapeHTML(info.name)}
+                                ${info.verified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
+                            </div>
+                            <div style="font-size: 20px;">${typeMap[data.type] || ''}</div>
+                        </div>
+                    `;
+                }
+                body.innerHTML = html;
+            } catch (err) {
+                console.error(err);
+                body.innerHTML = '<div style="text-align:center; padding: 20px; color: #ef4444;">Lỗi tải dữ liệu</div>';
+            }
+        };
 
-                grid.innerHTML = list.map(t => {
-                    const isJoined = joinedTopicIds.includes(t.id);
-                    const isOwner = user && t.owner === user.email;
-                    const isProtected = t.protectResource === true && !isJoined && !isOwner;
+        // Reactions
+        window.handleFeedReaction = async (pid, type, event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (!user) return window.showToast("Đăng nhập để thả tim!");
+            if (user.isAnonymous) return window.showToast("Dùng tài khoản thường để thả tim!");
+            
+            const btn = document.getElementById(`feed-react-${pid}-${type}`);
+            const countEl = btn?.querySelector('.react-count');
+            const isActive = btn?.classList.contains('active');
+            
+            // Optimistic UI
+            if (isActive) {
+                btn.classList.remove('active', 'liked');
+                if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent || '0') - 1);
+            } else {
+                const parent = btn?.parentElement;
+                parent?.querySelectorAll('.feed-react-btn.active').forEach(b => {
+                    b.classList.remove('active', 'liked');
+                    const c = b.querySelector('.react-count');
+                    if (c) c.textContent = Math.max(0, parseInt(c.textContent || '0') - 1);
+                });
+                btn.classList.add('active');
+                if (type === 'heart') btn.classList.add('liked');
+                if (countEl) countEl.textContent = parseInt(countEl.textContent || '0') + 1;
+            }
 
-                    const displayTitle = isProtected ? `<span class="spoiler-text" onclick="event.stopPropagation(); window.showToast('Bạn chưa tham gia Topic này!')">Nội dung ẩn</span>` : window.escapeHTML(t.title);
-                    const displayBanner = isProtected ? 'https://placehold.co/600x400/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://placehold.co/600x400/e2e8f0/64748b?text=Background');
-                    const displayLogo = isProtected ? 'https://placehold.co/100/ffffff/64748b?text=?' : (t.logo || 'https://via.placeholder.com/50');
+            const postRef = doc(db, "posts", pid);
+            const reactRef = doc(db, "posts", pid, "user_reactions", user.uid);
+            try {
+                const rDoc = await getDoc(reactRef);
+                const pDoc = await getDoc(postRef);
+                if (!pDoc.exists()) return;
+                let reacts = pDoc.data().reactions || { heart:0, sad:0, laugh:0 };
 
-                    return `
-                <div class="card" onclick="location.href='detail.html?id=${t.id}'">
-                    <button class="btn-card-report" onclick="event.stopPropagation(); openReport('${t.id}')" title="Báo cáo"><span class="material-symbols-rounded" style="font-size: 20px;">report</span></button>
-                    ${t.privacyMode === 'private' ? '<div class="card-badge-private"><span class="material-symbols-rounded" style="font-size: 16px;">lock</span> Cần duyệt</div>' : ''}
-                    <div class="card-img-box">
-                        <img src="${displayBanner}" class="card-img" onerror="this.style.display='none'; this.parentElement.innerText='Background'">
+                if (rDoc.exists()) {
+                    const old = rDoc.data().type;
+                    if (old === type) {
+                        reacts[old] = Math.max(0, reacts[old] - 1);
+                        await deleteDoc(reactRef);
+                    } else {
+                        reacts[old] = Math.max(0, reacts[old] - 1);
+                        reacts[type] = (reacts[type] || 0) + 1;
+                        await setDoc(reactRef, { type });
+                    }
+                } else {
+                    reacts[type] = (reacts[type] || 0) + 1;
+                    await setDoc(reactRef, { type });
+                }
+                await updateDoc(postRef, { reactions: reacts });
+            } catch (err) { console.error(err); }
+        };
+
+
+
+        // Profile click
+        window.handleProfileClick = (uid) => {
+            if (!uid || uid === 'null' || uid === 'undefined') return window.showToast("Người dùng ẩn danh");
+            if (user && user.isAnonymous) return window.showToast("Vui lòng đăng ký để xem profile & theo dõi");
+            window.location.href = `profile.html?uid=${uid}`;
+        };
+
+        let postAuthorUid = null;
+        // Open all comments modal
+        window.openFeedComments = async (pid, authorUidParam, silent = false) => {
+            activeFeedPid = pid;
+            if(authorUidParam) postAuthorUid = authorUidParam;
+            document.getElementById('modalAllCmts').classList.add('active');
+            const box = document.getElementById('allCmtsList');
+            if (!silent) box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">Đang tải...</div>';
+            const snap = await getDocs(query(collection(db, "comments"), where("pid", "==", pid), orderBy("createdAt", "asc")));
+            const allCmts = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+
+
+            if (allCmts.length === 0) {
+                box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">Chưa có bình luận nào.</div>';
+                return;
+            }
+
+            box.innerHTML = '';
+            const topLevel = allCmts.filter(c => !c.parentId);
+            const replies = allCmts.filter(c => c.parentId);
+
+            const renderCmt = async (c, isReply = false, rootId = null) => {
+                const info = await getLatestUserInfo(c.authorUid, c.author || c.authorName, c.authorAvt || MISSING_AVATAR);
+                const isOwner = user && (user.uid === c.authorUid || user.email === 'admin@gmail.com');
+                const isPostAuthor = c.authorUid === postAuthorUid;
+                const div = document.createElement('div');
+                div.className = `preview-cmt-row ${isReply ? 'is-reply' : ''}`;
+                div.style.marginBottom = isReply ? '8px' : '12px';
+                div.innerHTML = `
+                    <img src="${info.avt}" class="preview-cmt-avt" onclick="handleProfileClick('${c.authorUid}')" onerror="this.src='${MISSING_AVATAR}'">
+                    <div style="flex:1;">
+                        <div class="preview-cmt-bubble">
+                            <span class="preview-cmt-name name-color-${info.color}" onclick="handleProfileClick('${c.authorUid}')">
+                                ${window.escapeHTML(info.name)}
+                                ${info.verified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
+                                ${isPostAuthor ? '<span style="background: #1d9bf0; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 6px; font-weight: bold; vertical-align: middle;">Tác giả</span>' : ''}
+                            </span>
+                            <div class="preview-cmt-text" id="cmt-content-${c.id}">
+                                ${window.linkifyText(c.content)}
+                                ${c.image ? `<img src="${c.image}" style="width:100%; max-width:200px; border-radius:12px; margin-top:8px; cursor:pointer;" onclick="viewImg('${c.image}')">` : ''}
+                                ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImg('${img}')">`).join('')}</div>` : ''}
+                            </div>
+                        </div>
+                        <div class="cmt-actions">
+                            <span style="font-size:11px; color:#94a3b8;">${timeAgo(c.createdAt)}${c.isEdited ? ' (đã chỉnh sửa)' : ''}</span>
+                            <button class="cmt-btn" onclick="replyToComment('${window.escapeHTML(info.name)}', '${rootId || c.id}')">Trả lời</button>
+                            ${isOwner ? `<button class="cmt-btn" onclick="editComment('${c.id}')">Sửa</button>
+                                         <button class="cmt-btn danger" onclick="deleteComment('${c.id}')">Xóa</button>` : ''}
+                        </div>
+                    </div>`;
+                return div;
+            };
+
+            for (const c of topLevel) {
+                const cmtEl = await renderCmt(c);
+                box.appendChild(cmtEl);
+
+                const children = replies.filter(r => r.parentId === c.id);
+                if (children.length > 0) {
+                    const replyContainer = document.createElement('div');
+                    replyContainer.className = 'cmt-replies';
+                    for (const r of children) {
+                        const replyEl = await renderCmt(r, true, c.id);
+                        replyContainer.appendChild(replyEl);
+                    }
+                    box.appendChild(replyContainer);
+                }
+            }
+        };
+
+        window.editComment = (cid) => {
+            const currentContentEl = document.getElementById(`cmt-content-${cid}`);
+            if (!currentContentEl) return;
+            const currentText = currentContentEl.innerText.trim();
+            
+            const modal = document.getElementById('modalEditComment');
+            const input = document.getElementById('editCmtInput');
+            const saveBtn = document.getElementById('btnSaveEditCmt');
+            
+            input.value = currentText;
+            modal.classList.add('active');
+            input.focus();
+            
+            saveBtn.onclick = async () => {
+                const newText = input.value.trim();
+                if (newText && newText !== currentText) {
+                    try {
+                        await updateDoc(doc(db, "comments", cid), { content: newText, isEdited: true });
+                        currentContentEl.innerHTML = window.linkifyText(newText);
+                        window.showToast("Đã cập nhật bình luận!");
+                        modal.classList.remove('active');
+                    } catch (err) {
+                        console.error(err);
+                        window.showToast("Lỗi khi sửa bình luận");
+                    }
+                } else if (newText === currentText) {
+                    modal.classList.remove('active');
+                } else {
+                    window.showToast("Nội dung không được để trống!");
+                }
+            };
+        }
+
+        window.deleteComment = async (cid) => {
+            const confirmed = await window.showConfirm("Xóa bình luận", "Bạn có chắc chắn muốn xóa bình luận này không?");
+            if (confirmed) {
+                try {
+                    await deleteDoc(doc(db, "comments", cid));
+                    window.showToast("Đã xóa bình luận!");
+                    // Re-render silently
+                    if (activeFeedPid) openFeedComments(activeFeedPid, null, true);
+                } catch (e) {
+                    console.error("Delete cmt err:", e);
+                    window.showToast("Không thể xóa bình luận!");
+                }
+            }
+        };
+
+        let activeReplyId = null;
+        window.replyToComment = (name, cid) => {
+            activeReplyId = cid;
+            document.getElementById('replyingToName').textContent = name;
+            document.getElementById('cmtReplyBanner').classList.add('active');
+            document.getElementById('allCmtsInput').focus();
+        };
+
+        window.cancelCmtReply = () => {
+            activeReplyId = null;
+            document.getElementById('cmtReplyBanner').classList.remove('active');
+        };
+
+        let selectedCmtFiles = [];
+        document.getElementById('fCmtImg').onchange = (e) => handleCmtFiles(e.target.files);
+        
+        document.getElementById('allCmtsInput').addEventListener('paste', (e) => {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            const files = [];
+            for (let item of items) {
+                if (item.type.indexOf("image") === 0) files.push(item.getAsFile());
+            }
+            if (files.length > 0) handleCmtFiles(files);
+        });
+
+        function handleCmtFiles(files) {
+            if (!files || files.length === 0) return;
+            selectedCmtFiles = [...selectedCmtFiles, ...Array.from(files)];
+            renderAllCmtsPreview();
+        }
+
+        function renderAllCmtsPreview() {
+            const previewBox = document.getElementById('cmtPreviewBox');
+            const container = document.getElementById('cmtPreviewContainer');
+            if (!previewBox || !container) return;
+
+            container.innerHTML = '';
+            if (selectedCmtFiles.length > 0) {
+                selectedCmtFiles.forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'preview-item';
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'preview-item-close';
+                    closeBtn.innerHTML = '×';
+                    closeBtn.onclick = () => {
+                        selectedCmtFiles.splice(index, 1);
+                        renderAllCmtsPreview();
+                    };
+                    item.appendChild(img);
+                    item.appendChild(closeBtn);
+                    container.appendChild(item);
+                });
+                previewBox.style.display = 'block';
+            } else {
+                previewBox.style.display = 'none';
+            }
+        }
+
+        window.clearCmtImage = () => {
+            selectedCmtFiles = [];
+            document.getElementById('fCmtImg').value = "";
+            document.getElementById('cmtPreviewBox').style.display = 'none';
+        }
+
+        window.sendAllCmtsComment = async () => {
+            if (!user || !activeFeedPid) return window.showToast("Đăng nhập để bình luận!");
+            const inp = document.getElementById('allCmtsInput');
+            const txt = inp.value.trim(); 
+            if (!txt && selectedCmtFiles.length === 0) return;
+
+            const filesToUpload = [...selectedCmtFiles];
+            inp.value = '';
+            clearCmtImage();
+            
+            const uploadTasks = filesToUpload.map(f => uploadImg(f));
+            const imgUrls = (await Promise.all(uploadTasks)).filter(url => !!url);
+
+            const payload = {
+                pid: activeFeedPid,
+                author: userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới',
+                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                authorUid: user.uid,
+                nameColor: userData?.nameColor || 'default',
+                content: txt,
+                images: imgUrls,
+                createdAt: serverTimestamp(),
+                parentId: activeReplyId || null
+            };
+            
+            cancelCmtReply();
+            await addDoc(collection(db, "comments"), payload);
+            window.openFeedComments(activeFeedPid);
+        };
+
+        window.sendFeedComment = async (pid, inpId) => {
+            if (!user) return window.showToast("Đăng nhập để bình luận!");
+            const inp = document.getElementById(inpId);
+            const txt = inp.value.trim();
+            const files = selectedCommentFiles[pid] || [];
+            if (!txt && files.length === 0) return;
+            
+            inp.value = '';
+            const filesToUpload = [...files];
+            if (selectedCommentFiles[pid]) delete selectedCommentFiles[pid];
+            renderCommentPreview(pid);
+
+            const uploadTasks = filesToUpload.map(f => uploadImg(f));
+            const imgUrls = (await Promise.all(uploadTasks)).filter(url => !!url);
+
+            await addDoc(collection(db, "comments"), {
+                pid,
+                author: userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới',
+                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                authorUid: user.uid,
+                nameColor: userData?.nameColor || 'default',
+                content: txt,
+                images: imgUrls,
+                createdAt: serverTimestamp(),
+                parentId: null
+            });
+        };
+
+        function loadFeed() {
+            if (feedUnsub) feedUnsub();
+            const list = document.getElementById('feedList');
+            const empty = document.getElementById('feedEmpty');
+            const sk = document.getElementById('feedSkeleton');
+
+            if (sk) {
+                sk.innerHTML = Array(3).fill(0).map(() => `
+                    <div class="skeleton-card">
+                        <div style="display:flex; gap:12px; margin-bottom:15px;">
+                            <div class="skeleton-item sk-avt"></div>
+                            <div style="flex:1">
+                                <div class="skeleton-item sk-line" style="width:40%"></div>
+                                <div class="skeleton-item sk-line" style="width:20%"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-item sk-line"></div>
+                        <div class="skeleton-item sk-line" style="width:80%"></div>
+                        <div class="skeleton-item sk-img"></div>
                     </div>
-                    <div class="card-body">
-                        <img src="${displayLogo}" class="card-logo">
-                        <div class="card-tag">${t.category === 'love' ? '<span class="material-symbols-rounded" style="font-size: 16px;">favorite</span> Tình yêu' : t.category === 'drama' ? '<span class="material-symbols-rounded" style="font-size: 16px;">article</span> Drama' : t.category === 'school' ? '<span class="material-symbols-rounded" style="font-size: 16px;">school</span> Học đường' : t.category === 'game' ? '<span class="material-symbols-rounded" style="font-size: 16px;">stadia_controller</span> Game' : '<span class="material-symbols-rounded" style="font-size: 16px;">public</span> Đời thường'}</div>
-                        <h3 class="card-title">${displayTitle}</h3>
-                        <div class="card-footer">
+                `).join('');
+                sk.style.display = 'block';
+            }
+            list.innerHTML = '';
+
+            feedUnsub = onSnapshot(
+                query(collection(db, "posts"), where("tid", "==", "home"), orderBy("createdAt", "desc")),
+                async (snap) => {
+                    if (sk) sk.style.display = 'none';
+                    if (snap.empty) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+                    empty.style.display = 'none';
+
+                    let shouldRefreshFull = false;
+                    snap.docChanges().forEach(change => {
+                        if (change.type === 'added' || change.type === 'removed') shouldRefreshFull = true;
+                    });
+
+                    if (shouldRefreshFull) {
+                        const posts = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+                        const htmls = await Promise.all(posts.map(p => renderFeedPost(p)));
+                        list.innerHTML = htmls.join('');
+
+                        // UI Hydration
+                        posts.forEach(p => {
+                            if (user && !user.isAnonymous) {
+                                getDoc(doc(db, "posts", p.id, "user_reactions", user.uid)).then(d => {
+                                    if (d.exists()) {
+                                        const t = d.data().type;
+                                        const btn = document.getElementById(`feed-react-${p.id}-${t}`);
+                                        if (btn) { btn.classList.add('active'); if (t === 'heart') btn.classList.add('liked'); }
+                                    }
+                                });
+                            }
+                            getDocs(query(collection(db, "comments"), where("pid", "==", p.id))).then(cs => {
+                                const el = document.getElementById(`cmt-count-${p.id}`);
+                                if (el) el.textContent = cs.size;
+                            });
+                        });
+                    } else {
+                        // Targeted UI Updates (Optimized)
+                        snap.docChanges().forEach(change => {
+                            if (change.type === 'modified') {
+                                const p = { ...change.doc.data(), id: change.doc.id };
+                                const existing = document.getElementById(`post-${p.id}`);
+                                if (existing) {
+                                    const hr = existing.querySelector(`#feed-react-${p.id}-heart .react-count`);
+                                    if (hr) hr.textContent = p.reactions?.heart || 0;
+                                    const lr = existing.querySelector(`#feed-react-${p.id}-laugh .react-count`);
+                                    if (lr) lr.textContent = p.reactions?.laugh || 0;
+                                    const sr = existing.querySelector(`#feed-react-${p.id}-sad .react-count`);
+                                    if (sr) sr.textContent = p.reactions?.sad || 0;
+                                    const content = existing.querySelector('.feed-post-content');
+                                    if (content) content.innerHTML = window.linkifyText(p.content);
+                                }
+                            }
+                        });
+                    }
+                }
+            );
+        }
+
+        async function renderFeedPost(p) {
+            const info = await getLatestUserInfo(p.authorUid, p.author, p.authorAvatar);
+
+            let imgHtml = "";
+            const imgs = p.images || (p.image ? [p.image] : []);
+            if (imgs.length > 0) {
+                const count = Math.min(imgs.length, 4);
+                const blurStyle = p.blurImage ? 'filter: blur(25px); transition: filter 0.3s;' : '';
+                
+                imgHtml = `<div class="post-images-grid" data-count="${count}" style="${p.blurImage ? 'cursor:pointer;' : ''}" onclick="if(this.classList.contains('is-blurred-grid')) { this.classList.remove('is-blurred-grid'); Array.from(this.querySelectorAll('.post-img-item')).forEach(i=>i.style.filter='none'); event.stopPropagation(); }">`;
+                if (p.blurImage) imgHtml = imgHtml.replace('post-images-grid"', 'post-images-grid is-blurred-grid"');
+                
+                const imgsJson = JSON.stringify(imgs).replace(/'/g, "&apos;");
+                imgs.slice(0, 4).forEach((img, i) => {
+                    const isMore = i === 3 && imgs.length > 4;
+                    imgHtml += `
+                        <div class="post-img-more" data-imgs='${imgsJson}' onclick="if(!this.parentElement.classList.contains('is-blurred-grid')) { window.openGallery(JSON.parse(this.dataset.imgs), ${i}); event.stopPropagation(); }">
+                            <img src="${img}" class="post-img-item" style="${blurStyle}" loading="lazy">
+                            ${isMore ? `<div class="post-img-overlay">+${imgs.length - 3}</div>` : ''}
+                        </div>
+                    `;
+                });
+                imgHtml += `</div>`;
+            }
+
+            const canManage = user && (user.uid === p.authorUid || user.email === 'admin@gmail.com');
+            const userAvtSrc = (userData?.photoURL || MISSING_AVATAR);
+            window.renderFeedPost = renderFeedPost;
+
+            return `
+            <div class="feed-post" id="post-${p.id}">
+                <div class="feed-post-header">
+                    <img src="${info.avt}" class="feed-post-avt" onclick="handleProfileClick('${p.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                    <div style="flex:1">
+                        <div class="feed-post-author name-color-${info.color}" onclick="handleProfileClick('${p.authorUid}')">
+                            ${window.escapeHTML(info.name)}
+                            ${info.verified ? '<span class="material-symbols-rounded" style="font-size:16px; color:#1d9bf0; vertical-align:middle; margin-left:4px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
+                        </div>
+                        <div class="feed-post-time">${timeAgo(p.createdAt)}${p.updatedAt ? ' (đã chỉnh sửa)' : ''}</div>
+                    </div>
+                    ${canManage ? `
+                        <div style="display:flex; gap:4px;">
+                            <button class="post-menu-btn" 
+                                    data-pid="${p.id}" 
+                                    data-content="${p.content.replace(/"/g, '&quot;')}" 
+                                    data-image="${p.image || ''}" 
+                                    data-images='${JSON.stringify(p.images || []).replace(/'/g, "&apos;")}'
+                                    onclick="openEditFeedPost(this.dataset.pid, this.dataset.content, this.dataset.image, JSON.parse(this.dataset.images))" title="Sửa">
+                                <span class="material-symbols-rounded" style="font-size:18px;">edit</span>
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="feed-post-content">${window.linkifyText(p.content)}</div>
+                ${imgHtml}
+                <div class="feed-post-actions" style="margin-top:15px; border-top:1px solid #f1f5f9; padding-top:10px;">
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <button id="feed-react-${p.id}-heart" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'heart', event)">
+                                <span class="material-symbols-rounded">favorite</span> <span class="react-count">${p.reactions?.heart || 0}</span>
+                            </button>
+                            <button id="feed-react-${p.id}-laugh" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'laugh', event)">
+                                <span class="material-symbols-rounded">sentiment_very_satisfied</span> <span class="react-count">${p.reactions?.laugh || 0}</span>
+                            </button>
+                            <button id="feed-react-${p.id}-sad" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'sad', event)">
+                                <span class="material-symbols-rounded">sentiment_dissatisfied</span> <span class="react-count">${p.reactions?.sad || 0}</span>
+                            </button>
+                            <button class="feed-react-btn" type="button" onclick="openFeedComments('${p.id}', '${p.authorUid}')">
+                                <span class="material-symbols-rounded">chat_bubble</span> <span id="cmt-count-${p.id}">0</span>
+                            </button>
+                        </div>
+                        <div style="font-size: 11px; color:#94a3b8; cursor:pointer;" onclick="viewReactions('${p.id}')" title="Xem danh sách người bày tỏ cảm xúc">
+                            Nhấn để xem ai đã thả cảm xúc
                         </div>
                     </div>
                 </div>
-            `}).join('');
-
-                // Render Suggestions (Top 10 Heat, min 10)
-                const top = allTopics
-                    .filter(t => (t.heat || 0) >= 10)
-                    .sort((a, b) => (b.heat || 0) - (a.heat || 0))
-                    .slice(0, 10);
-
-                const section = document.getElementById('rankingSection');
-                if (top.length > 0) {
-                    section.style.display = 'block';
-                    suggestList.innerHTML = top.map((t, i) => {
-                        const isJoined = joinedTopicIds.includes(t.id);
-                        const isOwner = user && t.owner === user.email;
-                        const isProtected = t.protectResource === true && !isJoined && !isOwner;
-
-                        const displayTitle = isProtected ? `Nội dung ẩn` : window.escapeHTML(t.title);
-                        const displayBanner = isProtected ? 'https://placehold.co/300x150/e2e8f0/64748b?text=Topic+Bảo+Mật' : (t.banner || 'https://via.placeholder.com/300x150');
-                        const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
-                        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
-
-                        return `
-                     <div class="mini-card" onclick="location.href='detail.html?id=${t.id}'">
-                        <div class="rank-badge ${rankClass}">${medal}</div>
-                        <img src="${displayBanner}" class="mini-img">
-                        <div class="mini-overlay">
-                            <div class="mini-title">${displayTitle}</div>
-                            <div class="mini-heat"><span class="material-symbols-rounded" style="font-size: 16px; font-variation-settings: 'FILL' 1">local_fire_department</span> ${t.heat || 0} năng động</div>
+                <div class="feed-cmt-input-wrap" style="margin-top:12px; display:flex; flex-direction:column; gap:4px;">
+                    <div id="cmtPreviewBox-${p.id}" class="cmt-preview-box">
+                        <div id="cmtPreviewContainer-${p.id}" class="preview-container"></div>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center; width:100%;">
+                        <img src="${userAvtSrc}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" onerror="this.src='${MISSING_AVATAR}'">
+                        <div style="flex:1; position:relative;">
+                            <input type="text" id="cinp-${p.id}" class="feed-cmt-input" style="width:100%; background:#f1f5f9; border:none; padding:10px 16px; border-radius:20px; font-size:14px;" placeholder="Viết bình luận..." onkeydown="if(event.key==='Enter'){event.preventDefault(); sendFeedComment('${p.id}','cinp-${p.id}');}">
+                            <button class="feed-cmt-send" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--primary); cursor:pointer;" onclick="sendFeedComment('${p.id}','cinp-${p.id}')">
+                                <span class="material-symbols-rounded" style="font-size:20px;">send</span>
+                            </button>
                         </div>
                     </div>
-                `}).join('');
-                } else {
-                    section.style.display = 'none';
-                }
-            }
+                </div>
+            </div>`;
+        };
 
-            window.setFilter = (el, cat) => {
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                el.classList.add('active'); curFilter = cat; render();
-            }
-            document.getElementById('search').oninput = render;
-            let pendingReqs = [];
-
-            function loadRequests() {
-                if (!user) return;
-                onSnapshot(query(collection(db, "requests"), where("ownerEmail", "==", user.email), where("status", "==", "pending")), (snap) => {
-                    pendingReqs = [];
-                    snap.forEach(d => pendingReqs.push({ id: d.id, ...d.data() }));
-                    updateBadge();
-                    renderRequests();
-                });
-            }
-
-            function updateBadge() {
-                // Update Navbar Bell Badge
-                const bellBtn = document.getElementById('btnNews');
-                if (!bellBtn) return;
-                const badge = bellBtn.querySelector('.badge');
-
-                if (pendingReqs.length > 0) {
-                    badge.style.display = 'block';
-                    badge.textContent = pendingReqs.length;
-                    // Pulsing effect for attention
-                    bellBtn.style.color = 'var(--danger)';
-                } else {
-                    badge.style.display = 'none';
-                    bellBtn.style.color = ''; // Reset color
-                }
-            }
-
-            // Updated Bell Click Handler
-            const btnNews = document.getElementById('btnNews');
-            if (btnNews) {
-                btnNews.onclick = () => {
-                    if (pendingReqs.length > 0) {
-                        document.getElementById('modalRequests').classList.add('active');
-                    } else {
-                        document.getElementById('modalNews').classList.add('active');
-                    }
-                }
-            }
-
-            function renderRequests() {
-                const list = document.getElementById('reqList');
-                const msg = document.getElementById('noReqMsg');
-                if (pendingReqs.length === 0) { list.innerHTML = ''; msg.style.display = 'block'; return; }
-                msg.style.display = 'none';
-                list.innerHTML = pendingReqs.map(r => `
-                 <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:white;">
-                     <div style="font-weight:700; font-size:14px; margin-bottom:4px;">${r.tTitle}</div>
-                     <div style="font-size:13px; color:#64748b; margin-bottom:10px;"> ${r.userName} xin tham gia</div>
-                     <div style="display:flex; gap:10px;">
-                         <button onclick="approveReq('${r.id}', '${r.tid}', '${r.userName}', '${r.deviceId}')" class="btn-act" style="padding:6px; font-size:12px; margin:0; flex:1;">Duyệt</button>
-                         <button onclick="rejectReq('${r.id}')" class="btn-act" style="padding:6px; font-size:12px; margin:0; flex:1; background:#fee2e2; color:#ef4444;">Từ chối</button>
-                     </div>
-                 </div>
-             `).join('');
-            }
-
-            window.approveReq = async (rid, tid, name, devId) => {
-                // 1. Add to Whitelist in Topic
-                try {
-                    await updateDoc(doc(db, "topics", tid), {
-                        whitelist: arrayUnion({ name: name, deviceId: devId })
-                    });
-                    // 2. Update Request Status
-                    await updateDoc(doc(db, "requests", rid), { status: 'approved' });
-                    window.showToast("Đã duyệt thành công!");
-                } catch (e) { window.showToast("Lỗi khi duyệt."); console.error(e); }
-            }
-
-            window.rejectReq = async (rid) => {
-                try {
-                    await updateDoc(doc(db, "requests", rid), { status: 'rejected' });
-                    window.showToast("Đã từ chối!");
-                } catch (e) { window.showToast("Lỗi khi từ chối."); }
-            }
-
-            // FAB click handler is already defined above at line 1296.
-            // The duplicate/broken one here is removed to avoid confusion.
-
-            // FAB scroll-to-hide on mobile
-            (() => {
-                const fab = document.getElementById('fab');
-                if (!fab) return;
-                let lastY = 0;
-                window.addEventListener('scroll', () => {
-                    const y = window.scrollY;
-                    if (window.innerWidth > 768) { fab.classList.remove('fab-hidden'); return; }
-                    if (y > lastY && y > 60) fab.classList.add('fab-hidden');
-                    else fab.classList.remove('fab-hidden');
-                    lastY = y;
-                }, { passive: true });
-            })();
-
-        });
 
     </script>
 </body>

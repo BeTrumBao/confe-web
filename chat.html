@@ -229,6 +229,7 @@
             flex-direction: column;
             gap: 12px;
             background: #f8fafc;
+            padding-bottom: 80px;
         }
 
         .msg-row {
@@ -293,6 +294,17 @@
             background: var(--bubble-mine);
             color: var(--text-mine);
             border-bottom-right-radius: 4px;
+        }
+
+        .msg-bubble a {
+            color: inherit;
+            text-decoration: underline;
+            word-break: break-all;
+            font-weight: 700;
+        }
+
+        .msg-row.theirs .msg-bubble a {
+            color: #0084ff;
         }
 
         .msg-status {
@@ -417,37 +429,72 @@
             position: absolute;
             bottom: 75px;
             left: 15px;
+            right: 15px;
             background: white;
-            padding: 6px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
             display: none;
             z-index: 101;
-            animation: popIn 0.2s;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .preview-box img {
-            width: 70px;
-            height: 70px;
+        .preview-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 2px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .preview-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preview-item {
+            position: relative;
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 12px;
+            border: 1px solid #eee;
         }
 
-        .preview-close {
+        .preview-item-close {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 22px;
-            height: 22px;
-            background: #050505;
+            top: -4px;
+            right: -4px;
+            width: 20px;
+            height: 20px;
+            background: #1e293b;
             color: white;
             border-radius: 50%;
-            border: none;
+            border: 2px solid white;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .preview-item-close:hover {
+            background: #ef4444;
+            transform: scale(1.1);
+        }
+
+
+        .recent-img-item:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
         }
 
         .edit-banner {
@@ -466,8 +513,7 @@
         }
 
         .msg-menu-modal,
-        .modal,
-        .modal-img {
+        .modal {
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.4);
@@ -479,6 +525,131 @@
             -webkit-backdrop-filter: blur(8px);
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .msg-menu-modal.active,
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-img {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 5000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(20px);
+            user-select: none;
+        }
+
+        .modal-img.active {
+            display: flex;
+        }
+
+        .full-img-container {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .full-img {
+            max-width: 95%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5); /* Darker background for visibility */
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .gallery-nav:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .gallery-nav.prev { left: 20px; }
+        .gallery-nav.next { right: 20px; }
+
+        .gallery-thumbs {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar { display: none; }
+
+        .gallery-thumb-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumb-item.active {
+            opacity: 1;
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,132,255,0.3);
+        }
+
+        .close-img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: 0.2s;
+        }
+
+        .close-img:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
         }
 
         .modal.active,
@@ -588,15 +759,18 @@
         }
 
         @keyframes popIn {
-            0% {
-                transform: scale(0.9);
-                opacity: 0;
-            }
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes highlightMsg {
+            0% { background-color: rgba(0, 132, 255, 0.2); }
+            100% { background-color: transparent; }
+        }
+
+        .msg-highlight {
+            animation: highlightMsg 2s ease-out;
+            border-radius: 12px;
         }
 
         .chat-skeleton {
@@ -816,28 +990,34 @@
 
     <button id="btnScrollBottom"
         onclick="document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight"
-        style="display:none; position:fixed; bottom: 85px; right: 20px; width:40px; height:40px; border-radius:50%; background:var(--primary-grad); color:white; border:none; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:90; cursor:pointer; align-items:center; justify-content:center;">
+        style="display:none; position:fixed; bottom: 85px; right: 20px; width:40px; height:40px; border-radius:50%; background:var(--primary); color:white; border:none; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:90; cursor:pointer; align-items:center; justify-content:center;">
         <svg fill="white" width="20" height="20" viewBox="0 0 24 24">
             <path d="M7 10l5 5 5-5z" />
         </svg>
     </button>
 
     <div id="previewBox" class="preview-box">
-        <button class="preview-close" onclick="clearImage()">×</button>
-        <img id="imgPreview">
+        <div id="previewContainer" class="preview-container"></div>
     </div>
+
 
     <div id="editBanner" class="edit-banner"
         style="display:none; background: #fff7ed; border-left: 4px solid #fb923c; padding: 10px 16px; align-items: center; justify-content: space-between; border-radius: 12px; margin: 0 16px 8px 16px; box-shadow: 0 2px 8px rgba(251,146,60,0.15); transition: 0.3s;">
-        <div style="display:flex; flex-direction:column; max-width: 85%;">
+        <div style="display:flex; flex-direction:column; max-width: 70%;">
             <span style="color:#fb923c; font-weight:700; font-size:12px; margin-bottom:2px;">Đang chỉnh sửa</span>
             <span id="editOriginalText"
                 style="color:#475569; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></span>
         </div>
-        <button onclick="cancelEdit()"
-            style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer; padding:0 5px; display:flex; align-items:center; justify-content:center;">
-            <span class="material-symbols-rounded">close</span>
-        </button>
+        <div style="display:flex; gap:8px; align-items:center;">
+            <button onclick="insertSpoiler('msgInput')" 
+                style="background:#ffedd5; border:1.5px solid #fed7aa; color:#9a3412; padding:6px 10px; border-radius:10px; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:4px;">
+                <span class="material-symbols-rounded" style="font-size:16px;">visibility_off</span> Mờ chữ
+            </button>
+            <button onclick="cancelEdit()"
+                style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer; padding:0 5px; display:flex; align-items:center; justify-content:center;">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+        </div>
     </div>
 
     <div id="replyBanner"
@@ -865,11 +1045,12 @@
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
             </svg>
-            <input type="file" id="fileInput" accept="image/*" hidden>
+            <input type="file" id="fileInput" accept="image/*" multiple hidden>
         </label>
         <button class="action-btn" onclick="openPollModal()"><span class="material-symbols-rounded">poll</span></button>
         <button class="action-btn" onclick="insertSpoiler('msgInput')" title="Mờ chữ"><span
                 class="material-symbols-rounded">visibility_off</span></button>
+        <button class="action-btn" onclick="toggleStickerPanel()" id="btnSticker" title="Sticker"><span class="material-symbols-rounded">mood</span></button>
         <div class="inp-wrapper">
             <input type="text" id="msgInput" class="inp" placeholder="Nhập tin nhắn..." autocomplete="off">
         </div>
@@ -975,9 +1156,28 @@
         </div>
     </div>
 
+    <!-- SPOILER INPUT MODAL -->
+    <div id="modalSpoilerInput" class="modal" style="z-index:6000;">
+        <div class="modal-box" style="padding:24px; border-radius:20px; background:white; width:90%; max-width:320px;">
+            <h3 style="font-size:17px; font-weight:800; margin-bottom:12px;">Nhập nội dung mờ</h3>
+            <textarea id="spoilerInputText" class="inp" rows="3" style="width:100%; border:1.5px solid #eee; padding:12px; border-radius:14px; margin-bottom:15px; font-family:inherit; resize:none;" placeholder="Nội dung sẽ bị tàng hình..."></textarea>
+            <div style="display:flex; gap:10px;">
+                <button onclick="document.getElementById('modalSpoilerInput').classList.remove('active')" class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
+                <button id="btnConfirmSpoiler" class="btn-main" style="background:var(--primary); flex:1;">Chèn ngay</button>
+            </div>
+        </div>
+    </div>
+
     <div id="modalImg" class="modal-img">
-        <button class="close-img" onclick="document.getElementById('modalImg').classList.remove('active')">×</button>
-        <img id="fullImg" class="full-img">
+        <button class="close-img" onclick="document.getElementById('modalImg').classList.remove('active')">
+            <span class="material-symbols-rounded">close</span>
+        </button>
+        <div class="full-img-container">
+            <button class="gallery-nav prev" id="galleryPrev"><span class="material-symbols-rounded">chevron_left</span></button>
+            <img id="fullImg" class="full-img">
+            <button class="gallery-nav next" id="galleryNext"><span class="material-symbols-rounded">chevron_right</span></button>
+        </div>
+        <div id="galleryThumbs" class="gallery-thumbs"></div>
     </div>
 
 
@@ -988,7 +1188,7 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
             getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
-            updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc
+            updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getDocs, where
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = {
@@ -1033,7 +1233,7 @@
         }
 
         let currentUser = null;
-        let selectedFile = null;
+        let selectedFiles = [];
         let selectedMsgId = null;
         const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
 
@@ -1044,7 +1244,7 @@
         const TYPING_COL = tid ? `topics/${tid}/typing` : "public_typing";
 
         if (tid) {
-            document.getElementById('btnBack').href = `detail.html?id=${tid}`;
+            document.getElementById('btnBack').href = `detailv2.html?id=${tid}`;
             getDoc(doc(db, "topics", tid)).then(snap => {
                 if (snap.exists() && snap.data().title) {
                     document.querySelector('.header-title').textContent = snap.data().title;
@@ -1074,6 +1274,7 @@
             loadMessages();
             initTypingListener();
         });
+
 
         // SCROLL BUTTON LOGIC
         document.addEventListener('DOMContentLoaded', () => {
@@ -1159,16 +1360,69 @@
         }
 
         document.getElementById('fileInput').onchange = (e) => {
-            if (e.target.files[0]) {
-                selectedFile = e.target.files[0];
-                document.getElementById('imgPreview').src = URL.createObjectURL(selectedFile);
-                document.getElementById('previewBox').style.display = 'block';
+            handleFiles(e.target.files);
+        }
+
+        window.addEventListener('paste', (e) => {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            const files = [];
+            for (let item of items) {
+                if (item.type.indexOf("image") === 0) {
+                    files.push(item.getAsFile());
+                }
+            }
+            if (files.length > 0) handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            if (!files || files.length === 0) return;
+            selectedFiles = [...selectedFiles, ...Array.from(files)];
+            renderUploadPreview();
+        }
+
+        function renderUploadPreview() {
+            const previewBox = document.getElementById('previewBox');
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = '';
+
+            if (selectedFiles.length > 0) {
+                selectedFiles.forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'preview-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'preview-item-close';
+                    closeBtn.innerHTML = '×';
+                    closeBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        removeImage(index);
+                    };
+                    
+                    item.appendChild(img);
+                    item.appendChild(closeBtn);
+                    container.appendChild(item);
+                });
+                previewBox.style.display = 'block';
+            } else {
+                previewBox.style.display = 'none';
+            }
+        }
+
+        window.removeImage = (index) => {
+            selectedFiles.splice(index, 1);
+            renderUploadPreview();
+            if (selectedFiles.length === 0) {
+                document.getElementById('fileInput').value = "";
             }
         }
 
         window.clearImage = () => {
-            selectedFile = null; document.getElementById('fileInput').value = "";
-            document.getElementById('previewBox').style.display = 'none';
+            selectedFiles = [];
+            document.getElementById('fileInput').value = "";
+            renderUploadPreview();
         }
 
         async function uploadImage(file) {
@@ -1178,6 +1432,136 @@
                 const data = await res.json(); return data.data.url;
             } catch { return null; }
         }
+
+        let targetSpoilerInputId = 'msgInput';
+        window.insertSpoiler = (targetId = 'msgInput') => {
+            targetSpoilerInputId = targetId;
+            const modal = document.getElementById('modalSpoilerInput');
+            const input = document.getElementById('spoilerInputText');
+            if (!modal || !input) return;
+
+            const area = document.getElementById(targetId);
+            const selected = area ? area.value.substring(area.selectionStart, area.selectionEnd) : "";
+            
+            input.value = selected;
+            modal.classList.add('active');
+            input.focus();
+
+            document.getElementById('btnConfirmSpoiler').onclick = () => {
+                const text = input.value.trim();
+                const area = document.getElementById(targetSpoilerInputId);
+                if (area) {
+                    const start = area.selectionStart;
+                    const end = area.selectionEnd;
+                    const val = area.value;
+                    const before = val.substring(0, start);
+                    const after = val.substring(end);
+                    area.value = before + "||" + (text || "văn bản ẩn") + "||" + after;
+                    area.focus();
+                    const newPos = start + 2 + (text ? text.length : 10) + 2;
+                    area.setSelectionRange(newPos, newPos);
+                }
+                modal.classList.remove('active');
+            };
+        };
+
+        let galleryImages = [];
+        let galleryIndex = 0;
+
+        window.openGallery = async (imgs, index) => {
+            const modal = document.getElementById('modalImg');
+            if (!modal) return;
+            
+            modal.classList.add('active');
+            const fullImg = document.getElementById('fullImg');
+            
+            // Initial state: current image(s) only
+            galleryImages = Array.isArray(imgs) ? imgs : [imgs];
+            galleryIndex = index || 0;
+            
+            if (fullImg) {
+                fullImg.style.opacity = '1';
+                fullImg.src = galleryImages[galleryIndex];
+            }
+            renderGallery();
+
+            // Asynchronously fetch full chat history to populate thumbnails
+            if (typeof imgs === 'string' && imgs.startsWith('http')) {
+                try {
+                    // Fetch recent image messages
+                    const q = query(collection(db, CHAT_COL), where("type", "==", "image"), limitToLast(100));
+                    const snap = await getDocs(q);
+                    
+                    const sortedDocs = snap.docs.sort((a, b) => {
+                        const ca = a.data().createdAt?.toMillis() || 0;
+                        const cb = b.data().createdAt?.toMillis() || 0;
+                        return ca - cb;
+                    });
+                    
+                    const allImgs = sortedDocs.map(d => d.data().image).filter(u => !!u);
+                    
+                    if (allImgs.length > 1) {
+                        const originalUrl = imgs;
+                        // Deduplicate and ensure original image is included
+                        const set = new Set(allImgs);
+                        set.add(originalUrl);
+                        const finalImgsArray = Array.from(set);
+                        
+                        // Update gallery in place
+                        galleryImages = finalImgsArray;
+                        galleryIndex = finalImgsArray.indexOf(originalUrl);
+                        if (galleryIndex === -1) galleryIndex = 0;
+                        
+                        renderGallery();
+                    }
+                } catch (err) {
+                    console.error("Gallery history fetch failed:", err);
+                }
+            }
+        };
+
+        function renderGallery() {
+            const fullImg = document.getElementById('fullImg');
+            const thumbContainer = document.getElementById('galleryThumbs');
+            const prevBtn = document.getElementById('galleryPrev');
+            const nextBtn = document.getElementById('galleryNext');
+
+            if (!fullImg || !galleryImages.length) return;
+
+            fullImg.src = galleryImages[galleryIndex];
+            
+            // Thumbs
+            if (galleryImages.length > 1) {
+                thumbContainer.style.display = 'flex';
+                thumbContainer.innerHTML = '';
+                galleryImages.forEach((src, i) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = src;
+                    thumb.className = `gallery-thumb-item ${i === galleryIndex ? 'active' : ''}`;
+                    thumb.onclick = (e) => { e.stopPropagation(); galleryIndex = i; renderGallery(); };
+                    thumbContainer.appendChild(thumb);
+                });
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            } else {
+                thumbContainer.style.display = 'none';
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+                renderGallery();
+            };
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                galleryIndex = (galleryIndex + 1) % galleryImages.length;
+                renderGallery();
+            };
+        }
+
+        window.viewImg = (src) => window.openGallery([src], 0);
 
         window.openPollModal = () => {
             const modal = document.getElementById('modalPoll');
@@ -1219,9 +1603,12 @@
 
         document.getElementById('btnSend').onclick = async () => {
             const txt = document.getElementById('msgInput').value.trim();
-            if (!txt && !selectedFile) return;
+            if (!txt && selectedFiles.length === 0) return;
             document.getElementById('msgInput').value = '';
-            let imgUrl = ""; if (selectedFile) { imgUrl = await uploadImage(selectedFile); clearImage(); }
+            
+            const filesToUpload = [...selectedFiles];
+            clearImage();
+
             if (isEditing && editingMsgId) {
                 const msgRef = doc(db, CHAT_COL, editingMsgId);
                 const snap = await getDoc(msgRef);
@@ -1233,27 +1620,34 @@
                 cancelEdit(); return;
             }
 
-            const payload = {
-                text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
-                uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
-                isVerified: currentUser.isVerified || false,
-                nameColor: window.myNameColor || 'default',
-                createdAt: serverTimestamp(), likes: []
+            const sendMsg = async (imgUrl = "") => {
+                const payload = {
+                    text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
+                    uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
+                    isVerified: currentUser.isVerified || false,
+                    nameColor: window.myNameColor || 'default',
+                    createdAt: serverTimestamp(), likes: []
+                };
+                if (window.replyData) {
+                    payload.replyTo = window.replyData;
+                    cancelReply();
+                }
+                await addDoc(collection(db, CHAT_COL), payload);
             };
 
-            if (window.replyData) {
-                payload.replyTo = window.replyData;
-                cancelReply();
+            if (filesToUpload.length > 0) {
+                for (const file of filesToUpload) {
+                    const url = await uploadImage(file);
+                    if (url) await sendMsg(url);
+                }
+            } else {
+                await sendMsg("");
             }
-
-            await addDoc(collection(db, CHAT_COL), payload);
         }
 
         document.getElementById('msgInput').addEventListener('input', () => {
             if (typingTimeout) clearTimeout(typingTimeout);
-            updateTyping(); // Update immediately on first keystroke? Or throttle?
-            // Let's throttle: only update every 2s ideally. But for now, update on input.
-            // Actually, setDoc writes cost. Let's debounce in memory or just do it.
+            updateTyping();
         });
 
         document.getElementById('msgInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') document.getElementById('btnSend').click(); });
@@ -1278,7 +1672,7 @@
             selectedMsgId = id; const modal = document.getElementById('msgMenuModal');
             const isAdmin = currentUser.email === 'admin@gmail.com';
             const isOwner = currentUser.uid === ownerUid;
-            document.getElementById('btnEditMsg').style.display = (isOwner && (type === 'text' || type === 'poll')) ? 'block' : 'none';
+            document.getElementById('btnEditMsg').style.display = (isOwner && (type === 'text' || type === 'poll' || type === 'sticker')) ? 'block' : 'none';
             document.getElementById('btnDeleteMsg').style.display = (isOwner || isAdmin) ? 'block' : 'none';
             document.getElementById('btnReportMsg').style.display = (!isOwner) ? 'block' : 'none';
             modal.style.display = 'flex';
@@ -1298,8 +1692,6 @@
             closeMsgMenu();
         }
 
-
-        // Custom confirm function
         window.showConfirm = (message, title = "Xác nhận") => {
             return new Promise((resolve) => {
                 const modal = document.getElementById('confirmModal');
@@ -1307,7 +1699,6 @@
                 document.getElementById('confirmMessage').textContent = message;
                 modal.style.display = 'flex';
                 setTimeout(() => modal.classList.add('active'), 10);
-
                 const handleOk = () => {
                     modal.classList.remove('active');
                     setTimeout(() => { if (!modal.classList.contains('active')) modal.style.display = 'none'; }, 300);
@@ -1315,7 +1706,6 @@
                     document.getElementById('confirmCancel').removeEventListener('click', handleCancel);
                     resolve(true);
                 };
-
                 const handleCancel = () => {
                     modal.classList.remove('active');
                     setTimeout(() => { if (!modal.classList.contains('active')) modal.style.display = 'none'; }, 300);
@@ -1323,7 +1713,6 @@
                     document.getElementById('confirmCancel').removeEventListener('click', handleCancel);
                     resolve(false);
                 };
-
                 document.getElementById('confirmOk').addEventListener('click', handleOk);
                 document.getElementById('confirmCancel').addEventListener('click', handleCancel);
             });
@@ -1343,6 +1732,13 @@
                 const data = snap.data();
                 if (data.type === 'poll') {
                     window.startEdit(selectedMsgId, data.question);
+                } else if (data.type === 'sticker') {
+                    isEditing = true;
+                    editingMsgId = selectedMsgId;
+                    const panel = document.getElementById('stickerPanel');
+                    panel.style.display = 'block';
+                    renderStickerGrid();
+                    closeMsgMenu();
                 } else {
                     window.startEdit(selectedMsgId, data.text);
                 }
@@ -1376,47 +1772,38 @@
             closeMsgMenu();
         }
 
-        window.insertSpoiler = (inputId) => {
-            const txtArea = document.getElementById(inputId);
-            const start = txtArea.selectionStart;
-            const end = txtArea.selectionEnd;
-            const sel = txtArea.value.substring(start, end);
-            const replacement = sel ? `||${sel}||` : `||Nội dung ẩn||`;
-            txtArea.value = txtArea.value.substring(0, start) + replacement + txtArea.value.substring(end);
-            txtArea.focus();
-            const cursorPos = start + replacement.length - (sel ? 0 : 2);
-            txtArea.setSelectionRange(cursorPos, cursorPos);
-        }
 
         function linkify(text) {
             if (!text) return "";
-
-            // First parse spoilers ||text||
-            let result = text.replace(/\|\|(.*?)\|\|/g, function (match, spoilerContent) {
+            let r = window.escapeHTML(text);
+            r = r.replace(/\|\|(.*?)\|\|/g, (match, spoilerContent) => {
                 return `<span class="spoiler-text" onclick="event.stopPropagation(); this.classList.toggle('revealed')">${spoilerContent}</span>`;
             });
-
-            // Then parse URLs (avoiding touching URLs already inside spoiler tags if possible)
             const urlRegex = /(?<!=["'])(https?:\/\/[^\s<]+)/g;
-            result = result.replace(urlRegex, function (url) {
-                return '<a href="' + url + '" target="_blank" style="color:#0084ff; text-decoration:underline; font-weight:700;" onclick="event.stopPropagation()">' + url + '</a>';
+            r = r.replace(urlRegex, (url) => {
+                return `<a href="${url}" target="_blank" onclick="event.stopPropagation()">${url}</a>`;
             });
-
-            return result;
+            r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {
+                if (aTag || spanTag) return match; 
+                return `<span class="hashtag" style="color:#0084ff; cursor:pointer;" onclick="event.stopPropagation();">#${tagText}</span>`;
+            });
+            return r;
         }
 
         function renderMessage(docId, msg) {
             const isMine = msg.uid === currentUser.uid; const rowClass = isMine ? 'mine' : 'theirs';
             let contentHtml = '';
-
             if (msg.replyTo) {
-                contentHtml += `<div style="background:rgba(0,0,0,0.1); padding:8px 12px; border-radius:12px; border-left:4px solid ${isMine ? 'rgba(255,255,255,0.8)' : '#0084ff'}; margin-bottom:6px; font-size:13px; opacity:0.9; cursor:pointer;" onclick="const el = document.getElementById('msg-${msg.replyTo.id}'); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.style.animation='popup 0.5s ease'; }">
+                contentHtml += `<div style="background:rgba(0,0,0,0.1); padding:8px 12px; border-radius:12px; border-left:4px solid ${isMine ? 'rgba(255,255,255,0.8)' : '#0084ff'}; margin-bottom:6px; font-size:13px; opacity:0.9; cursor:pointer;" onclick="const el = document.getElementById('msg-${msg.replyTo.id}'); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('msg-highlight'); setTimeout(()=>el.classList.remove('msg-highlight'), 2000); }">
                     <div style="font-weight:700; margin-bottom:4px; font-size: 11px;">Trả lời ${msg.replyTo.name}</div>
                     <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 200px;">${msg.replyTo.text}</div>
                 </div>`;
             }
-
-            if (msg.image) contentHtml += `<div style="margin-bottom:6px;"><img src="${msg.image}" class="msg-img" onclick="window.viewImg(this.src)"></div>`;
+            if (msg.type === 'sticker') {
+                contentHtml += `<div style="margin-bottom:6px; cursor:pointer;" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')"><img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false"></div>`;
+            } else if (msg.image) {
+                contentHtml += `<div style="margin-bottom:6px;"><img src="${msg.image}" class="msg-img" onclick="window.openGallery('${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'"></div>`;
+            }
             if (msg.type === 'poll') {
                 let optsHtml = ''; const totalVotes = msg.options.reduce((a, b) => a + b.votes.length, 0);
                 msg.options.forEach(opt => {
@@ -1436,20 +1823,10 @@
                 contentHtml += `<div class="msg-bubble" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">${linkedText}${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}</div>`;
             }
             const timeStr = formatTime(msg.createdAt);
-
-            // Enhanced verified check: fetch from user doc if needed
-            let isVerified = false;
-            if (msg.isVerified === true) {
-                isVerified = true;
-            } else if (msg.uid === currentUser.uid && currentUser.isVerified === true) {
-                isVerified = true;
-            }
-
+            let isVerified = msg.isVerified === true || (msg.uid === currentUser.uid && currentUser.isVerified === true);
             const verifiedHtml = isVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
-            const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}</div>`;
-
+            const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
-
             return `<div class="msg-row ${rowClass}" id="msg-${docId}">
                 ${!isMine ? `<img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'">` : ''}
                 <div class="msg-content-wrapper">
@@ -1461,7 +1838,6 @@
 
         let messageLimit = 40;
         let unsubscribeMessages = null;
-        let lastScrollHeight = 0;
         let isFetchingOlder = false;
         let hasMoreMessages = true;
         let loadedDocIds = new Set();
@@ -1469,55 +1845,31 @@
 
         function loadMessages() {
             if (unsubscribeMessages) unsubscribeMessages();
-
             const q = query(collection(db, CHAT_COL), orderBy("createdAt", "asc"), limitToLast(messageLimit));
-
             unsubscribeMessages = onSnapshot(q, (snapshot) => {
                 const box = document.getElementById('chatBox');
                 if (document.getElementById('chatSkeleton')) document.getElementById('chatSkeleton').remove();
-
                 if (snapshot.empty) {
-                    if (!box.querySelector('.chat-empty')) {
-                        box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon"><span class="material-symbols-rounded">forum</span></div><div class="chat-empty-title">Chưa có tin nhắn nào</div></div>`;
-                    }
+                    if (!box.querySelector('.chat-empty')) box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon"><span class="material-symbols-rounded">forum</span></div><div class="chat-empty-title">Chưa có tin nhắn nào</div></div>`;
                     return;
                 } else {
                     const empty = box.querySelector('.chat-empty');
                     if (empty) empty.remove();
                 }
-
-                // If we got fewer docs than the limit, we've reached the beginning
-                if (snapshot.size < messageLimit) {
-                    hasMoreMessages = false;
-                }
-
+                if (snapshot.size < messageLimit) hasMoreMessages = false;
                 const oldHeight = box.scrollHeight;
                 const wasAtBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 50;
-
-                // Process changes
                 const changes = snapshot.docChanges();
-
-                // Sort added changes by createdAt to ensure correct insertion order if needed
-                // But onSnapshot normally gives them in order.
-
                 let hasNewAdded = false;
                 changes.forEach((change) => {
                     const docId = change.doc.id;
                     const msg = change.doc.data();
-
                     if (change.type === "added") {
                         if (!loadedDocIds.has(docId)) {
                             loadedDocIds.add(docId);
                             const messageHtml = renderMessage(docId, msg);
-
-                            // Detect if this is a NEW message at the bottom or an OLD message shifted in
-                            // For ASC order, newIndex 0 is the oldest.
-                            if (change.newIndex === 0 && box.children.length > 0 && !isInitialLoad) {
-                                box.insertAdjacentHTML('afterbegin', messageHtml);
-                            } else {
-                                box.insertAdjacentHTML('beforeend', messageHtml);
-                                hasNewAdded = true;
-                            }
+                            if (change.newIndex === 0 && box.children.length > 0 && !isInitialLoad) box.insertAdjacentHTML('afterbegin', messageHtml);
+                            else { box.insertAdjacentHTML('beforeend', messageHtml); hasNewAdded = true; }
                         }
                     } else if (change.type === "modified") {
                         const el = document.getElementById(`msg-${docId}`);
@@ -1528,34 +1880,17 @@
                         loadedDocIds.delete(docId);
                     }
                 });
-
-                // Sort the messages in the DOM based on their timestamp data attribute or similar
-                // Or just rebuild the whole list for simplicity when the limit changes.
                 if (isFetchingOlder) {
                     rebuildChatBox(snapshot.docs);
                     box.scrollTop = box.scrollHeight - oldHeight;
                     isFetchingOlder = false;
                 } else {
                     const triggerScroll = () => {
-                        // Priority 1: Initial load
-                        if (isInitialLoad) {
-                            box.scrollTop = box.scrollHeight;
-                            isInitialLoad = false;
-                            return;
-                        }
-                        // Priority 2: New message arriving and user was already at bottom
-                        if (hasNewAdded && wasAtBottom) {
-                            box.scrollTop = box.scrollHeight;
-                        }
-                        // Note: We deliberately DON'T scroll on "modified" (polls) if not at bottom
-                        // or even if at bottom, we only scroll for ADDED content to avoid yanking.
+                        if (isInitialLoad) { box.scrollTop = box.scrollHeight; isInitialLoad = false; return; }
+                        if (hasNewAdded && wasAtBottom) box.scrollTop = box.scrollHeight;
                     };
-
                     triggerScroll();
-                    if (hasNewAdded) {
-                        setTimeout(triggerScroll, 150);
-                        setTimeout(triggerScroll, 500);
-                    }
+                    if (hasNewAdded) { setTimeout(triggerScroll, 150); setTimeout(triggerScroll, 500); }
                 }
             });
         }
@@ -1564,31 +1899,102 @@
             const box = document.getElementById('chatBox');
             box.innerHTML = '';
             loadedDocIds.clear();
-            docs.forEach(doc => {
-                box.insertAdjacentHTML('beforeend', renderMessage(doc.id, doc.data()));
-                loadedDocIds.add(doc.id);
-            });
+            docs.forEach(doc => { box.insertAdjacentHTML('beforeend', renderMessage(doc.id, doc.data())); loadedDocIds.add(doc.id); });
         }
 
-        // Add scroll listener for infinite scroll
         document.addEventListener('DOMContentLoaded', () => {
             const box = document.getElementById('chatBox');
-            box.onscroll = () => {
-                if (box.scrollTop === 0 && hasMoreMessages && !isFetchingOlder) {
-                    isFetchingOlder = true;
-                    messageLimit += 30;
-                    loadMessages();
-                }
-
-                const btnScroll = document.getElementById('btnScrollBottom');
-                if (box.scrollHeight - box.scrollTop - box.clientHeight > 200) {
-                    btnScroll.style.display = 'flex';
-                } else {
-                    btnScroll.style.display = 'none';
-                }
-            };
+            if (box) {
+                box.onscroll = () => {
+                    if (box.scrollTop === 0 && hasMoreMessages && !isFetchingOlder) {
+                        isFetchingOlder = true;
+                        messageLimit += 30;
+                        loadMessages();
+                    }
+                    const btnScroll = document.getElementById('btnScrollBottom');
+                    if (btnScroll) {
+                        if (box.scrollHeight - box.scrollTop - box.clientHeight > 200) btnScroll.style.display = 'flex';
+                        else btnScroll.style.display = 'none';
+                    }
+                };
+            }
         });
-        window.viewImg = (src) => { document.getElementById('fullImg').src = src; document.getElementById('modalImg').classList.add('active'); }
+
+        // === STICKER LOGIC ===
+
+        const STICKERS = [
+            "https://i.ibb.co/Vc1PQcYT/8019bbfd3690.jpg",
+            "https://i.ibb.co/Bk7BHLC/889311144247.jpg",
+            "https://i.ibb.co/HTMzBSRx/15285f3f009f.jpg",
+            "https://i.ibb.co/7tbXVb10/03096273fee6.jpg",
+            "https://i.ibb.co/67HRMM1d/9698c548e2e0.jpg",
+            "https://i.ibb.co/fzVZqVTf/c2d92b2e79da.jpg",
+            "https://i.ibb.co/4ZDf6bj1/971bef06cccc.jpg",
+            "https://i.ibb.co/yn6R3JM5/68b3a39c5cc7.jpg",
+            "https://i.ibb.co/LzyCP6RR/ada607c99874.jpg",
+            "https://i.ibb.co/LzcjPt8P/ac8333cbef00.jpg",
+            "https://i.ibb.co/bgdgPrp0/f0ac5dd0124a.jpg",
+            "https://i.ibb.co/DP7zZRyj/df179c94077a.jpg",
+            "https://i.ibb.co/qYx139cM/9860a0039918.jpg",
+            "https://i.ibb.co/Kz0v5qVZ/38825818772c.jpg",
+            "https://i.ibb.co/zhGjscxg/bbe5b2339e38.jpg",
+            "https://i.ibb.co/ZRYSMMwm/53ebed867f22.jpg",
+            "https://i.ibb.co/whJWLy7P/19dd295f28c0.jpg",
+            "https://i.ibb.co/rL2V0Yq/145ca17d33a7.jpg",
+            "https://i.ibb.co/nssYKBbJ/1427ef3678a4.jpg",
+            "https://i.ibb.co/Wp7fnJvV/a2091982b62f.jpg",
+            "https://i.ibb.co/LXz4WWZt/b71fa2bb010a.jpg",
+            "https://i.ibb.co/svmVjJK1/3894c6701767.jpg"
+        ];
+
+        function renderStickerGrid() {
+            const grid = document.getElementById('stickerGrid');
+            if (!grid) return;
+            grid.innerHTML = STICKERS.map((url, i) => 
+                `<div onclick="sendSticker('${url}')" style="cursor:pointer; border-radius:8px; overflow:hidden; background:#f8fafc; display:flex; align-items:center; justify-content:center; padding:4px; transition:0.15s;" onmouseover="this.style.background='#e0e7ff'" onmouseout="this.style.background='#f8fafc'">
+                    <img src="${url}" style="width:72px; height:72px; object-fit:cover; pointer-events:none; border-radius:6px;" onerror="this.parentElement.style.display='none'">
+                </div>`
+            ).join('');
+        }
+
+        window.toggleStickerPanel = () => {
+            const panel = document.getElementById('stickerPanel');
+            if (panel.style.display === 'none' || !panel.style.display) {
+                panel.style.display = 'block';
+                renderStickerGrid();
+            } else {
+                panel.style.display = 'none';
+            }
+        };
+
+        window.sendSticker = async (url) => {
+            if (!currentUser) return window.showToast("Đăng nhập để gửi sticker!");
+            document.getElementById('stickerPanel').style.display = 'none';
+
+            if (isEditing && editingMsgId) {
+                const msgRef = doc(db, CHAT_COL, editingMsgId);
+                const snap = await getDoc(msgRef);
+                if (snap.exists() && snap.data().type === 'sticker') {
+                    await updateDoc(msgRef, { image: url, isEdited: true });
+                }
+                cancelEdit();
+                return;
+            }
+
+            await addDoc(collection(db, CHAT_COL), {
+                type: 'sticker',
+                image: url,
+                text: '',
+                uid: currentUser.uid,
+                name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Bạn'),
+                avatar: currentUser.photoURL || ANON_AVATAR,
+                isVerified: currentUser.isVerified || false,
+                nameColor: window.myNameColor || 'default',
+                createdAt: serverTimestamp(),
+                likes: []
+            });
+        };
+
         // GLOBAL FILE INPUT TOAST
         document.body.addEventListener('change', (e) => {
             if (e.target.type === 'file' && e.target.files[0]) {
@@ -1602,6 +2008,15 @@
             }
         });
     </script>
+
+    <!-- Sticker Panel -->
+    <div id="stickerPanel" style="display:none; position:fixed; bottom:70px; left:0; right:0; max-height:220px; background:white; border-top:1px solid #e2e8f0; z-index:200; overflow-y:auto; padding:10px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; padding:0 6px;">
+            <span style="font-weight:700; font-size:14px; display:flex; align-items:center; gap:6px;"><span class="material-symbols-rounded" style="font-size:18px;">mood</span> Sticker</span>
+            <button onclick="toggleStickerPanel()" style="background:none; border:none; cursor:pointer; color:#94a3b8; font-size:18px;">✕</button>
+        </div>
+        <div id="stickerGrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); gap:6px;"></div>
+    </div>
 </body>
 
 </html>

@@ -693,12 +693,100 @@
                 height: 40px;
             }
         }
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .confirm-box {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .confirm-box {
+            transform: scale(1);
+        }
+
+        .confirm-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .confirm-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: none;
+        }
+
+        .confirm-btn.cancel {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .confirm-btn.ok {
+            background: #2563eb;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 
 <body>
 
     <div class="toast-container" id="toastContainer"></div>
+
+    <div id="modalConfirm" class="modal-overlay">
+        <div class="confirm-box">
+            <h3 class="confirm-title" id="confirmTitle">Xác nhận</h3>
+            <p class="confirm-desc" id="confirmDesc">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            <div class="confirm-btns">
+                <button id="btnConfirmCancel" class="confirm-btn cancel">Hủy</button>
+                <button id="btnConfirmOk" class="confirm-btn ok">Đồng ý</button>
+            </div>
+        </div>
+    </div>
 
     <button class="back-btn-float" onclick="goBack()">
         <span class="material-symbols-rounded">chevron_left</span>
@@ -919,9 +1007,37 @@
             }, 3000);
         }
 
-        window.goBack = () => {
+        window.showConfirm = (title, desc) => {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('modalConfirm');
+                document.getElementById('confirmTitle').textContent = title;
+                document.getElementById('confirmDesc').textContent = desc;
+                modal.classList.add('active');
+
+                const onOk = () => {
+                    modal.classList.remove('active');
+                    btnOk.removeEventListener('click', onOk);
+                    btnCancel.removeEventListener('click', onCancel);
+                    resolve(true);
+                };
+                const onCancel = () => {
+                    modal.classList.remove('active');
+                    btnOk.removeEventListener('click', onOk);
+                    btnCancel.removeEventListener('click', onCancel);
+                    resolve(false);
+                };
+
+                const btnOk = document.getElementById('btnConfirmOk');
+                const btnCancel = document.getElementById('btnConfirmCancel');
+                btnOk.addEventListener('click', onOk);
+                btnCancel.addEventListener('click', onCancel);
+            });
+        };
+
+        window.goBack = async () => {
             if (roomCode) {
-                if (confirm("Rời khỏi phòng đấu?")) leaveRoom();
+                const confirmed = await window.showConfirm("Rời khỏi phòng?", "Bạn đang trong phòng đấu. Rời đi sẽ bị tính là thua hoặc hủy phòng!");
+                if (confirmed) leaveRoom();
                 else return;
             }
             if (window.parent !== window) window.parent.history.back();

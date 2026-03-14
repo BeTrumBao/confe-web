@@ -249,10 +249,130 @@
                 transform: rotate(360deg);
             }
         }
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .confirm-box {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .confirm-box {
+            transform: scale(1);
+        }
+
+        .confirm-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .confirm-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: none;
+        }
+
+        .confirm-btn.cancel {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .confirm-btn.ok {
+            background: #2563eb;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
 <body>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div id="modalConfirm" class="modal-overlay">
+        <div class="confirm-box">
+            <h3 class="confirm-title" id="confirmTitle">Xác nhận</h3>
+            <p class="confirm-desc" id="confirmDesc">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            <div class="confirm-btns">
+                <button id="btnConfirmCancel" class="confirm-btn cancel">Hủy</button>
+                <button id="btnConfirmOk" class="confirm-btn ok">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
     <div class="header">
         <div class="header-title">Quản lý Đề Cương</div>
         <button class="btn-add" onclick="openModal()"><span class="material-symbols-rounded">add</span> Thêm mới</button>
@@ -355,6 +475,47 @@
 
         let questions = [];
 
+        window.showToast = (msg) => {
+            const container = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            container.appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => {
+                t.classList.remove('show');
+                setTimeout(() => t.remove(), 300);
+            }, 3000);
+        };
+
+        window.showConfirm = (title, desc) => {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('modalConfirm');
+                document.getElementById('confirmTitle').textContent = title;
+                document.getElementById('confirmDesc').textContent = desc;
+                modal.classList.add('active');
+
+                const btnOk = document.getElementById('btnConfirmOk');
+                const btnCancel = document.getElementById('btnConfirmCancel');
+
+                const onOk = () => {
+                    modal.classList.remove('active');
+                    btnOk.removeEventListener('click', onOk);
+                    btnCancel.removeEventListener('click', onCancel);
+                    resolve(true);
+                };
+                const onCancel = () => {
+                    modal.classList.remove('active');
+                    btnOk.removeEventListener('click', onOk);
+                    btnCancel.removeEventListener('click', onCancel);
+                    resolve(false);
+                };
+
+                btnOk.addEventListener('click', onOk);
+                btnCancel.addEventListener('click', onCancel);
+            });
+        };
+
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 window.location.href = 'login.html';
@@ -363,13 +524,13 @@
             try {
                 const userDoc = await getDoc(doc(db, 'users', user.uid));
                 if (!userDoc.exists() || userDoc.data().role !== 'admin') {
-                    alert('Bạn không có quyền truy cập trang này!');
-                    window.location.href = 'index.html';
+                    window.showToast('Bạn không có quyền truy cập trang này!');
+                    setTimeout(() => window.location.href = 'index.html', 1500);
                     return;
                 }
                 loadQuestions();
             } catch (e) {
-                alert('Lỗi xác thực: ' + e.message);
+                window.showToast('Lỗi xác thực: ' + e.message);
             }
         });
 
@@ -513,8 +674,9 @@
 
                 closeModal();
                 await loadQuestions();
+                window.showToast("Đã lưu câu hỏi thành công!");
             } catch (e) {
-                alert('Lỗi khi lưu: ' + e.message);
+                window.showToast('Lỗi khi lưu: ' + e.message);
             } finally {
                 btn.disabled = false;
                 btn.textContent = "Lưu";
@@ -526,12 +688,14 @@
         };
 
         window.deleteQ = async function (id) {
-            if (confirm("Chắc chắn muốn xóa câu hỏi này?")) {
+            const confirmed = await window.showConfirm("Xóa câu hỏi?", "Dữ liệu sẽ bị xóa vĩnh viễn và không thể khôi phục.");
+            if (confirmed) {
                 try {
                     await deleteDoc(doc(db, 'quiz_questions', id));
                     await loadQuestions();
+                    window.showToast("Đã xóa câu hỏi!");
                 } catch (e) {
-                    alert('Lỗi khi xóa: ' + e.message);
+                    window.showToast('Lỗi khi xóa: ' + e.message);
                 }
             }
         };

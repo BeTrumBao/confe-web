@@ -643,8 +643,18 @@
             <div class="user-handle" id="dUser"></div>
 
             <div class="stats-row">
-                <div class="stat-item"><span class="stat-val" id="topicCount">0</span><span
-                        class="stat-label">Topic</span></div>
+                <div class="stat-item" onclick="showFollowList('followers')" style="cursor:pointer;">
+                    <span class="stat-val" id="followerCount">0</span>
+                    <span class="stat-label">Người theo dõi</span>
+                </div>
+                <div class="stat-item" onclick="showFollowList('following')" style="cursor:pointer;">
+                    <span class="stat-val" id="followingCount">0</span>
+                    <span class="stat-label">Đang theo dõi</span>
+                </div>
+            </div>
+            <!-- Follow button (shown when viewing other's profile) -->
+            <div id="followBtnWrap" style="display:none; margin-top:12px;">
+                <button id="btnFollow" onclick="toggleFollow()" style="padding:10px 28px; border:none; border-radius:20px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s; background:var(--primary-container); color:var(--primary);">Theo dõi</button>
             </div>
 
             <div class="section-box">
@@ -652,10 +662,6 @@
                 <div class="bio-box" id="dBio"></div>
             </div>
 
-            <div class="section-box">
-                <span class="sec-title"><span class="material-symbols-rounded" style="font-size: 18px;">rocket_launch</span> Topic Đã Tạo</span>
-                <div id="topicList" class="topic-grid"></div>
-            </div>
         </div>
     </div>
     <div id="modalNotif" class="modal">
@@ -681,6 +687,19 @@
             </div>
         </div>
     </div>
+    
+    <div id="modalFollow" class="modal">
+        <div class="box" style="text-align:center; max-width:400px; padding: 0;">
+            <div style="padding: 20px; border-bottom: 1px solid #e2e8f0; position: relative;">
+                <h3 id="modalFollowTitle" style="margin: 0; font-size: 18px; color: #0f172a;">Danh sách</h1>
+                <button onclick="document.getElementById('modalFollow').classList.remove('active')" style="position: absolute; right: 20px; top: 16px; background: none; border: none; font-size: 24px; color: #64748b; cursor: pointer;">&times;</button>
+            </div>
+            <div id="modalFollowList" style="max-height: 60vh; overflow-y: auto; padding: 10px;">
+                <div style="padding: 20px; color: #94a3b8;">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+
     <div id="modalSettings" class="modal">
         <div class="box">
             <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
@@ -733,6 +752,10 @@
                 </div>
             </div>
 
+            <div class="inp-group" style="display:flex; align-items:center; gap:8px; margin-top:20px; margin-bottom:20px;">
+                <input type="checkbox" id="chkPublicFollow" style="width:18px; height:18px; transform:translateY(2px)">
+                <label for="chkPublicFollow" style="font-size:14px; font-weight:600; cursor:pointer; color:#475569;">Cho phép người khác xem danh sách Follow của tôi</label>
+            </div>
 
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
@@ -833,7 +856,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
@@ -916,7 +939,13 @@
                     document.getElementById('inpUser').value = userData.username || "";
                 }
 
-                if (userData.email) loadTopics(userData.email);
+                // Load follow counts
+                loadFollowCounts(uid);
+                // Show follow button if viewer is different user
+                if (currentUser && currentUser.uid !== uid) {
+                    document.getElementById('followBtnWrap').style.display = 'block';
+                    checkIfFollowing(currentUser.uid, uid);
+                }
             } else if (currentUser && currentUser.uid === uid) {
                 // New user without doc (should not happen if registration works, but fallback)
                 userData = { displayName: "Cư dân mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
@@ -983,13 +1012,16 @@
                     nCov = await upload(document.getElementById('fCoverFile').files[0]);
                 }
 
+                const chkPublicFollow = document.getElementById('chkPublicFollow').checked;
+
                 const updateData = {
                     displayName: inpName,
                     username: inpUser,
                     bio: inpBio,
                     nameColor: activeColor,
                     photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
-                    is_setup: true
+                    is_setup: true,
+                    publicFollow: chkPublicFollow
                 };
 
                 if (inpUser !== userData.username) updateData.lastUserChange = serverTimestamp();
@@ -1099,6 +1131,9 @@
                         opt.classList.toggle('active', opt.dataset.color === color);
                     });
 
+                    // Sync Privacy Setting
+                    // By default, it should be true if not set.
+                    document.getElementById('chkPublicFollow').checked = data.publicFollow !== false;
 
                     // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
@@ -1218,33 +1253,117 @@
             }
         }
 
-        async function loadTopics(email) {
-            const list = document.getElementById('topicList');
+        // === FOLLOW SYSTEM ===
+        let isFollowing = false;
+
+        async function loadFollowCounts(uid) {
             try {
-                const q = query(collection(db, "topics"), where("owner", "==", email));
-                const snap = await getDocs(q);
-                const isOwner = currentUser && currentUser.email === email;
-                document.getElementById('topicCount').textContent = snap.size;
-                if (snap.empty) { list.innerHTML = `<p style="text-align:center; color:#94a3b8; font-size:12px;">${isOwner ? 'Bạn' : 'Người dùng này'} chưa tạo topic nào.</p>`; return; }
-                list.innerHTML = "";
-                snap.forEach(d => {
-                    const t = d.data();
-                    // Hide content if topic is private AND viewer is not the owner
-                    const isPrivate = !isOwner && t.protectResource && (t.securityMode === 'otp' || t.securityMode === 'whitelist');
-                    const displayTitle = isPrivate ? '🔒 Topic riêng tư' : (window.escapeHTML(t.title) || 'Không tên');
-                    const displayBanner = isPrivate ? 'https://placehold.co/50/e2e8f0/64748b?text=?' : (t.banner || 'https://via.placeholder.com/50');
-                    list.innerHTML += `
-                        <a href="detail.html?tid=${d.id}" class="topic-mini">
-                            <img src="${displayBanner}" class="tm-img" style="${isPrivate ? 'filter:blur(4px);' : ''}">
-                            <div class="tm-info">
-                                <div class="tm-title">${displayTitle}</div>
-                                <div class="tm-meta">${isPrivate ? '🔐 Nội dung được bảo vệ' : `🔥 ${t.heat || 0} lượt nhiệt • ${t.category || 'Chung'}`}</div>
-                            </div>
-                            <span class="material-symbols-rounded" style="color:#cbd5e1">chevron_right</span>
-                        </a>`;
-                });
-            } catch { list.innerHTML = "<p>Lỗi tải danh sách.</p>"; }
+                const [followers, following] = await Promise.all([
+                    getDocs(query(collection(db, "follows"), where("followingId", "==", uid))),
+                    getDocs(query(collection(db, "follows"), where("followerId", "==", uid)))
+                ]);
+                document.getElementById('followerCount').textContent = followers.size;
+                document.getElementById('followingCount').textContent = following.size;
+            } catch(e) {}
         }
+
+        window.showFollowList = async (type) => {
+            if (!userData) return;
+            // Privacy guard for visitors
+            const isOwner = currentUser && currentUser.uid === targetUid;
+            if (!isOwner && userData.publicFollow === false) {
+                return window.showToast("Người dùng này đã ẩn danh sách " + (type === 'followers' ? "người theo dõi" : "đang theo dõi") + "!", "error");
+            }
+            
+            const modal = document.getElementById('modalFollow');
+            const listBody = document.getElementById('modalFollowList');
+            document.getElementById('modalFollowTitle').textContent = type === 'followers' ? 'Người theo dõi' : 'Đang theo dõi';
+            modal.classList.add('active');
+            listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">Đang tải...</div>';
+            
+            try {
+                const q = type === 'followers' ? 
+                            query(collection(db, "follows"), where("followingId", "==", targetUid)) :
+                            query(collection(db, "follows"), where("followerId", "==", targetUid));
+                const snap = await getDocs(q);
+                
+                if (snap.empty) {
+                    listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">Chưa có ai ở đây.</div>';
+                    return;
+                }
+                
+                let html = '';
+                const uids = snap.docs.map(d => type === 'followers' ? d.data().followerId : d.data().followingId);
+                
+                for (const u of uids) {
+                    // Try fetch basic info
+                    try {
+                        const d = await getDoc(doc(db, "users", u));
+                        if(d.exists()) {
+                            const data = d.data();
+                            const avtURL = data.photoURL || "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
+                            const colorClass = data.nameColor ? `name-color-${data.nameColor}` : 'name-color-default';
+                            const verifiedTag = data.isVerified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : '';
+                            
+                            html += `
+                                <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9; cursor:pointer;" onclick="window.location.href='profile.html?uid=${u}'">
+                                    <img src="${avtURL}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <div style="flex: 1; text-align: left; font-weight: 600; font-size: 15px;" class="${colorClass}">
+                                        ${window.escapeHTML(data.displayName || 'Người dùng')} ${verifiedTag}
+                                        <div style="font-size: 12px; font-weight: normal; color: #64748b; margin-top:2px;">@${data.username || (data.email ? data.email.split('@')[0] : u.slice(0, 8))}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } catch(e) {}
+                }
+                listBody.innerHTML = html;
+            } catch (err) {
+                console.error(err);
+                listBody.innerHTML = '<div style="padding: 20px; color: #ef4444;">Lỗi tải dữ liệu</div>';
+            }
+        };
+
+        async function checkIfFollowing(myUid, targetUid) {
+            if (!myUid || myUid === targetUid) return;
+            const snap = await getDocs(query(collection(db, "follows"), where("followerId", "==", myUid), where("followingId", "==", targetUid)));
+            isFollowing = !snap.empty;
+            updateFollowBtn();
+        }
+
+        function updateFollowBtn() {
+            const btn = document.getElementById('btnFollow');
+            if (!btn) return;
+            if (isFollowing) {
+                btn.textContent = 'Đang theo dõi';
+                btn.style.background = '#f1f5f9';
+                btn.style.color = '#64748b';
+            } else {
+                btn.textContent = 'Theo dõi';
+                btn.style.background = 'var(--primary-container)';
+                btn.style.color = 'var(--primary)';
+            }
+        }
+
+        window.toggleFollow = async () => {
+            if (!currentUser) return window.showToast("Đăng nhập để theo dõi!");
+            if (!targetUid || currentUser.uid === targetUid) return;
+            const followId = `${currentUser.uid}_${targetUid}`;
+            const followRef = doc(db, "follows", followId);
+            if (isFollowing) {
+                await deleteDoc(followRef);
+                isFollowing = false;
+                window.showToast("Đã bỏ theo dõi!");
+            } else {
+                await setDoc(followRef, { followerId: currentUser.uid, followingId: targetUid, createdAt: serverTimestamp() });
+                isFollowing = true;
+                window.showToast("Đã theo dõi!");
+            }
+            updateFollowBtn();
+            loadFollowCounts(targetUid);
+        };
+
+
 
         function listenToRequests(email) {
             const q = query(collection(db, "requests"), where("ownerEmail", "==", email), where("status", "==", "pending"));
