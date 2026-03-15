@@ -1187,7 +1187,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import {
-            getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
+            getFirestore, enableIndexedDbPersistence,
+            collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
             updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getDocs, where, writeBatch
         } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -1199,11 +1200,9 @@
         const app = initializeApp(cfg); const auth = getAuth(app); 
         
         // ENABLE PERSISTENCE (SDK v9 Style)
-        import { enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-        // Initialize db with persistence
         let db = getFirestore(app);
-        enableIndexedDbPersistence(db).catch((e) => {
-            console.warn("Mất khả năng lưu trữ ngoại tuyến. Tiếp tục dùng db bình thường.", e);
+        enableIndexedDbPersistence(db).catch(function(e) {
+            console.warn("Mất khả năng lưu trữ ngoại tuyến.", e);
         });
 
         // CHECK DB VERSION
@@ -1879,8 +1878,11 @@
             r = r.replace(/\|\|(.*?)\|\|/g, (match, spoilerContent) => {
                 return `<span class="spoiler-text" onclick="event.stopPropagation(); this.classList.toggle('revealed')">${spoilerContent}</span>`;
             });
-            const urlRegex = /(?<!=["'])(https?:\/\/[^\s<]+)/g;
-            r = r.replace(urlRegex, (url) => {
+            const urlRegex = /(https?:\/\/[^\s<]+)/g;
+            r = r.replace(urlRegex, function(url, offset, str) {
+                // Skip URLs that appear to be inside HTML attribute values (preceded by quote)
+                var before = str.charAt(offset - 1);
+                if (before === '"' || before === "'") return url;
                 return `<a href="${url}" target="_blank" onclick="event.stopPropagation()">${url}</a>`;
             });
             r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {

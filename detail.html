@@ -1909,9 +1909,11 @@
             });
 
             // URLs
-            const urlRegex = /(?<!=["'])(https?:\/\/[^\s<]+)/g;
-            r = r.replace(urlRegex, (url) => {
-                return `<a href="${url}" target="_blank" onclick="event.stopPropagation()">${url}</a>`;
+            const urlRegex = /(https?:\/\/[^\s<]+)/g;
+            r = r.replace(urlRegex, function(url, offset, str) {
+                var before = str.charAt(offset - 1);
+                if (before === '"' || before === "'") return url;
+                return '<a href="' + url + '" target="_blank" onclick="event.stopPropagation()">' + url + '</a>';
             });
 
             // Hashtags (if needed later, but keeping it robust like home.html)
