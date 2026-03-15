@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Chat Room Vip</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
@@ -27,6 +27,7 @@
             --radius-bubble: 18px;
             --padding-bubble: 6px 10px;
         }
+
 
         .toast-container {
             position: fixed;
@@ -173,7 +174,7 @@
 
         html,
         body {
-            height: 100dvh;
+            height: 100%;
             margin: 0;
             padding: 0;
             background: var(--bg);
@@ -229,7 +230,6 @@
             flex-direction: column;
             gap: 12px;
             background: #f8fafc;
-            padding-bottom: 80px;
         }
 
         .msg-row {
@@ -1740,7 +1740,11 @@
                     text: txt, type: 'text', createdAt: null, replyTo: currentReply
                 }, 'text');
 
-                sendSingleMsg("");
+                sendSingleMsg("").catch(function(err) {
+                    console.error("Send failed:", err);
+                    window.showToast("Lỗi gửi tin: " + err.message);
+                    if (tempEl) tempEl.remove();
+                });
             }
         }
 

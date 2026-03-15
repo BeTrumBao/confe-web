@@ -2134,7 +2134,7 @@
 
             // URLs
             const urlRegex = /(https?:\/\/[^\s<]+)/g;
-            r = r.replace(urlRegex, function(url, offset, str) {
+            r = r.replace(urlRegex, function (url, offset, str) {
                 var before = str.charAt(offset - 1);
                 if (before === '"' || before === "'") return url;
                 return '<a href="' + url + '" target="_blank" onclick="event.stopPropagation()">' + url + '</a>';
@@ -2142,7 +2142,7 @@
 
             // Hashtags (Consume tags)
             r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {
-                if (aTag || spanTag) return match; 
+                if (aTag || spanTag) return match;
                 return `<span class="hashtag" onclick="event.stopPropagation(); window.showHashtag('${tagText}')">#${tagText}</span>`;
             });
 
@@ -2345,7 +2345,7 @@
 
         async function up(f) {
             const d = new FormData(); d.append("image", f);
-            try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch(e) { return ""; }
+            try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch (e) { return ""; }
         }
 
         // Cropper Functionality
@@ -2884,7 +2884,7 @@
             const inp = document.getElementById(inpId); const txt = inp.value.trim();
             const files = window.selectedInlineFiles[pid] || [];
             if (!txt && files.length === 0) return;
-            
+
             inp.value = '';
             const filesToUpload = [...files];
             window.clearInlineFiles(pid);

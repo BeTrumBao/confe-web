@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Confe</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <link rel="shortcut icon" href="assets/favicon.png">
@@ -30,9 +30,16 @@
             font-family: 'Outfit', sans-serif;
         }
 
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             display: flex;
-            height: 100vh;
+            height: 100%;
             overflow: hidden;
             background: var(--bg);
             transition: background 0.3s ease;
@@ -267,7 +274,8 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column-reverse;
-                height: 100dvh;
+                height: 100%;
+                height: -webkit-fill-available;
                 background: #f0f4ff;
             }
 
