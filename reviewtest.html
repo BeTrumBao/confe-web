@@ -1647,17 +1647,8 @@
     <div id="main-content-wrapper">
         <div id="subject-dashboard-container" class="dashboard-container">
             <div class="dashboard-header">
-                <h1 id="main-title" class="dashboard-title">Hệ thống Ôn tập Confe</h1>
-                <p style="color: #64748b; font-weight: 500;">Chọn môn học để bắt đầu ôn tập hôm nay</p>
-            </div>
-
-            <div id="reminder-container">
-                <div class="reminder-banner">
-                    <span class="material-symbols-rounded reminder-icon">auto_stories</span>
-                    <div class="reminder-text">
-                        Ôn bài gì chưa người đẹp . Lo học đi bài đi nha . Chúc người đẹp thi tốt nha ✨
-                    </div>
-                </div>
+                <h1 id="main-title" class="dashboard-title">Ôn tập</h1>
+                <p style="color: #64748b; font-weight: 500;">Chọn môn học để bắt đầu ôn tập ngay bây giờ</p>
             </div>
 
             <div id="subject-grid" class="subject-grid">
@@ -1707,7 +1698,7 @@
                             Tài sản hiện tại: 1000 Xu</div>
                         <div id="reputation-display" onclick="showReputationHistory()"
                             style="font-weight: 700; color: #0369a1; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 12px;">
-                            Uy tín: 100 PT
+                            Điểm Uy tín: 100
                             <span class="material-symbols-rounded" style="font-size: 18px;">history</span>
                         </div>
                     </div>
@@ -1768,18 +1759,22 @@
                                 <span id="display-room-code"
                                     style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
                             </div>
-                            <div id="lobby-players-list" style="display: flex; gap: 15px; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                            <div id="lobby-players-list"
+                                style="display: flex; gap: 15px; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
                                 <!-- Players appear here -->
                             </div>
 
                             <div id="guest-waiting-msg">
-                                <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 10px;">Đang chờ đối thủ tham gia...</p>
+                                <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 10px;">Đang chờ
+                                    đối thủ tham gia...</p>
                                 <div class="loader" style="margin-top: 15px;"></div>
                             </div>
 
                             <div id="host-start-container" style="display: none; margin-top: 20px;">
-                                <p style="color: #059669; font-weight: 700; font-size: 16px; margin-bottom: 20px;">Đối thủ đã sẵn sàng!</p>
-                                <button onclick="startSoloGame()" class="nav-btn next-btn" style="width: auto; padding: 15px 40px; font-size: 18px;">Bắt đầu trận đấu</button>
+                                <p style="color: #059669; font-weight: 700; font-size: 16px; margin-bottom: 20px;">Đối
+                                    thủ đã sẵn sàng!</p>
+                                <button onclick="startSoloGame()" class="nav-btn next-btn"
+                                    style="width: auto; padding: 15px 40px; font-size: 18px;">Bắt đầu trận đấu</button>
                             </div>
                         </div>
                         <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
@@ -1916,7 +1911,9 @@
                     <div id="result" class="result-container">
                         <div id="result-text" class="result-text"></div>
                         <div id="compliment-text" class="compliment-text"></div>
-                        <button id="retry-btn" class="nav-btn" style="margin: 24px auto 0; background: #0084ff; display: none; width: fit-content; padding: 12px 32px; font-weight: 800; border-radius: 100px;">Làm lại bài học</button>
+                        <button id="retry-btn" class="nav-btn"
+                            style="margin: 24px auto 0; background: #0084ff; display: none; width: fit-content; padding: 12px 32px; font-weight: 800; border-radius: 100px;">Làm
+                            lại bài học</button>
                     </div>
 
                     <div id="progress-container" class="progress-container">
@@ -1935,30 +1932,137 @@
             </div> <!-- subject-content -->
         </div> <!-- main-content-wrapper -->
 
-        <div id="reputation-history-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
-            <div style="background: white; width: 100%; max-width: 450px; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: none; animation: modalFadeIn 0.3s ease;">
-                <div style="padding: 24px 28px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px;">Biến động uy tín</h3>
-                    <button onclick="closeReputationHistory()" style="background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s;">
+        <div id="reputation-history-modal"
+            style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
+            <div
+                style="background: white; width: 100%; max-width: 450px; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: none; animation: modalFadeIn 0.3s ease;">
+                <div
+                    style="padding: 24px 28px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; flex-direction: column;">
+                        <h3
+                            style="margin: 0; font-size: 18px; font-weight: 800; color: #1e293b; letter-spacing: -0.5px;">
+                            Uy tín</h3>
+                        <div style="display: flex; gap: 15px; margin-top: 8px;">
+                            <span id="tab-history" onclick="switchRepTab('history')"
+                                style="font-size: 13px; font-weight: 700; color: #2563eb; cursor: pointer; padding-bottom: 4px; border-bottom: 2px solid #2563eb; transition: 0.2s;">Lịch
+                                sử</span>
+                            <span id="tab-rules" onclick="switchRepTab('rules')"
+                                style="font-size: 13px; font-weight: 700; color: #64748b; cursor: pointer; padding-bottom: 4px; border-bottom: 2px solid transparent; transition: 0.2s;">Quy
+                                tắc</span>
+                        </div>
+                    </div>
+                    <button onclick="closeReputationHistory()"
+                        style="background: #f1f5f9; border: none; color: #64748b; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s;">
                         <span class="material-symbols-rounded" style="font-size: 20px;">close</span>
                     </button>
                 </div>
-                <div id="reputation-history-list" style="padding: 20px; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #fff;">
+                <div id="reputation-history-list"
+                    style="padding: 20px; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #fff;">
                     <!-- Items will be added here -->
                 </div>
+                <!-- Rules View -->
+                <div id="reputation-rules-view"
+                    style="display: none; padding: 20px; max-height: 400px; overflow-y: auto; background: #fff;">
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <div
+                                style="font-weight: 800; font-size: 14px; color: #16a34a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                                <span class="material-symbols-rounded" style="font-size: 18px;">add_circle</span> CÁCH
+                                TĂNG ĐIỂM
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div
+                                    style="background: #f0fdf4; padding: 12px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; font-weight: 700; color: #166534;">Hoàn thành bài
+                                            học</span>
+                                        <span style="font-size: 14px; font-weight: 800; color: #16a34a;">+2đ</span>
+                                    </div>
+                                    <p style="font-size: 11px; margin-top: 4px; color: #15803d; opacity: 0.8;">Nhận được
+                                        khi làm xong toàn bộ câu hỏi trong bài.</p>
+                                </div>
+                                <div
+                                    style="background: #f0fdf4; padding: 12px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; font-weight: 700; color: #166534;">Thuộc 2 câu ôn
+                                            tập</span>
+                                        <span style="font-size: 14px; font-weight: 800; color: #16a34a;">+2đ</span>
+                                    </div>
+                                    <p style="font-size: 11px; margin-top: 4px; color: #15803d; opacity: 0.8;">Cứ mỗi 2
+                                        câu thuộc hoàn toàn (mastered), nhận ngay điểm thưởng.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div
+                                style="font-weight: 800; font-size: 14px; color: #e11d48; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                                <span class="material-symbols-rounded" style="font-size: 18px;">remove_circle</span> CÁC
+                                TRƯỜNG HỢP TRỪ
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div
+                                    style="background: #fff1f2; padding: 12px; border-radius: 12px; border: 1px solid #fecaca;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; font-weight: 700; color: #991b1b;">Thoát trận khi
+                                            đang đấu</span>
+                                        <span style="font-size: 14px; font-weight: 800; color: #e11d48;">-5đ →
+                                            -20đ</span>
+                                    </div>
+                                    <p style="font-size: 11px; margin-top: 4px; color: #b91c1c; opacity: 0.8;">Trừ nặng
+                                        khi ngắt kết nối hoặc cố ý thoát. Bị nhân hệ số nếu tái phạm liên tiếp.</p>
+                                </div>
+                                <div
+                                    style="background: #fff1f2; padding: 12px; border-radius: 12px; border: 1px solid #fecaca;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; font-weight: 700; color: #991b1b;">Rời phòng/Hủy
+                                            phòng</span>
+                                        <span style="font-size: 14px; font-weight: 800; color: #e11d48;">-2đ</span>
+                                    </div>
+                                    <p style="font-size: 11px; margin-top: 4px; color: #b91c1c; opacity: 0.8;">Khi đối
+                                        thủ đã vào phòng nhưng bạn đột ngột rời đi.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: #f8fafc; padding: 16px; border-radius: 16px; border: 1px dashed #cbd5e1;">
+                            <div style="font-weight: 800; font-size: 13px; color: #475569; margin-bottom: 8px;">HỆ SỐ
+                                PHẠT (MULTIPLIER)</div>
+                            <p style="font-size: 12px; line-height: 1.5; color: #64748b;">Nếu thoát trận liên tiếp, mức
+                                phạt sẽ nhân lên: <b>x1 → x2 → x3 → x4</b> (tối đa -20đ mỗi lần). Hệ số sẽ được reset
+                                khi bạn hoàn thành 1 bài ôn tập trọn vẹn.</p>
+                        </div>
+                    </div>
+                </div>
                 <div style="padding: 20px 28px; border-top: 1px solid #f1f5f9; text-align: right; background: #f8fafc;">
-                    <button onclick="closeReputationHistory()" style="padding: 10px 24px; font-size: 14px; border-radius: 100px; background: #1e293b; color: white; border: none; cursor: pointer; font-weight: 700; transition: 0.2s;">Đóng</button>
+                    <button onclick="closeReputationHistory()"
+                        style="padding: 10px 24px; font-size: 14px; border-radius: 100px; background: #1e293b; color: white; border: none; cursor: pointer; font-weight: 700; transition: 0.2s;">Đóng</button>
                 </div>
             </div>
         </div>
 
         <style>
             @keyframes modalFadeIn {
-                from { opacity: 0; transform: scale(0.95); }
-                to { opacity: 1; transform: scale(1); }
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
             }
-            #reputation-history-list::-webkit-scrollbar { width: 6px; }
-            #reputation-history-list::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+
+            #reputation-history-list::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            #reputation-history-list::-webkit-scrollbar-thumb {
+                background: #e2e8f0;
+                border-radius: 10px;
+            }
         </style>
 
         <script type="module">
@@ -2079,6 +2183,7 @@
             };
 
             window.exitToDashboard = function () {
+                clearSoloDisconnectTasks(); // ENSURE NO PENALTY LEAKS
                 hideAllModes();
                 document.getElementById('subject-content').style.display = 'none';
                 document.getElementById('subject-dashboard-container').style.display = 'block';
@@ -2136,10 +2241,10 @@
                 if (user) {
                     currentUser = user;
                     loadSubjects();
-                    
+
                     if (userSnapshotUnsubscribe) userSnapshotUnsubscribe();
                     const userDocRef = doc(firestore, 'users', user.uid);
-                    
+
                     // REAL-TIME LISTENER FOR USER DATA
                     userSnapshotUnsubscribe = onSnapshot(userDocRef, (docSnap) => {
                         if (docSnap.exists()) {
@@ -2161,7 +2266,7 @@
                             }
                             if (data.reputationHistory) reputationHistory = data.reputationHistory;
                             if (data.consecutiveExits !== undefined) consecutiveExits = data.consecutiveExits;
-                            
+
                             updateCoinDisplay();
                             updateInventoryDisplay();
                             updateReputationDisplay();
@@ -2183,14 +2288,14 @@
                                 if (pSnap.exists()) {
                                     const pData = pSnap.val();
                                     const pAmount = pData.amount || 5;
-                                    
+
                                     // Deduct points locally and sync
                                     reputation -= pAmount;
                                     if (reputation < 0) reputation = 0;
                                     window.addReputationHistory(-pAmount, 'Phạt do ngắt kết nối');
                                     window.updateReputationDisplay();
                                     await syncUserData();
-                                    
+
                                     set(pRef, null);
                                     window.showToast(`Bạn bị trừ ${pAmount}đ uy tín do ngắt kết nối khi đang đấu!`);
                                 }
@@ -2444,13 +2549,13 @@
             window.showToast = (msg) => {
                 const container = document.getElementById('toastContainer');
                 if (!container) return;
-                
+
                 // Prevent duplicate toasts
                 const existingToasts = container.querySelectorAll('.toast');
                 for (let t of existingToasts) {
                     if (t.textContent === msg) return;
                 }
-                
+
                 // Limit total toasts
                 if (existingToasts.length >= 3) {
                     existingToasts[0].remove();
@@ -2791,7 +2896,7 @@
             window.updateReputationDisplay = function () {
                 const repEl = document.getElementById('reputation-display');
                 if (repEl) {
-                    repEl.textContent = 'Uy tín: ' + reputation + ' PT';
+                    repEl.textContent = 'Uy tín: ' + reputation + '';
                     if (reputation < 70) {
                         repEl.style.color = '#ef4444';
                     } else {
@@ -2854,7 +2959,32 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
+            window.switchRepTab = function (tab) {
+                const historyList = document.getElementById('reputation-history-list');
+                const rulesView = document.getElementById('reputation-rules-view');
+                const tabHistory = document.getElementById('tab-history');
+                const tabRules = document.getElementById('tab-rules');
+
+                if (tab === 'history') {
+                    historyList.style.display = 'flex';
+                    rulesView.style.display = 'none';
+                    tabHistory.style.color = '#2563eb';
+                    tabHistory.style.borderBottomColor = '#2563eb';
+                    tabRules.style.color = '#64748b';
+                    tabRules.style.borderBottomColor = 'transparent';
+                } else {
+                    historyList.style.display = 'none';
+                    rulesView.style.display = 'block';
+                    tabRules.style.color = '#2563eb';
+                    tabRules.style.borderBottomColor = '#2563eb';
+                    tabHistory.style.color = '#64748b';
+                    tabHistory.style.borderBottomColor = 'transparent';
+                }
+            }
+
             window.showReputationHistory = function () {
+                // Reset to history tab when opening
+                switchRepTab('history');
                 const list = document.getElementById('reputation-history-list');
                 list.innerHTML = '';
                 if (reputationHistory.length === 0) {
@@ -2867,18 +2997,18 @@
                         row.style.padding = '16px';
                         row.style.borderRadius = '16px';
                         row.style.border = isDeduction ? '1px solid #fecaca' : '1px solid #bbf7d0';
-                        
+
                         const color = isDeduction ? '#e11d48' : '#16a34a';
                         const sign = isDeduction ? '' : '+';
-                        
+
                         row.innerHTML = `
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                                 <span style="font-weight:700; color:#1e293b; font-size:14px;">${item.reason}</span>
-                                <span style="font-weight:800; color:${color}; font-size:15px; background:white; padding:4px 10px; border-radius:100px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">${sign}${item.amount} PT</span>
+                                <span style="font-weight:800; color:${color}; font-size:15px; background:white; padding:4px 10px; border-radius:100px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">${sign}${item.amount}</span>
                             </div>
                             <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; font-weight:500;">
                                 <span><span class="material-symbols-rounded" style="font-size:14px; vertical-align:middle; margin-right:4px;">schedule</span>${item.time}</span>
-                                <span>Số dư: <b style="color:#334155;">${item.total} PT</b></span>
+                                <span>Số dư: <b style="color:#334155;">${item.total} </b></span>
                             </div>
                         `;
                         list.appendChild(row);
@@ -2895,7 +3025,7 @@
                 const modal = document.createElement('div');
                 modal.id = 'abandonment-modal';
                 modal.style = "position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; animation: modalFadeIn 0.3s ease;";
-                
+
                 modal.innerHTML = `
                     <div style="background: white; width: 100%; max-width: 400px; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; padding: 40px 30px;">
                         <div style="width: 80px; height: 80px; background: #fff1f2; color: #e11d48; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
@@ -2906,7 +3036,7 @@
                             Đối thủ đã rời trận đấu giữa chừng và bị trừ <b style="color: #e11d48;">${penalty} điểm</b> uy tín.<br>
                             Bạn không bị trừ điểm trận này và sẽ được đưa về sảnh.
                         </p>
-                        <button onclick="this.closest('#abandonment-modal').remove(); exitToDashboard();" 
+                        <button onclick="this.closest('#abandonment-modal').remove(); clearSoloDisconnectTasks(); exitToDashboard();" 
                                 style="width: 100%; padding: 16px; border-radius: 100px; background: #1e293b; color: white; border: none; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                             Đồng ý
                         </button>
@@ -3054,6 +3184,10 @@
                 if (soloUnsubscribe) soloUnsubscribe();
                 if (window.soloPenaltyTimer) clearInterval(window.soloPenaltyTimer);
                 hideRoundEffect();
+
+                // FINAL SAFETY CLEANUP BEFORE CLEARING ID
+                if (typeof window.clearSoloDisconnectTasks === 'function') window.clearSoloDisconnectTasks();
+
                 soloRoomId = null;
                 soloRoomData = null;
                 soloRoundStartIdx = 0;
@@ -3065,11 +3199,28 @@
                 document.getElementById('solo-waiting').style.display = 'none';
                 document.getElementById('solo-playing').style.display = 'none';
                 document.getElementById('solo-result').style.display = 'none';
-                if (currentUser && !msg) {
-                    // Falls back here ONLY if exitSoloRoom didn't catch it
+                if (currentUser) {
+                    // ALWAYS CLEAR STATE regardless of msg (unless we want to preserve it for some reason)
                     set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
                 }
             }
+
+            window.clearSoloDisconnectTasks = function () {
+                if (!currentUser || !soloRoomId) return;
+                try {
+                    onDisconnect(ref(db, 'users/' + currentUser.uid + '/pending_penalty')).cancel();
+                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/abandonedBy')).cancel();
+                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/penaltyGiven')).cancel();
+                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/status')).cancel();
+
+                    // ALSO CLEAR THE ACTIVE ROOM REFERENCE
+                    set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
+
+                    console.log("Cleared all solo disconnect tasks and room state.");
+                } catch (e) {
+                    console.error("Error clearing disconnect tasks:", e);
+                }
+            };
 
             window.exitSoloRoom = function () {
                 if (soloRoomId) {
@@ -3102,10 +3253,7 @@
                     }
 
                     // CANCEL DISCONNECT PENALTIES
-                    onDisconnect(ref(db, 'users/' + currentUser.uid + '/pending_penalty')).cancel();
-                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/abandonedBy')).cancel();
-                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/penaltyGiven')).cancel();
-                    onDisconnect(ref(db, 'rooms/' + soloRoomId + '/status')).cancel();
+                    clearSoloDisconnectTasks();
                 }
                 forceExitToLobby();
                 hideAllModes();
@@ -3213,7 +3361,7 @@
                         const sp = document.getElementById('solo-playing');
                         const hsc = document.getElementById('host-start-container');
                         const gwm = document.getElementById('guest-waiting-msg');
-                        
+
                         if (sw) sw.style.display = 'block';
                         if (sp) sp.style.display = 'none';
                         if (hsc) hsc.style.display = (data.hostId === currentUser.uid && data.p2ID) ? 'block' : 'none';
@@ -3223,15 +3371,15 @@
                     // 2. Gameplay Start & Intro logic
                     if (data.status === 'playing' && !gameStartedWithIntro && data.p1ID && data.p2ID) {
                         gameStartedWithIntro = true;
-                        
+
                         // SCHEDULE DISCONNECT PENALTY (SELF)
                         const pRef = ref(db, 'users/' + currentUser.uid + '/pending_penalty');
                         const multiplier = Math.min(consecutiveExits + 1, 4);
                         const penalty = 5 * multiplier;
-                        onDisconnect(pRef).set({ 
-                            amount: penalty, 
-                            roomId: soloRoomId, 
-                            time: Date.now() 
+                        onDisconnect(pRef).set({
+                            amount: penalty,
+                            roomId: soloRoomId,
+                            time: Date.now()
                         });
 
                         // ABANDONMENT TRACKING FOR OPPONENT (ON DISCONNECT)
@@ -3373,12 +3521,7 @@
 
                     if (data.status === 'match_end') {
                         // CANCEL ALL DISCONNECT PENALTIES (Game ended normally)
-                        if (currentUser) {
-                            onDisconnect(ref(db, 'users/' + currentUser.uid + '/pending_penalty')).cancel();
-                            onDisconnect(ref(db, 'rooms/' + soloRoomId + '/abandonedBy')).cancel();
-                            onDisconnect(ref(db, 'rooms/' + soloRoomId + '/penaltyGiven')).cancel();
-                            onDisconnect(ref(db, 'rooms/' + soloRoomId + '/status')).cancel();
-                        }
+                        clearSoloDisconnectTasks();
                         if (!window.endGameTriggered) {
                             window.endGameTriggered = true;
                             const iWon = data.winnerId === currentUser.uid;
@@ -3389,7 +3532,7 @@
                             showMatchEndEffect(iWon, effectName, effectAvatar, function () {
                                 // CANCEL DISCONNECT PENALTY (Match ended normally)
                                 onDisconnect(ref(db, 'users/' + currentUser.uid + '/pending_penalty')).cancel();
-                                
+
                                 finishSoloGame(data.status);
                                 window.endGameTriggered = false;
                             });
@@ -3728,7 +3871,7 @@
                         finishStudyBtn.className = 'nav-btn';
                         finishStudyBtn.style.marginTop = '10px';
                         finishStudyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                        finishStudyBtn.textContent = 'Hoàn thành bài học (+2 PT)';
+                        finishStudyBtn.textContent = 'Hoàn thành bài học (+2đ Uy tín)';
                         finishStudyBtn.onclick = function () {
                             if (reputation < 100) {
                                 reputation += 2;
@@ -4123,7 +4266,7 @@
                         passBtn.onclick = function () {
                             inventory.pass1--;
                             isPassUsed = true;
-                            
+
                             // Buff: Skip 10 unmastered questions
                             let skipCount = 10;
                             let skippedIndices = [];
@@ -4133,7 +4276,7 @@
                                     skippedIndices.push(i);
                                 }
                             }
-                            
+
                             window.showToast(`Đã dùng thẻ Pass để thuộc ngay ${skippedIndices.length} câu!`, false);
                             syncUserData();
                             processAnswer(index, true, false, true); // Marked as isPass=true
@@ -4311,7 +4454,7 @@
 
                 // REPUTATION RECOVERY FOR LESSON COMPLETION (BONUS)
                 if (reputation < 100) {
-                    const gain = 2; 
+                    const gain = 2;
                     reputation += gain;
                     if (reputation > 100) reputation = 100;
                     consecutiveExits = 0; // Reset penalty multiplier on recovery

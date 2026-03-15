@@ -1188,7 +1188,7 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
             getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
-            updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getDocs, where
+            updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getDocs, where, writeBatch
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const cfg = {
@@ -1196,7 +1196,14 @@
             storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
-        const app = initializeApp(cfg); const auth = getAuth(app); const db = getFirestore(app);
+        const app = initializeApp(cfg); const auth = getAuth(app); 
+        
+        // ENABLE PERSISTENCE (Latest SDK v10 Style)
+        import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        // Initialize db with persistence
+        const db = initializeFirestore(app, {
+            localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
+        });
 
         // CHECK DB VERSION
         const CLIENT_DB_VERSION = 1;
@@ -1292,23 +1299,33 @@
         let typingTimeout = null;
         function updateTyping() {
             if (!currentUser) return;
-            // Debounce update to avoid spamming writes
             const userRef = doc(db, TYPING_COL, currentUser.uid);
             setDoc(userRef, {
                 name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "Khách"),
                 timestamp: serverTimestamp()
-            }); // Fire and forget
+            });
+
+            if (typingTimeout) clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                deleteDoc(userRef); // Clear after 4s idle
+            }, 4000);
+        }
+
+        function clearTyping() {
+            if (typingTimeout) clearTimeout(typingTimeout);
+            if (currentUser) {
+                const userRef = doc(db, TYPING_COL, currentUser.uid);
+                deleteDoc(userRef);
+            }
         }
 
         function initTypingListener() {
-            // Cleanup old typing entries? We can't easily on client without cloud functions. 
-            // We'll just filter on read.
-            onSnapshot(collection(db, TYPING_COL), (snap) => {
+            let typersData = [];
+            const refreshUI = () => {
                 const now = Date.now();
                 const typers = [];
-                snap.forEach(d => {
-                    const data = d.data();
-                    if (d.id !== currentUser.uid && data.timestamp && (now - data.timestamp.toMillis()) < 3000) {
+                typersData.forEach(data => {
+                    if (data.id !== currentUser.uid && data.timestamp && (now - data.timestamp.toMillis()) < 5000) {
                         typers.push(data.name);
                     }
                 });
@@ -1319,14 +1336,22 @@
                 } else {
                     ind.style.display = 'none';
                 }
-            });
+            };
+
+            onSnapshot(collection(db, TYPING_COL), (snap) => {
+                typersData = snap.docs.map(d => ({id: d.id, ...d.data()}));
+                refreshUI();
+            }, (err) => console.warn("Typing listener error (expected if restricted):", err));
+            
+            setInterval(refreshUI, 1000); // Check every second for expired status
         }
 
         let isEditing = false;
         let editingMsgId = null;
 
-        window.startEdit = (id, text) => {
-            isEditing = true; editingMsgId = id;
+        let editingMsgType = 'text';
+        window.startEdit = (id, text, type = 'text') => {
+            isEditing = true; editingMsgId = id; editingMsgType = type;
             const banner = document.getElementById('editBanner');
             const input = document.getElementById('msgInput');
             banner.style.display = 'flex';
@@ -1351,8 +1376,9 @@
         });
 
         function formatTime(timestamp) {
-            if (!timestamp) return '';
-            const date = timestamp.toDate(); const now = new Date(); const diff = (now - date) / 1000;
+            if (!timestamp) return 'Vừa xong';
+            const date = (typeof timestamp.toDate === 'function') ? timestamp.toDate() : new Date(timestamp);
+            const now = new Date(); const diff = (now - date) / 1000;
             if (diff < 60) return 'Vừa xong';
             if (diff < 3600) return `${Math.floor(diff / 60)} phút trước`;
             if (diff < 86400) return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
@@ -1468,6 +1494,7 @@
         let galleryImages = [];
         let galleryIndex = 0;
 
+        let galleryCache = { tid: null, images: [], lastFetched: 0 };
         window.openGallery = async (imgs, index) => {
             const modal = document.getElementById('modalImg');
             if (!modal) return;
@@ -1475,7 +1502,6 @@
             modal.classList.add('active');
             const fullImg = document.getElementById('fullImg');
             
-            // Initial state: current image(s) only
             galleryImages = Array.isArray(imgs) ? imgs : [imgs];
             galleryIndex = index || 0;
             
@@ -1485,35 +1511,34 @@
             }
             renderGallery();
 
-            // Asynchronously fetch full chat history to populate thumbnails
+            // Optimization: Cache gallery history for 1 minute or per topic
+            const now = Date.now();
+            if (galleryCache.tid === CHAT_COL && (now - galleryCache.lastFetched) < 60000 && galleryCache.images.length > 0) {
+                const originalUrl = Array.isArray(imgs) ? imgs[0] : imgs;
+                const set = new Set([...galleryCache.images, originalUrl]);
+                galleryImages = Array.from(set);
+                galleryIndex = galleryImages.indexOf(originalUrl);
+                if (galleryIndex === -1) galleryIndex = 0;
+                renderGallery();
+                return;
+            }
+
             if (typeof imgs === 'string' && imgs.startsWith('http')) {
                 try {
-                    // Fetch recent image messages
-                    const q = query(collection(db, CHAT_COL), where("type", "==", "image"), limitToLast(100));
+                    const q = query(collection(db, CHAT_COL), where("type", "==", "image"), limitToLast(50));
                     const snap = await getDocs(q);
+                    const allImgs = snap.docs.map(d => d.data().image).filter(u => !!u);
                     
-                    const sortedDocs = snap.docs.sort((a, b) => {
-                        const ca = a.data().createdAt?.toMillis() || 0;
-                        const cb = b.data().createdAt?.toMillis() || 0;
-                        return ca - cb;
-                    });
+                    const originalUrl = imgs;
+                    const set = new Set([...allImgs, originalUrl]);
+                    const finalImgsArray = Array.from(set);
                     
-                    const allImgs = sortedDocs.map(d => d.data().image).filter(u => !!u);
+                    galleryCache = { tid: CHAT_COL, images: finalImgsArray, lastFetched: now };
+                    galleryImages = finalImgsArray;
+                    galleryIndex = finalImgsArray.indexOf(originalUrl);
+                    if (galleryIndex === -1) galleryIndex = 0;
                     
-                    if (allImgs.length > 1) {
-                        const originalUrl = imgs;
-                        // Deduplicate and ensure original image is included
-                        const set = new Set(allImgs);
-                        set.add(originalUrl);
-                        const finalImgsArray = Array.from(set);
-                        
-                        // Update gallery in place
-                        galleryImages = finalImgsArray;
-                        galleryIndex = finalImgsArray.indexOf(originalUrl);
-                        if (galleryIndex === -1) galleryIndex = 0;
-                        
-                        renderGallery();
-                    }
+                    renderGallery();
                 } catch (err) {
                     console.error("Gallery history fetch failed:", err);
                 }
@@ -1592,35 +1617,87 @@
             });
         }
 
+        let isVoting = false;
         window.vote = async (msgId, optId, event) => {
             if (event) event.stopPropagation();
-            const msgRef = doc(db, CHAT_COL, msgId); const msgSnap = await getDoc(msgRef);
-            let opts = msgSnap.data().options;
-            opts.forEach(o => { if (o.votes.includes(currentUser.uid)) o.votes = o.votes.filter(v => v !== currentUser.uid); });
-            opts[optId].votes.push(currentUser.uid);
-            await updateDoc(msgRef, { options: opts });
+            if (isVoting) return;
+            isVoting = true;
+            window.showToast("Đang xử lý bình chọn...", "⏳");
+            
+            try {
+                const msgRef = doc(db, CHAT_COL, msgId);
+                const msgSnap = await getDoc(msgRef);
+                if (!msgSnap.exists()) throw new Error("Không tìm thấy tin nhắn!");
+                
+                let opts = msgSnap.data().options;
+                // Remove previous vote from this user for ANY option in this poll
+                opts.forEach(o => {
+                    if (o.votes.includes(currentUser.uid)) {
+                        o.votes = o.votes.filter(v => v !== currentUser.uid);
+                    }
+                });
+                // Add new vote
+                opts[optId].votes.push(currentUser.uid);
+                
+                await updateDoc(msgRef, { options: opts });
+                window.showToast("Đã ghi nhận bình chọn!", "✅");
+            } catch (err) {
+                console.error("Vote failed:", err);
+                window.showToast("Lỗi khi bình chọn: " + err.message, "❌");
+            } finally {
+                isVoting = false;
+            }
         }
 
-        document.getElementById('btnSend').onclick = async () => {
-            const txt = document.getElementById('msgInput').value.trim();
+        document.getElementById('btnSend').onclick = () => {
+            const input = document.getElementById('msgInput');
+            const txt = input.value.trim();
             if (!txt && selectedFiles.length === 0) return;
-            document.getElementById('msgInput').value = '';
             
+            // Clear UI immediately
+            input.value = '';
             const filesToUpload = [...selectedFiles];
+            const currentReply = window.replyData;
             clearImage();
+            clearTyping();
+            if (currentReply) cancelReply();
 
             if (isEditing && editingMsgId) {
                 const msgRef = doc(db, CHAT_COL, editingMsgId);
-                const snap = await getDoc(msgRef);
-                if (snap.exists() && snap.data().type === 'poll') {
-                    await updateDoc(msgRef, { question: txt, isEdited: true });
-                } else {
-                    await updateDoc(msgRef, { text: txt, isEdited: true });
-                }
+                const updateData = { isEdited: true };
+                if (editingMsgType === 'poll') updateData.question = txt;
+                else updateData.text = txt;
+                updateDoc(msgRef, updateData);
                 cancelEdit(); return;
             }
 
-            const sendMsg = async (imgUrl = "") => {
+            const tempId = 'temp-' + Date.now();
+            const box = document.getElementById('chatBox');
+            
+            const createTempMsg = (msgData, subId) => {
+                const div = document.createElement('div');
+                div.id = `${tempId}-${subId}`;
+                div.innerHTML = renderMessage(div.id, {...msgData, isSending: true});
+                box.appendChild(div);
+                box.scrollTop = box.scrollHeight;
+                return div;
+            };
+
+            const sendBatchedMsgs = (imgUrls) => {
+                const batch = writeBatch(db);
+                imgUrls.forEach(url => {
+                    const newDocRef = doc(collection(db, CHAT_COL));
+                    batch.set(newDocRef, {
+                        text: txt, image: url, type: 'image',
+                        uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), 
+                        avatar: currentUser.photoURL, isVerified: currentUser.isVerified || false,
+                        nameColor: window.myNameColor || 'default', createdAt: serverTimestamp(), likes: []
+                    });
+                });
+                return batch.commit();
+            };
+
+            const sendSingleMsg = (imgUrl = "") => {
                 const payload = {
                     text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
                     uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
@@ -1628,20 +1705,42 @@
                     nameColor: window.myNameColor || 'default',
                     createdAt: serverTimestamp(), likes: []
                 };
-                if (window.replyData) {
-                    payload.replyTo = window.replyData;
-                    cancelReply();
-                }
-                await addDoc(collection(db, CHAT_COL), payload);
+                if (currentReply) payload.replyTo = currentReply;
+                return addDoc(collection(db, CHAT_COL), payload);
             };
 
             if (filesToUpload.length > 0) {
-                for (const file of filesToUpload) {
-                    const url = await uploadImage(file);
-                    if (url) await sendMsg(url);
-                }
+                filesToUpload.forEach((file, idx) => {
+                    createTempMsg({
+                        uid: currentUser.uid, avatar: currentUser.photoURL, name: currentUser.displayName, 
+                        image: URL.createObjectURL(file), text: idx === 0 ? txt : "", type: 'image', createdAt: null
+                    }, idx);
+                });
+
+                (async () => {
+                    try {
+                        const urls = await Promise.all(filesToUpload.map(file => uploadImage(file)));
+                        const validUrls = urls.filter(u => u !== null);
+                        if (validUrls.length > 1) await sendBatchedMsgs(validUrls);
+                        else if (validUrls.length === 1) await sendSingleMsg(validUrls[0]);
+                    } catch (err) {
+                        console.error("Upload/Send failed", err);
+                        window.showToast("Lỗi khi gửi bản nháp!", "❌");
+                    } finally {
+                        filesToUpload.forEach((_, idx) => {
+                            const el = document.getElementById(`${tempId}-${idx}`);
+                            if (el) el.remove();
+                        });
+                    }
+                })();
             } else {
-                await sendMsg("");
+                // Instant UI for text
+                const tempEl = createTempMsg({
+                    uid: currentUser.uid, avatar: currentUser.photoURL, name: currentUser.displayName, 
+                    text: txt, type: 'text', createdAt: null, replyTo: currentReply
+                }, 'text');
+
+                sendSingleMsg("");
             }
         }
 
@@ -1731,7 +1830,7 @@
             if (snap.exists()) {
                 const data = snap.data();
                 if (data.type === 'poll') {
-                    window.startEdit(selectedMsgId, data.question);
+                    window.startEdit(selectedMsgId, data.question, data.type);
                 } else if (data.type === 'sticker') {
                     isEditing = true;
                     editingMsgId = selectedMsgId;
@@ -1740,7 +1839,7 @@
                     renderStickerGrid();
                     closeMsgMenu();
                 } else {
-                    window.startEdit(selectedMsgId, data.text);
+                    window.startEdit(selectedMsgId, data.text, data.type);
                 }
             }
         }
@@ -1790,9 +1889,15 @@
             return r;
         }
 
+        const renderCache = new Map();
         function renderMessage(docId, msg) {
+            // Cache lookup: versioning by docId + mod status + likes + timestamp presence
+            const cacheKey = `${docId}_${msg.isEdited ? 'ed' : 'no'}_${msg.likes?.length || 0}_${!!msg.createdAt}`;
+            if (renderCache.has(cacheKey)) return renderCache.get(cacheKey);
+
             const isMine = msg.uid === currentUser.uid; const rowClass = isMine ? 'mine' : 'theirs';
             let contentHtml = '';
+            // ... rest of rendering logic ...
             if (msg.replyTo) {
                 contentHtml += `<div style="background:rgba(0,0,0,0.1); padding:8px 12px; border-radius:12px; border-left:4px solid ${isMine ? 'rgba(255,255,255,0.8)' : '#0084ff'}; margin-bottom:6px; font-size:13px; opacity:0.9; cursor:pointer;" onclick="const el = document.getElementById('msg-${msg.replyTo.id}'); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('msg-highlight'); setTimeout(()=>el.classList.remove('msg-highlight'), 2000); }">
                     <div style="font-weight:700; margin-bottom:4px; font-size: 11px;">Trả lời ${msg.replyTo.name}</div>
@@ -1827,13 +1932,16 @@
             const verifiedHtml = isVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
             const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
-            return `<div class="msg-row ${rowClass}" id="msg-${docId}">
+            const html = `<div class="msg-row ${rowClass}" id="msg-${docId}">
                 ${!isMine ? `<img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'">` : ''}
                 <div class="msg-content-wrapper">
                     ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${verifiedHtml}</div>` : ''}
                     ${contentHtml}${statusHtml}
                 </div>
             </div>`;
+            
+            renderCache.set(cacheKey, html);
+            return html;
         }
 
         let messageLimit = 40;
@@ -1849,6 +1957,7 @@
             unsubscribeMessages = onSnapshot(q, (snapshot) => {
                 const box = document.getElementById('chatBox');
                 if (document.getElementById('chatSkeleton')) document.getElementById('chatSkeleton').remove();
+                
                 if (snapshot.empty) {
                     if (!box.querySelector('.chat-empty')) box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon"><span class="material-symbols-rounded">forum</span></div><div class="chat-empty-title">Chưa có tin nhắn nào</div></div>`;
                     return;
@@ -1856,69 +1965,151 @@
                     const empty = box.querySelector('.chat-empty');
                     if (empty) empty.remove();
                 }
-                if (snapshot.size < messageLimit) hasMoreMessages = false;
+
+                const isFromCache = snapshot.metadata.fromCache;
+                if (snapshot.size < messageLimit && !isFromCache) hasMoreMessages = false;
+                
                 const oldHeight = box.scrollHeight;
                 const wasAtBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 50;
+                
+                if (isFetchingOlder) {
+                    // Ignore cache snapshots that don't fulfill the whole request
+                    if (isFromCache && snapshot.size < messageLimit) return;
+
+                    // Prepend ONLY the new older messages
+                    const newDocs = snapshot.docs.filter(d => !loadedDocIds.has(d.id));
+                    if (newDocs.length > 0) {
+                        const html = newDocs.map(d => {
+                            loadedDocIds.add(d.id);
+                            return renderMessage(d.id, d.data());
+                        }).join('');
+                        box.insertAdjacentHTML('afterbegin', html);
+                        box.scrollTop = box.scrollHeight - oldHeight;
+                        isFetchingOlder = false;
+                        isInitialLoad = false;
+                        return;
+                    }
+                    // If no new docs but we hit the end of the line (and it's from server), reset flag
+                    if (!hasMoreMessages && !isFromCache) isFetchingOlder = false;
+                    return;
+                }
+
                 const changes = snapshot.docChanges();
                 let hasNewAdded = false;
+                
+                // Batch updates for better performance
+                const fragment = document.createDocumentFragment();
+
                 changes.forEach((change) => {
                     const docId = change.doc.id;
                     const msg = change.doc.data();
                     if (change.type === "added") {
                         if (!loadedDocIds.has(docId)) {
                             loadedDocIds.add(docId);
-                            const messageHtml = renderMessage(docId, msg);
-                            if (change.newIndex === 0 && box.children.length > 0 && !isInitialLoad) box.insertAdjacentHTML('afterbegin', messageHtml);
-                            else { box.insertAdjacentHTML('beforeend', messageHtml); hasNewAdded = true; }
+                            const div = document.createElement('div');
+                            div.innerHTML = renderMessage(docId, msg);
+                            const msgEl = div.firstElementChild;
+                            
+                            // Watch for image loads to adjust scroll
+                            msgEl.querySelectorAll('img').forEach(img => {
+                                img.onload = () => {
+                                    if (wasAtBottom || isInitialLoad) box.scrollTop = box.scrollHeight;
+                                };
+                            });
+
+                            if (isInitialLoad) {
+                                fragment.appendChild(msgEl);
+                            } else {
+                                // Smart insertion: if newIndex is 0, it's an older message filling a gap
+                                if (change.newIndex === 0) {
+                                    const oldH = box.scrollHeight;
+                                    box.prepend(msgEl);
+                                    // Maintain scroll position if we're not at the bottom
+                                    if (!wasAtBottom) box.scrollTop += (box.scrollHeight - oldH);
+                                } else {
+                                    box.appendChild(msgEl);
+                                    hasNewAdded = true;
+
+                                    // Cleanup matching optimistic UI placeholders
+                                    if (msg.uid === currentUser.uid) {
+                                        box.querySelectorAll('[id^="temp-"]').forEach(temp => {
+                                            const tempTxt = temp.querySelector('.msg-bubble')?.innerText;
+                                            if (tempTxt === msg.text || (msg.image && temp.querySelector('img'))) {
+                                                temp.remove();
+                                            }
+                                        });
+                                    }
+                                }
+                            }
                         }
                     } else if (change.type === "modified") {
                         const el = document.getElementById(`msg-${docId}`);
-                        if (el) el.outerHTML = renderMessage(docId, msg);
+                        if (el) {
+                            const oldOffset = box.scrollHeight - box.scrollTop;
+                            const newHtml = renderMessage(docId, msg);
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = newHtml;
+                            el.replaceWith(tempDiv.firstElementChild);
+                            if (!wasAtBottom && !isInitialLoad) box.scrollTop = box.scrollHeight - oldOffset;
+                        }
                     } else if (change.type === "removed") {
                         const el = document.getElementById(`msg-${docId}`);
-                        if (el) el.remove();
-                        loadedDocIds.delete(docId);
+                        if (el) {
+                            const oldOffset = box.scrollHeight - box.scrollTop;
+                            el.remove();
+                            loadedDocIds.delete(docId);
+                            // Maintain scroll position if not at bottom
+                            if (!wasAtBottom) box.scrollTop = box.scrollHeight - oldOffset;
+                        }
                     }
                 });
-                if (isFetchingOlder) {
-                    rebuildChatBox(snapshot.docs);
-                    box.scrollTop = box.scrollHeight - oldHeight;
-                    isFetchingOlder = false;
-                } else {
-                    const triggerScroll = () => {
-                        if (isInitialLoad) { box.scrollTop = box.scrollHeight; isInitialLoad = false; return; }
-                        if (hasNewAdded && wasAtBottom) box.scrollTop = box.scrollHeight;
-                    };
-                    triggerScroll();
-                    if (hasNewAdded) { setTimeout(triggerScroll, 150); setTimeout(triggerScroll, 500); }
+
+                if (isInitialLoad && fragment.childNodes.length > 0) {
+                    box.appendChild(fragment);
+                    setTimeout(() => { box.scrollTop = box.scrollHeight; }, 50);
+                    isInitialLoad = false;
+                } else if (hasNewAdded && wasAtBottom) {
+                    box.scrollTop = box.scrollHeight;
                 }
             });
         }
 
         function rebuildChatBox(docs) {
             const box = document.getElementById('chatBox');
-            box.innerHTML = '';
+            const fragment = document.createDocumentFragment();
             loadedDocIds.clear();
-            docs.forEach(doc => { box.insertAdjacentHTML('beforeend', renderMessage(doc.id, doc.data())); loadedDocIds.add(doc.id); });
+            docs.forEach(doc => {
+                loadedDocIds.add(doc.id);
+                const div = document.createElement('div');
+                div.innerHTML = renderMessage(doc.id, doc.data());
+                fragment.appendChild(div.firstElementChild);
+            });
+            box.innerHTML = '';
+            box.appendChild(fragment);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        const initScrollListener = () => {
             const box = document.getElementById('chatBox');
-            if (box) {
-                box.onscroll = () => {
-                    if (box.scrollTop === 0 && hasMoreMessages && !isFetchingOlder) {
-                        isFetchingOlder = true;
-                        messageLimit += 30;
-                        loadMessages();
+            if (!box) return;
+            box.onscroll = () => {
+                if (box.scrollTop < 40 && hasMoreMessages && !isFetchingOlder) {
+                    isFetchingOlder = true;
+                    messageLimit += 30;
+                    loadMessages();
+                }
+                const btnScroll = document.getElementById('btnScrollBottom');
+                if (btnScroll) {
+                    if (box.scrollHeight - box.scrollTop - box.clientHeight > 200) {
+                        btnScroll.style.display = 'flex';
+                    } else {
+                        btnScroll.style.display = 'none';
                     }
-                    const btnScroll = document.getElementById('btnScrollBottom');
-                    if (btnScroll) {
-                        if (box.scrollHeight - box.scrollTop - box.clientHeight > 200) btnScroll.style.display = 'flex';
-                        else btnScroll.style.display = 'none';
-                    }
-                };
-            }
-        });
+                }
+            };
+        };
+
+        // Initialize immediately
+        initScrollListener();
 
         // === STICKER LOGIC ===
 

@@ -913,11 +913,19 @@
         window.openPollModal = () => document.getElementById('modalPoll').classList.add('active');
         async function loadCommunityPoll() {
             try {
-                await fetchAndActivate(remoteConfig);
-                const raw = getValue(remoteConfig, 'community_poll').asString();
-                if (!raw) return;
-                const poll = JSON.parse(raw);
-                if (!poll.active) return;
+                let poll = null;
+                // Try Firestore first
+                const configSnap = await getDoc(doc(db, "system", "community_poll"));
+                if (configSnap.exists()) {
+                    poll = JSON.parse(configSnap.data().json);
+                } else {
+                    // Fallback to Remote Config
+                    await fetchAndActivate(remoteConfig);
+                    const raw = getValue(remoteConfig, 'community_poll').asString();
+                    if (raw) poll = JSON.parse(raw);
+                }
+
+                if (!poll || !poll.active) return;
                 currentPoll = poll;
 
                 document.getElementById('pollQuestion').textContent = poll.question;
@@ -1113,6 +1121,16 @@
                 sub = 'Khuya rồi đó, nhớ ngủ đủ giấc nha bạn ơi! 💤';
             }
 
+            // EXAM SEASON OVERRIDE (Until end of Friday, March 20, 2026)
+            const now = new Date();
+            const examDeadline = new Date('2026-03-21T00:00:00');
+            if (now < examDeadline) {
+                msg = `Ôn bài gì chưa người đẹp?`;
+                sub = `Lo học đi bài đi nha. Chúc người đẹp thi tốt✨`;
+                emoji = `✨`;
+                label = `Sắp thi rồi đó nha`;
+            }
+
             document.getElementById('greetTimeLabel').textContent = label;
             document.getElementById('greetMsg').textContent = msg;
             document.getElementById('greetSub').textContent = sub;
@@ -1157,9 +1175,18 @@
         async function loadNews() {
             const newsList = document.getElementById('newsList');
             try {
-                await fetchAndActivate(remoteConfig);
-                const raw = getValue(remoteConfig, 'dashboard_news').asString();
-                newsItems = JSON.parse(raw);
+                let items = [];
+                // Try Firestore first
+                const snap = await getDoc(doc(db, "system", "dashboard_news"));
+                if (snap.exists()) {
+                    items = JSON.parse(snap.data().json);
+                } else {
+                    // Fallback to Remote Config
+                    await fetchAndActivate(remoteConfig);
+                    const raw = getValue(remoteConfig, 'dashboard_news').asString();
+                    if (raw) items = JSON.parse(raw);
+                }
+                newsItems = items;
                 if (!newsItems || !newsItems.length) throw new Error('empty');
 
                 const renderCard = (item, i) => `

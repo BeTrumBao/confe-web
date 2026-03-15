@@ -3,155 +3,100 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     // ======== Helper Functions ========
-    
-    // Check if the user is authenticated
+
     function isAuth() {
       return request.auth != null;
     }
-    
-    match /rps_rooms/{roomId} { allow read, write: if isAuth(); }
-		match /pending_invites/{uid}/invites/{invId} { allow read, write: if isAuth(); }
 
-    
-    // Check if the current user is the owner of the document based on auth UID
     function isOwner(userId) {
       return isAuth() && request.auth.uid == userId;
     }
 
+    function isAdmin() {
+      return isAuth() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
     // ======== Collection Rules ========
 
-    // 1. Users Collection
     match /users/{userId} {
-      // Anyone (even unauthenticated) can read user profiles
-      allow read: if true; 
+      allow read: if isAuth(); 
       allow create: if isOwner(userId);
-      // Allows users to update profiles (needed for friend_requests logic changing friend array in both user docs)
-      allow update: if isOwner(userId) || isAuth();
-      // Users shouldn't be deleted directly from client, but if needed, only by owner
-      allow delete: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
     }
 
-    // 2. Topics Collection (Confessions/Posts)
+    match /subjects/{subjectId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
     match /topics/{topicId} {
-      // Anyone can read topics
-      allow read: if true;
-      // Any authenticated user can create a topic
+      allow read: if isAuth();
       allow create: if isAuth(); 
-      // Only the author can update or delete their topic
-      allow update, delete: if isAuth() && (resource.data.authorId == request.auth.uid || resource.data.owner == request.auth.token.email);
-
-      // Topic-specific chat
-      match /chat/{docId} {
-        allow read, write: if isAuth();
-      }
-      match /typing/{docId} {
-        allow read, write: if isAuth();
-      }
-    }
-    
-    // 3. Comments Collection
-    match /comments/{commentId} {
-      // Anyone can read comments
-      allow read: if true;
-      // Any authenticated user can create a comment
-      allow create: if isAuth();
-      // Only the author can update or delete their comment
-      allow update, delete: if isAuth() && resource.data.authorUid == request.auth.uid;
-    }
-
-    // 4. Friend Requests
-    match /friend_requests/{requestId} {
-      // Both sender and receiver can read the request
-      allow read: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
-      // Authenticated users can send requests
-      allow create: if isAuth() && request.resource.data.from_uid == request.auth.uid;
-      // Both sender (to cancel) and receiver (to accept/reject) can update or delete
-      allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
-    }
-
-    // 5a. Posts (Confessions) Collection
-    match /posts/{postId} {
-      allow read: if true;
-      allow create: if isAuth();
-      allow update, delete: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.authorId == request.auth.uid || isAdmin());
       
-      // User reactions sub-collection (for emoji reactions on posts)
+      // Messages within topic
+      match /chat/{docId} { 
+        allow read, write: if isAuth(); 
+      }
+      
+      // Typing within topic
+      match /typing/{docId} { 
+        allow read, write: if isAuth(); 
+      }
+    }
+
+    match /comments/{commentId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
+    }
+
+    match /friend_requests/{requestId} {
+      allow read: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
+      allow create: if isAuth() && request.resource.data.from_uid == request.auth.uid;
+      allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid || isAdmin());
+    }
+
+    match /posts/{postId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
+      
       match /user_reactions/{uid} {
-        allow read: if true;
+        allow read: if isAuth();
         allow write: if isAuth() && request.auth.uid == uid;
       }
     }
 
-    // 5b. Feedbacks Collection
-    match /feedbacks/{docId} {
-      allow create: if isAuth();
-      allow read, update, delete: if false;
+    match /feedbacks/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /bug_reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
+    
+    // Community Polls (Important: allow create for voting if doc doesn't exist)
+    match /community_votes/{pollId} { 
+      allow read, write: if isAuth(); 
     }
+    
+    // Public Chat & Typing
+    match /public_chat/{docId} { allow read, write: if isAuth(); }
+    match /public_typing/{docId} { allow read, write: if isAuth(); }
 
-    // 5. Topic Members Collection 
-    // Replaces the old 'requests' collection for robust membership management
-    match /topic_members/{docId} {
-      // Allow read/write for everyone to support guest deviceId testing
-      allow read, create, update, delete: if true;
-    }
-
-    // 6. Community Votes
-    match /community_votes/{pollId} {
-      // Anyone can read the current vote tallies
-      allow read: if true;
-      // Anyone authenticated can vote (update array)
-      allow update: if isAuth();
-      // Only admins should create polls (via Remote Config + Firebase Console directly, client shouldn't create polls)
-      allow create, delete: if false; 
-    }
-
-    // 7. Chat & Groups
-    match /public_chat/{docId} {
-      allow read, write: if isAuth();
-    }
-    match /public_typing/{docId} {
-      allow read, write: if isAuth();
-    }
     match /groups/{groupId} {
       allow read, write: if isAuth();
-      match /messages/{messageId} {
-        allow read, write: if isAuth();
-      }
+      match /messages/{messageId} { allow read, write: if isAuth(); }
     }
     
-    // 8. Reports
-    match /reports/{reportId} {
-      allow create: if isAuth();
-      allow read, update, delete: if false; 
-    }
-    match /bug_reports/{reportId} {
-      allow create: if isAuth();
-      allow read, update, delete: if false; 
-    }
+    match /leaderboard_clicks/{userId} { allow read: if isAuth(); allow create, update: if isOwner(userId) || isAdmin(); }
+    match /system/{docId} { allow read: if isAuth(); allow write: if isAdmin(); }
+    match /follows/{followId} { allow read, write: if isAuth(); }
+    match /rps_rooms/{roomId} { allow read, write: if isAuth(); }
+    match /pending_invites/{uid}/invites/{invId} { allow read, write: if isAuth(); }
 
-    // 9. Click Speed Game Leaderboard
-    match /leaderboard_clicks/{userId} {
-      allow read: if true;
-      allow create, update: if isOwner(userId);
-    }
-
-    // 10. System Configuration
-    match /system/{docId} {
-      allow read: if true;
-      allow write: if false; // Only editable via Firebase Console
-    }
-
-    // 11. Follows Collection
-    match /follows/{followId} {
-      allow read, write: if isAuth();
-    }
-    
-    // 12. Miscellaneous Requests (Verification, Group joins, etc.)
-    match /requests/{requestId} {
-      allow read, write: if isAuth();
-    }
-
-    // Default deny for everything else
+    // Catch-all
     match /{document=**} {
       allow read, write: if false;
     }

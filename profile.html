@@ -1482,7 +1482,27 @@
         });
 
         document.getElementById('btnCropConfirm').onclick = () => {
-            // ... (keep existing btnCropConfirm logic)
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({
+                width: cropType === 'avt' ? 400 : 1280,
+                height: cropType === 'avt' ? 400 : 720,
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: 'high',
+            });
+
+            canvas.toBlob((blob) => {
+                if (cropType === 'avt') {
+                    window.croppedAvtBlob = blob;
+                    document.getElementById('avt').src = canvas.toDataURL('image/jpeg');
+                } else {
+                    window.croppedCovBlob = blob;
+                    const url = canvas.toDataURL('image/jpeg');
+                    document.getElementById('bgBlur').style.backgroundImage = `url('${url}')`;
+                    document.getElementById('bgCover').style.backgroundImage = `url('${url}')`;
+                }
+                modalCropper.classList.remove('active');
+                window.showToast("Đã cắt ảnh! Nhấn 'Lưu' để hoàn tất.", "✨");
+            }, 'image/jpeg', 0.9);
         };
 
         // Name Color Picker Logic
