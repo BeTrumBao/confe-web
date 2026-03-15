@@ -1172,17 +1172,7 @@
             if (u) {
                 localStorage.setItem('confe_current_uid', u.uid);
 
-                // Auto-navigate to Ôn Tập if there's an active BO3 match
-                try {
-                    const activeRoomSnap = await get(ref(rtdb, 'users/' + u.uid + '/activeSoloRoom'));
-                    if (activeRoomSnap.exists() && activeRoomSnap.val()) {
-                        // Find the Ôn Tập nav link and activate it
-                        const ontapLink = document.querySelector('.nav-link[onclick*="reviewtest.html"]');
-                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                        if (ontapLink) ontapLink.classList.add('active');
-                        document.getElementById('mainFrame').src = 'reviewtest.html';
-                    }
-                } catch (e) { console.log('No active solo room'); }
+                // Auto-navigate logic removed as requested
             } else {
                 localStorage.removeItem('confe_current_uid');
                 window.top.location.href = 'login.html';

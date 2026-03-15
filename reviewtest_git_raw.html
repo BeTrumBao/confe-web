@@ -1,0 +1,3663 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHTN 7 - Quang Hß╗úp & H├┤ Hß║Ñp</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 20px 10px;
+            color: #4B5563;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 10px;
+            border: 1px solid #E5E7EB;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0084ff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: none;
+            border: 1px solid transparent;
+        }
+
+        .action-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Color Variants - Tonal Palettes */
+        .solo-btn,
+        .wrong-btn {
+            background: #FFDAD6;
+            color: #410002;
+        }
+
+        .match-btn {
+            background: #D1FBD0;
+            color: #002108;
+        }
+
+        .study-btn {
+            background: #D1E4FF;
+            color: #001D36;
+        }
+
+        .shop-btn {
+            background: #E0E2ED;
+            color: #191C1E;
+        }
+
+        .action-btn span {
+            font-size: 20px;
+            font-variation-settings: 'FILL' 0;
+            transition: font-variation-settings 0.2s;
+        }
+
+        .action-btn:hover span {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .info-msg {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 16px;
+            font-weight: 500;
+            font-size: 15px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .show-msg {
+            display: block;
+            opacity: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .motivate-msg {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+            text-align: center;
+        }
+
+        .tips-msg {
+            background-color: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+
+        .tips-msg ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .tips-msg li {
+            margin-bottom: 8px;
+        }
+
+        .coin-display {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0369a1;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 12px;
+            background-color: #e0f2fe;
+            border-radius: 16px;
+            border: 1px solid #bae6fd;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .inventory-display {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f1f5f9;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .filter-active {
+            background: #0084ff;
+            color: white;
+            border-color: #0084ff;
+            box-shadow: 0 1px 3px rgba(0, 132, 255, 0.3);
+        }
+
+        .bet-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            font-weight: 500;
+            color: #475569;
+            font-size: 15px;
+        }
+
+        .bet-btn {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            cursor: pointer;
+            font-weight: 700;
+            color: #64748b;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .bet-btn:hover:not(:disabled) {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .bet-selected {
+            background: #0ea5e9;
+            border-color: #0ea5e9;
+            color: white;
+            box-shadow: 0 1px 3px rgba(14, 165, 233, 0.3);
+        }
+
+        .bet-selected:hover:not(:disabled) {
+            background: #0284c7;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 999px;
+            height: 6px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0084ff;
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mastery-badge {
+            display: inline-block;
+            background: #1e3a8a;
+            color: #bfdbfe;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 17px;
+            color: #1e293b;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 14px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            font-size: 15px;
+            font-weight: 500;
+            color: #1e293b;
+            background-color: #f8fafc;
+            font-family: inherit;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #f1f5f9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .correct-answer {
+            background-color: #dcfce7 !important;
+            border: 4px solid #22c55e !important;
+            color: #166534 !important;
+            font-weight: 700;
+        }
+
+        .wrong-answer {
+            background-color: #fee2e2 !important;
+            border: 4px solid #ef4444 !important;
+            color: #991b1b !important;
+            font-weight: 700;
+        }
+
+        .neutral-answer {
+            opacity: 0.4;
+        }
+
+        .hidden-option {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .explanation-box {
+            margin-top: 25px;
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 4px solid #0084ff;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: #0084ff;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .explanation-content {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+        }
+
+        .next-btn {
+            background: #D1E4FF;
+            color: #001D36;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            background: #AAC7FF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .next-btn:active {
+            transform: scale(0.98);
+        }
+
+        .next-btn:disabled {
+            background: #E1E2EC;
+            color: #191C1E;
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-container {
+            margin-bottom: 40px;
+            padding: 40px;
+            background: #064e3b;
+            border-radius: 28px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #a7f3d0;
+        }
+
+        .compliment-text {
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 15px;
+            color: #ecfdf5;
+        }
+
+        .review-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0084ff;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        #study-mode-container,
+        #shop-mode-container,
+        #solo-mode-container,
+        #wrong-mode-container,
+        #match-mode-container {
+            display: none;
+        }
+
+        .study-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .study-q {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .study-a {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 20px;
+            border-radius: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .study-e {
+            background-color: #f1f5f9;
+            padding: 20px;
+            color: #475569;
+            border-radius: 16px;
+            line-height: 1.6;
+            font-size: 15px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .back-quiz-btn {
+            background: #e2e8f0;
+            color: #475569;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .back-quiz-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .study-nav-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .flashcard-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .flashcard-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .give-up-btn {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .give-up-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .pass-btn {
+            background: #c026d3;
+            color: white;
+        }
+
+        .pass-btn:hover {
+            background: #d946ef;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .match-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 16px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .match-card:hover:not(.match-matched) {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        .match-selected {
+            background-color: #4c1d95;
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        .match-matched {
+            background-color: #064e3b;
+            border-color: #059669;
+            color: #6ee7b7;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .match-wrong {
+            background-color: #7f1d1d;
+            border-color: #ef4444;
+            animation: matchShake 0.4s ease;
+        }
+
+        .match-win-msg {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #34d399;
+            margin-bottom: 25px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .loader {
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid #0084ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        .arrange-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .arrange-answer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            border: 1px solid #0084ff;
+            margin-bottom: 20px;
+        }
+
+        .word-btn {
+            background: #e2e8f0;
+            color: #1e293b;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.1s;
+        }
+
+        .word-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .word-btn:active {
+            transform: scale(0.95);
+        }
+
+        #bo3-intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .intro-left,
+        .intro-right {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .intro-left {
+            left: -50%;
+            background: #ffffff;
+            color: #1e293b;
+            animation: slideRight 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-right {
+            right: -50%;
+            background: #f8fafc;
+            color: #1e293b;
+            animation: slideLeft 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-vs {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(5);
+            opacity: 0;
+            z-index: 10;
+            font-size: 80px;
+            font-weight: 900;
+            color: #0084ff;
+            text-shadow: 0 4px 12px rgba(0, 132, 255, 0.4);
+            animation: slamVS 0.5s 0.4s forwards cubic-bezier(0.2, 0, 0, 1.2);
+        }
+
+        .intro-flash {
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            animation: flashBang 0.5s 0.6s forwards;
+        }
+
+        .intro-player-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .intro-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 4px solid #fff;
+            background: #e2e8f0;
+        }
+
+        .intro-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e293b;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-transform: none;
+        }
+
+        #bo3-round-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .round-win-bg {
+            background: rgba(6, 78, 59, 0.9);
+            animation: flashWin 0.6s ease forwards;
+        }
+
+        .round-lose-bg {
+            background: rgba(127, 29, 29, 0.9);
+            animation: flashLose 0.6s ease forwards;
+        }
+
+        .round-text {
+            font-size: 55px;
+            font-weight: 900;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .round-text-win {
+            color: #34d399;
+            animation: winPulseText 1s infinite alternate;
+        }
+
+        .round-text-lose {
+            color: #fca5a5;
+            animation: textShake 0.4s infinite;
+        }
+
+        #match-end-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .end-win-bg {
+            background: radial-gradient(circle at center, rgba(14, 165, 233, 0.4) 0%, rgba(2, 132, 199, 0.95) 100%);
+        }
+
+        .end-lose-bg {
+            background: radial-gradient(circle at center, rgba(239, 68, 68, 0.4) 0%, rgba(127, 29, 29, 0.95) 100%);
+        }
+
+        .victory-text {
+            font-size: 64px;
+            font-weight: 900;
+            color: #fbbf24;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.4), 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: riseVictory 1s 0.3s forwards cubic-bezier(0.1, 0.9, 0.2, 1.2);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            letter-spacing: -2px;
+        }
+
+        .defeat-text {
+            font-size: 64px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: dropDefeat 1s 0.3s forwards cubic-bezier(0.5, 0, 0.8, 1.5);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            letter-spacing: -2px;
+        }
+
+        .victory-avatar-ring {
+            width: 180px;
+            height: 180px;
+            padding: 8px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 20px;
+            animation: ringGlow 2s infinite alternate;
+        }
+
+        @keyframes ringGlow {
+            from {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+
+            to {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes slideRight {
+            to {
+                left: 0;
+            }
+        }
+
+        @keyframes slideLeft {
+            to {
+                right: 0;
+            }
+        }
+
+        @keyframes slamVS {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flashBang {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes flashWin {
+            0% {
+                background: rgba(16, 185, 129, 1);
+            }
+
+            100% {
+                background: rgba(6, 78, 59, 0.85);
+            }
+        }
+
+        @keyframes flashLose {
+            0% {
+                background: rgba(239, 68, 68, 1);
+            }
+
+            100% {
+                background: rgba(127, 29, 29, 0.85);
+            }
+        }
+
+        @keyframes winPulseText {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 5px 25px rgba(52, 211, 153, 0.4);
+            }
+
+            100% {
+                transform: scale(1.1);
+                text-shadow: 0 5px 40px rgba(52, 211, 153, 0.8);
+            }
+        }
+
+        @keyframes textShake {
+
+            0%,
+            100% {
+                transform: translateX(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateX(-8px) rotate(-2deg);
+            }
+
+            75% {
+                transform: translateX(8px) rotate(2deg);
+            }
+        }
+
+        @keyframes riseVictory {
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Achievement Effects */
+        .achievement-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10001;
+            pointer-events: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .achievement-text {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 900;
+            font-size: 60px;
+            opacity: 0;
+            animation: achievementPop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            white-space: nowrap;
+        }
+
+        .streak-text {
+            color: #0ea5e9;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.6), 0 0 40px rgba(14, 165, 233, 0.3);
+        }
+
+        .perfect-text {
+            color: #f59e0b;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.6), 0 0 40px rgba(245, 158, 11, 0.3);
+            font-size: 70px;
+        }
+
+        @keyframes achievementPop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            30% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            80% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleGlow 1s infinite;
+        }
+
+        @keyframes sparkleGlow {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dropDefeat {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes winGlow {
+            to {
+                background: radial-gradient(circle, #e0f2fe 0%, #0ea5e9 100%);
+            }
+        }
+
+        @keyframes loseDark {
+            to {
+                background: radial-gradient(circle, #fee2e2 0%, #ef4444 100%);
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes matchShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+
+            .question-text {
+                font-size: 15px;
+            }
+
+            .option-btn {
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-left,
+            .intro-right {
+                font-size: 18px;
+            }
+
+            .intro-avatar {
+                width: 80px !important;
+                height: 80px !important;
+            }
+
+            .intro-name {
+                font-size: 14px !important;
+            }
+
+            .intro-vs {
+                font-size: 40px;
+            }
+
+            .round-text {
+                font-size: 30px;
+                text-align: center;
+            }
+
+            .victory-text,
+            .defeat-text {
+                font-size: 44px;
+                letter-spacing: -1px;
+            }
+
+            .victory-avatar-ring img {
+                width: 120px !important;
+                height: 120px !important;
+            }
+
+            .achievement-text {
+                font-size: 32px !important;
+            }
+
+            .perfect-text {
+                font-size: 40px !important;
+            }
+
+            .study-nav-row {
+                flex-direction: column;
+            }
+        }
+
+        /* Multiplayer Lobby & Leaderboard */
+        .lobby-player-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .lobby-player-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 10px;
+            text-align: center;
+            transition: all 0.2s;
+            animation: achievementPop 0.3s ease-out;
+        }
+
+        .lobby-player-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 6px;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            object-fit: cover;
+        }
+
+        .lobby-player-card .p-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lobby-player-card.is-host {
+            border-color: #0084ff;
+            background: #eff6ff;
+        }
+
+        .host-badge {
+            font-size: 9px;
+            background: #0084ff;
+            color: white;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-top: 2px;
+            display: inline-block;
+            font-weight: 800;
+        }
+
+        .leaderboard-container {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .leaderboard-header {
+            font-size: 13px;
+            font-weight: 800;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+
+        /* Skeleton Loading Styles */
+        .skeleton-loader {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .skeleton-item {
+            background-color: #e2e8f0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton-item::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: skeleton-pulse 1.5s infinite;
+        }
+
+        @keyframes skeleton-pulse {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .skeleton-title {
+            height: 40px;
+            width: 60%;
+            margin: 0 auto 20px;
+            border-radius: 100px;
+        }
+
+        .skeleton-button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .skeleton-btn {
+            height: 44px;
+            width: 120px;
+            border-radius: 20px;
+        }
+
+        .skeleton-status-bar {
+            height: 60px;
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        .skeleton-quiz-card {
+            height: 200px;
+            width: 100%;
+            border-radius: 24px;
+        }
+
+        /* Initial state of main content */
+        #main-content-wrapper {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #main-content-wrapper.loaded {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #skeleton-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F9FAFB;
+            z-index: 9999;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Podium UI removed */
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="bo3-intro-overlay"></div>
+
+    <div id="bo3-round-overlay"></div>
+
+    <div id="match-end-overlay"></div>
+
+    <div id="skeleton-overlay">
+        <div class="skeleton-loader" style="max-width: 600px; margin: 20px auto; width: 100%;">
+            <div class="skeleton-item skeleton-title"></div>
+            <div class="skeleton-button-row">
+                <div class="skeleton-item skeleton-btn"></div>
+                <div class="skeleton-item skeleton-btn"></div>
+            </div>
+            <div class="skeleton-item skeleton-status-bar"></div>
+            <div class="skeleton-item skeleton-quiz-card"></div>
+        </div>
+    </div>
+
+    <div id="main-content-wrapper">
+        <div class="container">
+            <h1
+                style="text-align: center; color: #0084ff; margin-top: 0; margin-bottom: 20px; font-size: 24px; font-weight: 700; letter-spacing: 0.5px;">
+                ├ön tß║¡p m├┤n Khoa hß╗ìc tß╗▒ nhi├¬n 7</h1>
+            <div class="header-actions">
+                <!-- Row 1: Primary Actions -->
+                <div
+                    style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%; margin-bottom: 12px;">
+                    <button id="solo-btn" class="action-btn solo-btn"><span
+                            class="material-symbols-rounded">swords</span> Chß║┐ ─Éß╗Ö Solo BO3</button>
+                    <button id="wrong-btn" class="action-btn wrong-btn"><span
+                            class="material-symbols-rounded">assignment_late</span> ├ön C├óu Sai</button>
+                    <button id="study-btn" class="action-btn study-btn"><span
+                            class="material-symbols-rounded">psychology</span> Luyß╗çn Tr├¡ Nhß╗¢</button>
+                    <button id="match-btn" class="action-btn match-btn"><span
+                            class="material-symbols-rounded">style</span> Tr├▓ Ch╞íi Gh├⌐p Thß║╗</button>
+                </div>
+                <!-- Row 2: Secondary & Helpers -->
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%;">
+                    <button id="shop-btn" class="action-btn shop-btn"><span
+                            class="material-symbols-rounded">shopping_bag</span> Cß╗¡a H├áng Thß║╗</button>
+                </div>
+            </div>
+
+            <div id="status-bar"
+                style="display: flex; gap: 15px; background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 25px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div id="coin-display"
+                    style="font-weight: 700; color: #0369a1; font-size: 16px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                    T├ái sß║ún hiß╗çn tß║íi: 1000 Xu</div>
+                <div id="inventory-display"
+                    style="font-weight: 500; color: #0284c7; font-size: 14px; margin: 0; padding: 0; background: none; border: none; box-shadow: none;">
+                    Kho ─æß╗ô: 0 Thß║╗ Pass | 0 Thß║╗ 50/50 | 0 Thß║╗ Bß║úo Vß╗ç</div>
+            </div>
+
+            <div id="solo-mode-container">
+                <div class="review-title" style="display: block;">Th├ích ─æß║Ñu BO3</div>
+                <div id="solo-lobby" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                    <p
+                        style="color: #64748b; font-weight: 500; line-height: 1.6; text-align: center; max-width: 400px;">
+                        Thi ─æß║Ñu trß║»c nghiß╗çm Solo BO3. Mß╗ùi v├ín 10 ─æiß╗âm, ai thß║»ng 2 v├ín ─æß║ºu ti├¬n sß║╜ nhß║¡n phß║ºn th╞░ß╗ƒng cß╗▒c
+                        kß╗│
+                        hß║Ñp dß║½n!
+                    </p>
+
+                    <div
+                        style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #f1f5f9;">
+                        <button onclick="createSoloRoom()" class="nav-btn solo-btn"
+                            style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">Tß║ío
+                            Ph├▓ng Mß╗¢i</button>
+
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+                            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                            <span style="color: #94a3b8; font-size: 14px; font-weight: 600;">Hoß║╖c</span>
+                            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                        </div>
+
+                        <input type="text" id="room-code-input" placeholder="Nhß║¡p m├ú ph├▓ng..."
+                            style="padding: 18px; border-radius: 16px; border: 2px solid #e2e8f0; background: #f8fafc; color: #1e293b; font-size: 20px; font-family: inherit; font-weight: 800; text-align: center; width: 100%; transition: all 0.2s; outline: none; box-sizing: border-box;"
+                            onfocus="this.style.borderColor='#0084ff'; this.style.boxShadow='0 0 0 4px rgba(0, 132, 255, 0.1)'"
+                            onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                        <button onclick="joinSoloRoom()" class="nav-btn shop-btn"
+                            style="width: 100%; font-size: 18px; padding: 18px; border-radius: 16px;">V├áo Ph├▓ng Th├ích
+                            ─Éß║Ñu</button>
+                        <div id="solo-error-msg" class="info-msg"
+                            style="margin-top: 5px; display: none; background: #fef2f2; color: #ef4444; border: 1px solid #fca5a5; padding: 12px; border-radius: 12px; font-size: 14px;">
+                        </div>
+                    </div>
+
+                    <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                        style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Quay
+                        Lß║íi</button>
+                </div>
+
+                <div id="solo-waiting" style="display: none; text-align: center;">
+                    <div
+                        style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; margin-bottom: 20px;">
+                        <h3
+                            style="color: #475569; margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: 700;">
+                            M├ú ph├▓ng cß╗ºa cß║¡u</h3>
+                        <div
+                            style="background: #eff6ff; border: 2px dashed #93c5fd; padding: 15px 30px; border-radius: 16px; display: inline-block; margin-bottom: 15px; position: relative;">
+                            <span id="display-room-code"
+                                style="color: #0ea5e9; font-size: 48px; letter-spacing: 4px; font-weight: 900; user-select: all;"></span>
+                        </div>
+                        <p style="font-weight: 700; color: #64748b; font-size: 16px; margin-top: 20px;">─Éang chß╗¥ ─æß╗æi thß╗º
+                            tham gia...</p>
+                        <div class="loader" style="margin-top: 20px;"></div>
+                    </div>
+                    <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                        style="width: auto; padding: 12px 30px; font-size: 15px; border-radius: 100px; background: #f1f5f9; color: #475569; border: none; font-weight: 700;">Hß╗ºy
+                        X├│a Ph├▓ng</button>
+                </div>
+
+                <div id="solo-playing" style="display: none; position: relative;">
+                    <div id="solo-match-msg" class="info-msg motivate-msg" style="margin-bottom: 20px; display: none;">
+                    </div>
+
+                    <div id="solo-progress-area"
+                        style="background: #f8fafc; padding: 20px; border-radius: 20px; margin-bottom: 30px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
+                        <div style="margin-bottom: 15px;">
+                            <div
+                                style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #10b981; font-size: 14px;">
+                                <span id="p1-label">Cß║¡u - ─Éiß╗âm: 0</span>
+                                <span>─É├¡ch: 10</span>
+                            </div>
+                            <div class="progress-container" style="margin-bottom: 0;">
+                                <div id="p1-progress-bar" class="progress-bar"
+                                    style="background: #10b981; width: 0%; transition: width 0.4s ease;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; color: #f43f5e; font-size: 14px;">
+                                <span id="p2-label">─Éß╗æi thß╗º - ─Éiß╗âm: 0</span>
+                                <span>─É├¡ch: 10</span>
+                            </div>
+                            <div class="progress-container" style="margin-bottom: 0;">
+                                <div id="p2-progress-bar" class="progress-bar"
+                                    style="background: #f43f5e; width: 0%; transition: width 0.4s ease;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="solo-app"></div>
+                </div>
+
+                <div id="solo-result"
+                    style="display: none; text-align: center; padding: 40px; border-radius: 28px; margin-top: 20px; background: #f8fafc; border: 1px solid #e2e8f0;">
+                    <h2
+                        style="font-family: 'Be Vietnam Pro', sans-serif; font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 30px; letter-spacing: 2px;">
+                        Kß║╛T QUß║ó TRß║¼N ─Éß║ñU</h2>
+
+                    <div id="podium-wrapper" class="podium-container">
+                        <!-- Dynamic Podium -->
+                    </div>
+
+                    <div id="solo-result-text"
+                        style="font-size: 28px; font-weight: 700; margin-bottom: 30px; line-height: 1.5; color: #1e293b;">
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <button id="solo-remake-btn" onclick="requestRemake()" class="nav-btn next-btn"
+                            style="width: auto; padding: 15px 30px; display: none;">Ch╞íi lß║íi v├ín mß╗¢i</button>
+                        <button onclick="exitSoloRoom()" class="nav-btn back-quiz-btn"
+                            style="width: auto; padding: 15px 30px; margin-top: 0; background: #e2e8f0; color: #1e293b;">Rß╗¥i
+                            ph├▓ng</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="shop-mode-container">
+                <div class="review-title" style="display: block;">Cß╗¼A H├ÇNG THß║║ B├ÇI</div>
+                <div id="shop-message" class="info-msg motivate-msg"></div>
+                <div class="match-grid">
+                    <div class="study-item" style="text-align: center;">
+                        <div class="study-q">Thß║╗ Pass 1 C├óu</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">V╞░ß╗út qua c├óu hiß╗çn tß║íi ngay lß║¡p
+                            tß╗⌐c.
+                        </div>
+                        <div class="study-a">Gi├í: 500 Xu</div>
+                        <button onclick="buyCard('pass1', 500)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                    <div class="study-item" style="text-align: center;">
+                        <div class="study-q">Thß║╗ Trß╗ú Gi├║p 50/50</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Loß║íi bß╗Å 2 ─æ├íp ├ín sai.</div>
+                        <div class="study-a">Gi├í: 50 Xu</div>
+                        <button onclick="buyCard('help', 50)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                    <div class="study-item" style="text-align: center; grid-column: 1 / -1;">
+                        <div class="study-q">Thß║╗ Bß║úo Vß╗ç Tiß╗ün</div>
+                        <div class="study-e" style="margin-bottom:15px; color:#93c5fd;">Bß║úo to├án Xu khi trß║ú lß╗¥i sai.
+                        </div>
+                        <div class="study-a">Gi├í: 150 Xu</div>
+                        <button onclick="buyCard('protect', 150)" class="nav-btn next-btn" style="margin-top: 10px;">Mua
+                            ngay</button>
+                    </div>
+                </div>
+                <button id="back-quiz-from-shop-btn" class="nav-btn back-quiz-btn">Quay lß║íi</button>
+            </div>
+
+            <div id="match-mode-container">
+                <div class="review-title" style="display: block;">GH├ëP THß║║ T├îM ─É├üP ├üN</div>
+                <div id="match-win-msg" class="match-win-msg">Ch├║c mß╗½ng! Cß║¡u ─æ├ú gh├⌐p ─æ├║ng to├án bß╗Ö!</div>
+                <div id="match-grid" class="match-grid"></div>
+                <button id="play-match-again-btn" class="nav-btn next-btn"
+                    style="display: none; margin-bottom: 15px;">Ch╞íi
+                    v├ín mß╗¢i</button>
+                <button id="back-quiz-from-match-btn" class="nav-btn back-quiz-btn" style="margin-top: 0;">Quay
+                    lß║íi</button>
+            </div>
+
+            <div id="study-mode-container">
+                <div class="review-title" style="display: block;">THß║║ GHI NHß╗Ü FLASHCARD</div>
+                <div id="study-list"></div>
+                <button id="back-quiz-from-study-btn" class="nav-btn back-quiz-btn">Quay lß║íi</button>
+            </div>
+
+            <div id="wrong-mode-container">
+                <div class="review-title" style="display: block;">DANH S├üCH C├éU SAI</div>
+                <div id="wrong-list"></div>
+                <button id="back-quiz-from-wrong-btn" class="nav-btn back-quiz-btn">Quay lß║íi</button>
+            </div>
+
+            <div id="quiz-mode-container"
+                style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+
+                <div class="toast-container" id="toastContainer"></div>
+
+                <div class="filter-container"
+                    style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 16px; margin-bottom: 24px;">
+                    <button class="filter-btn filter-active" onclick="setFilter('all')">Tß║Ñt cß║ú</button>
+                    <button class="filter-btn" onclick="setFilter('mc')">Trß║»c nghiß╗çm</button>
+                    <button class="filter-btn" onclick="setFilter('arrange')">Tß╗▒ luß║¡n (K├⌐o thß║ú)</button>
+                    <button class="filter-btn" onclick="setFilter('tf')">Tß╗▒ luß║¡n (─É├║ng/Sai)</button>
+                    <button class="filter-btn" onclick="setFilter('quanghop')">Quang hß╗úp</button>
+                    <button class="filter-btn" onclick="setFilter('hohap')">H├┤ hß║Ñp</button>
+                </div>
+
+                <div id="result" class="result-container">
+                    <div id="result-text" class="result-text"></div>
+                    <div id="compliment-text" class="compliment-text"></div>
+                </div>
+
+                <div id="progress-container" class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="progress-text" class="progress-text"></div>
+
+                <div id="review-title" class="review-title">XEM Lß║áI ─É├üP ├üN</div>
+
+                <div id="app" style="min-height: 250px;"></div>
+
+                <div id="navigation" class="navigation-buttons">
+                    <button id="next-btn" class="nav-btn next-btn">C├óu tiß║┐p theo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+        import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+        import { getDatabase, ref, set, get, onValue, update } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js';
+        import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+            authDomain: "confe-web.firebaseapp.com",
+            databaseURL: "https://confe-web-default-rtdb.firebaseio.com",
+            projectId: "confe-web",
+            storageBucket: "confe-web.firebasestorage.app",
+            messagingSenderId: "677778119372",
+            appId: "1:677778119372:web:ee3f1132871332743b0069"
+        };
+
+        const fbApp = initializeApp(firebaseConfig);
+        const auth = getAuth(fbApp);
+        const db = getDatabase(fbApp);
+        const firestore = getFirestore(fbApp);
+
+        let currentUser = null;
+        let myProfile = { displayName: 'Kh├ích', photoURL: 'https://ui-avatars.com/api/?name=K&background=random' };
+
+        // Global variables moved to top for consistent initialization
+        let userCoins = 1000;
+        let inventory = { pass1: 0, help: 0, protect: 0 };
+        let activeQuestions = [];
+        let correctCounts = [];
+        let wrongCounts = [];
+        let totalAttempts = 0;
+        let currentQuestionAnswered = false;
+        let currentSelection = null;
+        let currentIndex = 0;
+        let selectedArrangeWords = [];
+        let poolArrangeWords = [];
+        let currentStudyIndex = 0;
+        let isStudyFlipped = false;
+        let matchCards = [];
+        let matchFirstCard = null;
+        let matchedPairsCount = 0;
+        let isMatchingCards = false;
+        let currentBet = 10;
+        let betWonLost = 0;
+        let selectedBetStr = '10';
+        let isPassUsed = false;
+        let soloRoomId = null;
+        let isPlayer1 = false;
+        let soloQs = [];
+        let soloCurrentIdx = 0;
+        let soloMyScore = 0;
+        let soloUnsubscribe = null;
+        let soloRoomData = null;
+        let soloRewardGiven = false;
+
+        const TARGET_MASTERY = 2;
+
+        function finishLoading() {
+            const skeleton = document.getElementById('skeleton-overlay');
+            const wrapper = document.getElementById('main-content-wrapper');
+            if (skeleton) skeleton.style.display = 'none';
+            if (wrapper) wrapper.classList.add('loaded');
+        }
+
+        onAuthStateChanged(auth, async user => {
+            if (user) {
+                currentUser = user;
+                try {
+                    const userDocRef = doc(firestore, 'users', user.uid);
+                    const docSnap = await getDoc(userDocRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.displayName) {
+                            myProfile.displayName = data.displayName;
+                            myProfile.photoURL = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.displayName) + '&background=random';
+                        }
+                        if (data.photoURL) myProfile.photoURL = data.photoURL;
+
+                        // Load coins and inventory
+                        if (data.coins !== undefined) userCoins = data.coins;
+                        if (data.inventory) inventory = { ...inventory, ...data.inventory };
+                        updateCoinDisplay();
+                        updateInventoryDisplay();
+                    }
+
+                    const activeRoomRef = ref(db, 'users/' + user.uid + '/activeSoloRoom');
+                    const activeSnap = await get(activeRoomRef);
+                    if (activeSnap.exists() && activeSnap.val()) {
+                        if (window.joinSoloRoomWithId) {
+                            hideAllModes();
+                            soloModeContainer.style.display = 'block';
+                            window.joinSoloRoomWithId(activeSnap.val(), true);
+                        }
+                    }
+
+                    // Auto-join from URL parameter ?room=CODE
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const roomFromUrl = urlParams.get('room');
+                    if (roomFromUrl && !window.autoJoinTriggered) {
+                        window.autoJoinTriggered = true;
+                        setTimeout(() => {
+                            if (window.joinSoloRoomWithId) {
+                                // Switch to solo mode view
+                                hideAllModes();
+                                soloModeContainer.style.display = 'block';
+                                document.getElementById('solo-lobby').style.display = 'block';
+                                window.joinSoloRoomWithId(roomFromUrl.toUpperCase());
+                                // Clear URL params without reload
+                                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                window.history.replaceState({ path: newUrl }, '', newUrl);
+                            }
+                        }, 1000);
+                    }
+                } catch (e) {
+                    console.error("Firestore Error:", e);
+                } finally {
+                    finishLoading();
+                }
+            } else {
+                try {
+                    await signInAnonymously(auth);
+                } catch (e) { }
+                finishLoading();
+            }
+        });
+
+        async function syncUserData() {
+            if (!currentUser || currentUser.isAnonymous) return;
+            try {
+                console.log("Syncing user data: coins=" + userCoins);
+                const userDocRef = doc(firestore, 'users', currentUser.uid);
+                await updateDoc(userDocRef, {
+                    coins: userCoins,
+                    inventory: inventory
+                });
+                console.log("Firestore sync successful");
+            } catch (e) {
+                console.error("Error syncing user data:", e);
+            }
+        }
+
+        let shopMsgTimeout;
+        function showShopMsg(text, isError) {
+            const msg = document.getElementById('shop-message');
+            msg.textContent = text;
+            msg.style.color = isError ? '#fecaca' : '#a7f3d0';
+            msg.style.backgroundColor = isError ? '#7f1d1d' : '#064e3b';
+            msg.style.borderColor = isError ? '#dc2626' : '#059669';
+            msg.classList.add('show-msg');
+            clearTimeout(shopMsgTimeout);
+            shopMsgTimeout = setTimeout(function () {
+                msg.classList.remove('show-msg');
+            }, 3000);
+        }
+
+        window.copyRoomLink = function () {
+            if (!soloRoomId) return;
+            const url = new URL(window.location.href);
+            url.searchParams.set('room', soloRoomId);
+            const textToCopy = url.toString();
+
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+
+            function showSuccess() {
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>';
+                btn.style.background = '#22c55e';
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.background = '#0084ff';
+                }, 2000);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(showSuccess).catch(() => fallbackCopy());
+            } else {
+                fallbackCopy();
+            }
+
+            function fallbackCopy() {
+                try {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = textToCopy;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    textArea.style.top = "0";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    if (successful) showSuccess();
+                    else window.showSoloError('Kh├┤ng thß╗â sao ch├⌐p link!');
+                } catch (err) {
+                    window.showSoloError('Kh├┤ng thß╗â sao ch├⌐p link!');
+                }
+            }
+        };
+
+        const allQuestions = [
+            { type: 'mc', topic: 'quanghop', q: "C├óu 1. Qu├í tr├¼nh quang hß╗úp c├│ ß╗ƒ?", o: ["A. ─Éß╗Öng vß║¡t c├│ x╞░╞íng sß╗æng", "B. B├▓ s├ít", "C. Thß╗▒c vß║¡t", "D. C├┤n tr├╣ng"], a: 2, e: "Quang hß╗úp l├á qu├í tr├¼nh ─æß║╖c tr╞░ng xß║úy ra ß╗ƒ thß╗▒c vß║¡t, tß║úo v├á mß╗Öt sß╗æ vi khuß║⌐n." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 2. Khi nhiß╗çt ─æß╗Ö m├┤i tr╞░ß╗¥ng qu├í cao (tr├¬n 40 ─æß╗Ö C), c╞░ß╗¥ng ─æß╗Ö quang hß╗úp th╞░ß╗¥ng:", o: ["A. T─âng mß║ính.", "B. Kh├┤ng thay ─æß╗òi.", "C. Giß║úm hoß║╖c dß╗½ng lß║íi.", "D. ─Éß║ít mß╗⌐c tß╗æi ╞░u."], a: 2, e: "Nhiß╗çt ─æß╗Ö qu├í cao sß║╜ l├ám biß║┐n t├¡nh enzyme, khiß║┐n kh├¡ khß╗òng ─æ├│ng lß║íi, l├ám giß║úm hoß║╖c ngß╗½ng quang hß╗úp." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 3. Qu├í tr├¼nh quang hß╗úp diß╗àn ra chß╗º yß║┐u ß╗ƒ ─æ├óu?", o: ["A. L├í c├óy.", "B. Th├ón c├óy.", "C. Rß╗à c├óy.", "D. Quß║ú."], a: 0, e: "L├í c├óy c├│ diß╗çn t├¡ch bß╗ü mß║╖t lß╗¢n v├á chß╗⌐a nhiß╗üu lß╗Ñc lß║íp, l├á c╞í quan thß╗▒c hiß╗çn quang hß╗úp chß╗º yß║┐u." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 4. V├¼ sao l├í c├óy th╞░ß╗¥ng c├│ m├áu xanh lß╗Ñc?", o: ["A. V├¼ l├í c├óy chß╗⌐a nhiß╗üu sß║»c tß╗æ diß╗çp lß╗Ñc.", "B. V├¼ l├í c├óy hß║Ñp thß╗Ñ to├án bß╗Ö ├ính s├íng m├áu xanh.", "C. V├¼ l├í c├óy chß╗⌐a nhiß╗üu chß║Ñt anthocyanin.", "D. V├¼ l├í c├óy cß║ºn m├áu xanh ─æß╗â xua ─æuß╗òi c├┤n tr├╣ng."], a: 0, e: "L├í c├│ m├áu xanh do chß╗⌐a nhiß╗üu sß║»c tß╗æ diß╗çp lß╗Ñc phß║ún xß║í lß║íi ├ính s├íng xanh lß╗Ñc." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 5. Tß║íi sau khi nu├┤i c├í trong bß╗â k├¡nh, ng╞░ß╗¥i ta lß║íi cho th├¬m rong, r├¬u?", o: ["A. V├¼ qu├í tr├¼nh quang hß╗úp cß╗ºa rong, r├¬u sß║╜ thß║úi ra kh├¡ oxygen.", "B. V├¼ rong, r├¬u c├│ t├íc dß╗Ñng ß╗⌐c chß║┐ vi sinh vß║¡t g├óy hß║íi.", "C. V├¼ rong, r├¬u l├ám thß╗⌐c ─ân chß╗º yß║┐u cß╗ºa c├í cß║únh.", "D. Tß║Ñt cß║ú c├íc ─æ├íp ├ín tr├¬n."], a: 3, e: "Rong r├¬u vß╗½a cung cß║Ñp O2 qua quang hß╗úp, vß╗½a l├ám thß╗⌐c ─ân v├á l├ám sß║ích m├┤i tr╞░ß╗¥ng n╞░ß╗¢c." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 6. Vai tr├▓ cß╗ºa kh├¡ khß╗òng ─æß╗æi vß╗¢i quang hß╗úp:", o: ["A. Cho carbon dioxide ─æi tß╗½ b├¬n ngo├ái v├áo trong v├á tß╗½ trong ra ngo├ái m├┤i tr╞░ß╗¥ng.", "B. Cho oxygen ─æi tß╗½ b├¬n ngo├ái v├áo trong v├á tß╗½ trong ra ngo├ái m├┤i tr╞░ß╗¥ng.", "C. Cho carbon dioxide ─æi tß╗½ b├¬n ngo├ái v├áo trong.", "D. Cho carbon dioxide ─æi tß╗½ b├¬n ngo├ái v├áo trong v├á oxygen tß╗½ trong ra ngo├ái m├┤i tr╞░ß╗¥ng."], a: 3, e: "Kh├¡ khß╗òng thu nhß║¡n CO2 tß╗½ m├┤i tr╞░ß╗¥ng v├áo v├á thß║úi O2 sinh ra tß╗½ quang hß╗úp ra ngo├ái." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 7. Kh├¡ khß╗òng tß║¡p trung chß╗º yß║┐u ß╗ƒ mß║╖t d╞░ß╗¢i cß╗ºa l├í c├│ t├íc dß╗Ñng ch├¡nh l├á:", o: ["A. Ng─ân cß║ún ├ính s├íng mß║╖t trß╗¥i.", "B. Hß║ín chß║┐ sß╗▒ tho├ít h╞íi n╞░ß╗¢c qu├í mß╗⌐c v├á trao ─æß╗òi kh├¡.", "C. H├║t n╞░ß╗¢c tß╗½ m├┤i tr╞░ß╗¥ng kh├┤ng kh├¡.", "D. Bß║úo vß╗ç l├í khß╗Åi sß╗▒ tß║Ñn c├┤ng cß╗ºa s├óu bß╗çnh."], a: 1, e: "Tß║¡p trung ß╗ƒ mß║╖t d╞░ß╗¢i gi├║p l├í tr├ính ─æ╞░ß╗úc ├ính nß║»ng trß╗▒c tiß║┐p, hß║ín chß║┐ mß║Ñt n╞░ß╗¢c." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 8. Nh├│m c├óy n├áo sau ─æ├óy c├│ phiß║┐n l├í biß║┐n ─æß╗òi ─æß╗â th├¡ch nghi vß╗¢i m├┤i tr╞░ß╗¥ng kh├┤ hß║ín nh╞░ng vß║½n quang hß╗úp bß║▒ng th├ón?", o: ["A. C├óy l├║a, c├óy ng├┤.", "B. C├óy x╞░╞íng rß╗ông, c├óy c├ánh giao.", "C. C├óy hoa hß╗ông, c├óy mai.", "D. C├óy b├áng, c├óy ph╞░ß╗úng."], a: 1, e: "X╞░╞íng rß╗ông, c├ánh giao biß║┐n l├í th├ánh gai ─æß╗â giß║úm tho├ít h╞íi n╞░ß╗¢c, th├ón c├│ m├áu xanh ─æß╗â quang hß╗úp." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 9. ├¥ ngh─⌐a quan trß╗ìng nhß║Ñt cß╗ºa quang hß╗úp ─æß╗æi vß╗¢i sinh vß║¡t tr├¬n Tr├íi ─Éß║Ñt l├á:", o: ["A. L├ám ─æß║╣p cß║únh quan thi├¬n nhi├¬n.", "B. Cung cß║Ñp nguß╗ôn chß║Ñt hß╗»u c╞í v├á Oxygen cho sß╗▒ sß╗æng.", "C. L├ám t─âng nhiß╗çt ─æß╗Ö to├án cß║ºu.", "D. Tß║ío ra m╞░a cho c├óy cß╗æi ph├ít triß╗ân."], a: 1, e: "Quang hß╗úp tß║ío ra chß║Ñt hß╗»u c╞í l├ám thß╗⌐c ─ân cho mß╗ìi sinh vß║¡t v├á O2 ─æß╗â h├┤ hß║Ñp." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 10. Nhß╗»ng c├óy sß╗æng ß╗ƒ n╞íi thiß║┐u ├ính s├íng (c├óy ╞░a b├│ng) th╞░ß╗¥ng c├│ ─æß║╖c ─æiß╗âm:", o: ["A. L├í nhß╗Å, m├áu nhß║ít.", "B. L├í to, m├áu xanh ─æß║¡m ─æß╗â hß║Ñp thß╗Ñ ├ính s├íng tß╗æt h╞ín.", "C. Kh├┤ng c├│ diß╗çp lß╗Ñc.", "D. Chß╗ë quang hß╗úp v├áo ban ─æ├¬m."], a: 1, e: "C├óy ╞░a b├│ng c├│ phiß║┐n l├í to, m├áu xanh thß║½m ─æß╗â tß╗æi ─æa h├│a viß╗çc hß║Ñp thß╗Ñ ├ính s├íng yß║┐u." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 11. Sß║ún phß║⌐m trß╗▒c tiß║┐p cß╗ºa quang hß╗úp ─æ╞░ß╗úc vß║¡n chuyß╗ân ─æß║┐n c├íc bß╗Ö phß║¡n kh├íc nhß╗¥:", o: ["A. G├ón l├í.", "B. Kh├¡ khß╗òng.", "C. Sß║»c tß╗æ diß╗çp lß╗Ñc.", "D. L├┤ng h├║t cß╗ºa rß╗à."], a: 0, e: "G├ón l├í chß╗⌐a c├íc mß║ích dß║½n gi├║p vß║¡n chuyß╗ân chß║Ñt hß╗»u c╞í ─æi nu├┤i c├óy." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 12. Khi nu├┤i c├í cß║únh th├¼ hß╗ì c├│ thß╗â t─âng d╞░ß╗íng kh├¡ cho c├í bß║▒ng c├ích?", o: ["A. Thß║ú rong v├áo bß╗â c├í.", "B. ─Éß╗ò n╞░ß╗¢c th├¬m v├áo bß╗â c├í.", "C. Thß║»p ─æ├¿n cß║ú ng├áy v├á ─æ├¬m.", "D. T─âng nhiß╗çt ─æß╗Ö trong bß╗â."], a: 0, e: "Rong quang hß╗úp sß║╜ tß║ío ra kh├¡ Oxygen cung cß║Ñp cho c├í h├┤ hß║Ñp." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 13. Tß║íi sao khi trß╗¥i nß║»ng, ─æß╗⌐ng d╞░ß╗¢i b├│ng c├óy th╞░ß╗¥ng m├ít mß║╗, dß╗à chß╗ïu h╞ín d├╣ng ├┤ ─æß╗â che?", o: ["A. Do c├óy tho├ít h╞íi n╞░ß╗¢c l├ám giß║úm nhiß╗çt ─æß╗Ö cß╗ºa m├┤i tr╞░ß╗¥ng xung quanh.", "B. Do b├│ng m├ít cß╗ºa c├óy xanh to v├á rß╗Öng h╞ín ├┤.", "C. Do c├óy xanh tß║ío ra kh├¡ oxygen trong qu├í tr├¼nh quang hß╗úp.", "D. ─É├íp ├ín kh├íc."], a: 0, e: "Qu├í tr├¼nh tho├ít h╞íi n╞░ß╗¢c cß╗ºa c├óy thu nhiß╗çt tß╗½ m├┤i tr╞░ß╗¥ng, l├ám kh├┤ng kh├¡ xung quanh m├ít mß║╗ h╞ín." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 14. Nhß╗»ng c├óy nh╞░ x╞░╞íng rß╗ông, c├ánh giao l├á ti├¬u giß║úm hoß║╖c biß║┐n th├ánh gai. Vß║¡y nhß╗»ng c├óy n├áy c├│ quang hß╗úp kh├┤ng? C╞í quan quang hß╗úp l├á g├¼?", o: ["A. Kh├┤ng, kh├┤ng c├│ c╞í quan quang hß╗úp.", "B. C├│, c╞í quan quang hß╗úp l├á rß╗à.", "C. C├│, c╞í quan quang hß╗úp th╞░ß╗¥ng l├á th├ón hoß║╖c c├íc bß╗Ö phß║¡n c├│ m├áu xanh.", "D. C├│, c╞í quan quang hß╗úp th╞░ß╗¥ng l├á hoa."], a: 2, e: "Th├ón cß╗ºa ch├║ng c├│ m├áu xanh chß╗⌐a diß╗çp lß╗Ñc n├¬n ─æß║úm nhß║¡n chß╗⌐c n─âng quang hß╗úp thay cho l├í." },
+            { type: 'mc', topic: 'quanghop', q: "C├óu 15. Trong ph╞░╞íng tr├¼nh quang hß╗úp, yß║┐u tß╗æ n├áo ─æ├│ng vai tr├▓ l├á ─æiß╗üu kiß╗çn?", o: ["A. N╞░ß╗¢c.", "B. Carbon dioxide.", "C. ├ünh s├íng v├á diß╗çp lß╗Ñc.", "D. Glucose."], a: 2, e: "N╞░ß╗¢c v├á CO2 l├á nguy├¬n liß╗çu. ├ünh s├íng v├á diß╗çp lß╗Ñc l├á ─æiß╗üu kiß╗çn ─æß╗â phß║ún ß╗⌐ng xß║úy ra." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 16. H├┤ hß║Ñp tß║┐ b├áo l├á:", o: ["A. qu├í tr├¼nh tß╗òng hß╗úp chß║Ñt hß╗»u c╞í diß╗àn ra b├¬n trong tß║┐ b├áo.", "B. qu├í tr├¼nh ph├ón giß║úi chß║Ñt hß╗»u c╞í diß╗àn ra b├¬n ngo├ái tß║┐ b├áo.", "C. qu├í tr├¼nh ph├ón giß║úi chß║Ñt hß╗»u c╞í diß╗àn ra b├¬n trong tß║┐ b├áo, ─æß╗ông thß╗¥i giß║úi ph├│ng n─âng l╞░ß╗úng.", "D. qu├í tr├¼nh ph├ón giß║úi chß║Ñt hß╗»u c╞í diß╗àn ra b├¬n ngo├ái tß║┐ b├áo giß║úi ph├│ng n─âng l╞░ß╗úng."], a: 2, e: "H├┤ hß║Ñp tß║┐ b├áo xß║úy ra b├¬n trong tß║┐ b├áo, ph├ón giß║úi chß║Ñt hß╗»u c╞í tß║ío ATP." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 17. B├áo quan thß╗▒c hiß╗çn chß╗⌐c n─âng h├┤ hß║Ñp tß║┐ b├áo ß╗ƒ sinh vß║¡t nh├ón thß╗▒c l├á:", o: ["A. Lß╗Ñc lß║íp.", "B. Nh├ón tß║┐ b├áo.", "C. Ti thß╗â.", "D. Kh├┤ng b├áo."], a: 2, e: "Ti thß╗â l├á n╞íi chß╗⌐a c├íc enzyme h├┤ hß║Ñp, thß╗▒c hiß╗çn qu├í tr├¼nh h├┤ hß║Ñp tß║┐ b├áo." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 18. Trong c╞í thß╗â con ng╞░ß╗¥i, bß╗Ö phß║¡n n├áo diß╗àn ra qu├í tr├¼nh h├┤ hß║Ñp?", o: ["A. Gan v├á phß╗òi.", "B. C├íc c╞í v├á g├ón.", "C. C├íc tß║┐ b├áo tim v├á mß║ích m├íu.", "D. Tß║Ñt cß║ú tß║┐ b├áo."], a: 3, e: "Mß╗ìi tß║┐ b├áo sß╗æng trong c╞í thß╗â ─æß╗üu cß║ºn n─âng l╞░ß╗úng, do ─æ├│ ─æß╗üu phß║úi thß╗▒c hiß╗çn h├┤ hß║Ñp tß║┐ b├áo." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 19. Trong qu├í tr├¼nh h├┤ hß║Ñp tß║┐ b├áo, chß║Ñt hß╗»u c╞í bß╗ï ph├ón giß║úi th├ánh sß║ún phß║⌐m cuß╗æi c├╣ng l├á", o: ["A. carbon dioxide v├á n╞░ß╗¢c.", "B. carbon dioxide v├á oxygen.", "C. oxygen v├á nitrogen.", "D. oxygen v├á n╞░ß╗¢c."], a: 0, e: "Ph╞░╞íng tr├¼nh h├┤ hß║Ñp: Glucose + Oxygen -> Carbon dioxide + N╞░ß╗¢c + N─âng l╞░ß╗úng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 20. Tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo tß╗ë lß╗ç thuß║¡n vß╗¢i:", o: ["A. C╞░ß╗¥ng ─æß╗Ö hoß║ít ─æß╗Öng cß╗ºa c╞í thß╗â.", "B. ─Éß╗Ö tuß╗òi cß╗ºa sinh vß║¡t.", "C. L╞░ß╗úng ├ính s├íng chiß║┐u v├áo c╞í thß╗â.", "D. ─Éß╗Ö d├áy cß╗ºa th├ánh tß║┐ b├áo."], a: 0, e: "C╞í thß╗â hoß║ít ─æß╗Öng c├áng mß║ính c├áng cß║ºn nhiß╗üu n─âng l╞░ß╗úng, n├¬n tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo c├áng t─âng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 21. Tr├¼nh tß╗▒ sß║»p xß║┐p c├íc tr╞░ß╗¥ng hß╗úp theo thß╗⌐ tß╗▒ tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo t─âng dß║ºn l├á: (1) Vß║¡n ─æß╗Öng vi├¬n thi ─æß║Ñu, (2) Nh├ón vi├¬n v─ân ph├▓ng, (3) Ng╞░ß╗¥i ─æang ngß╗º.", o: ["A. (1) -> (2) -> (3).", "B. (2) -> (3) -> (1).", "C. (3) -> (2) -> (1).", "D. (1) -> (3) -> (2)."], a: 2, e: "Ngß╗º tß╗æn ├¡t n─âng l╞░ß╗úng nhß║Ñt, sau ─æ├│ ─æß║┐n l├ám viß╗çc v─ân ph├▓ng, thi ─æß║Ñu thß╗â thao tß╗æn nhiß╗üu n─âng l╞░ß╗úng nhß║Ñt." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 22. H├┤ hß║Ñp tß║┐ b├áo c├│ vai tr├▓ nh╞░ thß║┐ n├áo trong hoß║ít ─æß╗Öng sß╗æng cß╗ºa sinh vß║¡t?", o: ["A. Cung cß║Ñp kh├¡ oxygen cho sinh vß║¡t.", "B. Cung cß║Ñp kh├¡ carbon dioxide cho sinh vß║¡t.", "C. Cung cß║Ñp n─âng l╞░ß╗úng cho hoß║ít ─æß╗Öng sß╗æng cß╗ºa sinh vß║¡t.", "D. Cung cß║Ñp n╞░ß╗¢c v├á nhiß╗çt cho sinh vß║¡t."], a: 2, e: "Sß║ún phß║⌐m quan trß╗ìng nhß║Ñt cß╗ºa h├┤ hß║Ñp tß║┐ b├áo l├á n─âng l╞░ß╗úng ─æß╗â duy tr├¼ sß╗▒ sß╗æng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 23. Quang hß╗úp v├á h├┤ hß║Ñp tß║┐ b├áo c├│ mß╗æi quan hß╗ç vß╗¢i nhau nh╞░ thß║┐ n├áo?", o: ["A. Oxygen sinh ra tß╗½ h├┤ hß║Ñp ─æ╞░ß╗úc d├╣ng cho quang hß╗úp.", "B. Kh├¡ carbon dioxide v├á n╞░ß╗¢c thß║úi ra do h├┤ hß║Ñp ─æ╞░ß╗úc sß╗¡ dß╗Ñng trong quang hß╗úp.", "C. N─âng l╞░ß╗úng giß║úi ph├│ng trong quang hß╗úp ─æ╞░ß╗úc d├╣ng cho h├┤ hß║Ñp.", "D. Glucose sß╗¡ dß╗Ñng trong quang hß╗úp ─æß╗â ph├ón hß╗ºy trong h├┤ hß║Ñp."], a: 1, e: "Sß║ún phß║⌐m cß╗ºa qu├í tr├¼nh n├áy l├á nguy├¬n liß╗çu cß╗ºa qu├í tr├¼nh kia v├á ng╞░ß╗úc lß║íi." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 24. Vai tr├▓ cß╗ºa viß╗çc bß║úo quß║ún n├┤ng sß║ún l├á:", o: ["A. L├ám t─âng c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp cß╗ºa n├┤ng sß║ún.", "B. Giß╗» cho n├┤ng sß║ún t╞░╞íi l├óu, ─æß║úm bß║úo chß║Ñt l╞░ß╗úng v├á giß║úm hao hß╗Ñt.", "C. Ti├¬u diß╗çt ho├án to├án c├íc tß║┐ b├áo n├┤ng sß║ún.", "D. Gi├║p n├┤ng sß║ún nhanh ch├¡n h╞ín."], a: 1, e: "Bß║úo quß║ún gi├║p ß╗⌐c chß║┐ h├┤ hß║Ñp, tr├ính viß╗çc n├┤ng sß║ún tß╗▒ ti├¬u hao hß║┐t chß║Ñt dinh d╞░ß╗íng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 25. C╞í sß╗ƒ khoa hß╗ìc cß╗ºa c├íc biß╗çn ph├íp bß║úo quß║ún n├┤ng sß║ún l├á:", o: ["A. t─âng nhß║╣ c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo.", "B. giß║úm nhß║╣ c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo.", "C. giß║úm c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo tß╗¢i mß╗⌐c tß╗æi thiß╗âu.", "D. t─âng c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo tß╗¢i mß╗⌐c tß╗æi ─æa."], a: 2, e: "Giß║úm h├┤ hß║Ñp ─æß║┐n mß╗⌐c tß╗æi thiß╗âu ─æß╗â n├┤ng sß║ún kh├┤ng bß╗ï hß╗Ång m├á vß║½n duy tr├¼ ─æ╞░ß╗úc sß╗▒ sß╗æng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 26. Biß╗çn ph├íp bß║úo quß║ún n├┤ng sß║ún n├áo sau ─æ├óy dß╗▒a tr├¬n nguy├¬n tß║»c l├ám giß║úm h├ám l╞░ß╗úng n╞░ß╗¢c trong tß║┐ b├áo?", o: ["A. Bß║úo quß║ún lß║ính.", "B. Ph╞íi kh├┤.", "C. H├║t ch├ón kh├┤ng.", "D. B╞ím kh├¡ Nitrogen."], a: 1, e: "Ph╞íi kh├┤ l├ám mß║Ñt n╞░ß╗¢c, tß╗½ ─æ├│ l├ám giß║úm qu├í tr├¼nh h├┤ hß║Ñp cß╗ºa hß║ít." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 27. Trong qu├í tr├¼nh h├┤ hß║Ñp tß║┐ b├áo, Oxygen ─æ├│ng vai tr├▓:", o: ["A. Sß║ún phß║⌐m.", "B. Dung m├┤i.", "C. Nguy├¬n liß╗çu.", "D. N─âng l╞░ß╗úng."], a: 2, e: "Oxygen kß║┐t hß╗úp vß╗¢i Glucose ─æß╗â ph├ón giß║úi tß║ío ra n─âng l╞░ß╗úng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 28. Phß║ºn lß╗¢n n─âng l╞░ß╗úng h├┤ hß║Ñp tß║┐ b├áo ─æ╞░ß╗úc t├¡ch l┼⌐y d╞░ß╗¢i dß║íng:", o: ["A. Hß╗úp chß║Ñt h├│a hß╗ìc (ATP).", "B. Quang n─âng.", "C. Kh├¡ carbon dioxide.", "D. N╞░ß╗¢c."], a: 0, e: "N─âng l╞░ß╗úng sinh ra mß╗Öt phß║ºn tß╗Åa nhiß╗çt, phß║ºn lß╗¢n t├¡ch l┼⌐y trong c├íc ph├ón tß╗¡ ATP." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 29. Qu├í tr├¼nh chuyß╗ân h├│a n─âng l╞░ß╗úng n├áo sau ─æ├óy diß╗àn ra trong h├┤ hß║Ñp tß║┐ b├áo?", o: ["A. Nhiß╗çt n─âng -> h├│a n─âng.", "B. H├│a n─âng -> ─æiß╗çn n─âng.", "C. H├│a n─âng -> nhiß╗çt n─âng.", "D. Quang n─âng -> h├│a n─âng."], a: 2, e: "H├│a n─âng trong chß║Ñt hß╗»u c╞í ─æ╞░ß╗úc chuyß╗ân th├ánh H├│a n─âng (ATP) v├á Nhiß╗çt n─âng." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 30. Chß║Ñt n├áo sau ─æ├óy kh├┤ng phß║úi l├á sß║ún phß║⌐m cß╗ºa qu├í tr├¼nh h├┤ hß║Ñp tß║┐ b├áo?", o: ["A. N─âng l╞░ß╗úng ATP.", "B. Carbon dioxide.", "C. N╞░ß╗¢c.", "D. Oxygen."], a: 3, e: "Oxygen l├á nguy├¬n liß╗çu ─æß║ºu v├áo, kh├┤ng phß║úi sß║ún phß║⌐m sinh ra." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 31. N├│i vß╗ü h├┤ hß║Ñp tß║┐ b├áo, ─æiß╗üu n├áo sau ─æ├óy kh├┤ng ─æ├║ng?", o: ["A. ─É├│ l├á qu├í tr├¼nh chuyß╗ân ─æß╗òi n─âng l╞░ß╗úng rß║Ñt quan trß╗ìng.", "B. Qu├í tr├¼nh oxi h├│a chß║Ñt hß╗»u c╞í th├ánh CO2 v├á H2O.", "C. H├┤ hß║Ñp tß║┐ b├áo c├│ bß║ún chß║Ñt l├á chuß╗ùi c├íc phß║ún ß╗⌐ng.", "D. Qu├í tr├¼nh h├┤ hß║Ñp tß║┐ b├áo chß╗º yß║┐u diß╗àn ra trong nh├ón tß║┐ b├áo."], a: 3, e: "H├┤ hß║Ñp tß║┐ b├áo diß╗àn ra chß╗º yß║┐u ß╗ƒ Ti thß╗â, kh├┤ng phß║úi Nh├ón tß║┐ b├áo." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 32. Khi vß║¡n ─æß╗Öng mß║ính, nhß╗ïp h├┤ hß║Ñp cß╗ºa c╞í thß╗â sß║╜ t─âng l├¬n v├¼:", o: ["A. tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo t─âng dß║½n ─æß║┐n nhu cß║ºu thß║úi oxygen t─âng.", "B. tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo t─âng dß║½n ─æß║┐n nhu cß║ºu thß║úi carbon dioxide v├á hß║Ñp thß╗Ñ oxygen t─âng.", "C. nhu cß║ºu hß║Ñp thß╗Ñ nitrogen t─âng.", "D. nhu cß║ºu thß║úi oxygen v├á hß║Ñp thß╗Ñ nitrogen t─âng."], a: 1, e: "C╞í thß╗â cß║ºn nhiß╗üu ATP n├¬n h├┤ hß║Ñp mß║ính, ti├¬u thß╗Ñ nhiß╗üu O2 v├á xß║ú ra nhiß╗üu CO2 n├¬n phß║úi thß╗ƒ nhanh." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 33. Biß╗çn ph├íp n├áo sau ─æ├óy l├á hß╗úp l├¡ ─æß╗â bß║úo vß╗ç sß╗⌐c khoß║╗ h├┤ hß║Ñp ß╗ƒ ng╞░ß╗¥i?", o: ["A. Tß║¡p luyß╗çn thß╗â thao vß╗¢i c╞░ß╗¥ng ─æß╗Ö mß║ính mß╗ùi ng├áy.", "B. ─én thß║¡t nhiß╗üu thß╗⌐c ─ân c├│ chß╗⌐a glucose.", "C. Tß║¡p h├¡t thß╗ƒ s├óu mß╗Öt c├ích nhß║╣ nh├áng v├á ─æß╗üu ─æß║╖n mß╗ùi ng├áy.", "D. ─Éß╗â thß║¡t nhiß╗üu c├óy xanh trong ph├▓ng ngß╗º."], a: 2, e: "H├¡t thß╗ƒ s├óu gi├║p cung cß║Ñp ─æß╗º O2 v├á loß║íi bß╗Å CO2 hiß╗çu quß║ú, bß║úo vß╗ç hß╗ç h├┤ hß║Ñp." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 34. Tß║íi sao kh├┤ng n├¬n ─æß╗â nhiß╗üu c├óy xanh trong ph├▓ng ngß╗º k├¡n v├áo ban ─æ├¬m?", o: ["A. V├¼ c├óy thß║úi ra nhiß╗üu Oxygen.", "B. V├¼ c├óy thß╗▒c hiß╗çn quang hß╗úp l├ám giß║úm nhiß╗çt ─æß╗Ö.", "C. V├¼ c├óy h├┤ hß║Ñp lß║Ñy Oxygen v├á thß║úi Carbon dioxide g├óy ngß║ít.", "D. V├¼ c├óy l├ám t─âng ─æß╗Ö ß║⌐m khiß║┐n ph├▓ng bß╗ï ß║⌐m mß╗æc."], a: 2, e: "Ban ─æ├¬m c├óy kh├┤ng quang hß╗úp m├á chß╗ë h├┤ hß║Ñp, tranh gi├ánh O2 v├á xß║ú CO2 vß╗¢i con ng╞░ß╗¥i." },
+            { type: 'mc', topic: 'hohap', q: "C├óu 35. H├┤ hß║Ñp diß╗àn ra mß║ính nhß║Ñt trong tr╞░ß╗¥ng hß╗úp n├áo sau ─æ├óy?", o: ["A. L├║a ─æang trß╗ò b├┤ng.", "B. L├║a ─æang ch├¡n.", "C. L├║a ─æang l├ám ─æ├▓ng.", "D. Hß║ít l├║a ─æang nß║úy mß║ºm."], a: 3, e: "Hß║ít ─æang nß║úy mß║ºm c├│ qu├í tr├¼nh trao ─æß╗òi chß║Ñt v├á ph├ón chia tß║┐ b├áo m├únh liß╗çt nhß║Ñt n├¬n h├┤ hß║Ñp mß║ính nhß║Ñt." },
+
+            { type: 'arrange', topic: 'quanghop', q: "Tß╗▒ luß║¡n: Ph╞░╞íng tr├¼nh quang hß╗úp dß║íng chß╗»:", words: ["Oxygen", "N╞░ß╗¢c", "Chß║Ñt hß╗»u c╞í", "+", "+", "Carbon dioxide", "->"], a: "N╞░ß╗¢c + Carbon dioxide -> Chß║Ñt hß╗»u c╞í + Oxygen", e: "Ph╞░╞íng tr├¼nh quang hß╗úp: N╞░ß╗¢c + Carbon dioxide -> Chß║Ñt hß╗»u c╞í + Oxygen." },
+            { type: 'arrange', topic: 'hohap', q: "Tß╗▒ luß║¡n: Ph╞░╞íng tr├¼nh h├┤ hß║Ñp tß║┐ b├áo dß║íng chß╗»:", words: ["Oxygen", "N╞░ß╗¢c", "Chß║Ñt hß╗»u c╞í", "+", "+", "Carbon dioxide", "->", "N─âng l╞░ß╗úng", "+"], a: "Chß║Ñt hß╗»u c╞í + Oxygen -> Carbon dioxide + N╞░ß╗¢c + N─âng l╞░ß╗úng", e: "Ph╞░╞íng tr├¼nh h├┤ hß║Ñp: Chß║Ñt hß╗»u c╞í + Oxygen -> Carbon dioxide + N╞░ß╗¢c + N─âng l╞░ß╗úng." },
+            { type: 'arrange', topic: 'hohap', q: "Tß╗▒ luß║¡n: Tß║íi sao bß║úo quß║ún rau cß╗º lß║íi ─æß╗â ng─ân m├ít thay v├¼ ng─ân ─æ├í?", words: ["gi├║p l├ám giß║úm", "n╞░ß╗¢c trong tß║┐ b├áo", "c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp.", "Nß║┐u ─æß╗â ng─ân ─æ├í,", "Nhiß╗çt ─æß╗Ö ng─ân m├ít", "g├óy vß╗í tß║┐ b├áo.", "sß║╜ ─æ├│ng b─âng"], a: "Nhiß╗çt ─æß╗Ö ng─ân m├ít gi├║p l├ám giß║úm c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp. Nß║┐u ─æß╗â ng─ân ─æ├í, n╞░ß╗¢c trong tß║┐ b├áo sß║╜ ─æ├│ng b─âng g├óy vß╗í tß║┐ b├áo.", e: "Nhiß╗çt ─æß╗Ö ng─ân m├ít k├¼m h├úm h├┤ hß║Ñp. Nß║┐u ─æß╗â ng─ân ─æ├í, n╞░ß╗¢c ─æ├│ng b─âng l├ám vß╗í tß║┐ b├áo hß╗Ång thß╗▒c phß║⌐m." },
+            { type: 'arrange', topic: 'hohap', q: "Tß╗▒ luß║¡n: Tß║íi sao tr╞░ß╗¢c khi gieo hß║ít, ng╞░ß╗¥i ta th╞░ß╗¥ng ng├óm hß║ít trong n╞░ß╗¢c ß║Ñm?", words: ["h├┤ hß║Ñp tß║┐ b├áo", "nhanh h╞ín,", "─æß╗â nß║úy mß║ºm.", "Ng├óm n╞░ß╗¢c ß║Ñm", "k├¡ch th├¡ch", "tß╗½ ─æ├│", "mß╗üm v├á h├║t n╞░ß╗¢c", "gi├║p hß║ít"], a: "Ng├óm n╞░ß╗¢c ß║Ñm gi├║p hß║ít mß╗üm v├á h├║t n╞░ß╗¢c nhanh h╞ín, tß╗½ ─æ├│ k├¡ch th├¡ch h├┤ hß║Ñp tß║┐ b├áo ─æß╗â nß║úy mß║ºm.", e: "N╞░ß╗¢c ß║Ñm l├ám hß║ít tr╞░╞íng nß╗ƒ, t─âng c╞░ß╗¥ng h├┤ hß║Ñp sinh n─âng l╞░ß╗úng nß║úy mß║ºm." },
+            { type: 'arrange', topic: 'quanghop', q: "Tß╗▒ luß║¡n: V├¼ sao khi nu├┤i c├í cß║únh trong bß╗â k├¡nh ng╞░ß╗¥i ta th╞░ß╗¥ng thß║ú th├¬m rong r├¬u?", words: ["sß║╜ thß║úi ra", "cho c├í h├┤ hß║Ñp.", "ho├á tan v├áo n╞░ß╗¢c,", "kh├¡ oxygen", "d╞░ß╗¢i ├ính s├íng", "─æß╗º d╞░ß╗íng kh├¡", "Rong r├¬u quang hß╗úp", "gi├║p cung cß║Ñp"], a: "Rong r├¬u quang hß╗úp d╞░ß╗¢i ├ính s├íng sß║╜ thß║úi ra kh├¡ oxygen ho├á tan v├áo n╞░ß╗¢c, gi├║p cung cß║Ñp ─æß╗º d╞░ß╗íng kh├¡ cho c├í h├┤ hß║Ñp.", e: "Quang hß╗úp tß║ío ra kh├¡ Oxygen cho sinh vß║¡t d╞░ß╗¢i n╞░ß╗¢c." },
+            { type: 'arrange', topic: 'quanghop', q: "Tß╗▒ luß║¡n: Mß╗æi quan hß╗ç giß╗»a quang hß╗úp v├á h├┤ hß║Ñp l├á g├¼?", words: ["Quang hß╗úp tß║ío ra", "cho quang hß╗úp.", "v├á oxygen", "cho h├┤ hß║Ñp,", "h├┤ hß║Ñp tß║ío ra", "carbon dioxide v├á n╞░ß╗¢c", "chß║Ñt hß╗»u c╞í", "ng╞░ß╗úc lß║íi", "l├á nguy├¬n liß╗çu", "l├á nguy├¬n liß╗çu"], a: "Quang hß╗úp tß║ío ra chß║Ñt hß╗»u c╞í v├á oxygen l├á nguy├¬n liß╗çu cho h├┤ hß║Ñp, ng╞░ß╗úc lß║íi h├┤ hß║Ñp tß║ío ra carbon dioxide v├á n╞░ß╗¢c l├á nguy├¬n liß╗çu cho quang hß╗úp.", e: "Hai qu├í tr├¼nh tr├íi ng╞░ß╗úc nh╞░ng cung cß║Ñp nguy├¬n liß╗çu qua lß║íi cho nhau." },
+            { type: 'arrange', topic: 'hohap', q: "Tß╗▒ luß║¡n: V├¼ sao c├íc loß║íi hß║ít nh╞░ ─æß║¡u, lß║íc tr╞░ß╗¢c khi cß║Ñt giß╗» cß║ºn phß║úi ph╞íi kh├┤?", words: ["l├ám giß║úm", "h├ám l╞░ß╗úng n╞░ß╗¢c", "trong hß║ít,", "tß╗½ ─æ├│ gi├║p", "giß║úm c╞░ß╗¥ng ─æß╗Ö", "Ph╞íi kh├┤ gi├║p", "h├┤ hß║Ñp tß║┐ b├áo", "v├á tr├ính bß╗ï", "nß║úy mß║ºm, ß║⌐m mß╗æc."], a: "Ph╞íi kh├┤ gi├║p l├ám giß║úm h├ám l╞░ß╗úng n╞░ß╗¢c trong hß║ít, tß╗½ ─æ├│ gi├║p giß║úm c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo v├á tr├ính bß╗ï nß║úy mß║ºm, ß║⌐m mß╗æc.", e: "─Éß╗Ö ß║⌐m thß║Ñp ß╗⌐c chß║┐ qu├í tr├¼nh h├┤ hß║Ñp." },
+            { type: 'arrange', topic: 'hohap', q: "Tß╗▒ luß║¡n: V├¼ sao khi vß║¡n ─æß╗Öng mß║ính, nhß╗ïp thß╗ƒ cß╗ºa c╞í thß╗â lß║íi t─âng l├¬n?", words: ["nhiß╗üu n─âng l╞░ß╗úng", "h├┤ hß║Ñp tß║┐ b├áo t─âng,", "dß║½n ─æß║┐n nhu cß║ºu", "carbon dioxide t─âng.", "c╞í thß╗â cß║ºn", "v├á thß║úi", "Khi vß║¡n ─æß╗Öng mß║ính,", "hß║Ñp thß╗Ñ oxygen", "n├¬n tß╗æc ─æß╗Ö"], a: "Khi vß║¡n ─æß╗Öng mß║ính, c╞í thß╗â cß║ºn nhiß╗üu n─âng l╞░ß╗úng n├¬n tß╗æc ─æß╗Ö h├┤ hß║Ñp tß║┐ b├áo t─âng, dß║½n ─æß║┐n nhu cß║ºu hß║Ñp thß╗Ñ oxygen v├á thß║úi carbon dioxide t─âng.", e: "Hoß║ít ─æß╗Öng mß║ính cß║ºn nhiß╗üu ATP n├¬n h├┤ hß║Ñp phß║úi t─âng c╞░ß╗¥ng." },
+            { type: 'arrange', topic: 'quanghop', q: "Tß╗▒ luß║¡n: Tß║íi sao trong th├¡ nghiß╗çm quang hß╗úp, phß║ºn l├í bß╗ï bß╗ït b─âng giß║Ñy ─æen kh├┤ng ─æß╗òi m├áu khi thß╗¡ vß╗¢i iodine?", words: ["Phß║ºn l├í bß╗ï", "├ính s├íng", "─æß╗òi m├áu", "kh├┤ng nhß║¡n ─æ╞░ß╗úc", "bß╗ït ─æen", "tß║ío ra tinh bß╗Öt,", "n├¬n kh├┤ng thß╗â", "khi thß╗¡ vß╗¢i iodine.", "quang hß╗úp", "do ─æ├│ kh├┤ng"], a: "Phß║ºn l├í bß╗ï bß╗ït ─æen kh├┤ng nhß║¡n ─æ╞░ß╗úc ├ính s├íng n├¬n kh├┤ng thß╗â quang hß╗úp tß║ío ra tinh bß╗Öt, do ─æ├│ kh├┤ng ─æß╗òi m├áu khi thß╗¡ vß╗¢i iodine.", e: "Thiß║┐u ├ính s├íng th├¼ l├í kh├┤ng tß║ío ─æ╞░ß╗úc tinh bß╗Öt." },
+            { type: 'arrange', topic: 'quanghop', q: "Tß╗▒ luß║¡n: ├¥ ngh─⌐a cß╗ºa viß╗çc trß╗ông nhiß╗üu c├óy xanh l├á g├¼?", words: ["hiß╗çu ß╗⌐ng nh├á k├¡nh", "l├ám giß║úm", "C├óy xanh quang hß╗úp", "kh├¡ hß║¡u.", "gi├║p cung cß║Ñp oxygen,", "carbon dioxide", "hß║Ñp thß╗Ñ", "v├á ─æiß╗üu h├▓a"], a: "C├óy xanh quang hß╗úp gi├║p cung cß║Ñp oxygen, hß║Ñp thß╗Ñ carbon dioxide l├ám giß║úm hiß╗çu ß╗⌐ng nh├á k├¡nh v├á ─æiß╗üu h├▓a kh├¡ hß║¡u.", e: "Trß╗ông c├óy gi├║p c├ón bß║▒ng l╞░ß╗úng O2 v├á CO2 trong tß╗▒ nhi├¬n." },
+
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Trong qu├í tr├¼nh quang hß╗úp, diß╗çp lß╗Ñc c├│ vai tr├▓ hß║Ñp thß╗Ñ ├ính s├íng ─æß╗â chuyß╗ân h├│a n─âng l╞░ß╗úng ├ính s├íng th├ánh h├│a n─âng.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Diß╗çp lß╗Ñc gi├║p hß║Ñp thß╗Ñ quang n─âng v├á chuyß╗ân th├ánh h├│a n─âng t├¡ch l┼⌐y trong chß║Ñt hß╗»u c╞í." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: N╞░ß╗¢c vß╗½a l├á nguy├¬n liß╗çu cß╗ºa quang hß╗úp, vß╗½a l├á yß║┐u tß╗æ ─æiß╗üu tiß║┐t sß╗▒ ─æ├│ng mß╗ƒ kh├¡ khß╗òng ─æß╗â trao ─æß╗òi kh├¡.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. N╞░ß╗¢c l├á nguy├¬n liß╗çu trß╗▒c tiß║┐p v├á ─æiß╗üu tiß║┐t sß╗⌐c tr╞░╞íng n╞░ß╗¢c ß╗ƒ tß║┐ b├áo hß║ít ─æß║¡u." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Trong th├¡ nghiß╗çm quang hß╗úp, ta d├╣ng dung dß╗ïch iodine ─æß╗â thß╗¡ v├¼ iodine l├ám tinh bß╗Öt chuyß╗ân sang m├áu xanh t├¡m.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Iodine l├á thuß╗æc thß╗¡ ─æß║╖c tr╞░ng ─æß╗â nhß║¡n biß║┐t tinh bß╗Öt." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: ß╗₧ th├¡ nghiß╗çm chß╗⌐ng minh c├óy tho├ít h╞íi n╞░ß╗¢c, viß╗çc tß║⌐y sß║»c tß╗æ diß╗çp lß╗Ñc bß║▒ng cß╗ôn ─æun c├ích thß╗ºy l├á b╞░ß╗¢c kh├┤ng cß║ºn thiß║┐t.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Tß║⌐y sß║»c tß╗æ chß╗ë d├╣ng trong th├¡ nghiß╗çm t├¼m tinh bß╗Öt." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Nß╗ông ─æß╗Ö kh├¡ CO2 trong kh├┤ng kh├¡ thß║Ñp h╞ín 0,008% sß║╜ l├ám cho quang hß╗úp bß╗ï ngß╗½ng trß╗ç.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. ─É├óy ─æ╞░ß╗úc gß╗ìi l├á ─æiß╗âm b├╣ CO2." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: C├íc loß║íi c├óy ╞░a b├│ng th╞░ß╗¥ng c├│ c╞░ß╗¥ng ─æß╗Ö quang hß╗úp cao h╞ín c├óy ╞░a s├íng trong ─æiß╗üu kiß╗çn ├ính s├íng mß║ính.", o: ["─É├║ng", "Sai"], a: 1, e: "SAI. Trong ─æiß╗üu kiß╗çn ├ính s├íng mß║ính, c├óy ╞░a s├íng mß╗¢i quang hß╗úp tß╗æt h╞ín." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Trß╗ông c├óy vß╗¢i mß║¡t ─æß╗Ö qu├í d├áy sß║╜ l├ám giß║úm hiß╗çu suß║Ñt quang hß╗úp.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Mß║¡t ─æß╗Ö d├áy cß║ún trß╗ƒ viß╗çc tiß║┐p nhß║¡n ├ính s├íng v├á kh├¡ CO2." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Nhiß╗çt ─æß╗Ö m├┤i tr╞░ß╗¥ng qu├í cao hoß║╖c qu├í thß║Ñp ─æß╗üu c├│ thß╗â l├ám ß║únh h╞░ß╗ƒng ─æß║┐n tß╗æc ─æß╗Ö cß╗ºa qu├í tr├¼nh quang hß╗úp.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Nhiß╗çt ─æß╗Ö ß║únh h╞░ß╗ƒng rß║Ñt lß╗¢n ─æß║┐n hoß║ít t├¡nh enzyme." },
+            { type: 'tf', topic: 'hohap', q: "─É├║ng hay Sai: C├óy xanh chß╗ë thß╗▒c hiß╗çn qu├í tr├¼nh h├┤ hß║Ñp v├áo ban ─æ├¬m khi kh├┤ng c├│ ├ính s├íng mß║╖t trß╗¥i.", o: ["─É├║ng", "Sai"], a: 1, e: "SAI. H├┤ hß║Ñp l├á qu├í tr├¼nh tß║ío n─âng l╞░ß╗úng sß╗æng n├¬n diß╗àn ra li├¬n tß╗Ñc cß║ú ng├áy lß║½n ─æ├¬m." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Khi c╞░ß╗¥ng ─æß╗Ö ├ính s├íng t─âng l├¬n v├┤ hß║ín th├¼ tß╗æc ─æß╗Ö quang hß╗úp c┼⌐ng sß║╜ t─âng l├¬n kh├┤ng ngß╗½ng.", o: ["─É├║ng", "Sai"], a: 1, e: "SAI. Tß╗æc ─æß╗Ö quang hß╗úp chß╗ë t─âng ─æß║┐n mß╗Öt ng╞░ß╗íng nhß║Ñt ─æß╗ïnh gß╗ìi l├á ─æiß╗âm b├úo h├▓a ├ính s├íng." },
+            { type: 'tf', topic: 'hohap', q: "─É├║ng hay Sai: Ph├ón giß║úi chß║Ñt hß╗»u c╞í trong tß║┐ b├áo sß║╜ sinh ra ph├ón tß╗¡ n─âng l╞░ß╗úng ATP v├á nhiß╗çt n─âng.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. H├│a n─âng ─æ╞░ß╗úc chuyß╗ân h├│a th├ánh ATP v├á tß║ún ra ngo├ái d╞░ß╗¢i dß║íng nhiß╗çt." },
+            { type: 'tf', topic: 'hohap', q: "─É├║ng hay Sai: H├┤ hß║Ñp tß║┐ b├áo chß╗ë xß║úy ra ß╗ƒ thß╗▒c vß║¡t, kh├┤ng xß║úy ra ß╗ƒ ─æß╗Öng vß║¡t.", o: ["─É├║ng", "Sai"], a: 1, e: "SAI. H├┤ hß║Ñp tß║┐ b├áo xß║úy ra ß╗ƒ mß╗ìi sinh vß║¡t sß╗æng." },
+            { type: 'tf', topic: 'quanghop', q: "─É├║ng hay Sai: Qu├í tr├¼nh tho├ít h╞íi n╞░ß╗¢c gi├║p c├óy ─æ╞░ß╗úc l├ám m├ít v├á tß║ío ─æß╗Öng lß╗▒c h├║t n╞░ß╗¢c tß╗½ rß╗à.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Tho├ít h╞íi n╞░ß╗¢c l├á ─æß╗Öng lß╗▒c ─æß║ºu tr├¬n cß╗ºa d├▓ng mß║ích gß╗ù." },
+            { type: 'tf', topic: 'hohap', q: "─É├║ng hay Sai: H├║t ch├ón kh├┤ng l├á biß╗çn ph├íp l├ám giß║úm l╞░ß╗úng oxygen ─æß╗â ß╗⌐c chß║┐ h├┤ hß║Ñp cß╗ºa vi khuß║⌐n v├á thß╗▒c phß║⌐m.", o: ["─É├║ng", "Sai"], a: 0, e: "─É├ÜNG. Thiß║┐u oxygen sß║╜ k├¼m h├úm h├┤ hß║Ñp mß║ính mß║╜." },
+            { type: 'tf', topic: 'hohap', q: "─É├║ng hay Sai: Viß╗çc ph╞íi kh├┤ l├║a, ng├┤ tr╞░ß╗¢c khi bß║úo quß║ún l├á ─æß╗â t─âng c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp cß╗ºa hß║ít.", o: ["─É├║ng", "Sai"], a: 1, e: "SAI. Ph╞íi kh├┤ l├ám giß║úm h├ám l╞░ß╗úng n╞░ß╗¢c ─æß╗â l├ám GIß║óM c╞░ß╗¥ng ─æß╗Ö h├┤ hß║Ñp." }
+        ];
+
+        // Initializing questions and counts
+        activeQuestions = [...allQuestions];
+        correctCounts = new Array(activeQuestions.length).fill(0);
+        wrongCounts = new Array(activeQuestions.length).fill(0);
+
+        const app = document.getElementById('app');
+        const nextBtn = document.getElementById('next-btn');
+        const resultDiv = document.getElementById('result');
+        const resultText = document.getElementById('result-text');
+        const complimentText = document.getElementById('compliment-text');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const navigationDiv = document.getElementById('navigation');
+        const reviewTitle = document.getElementById('review-title');
+        const quizModeContainer = document.getElementById('quiz-mode-container');
+        const studyModeContainer = document.getElementById('study-mode-container');
+        const studyList = document.getElementById('study-list');
+        const studyBtn = document.getElementById('study-btn');
+        const backQuizFromStudyBtn = document.getElementById('back-quiz-from-study-btn');
+
+        const wrongModeContainer = document.getElementById('wrong-mode-container');
+        const wrongList = document.getElementById('wrong-list');
+        const wrongBtn = document.getElementById('wrong-btn');
+        const backQuizFromWrongBtn = document.getElementById('back-quiz-from-wrong-btn');
+
+        const matchModeContainer = document.getElementById('match-mode-container');
+        window.showToast = (msg) => {
+            const container = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            container.appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => {
+                t.classList.remove('show');
+                setTimeout(() => t.remove(), 300);
+            }, 3000);
+        };
+
+        const matchGrid = document.getElementById('match-grid');
+        const matchBtn = document.getElementById('match-btn');
+        const backQuizFromMatchBtn = document.getElementById('back-quiz-from-match-btn');
+        const playMatchAgainBtn = document.getElementById('play-match-again-btn');
+        const matchWinMsg = document.getElementById('match-win-msg');
+
+        const shopModeContainer = document.getElementById('shop-mode-container');
+        const shopBtn = document.getElementById('shop-btn');
+        const backQuizFromShopBtn = document.getElementById('back-quiz-from-shop-btn');
+
+        const soloModeContainer = document.getElementById('solo-mode-container');
+        const soloBtn = document.getElementById('solo-btn');
+
+        window.setFilter = function (filterType) {
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => btn.classList.remove('filter-active'));
+            event.target.classList.add('filter-active');
+
+            if (filterType === 'all') activeQuestions = [...allQuestions];
+            else if (filterType === 'mc') activeQuestions = allQuestions.filter(q => q.type === 'mc');
+            else if (filterType === 'arrange') activeQuestions = allQuestions.filter(q => q.type === 'arrange');
+            else if (filterType === 'tf') activeQuestions = allQuestions.filter(q => q.type === 'tf');
+            else if (filterType === 'quanghop') activeQuestions = allQuestions.filter(q => q.topic === 'quanghop');
+            else if (filterType === 'hohap') activeQuestions = allQuestions.filter(q => q.topic === 'hohap');
+
+            correctCounts = new Array(activeQuestions.length).fill(0);
+            wrongCounts = new Array(activeQuestions.length).fill(0);
+            totalAttempts = 0;
+            currentIndex = 0;
+            currentQuestionAnswered = false;
+            currentSelection = null;
+            selectedArrangeWords = [];
+            poolArrangeWords = [];
+
+            resultDiv.style.display = 'none';
+            progressContainer.style.display = 'block';
+            progressText.style.display = 'block';
+            navigationDiv.style.display = 'flex';
+            reviewTitle.style.display = 'none';
+
+            renderQuestion(currentIndex);
+        };
+
+        window.playBo3Intro = function (callback, myName, myAvatar, oppName, oppAvatar) {
+            myName = myName || 'Cß║¡u';
+            oppName = oppName || '─Éß╗æi thß╗º';
+            myAvatar = myAvatar || 'https://ui-avatars.com/api/?name=C&background=random';
+            oppAvatar = oppAvatar || 'https://ui-avatars.com/api/?name=O&background=random';
+
+            const overlay = document.getElementById('bo3-intro-overlay');
+            overlay.innerHTML = `
+                <div class="intro-left">
+                    <div class="intro-player-col">
+                        <img src="${myAvatar}" class="intro-avatar" alt="My Avatar" onerror="this.src='https://ui-avatars.com/api/?name=C&background=random'">
+                        <div class="intro-name">${myName}</div>
+                    </div>
+                </div>
+                <div class="intro-vs">VS</div>
+                <div class="intro-right">
+                    <div class="intro-player-col">
+                        <img src="${oppAvatar}" class="intro-avatar" alt="Opp Avatar" onerror="this.src='https://ui-avatars.com/api/?name=O&background=random'">
+                        <div class="intro-name">${oppName}</div>
+                    </div>
+                </div>
+                <div class="intro-flash"></div>
+            `;
+            overlay.style.display = 'block';
+            setTimeout(function () {
+                overlay.style.display = 'none';
+                overlay.innerHTML = '';
+                if (callback) callback();
+            }, 2500);
+        }
+
+        function showRoundEffect(result, winnerAvatar, winnerName, myAvatar, myName, oppAvatar, oppName) {
+            const overlay = document.getElementById('bo3-round-overlay');
+            overlay.innerHTML = '';
+            overlay.style.display = 'flex';
+            overlay.style.flexDirection = 'column';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.gap = '16px';
+
+            if (result === 'win' || result === 'lose') {
+                overlay.className = result === 'win' ? 'round-win-bg' : 'round-lose-bg';
+                overlay.innerHTML = `
+                    <img src="${winnerAvatar}" style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.8);box-shadow:0 4px 20px rgba(0,0,0,0.3)" onerror="this.src='https://ui-avatars.com/api/?name=W&background=random'">
+                    <div style="font-size:26px;font-weight:900;color:white;font-family:'Outfit',sans-serif;text-shadow:0 2px 8px rgba(0,0,0,0.3)">${winnerName}</div>
+                    <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.85);font-family:'Outfit',sans-serif;">≡ƒÅå Chiß║┐n thß║»ng v├▓ng n├áy!</div>
+                `;
+            } else {
+                // Draw
+                overlay.className = '';
+                overlay.style.background = 'rgba(15,23,42,0.92)';
+                overlay.innerHTML = `
+                    <div style="display:flex;align-items:center;gap:24px;">
+                        <div style="text-align:center;">
+                            <img src="${myAvatar}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.7)" onerror="this.src='https://ui-avatars.com/api/?name=A&background=random'">
+                            <div style="font-size:15px;font-weight:700;color:white;margin-top:8px;font-family:'Outfit',sans-serif">${myName}</div>
+                        </div>
+                        <div style="font-size:40px;font-weight:900;color:#fbbf24;font-family:'Outfit',sans-serif;">=</div>
+                        <div style="text-align:center;">
+                            <img src="${oppAvatar}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.7)" onerror="this.src='https://ui-avatars.com/api/?name=B&background=random'">
+                            <div style="font-size:15px;font-weight:700;color:white;margin-top:8px;font-family:'Outfit',sans-serif">${oppName}</div>
+                        </div>
+                    </div>
+                    <div style="font-size:24px;font-weight:900;color:#fbbf24;font-family:'Outfit',sans-serif;letter-spacing:3px;">H├▓a!</div>
+                `;
+            }
+        }
+
+        function hideRoundEffect() {
+            const overlay = document.getElementById('bo3-round-overlay');
+            overlay.style.display = 'none';
+            overlay.innerHTML = '';
+            overlay.style.background = '';
+        }
+
+        window.showRoundResultEffect = function (didIWin, isDraw) {
+            if (!soloRoomData) return;
+            const isP1 = soloRoomData.p1ID === currentUser.uid;
+            const myName = myProfile.displayName;
+            const myAvatar = myProfile.photoURL;
+            const oppName = isP1 ? soloRoomData.p2Name : soloRoomData.p1Name;
+            const oppAvatar = isP1 ? soloRoomData.p2Avatar : soloRoomData.p1Avatar;
+
+            if (isDraw) {
+                showRoundEffect('draw', null, null, myAvatar, myName, oppAvatar, oppName);
+            } else if (didIWin) {
+                showRoundEffect('win', myAvatar, myName, myAvatar, myName, oppAvatar, oppName);
+            } else {
+                showRoundEffect('lose', oppAvatar, oppName, myAvatar, myName, oppAvatar, oppName);
+            }
+        };
+
+        window.playDeciderIntro = function (callback, myName, myAvatar, oppName, oppAvatar) {
+            myName = myName || 'Cß║¡u';
+            oppName = oppName || '─Éß╗æi thß╗º';
+            myAvatar = myAvatar || 'https://ui-avatars.com/api/?name=C&background=random';
+            oppAvatar = oppAvatar || 'https://ui-avatars.com/api/?name=O&background=random';
+
+            const overlay = document.getElementById('bo3-intro-overlay');
+            overlay.innerHTML = `
+                <div class="intro-left">
+                    <div class="intro-player-col">
+                        <img src="${myAvatar}" class="intro-avatar" alt="My Avatar" onerror="this.src='https://ui-avatars.com/api/?name=C&background=random'">
+                        <div class="intro-name">${myName}</div>
+                    </div>
+                </div>
+                <div class="intro-vs" style="font-size: 26px; line-height: 1.3; color: #f59e0b; text-shadow: 0 2px 12px rgba(245,158,11,0.6);">V├▓ng<br>Quyß║┐t ─Éß╗ïnh</div>
+                <div class="intro-right">
+                    <div class="intro-player-col">
+                        <img src="${oppAvatar}" class="intro-avatar" alt="Opp Avatar" onerror="this.src='https://ui-avatars.com/api/?name=O&background=random'">
+                        <div class="intro-name">${oppName}</div>
+                    </div>
+                </div>
+                <div class="intro-flash"></div>
+            `;
+            overlay.style.display = 'block';
+            setTimeout(function () {
+                overlay.style.display = 'none';
+                overlay.innerHTML = '';
+                if (callback) callback();
+            }, 3000);
+        }
+
+        window.playRoundDecisiveIntro = window.playDeciderIntro;
+
+        function showMatchEndEffect(isWin, playerName, playerAvatar, callback) {
+            const overlay = document.getElementById('match-end-overlay');
+            overlay.innerHTML = '';
+            overlay.style.display = 'flex';
+            overlay.className = isWin ? 'end-win-bg' : 'end-lose-bg';
+
+            const container = document.createElement('div');
+            container.style.textAlign = 'center';
+            container.style.zIndex = '10';
+
+            const ring = document.createElement('div');
+            ring.className = 'victory-avatar-ring';
+            if (isWin) {
+                ring.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b, #fbbf24)';
+                ring.style.boxShadow = '0 0 50px rgba(251, 191, 36, 0.6)';
+            } else {
+                ring.style.background = 'linear-gradient(45deg, #ef4444, #7f1d1d, #ef4444)';
+                ring.style.boxShadow = '0 0 50px rgba(239, 68, 68, 0.6)';
+            }
+
+            const avatarImg = document.createElement('img');
+            avatarImg.src = playerAvatar || 'https://ui-avatars.com/api/?name=U&background=random';
+            avatarImg.style.width = '100%';
+            avatarImg.style.height = '100%';
+            avatarImg.style.borderRadius = '50%';
+            avatarImg.style.objectFit = 'cover';
+            avatarImg.style.border = '4px solid white';
+            avatarImg.style.boxSizing = 'border-box';
+
+            ring.appendChild(avatarImg);
+
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = playerName || 'Ng╞░ß╗¥i ch╞íi';
+            nameDiv.style.fontSize = '24px';
+            nameDiv.style.fontWeight = '800';
+            nameDiv.style.color = 'white';
+            nameDiv.style.marginTop = '15px';
+            nameDiv.style.opacity = '0';
+            nameDiv.style.animation = 'victoryPop 0.8s 0.2s forwards';
+            nameDiv.style.textShadow = '0 4px 12px rgba(0,0,0,0.6)';
+
+            const text = document.createElement('div');
+            text.className = isWin ? 'victory-text' : 'defeat-text';
+            text.textContent = isWin ? 'CHIß║╛N THß║«NG!' : 'THß║ñT Bß║áI!';
+
+            container.appendChild(ring);
+            container.appendChild(nameDiv);
+            container.appendChild(text);
+            overlay.appendChild(container);
+
+            if (isWin) {
+                for (let i = 0; i < 60; i++) {
+                    let c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.left = Math.random() * 100 + 'vw';
+                    c.style.top = -20 + 'px';
+                    c.style.backgroundColor = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#ffffff'][Math.floor(Math.random() * 5)];
+                    c.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    c.style.animationDelay = (Math.random() * 2) + 's';
+                    c.style.width = (Math.random() * 8 + 4) + 'px';
+                    c.style.height = (Math.random() * 12 + 8) + 'px';
+                    overlay.appendChild(c);
+                }
+            } else {
+                for (let i = 0; i < 30; i++) {
+                    let p = document.createElement('div');
+                    p.style.position = 'absolute';
+                    p.style.width = Math.random() * 150 + 50 + 'px';
+                    p.style.height = p.style.width;
+                    p.style.background = 'radial-gradient(circle, rgba(0,0,0,0.4) 0%, transparent 70%)';
+                    p.style.left = Math.random() * 100 + 'vw';
+                    p.style.top = Math.random() * 100 + 'vh';
+                    p.style.borderRadius = '50%';
+                    p.style.filter = 'blur(20px)';
+                    p.style.animation = `skeleton-pulse ${Math.random() * 4 + 2}s infinite alternate`;
+                    overlay.appendChild(p);
+                }
+            }
+
+            setTimeout(function () {
+                overlay.style.opacity = '0';
+                overlay.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '1';
+                    overlay.innerHTML = '';
+                    if (callback) callback();
+                }, 800);
+            }, 4500);
+        }
+
+        window.showAchievement = function (type) {
+            const container = document.createElement('div');
+            container.className = 'achievement-overlay';
+
+            const text = document.createElement('div');
+            text.className = 'achievement-text ' + (type === 'streak' ? 'streak-text' : 'perfect-text');
+            text.textContent = type === 'streak' ? '≡ƒöÑ Tuyß╗çt vß╗¥i! ≡ƒöÑ' : 'Γ£¿ Xuß║Ñt sß║»c! Γ£¿';
+
+            container.appendChild(text);
+            document.body.appendChild(container);
+
+            if (type === 'perfect') {
+                for (let i = 0; i < 20; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.animationDelay = Math.random() * 1 + 's';
+                    container.appendChild(sparkle);
+                }
+            }
+
+            setTimeout(() => {
+                if (container.parentNode) container.parentNode.removeChild(container);
+            }, 2000);
+        };
+
+        window.showSoloError = function (msg) {
+            const el = document.getElementById('solo-error-msg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+
+            // Temporary alert to ensure error doesn't go unnoticed
+            window.showToast(msg);
+        };
+
+        function hideAllModes() {
+            quizModeContainer.style.display = 'none';
+            studyModeContainer.style.display = 'none';
+            shopModeContainer.style.display = 'none';
+            soloModeContainer.style.display = 'none';
+            wrongModeContainer.style.display = 'none';
+            document.getElementById('status-bar').style.display = 'none';
+        }
+
+        function updateCoinDisplay() {
+            document.getElementById('coin-display').textContent = 'T├ái sß║ún hiß╗çn tß║íi: ' + userCoins + ' Xu';
+        }
+
+        function updateInventoryDisplay() {
+            document.getElementById('inventory-display').textContent = 'Kho ─æß╗ô: ' + inventory.pass1 + ' Thß║╗ Pass | ' + inventory.help + ' Thß║╗ 50/50 | ' + inventory.protect + ' Thß║╗ Bß║úo Vß╗ç';
+        }
+
+        window.buyCard = function (type, price) {
+            if (userCoins >= price) {
+                userCoins -= price;
+                if (type === 'pass1') inventory.pass1++;
+                else if (type === 'help') inventory.help++;
+                else if (type === 'protect') inventory.protect++;
+                updateCoinDisplay();
+                updateInventoryDisplay();
+                syncUserData();
+                showShopMsg('Mua th├ánh c├┤ng!', false);
+            } else {
+                showShopMsg('Kh├┤ng ─æß╗º Xu!', true);
+            }
+        }
+
+        shopBtn.addEventListener('click', function () {
+            hideAllModes();
+            shopModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        backQuizFromShopBtn.addEventListener('click', function () {
+            hideAllModes();
+            quizModeContainer.style.display = 'block';
+            document.getElementById('status-bar').style.display = 'flex';
+            renderQuestion(currentIndex);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        soloBtn.addEventListener('click', function () {
+            hideAllModes();
+            soloModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.createSoloRoom = async function () {
+            if (!currentUser) return window.showSoloError('─Éang kß║┐t nß╗æi...');
+
+            // Sync profile
+            if (myProfile.displayName === 'Kh├ích') {
+                try {
+                    const userDocRef = doc(firestore, 'users', currentUser.uid);
+                    const docSnap = await getDoc(userDocRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.displayName) {
+                            myProfile.displayName = data.displayName;
+                            myProfile.photoURL = data.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.displayName) + '&background=random';
+                        }
+                    }
+                } catch (e) { }
+            }
+
+            const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+            soloRoomId = code;
+
+            let mcQs = [];
+            allQuestions.forEach((q, i) => {
+                if (q.type === 'mc' || q.type === 'tf') mcQs.push(i);
+            });
+            let shuffledQs = mcQs.sort(() => 0.5 - Math.random()).slice(0, 30);
+            soloQs = shuffledQs;
+
+            const roomRef = ref(db, 'rooms/' + soloRoomId);
+            await set(roomRef, {
+                hostId: currentUser.uid,
+                p1ID: currentUser.uid,
+                p1Name: myProfile.displayName,
+                p1Avatar: myProfile.photoURL,
+                p1Score: 0,
+                p1Rounds: 0,
+                p2ID: null,
+                p2Name: null,
+                p2Avatar: null,
+                p2Score: 0,
+                p2Rounds: 0,
+                status: 'waiting',
+                qs: shuffledQs,
+                roundNum: 1,
+                p1Done: false,
+                p2Done: false
+            });
+
+            document.getElementById('solo-lobby').style.display = 'none';
+            document.getElementById('display-room-code').textContent = soloRoomId;
+            document.getElementById('solo-waiting').style.display = 'block';
+
+            if (currentUser) {
+                await set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), soloRoomId);
+            }
+
+            listenSoloRoom();
+        };
+
+        window.joinSoloRoomWithId = async function (codeInput, isReconnect = false) {
+            try {
+                if (!currentUser) return window.showSoloError('─Éang kß║┐t nß╗æi...');
+                if (!codeInput) return window.showSoloError('Vui l├▓ng nhß║¡p m├ú!');
+
+                const roomRef = ref(db, 'rooms/' + codeInput);
+                const snap = await get(roomRef);
+
+                if (snap.exists()) {
+                    const data = snap.val();
+                    if (data.status === 'closed' && !isReconnect) return window.showSoloError('Ph├▓ng n├áy ─æ├ú ─æ├│ng rß╗ôi!');
+
+                    // Guest Name Prompt
+                    if (!isReconnect && data.hostId !== currentUser.uid) {
+                        if (myProfile.displayName === 'Kh├ích' || !myProfile.displayName) {
+                            const guestName = prompt("Nhß║¡p t├¬n cß╗ºa cß║¡u ─æß╗â v├áo ph├▓ng:", "");
+                            if (!guestName || guestName.trim() === "") {
+                                return window.showSoloError('Cß║¡u cß║ºn nhß║¡p t├¬n mß╗¢i c├│ thß╗â v├áo ph├▓ng!');
+                            }
+                            myProfile.displayName = guestName.trim();
+                            myProfile.photoURL = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(myProfile.displayName) + '&background=random';
+                        }
+                    }
+
+                    soloRoomId = codeInput;
+                    soloQs = data.qs;
+
+                    if (isReconnect) {
+                        if (data.status === 'closed') {
+                            set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
+                            return;
+                        }
+                        hideAllModes();
+                        soloModeContainer.style.display = 'block';
+                        document.getElementById('solo-lobby').style.display = 'none';
+
+                        if (data.status === 'waiting') {
+                            document.getElementById('solo-waiting').style.display = 'block';
+                            document.getElementById('display-room-code').textContent = soloRoomId;
+                        } else if (data.status === 'playing') {
+                            const isP1 = data.p1ID === currentUser.uid;
+                            soloMyScore = isP1 ? (data.p1Score || 0) : (data.p2Score || 0);
+                            document.getElementById('solo-playing').style.display = 'block';
+                            renderSoloQuestion();
+                        }
+                        listenSoloRoom();
+                        return;
+                    }
+
+                    // Not Host and p2 is empty
+                    if (data.hostId !== currentUser.uid && !data.p2ID) {
+                        await update(roomRef, {
+                            p2ID: currentUser.uid,
+                            p2Name: myProfile.displayName,
+                            p2Avatar: myProfile.photoURL,
+                            status: 'playing'
+                        });
+                    }
+
+                    hideAllModes();
+                    soloModeContainer.style.display = 'block';
+                    document.getElementById('solo-lobby').style.display = 'none';
+
+                    if (data.status === 'waiting' && data.hostId === currentUser.uid) {
+                        document.getElementById('solo-waiting').style.display = 'block';
+                        document.getElementById('display-room-code').textContent = soloRoomId;
+                    } else if (data.status === 'waiting') {
+                        document.getElementById('solo-waiting').style.display = 'block';
+                        document.getElementById('display-room-code').textContent = soloRoomId;
+                    }
+
+                    if (currentUser) {
+                        await set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), soloRoomId);
+                    }
+
+                    listenSoloRoom();
+                } else {
+                    if (!isReconnect) window.showSoloError('M├ú ph├▓ng kh├┤ng ─æ├║ng!');
+                }
+            } catch (e) {
+                console.error("Join Error:", e);
+                window.showSoloError('Lß╗ùi khi v├áo ph├▓ng!');
+            }
+        };
+
+        window.joinSoloRoom = async function () {
+            try {
+                const codeInput = document.getElementById('room-code-input').value.trim().toUpperCase();
+                await window.joinSoloRoomWithId(codeInput, false);
+            } catch (err) {
+                window.showToast('Lß╗ùi form: ' + err.message);
+            }
+        };
+
+        function forceExitToLobby(msg) {
+            if (msg) window.showSoloError(msg);
+            if (soloUnsubscribe) soloUnsubscribe();
+            if (window.soloPenaltyTimer) clearInterval(window.soloPenaltyTimer);
+            hideRoundEffect();
+            soloRoomId = null;
+            soloRoomData = null;
+            soloRoundStartIdx = 0;
+            soloCurrentStreak = 0;
+            window.roundResetTriggered = false;
+            hideAllModes();
+            soloModeContainer.style.display = 'block';
+            document.getElementById('solo-lobby').style.display = 'block';
+            document.getElementById('solo-waiting').style.display = 'none';
+            document.getElementById('solo-playing').style.display = 'none';
+            document.getElementById('solo-result').style.display = 'none';
+            if (currentUser && !msg) {
+                set(ref(db, 'users/' + currentUser.uid + '/activeSoloRoom'), null).catch(e => { });
+            }
+        }
+
+        window.exitSoloRoom = function () {
+            if (soloRoomId) {
+                const roomRef = ref(db, 'rooms/' + soloRoomId);
+                update(roomRef, { status: 'closed' }).catch(e => { });
+            }
+            forceExitToLobby();
+            hideAllModes();
+            quizModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.requestRemake = async function () {
+            if (!soloRoomId || !soloRoomData) return;
+            const remakeBtn = document.getElementById('solo-remake-btn');
+            if (remakeBtn) {
+                remakeBtn.textContent = '─Éang chß╗¥...';
+                remakeBtn.disabled = true;
+            }
+
+            const roomRef = ref(db, 'rooms/' + soloRoomId);
+            let updates = {};
+            const isP1 = soloRoomData.p1ID === currentUser.uid;
+            if (isP1) updates.remake_p1 = true; else updates.remake_p2 = true;
+
+            const oppRemake = isP1 ? (soloRoomData.remake_p2 || false) : (soloRoomData.remake_p1 || false);
+
+            if (oppRemake) {
+                let mcQs = [];
+                allQuestions.forEach((q, i) => { if (q.type === 'mc' || q.type === 'tf') mcQs.push(i); });
+                let shuffledQs = mcQs.sort(() => 0.5 - Math.random()).slice(0, 30);
+
+                updates.p1Score = 0;
+                updates.p2Score = 0;
+                updates.p1Rounds = 0;
+                updates.p2Rounds = 0;
+                updates.remake_p1 = false;
+                updates.remake_p2 = false;
+                updates.status = 'playing';
+                updates.qs = shuffledQs;
+                updates.roundNum = 1;
+                updates.p1Done = false;
+                updates.p2Done = false;
+            }
+            await update(roomRef, updates);
+        };
+
+        let soloRoundStartIdx = 0;
+        let soloCurrentStreak = 0;
+
+        let gameStartedWithIntro = false;
+        let currentRoundNum = 1;
+
+        function listenSoloRoom() {
+            if (!soloRoomId) return;
+
+            const roomRef = ref(db, 'rooms/' + soloRoomId);
+            if (soloUnsubscribe) soloUnsubscribe();
+
+            soloUnsubscribe = onValue(roomRef, (snap) => {
+                if (!snap.exists()) {
+                    forceExitToLobby();
+                    return;
+                }
+                const data = snap.val();
+                soloRoomData = data;
+
+                // 1. Lobby Update
+                if (data.status === 'waiting') {
+                    gameStartedWithIntro = false;
+                    const listEl = document.getElementById('lobby-players-list');
+                    if (listEl) {
+                        listEl.innerHTML = '';
+                        // Only show P1 and P2 in lobby
+                        if (data.p1ID) {
+                            const card = document.createElement('div');
+                            card.className = 'lobby-player-card is-host';
+                            card.innerHTML = `
+                                <img src="${data.p1Avatar}" onerror="this.src='https://ui-avatars.com/api/?name=P&background=random'">
+                                <div class="p-name">${data.p1Name}</div>
+                                <div class="host-badge">Chß╗º ph├▓ng</div>
+                            `;
+                            listEl.appendChild(card);
+                        }
+                        if (data.p2ID) {
+                            const card = document.createElement('div');
+                            card.className = 'lobby-player-card';
+                            card.innerHTML = `
+                                <img src="${data.p2Avatar}" onerror="this.src='https://ui-avatars.com/api/?name=P&background=random'">
+                                <div class="p-name">${data.p2Name}</div>
+                            `;
+                            listEl.appendChild(card);
+                        }
+                    }
+
+                    document.getElementById('solo-waiting').style.display = 'block';
+                    document.getElementById('solo-playing').style.display = 'none';
+                    document.getElementById('host-start-container').style.display = (data.hostId === currentUser.uid && data.p2ID) ? 'block' : 'none';
+                    document.getElementById('guest-waiting-msg').style.display = (data.hostId === currentUser.uid) ? 'none' : 'block';
+                }
+
+                // 2. Gameplay Start & Intro logic
+                if (data.status === 'playing' && !gameStartedWithIntro && data.p1ID && data.p2ID) {
+                    gameStartedWithIntro = true;
+                    currentRoundNum = data.roundNum || 1;
+                    playBo3Intro(() => {
+                        document.getElementById('solo-waiting').style.display = 'none';
+                        document.getElementById('solo-playing').style.display = 'block';
+                        soloCurrentIdx = 0;
+                        soloMyScore = 0;
+                        renderSoloQuestion();
+                    }, data.p1Name, data.p1Avatar, data.p2Name, data.p2Avatar);
+                }
+
+                // Restart logic for subsequent rounds
+                if (data.status === 'playing' && data.roundNum > currentRoundNum) {
+                    currentRoundNum = data.roundNum;
+                    soloCurrentIdx = 0;
+                    soloMyScore = 0;
+                    if (data.qs) soloQs = data.qs;
+
+                    // Decisive round intro for BOTH players (1-1 tie going into round 3)
+                    const isDecisive = (data.p1Rounds || 0) === 1 && (data.p2Rounds || 0) === 1;
+                    const isP1_ = data.p1ID === currentUser.uid;
+                    if (isDecisive && typeof window.playDeciderIntro === 'function') {
+                        window.playDeciderIntro(() => {
+                            renderSoloQuestion();
+                        }, myProfile.displayName, myProfile.photoURL,
+                            isP1_ ? data.p2Name : data.p1Name,
+                            isP1_ ? data.p2Avatar : data.p1Avatar);
+                    } else {
+                        renderSoloQuestion();
+                    }
+                }
+
+                // 3. Dynamic Progress Bars and Leaderboard Update
+                if (data.status === 'playing') {
+                    const isP1 = data.p1ID === currentUser.uid;
+                    const myScore = isP1 ? data.p1Score : data.p2Score;
+                    const oppScore = isP1 ? data.p2Score : data.p1Score;
+                    const oppName = isP1 ? (data.p2Name || '─Éß╗æi thß╗º') : (data.p1Name || '─Éß╗æi thß╗º');
+
+                    const p1RoundsWon = data.p1Rounds || 0;
+                    const p2RoundsWon = data.p2Rounds || 0;
+                    const myRounds = isP1 ? p1RoundsWon : p2RoundsWon;
+                    const oppRounds = isP1 ? p2RoundsWon : p1RoundsWon;
+
+                    // Progress Bars
+                    const p1Label = document.getElementById('p1-label');
+                    const p1Bar = document.getElementById('p1-progress-bar');
+                    const p2Label = document.getElementById('p2-label');
+                    const p2Bar = document.getElementById('p2-progress-bar');
+
+                    if (p1Label) p1Label.textContent = `Cß║¡u (Thß║»ng: ${myRounds}) - ─Éiß╗âm: ${myScore}`;
+                    if (p1Bar) p1Bar.style.width = (myScore * 10) + '%';
+                    if (p2Label) p2Label.textContent = `${oppName} (Thß║»ng: ${oppRounds}) - ─Éiß╗âm: ${oppScore}`;
+                    if (p2Bar) p2Bar.style.width = (oppScore * 10) + '%';
+
+                    const myDone = isP1 ? data.p1Done : data.p2Done;
+                    const oppDone = isP1 ? data.p2Done : data.p1Done;
+
+                    if (myDone || oppDone || data.p1Score >= 10 || data.p2Score >= 10) {
+                        const p1Score = data.p1Score || 0;
+                        const p2Score = data.p2Score || 0;
+
+                        // Show client-side result first for BOTH players
+                        if (!window.roundEndingVisualTriggered) {
+                            window.roundEndingVisualTriggered = true;
+                            let winnerNum = 0;
+                            if (p1Score >= 10 && p1Score > p2Score) winnerNum = 1;
+                            else if (p2Score >= 10 && p2Score > p1Score) winnerNum = 2;
+                            else if (p1Score > p2Score) winnerNum = 1;
+                            else if (p2Score > p1Score) winnerNum = 2;
+
+                            const isDraw = winnerNum === 0;
+                            const isP1 = data.p1ID === currentUser.uid;
+                            const didIWin = (!isDraw) && ((winnerNum === 1 && isP1) || (winnerNum === 2 && !isP1));
+
+                            showRoundResultEffect(didIWin, isDraw);
+
+                            // Let the animation play before starting next round
+                            setTimeout(() => {
+                                window.roundEndingVisualTriggered = false;
+                                hideRoundEffect();
+                            }, 3000);
+                        }
+
+                        // Host handles the database reset logic
+                        if (data.hostId === currentUser.uid && !window.roundResetTriggered) {
+                            window.roundResetTriggered = true;
+
+                            let winner = 0; // 0: draw, 1: p1, 2: p2
+                            if (p1Score > p2Score) winner = 1; else if (p2Score > p1Score) winner = 2;
+
+                            let p1R = data.p1Rounds || 0;
+                            let p2R = data.p2Rounds || 0;
+                            if (winner === 1) p1R++; else if (winner === 2) p2R++;
+
+                            if (p1R >= 2 || p2R >= 2) {
+                                setTimeout(() => {
+                                    update(roomRef, {
+                                        status: 'match_end',
+                                        p1Rounds: p1R,
+                                        p2Rounds: p2R,
+                                        winnerId: (p1R > p2R) ? data.p1ID : (p2R > p1R ? data.p2ID : 'draw')
+                                    });
+                                    window.roundResetTriggered = false;
+                                }, 3000);
+                            } else {
+                                setTimeout(() => {
+                                    // Generate new questions for the new round
+                                    let mcQs = [];
+                                    allQuestions.forEach((q, i) => { if (q.type === 'mc' || q.type === 'tf') mcQs.push(i); });
+                                    let newShuffledQs = mcQs.sort(() => 0.5 - Math.random()).slice(0, 30);
+
+                                    update(roomRef, {
+                                        p1Score: 0,
+                                        p2Score: 0,
+                                        p1Done: false,
+                                        p2Done: false,
+                                        p1Rounds: p1R,
+                                        p2Rounds: p2R,
+                                        roundNum: data.roundNum + 1,
+                                        status: 'playing',
+                                        qs: newShuffledQs
+                                    });
+                                    window.roundResetTriggered = false;
+                                }, 3000);
+                            }
+                        }
+                    }
+                }
+
+                if (data.status === 'match_end') {
+                    if (!window.endGameTriggered) {
+                        window.endGameTriggered = true;
+                        const iWon = data.winnerId === currentUser.uid;
+                        const effectName = myProfile.displayName;
+                        const effectAvatar = myProfile.photoURL;
+
+                        document.getElementById('solo-playing').style.display = 'none';
+                        showMatchEndEffect(iWon, effectName, effectAvatar, function () {
+                            finishSoloGame(data.status);
+                            window.endGameTriggered = false;
+                        });
+                    }
+                }
+
+                if (data.status === 'closed') {
+                    forceExitToLobby();
+                }
+            }, (err) => { });
+        }
+
+        function renderSoloQuestion() {
+            const appDiv = document.getElementById('solo-app');
+            appDiv.innerHTML = '';
+            window.isSoloAnswering = false;
+
+            const isDone = soloMyScore >= 10 || soloCurrentIdx >= soloQs.length;
+
+            if (isDone) {
+                appDiv.innerHTML = '<div style="text-align:center; padding: 40px; font-weight: 700; color: #64748b; font-size: 18px;">Bß║ín ─æ├ú ho├án th├ánh!<br>─Éang chß╗¥ ─æß╗æi thß╗º...<br><div class="loader" style="margin-top: 20px;"></div></div>';
+
+                if (soloMyScore === 10) {
+                    showAchievement('perfect');
+                }
+
+                if (soloRoomId && currentUser) {
+                    const isP1 = soloRoomData.p1ID === currentUser.uid;
+                    update(ref(db, 'rooms/' + soloRoomId), isP1 ? { p1Done: true } : { p2Done: true });
+                }
+                return;
+            }
+
+            const qIdx = soloQs[soloCurrentIdx];
+            const q = allQuestions[qIdx];
+
+            const qBlock = document.createElement('div');
+            qBlock.className = 'question-block';
+
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = q.q;
+            qBlock.appendChild(qText);
+
+            const optionsGrid = document.createElement('div');
+            optionsGrid.className = 'options-grid';
+
+            q.o.forEach((optText, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = optText;
+
+                btn.onclick = async function () {
+                    if (window.isSoloAnswering) return;
+                    if (soloRoomData && soloRoomData.status !== 'playing') return;
+                    window.isSoloAnswering = true;
+
+                    const allBtns = optionsGrid.querySelectorAll('.option-btn');
+                    allBtns.forEach(b => b.disabled = true);
+
+                    if (optIndex === q.a) {
+                        btn.classList.add('correct-answer');
+                        soloMyScore++;
+                        soloCurrentStreak++;
+                        if (soloCurrentStreak >= 5) {
+                            if (typeof window.showAchievement === 'function') window.showAchievement('streak');
+                        }
+                    } else {
+                        btn.classList.add('wrong-answer');
+                        allBtns[q.a].classList.add('correct-answer');
+                        soloCurrentStreak = 0;
+                    }
+
+                    soloCurrentIdx++;
+
+                    if (soloRoomId && currentUser) {
+                        const isP1 = soloRoomData.p1ID === currentUser.uid;
+                        update(ref(db, 'rooms/' + soloRoomId), isP1 ? { p1Score: soloMyScore } : { p2Score: soloMyScore });
+                    }
+
+                    setTimeout(() => {
+                        renderSoloQuestion();
+                    }, 1000);
+                };
+                optionsGrid.appendChild(btn);
+            });
+
+            qBlock.appendChild(optionsGrid);
+            appDiv.appendChild(qBlock);
+        }
+
+        function finishSoloGame(status) {
+            const resultContainer = document.getElementById('solo-result');
+            resultContainer.style.display = 'block';
+
+            const resText = document.getElementById('solo-result-text');
+            const podiumWrapper = document.getElementById('podium-wrapper');
+            podiumWrapper.innerHTML = '';
+
+            const winnerId = soloRoomData ? soloRoomData.winnerId : null;
+            const iWon = winnerId === currentUser.uid;
+
+            // 1. Populate Podium
+            const sortedPlayers = Object.entries(soloRoomData.players || {})
+                .map(([id, p]) => ({ id, ...p }))
+                .sort((a, b) => b.score - a.score || b.roundsWon - a.roundsWon);
+
+            const displayPlayers = [];
+            // Order for podium: [2nd, 1st, 3rd]
+            if (sortedPlayers[1]) displayPlayers.push({ ...sortedPlayers[1], rank: 2, pos: 'second' });
+            if (sortedPlayers[0]) displayPlayers.push({ ...sortedPlayers[0], rank: 1, pos: 'first' });
+            if (sortedPlayers[2]) displayPlayers.push({ ...sortedPlayers[2], rank: 3, pos: 'third' });
+
+            displayPlayers.forEach(p => {
+                const item = document.createElement('div');
+                item.className = `podium-item ${p.pos}`;
+                item.innerHTML = `
+                    <div class="podium-rank">${p.rank}</div>
+                    <img src="${p.avatar}" class="podium-avatar" onerror="this.src='https://ui-avatars.com/api/?name=P&background=random'">
+                    <div class="podium-base"></div>
+                    <div class="podium-name">${p.name}</div>
+                `;
+                podiumWrapper.appendChild(item);
+            });
+
+            // 1.1 Full Results List (for rooms > 3 players)
+            if (sortedPlayers.length > 3) {
+                const otherList = document.createElement('div');
+                otherList.style.marginTop = '20px';
+                otherList.style.textAlign = 'left';
+                otherList.style.maxWidth = '300px';
+                otherList.style.margin = '20px auto';
+                otherList.style.display = 'flex';
+                otherList.style.flexDirection = 'column';
+                otherList.style.gap = '8px';
+
+                sortedPlayers.slice(3).forEach((p, idx) => {
+                    const row = document.createElement('div');
+                    row.style.background = '#f1f5f9';
+                    row.style.padding = '8px 15px';
+                    row.style.borderRadius = '10px';
+                    row.style.display = 'flex';
+                    row.style.justifyContent = 'space-between';
+                    row.style.fontSize = '14px';
+                    row.style.fontWeight = '700';
+                    row.innerHTML = `<span>#${idx + 4} ${p.name}</span> <span style="color:#0084ff">${p.score}─æ</span>`;
+                    otherList.appendChild(row);
+                });
+                resultContainer.insertBefore(otherList, resText);
+            }
+
+            // 2. Result Text
+            if (iWon) {
+                resText.textContent = "Bß║áN L├Ç NH├Ç V├ö ─Éß╗èCH! ≡ƒÄë";
+                resText.style.color = '#fbbf24';
+                if (!soloRewardGiven) {
+                    userCoins += 100;
+                    updateCoinDisplay();
+                    syncUserData();
+                    soloRewardGiven = true;
+                }
+            } else {
+                const winnerName = soloRoomData?.players?.[winnerId]?.name || '─Éß╗æi thß╗º';
+                resText.textContent = winnerName + " ─æ├ú gi├ánh hß║íng nhß║Ñt!";
+                resText.style.color = '#64748b';
+            }
+
+            // 3. Remake button (host only for now, hidden by default in HTML above)
+            const rBtn = document.getElementById('solo-remake-btn');
+            if (soloRoomData.hostId === currentUser.uid) {
+                rBtn.style.display = 'inline-block';
+                rBtn.textContent = 'Mß╗ƒ lß║íi ph├▓ng chß╗¥';
+                rBtn.onclick = async () => {
+                    const roomRef = ref(db, 'rooms/' + soloRoomId);
+                    const resetPlayers = {};
+                    Object.keys(soloRoomData.players).forEach(pid => {
+                        resetPlayers[pid] = {
+                            ...soloRoomData.players[pid],
+                            score: 0,
+                            isDone: false,
+                            lastIdx: 0
+                        };
+                    });
+                    await update(roomRef, {
+                        status: 'waiting',
+                        players: resetPlayers
+                    });
+                };
+            }
+        }
+
+        function initMatchGame() {
+            hideAllModes();
+            matchModeContainer.style.display = 'block';
+            matchWinMsg.style.display = 'none';
+            playMatchAgainBtn.style.display = 'none';
+            matchedPairsCount = 0;
+            matchFirstCard = null;
+            isMatchingCards = false;
+
+            let mcQs = [];
+            allQuestions.forEach(q => { if (q.type === 'mc' || q.type === 'tf') mcQs.push(q); });
+            let shuffledQs = mcQs.sort(() => 0.5 - Math.random()).slice(0, 5);
+            matchCards = [];
+
+            shuffledQs.forEach(function (q, idx) {
+                matchCards.push({ id: 'q' + idx, pairId: idx, text: q.q, type: 'q', matched: false });
+                matchCards.push({ id: 'a' + idx, pairId: idx, text: q.o[q.a], type: 'a', matched: false });
+            });
+
+            matchCards.sort(() => 0.5 - Math.random());
+            renderMatchGrid();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderMatchGrid() {
+            matchGrid.innerHTML = '';
+            matchCards.forEach(function (card) {
+                const el = document.createElement('div');
+                el.className = 'match-card';
+                if (card.matched) el.classList.add('match-matched');
+                el.innerHTML = card.text;
+
+                el.addEventListener('click', function () {
+                    if (isMatchingCards || card.matched || el.classList.contains('match-selected')) return;
+
+                    el.classList.add('match-selected');
+
+                    if (!matchFirstCard) {
+                        matchFirstCard = { card: card, el: el };
+                    } else {
+                        isMatchingCards = true;
+                        const matchSecondCard = { card: card, el: el };
+
+                        if (matchFirstCard.card.pairId === matchSecondCard.card.pairId && matchFirstCard.card.type !== matchSecondCard.card.type) {
+                            setTimeout(function () {
+                                matchFirstCard.el.className = 'match-card match-matched';
+                                matchSecondCard.el.className = 'match-card match-matched';
+                                matchFirstCard.card.matched = true;
+                                matchSecondCard.card.matched = true;
+                                matchedPairsCount++;
+                                matchFirstCard = null;
+                                isMatchingCards = false;
+
+                                if (matchedPairsCount === 5) {
+                                    matchWinMsg.style.display = 'block';
+                                    playMatchAgainBtn.style.display = 'block';
+                                }
+                            }, 300);
+                        } else {
+                            matchFirstCard.el.classList.add('match-wrong');
+                            matchSecondCard.el.classList.add('match-wrong');
+                            setTimeout(function () {
+                                matchFirstCard.el.className = 'match-card';
+                                matchSecondCard.el.className = 'match-card';
+                                matchFirstCard = null;
+                                isMatchingCards = false;
+                            }, 600);
+                        }
+                    }
+                });
+                matchGrid.appendChild(el);
+            });
+        }
+
+        matchBtn.addEventListener('click', initMatchGame);
+        playMatchAgainBtn.addEventListener('click', initMatchGame);
+
+        backQuizFromMatchBtn.addEventListener('click', function () {
+            hideAllModes();
+            quizModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function renderStudyMode() {
+            studyList.innerHTML = '';
+            const q = allQuestions[currentStudyIndex];
+
+            const card = document.createElement('div');
+            card.className = 'study-item';
+
+            const progressInfo = document.createElement('div');
+            progressInfo.style.textAlign = 'center';
+            progressInfo.style.marginBottom = '15px';
+            progressInfo.style.color = '#94a3b8';
+            progressInfo.style.fontWeight = '700';
+            progressInfo.textContent = 'Thß║╗ ' + (currentStudyIndex + 1) + ' / ' + allQuestions.length;
+            card.appendChild(progressInfo);
+
+            const qText = document.createElement('div');
+            qText.className = 'study-q';
+            qText.innerHTML = q.q;
+            card.appendChild(qText);
+
+            if (!isStudyFlipped) {
+                const flipBtn = document.createElement('button');
+                flipBtn.className = 'nav-btn next-btn';
+                flipBtn.style.marginTop = '20px';
+                flipBtn.textContent = 'Lß║¡t xem giß║úi th├¡ch';
+                flipBtn.onclick = function () {
+                    isStudyFlipped = true;
+                    renderStudyMode();
+                };
+                card.appendChild(flipBtn);
+            } else {
+                const aText = document.createElement('div');
+                aText.className = 'study-a';
+                aText.innerHTML = '─É├íp ├ín: ' + (q.type === 'mc' || q.type === 'tf' ? q.o[q.a] : q.a);
+
+                const eText = document.createElement('div');
+                eText.className = 'study-e';
+                eText.innerHTML = 'Giß║úi th├¡ch: ' + q.e;
+
+                card.appendChild(aText);
+                card.appendChild(eText);
+
+                const nextCardBtn = document.createElement('button');
+                nextCardBtn.className = 'nav-btn next-btn';
+                nextCardBtn.style.marginTop = '25px';
+                if (currentStudyIndex < allQuestions.length - 1) {
+                    nextCardBtn.textContent = 'Thß║╗ tiß║┐p theo';
+                    nextCardBtn.onclick = function () {
+                        currentStudyIndex++;
+                        isStudyFlipped = false;
+                        renderStudyMode();
+                    };
+                } else {
+                    nextCardBtn.textContent = 'Quay lß║íi tß╗½ ─æß║ºu';
+                    nextCardBtn.onclick = function () {
+                        currentStudyIndex = 0;
+                        isStudyFlipped = false;
+                        renderStudyMode();
+                    };
+                }
+                card.appendChild(nextCardBtn);
+            }
+
+            const navRow = document.createElement('div');
+            navRow.className = 'study-nav-row';
+
+            const prevCardBtn = document.createElement('button');
+            prevCardBtn.className = 'flashcard-btn';
+            prevCardBtn.textContent = 'Thß║╗ tr╞░ß╗¢c';
+            if (currentStudyIndex === 0) {
+                prevCardBtn.style.opacity = '0.5';
+                prevCardBtn.style.cursor = 'not-allowed';
+            } else {
+                prevCardBtn.onclick = function () {
+                    currentStudyIndex--;
+                    isStudyFlipped = false;
+                    renderStudyMode();
+                };
+            }
+            navRow.appendChild(prevCardBtn);
+
+            const randomCardBtn = document.createElement('button');
+            randomCardBtn.className = 'flashcard-btn';
+            randomCardBtn.textContent = 'R├║t ngß║½u nhi├¬n';
+            randomCardBtn.onclick = function () {
+                currentStudyIndex = Math.floor(Math.random() * allQuestions.length);
+                isStudyFlipped = false;
+                renderStudyMode();
+            };
+            navRow.appendChild(randomCardBtn);
+
+            card.appendChild(navRow);
+            studyList.appendChild(card);
+        }
+
+        studyBtn.addEventListener('click', function () {
+            hideAllModes();
+            studyModeContainer.style.display = 'block';
+            renderStudyMode();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        backQuizFromStudyBtn.addEventListener('click', function () {
+            hideAllModes();
+            quizModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function renderWrongMode() {
+            wrongList.innerHTML = '';
+
+            let wrongItems = [];
+            for (let i = 0; i < activeQuestions.length; i++) {
+                if (wrongCounts[i] > 0) {
+                    wrongItems.push({ q: activeQuestions[i], count: wrongCounts[i] });
+                }
+            }
+
+            wrongItems.sort((a, b) => b.count - a.count);
+
+            if (wrongItems.length === 0) {
+                const msg = document.createElement('div');
+                msg.className = 'info-msg tips-msg show-msg';
+                msg.style.textAlign = 'center';
+                msg.textContent = 'Kh├┤ng c├│ c├óu sai n├áo!';
+                wrongList.appendChild(msg);
+                return;
+            }
+
+            wrongItems.forEach(function (item) {
+                const card = document.createElement('div');
+                card.className = 'study-item';
+
+                const countInfo = document.createElement('div');
+                countInfo.style.textAlign = 'center';
+                countInfo.style.marginBottom = '15px';
+                countInfo.style.color = '#ef4444';
+                countInfo.style.fontWeight = '700';
+                countInfo.textContent = '─É├ú sai: ' + item.count + ' lß║ºn';
+                card.appendChild(countInfo);
+
+                const qText = document.createElement('div');
+                qText.className = 'study-q';
+                qText.innerHTML = item.q.q;
+                card.appendChild(qText);
+
+                const aText = document.createElement('div');
+                aText.className = 'study-a';
+                aText.innerHTML = '─É├íp ├ín: ' + (item.q.type === 'mc' || item.q.type === 'tf' ? item.q.o[item.q.a] : item.q.a);
+                card.appendChild(aText);
+
+                const eText = document.createElement('div');
+                eText.className = 'study-e';
+                eText.innerHTML = 'Giß║úi th├¡ch: ' + item.q.e;
+                card.appendChild(eText);
+
+                wrongList.appendChild(card);
+            });
+        }
+
+        wrongBtn.addEventListener('click', function () {
+            hideAllModes();
+            wrongModeContainer.style.display = 'block';
+            renderWrongMode();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        backQuizFromWrongBtn.addEventListener('click', function () {
+            hideAllModes();
+            quizModeContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function updateProgress() {
+            let currentMastery = 0;
+            for (let i = 0; i < correctCounts.length; i++) {
+                currentMastery += correctCounts[i];
+            }
+            const totalMastery = activeQuestions.length * TARGET_MASTERY;
+            let percent = 0;
+            if (totalMastery > 0) percent = (currentMastery / totalMastery) * 100;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = 'Tiß║┐n ─æß╗Ö thuß╗Öc b├ái: ' + currentMastery + ' / ' + totalMastery;
+        }
+
+        function processAnswer(index, isCorrect, useProtect = false, isPass = false) {
+            currentQuestionAnswered = true;
+            totalAttempts++;
+            if (isPass) {
+                correctCounts[index] = TARGET_MASTERY;
+                betWonLost = 0;
+            } else if (isCorrect) {
+                correctCounts[index]++;
+                betWonLost = currentBet;
+                userCoins += currentBet;
+            } else {
+                wrongCounts[index]++;
+                if (useProtect && inventory.protect > 0) {
+                    inventory.protect--;
+                    betWonLost = 0;
+                } else {
+                    betWonLost = -currentBet;
+                    userCoins -= currentBet;
+                }
+            }
+            updateCoinDisplay();
+            updateInventoryDisplay();
+            syncUserData();
+            renderQuestion(index);
+        }
+
+        function renderArrangeUI(qBlock, index, q) {
+            if (!currentQuestionAnswered && selectedArrangeWords.length === 0 && poolArrangeWords.length === 0) {
+                poolArrangeWords = [...q.words];
+            }
+
+            const answerDiv = document.createElement('div');
+            answerDiv.className = 'arrange-answer';
+
+            const poolDiv = document.createElement('div');
+            poolDiv.className = 'arrange-pool';
+
+            const renderWords = () => {
+                answerDiv.innerHTML = '';
+                poolDiv.innerHTML = '';
+
+                if (selectedArrangeWords.length === 0) {
+                    const placeholder = document.createElement('span');
+                    placeholder.style.color = '#64748b';
+                    placeholder.textContent = 'K├⌐o/chß╗ìn tß╗½ ß╗ƒ d╞░ß╗¢i ─æß╗â ─æ╞░a l├¬n ─æ├óy...';
+                    answerDiv.appendChild(placeholder);
+                }
+
+                selectedArrangeWords.forEach((word, i) => {
+                    let btn = document.createElement('button');
+                    btn.className = 'word-btn';
+                    btn.textContent = word;
+                    btn.onclick = () => {
+                        if (currentQuestionAnswered) return;
+                        poolArrangeWords.push(word);
+                        selectedArrangeWords.splice(i, 1);
+                        renderWords();
+                    }
+                    answerDiv.appendChild(btn);
+                });
+
+                poolArrangeWords.forEach((word, i) => {
+                    let btn = document.createElement('button');
+                    btn.className = 'word-btn';
+                    btn.textContent = word;
+                    btn.onclick = () => {
+                        if (currentQuestionAnswered) return;
+                        selectedArrangeWords.push(word);
+                        poolArrangeWords.splice(i, 1);
+                        renderWords();
+                    }
+                    poolDiv.appendChild(btn);
+                });
+            };
+
+            renderWords();
+            qBlock.appendChild(answerDiv);
+            qBlock.appendChild(poolDiv);
+
+            if (!currentQuestionAnswered) {
+                const checkBtn = document.createElement('button');
+                checkBtn.className = 'nav-btn next-btn';
+                checkBtn.textContent = 'Kiß╗âm tra c├óu n├áy';
+                checkBtn.onclick = () => {
+                    const userStr = selectedArrangeWords.join(' ');
+                    if (userStr === q.a) {
+                        processAnswer(index, true);
+                    } else {
+                        processAnswer(index, false, true);
+                    }
+                }
+                qBlock.appendChild(checkBtn);
+            } else {
+                if (selectedArrangeWords.join(' ') === q.a || isPassUsed || currentSelection === -1) {
+                    answerDiv.style.borderColor = '#059669';
+                    answerDiv.style.backgroundColor = '#064e3b';
+                } else {
+                    answerDiv.style.borderColor = '#dc2626';
+                    answerDiv.style.backgroundColor = '#7f1d1d';
+                }
+            }
+        }
+
+        function renderQuestion(index) {
+            app.innerHTML = '';
+
+            if (activeQuestions.length === 0) {
+                app.innerHTML = '<div style="text-align:center; padding: 40px; color: #94a3b8; font-weight: 700; font-size: 18px;">Kh├┤ng c├│ c├óu hß╗Åi n├áo!</div>';
+                return;
+            }
+
+            updateProgress();
+            updateCoinDisplay();
+            updateInventoryDisplay();
+
+            if (window.quizTimer) clearInterval(window.quizTimer);
+
+            const qBlock = document.createElement('div');
+            qBlock.className = 'question-block';
+
+            if (!currentQuestionAnswered && userCoins <= 0 && inventory.protect === 0) {
+                userCoins = 50;
+                currentBet = 10;
+                selectedBetStr = '10';
+                updateCoinDisplay();
+                syncUserData();
+
+                const bailoutMsg = document.createElement('div');
+                bailoutMsg.style.padding = '10px';
+                bailoutMsg.style.backgroundColor = '#1e293b';
+                bailoutMsg.style.color = '#fbbf24';
+                bailoutMsg.style.borderRadius = '12px';
+                bailoutMsg.style.marginBottom = '15px';
+                bailoutMsg.style.fontWeight = '700';
+                bailoutMsg.style.textAlign = 'center';
+                bailoutMsg.style.border = '1px dashed #475569';
+                bailoutMsg.textContent = 'Cß║Ñp vß╗æn lß║íi 50 Xu!';
+                qBlock.appendChild(bailoutMsg);
+            }
+
+            if (!currentQuestionAnswered && currentBet > userCoins) {
+                currentBet = userCoins;
+                selectedBetStr = 'Tß║Ñt tay';
+            }
+
+            const q = activeQuestions[index];
+
+            const masteryBadge = document.createElement('div');
+            masteryBadge.className = 'mastery-badge';
+            masteryBadge.textContent = 'Mß╗⌐c ─æß╗Ö thuß╗Öc: ' + correctCounts[index] + '/' + TARGET_MASTERY + ' lß║ºn';
+            qBlock.appendChild(masteryBadge);
+
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = q.q;
+            qBlock.appendChild(qText);
+
+            if (!currentQuestionAnswered) {
+                const betContainer = document.createElement('div');
+                betContainer.className = 'bet-container';
+                betContainer.textContent = 'Chß╗ìn mß╗⌐c c╞░ß╗úc: ';
+
+                const betAmounts = [10, 30, 50, 'Tß║Ñt tay'];
+                betAmounts.forEach(function (amount) {
+                    const btn = document.createElement('button');
+                    btn.className = 'bet-btn';
+                    let amtValue = amount === 'Tß║Ñt tay' ? userCoins : amount;
+
+                    if (amount.toString() === selectedBetStr) btn.classList.add('bet-selected');
+                    if (amount !== 'Tß║Ñt tay' && amount > userCoins) {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.3';
+                        btn.style.cursor = 'not-allowed';
+                    }
+                    btn.textContent = amount;
+                    btn.onclick = function () {
+                        selectedBetStr = amount.toString();
+                        currentBet = amtValue;
+                        renderQuestion(index);
+                    };
+                    betContainer.appendChild(btn);
+                });
+                qBlock.appendChild(betContainer);
+            }
+
+            if (q.type === 'arrange') {
+                renderArrangeUI(qBlock, index, q);
+            } else {
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                q.o.forEach((optText, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = optText;
+
+                    if (currentQuestionAnswered) {
+                        btn.disabled = true;
+                        if (optIndex === q.a) {
+                            btn.classList.add('correct-answer');
+                        } else if (currentSelection === optIndex) {
+                            btn.classList.add('wrong-answer');
+                        } else {
+                            btn.classList.add('neutral-answer');
+                        }
+                    } else {
+                        btn.addEventListener('click', function () {
+                            currentSelection = optIndex;
+                            if (currentSelection === q.a) {
+                                processAnswer(index, true);
+                            } else {
+                                processAnswer(index, false, true);
+                            }
+                        });
+                    }
+                    optionsGrid.appendChild(btn);
+                });
+                qBlock.appendChild(optionsGrid);
+            }
+
+            if (!currentQuestionAnswered) {
+                const toolsRow = document.createElement('div');
+                toolsRow.className = 'study-nav-row tools-row';
+                toolsRow.style.marginTop = '25px';
+
+                if (inventory.pass1 > 0) {
+                    const passBtn = document.createElement('button');
+                    passBtn.className = 'action-btn pass-btn';
+                    passBtn.style.flex = '1';
+                    passBtn.textContent = 'D├╣ng Thß║╗ Pass';
+                    passBtn.onclick = function () {
+                        inventory.pass1--;
+                        isPassUsed = true;
+                        processAnswer(index, true, false, true);
+                    };
+                    toolsRow.appendChild(passBtn);
+                }
+
+                if (q.type === 'mc' || q.type === 'tf') {
+                    const fiftyBtn = document.createElement('button');
+                    fiftyBtn.className = 'action-btn motivate-btn';
+                    fiftyBtn.style.flex = '1';
+
+                    if (inventory.help > 0) {
+                        fiftyBtn.textContent = '50/50 (Thß║╗)';
+                        fiftyBtn.onclick = function () {
+                            inventory.help--;
+                            updateInventoryDisplay();
+                            let wrongIndexes = [];
+                            for (let i = 0; i < q.o.length; i++) { if (i !== q.a) wrongIndexes.push(i); }
+                            wrongIndexes.sort(() => Math.random() - 0.5);
+                            const optionBtns = qBlock.querySelector('.options-grid').children;
+                            if (wrongIndexes.length > 0) optionBtns[wrongIndexes[0]].classList.add('hidden-option');
+                            if (wrongIndexes.length > 1) optionBtns[wrongIndexes[1]].classList.add('hidden-option');
+                            fiftyBtn.style.display = 'none';
+                        };
+                    } else {
+                        fiftyBtn.textContent = '50/50 (20 Xu)';
+                        if (userCoins < 20) {
+                            fiftyBtn.disabled = true;
+                            fiftyBtn.style.opacity = '0.5';
+                        } else {
+                            fiftyBtn.onclick = function () {
+                                userCoins -= 20;
+                                updateCoinDisplay();
+                                syncUserData();
+                                let wrongIndexes = [];
+                                for (let i = 0; i < q.o.length; i++) { if (i !== q.a) wrongIndexes.push(i); }
+                                wrongIndexes.sort(() => Math.random() - 0.5);
+                                const optionBtns = qBlock.querySelector('.options-grid').children;
+                                if (wrongIndexes.length > 0) optionBtns[wrongIndexes[0]].classList.add('hidden-option');
+                                if (wrongIndexes.length > 1) optionBtns[wrongIndexes[1]].classList.add('hidden-option');
+                                fiftyBtn.style.display = 'none';
+                            };
+                        }
+                    }
+                    toolsRow.appendChild(fiftyBtn);
+                }
+
+                const giveUpBtn = document.createElement('button');
+                giveUpBtn.className = 'action-btn give-up-btn';
+                giveUpBtn.style.flex = '1';
+                giveUpBtn.textContent = 'Mß╗ƒ ─æ├íp ├ín';
+                giveUpBtn.onclick = function () {
+                    currentSelection = -1;
+                    currentQuestionAnswered = true;
+                    totalAttempts++;
+                    correctCounts[index] = 0;
+                    wrongCounts[index]++;
+                    betWonLost = 0;
+                    renderQuestion(index);
+                };
+                toolsRow.appendChild(giveUpBtn);
+                qBlock.appendChild(toolsRow);
+            }
+
+            if (currentQuestionAnswered) {
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.style.marginTop = '15px';
+                feedbackDiv.style.fontWeight = '700';
+                feedbackDiv.style.fontSize = '16px';
+
+                let isRight = ((q.type === 'mc' || q.type === 'tf') && currentSelection === q.a) || (q.type === 'arrange' && selectedArrangeWords.join(' ') === q.a);
+
+                if (isPassUsed) {
+                    feedbackDiv.style.color = '#d946ef';
+                    feedbackDiv.textContent = '─É├ú d├╣ng thß║╗ Pass!';
+                    isPassUsed = false;
+                } else if (isRight) {
+                    feedbackDiv.style.color = '#34d399';
+                    let txt = 'Ch├¡nh x├íc! Thß║»ng ' + betWonLost + ' Xu!';
+                    feedbackDiv.textContent = txt;
+                } else if (currentSelection === -1) {
+                    feedbackDiv.style.color = '#fbbf24';
+                    feedbackDiv.textContent = '─É├ú mß╗ƒ ─æ├íp ├ín!';
+                } else {
+                    if (betWonLost === 0) {
+                        feedbackDiv.style.color = '#fbbf24';
+                        feedbackDiv.textContent = 'Thß║╗ Bß║úo Vß╗ç ─æ├ú gi├║p cß║¡u kh├┤ng mß║Ñt Xu!';
+                    } else {
+                        feedbackDiv.style.color = '#ef4444';
+                        feedbackDiv.textContent = 'Sai rß╗ôi! Trß╗½ ' + Math.abs(betWonLost) + ' Xu!';
+                    }
+                }
+                qBlock.appendChild(feedbackDiv);
+
+                const explanationBox = document.createElement('div');
+                explanationBox.className = 'explanation-box';
+
+                const expTitle = document.createElement('div');
+                expTitle.className = 'explanation-title';
+                expTitle.textContent = 'Giß║úi th├¡ch:';
+
+                const expContent = document.createElement('div');
+                expContent.className = 'explanation-content';
+                expContent.innerHTML = q.e;
+
+                explanationBox.appendChild(expTitle);
+                explanationBox.appendChild(expContent);
+                qBlock.appendChild(explanationBox);
+
+                if (isPassUsed) {
+                    nextBtn.disabled = false;
+                    setNormalNextBtnText();
+                } else {
+                    let delay = isRight ? 1 : 4;
+                    nextBtn.disabled = true;
+                    nextBtn.textContent = 'Chß╗¥ (' + delay + 's)...';
+                    window.quizTimer = setInterval(function () {
+                        delay--;
+                        if (delay <= 0) {
+                            clearInterval(window.quizTimer);
+                            nextBtn.disabled = false;
+                            setNormalNextBtnText();
+                        } else {
+                            nextBtn.textContent = 'Chß╗¥ (' + delay + 's)...';
+                        }
+                    }, 1000);
+                }
+            }
+
+            app.appendChild(qBlock);
+
+            if (!currentQuestionAnswered) {
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'C├óu tiß║┐p theo';
+            }
+
+            function setNormalNextBtnText() {
+                let isDone = true;
+                for (let i = 0; i < correctCounts.length; i++) {
+                    if (correctCounts[i] < TARGET_MASTERY) {
+                        isDone = false;
+                        break;
+                    }
+                }
+                if (isDone) {
+                    nextBtn.textContent = 'Ho├án Th├ánh';
+                } else {
+                    nextBtn.textContent = 'C├óu tiß║┐p theo';
+                }
+            }
+        }
+
+        function showResults() {
+            app.innerHTML = '';
+            progressContainer.style.display = 'none';
+            progressText.style.display = 'none';
+            navigationDiv.style.display = 'none';
+            reviewTitle.style.display = 'block';
+
+            let accuracy = Math.round((activeQuestions.length * TARGET_MASTERY / totalAttempts) * 100);
+
+            resultText.textContent = 'Xuß║Ñt sß║»c!';
+
+            let compliment = '';
+            if (accuracy >= 90) {
+                compliment = 'Tuyß╗çt vß╗¥i!';
+            } else if (accuracy >= 70) {
+                compliment = 'Rß║Ñt tß╗æt!';
+            } else {
+                compliment = 'Cß╗æ gß║»ng h╞ín nh├⌐!';
+            }
+            complimentText.textContent = compliment;
+            resultDiv.style.display = 'block';
+
+            activeQuestions.forEach((q) => {
+                const qBlock = document.createElement('div');
+                qBlock.className = 'question-block';
+
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerHTML = q.q;
+                qBlock.appendChild(qText);
+
+                const explanationBox = document.createElement('div');
+                explanationBox.className = 'explanation-box';
+
+                const expTitle = document.createElement('div');
+                expTitle.className = 'explanation-title';
+                expTitle.innerHTML = '─É├íp ├ín: ' + (q.type === 'mc' || q.type === 'tf' ? q.o[q.a] : q.a);
+
+                const expContent = document.createElement('div');
+                expContent.className = 'explanation-content';
+                expContent.style.marginTop = '10px';
+                expContent.innerHTML = q.e;
+
+                explanationBox.appendChild(expTitle);
+                explanationBox.appendChild(expContent);
+                qBlock.appendChild(explanationBox);
+
+                app.appendChild(qBlock);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        nextBtn.addEventListener('click', function () {
+            if (!currentQuestionAnswered) return;
+
+            let nextIndex = (currentIndex + 1) % activeQuestions.length;
+            let found = false;
+
+            for (let i = 0; i < activeQuestions.length; i++) {
+                if (correctCounts[nextIndex] < TARGET_MASTERY) {
+                    currentIndex = nextIndex;
+                    found = true;
+                    break;
+                }
+                nextIndex = (nextIndex + 1) % activeQuestions.length;
+            }
+
+            if (found) {
+                currentQuestionAnswered = false;
+                currentSelection = null;
+                selectedArrangeWords = [];
+                poolArrangeWords = [];
+                renderQuestion(currentIndex);
+            } else {
+                showResults();
+            }
+        });
+
+        updateCoinDisplay();
+        updateInventoryDisplay();
+        renderQuestion(currentIndex);
+    </script>
+</body>
+
+</html>
