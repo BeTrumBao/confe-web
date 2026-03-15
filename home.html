@@ -2142,9 +2142,9 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDoc, doc, where, updateDoc, deleteDoc, arrayUnion, increment, runTransaction, getDocs, limit, setDoc, limitToLast } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDoc, doc, where, updateDoc, deleteDoc, arrayUnion, increment, runTransaction, getDocs, limit, setDoc, limitToLast } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
@@ -2368,7 +2368,7 @@
                         avt = d.data().photoURL || avt;
                         frame = d.data().avatarFrame || 'none';
                     }
-                } catch { }
+                } catch(e) { }
                 const guestBanner = u.isAnonymous ? `
                     <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
                          <b>👤 Tư cách khách</b><br>
