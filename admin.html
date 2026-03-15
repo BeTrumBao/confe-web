@@ -9,8 +9,9 @@
     <style>
         :root {
             --primary: #2563eb;
-            --primary-light: #eff6ff;
-            --bg: #f8fafc;
+            --primary-light: rgba(37, 99, 235, 0.08);
+            --primary-glow: rgba(37, 99, 235, 0.15);
+            --bg: #eff3f8;
             --surface: #ffffff;
             --text: #0f172a;
             --text-gray: #64748b;
@@ -18,11 +19,18 @@
             --sidebar-width: 280px;
             --danger: #e11d48;
             --success: #16a34a;
+            --glass: rgba(255, 255, 255, 0.7);
+            --radius-xl: 24px;
+            --radius-l: 18px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
@@ -55,130 +63,167 @@
             100% { transform: scale(1); }
         }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR GLASSMORPHISM --- */
         .sidebar {
-            width: var(--sidebar-width); background: var(--surface);
-            border-right: 1px solid var(--border); display: flex; flex-direction: column;
-            padding: 30px 20px; z-index: 100;
+            width: var(--sidebar-width); 
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex; flex-direction: column;
+            padding: 35px 24px; z-index: 100;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
         }
         .logo {
             font-size: 24px; font-weight: 800; color: var(--primary);
-            display: flex; align-items: center; gap: 10px; margin-bottom: 40px;
-            text-decoration: none;
+            display: flex; align-items: center; gap: 12px; margin-bottom: 45px;
+            text-decoration: none; padding-left: 8px;
         }
-        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .logo span {
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .nav-item {
-            padding: 12px 16px; border-radius: 12px; cursor: pointer;
-            display: flex; align-items: center; gap: 12px; font-weight: 600;
-            color: var(--text-gray); transition: 0.2s; text-decoration: none;
-            border: none; background: none; width: 100%; text-align: left;
+            padding: 14px 18px; border-radius: var(--radius-l); cursor: pointer;
+            display: flex; align-items: center; gap: 14px; font-weight: 600;
+            color: var(--text-gray); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-decoration: none; border: none; background: transparent; 
+            width: 100%; text-align: left; position: relative;
         }
-        .nav-item:hover { background: var(--bg); color: var(--text); }
-        .nav-item.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-        .nav-item .material-symbols-rounded { font-size: 22px; }
+        .nav-item:hover { background: rgba(37, 99, 235, 0.05); color: var(--primary); transform: translateX(5px); }
+        .nav-item.active { 
+            background: var(--primary); color: #fff; 
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+        }
+        .nav-item .material-symbols-rounded { font-size: 22px; transition: 0.3s; }
+        .nav-item.active .material-symbols-rounded { font-variation-settings: 'FILL' 1; }
 
         /* --- MAIN CONTENT --- */
         .main {
-            flex: 1; overflow-y: auto; padding: 40px;
+            flex: 1; overflow-y: auto; padding: 45px 50px;
+            background-image: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
         }
         .header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 45px;
         }
-        .page-title h1 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
-        .page-title p { color: var(--text-gray); font-weight: 500; }
+        .page-title h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .page-title p { color: var(--text-gray); font-weight: 500; font-size: 15px; }
 
         /* --- SECTIONS --- */
         .admin-section { display: none; }
-        .admin-section.active { display: block; animation: fadeIn 0.3s ease; }
+        .admin-section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- STAT CARDS --- */
+        .btn {
+            padding: 12px 24px; border-radius: 14px; font-weight: 700; font-size: 14px; cursor: pointer;
+            border: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25); }
+        .btn-ghost { background: #f1f5f9; color: var(--text); }
+        .btn-ghost:hover { background: #e2e8f0; }
+
+        /* --- DASHBOARD CONTENT --- */
+        .top-stats-row {
+            display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 30px;
+        }
+        .chart-box {
+            background: var(--surface); border-radius: var(--radius-xl); 
+            padding: 30px; border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
         .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
             margin-bottom: 40px;
         }
         .stat-card {
-            background: var(--surface); padding: 24px; border-radius: 20px;
-            border: 1px solid var(--border); display: flex; align-items: center; gap: 16px;
+            background: var(--surface); padding: 28px; border-radius: var(--radius-xl);
+            border: 1px solid var(--border); display: flex; align-items: center; gap: 20px;
+            transition: all 0.3s ease; box-shadow: var(--shadow-sm);
         }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
         .stat-icon {
-            width: 50px; height: 50px; border-radius: 14px; display: flex;
-            align-items: center; justify-content: center; font-size: 24px;
+            width: 54px; height: 54px; border-radius: 18px; display: flex;
+            align-items: center; justify-content: center; font-size: 26px;
         }
-        .stat-info h3 { font-size: 24px; font-weight: 800; }
-        .stat-info p { font-size: 13px; color: var(--text-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-info h3 { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
+        .stat-info p { font-size: 12px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- TABLE --- */
+        /* --- TABLE & TOOLS --- */
         .content-box {
-            background: var(--surface); border-radius: 24px; border: 1px solid var(--border);
-            overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 30px;
+            background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border);
+            overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 35px;
         }
-        .box-title { padding: 24px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .box-title h2 { font-size: 18px; font-weight: 700; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { background: #fafafa; text-align: left; padding: 16px 30px; font-size: 12px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
-        .data-table td { padding: 16px 30px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
-        .user-cell { display: flex; align-items: center; gap: 12px; }
-        .user-avt { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-        .uid-pill { font-family: monospace; font-size: 11px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; color: #475569; }
+        .box-title { 
+            padding: 26px 35px; border-bottom: 1px solid var(--border); 
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to right, #ffffff, #fafafa);
+        }
+        .box-title h2 { font-size: 20px; font-weight: 800; }
+        
+        .box-tools { display: flex; gap: 12px; align-items: center; }
+        .search-wrapper { position: relative; width: 280px; }
+        .search-wrapper input {
+            width: 100%; padding: 10px 15px 10px 40px; border-radius: 12px;
+            border: 1px solid var(--border); outline: none; font-size: 14px;
+            background: var(--bg); transition: 0.3s;
+        }
+        .search-wrapper input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-light); }
+        .search-wrapper .material-symbols-rounded {
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            font-size: 18px; color: var(--text-gray);
+        }
 
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { background: #fafafa; text-align: left; padding: 20px 35px; font-size: 11px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; }
+        .data-table td { padding: 20px 35px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; transition: 0.2s; }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: #fcfdfe; }
+        
+        .user-cell { display: flex; align-items: center; gap: 14px; }
+        .user-avt { width: 40px; height: 40px; border-radius: 14px; object-fit: cover; box-shadow: var(--shadow-sm); }
+        .uid-pill { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; color: #475569; font-weight: 600; }
+
+        .badge { padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .badge.admin { background: #fee2e2; color: #991b1b; }
         .badge.user { background: #eff6ff; color: #1e40af; }
         .badge.verified { background: #dcfce7; color: #166534; }
         .badge.banned { background: #1e293b; color: white; }
 
         .action-btn {
-            background: none; border: none; padding: 8px; border-radius: 8px; cursor: pointer;
-            color: var(--text-gray); transition: 0.2s; display: inline-flex; align-items: center;
-            gap: 4px; font-size: 12px; font-weight: 600;
+            background: #f8fafc; border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; cursor: pointer;
+            color: var(--text-gray); transition: all 0.2s ease; display: inline-flex; align-items: center;
+            gap: 6px; font-size: 12px; font-weight: 700;
         }
-        .action-btn:hover { background: #f1f5f9; color: var(--text); }
-        .action-btn.delete:hover { background: #fff1f2; color: var(--danger); }
-        .action-btn.verify:hover { background: #dcfce7; color: var(--success); }
-        .action-btn.ban:hover { background: #f1f5f9; color: var(--text); }
-        .action-btn .material-symbols-rounded { font-size: 20px; }
-
-        .btn {
-            padding: 10px 20px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
-            border: none; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #1d4ed8; }
+        .action-btn:hover { background: white; color: var(--primary); border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .action-btn.delete:hover { border-color: var(--danger); color: var(--danger); background: #fff1f2; }
+        .action-btn.verify:hover { border-color: var(--success); color: var(--success); background: #f0fdf4; }
+        .action-btn .material-symbols-rounded { font-size: 18px; }
 
         .btn-logout {
-            margin-top: auto; padding: 12px; background: #fff1f2; color: #e11d48;
-            border: none; border-radius: 12px; font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: auto; padding: 15px; background: rgba(225, 29, 72, 0.05); color: #e11d48;
+            border: 1px solid rgba(225, 29, 72, 0.1); border-radius: 16px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
         }
-        .btn-logout:hover { background: #ffe4e6; }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4);
-            z-index: 1000; display:none; align-items:center; justify-content:center;
-            backdrop-filter: blur(4px);
-        }
-        .modal-overlay.active { display:flex; animation: fadeIn 0.2s; }
-        .modal-card {
-            background: white; border-radius: 24px; padding: 30px; width: 100%; max-width: 500px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display:block; margin-bottom:8px; font-size:13px; font-weight:700; color:var(--text-gray); }
-        .input-group input { width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); font-size:14px; outline:none; }
-        .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+        .btn-logout:hover { background: #e11d48; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(225, 29, 72, 0.3); }
 
         /* --- JSON GENERATOR --- */
-        .gen-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .gen-card { background: #f8fafc; border-radius: 16px; padding: 20px; border: 1px solid var(--border); }
-        .gen-card h3 { font-size: 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-        .form-row { margin-bottom: 16px; }
-        .form-row label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--text-gray); }
+        .gen-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .gen-card { background: white; border-radius: var(--radius-xl); padding: 30px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .gen-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        
+        .inp { width: 100%; padding: 12px 18px; border-radius: 14px; border: 1.5px solid var(--border); font-size: 14px; font-weight: 600; outline: none; transition: 0.3s; background: #fafafa; }
+        .inp:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 5px var(--primary-light); }
+        
         .json-preview {
-            width: 100%; height: 120px; background: #1e293b; color: #f1f5f9; padding: 12px;
-            border-radius: 12px; font-family: monospace; font-size: 12px; margin-top: 12px;
-            border: none; resize: vertical;
+            width: 100%; height: 140px; background: #0f172a; color: #94a3b8; padding: 18px;
+            border-radius: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-top: 15px;
+            border: none; resize: vertical; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); line-height: 1.6;
         }
         .item-row {
             background: white; border: 1px solid var(--border); border-radius: 12px;
@@ -189,10 +234,64 @@
             cursor: pointer; font-size: 18px;
         }
 
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.4);
+            z-index: 1000; display:none; align-items:center; justify-content:center;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        }
+        .modal-overlay.active { display:flex; animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .modal-card {
+            background: white; border-radius: 30px; padding: 40px; width: 100%; max-width: 550px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border: 1px solid var(--border);
+        }
+        .input-group { margin-bottom: 24px; }
+        .input-group label { display:block; margin-bottom:10px; font-size:12px; font-weight:800; color:var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-group input, .input-group textarea { width:100%; padding:14px 18px; border-radius: 14px; border:1.5px solid var(--border); font-size: 14px; font-weight: 600; outline: none; transition: 0.3s; background: #fafafa; }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 5px var(--primary-light); }
+
         @media (max-width: 1024px) {
             .gen-container { grid-template-columns: 1fr; }
         }
+
+        /* --- CUSTOM DIALOG & TOAST --- */
+        .conf-dialog-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); z-index: 11000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        }
+        .conf-dialog-overlay.active { display: flex; animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .conf-dialog-card {
+            background: white; border-radius: 24px; padding: 35px; width: 90%; max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); text-align: center;
+        }
+        .conf-dialog-icon {
+            width: 64px; height: 64px; border-radius: 20px; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center; font-size: 32px;
+        }
+        .conf-dialog-title { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+        .conf-dialog-msg { color: var(--text-gray); font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
+        .conf-dialog-actions { display: flex; gap: 12px; justify-content: center; }
+
+        .toast-container {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 12000; pointer-events: none; display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            background: #1e293b; color: white; padding: 14px 24px; border-radius: 16px;
+            font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); animation: toastIn 0.3s forwards, toastOut 0.3s 2.7s forwards;
+            opacity: 0;
+        }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
 
@@ -204,6 +303,50 @@
         <p style="color: var(--text-gray);">Chỉ dành cho quản trị viên hệ thống</p>
     </div>
 
+
+    <!-- CUSTOM DIALOG -->
+    <div id="conf-dialog" class="conf-dialog-overlay">
+        <div class="conf-dialog-card">
+            <div id="conf-dialog-icon-wrap" class="conf-dialog-icon"></div>
+            <h3 id="conf-dialog-title" class="conf-dialog-title">Xác nhận</h3>
+            <p id="conf-dialog-msg" class="conf-dialog-msg">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            <div class="conf-dialog-actions">
+                <button id="conf-dialog-cancel" class="btn btn-ghost" style="flex: 1;">Hủy</button>
+                <button id="conf-dialog-confirm" class="btn btn-primary" style="flex: 1;">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- TOPIC COMMENTS MODAL -->
+    <div id="topicCommentsModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 800px; max-height: 85vh; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h2 id="commentModalTitle">Quản lý bình luận</h2>
+                <button class="action-btn" onclick="closeCommentModal()"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            
+            <div style="flex: 1; overflow-y: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Người dùng</th>
+                            <th>Nội dung bình luận</th>
+                            <th>Ngày đăng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comment-list"></tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: right;">
+                <button class="btn btn-ghost" onclick="closeCommentModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
 
     <!-- USER PROFILE MODAL -->
     <div id="userProfileModal" class="modal-overlay">
@@ -247,33 +390,43 @@
 
         <!-- DASHBOARD SECTION -->
         <div id="section-dashboard" class="admin-section active">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#eff6ff; color:#2563eb;"><span class="material-symbols-rounded">person</span></div>
-                    <div class="stat-info">
-                        <p>Tổng User</p>
-                        <h3 id="stat-users">...</h3>
+            <div class="top-stats-row">
+                <div class="chart-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng & bài viết</div>
                     </div>
+                    <div id="activity-chart" style="min-height:280px;"></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#f0fdf4; color:#16a34a;"><span class="material-symbols-rounded">forum</span></div>
-                    <div class="stat-info">
-                        <p>Bài viết</p>
-                        <h3 id="stat-topics">...</h3>
+                <div style="display:flex; flex-direction:column; gap:24px;">
+                    <div class="stat-card" style="padding: 24px;">
+                        <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span class="material-symbols-rounded">person</span></div>
+                        <div class="stat-info">
+                            <p>Tổng User</p>
+                            <h3 id="stat-users">...</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background:#fff1f2; color:#e11d48;"><span class="material-symbols-rounded">warning</span></div>
-                    <div class="stat-info">
-                        <p>Báo cáo</p>
-                        <h3 id="stat-reports">...</h3>
+                    <div class="stat-card" style="padding: 24px;">
+                        <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span class="material-symbols-rounded">forum</span></div>
+                        <div class="stat-info">
+                            <p>Bài viết</p>
+                            <h3 id="stat-topics">...</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 24px;">
+                        <div class="stat-icon" style="background:rgba(225, 29, 72, 0.1); color:#e11d48;"><span class="material-symbols-rounded">warning</span></div>
+                        <div class="stat-info">
+                            <p>Báo cáo</p>
+                            <h3 id="stat-reports">...</h3>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Người dùng mới</h2>
+                    <h2>Người dùng mới gần đây</h2>
+                    <button class="action-btn" onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem tất cả ›</button>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -293,7 +446,13 @@
         <div id="section-users" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Danh sách tất cả người dùng</h2>
+                    <h2>Danh sách thành viên</h2>
+                    <div class="box-tools">
+                        <div class="search-wrapper">
+                            <span class="material-symbols-rounded">search</span>
+                            <input type="text" id="user-search" placeholder="Tìm theo tên hoặc email..." oninput="filterTable('users')">
+                        </div>
+                    </div>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -313,7 +472,13 @@
         <div id="section-topics" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Quản lý các bài thảo luận</h2>
+                    <h2>Quản lý nội dung thảo luận</h2>
+                    <div class="box-tools">
+                        <div class="search-wrapper">
+                            <span class="material-symbols-rounded">search</span>
+                            <input type="text" id="topic-search" placeholder="Tìm tiêu đề hoặc tác giả..." oninput="filterTable('topics')">
+                        </div>
+                    </div>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -422,6 +587,47 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // --- CUSTOM POPUPS & TOASTS ---
+        window.showToast = (msg, type = 'success') => {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span class="material-symbols-rounded">${type === 'success' ? 'check_circle' : 'error'}</span> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3200);
+        };
+
+        window.confConfirm = (title, msg, type = 'info') => {
+            return new Promise((resolve) => {
+                const dlg = document.getElementById('conf-dialog');
+                const btnOk = document.getElementById('conf-dialog-confirm');
+                const btnCancel = document.getElementById('conf-dialog-cancel');
+                const iconWrap = document.getElementById('conf-dialog-icon-wrap');
+                
+                document.getElementById('conf-dialog-title').innerText = title;
+                document.getElementById('conf-dialog-msg').innerText = msg;
+                
+                const styles = {
+                    danger: { bg: '#fff1f2', color: '#e11d48', icon: 'warning', btn: '#e11d48' },
+                    info: { bg: '#eff6ff', color: '#2563eb', icon: 'info', btn: '#2563eb' }
+                };
+                const s = styles[type] || styles.info;
+                iconWrap.style.background = s.bg;
+                iconWrap.style.color = s.color;
+                iconWrap.innerHTML = `<span class="material-symbols-rounded">${s.icon}</span>`;
+                btnOk.style.background = s.btn;
+
+                const close = (res) => {
+                    dlg.classList.remove('active');
+                    resolve(res);
+                };
+
+                btnOk.onclick = () => close(true);
+                btnCancel.onclick = () => close(false);
+                dlg.classList.add('active');
+            });
+        };
+
         // --- SECURITY CHECK ---
         onAuthStateChanged(auth, async (user) => {
             if (!user) { window.location.href = 'login.html'; return; }
@@ -433,6 +639,7 @@
                 } else {
                     document.getElementById('secure-overlay').classList.add('hidden');
                     loadDashboard();
+                    initActivityChart();
                 }
             } catch (err) { window.location.href = 'index.html'; }
         });
@@ -455,6 +662,54 @@
             if (id === 'reports') loadReports();
             if (id === 'system') loadSystemConfig();
         };
+
+        // --- FILTER LOGIC ---
+        window.filterTable = (type) => {
+            const query = document.getElementById(`${type === 'users' ? 'user' : 'topic'}-search`).value.toLowerCase();
+            const rows = document.getElementById(type === 'users' ? 'full-user-list' : 'full-topic-list').querySelectorAll('tr');
+            
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        };
+
+        // --- CHARTING ---
+        let activityChart = null;
+        async function initActivityChart() {
+            const chartEl = document.getElementById('activity-chart');
+            if (!chartEl) return;
+            
+            // Generate dummy or real trend data (simulating last 7 days)
+            const days = [];
+            const userCounts = [];
+            const topicCounts = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                days.push(d.toLocaleDateString('vi', { weekday: 'short', day: 'numeric' }));
+                userCounts.push(Math.floor(Math.random() * 10) + 1); // Mock data for now
+                topicCounts.push(Math.floor(Math.random() * 20) + 5);
+            }
+
+            const options = {
+                series: [{ name: 'Người dùng mới', data: userCounts }, { name: 'Bài viết mới', data: topicCounts }],
+                chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans' },
+                colors: ['#2563eb', '#16a34a'],
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth', width: 3 },
+                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] } },
+                xaxis: { categories: days, axisBorder: { show: false }, axisTicks: { show: false } },
+                yaxis: { show: false },
+                grid: { borderColor: '#f1f5f9', strokeDashArray: 4 },
+                legend: { position: 'top', horizontalAlign: 'right' }
+            };
+
+            if (activityChart) activityChart.destroy();
+            activityChart = new ApexCharts(chartEl, options);
+            activityChart.render();
+        }
 
         // --- DATA LOADERS ---
         async function loadDashboard() {
@@ -505,17 +760,8 @@
                     <td>
                         <div style="display:flex; gap:8px;">
                             <button class="action-btn" onclick="viewUser('${id}')">
-                                <span class="material-symbols-rounded">visibility</span> Chi tiết
+                                <span class="material-symbols-rounded">visibility</span> Chi tiết & Quản lý
                             </button>
-                            <button class="action-btn verify" onclick="toggleVerify('${id}', ${isVerified})">
-                                <span class="material-symbols-rounded">${isVerified ? 'verified_user' : 'verified'}</span>
-                                ${isVerified ? 'Hủy tick' : 'Cấp tick'}
-                            </button>
-                            <button class="action-btn ban" onclick="toggleBan('${id}', ${isBanned})" style="color: ${isBanned ? 'var(--success)' : 'var(--danger)'}">
-                                <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
-                                ${isBanned ? 'Gỡ Ban' : 'Ban Nick'}
-                            </button>
-                            <button class="action-btn delete" onclick="deleteItem('users', '${id}')"><span class="material-symbols-rounded">delete</span> Xóa</button>
                         </div>
                     </td>
                 `;
@@ -528,9 +774,63 @@
                 <td><div style="font-weight:700; max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${td.title}</div></td>
                 <td><div class="user-cell"><strong>${td.authorName || 'Ẩn danh'}</strong></div></td>
                 <td>${td.createdAt ? new Date(td.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
-                <td><button class="action-btn delete" onclick="deleteItem('topics', '${id}')"><span class="material-symbols-rounded">delete</span> Gỡ bài</button></td>
+                <td>
+                    <div style="display:flex; gap:8px;">
+                        <button class="action-btn" onclick="viewComments('${id}', '${(td.title || "Bài viết").replace(/'/g, "\\'")}')">
+                            <span class="material-symbols-rounded">chat</span> Bình luận
+                        </button>
+                        <button class="action-btn delete" onclick="deleteItem('topics', '${id}')">
+                            <span class="material-symbols-rounded">delete</span> Gỡ bài
+                        </button>
+                    </div>
+                </td>
             `);
         }
+
+        window.viewComments = async (topicId, title) => {
+            const modal = document.getElementById('topicCommentsModal');
+            document.getElementById('commentModalTitle').innerText = `Bình luận: ${title}`;
+            const list = document.getElementById('comment-list');
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Đang tải bình luận...</td></tr>';
+            modal.classList.add('active');
+
+            try {
+                const cSnap = await getDocs(collection(db, "topics", topicId, "comments"));
+                list.innerHTML = '';
+                if (cSnap.empty) {
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Chưa có bình luận nào</td></tr>';
+                } else {
+                    cSnap.forEach(d => {
+                        const c = d.data();
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td><div class="user-cell"><strong>${c.authorName || 'Ẩn danh'}</strong></div></td>
+                            <td><div style="max-width:300px; font-size:13px; line-height:1.4;">${c.text}</div></td>
+                            <td>${c.createdAt ? new Date(c.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
+                            <td>
+                                <button class="action-btn delete" onclick="deleteComment('${topicId}', '${d.id}')">
+                                    <span class="material-symbols-rounded">delete</span>
+                                </button>
+                            </td>
+                        `;
+                        list.appendChild(tr);
+                    });
+                }
+            } catch (e) { showToast(e.message, 'error'); }
+        };
+
+        window.closeCommentModal = () => document.getElementById('topicCommentsModal').classList.remove('active');
+
+        window.deleteComment = async (topicId, commentId) => {
+            const ok = await confConfirm("Xác nhận xóa", "Bạn có chắc chắn muốn xóa bình luận này?", "danger");
+            if (ok) {
+                try {
+                    await deleteDoc(doc(db, "topics", topicId, "comments", commentId));
+                    showToast("Đã xóa bình luận!");
+                    viewComments(topicId, "..."); // Refresh
+                } catch (e) { showToast(e.message, 'error'); }
+            }
+        };
 
         async function loadReports() {
             const snap = await getDocs(collection(db, "reports"));
@@ -558,30 +858,44 @@
 
         // --- ACTIONS ---
         window.deleteItem = async (col, id) => {
-            if (confirm("Hành động này không thể hoàn tác. Tiếp tục?")) {
-                await deleteDoc(doc(db, col, id));
-                if (col === 'users') loadUsers();
-                if (col === 'topics') loadTopics();
-                if (col === 'reports') loadReports();
-                if (col === 'system') loadSystemConfig();
+            const ok = await confConfirm("Xác nhận xóa", "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa mục này?", "danger");
+            if (ok) {
+                try {
+                    await deleteDoc(doc(db, col, id));
+                    showToast("Đã xóa mục thành công!");
+                    if (col === 'users') loadUsers();
+                    if (col === 'topics') loadTopics();
+                    if (col === 'reports') loadReports();
+                    if (col === 'system') loadSystemConfig();
+                } catch (e) { showToast(e.message, 'error'); }
             }
         };
 
         window.updateRole = async (id, role) => {
-            await updateDoc(doc(db, "users", id), { role });
-            alert("Đã chuyển quyền thành công!");
+            try {
+                await updateDoc(doc(db, "users", id), { role });
+                showToast("Đã cập nhật quyền thành công!");
+            } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleVerify = async (id, current) => {
-            await updateDoc(doc(db, "users", id), { isVerified: !current });
-            loadUsers();
+            try {
+                await updateDoc(doc(db, "users", id), { isVerified: !current });
+                showToast(current ? "Đã hủy tick xanh" : "Đã cấp tick xanh thành công!");
+                loadUsers();
+            } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleBan = async (id, current) => {
-            const confirmMsg = current ? "Gỡ gậy (unban) cho người dùng này?" : "Cấm tài khoản (ban) người dùng này khỏi hệ thống?";
-            if (confirm(confirmMsg)) {
-                await updateDoc(doc(db, "users", id), { isBanned: !current });
-                loadUsers();
+            const title = current ? "Gỡ Ban" : "Ban Nick";
+            const msg = current ? "Xác nhận gỡ gậy cho người dùng này?" : "Cấm tài khoản người dùng này khỏi hệ thống?";
+            const ok = await confConfirm(title, msg, current ? 'info' : 'danger');
+            if (ok) {
+                try {
+                    await updateDoc(doc(db, "users", id), { isBanned: !current });
+                    showToast(current ? "Đã gỡ ban thành công" : "Người dùng đã bị ban!");
+                    loadUsers();
+                } catch (e) { showToast(e.message, 'error'); }
             }
         };
 
@@ -627,7 +941,7 @@
 
         window.applyPoll = async () => {
             const poll = updatePollJson();
-            if (!poll.question) return alert("Vui lòng nhập câu hỏi!");
+            if (!poll.question) return showToast("Vui lòng nhập câu hỏi!", 'error');
             const btn = event.currentTarget;
             btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
@@ -635,8 +949,8 @@
                     json: JSON.stringify(poll),
                     updatedAt: serverTimestamp() 
                 });
-                alert("Đã lưu cấu hình Poll vào Firestore!");
-            } catch (e) { alert("Lỗi: " + e.message); }
+                showToast("Đã lưu cấu hình Poll thành công!");
+            } catch (e) { showToast(e.message, 'error'); }
             btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
@@ -684,8 +998,8 @@
                     json: JSON.stringify(news),
                     updatedAt: serverTimestamp() 
                 });
-                alert("Đã lưu cấu hình Tin tức vào Firestore!");
-            } catch (e) { alert("Lỗi: " + e.message); }
+                showToast("Đã lưu cấu hình Tin tức thành công!");
+            } catch (e) { showToast(e.message, 'error'); }
             btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
@@ -715,8 +1029,11 @@
 
         window.viewUser = async (uid) => {
             const snap = await getDoc(doc(db, "users", uid));
-            if (!snap.exists()) return alert("User không tồn tại!");
+            if (!snap.exists()) return showToast("User không tồn tại!", 'error');
             const u = snap.data();
+            const isVerified = u.isVerified === true;
+            const isBanned = u.isBanned === true;
+            
             const body = document.getElementById('profileBody');
             body.innerHTML = `
                 <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: var(--bg); padding: 20px; border-radius: 16px;">
@@ -726,13 +1043,29 @@
                         <p style="color: var(--text-gray); font-size: 13px;">@${u.username || 'n/a'}</p>
                     </div>
                 </div>
-                <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 10px; break-all: break-all;">${uid}</div></div>
+                <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 10px; break-all: break-all; width: 100%; overflow: hidden; text-overflow: ellipsis;">${uid}</div></div>
                 <div class="input-group"><label>Email</label><input type="text" class="inp" value="${u.email || 'N/A'}" readonly></div>
-                <div class="input-group"><label>Vai trò</label><input type="text" class="inp" value="${u.role || 'user'}" readonly></div>
-                <div class="input-group"><label>Xác minh</label><input type="text" class="inp" value="${u.isVerified ? 'Đã xác minh' : 'Chưa xác minh'}" readonly></div>
+                <div class="input-group"><label>Vai trò</label>
+                    <select onchange="updateRole('${uid}', this.value)" style="width:100%; padding:14px; border-radius:14px; border:1.5px solid var(--border); font-weight:700; background:#fff;">
+                        <option value="user" ${u.role==='user'?'selected':''}>User</option>
+                        <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
+                    </select>
+                </div>
                 <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt.seconds * 1000).toLocaleString('vi') : '---'}" readonly></div>
-                <div class="input-group"><label>Trạng thái</label><input type="text" class="inp" style="color: ${u.isBanned ? 'red' : 'green'}; font-weight: 800;" value="${u.isBanned ? 'ĐANG BỊ CẤM' : 'Hoạt động'}" readonly></div>
-                <div style="grid-column: span 2;" class="input-group"><label>Tiểu sử</label><textarea class="inp" rows="3" readonly>${u.bio || 'Trống'}</textarea></div>
+                
+                <div style="grid-column: span 2; display: flex; gap: 10px; margin-top: 10px;">
+                    <button class="btn ${isVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; font-size: 13px;" onclick="toggleVerify('${uid}', ${isVerified}); closeProfileModal();">
+                        <span class="material-symbols-rounded">${isVerified ? 'verified_user' : 'verified'}</span>
+                        ${isVerified ? 'Hủy tick' : 'Cấp tick'}
+                    </button>
+                    <button class="btn" style="flex: 1; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
+                        <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
+                        ${isBanned ? 'Gỡ Ban' : 'Ban Nick'}
+                    </button>
+                    <button class="btn" style="flex: 1; font-size: 13px; background: #fee2e2; color: #991b1b;" onclick="deleteItem('users', '${uid}'); closeProfileModal();">
+                        <span class="material-symbols-rounded">delete</span> Xóa User
+                    </button>
+                </div>
             `;
             document.getElementById('userProfileModal').classList.add('active');
         };

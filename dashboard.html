@@ -841,6 +841,14 @@
                 <textarea id="feedbackContent" class="inp-area" rows="4"
                     placeholder="Vui lòng mô tả chi tiết..."></textarea>
             </div>
+            <div id="deviceInfoWrapper" style="margin-bottom:15px; display:none; padding:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-size:12px; font-weight:700; color:#475569;">Thông tin thiết bị</span>
+                    <button id="btnGetDeviceInfo" style="font-size:11px; font-weight:700; color:var(--primary); background:none; border:none; cursor:pointer; padding:4px 8px; border-radius:6px; background:rgba(37, 99, 235, 0.1);">Lấy thông tin 📱</button>
+                </div>
+                <div id="deviceInfoStatus" style="font-size:11px; color:#64748b; line-height:1.4;">Chưa đính kèm thông tin thiết bị.</div>
+                <input type="hidden" id="deviceInfoData">
+            </div>
             <button id="btnSendFeedback" class="btn-act">Gửi phản hồi</button>
             <button onclick="document.getElementById('modalFeedback').classList.remove('active')"
                 style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:10px;">Hủy</button>
@@ -870,15 +878,16 @@
         </div>
     </div>
 
-    <!-- Info Modal for Poll -->
-    <div id="modalPollInfo" class="modal" style="z-index: 2500;">
+    <!-- Device Info Consent -->
+    <div id="modalDeviceInfoConsent" class="modal" style="z-index: 2500;">
         <div class="box" style="text-align:center; max-width:320px;">
-            <div style="font-size:40px; margin-bottom:10px;">ℹ️</div>
-            <h3 style="margin-bottom:15px; font-size:18px;">Thông tin thu thập</h3>
-            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">Hệ thống chỉ lưu <b>UID (ẩn
-                    danh)</b> của bạn để đảm bảo mỗi người vote 1 lần. Không thu thập thông tin cá nhân nào khác!</p>
-            <button onclick="document.getElementById('modalPollInfo').classList.remove('active')" class="btn-act"
-                style="width:100%;">Đã hiểu</button>
+            <div style="font-size:40px; margin-bottom:10px;">📱</div>
+            <h3 style="margin-bottom:15px; font-size:18px;">Lấy thông tin thiết bị</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">Hệ thống sẽ lấy thông tin về <b>Hệ điều hành, trình duyệt và kích thước màn hình</b> để giúp Admin sửa lỗi nhanh hơn. Bạn đồng ý chứ?</p>
+            <div style="display:flex; gap:10px;">
+                <button id="btnConfirmDeviceInfo" class="btn-act" style="width:100%; margin-top:0;">Đồng ý</button>
+                <button onclick="document.getElementById('modalDeviceInfoConsent').classList.remove('active')" style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer;">Hủy</button>
+            </div>
         </div>
     </div>
 
@@ -1033,18 +1042,41 @@
 
         document.getElementById('feedbackType').onchange = (e) => {
             const wrapper = document.getElementById('bugSectionWrapper');
+            const deviceWrapper = document.getElementById('deviceInfoWrapper');
             const title = document.getElementById('feedbackTitle');
             const isBug = e.target.value === 'bug';
 
             wrapper.style.display = isBug ? 'block' : 'none';
+            deviceWrapper.style.display = isBug ? 'block' : 'none';
             title.textContent = isBug ? 'Báo lỗi hệ thống' : 'Góp ý cho Admin';
             document.getElementById('btnSendFeedback').textContent = isBug ? 'Gửi báo lỗi' : 'Gửi góp ý';
         }
+
+        document.getElementById('btnGetDeviceInfo').onclick = () => {
+            document.getElementById('modalDeviceInfoConsent').classList.add('active');
+        };
+
+        document.getElementById('btnConfirmDeviceInfo').onclick = () => {
+            const info = {
+                ua: navigator.userAgent,
+                platform: navigator.platform,
+                vendor: navigator.vendor,
+                screen: `${window.screen.width}x${window.screen.height}`,
+                pixelRatio: window.devicePixelRatio,
+                language: navigator.language,
+                timestamp: new Date().toISOString()
+            };
+            document.getElementById('deviceInfoData').value = JSON.stringify(info);
+            document.getElementById('deviceInfoStatus').innerHTML = `<span style="color:#16a34a; font-weight:700;">✓ Đã đính kèm thông tin thiết bị</span><br><span style="font-size:10px; opacity:0.8;">${info.screen}, ${info.language}</span>`;
+            document.getElementById('modalDeviceInfoConsent').classList.remove('active');
+            window.showToast("Đã lấy thông tin thiết bị! 📱");
+        };
 
         document.getElementById('btnSendFeedback').onclick = async () => {
             const txt = document.getElementById('feedbackContent').value.trim();
             const type = document.getElementById('feedbackType').value;
             const section = type === 'bug' ? document.getElementById('bugSection').value : null;
+            const deviceInfo = type === 'bug' ? document.getElementById('deviceInfoData').value : null;
 
             if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
 
@@ -1058,12 +1090,15 @@
                     content: txt,
                     type: type,
                     section: section,
+                    deviceInfo: deviceInfo ? JSON.parse(deviceInfo) : null,
                     user: user ? user.email : "Ẩn danh",
                     uid: user ? user.uid : null,
                     createdAt: serverTimestamp()
                 });
                 window.showToast(type === 'bug' ? "Đã gửi báo lỗi thành công! 🐞" : "Cảm ơn góp ý của bạn! ✨");
                 document.getElementById('feedbackContent').value = "";
+                document.getElementById('deviceInfoData').value = "";
+                document.getElementById('deviceInfoStatus').textContent = "Chưa đính kèm thông tin thiết bị.";
                 document.getElementById('modalFeedback').classList.remove('active');
             } catch (e) { window.showToast("Lỗi khi gửi!"); }
             btn.textContent = originalText;
