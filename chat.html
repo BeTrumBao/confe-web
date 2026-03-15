@@ -1270,12 +1270,12 @@
                 const ud = uDoc.data();
                 currentUser.photoURL = ud.photoURL || ANON_AVATAR;
                 currentUser.isVerified = !!ud.isVerified; // Force boolean
-                currentUser.displayName = ud.displayName || u.displayName || u.email?.split('@')[0];
+                currentUser.displayName = ud.displayName || u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = ud.nameColor || 'default';
             } else {
                 currentUser.photoURL = ANON_AVATAR;
                 currentUser.isVerified = false;
-                currentUser.displayName = u.displayName || u.email?.split('@')[0];
+                currentUser.displayName = u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = 'default';
             }
             loadMessages();
@@ -1892,7 +1892,7 @@
         const renderCache = new Map();
         function renderMessage(docId, msg) {
             // Cache lookup: versioning by docId + mod status + likes + timestamp presence
-            const cacheKey = `${docId}_${msg.isEdited ? 'ed' : 'no'}_${msg.likes?.length || 0}_${!!msg.createdAt}`;
+            const cacheKey = `${docId}_${msg.isEdited ? 'ed' : 'no'}_${(msg.likes ? msg.likes.length : 0)}_${!!msg.createdAt}`;
             if (renderCache.has(cacheKey)) return renderCache.get(cacheKey);
 
             const isMine = msg.uid === currentUser.uid; const rowClass = isMine ? 'mine' : 'theirs';
@@ -2033,7 +2033,8 @@
                                     // Cleanup matching optimistic UI placeholders
                                     if (msg.uid === currentUser.uid) {
                                         box.querySelectorAll('[id^="temp-"]').forEach(temp => {
-                                            const tempTxt = temp.querySelector('.msg-bubble')?.innerText;
+                                            const bubble = temp.querySelector('.msg-bubble');
+                                            const tempTxt = bubble ? bubble.innerText : '';
                                             if (tempTxt === msg.text || (msg.image && temp.querySelector('img'))) {
                                                 temp.remove();
                                             }

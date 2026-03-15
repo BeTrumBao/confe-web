@@ -2447,8 +2447,8 @@
 
             let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
             if (currentUser) {
-                userAvt = userData?.photoURL || MISSING_AVATAR;
-                name = userData?.displayName || currentUser.email.split('@')[0];
+                userAvt = (userData && userData.photoURL) ? userData.photoURL : MISSING_AVATAR;
+                name = (userData && userData.displayName) ? userData.displayName : (currentUser.email ? currentUser.email.split('@')[0] : 'Guest');
                 authorUid = currentUser.uid;
             } else {
                 const gn = document.getElementById('guestName').value.trim();
@@ -2484,8 +2484,8 @@
 
             let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
             if (currentUser) {
-                userAvt = userData?.photoURL || MISSING_AVATAR;
-                name = userData?.displayName || currentUser.email.split('@')[0];
+                userAvt = (userData && userData.photoURL) ? userData.photoURL : MISSING_AVATAR;
+                name = (userData && userData.displayName) ? userData.displayName : (currentUser.email ? currentUser.email.split('@')[0] : 'Guest');
                 authorUid = currentUser.uid;
             } else {
                 const gn = document.getElementById('pollGuestName').value.trim();
@@ -2668,7 +2668,7 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const info = {
-                        name: data.displayName || data.email?.split('@')[0] || "Cư dân",
+                        name: data.displayName || (data.email ? data.email.split('@')[0] : "Cư dân"),
                         avt: data.photoURL || MISSING_AVATAR,
                         color: data.nameColor || 'default',
                         frame: data.avatarFrame || 'none'
@@ -2899,11 +2899,11 @@
 
             const payload = {
                 pid,
-                author: userData?.displayName || currentUser.email.split('@')[0],
-                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                author: (userData && userData.displayName) ? userData.displayName : (currentUser.email ? currentUser.email.split('@')[0] : 'Guest'),
+                authorAvt: (userData && userData.photoURL) ? userData.photoURL : MISSING_AVATAR,
                 authorUid: currentUser.uid,
-                nameColor: userData?.nameColor || 'default',
-                avatarFrame: userData?.avatarFrame || 'none',
+                nameColor: (userData && userData.nameColor) ? userData.nameColor : 'default',
+                avatarFrame: (userData && userData.avatarFrame) ? userData.avatarFrame : 'none',
                 content: txt,
                 ip: userIp,
                 createdAt: serverTimestamp(),
@@ -3305,7 +3305,7 @@
 
             let deviceId = localStorage.getItem('confe_device_id');
             const uid = currentUser ? currentUser.uid : deviceId;
-            let name = currentUser ? (currentUser.displayName || currentUser.email?.split('@')[0] || 'Thành viên') : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
+            let name = currentUser ? (currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Thành viên')) : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
             let avt = currentUser ? currentUser.photoURL : ANON_AVATAR;
 
             const mode = topicData.privacyMode || 'public';

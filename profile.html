@@ -970,7 +970,8 @@
                 const inpName = document.getElementById('inpName').value.trim();
                 const inpUser = document.getElementById('inpUser').value.trim();
                 const inpBio = document.getElementById('inpBio').value;
-                const activeColor = document.querySelector('.color-opt.active')?.dataset.color || 'default';
+                const activeColorEl = document.querySelector('.color-opt.active');
+                const activeColor = activeColorEl ? activeColorEl.dataset.color : 'default';
 
                 if (!inpName) throw new Error("Tên hiển thị không được để trống!");
                 if (!inpUser) throw new Error("Username không được để trống!");
@@ -981,7 +982,7 @@
 
                 // USERNAME (30 DAYS)
                 if (userData.username && inpUser !== userData.username) {
-                    const lastChange = userData.lastUserChange?.toMillis() || 0;
+                    const lastChange = userData.lastUserChange ? userData.lastUserChange.toMillis() : 0;
                     if (now - lastChange < 30 * ONE_DAY) {
                         const daysLeft = Math.ceil((30 * ONE_DAY - (now - lastChange)) / ONE_DAY);
                         throw new Error(`Bạn chỉ được đổi Username sau ${daysLeft} ngày nữa!`);
@@ -990,14 +991,14 @@
 
                 // DISPLAY NAME (7 DAYS)
                 if (userData.displayName && inpName !== userData.displayName) {
-                    const lastChange = userData.lastNameChange?.toMillis() || 0;
+                    const lastChange = userData.lastNameChange ? userData.lastNameChange.toMillis() : 0;
                     if (now - lastChange < 7 * ONE_DAY) {
                         const daysLeft = Math.ceil((7 * ONE_DAY - (now - lastChange)) / ONE_DAY);
                         throw new Error(`Bạn chỉ được đổi Tên sau ${daysLeft} ngày nữa!`);
                     }
                 }
 
-                let nAvt = userData?.photoURL || "", nCov = userData?.coverURL || "";
+                let nAvt = userData.photoURL || "", nCov = userData.coverURL || "";
                 if (window.croppedAvtBlob) {
                     const avtFile = new File([window.croppedAvtBlob], "avatar.jpg", { type: "image/jpeg" });
                     nAvt = await upload(avtFile);
@@ -1058,7 +1059,7 @@
         });
 
         document.getElementById('btnLogout').onclick = () => {
-            if (auth.currentUser?.isAnonymous) {
+            if (auth.currentUser && auth.currentUser.isAnonymous) {
                 document.getElementById('modalAnonLogout').classList.add('active');
             } else {
                 document.getElementById('modalConfirm').classList.add('active');
@@ -1185,7 +1186,8 @@
 
                     // Fetch my friends array
                     getDoc(doc(db, 'users', currentUser.uid)).then(meSnap => {
-                        const myFriends = meSnap.data()?.friends || [];
+                        const md = meSnap.data();
+                        const myFriends = md ? (md.friends || []) : [];
                         if (myFriends.includes(uid)) {
                             addFriendBtn.textContent = 'Bạn bè';
                             addFriendBtn.style.background = '#e2e8f0';
@@ -1413,7 +1415,7 @@
 
 
         window.reqVerify = async () => {
-            if (auth.currentUser?.isAnonymous) {
+            if (auth.currentUser && auth.currentUser.isAnonymous) {
                 window.showToast('Tư cách khách không thể đăng ký tick xanh! Hãy tạo tài khoản trước.', '️');
                 document.getElementById('modalVerify').classList.remove('active');
                 return;

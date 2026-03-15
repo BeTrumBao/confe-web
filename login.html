@@ -636,7 +636,7 @@
         }
 
         window.showGoogleInfo = () => {
-            document.getElementById('googleInfoModal')?.remove(); // cleanup if exists
+            const m = document.getElementById('googleInfoModal'); if (m) m.remove(); // cleanup if exists
         }
 
         window.showAnonInfo = () => {
@@ -686,7 +686,7 @@
                 };
                 // Close = reject (user did not agree)
                 const closeBtn = document.getElementById('btnClosePolicy');
-                const origClose = closeBtn?.onclick;
+                const origClose = closeBtn ? closeBtn.onclick : null;
                 if (closeBtn) {
                     closeBtn.onclick = () => {
                         document.getElementById('policyModal').style.display = 'none';
@@ -706,9 +706,9 @@
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
                     // New account — must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch { await auth.currentUser?.delete?.(); showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
+                    try { await waitForPolicyAgreement(); } catch { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
-                        username: user.displayName || user.email?.split('@')[0] || 'google_user',
+                        username: user.displayName || (user.email ? user.email.split('@')[0] : 'google_user'),
                         displayName: user.displayName || 'Cư dân mới',
                         email: user.email,
                         uid: user.uid,
@@ -738,9 +738,9 @@
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
                     // New account — must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch { await auth.currentUser?.delete?.(); showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
+                    try { await waitForPolicyAgreement(); } catch { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
-                        username: user.displayName || user.email?.split('@')[0] || 'fb_user',
+                        username: user.displayName || (user.email ? user.email.split('@')[0] : 'fb_user'),
                         displayName: user.displayName || 'Cư dân mới',
                         email: user.email || '',
                         uid: user.uid,

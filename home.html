@@ -2202,7 +2202,11 @@
             try {
                 const q = query(collection(db, "posts"), where("tid", "==", "home"), limitToLast(50));
                 const snap = await getDocs(q);
-                const sortedDocs = snap.docs.sort((a, b) => (b.data().createdAt?.toMillis() || 0) - (a.data().createdAt?.toMillis() || 0));
+                const sortedDocs = snap.docs.sort((a, b) => {
+                    const timeB = b.data().createdAt ? b.data().createdAt.toMillis() : 0;
+                    const timeA = a.data().createdAt ? a.data().createdAt.toMillis() : 0;
+                    return timeB - timeA;
+                });
                 
                 let allFeedImgs = [];
                 sortedDocs.forEach(d => {
@@ -2776,7 +2780,7 @@
         function updateComposeAvatar() {
             if (!user || !userData) return;
             const avt = userData.photoURL || MISSING_AVATAR;
-            const name = userData.displayName || user.email?.split('@')[0] || 'Cư dân mới';
+            const name = userData.displayName || (user.email ? user.email.split('@')[0] : '') || 'Cư dân mới';
             document.getElementById('composeAvt').src = avt;
             document.getElementById('postModalAvt').src = avt;
             document.getElementById('postModalName').textContent = name;
@@ -2809,7 +2813,8 @@
                     window.showToast("Đã cập nhật bài viết!");
                 } else {
                     const isAnon = document.getElementById('chkAnon').checked;
-                    const blurImage = document.getElementById('chkBlurImg')?.checked || false;
+                    const blurImgEl = document.getElementById('chkBlurImg');
+                    const blurImage = blurImgEl ? blurImgEl.checked : false;
 
                     let postData = {
                         tid: "home",
@@ -2817,9 +2822,9 @@
                         image: finalImg,
                         images: finalImages,
                         blurImage: blurImage && finalImages.length > 0,
-                        author: isAnon ? "Ẩn danh" : (userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới'),
+                        author: isAnon ? "Ẩn danh" : (userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới')),
                         authorUid: isAnon ? null : user.uid,
-                        authorAvatar: isAnon ? ANON_AVATAR : (userData?.photoURL || MISSING_AVATAR),
+                        authorAvatar: isAnon ? ANON_AVATAR : (userData.photoURL || MISSING_AVATAR),
                         createdAt: serverTimestamp(),
                         reactions: { heart: 0, sad: 0, laugh: 0 },
                         type: 'text',
@@ -2849,7 +2854,7 @@
                     return "";
                 }
                 const json = await res.json();
-                return json.data?.url || "";
+                return (json.data ? json.data.url : "");
             } catch (err) {
                 console.error("Upload Catch Error:", err);
                 return "";
@@ -2903,20 +2908,22 @@
             if (user.isAnonymous) return window.showToast("Dùng tài khoản thường để thả tim!");
             
             const btn = document.getElementById(`feed-react-${pid}-${type}`);
-            const countEl = btn?.querySelector('.react-count');
-            const isActive = btn?.classList.contains('active');
+            const countEl = btn ? btn.querySelector('.react-count') : null;
+            const isActive = btn ? btn.classList.contains('active') : false;
             
             // Optimistic UI
             if (isActive) {
                 btn.classList.remove('active', 'liked');
                 if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent || '0') - 1);
             } else {
-                const parent = btn?.parentElement;
-                parent?.querySelectorAll('.feed-react-btn.active').forEach(b => {
-                    b.classList.remove('active', 'liked');
-                    const c = b.querySelector('.react-count');
-                    if (c) c.textContent = Math.max(0, parseInt(c.textContent || '0') - 1);
-                });
+                const parent = btn ? btn.parentElement : null;
+                if (parent) {
+                    parent.querySelectorAll('.feed-react-btn.active').forEach(b => {
+                        b.classList.remove('active', 'liked');
+                        const c = b.querySelector('.react-count');
+                        if (c) c.textContent = Math.max(0, parseInt(c.textContent || '0') - 1);
+                    });
+                }
                 btn.classList.add('active');
                 if (type === 'heart') btn.classList.add('liked');
                 if (countEl) countEl.textContent = parseInt(countEl.textContent || '0') + 1;
@@ -3156,10 +3163,10 @@
 
             const payload = {
                 pid: activeFeedPid,
-                author: userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới',
-                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới'),
+                authorAvt: userData.photoURL || MISSING_AVATAR,
+                nameColor: userData.nameColor || 'default',
                 authorUid: user.uid,
-                nameColor: userData?.nameColor || 'default',
                 content: txt,
                 images: imgUrls,
                 createdAt: serverTimestamp(),
@@ -3188,10 +3195,10 @@
 
             await addDoc(collection(db, "comments"), {
                 pid,
-                author: userData?.displayName || user.email?.split('@')[0] || 'Cư dân mới',
-                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới'),
+                authorAvt: userData.photoURL || MISSING_AVATAR,
                 authorUid: user.uid,
-                nameColor: userData?.nameColor || 'default',
+                nameColor: userData.nameColor || 'default',
                 content: txt,
                 images: imgUrls,
                 createdAt: serverTimestamp(),
@@ -3265,11 +3272,12 @@
                                 const existing = document.getElementById(`post-${p.id}`);
                                 if (existing) {
                                     const hr = existing.querySelector(`#feed-react-${p.id}-heart .react-count`);
-                                    if (hr) hr.textContent = p.reactions?.heart || 0;
+                                    const reactions = p.reactions || {};
+                                    if (hr) hr.textContent = reactions.heart || 0;
                                     const lr = existing.querySelector(`#feed-react-${p.id}-laugh .react-count`);
-                                    if (lr) lr.textContent = p.reactions?.laugh || 0;
+                                    if (lr) lr.textContent = reactions.laugh || 0;
                                     const sr = existing.querySelector(`#feed-react-${p.id}-sad .react-count`);
-                                    if (sr) sr.textContent = p.reactions?.sad || 0;
+                                    if (sr) sr.textContent = reactions.sad || 0;
                                     const content = existing.querySelector('.feed-post-content');
                                     if (content) content.innerHTML = window.linkifyText(p.content);
                                 }
@@ -3306,7 +3314,7 @@
             }
 
             const canManage = user && (user.uid === p.authorUid || user.email === 'admin@gmail.com');
-            const userAvtSrc = (userData?.photoURL || MISSING_AVATAR);
+            const userAvtSrc = (userData.photoURL || MISSING_AVATAR);
             window.renderFeedPost = renderFeedPost;
 
             return `
@@ -3339,13 +3347,13 @@
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <div style="display:flex; gap:10px; align-items:center;">
                             <button id="feed-react-${p.id}-heart" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'heart', event)">
-                                <span class="material-symbols-rounded">favorite</span> <span class="react-count">${p.reactions?.heart || 0}</span>
+                                <span class="material-symbols-rounded">favorite</span> <span class="react-count">${p.reactions ? p.reactions.heart || 0 : 0}</span>
                             </button>
                             <button id="feed-react-${p.id}-laugh" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'laugh', event)">
-                                <span class="material-symbols-rounded">sentiment_very_satisfied</span> <span class="react-count">${p.reactions?.laugh || 0}</span>
+                                <span class="material-symbols-rounded">sentiment_very_satisfied</span> <span class="react-count">${p.reactions ? p.reactions.laugh || 0 : 0}</span>
                             </button>
                             <button id="feed-react-${p.id}-sad" class="feed-react-btn" type="button" onclick="handleFeedReaction('${p.id}', 'sad', event)">
-                                <span class="material-symbols-rounded">sentiment_dissatisfied</span> <span class="react-count">${p.reactions?.sad || 0}</span>
+                                <span class="material-symbols-rounded">sentiment_dissatisfied</span> <span class="react-count">${p.reactions ? p.reactions.sad || 0 : 0}</span>
                             </button>
                             <button class="feed-react-btn" type="button" onclick="openFeedComments('${p.id}', '${p.authorUid}')">
                                 <span class="material-symbols-rounded">chat_bubble</span> <span id="cmt-count-${p.id}">0</span>
