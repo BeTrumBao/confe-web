@@ -46,7 +46,7 @@
 
         .bg-cover {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: -2;
             background-size: cover;
             background-position: center top;
@@ -254,7 +254,7 @@
 
         .modal {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             z-index: 1000;
@@ -493,28 +493,6 @@
                 }[tag];
             });
         };
-        document.addEventListener('contextmenu', function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            e.preventDefault();
-        });
-        document.onkeydown = function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        };
-        (function () {
-            setInterval(function () {
-                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
-                var before = new Date().getTime();
-                debugger;
-                var after = new Date().getTime();
-                if (after - before > 100) {
-                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
-                }
-            }, 1000);
-        })();
     </script>
 </head>
 

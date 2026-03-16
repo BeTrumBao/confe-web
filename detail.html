@@ -763,7 +763,7 @@
 
         .modal {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             z-index: 200;
@@ -942,7 +942,7 @@
         .skeleton::after {
             content: "";
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: #e2e8f0;
             background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
             background-size: 200% 100%;
@@ -951,7 +951,7 @@
 
         .header-skeleton {
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 30;
             background: var(--bg);
         }
@@ -1041,7 +1041,7 @@
 
         .modal-img-viewer {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.95);
             z-index: 500;
             display: none;
@@ -1246,7 +1246,7 @@
 
         .access-denied-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(255, 255, 255, 0.98);
             z-index: 1000;
             display: none;
@@ -1431,28 +1431,6 @@
                 }[tag];
             });
         };
-        document.addEventListener('contextmenu', function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            e.preventDefault();
-        });
-        document.onkeydown = function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        };
-        (function () {
-            setInterval(function () {
-                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
-                var before = new Date().getTime();
-                debugger;
-                var after = new Date().getTime();
-                if (after - before > 100) {
-                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
-                }
-            }, 1000);
-        })();
     </script>
 </head>
 
@@ -2165,8 +2143,8 @@
 
             let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
             if (currentUser) {
-                userAvt = userData?.photoURL || MISSING_AVATAR;
-                name = userData?.displayName || currentUser.email.split('@')[0];
+                userAvt = (userData && userData.photoURL) || MISSING_AVATAR;
+                name = (userData && userData.displayName) || currentUser.email.split('@')[0];
                 authorUid = currentUser.uid;
             } else {
                 const gn = document.getElementById('guestName').value.trim();
@@ -2202,8 +2180,8 @@
 
             let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
             if (currentUser) {
-                userAvt = userData?.photoURL || MISSING_AVATAR;
-                name = userData?.displayName || currentUser.email.split('@')[0];
+                userAvt = (userData && userData.photoURL) || MISSING_AVATAR;
+                name = (userData && userData.displayName) || currentUser.email.split('@')[0];
                 authorUid = currentUser.uid;
             } else {
                 const gn = document.getElementById('pollGuestName').value.trim();
@@ -2384,7 +2362,7 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const info = {
-                        name: data.displayName || data.email?.split('@')[0] || "Cư dân",
+                        name: data.displayName || (data.email ? data.email.split('@')[0] : null) || "Cư dân",
                         avt: data.photoURL || MISSING_AVATAR,
                         color: data.nameColor || 'default',
                         frame: data.avatarFrame || 'none'
@@ -2610,11 +2588,11 @@
 
             const payload = {
                 pid,
-                author: userData?.displayName || currentUser.email.split('@')[0],
-                authorAvt: userData?.photoURL || MISSING_AVATAR,
+                author: (userData && userData.displayName) || currentUser.email.split('@')[0],
+                authorAvt: (userData && userData.photoURL) || MISSING_AVATAR,
                 authorUid: currentUser.uid,
-                nameColor: userData?.nameColor || 'default',
-                avatarFrame: userData?.avatarFrame || 'none',
+                nameColor: (userData && userData.nameColor) || 'default',
+                avatarFrame: (userData && userData.avatarFrame) || 'none',
                 content: txt,
                 ip: userIp,
                 createdAt: serverTimestamp(),
@@ -3007,7 +2985,7 @@
 
             let deviceId = localStorage.getItem('confe_device_id');
             const uid = currentUser ? currentUser.uid : deviceId;
-            let name = currentUser ? (currentUser.displayName || currentUser.email?.split('@')[0] || 'Thành viên') : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
+            let name = currentUser ? (currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : null) || 'Thành viên') : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
             let avt = currentUser ? currentUser.photoURL : ANON_AVATAR;
 
             const mode = topicData.privacyMode || 'public';

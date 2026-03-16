@@ -119,7 +119,7 @@
         .subject-card::before {
             content: '';
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
             border-radius: inherit;
             pointer-events: none;
@@ -902,7 +902,7 @@
 
         #bo3-intro-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 9999;
             display: none;
             overflow: hidden;
@@ -955,7 +955,7 @@
 
         .intro-flash {
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: white;
             opacity: 0;
             pointer-events: none;
@@ -990,7 +990,7 @@
 
         #bo3-round-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 9998;
             display: none;
             justify-content: center;
@@ -1026,7 +1026,7 @@
 
         #match-end-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             z-index: 10000;
             display: none;
             flex-direction: column;
@@ -1516,7 +1516,7 @@
         .skeleton-item::after {
             content: "";
             position: absolute;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: skeleton-pulse 1.5s infinite;
         }
@@ -1578,7 +1578,7 @@
 
         #skeleton-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: #F9FAFB;
             z-index: 9999;
             padding: 20px 15px;
@@ -1644,7 +1644,7 @@
 
         .modal {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -1746,7 +1746,7 @@
 
         .img-preview-item {
             position: relative;
-            aspect-ratio: 1;
+            min-height: 80px;
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid #e2e8f0;
@@ -2150,7 +2150,7 @@
         </div> <!-- main-content-wrapper -->
 
         <div id="reputation-history-modal"
-            style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
+            style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 20px;">
             <div
                 style="background: white; width: 100%; max-width: 450px; border-radius: 28px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: none; animation: modalFadeIn 0.3s ease;">
                 <div
@@ -3241,7 +3241,7 @@
             function showAbandonmentModal(penalty) {
                 const modal = document.createElement('div');
                 modal.id = 'abandonment-modal';
-                modal.style = "position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; animation: modalFadeIn 0.3s ease;";
+                modal.style = "position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 10000; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 20px; animation: modalFadeIn 0.3s ease;";
 
                 modal.innerHTML = `
                     <div style="background: white; width: 100%; max-width: 400px; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; padding: 40px 30px;">
@@ -3912,7 +3912,7 @@
                         soloRewardGiven = true;
                     }
                 } else {
-                    const winnerName = soloRoomData?.players?.[winnerId]?.name || 'Đối thủ';
+                    const winnerName = (soloRoomData && soloRoomData.players && soloRoomData.players[winnerId] && soloRoomData.players[winnerId].name) || 'Đối thủ';
                     resText.textContent = winnerName + " đã giành hạng nhất!";
                     resText.style.color = '#64748b';
                 }

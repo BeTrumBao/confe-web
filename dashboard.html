@@ -325,7 +325,7 @@
         .sheet-backdrop {
             display: none;
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             z-index: 900;
             backdrop-filter: blur(4px);
@@ -423,7 +423,7 @@
 
         .modal {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             z-index: 2000;
@@ -525,7 +525,7 @@
 
         .poll-modal {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             z-index: 2000;
@@ -1251,7 +1251,7 @@
             user = u;
             if (!u) { window.top.location.href = 'login.html'; return; }
             loadCommunityPoll();
-            let displayName = u.displayName || u.email?.split('@')[0] || 'bạn';
+            let displayName = u.displayName || (u.email ? u.email.split('@')[0] : null) || 'bạn';
             try {
                 const snap = await getDoc(doc(db, 'users', u.uid));
                 if (snap.exists() && snap.data().displayName) displayName = snap.data().displayName;

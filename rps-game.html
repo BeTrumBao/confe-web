@@ -343,7 +343,7 @@
         }
 
         .choice-btn {
-            aspect-ratio: 1;
+            min-height: 80px;
             background: white;
             border: 2px solid transparent;
             border-radius: 24px;
@@ -429,7 +429,7 @@
         /* RESULT OVERLAY */
         .overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(8px);
             display: flex;
@@ -514,7 +514,7 @@
         /* CONFETTI */
         #confetti-canvas {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none;
             z-index: 3000;
         }
@@ -580,7 +580,7 @@
         /* COUNTDOWN OVERLAY */
         #countdownOverlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: #ffffff;
             z-index: 10000;
             display: none;
@@ -707,7 +707,7 @@
 
         .modal-overlay {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             display: none;
@@ -1386,7 +1386,7 @@
             onAuthStateChanged(auth, u => {
                 if (!u) { window.top.location.href = 'login.html'; return; }
                 myUid = u.uid;
-                myName = u.displayName || u.email?.split('@')[0] || 'Khách';
+                myName = u.displayName || (u.email ? u.email.split('@')[0] : null) || 'Khách';
 
                 document.getElementById('loadingScreen').style.display = 'none';
 
