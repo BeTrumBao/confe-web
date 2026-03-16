@@ -1225,8 +1225,34 @@
         }
 
         .streak-text {
-            color: #0ea5e9;
-            text-shadow: 0 0 20px rgba(14, 165, 233, 0.6), 0 0 40px rgba(14, 165, 233, 0.3);
+            color: #38bdf8;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6), 0 0 40px rgba(56, 189, 248, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .streak-mid {
+            color: #818cf8 !important; /* Indigo */
+            text-shadow: 0 0 20px rgba(129, 140, 248, 0.7), 0 0 40px rgba(129, 140, 248, 0.4) !important;
+        }
+
+        .streak-high {
+            color: #f472b6 !important; /* Pink */
+            text-shadow: 0 0 20px rgba(244, 114, 182, 0.7), 0 0 40px rgba(244, 114, 182, 0.4) !important;
+        }
+
+        .streak-legendary {
+            color: #f43f5e !important; /* Rose/Crimson */
+            text-shadow: 0 0 25px rgba(244, 63, 94, 0.8), 0 0 50px rgba(244, 63, 94, 0.5) !important;
+            animation: streakShake 0.4s infinite, achievementPop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+        }
+
+        @keyframes streakShake {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.15); }
+            25% { transform: translate(-52%, -48%) rotate(-1.5deg) scale(1.15); }
+            50% { transform: translate(-48%, -52%) rotate(1.5deg) scale(1.15); }
+            75% { transform: translate(-51%, -51%) rotate(0.8deg) scale(1.15); }
+            100% { transform: translate(-50%, -50%) rotate(0deg) scale(1.15); }
         }
 
         .perfect-text {
@@ -2402,7 +2428,7 @@
             window.selectSubject = function (subjectData) {
                 // Update quiz state
                 allQuestions = subjectData.questions || [];
-                activeQuestions = [...allQuestions];
+                activeQuestions = [...allQuestions].sort(() => Math.random() - 0.5);
                 correctCounts = new Array(activeQuestions.length).fill(0);
                 wrongCounts = new Array(activeQuestions.length).fill(0);
                 currentIndex = 0;
@@ -2859,10 +2885,15 @@
                 else if (filterType === 'quanghop') activeQuestions = allQuestions.filter(q => q.topic === 'quanghop');
                 else if (filterType === 'hohap') activeQuestions = allQuestions.filter(q => q.topic === 'hohap');
 
+                // Shuffle filtered questions
+                activeQuestions.sort(() => Math.random() - 0.5);
+
                 correctCounts = new Array(activeQuestions.length).fill(0);
                 wrongCounts = new Array(activeQuestions.length).fill(0);
                 totalAttempts = 0;
                 currentIndex = 0;
+                quizStreak = 0;
+                maxQuizStreak = 0;
                 currentQuestionAnswered = false;
                 currentSelection = null;
                 selectedArrangeWords = [];
@@ -3095,18 +3126,51 @@
                 }, 4500);
             }
 
-            window.showAchievement = function (type) {
+            window.showAchievement = function (type, extra) {
                 const container = document.createElement('div');
                 container.className = 'achievement-overlay';
 
                 const text = document.createElement('div');
-                text.className = 'achievement-text ' + (type === 'streak' ? 'streak-text' : 'perfect-text');
-                text.textContent = type === 'streak' ? '🔥 Tuyệt vời! 🔥' : '✨ Xuất sắc! ✨';
+                text.className = 'achievement-text ' + (type.includes('streak') ? 'streak-text' : 'perfect-text');
+                
+                if (type === 'review-streak') {
+                    const count = extra || 0;
+                    const compliments = [
+                        "Tuyệt quá bạn ơi!", 
+                        "Quá tuyệt vời!", 
+                        "Quá xuất sắc!", 
+                        "Đỉnh của đỉnh!", 
+                        "Thật là ảo diệu!", 
+                        "Cậu học bài kỹ thật đấy!",
+                        "Phong độ quá nể!",
+                        "Không thể tin được!",
+                        "Bá đạo quá!",
+                        "Xuất sắc luôn!"
+                    ];
+                    const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+
+                    if (count >= 15) {
+                        text.classList.add('streak-legendary');
+                        text.innerHTML = `<div style="font-size: 0.5em; opacity: 0.9;">${randomCompliment}</div>👑 XUẤT SẮC! CHUỖI ${count} 👑`;
+                    } else if (count >= 10) {
+                        text.classList.add('streak-high');
+                        text.innerHTML = `<div style="font-size: 0.6em; opacity: 0.9;">${randomCompliment}</div>✨ XUẤT SẮC! CHUỖI ${count} ✨`;
+                    } else if (count >= 5) {
+                        text.classList.add('streak-mid');
+                        text.innerHTML = `<div style="font-size: 0.7em; opacity: 0.9;">${randomCompliment}</div>⚡ CHUỖI ${count} ⚡`;
+                    } else if (count >= 2) {
+                        text.innerHTML = `<div style="font-size: 0.8em; opacity: 0.9;">${randomCompliment}</div>🔥 CHUỖI ${count} 🔥`;
+                    } else {
+                        text.textContent = '✨ TUYỆT VỜI ✨';
+                    }
+                } else {
+                    text.textContent = type === 'streak' ? '🔥 Tuyệt vời! 🔥' : '✨ Xuất sắc! ✨';
+                }
 
                 container.appendChild(text);
                 document.body.appendChild(container);
 
-                if (type === 'perfect') {
+                if (type === 'perfect' || (type === 'review-streak' && extra >= 5)) {
                     for (let i = 0; i < 20; i++) {
                         const sparkle = document.createElement('div');
                         sparkle.className = 'sparkle';
@@ -3119,7 +3183,7 @@
 
                 setTimeout(() => {
                     if (container.parentNode) container.parentNode.removeChild(container);
-                }, 2000);
+                }, 1500);
             };
 
             window.showSoloError = function (msg) {
@@ -3566,6 +3630,8 @@
 
             let soloRoundStartIdx = 0;
             let soloCurrentStreak = 0;
+            let quizStreak = 0;
+            let maxQuizStreak = 0;
 
             let gameStartedWithIntro = false;
             let currentRoundNum = 1;
@@ -4288,8 +4354,20 @@
                     correctCounts[index]++;
                     betWonLost = currentBet;
                     userCoins += currentBet;
+                    
+                    quizStreak++;
+                    if (quizStreak > maxQuizStreak) maxQuizStreak = quizStreak;
+                    
+                    if (quizStreak >= 2) {
+                        window.showAchievement('review-streak', quizStreak);
+                    } else if (quizStreak === 1) {
+                        // Optional: show something for first correct if desired, but user asked for "chuỗi 1, 2..."
+                        // Let's show "Tuyệt vời" for streak 1 as requested implicitly by "chuỗi 1"
+                        window.showAchievement('review-streak', 1);
+                    }
                 } else {
                     wrongCounts[index]++;
+                    quizStreak = 0;
                     if (useProtect && inventory.protect > 0) {
                         inventory.protect--;
                         betWonLost = 0;
@@ -4323,7 +4401,7 @@
 
             function renderArrangeUI(qBlock, index, q) {
                 if (!currentQuestionAnswered && selectedArrangeWords.length === 0 && poolArrangeWords.length === 0) {
-                    poolArrangeWords = [...q.words];
+                    poolArrangeWords = [...q.words].sort(() => Math.random() - 0.5);
                 }
 
                 const answerDiv = document.createElement('div');
@@ -4395,6 +4473,18 @@
                         answerDiv.style.borderColor = '#dc2626';
                         answerDiv.style.backgroundColor = '#7f1d1d';
                     }
+
+                    const correctDisplay = document.createElement('div');
+                    correctDisplay.className = 'correct-answer-display';
+                    correctDisplay.style.padding = '12px';
+                    correctDisplay.style.marginTop = '15px';
+                    correctDisplay.style.borderRadius = '12px';
+                    correctDisplay.style.backgroundColor = 'rgba(56, 189, 248, 0.1)';
+                    correctDisplay.style.border = '1px solid rgba(56, 189, 248, 0.3)';
+                    correctDisplay.style.color = '#38bdf8';
+                    correctDisplay.style.fontWeight = '700';
+                    correctDisplay.innerHTML = `<span style="opacity: 0.8; font-size: 0.9em;">Đáp án đúng:</span><br>${q.a}`;
+                    qBlock.appendChild(correctDisplay);
                 }
             }
 
@@ -4701,15 +4791,19 @@
 
                 let accuracy = Math.round((activeQuestions.length * TARGET_MASTERY / totalAttempts) * 100);
 
-                resultText.textContent = 'Xuất sắc!';
+                resultText.textContent = accuracy >= 90 || maxQuizStreak >= 10 ? '👑 XUẤT SẮC! 👑' : 'TUYỆT VỜI!';
 
                 let compliment = '';
                 if (accuracy >= 90) {
-                    compliment = 'Tuyệt vời!';
+                    compliment = 'Bạn là thiên tài! Học quá đỉnh luôn!';
+                    window.showAchievement('perfect');
+                } else if (maxQuizStreak >= 7) {
+                    compliment = 'Chuỗi thần sầu! Tiếp tục phát huy nhé!';
+                    window.showAchievement('review-streak', maxQuizStreak);
                 } else if (accuracy >= 70) {
-                    compliment = 'Rất tốt!';
+                    compliment = 'Rất tốt! Cố gắng chút nữa là hoàn hảo!';
                 } else {
-                    compliment = 'Cố gắng hơn nhé!';
+                    compliment = 'Cố gắng hơn nhé! Bạn sắp làm được rồi!';
                 }
                 complimentText.textContent = compliment;
                 resultDiv.style.display = 'block';
