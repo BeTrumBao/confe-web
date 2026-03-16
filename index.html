@@ -275,16 +275,18 @@
 
         @media (max-width: 768px) {
             body {
-                flex-direction: column-reverse;
                 height: 100%;
-                height: -webkit-fill-available;
+                height: calc(var(--vh, 1vh) * 100);
                 background: #f0f4ff;
             }
 
             .sidebar {
-                position: relative;
+                position: fixed;
+                bottom: 12px;
+                left: 16px;
+                right: 16px;
                 width: calc(100% - 32px) !important;
-                margin: 0 16px 12px;
+                margin: 0;
                 height: 64px;
                 min-height: 64px;
                 flex-direction: row;
@@ -362,9 +364,10 @@
 
             .content-area {
                 flex: 1;
-                height: auto;
+                height: 100%;
                 width: 100%;
                 overflow: hidden;
+                padding-bottom: 76px;
             }
 
             .nav-notif-dot {
@@ -649,6 +652,15 @@
     </div>
 
     <script>
+        // Custom Viewport Height for iOS
+        function updateVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', updateVH);
+        window.addEventListener('orientationchange', updateVH);
+        updateVH();
+
         function openAnimatedModal(id) {
             const el = document.getElementById(id);
             if (!el) return;
