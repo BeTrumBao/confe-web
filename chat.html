@@ -1270,8 +1270,24 @@
                 const ud = uDoc.data();
                 currentUser.photoURL = ud.photoURL || ANON_AVATAR;
                 currentUser.isVerified = !!ud.isVerified; // Force boolean
+                currentUser.isChatMuted = !!ud.isChatMuted;
                 currentUser.displayName = ud.displayName || u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = ud.nameColor || 'default';
+
+                // Check and update UI for muted state
+                const input = document.getElementById('msgInput');
+                if (currentUser.isChatMuted && input) {
+                    input.placeholder = "Bạn đã bị cấm chat 🔇";
+                    input.disabled = true;
+                    document.getElementById('btnSend').style.opacity = '0.5';
+                    document.getElementById('btnSend').style.pointerEvents = 'none';
+                    document.querySelectorAll('.action-btn').forEach(btn => {
+                        if (btn.onclick && btn.onclick.toString().includes('openPollModal') || btn.querySelector('input[type="file"]')) {
+                            btn.style.opacity = '0.5';
+                            btn.style.pointerEvents = 'none';
+                        }
+                    });
+                }
             } else {
                 currentUser.photoURL = ANON_AVATAR;
                 currentUser.isVerified = false;
@@ -1630,12 +1646,13 @@
                 if (!msgSnap.exists()) throw new Error("Không tìm thấy tin nhắn!");
                 
                 let opts = msgSnap.data().options;
-                // Remove previous vote from this user for ANY option in this poll
-                opts.forEach(o => {
-                    if (o.votes.includes(currentUser.uid)) {
-                        o.votes = o.votes.filter(v => v !== currentUser.uid);
-                    }
-                });
+                // Strict Check: Has already voted in this poll?
+                const alreadyVoted = opts.some(o => o.votes.includes(currentUser.uid));
+                if (alreadyVoted) {
+                    window.showToast("Bạn đã bình chọn rồi, không thể sửa nhé! 🚫", "⚠️");
+                    return;
+                }
+
                 // Add new vote
                 opts[optId].votes.push(currentUser.uid);
                 
@@ -1650,6 +1667,10 @@
         }
 
         document.getElementById('btnSend').onclick = () => {
+            if (currentUser && currentUser.isChatMuted) {
+                window.showToast("Bạn đang bị cấm chat! 🔇", "❌");
+                return;
+            }
             const input = document.getElementById('msgInput');
             const txt = input.value.trim();
             if (!txt && selectedFiles.length === 0) return;
@@ -1916,20 +1937,33 @@
             } else if (msg.image) {
                 contentHtml += `<div style="margin-bottom:6px;"><img src="${msg.image}" class="msg-img" onclick="window.openGallery('${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'"></div>`;
             }
+
             if (msg.type === 'poll') {
-                let optsHtml = ''; const totalVotes = msg.options.reduce((a, b) => a + b.votes.length, 0);
-                msg.options.forEach(opt => {
-                    const count = opt.votes.length; const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                    const isVoted = opt.votes.includes(currentUser.uid);
-                    optsHtml += `<div class="poll-opt" onclick="vote('${docId}', ${opt.id}, event)">
-                        <div style="position:absolute; top:0; left:0; height:100%; width:${pct}%; background:${isVoted ? 'rgba(0,132,255,0.1)' : '#f8fafc'}; transition:0.6s;"></div>
-                        <div style="position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; padding:10px 14px; font-size:14px;">
-                            <span style="font-weight:${isVoted ? 700 : 500}; color:${isVoted ? '#0084ff' : '#333'}">${opt.text}</span>
-                            <span style="font-weight:700; font-size:12px; color:${isVoted ? '#0084ff' : '#666'}">${pct}%</span>
-                        </div>
-                    </div>`;
-                });
-                contentHtml += `<div class="poll-box" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')"><div class="poll-q">${msg.question}</div>${optsHtml}<div style="font-size:10px; color:#999; margin-top:8px; text-align:center;"> ${totalVotes} lượt bình chọn</div></div>`;
+                let optsHtml = ''; 
+                const totalVotes = msg.options ? msg.options.reduce((a, b) => a + (b.votes ? b.votes.length : 0), 0) : 0;
+                if (msg.options) {
+                    msg.options.forEach(opt => {
+                        const count = opt.votes ? opt.votes.length : 0;
+                        const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
+                        const isVoted = opt.votes ? opt.votes.includes(currentUser.uid) : false;
+                        optsHtml += `<div class="poll-opt" onclick="vote('${docId}', ${opt.id}, event)">
+                            <div style="position:absolute; top:0; left:0; height:100%; width:${pct}%; background:${isVoted ? 'rgba(0,132,255,0.1)' : '#f8fafc'}; transition:0.6s;"></div>
+                            <div style="position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; padding:10px 14px; font-size:14px;">
+                                <span style="font-weight:${isVoted ? 700 : 500}; color:${isVoted ? '#0084ff' : '#333'}">${opt.text}</span>
+                                <span style="font-weight:700; font-size:12px; color:${isVoted ? '#0084ff' : '#666'}">${pct}%</span>
+                            </div>
+                        </div>`;
+                    });
+                }
+                contentHtml += `<div class="poll-box" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                        <span style="font-size:11px; font-weight:800; color:#0084ff; background:rgba(0,132,255,0.1); padding:3px 10px; border-radius:100px;">Poll</span>
+                        <span class="material-symbols-rounded" style="font-size:16px; color:#999; cursor:pointer;" onclick="event.stopPropagation(); window.showToast('Mỗi người chỉ được bình chọn 1 lần duy nhất.', 'ℹ️')">info</span>
+                    </div>
+                    <div class="poll-q">${msg.question || ''}</div>
+                    ${optsHtml}
+                    <div style="font-size:10px; color:#999; margin-top:8px; text-align:center;"> ${totalVotes} lượt bình chọn</div>
+                </div>`;
             } else if (msg.text) {
                 const linkedText = linkify(msg.text);
                 contentHtml += `<div class="msg-bubble" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">${linkedText}${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}</div>`;

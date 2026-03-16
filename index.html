@@ -593,6 +593,44 @@
             box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
             filter: brightness(1.1);
         }
+
+        /* BANNED OVERLAY */
+        #bannedOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .ban-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 440px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modal-pop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .ban-icon {
+            font-size: 64px;
+            color: #ef4444;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
     </style>
 
     <link rel="stylesheet"
@@ -1158,6 +1196,29 @@
         <p id="siteDownMessage">Hệ thống đang được bảo trì. Vui lòng quay lại sau ít phút.</p>
     </div>
 
+    <div id="bannedOverlay">
+        <div class="ban-card">
+            <div class="ban-icon">🚫</div>
+            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">Tài khoản đã bị khóa</h1>
+            <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+                Tài khoản của bạn đã vi phạm tiêu chuẩn cộng đồng và bị cấm truy cập vào hệ thống.
+            </p>
+            
+            <div style="background: #fef2f2; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 28px; border: 1px solid #fee2e2;">
+                <div style="margin-bottom: 8px;">
+                    <span style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Lý do khóa:</span>
+                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
+                </div>
+                <div>
+                    <span style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Ngày mở khóa:</span>
+                    <p id="banUnbanDateText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
+                </div>
+            </div>
+
+            <button class="btn-ad-primary" onclick="localStorage.clear(); location.reload();" style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">Đăng xuất</button>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -1179,6 +1240,29 @@
             // Auth state
             if (u) {
                 localStorage.setItem('confe_current_uid', u.uid);
+
+                // --- KIỂM TRA TRẠNG THÁI BAN ---
+                try {
+                    const uSnap = await getDoc(doc(db, "users", u.uid));
+                    if (uSnap.exists() && uSnap.data().isBanned === true) {
+                        const data = uSnap.data();
+                        document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                        document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                        
+                        document.getElementById('bannedOverlay').style.display = 'flex';
+                        // Chặn iframe và sidebar
+                        const frame = document.getElementById('mainFrame');
+                        if (frame) frame.src = 'about:blank';
+                        const sb = document.getElementById('sidebar');
+                        if (sb) sb.style.display = 'none';
+                        return; // Dừng xử lý tiếp
+                    } else {
+                        document.getElementById('bannedOverlay').style.display = 'none';
+                        const sb = document.getElementById('sidebar');
+                        if (sb) sb.style.display = 'flex'; // Always show, CSS handles responsiveness
+                    }
+                } catch (e) { console.error("Check ban fail:", e); }
+                // ------------------------------
 
                 // Auto-navigate logic removed as requested
             } else {
@@ -1274,7 +1358,20 @@
     </script>
 
     <script>
-        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('splash-screen').classList.add('hidden'); }, 1500); });
+        window.addEventListener('load', () => { 
+            setTimeout(() => { 
+                const splash = document.getElementById('splash-screen');
+                if (splash) splash.classList.add('hidden'); 
+            }, 1000); 
+        });
+
+        // Splash screen 3s fallback hider
+        setTimeout(() => {
+            const splash = document.getElementById('splash-screen');
+            if (splash && !splash.classList.contains('hidden')) {
+                splash.classList.add('hidden');
+            }
+        }, 3000);
 
         window.setUid = (uid) => { const el = document.getElementById('uidText'); if (el) el.textContent = uid || '—'; }
 

@@ -307,6 +307,67 @@
                 font-size: 18px;
             }
         }
+
+        /* BANNED OVERLAY */
+        #bannedOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .ban-card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 440px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modal-pop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .ban-icon {
+            font-size: 64px;
+            color: #ef4444;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        @keyframes ban-shake {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-5deg);
+            }
+
+            75% {
+                transform: rotate(5deg);
+            }
+        }
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -358,7 +419,6 @@
 
             <div id="formLogin" class="hidden">
                 <div class="title">Confe </div>
-                <div class="subtitle">Đăng nhập vào tài khoản của bạn để tiếp tục sử dụng.</div>
 
                 <div class="inp-group">
                     <label class="inp-label">Email hoặc Username</label>
@@ -369,7 +429,8 @@
                     <input type="password" id="lPass" class="inp" placeholder="••••••••">
                 </div>
                 <div style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
-                    <span class="switch-btn" style="font-size: 12px; text-decoration: none;" onclick="window.forgotPassword()">Quên mật khẩu?</span>
+                    <span class="switch-btn" style="font-size: 12px; text-decoration: none;"
+                        onclick="window.forgotPassword()">Quên mật khẩu?</span>
                 </div>
                 <button id="btnLogin" class="btn-main">Đăng Nhập</button>
 
@@ -588,7 +649,6 @@
     </div>
 
 
-    <!-- Forgot Password Modal -->
     <div id="forgotPasswordModal"
         style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:7000; align-items:center; justify-content:center; backdrop-filter:blur(6px);"
         onclick="if(event.target===this)this.style.display='none'">
@@ -597,7 +657,8 @@
             <div style="text-align:center; margin-bottom:20px;">
                 <div style="font-size:36px; margin-bottom:8px;">🔑</div>
                 <div style="font-size:18px; font-weight:800;">Lấy lại mật khẩu</div>
-                <div style="font-size:13px; color:#64748b; margin-top:4px;">Nhập email bạn đã đăng ký để nhận link reset.</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Nhập email bạn đã đăng ký để nhận link
+                    reset.</div>
             </div>
 
             <div class="inp-group">
@@ -606,9 +667,42 @@
             </div>
 
             <button id="btnSendReset" onclick="window.sendResetEmail()"
-                style="width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:10px; transition:0.2s;">Gửi yêu cầu reset</button>
+                style="width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:10px; transition:0.2s;">Gửi
+                yêu cầu reset</button>
             <button onclick="document.getElementById('forgotPasswordModal').style.display='none'"
                 style="width:100%; padding:12px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s;">Hủy</button>
+        </div>
+    </div>
+
+    <div id="bannedOverlay">
+        <div class="ban-card">
+            <div class="ban-icon">🚫</div>
+            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">Tài khoản đã bị khóa
+            </h1>
+            <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+                Tài khoản của bạn đã vi phạm tiêu chuẩn cộng đồng và không thể tiếp tục sử dụng.
+            </p>
+
+            <div
+                style="background: #fef2f2; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 28px; border: 1px solid #fee2e2;">
+                <div style="margin-bottom: 8px;">
+                    <span
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Lý
+                        do khóa:</span>
+                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—
+                    </p>
+                </div>
+                <div>
+                    <span
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Ngày
+                        mở khóa:</span>
+                    <p id="banUnbanDateText"
+                        style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
+                </div>
+            </div>
+
+            <button class="btn-main" onclick="localStorage.clear(); location.reload();"
+                style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">Đăng xuất</button>
         </div>
     </div>
 
@@ -617,13 +711,29 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signInAnonymously, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signInAnonymously, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const app = initializeApp(cfg);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // --- KIỂM TRA TRẠNG THÁI BAN KHI LOAD TRANG ---
+        onAuthStateChanged(auth, async (u) => {
+            if (u) {
+                try {
+                    const uSnap = await getDoc(doc(db, "users", u.uid));
+                    if (uSnap.exists() && uSnap.data().isBanned === true) {
+                        const data = uSnap.data();
+                        document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                        document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                        document.getElementById('bannedOverlay').style.display = 'flex';
+                        await signOut(auth);
+                    }
+                } catch (e) { console.error("Auto check ban fail:", e); }
+            }
+        });
 
         window.showToast = (msg, icon = "") => {
             if (window.parent && window.parent !== window && window.parent.showToast) {
@@ -656,7 +766,7 @@
         window.sendResetEmail = async () => {
             const email = document.getElementById('fEmail').value.trim();
             if (!email) return showToast("Vui lòng nhập email!", "⚠️");
-            
+
             const btn = document.getElementById('btnSendReset');
             btn.innerText = "Đang gửi...";
             btn.disabled = true;
@@ -707,7 +817,7 @@
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
                     // New account — must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch(e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
+                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
                         username: user.displayName || (user.email ? user.email.split('@')[0] : 'google_user'),
                         displayName: user.displayName || 'Cư dân mới',
@@ -716,9 +826,15 @@
                         photoURL: user.photoURL || '',
                         createdAt: new Date().toISOString(),
                         role: 'member',
-                        is_setup: false,
                         provider: 'google'
                     });
+                } else if (snap.data().isBanned === true) {
+                    const data = snap.data();
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                    await signOut(auth);
+                    document.getElementById('bannedOverlay').style.display = 'flex';
+                    return;
                 }
                 showToast('Đăng nhập Google thành công!', '');
                 setTimeout(() => window.top.location.href = 'index.html', 1000);
@@ -739,7 +855,7 @@
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
                     // New account — must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch(e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
+                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
                         username: user.displayName || (user.email ? user.email.split('@')[0] : 'fb_user'),
                         displayName: user.displayName || 'Cư dân mới',
@@ -748,9 +864,15 @@
                         photoURL: user.photoURL || '',
                         createdAt: new Date().toISOString(),
                         role: 'member',
-                        is_setup: false,
                         provider: 'facebook'
                     });
+                } else if (snap.data().isBanned === true) {
+                    const data = snap.data();
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                    await signOut(auth);
+                    document.getElementById('bannedOverlay').style.display = 'flex';
+                    return;
                 }
                 showToast('Đăng nhập Facebook thành công!', '');
                 setTimeout(() => window.top.location.href = 'index.html', 1000);
@@ -812,7 +934,18 @@
 
             this.innerText = "Đang xử lý...";
             try {
-                await signInWithEmailAndPassword(auth, e, p);
+                const cred = await signInWithEmailAndPassword(auth, e, p);
+                const user = cred.user;
+                // --- KIỂM TRA BAN ---
+                const uSnap = await getDoc(doc(db, "users", user.uid));
+                if (uSnap.exists() && uSnap.data().isBanned === true) {
+                    const data = uSnap.data();
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                    await signOut(auth);
+                    document.getElementById('bannedOverlay').style.display = 'flex';
+                    return;
+                }
                 showToast("Đăng nhập thành công!", "");
                 setTimeout(() => window.top.location.href = 'index.html', 1000);
             }
@@ -827,7 +960,7 @@
             const agreed = document.getElementById('agreePolicy').checked;
 
             if (!username || !email || !p) return showToast("Nhập đủ thông tin đi!", "️");
-            
+
             // Username validation: no spaces, no special chars, 3-15 chars
             const userRegex = /^[a-zA-Z0-9_]+$/;
             if (!userRegex.test(username)) {

@@ -704,28 +704,6 @@
                 }[tag];
             });
         };
-        document.addEventListener('contextmenu', function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            e.preventDefault();
-        });
-        document.onkeydown = function (e) {
-            if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return true;
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-        };
-        (function () {
-            setInterval(function () {
-                if (window.currentUser && window.currentUser.uid === 'kG1yhV2iOZWslQACnjHIOyzmjBJ2') return;
-                var before = new Date().getTime();
-                debugger;
-                var after = new Date().getTime();
-                if (after - before > 100) {
-                    document.body.innerHTML = "<div style='display:flex; height:100vh; align-items:center; justify-content:center; text-align:center; flex-direction:column;'><h1 style='font-size:40px;'>&#9888;&#65039; C&#7843;nh B&#225;o</h1><p style='font-size:18px; color:#64748b; margin-top:10px;'>Vui l&#242;ng kh&#244;ng s&#7917; d&#7909;ng Developer Tools (F12) tr&#234;n tr&#236;nh duy&#7879;t n&#224;y.</p></div>";
-                }
-            }, 1000);
-        })();
     </script>
 </head>
 
@@ -841,12 +819,16 @@
                 <textarea id="feedbackContent" class="inp-area" rows="4"
                     placeholder="Vui lòng mô tả chi tiết..."></textarea>
             </div>
-            <div id="deviceInfoWrapper" style="margin-bottom:15px; display:none; padding:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px;">
+            <div id="deviceInfoWrapper"
+                style="margin-bottom:15px; display:none; padding:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
                     <span style="font-size:12px; font-weight:700; color:#475569;">Thông tin thiết bị</span>
-                    <button id="btnGetDeviceInfo" style="font-size:11px; font-weight:700; color:var(--primary); background:none; border:none; cursor:pointer; padding:4px 8px; border-radius:6px; background:rgba(37, 99, 235, 0.1);">Lấy thông tin 📱</button>
+                    <button id="btnGetDeviceInfo"
+                        style="font-size:11px; font-weight:700; color:var(--primary); background:none; border:none; cursor:pointer; padding:4px 8px; border-radius:6px; background:rgba(37, 99, 235, 0.1);">Lấy
+                        thông tin 📱</button>
                 </div>
-                <div id="deviceInfoStatus" style="font-size:11px; color:#64748b; line-height:1.4;">Chưa đính kèm thông tin thiết bị.</div>
+                <div id="deviceInfoStatus" style="font-size:11px; color:#64748b; line-height:1.4;">Chưa đính kèm thông
+                    tin thiết bị.</div>
                 <input type="hidden" id="deviceInfoData">
             </div>
             <button id="btnSendFeedback" class="btn-act">Gửi phản hồi</button>
@@ -878,15 +860,30 @@
         </div>
     </div>
 
+    <!-- Poll Info Modal -->
+    <div id="modalPollInfo" class="modal">
+        <div class="box" style="text-align:center; max-width:320px;">
+            <div style="font-size:40px; margin-bottom:10px;">ℹ️</div>
+            <h3 style="margin-bottom:15px; font-size:18px;">Về Poll này</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">
+                Đây là cuộc khảo sát ý kiến cộng đồng từ Admin. Mỗi tài khoản chỉ được bình chọn 1 lần duy nhất. Cảm ơn bạn đã tham gia đóng góp ý kiến!
+            </p>
+            <button onclick="document.getElementById('modalPollInfo').classList.remove('active')" class="btn-act" style="width:100%; margin-top:0;">Đã hiểu</button>
+        </div>
+    </div>
+
     <!-- Device Info Consent -->
     <div id="modalDeviceInfoConsent" class="modal" style="z-index: 2500;">
         <div class="box" style="text-align:center; max-width:320px;">
-            <div style="font-size:40px; margin-bottom:10px;">📱</div>
-            <h3 style="margin-bottom:15px; font-size:18px;">Lấy thông tin thiết bị</h3>
-            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">Hệ thống sẽ lấy thông tin về <b>Hệ điều hành, trình duyệt và kích thước màn hình</b> để giúp Admin sửa lỗi nhanh hơn. Bạn đồng ý chứ?</p>
+            <div style="font-size:40px; margin-bottom:10px;">?</div>
+            <h3 style="margin-bottom:15px; font-size:18px;">Lấy thông tin thiết bị ?</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.5;">Hệ thống sẽ lấy thông tin về
+                <b>Hệ điều hành, trình duyệt và kích thước màn hình</b> để giúp Admin sửa lỗi nhanh hơn. Bạn đồng ý chứ?
+            </p>
             <div style="display:flex; gap:10px;">
                 <button id="btnConfirmDeviceInfo" class="btn-act" style="width:100%; margin-top:0;">Đồng ý</button>
-                <button onclick="document.getElementById('modalDeviceInfoConsent').classList.remove('active')" style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer;">Hủy</button>
+                <button onclick="document.getElementById('modalDeviceInfoConsent').classList.remove('active')"
+                    style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer;">Hủy</button>
             </div>
         </div>
     </div>
@@ -894,7 +891,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, setDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
         import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
@@ -1000,30 +997,60 @@
                 total > 0 ? `${total} lượt vote` : 'Hãy là người đầu tiên vote!';
         }
 
+        let isVotingPoll = false;
         async function castVote(poll, optId) {
-            if (!user) return;
+            if (!user || isVotingPoll) return;
             const voteRef = doc(db, 'community_votes', poll.id);
-            await setDoc(voteRef, { ['votes_' + optId]: arrayUnion(user.uid) }, { merge: true });
+            
+            // Fix: Strict check to prevent modification (no re-voting/no changing)
             const snap = await getDoc(voteRef);
             const data = snap.data() || {};
-            let total = 0;
-            poll.options.forEach(o => { total += (data['votes_' + o.id] || []).length; });
-            renderOpts(poll, data, total, optId);
-            window.showToast('Đã vote! 🗳️');
+            let hasVoted = false;
+            poll.options.forEach(o => {
+                if ((data['votes_' + o.id] || []).includes(user.uid)) hasVoted = true;
+            });
+
+            if (hasVoted) {
+                window.showToast('Bạn đã bình chọn rồi, không thể sửa nhé! 🚫');
+                return;
+            }
+
+            isVotingPoll = true;
+            try {
+                const updates = { ['votes_' + optId]: arrayUnion(user.uid) };
+                await updateDoc(voteRef, updates);
+                const freshSnap = await getDoc(voteRef);
+                const freshData = freshSnap.data() || {};
+                let total = 0;
+                poll.options.forEach(o => { total += (freshData['votes_' + o.id] || []).length; });
+                renderOpts(poll, freshData, total, optId);
+                window.showToast('Đã ghi nhận bình chọn! 🗳️');
+            } catch (e) {
+                console.error("Cast vote fail:", e);
+                window.showToast('Lỗi khi bình chọn!');
+            } finally {
+                isVotingPoll = false;
+            }
         }
 
         window.submitSurvey = async (pollId) => {
             if (!user) return window.showToast('Đăng nhập để trả lời nhé!');
             const txt = document.getElementById('surveyInput').value.trim();
             if (!txt) return window.showToast('Vui lòng nhập câu trả lời!');
-            const btn = document.querySelector('#pollOptions button');
-            if (btn) { btn.textContent = "Đang gửi..."; btn.disabled = true; }
 
             const voteRef = doc(db, 'community_votes', pollId);
+            const snap = await getDoc(voteRef);
+            if (snap.exists() && snap.data()['user_' + user.uid]) {
+                window.showToast('Bạn đã gửi câu trả lời rồi! 🚫');
+                return;
+            }
+
+            const btn = document.querySelector('#pollOptions button');
+            if (btn) { btn.textContent = "Đang gửi..."; btn.disabled = true; }
             await setDoc(voteRef, { ['user_' + user.uid]: txt }, { merge: true });
 
-            const snap = await getDoc(voteRef);
-            const data = snap.data() || {};
+            const freshSnap = await getDoc(voteRef);
+            const data = freshSnap.data() || {};
             let total = Object.keys(data).filter(k => k.startsWith('user_')).length;
 
             renderOpts(currentPoll, data, total, txt);
@@ -1056,20 +1083,67 @@
             document.getElementById('modalDeviceInfoConsent').classList.add('active');
         };
 
-        document.getElementById('btnConfirmDeviceInfo').onclick = () => {
-            const info = {
-                ua: navigator.userAgent,
-                platform: navigator.platform,
-                vendor: navigator.vendor,
-                screen: `${window.screen.width}x${window.screen.height}`,
-                pixelRatio: window.devicePixelRatio,
-                language: navigator.language,
-                timestamp: new Date().toISOString()
-            };
-            document.getElementById('deviceInfoData').value = JSON.stringify(info);
-            document.getElementById('deviceInfoStatus').innerHTML = `<span style="color:#16a34a; font-weight:700;">✓ Đã đính kèm thông tin thiết bị</span><br><span style="font-size:10px; opacity:0.8;">${info.screen}, ${info.language}</span>`;
-            document.getElementById('modalDeviceInfoConsent').classList.remove('active');
-            window.showToast("Đã lấy thông tin thiết bị! 📱");
+        document.getElementById('btnConfirmDeviceInfo').onclick = async () => {
+            const btn = document.getElementById('btnConfirmDeviceInfo');
+            btn.textContent = "Đang lấy..."; btn.disabled = true;
+
+            try {
+                const info = {
+                    // Cơ bản
+                    ua: navigator.userAgent,
+                    platform: navigator.platform,
+                    vendor: navigator.vendor,
+                    language: navigator.language,
+                    cookiesEnabled: navigator.cookieEnabled,
+                    online: navigator.onLine,
+                    referrer: document.referrer || "None",
+                    
+                    // Phần cứng & Hiệu suất
+                    screen: `${window.screen.width}x${window.screen.height}`,
+                    availScreen: `${window.screen.availWidth}x${window.screen.availHeight}`,
+                    pixelRatio: window.devicePixelRatio,
+                    cores: navigator.hardwareConcurrency || "N/A",
+                    memory: navigator.deviceMemory || "N/A", // GB (Chỉ Chrome)
+                    maxTouchPoints: navigator.maxTouchPoints || 0,
+                    
+                    // Môi trường
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    orientation: screen.orientation ? screen.orientation.type : "N/A",
+                    
+                    // Mạng (Nếu có)
+                    connection: navigator.connection ? {
+                        type: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink,
+                        rtt: navigator.connection.rtt
+                    } : "N/A",
+
+                    timestamp: new Date().toISOString()
+                };
+
+                // Lấy thông tin Pin (Nếu trình duyệt hỗ trợ)
+                if (navigator.getBattery) {
+                    try {
+                        const battery = await navigator.getBattery();
+                        info.battery = {
+                            level: Math.round(battery.level * 100) + "%",
+                            charging: battery.charging
+                        };
+                    } catch (e) { info.battery = "Scan fail"; }
+                }
+
+                document.getElementById('deviceInfoData').value = JSON.stringify(info);
+                document.getElementById('deviceInfoStatus').innerHTML = `
+                    <span style="color:#16a34a; font-weight:700;">✓ Đã đính kèm thông tin chi tiết</span><br>
+                    <span style="font-size:10px; opacity:0.8;">${info.screen}, ${info.cores} Cores, ${info.battery ? info.battery.level + ' 🔋' : ''}</span>
+                `;
+                window.showToast("Đã lấy thông tin chi tiết! 📱");
+            } catch (err) {
+                console.error("Device info err:", err);
+                window.showToast("Lỗi khi lấy thông tin!");
+            } finally {
+                btn.textContent = "Lấy thông tin 📱"; btn.disabled = false;
+                document.getElementById('modalDeviceInfoConsent').classList.remove('active');
+            }
         };
 
         document.getElementById('btnSendFeedback').onclick = async () => {

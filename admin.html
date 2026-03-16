@@ -749,6 +749,7 @@
                         <div style="margin-top:4px;">
                             ${isVerified ? '<span class="badge verified">Verified</span>' : ''}
                             ${isBanned ? '<span class="badge banned">BANNED</span>' : ''}
+                            ${ud.isChatMuted ? '<span class="badge" style="background:#64748b; color:white;">MUTED</span>' : ''}
                         </div>
                     </td>
                     <td>
@@ -878,6 +879,14 @@
             } catch (e) { showToast(e.message, 'error'); }
         };
 
+        window.toggleChatMute = async (id, current) => {
+            try {
+                await updateDoc(doc(db, "users", id), { isChatMuted: !current });
+                showToast(current ? "Đã gỡ cấm chat" : "Đã cấm chat người dùng này!");
+                loadUsers();
+            } catch (e) { showToast(e.message, 'error'); }
+        };
+
         window.toggleVerify = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { isVerified: !current });
@@ -892,7 +901,24 @@
             const ok = await confConfirm(title, msg, current ? 'info' : 'danger');
             if (ok) {
                 try {
-                    await updateDoc(doc(db, "users", id), { isBanned: !current });
+                    let updateData = { isBanned: !current };
+                    
+                    if (!current) { // Nếu là Ban nick
+                        const reason = prompt("Lý do ban?", "Vi phạm tiêu chuẩn cộng đồng");
+                        if (reason === null) return; // Hủy
+                        
+                        const dateUnban = prompt("Ngày mở ban? (VD: 20/03/2026 hoặc 'Vĩnh viễn')", "Vĩnh viễn");
+                        if (dateUnban === null) return; // Hủy
+                        
+                        updateData.banReason = reason;
+                        updateData.dateUnban = dateUnban;
+                        updateData.bannedAt = new Date().toISOString();
+                    } else { // Nếu là Gỡ ban
+                        updateData.banReason = "";
+                        updateData.dateUnban = "";
+                    }
+
+                    await updateDoc(doc(db, "users", id), updateData);
                     showToast(current ? "Đã gỡ ban thành công" : "Người dùng đã bị ban!");
                     loadUsers();
                 } catch (e) { showToast(e.message, 'error'); }
@@ -1053,16 +1079,20 @@
                 </div>
                 <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt.seconds * 1000).toLocaleString('vi') : '---'}" readonly></div>
                 
-                <div style="grid-column: span 2; display: flex; gap: 10px; margin-top: 10px;">
-                    <button class="btn ${isVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; font-size: 13px;" onclick="toggleVerify('${uid}', ${isVerified}); closeProfileModal();">
+                <div style="grid-column: span 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                    <button class="btn ${isVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isVerified}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isVerified ? 'verified_user' : 'verified'}</span>
                         ${isVerified ? 'Hủy tick' : 'Cấp tick'}
                     </button>
-                    <button class="btn" style="flex: 1; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
+                    <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
                         ${isBanned ? 'Gỡ Ban' : 'Ban Nick'}
                     </button>
-                    <button class="btn" style="flex: 1; font-size: 13px; background: #fee2e2; color: #991b1b;" onclick="deleteItem('users', '${uid}'); closeProfileModal();">
+                    <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${u.isChatMuted ? '#f1f5f9' : '#fef3c7'}; color: ${u.isChatMuted ? 'var(--text)' : '#92400e'};" onclick="toggleChatMute('${uid}', ${!!u.isChatMuted}); closeProfileModal();">
+                        <span class="material-symbols-rounded">${u.isChatMuted ? 'chat' : 'comments_disabled'}</span>
+                        ${u.isChatMuted ? 'Gỡ Cấm Chat' : 'Cấm Chat'}
+                    </button>
+                    <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: #fee2e2; color: #991b1b;" onclick="deleteItem('users', '${uid}'); closeProfileModal();">
                         <span class="material-symbols-rounded">delete</span> Xóa User
                     </button>
                 </div>

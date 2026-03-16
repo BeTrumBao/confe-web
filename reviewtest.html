@@ -1617,6 +1617,191 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .feedback-btn {
+            background: white;
+            color: #0084ff;
+            border: 1.5px solid #e2e8f0;
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .feedback-btn:hover {
+            border-color: #0084ff;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 132, 255, 0.1);
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10005;
+            padding: 20px;
+            animation: modal-fade 0.3s ease;
+        }
+
+        @keyframes modal-fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 460px;
+            padding: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modal-pop {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .inp {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            font-family: inherit;
+            font-size: 15px;
+            color: #1e293b;
+            transition: all 0.2s;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .inp:focus {
+            border-color: #0084ff;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 132, 255, 0.1);
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 15px;
+        }
+
+        .modal-btn:active { transform: scale(0.98); }
+
+        .btn-primary { 
+            background: #0084ff; 
+            color: white; 
+        }
+
+        .btn-primary:hover { 
+            background: #0076e5; 
+            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.2); 
+        }
+
+        .btn-secondary { 
+            background: #f1f5f9; 
+            color: #1e293b; 
+        }
+
+        .btn-secondary:hover { 
+            background: #e2e8f0; 
+        }
+
+        .img-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .img-preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .img-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-preview-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .img-preview-remove:hover {
+            background: #ef4444;
+            transform: scale(1.1);
+        }
+
+        .upload-placeholder {
+            border: 2px dashed #cbd5e1;
+            border-radius: 18px;
+            padding: 28px;
+            text-align: center;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+        }
+
+        .upload-placeholder:hover {
+            border-color: #0084ff;
+            background: #f0f9ff;
+            color: #0084ff;
+        }
     </style>
 </head>
 
@@ -1631,6 +1816,36 @@
     <div id="bo3-round-overlay"></div>
 
     <div id="match-end-overlay"></div>
+
+    <div id="modalSyllabusFeedback" class="modal">
+        <div class="modal-box">
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #1e293b;">Góp ý đề cương 📝</h2>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Giúp chúng mình hoàn thiện nội dung bằng cách gửi tên môn và hình đề cương nhé!</p>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Tên môn học:</label>
+                <input type="text" id="syllSubject" class="inp" placeholder="Ví dụ: Khoa học tự nhiên 7...">
+            </div>
+            
+            <div style="margin-bottom: 28px;">
+                <label style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Hình ảnh đề cương (tải lên nhiều):</label>
+                <div class="upload-placeholder" onclick="document.getElementById('syllFiles').click()">
+                    <span class="material-symbols-rounded" style="font-size: 36px; color: #0084ff;">add_a_photo</span>
+                    <span style="font-size: 14px; font-weight: 700;">Nhấn để chọn ảnh</span>
+                    <span style="font-size: 12px; color: #94a3b8;">Có thể chọn nhiều ảnh cùng lúc</span>
+                </div>
+                <input type="file" id="syllFiles" multiple accept="image/*" style="display: none;" onchange="handleSyllPreview(this)">
+                <div id="syllPreviewGrid" class="img-preview-grid"></div>
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button onclick="closeSyllabusModal()" class="modal-btn btn-secondary">Hủy</button>
+                <button id="btnSubmitSyll" onclick="submitSyllabusFeedback()" class="modal-btn btn-primary" style="flex: 1.8;">
+                    <span class="material-symbols-rounded">send</span> Gửi góp ý
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div id="skeleton-overlay">
         <div class="skeleton-loader" style="max-width: 600px; margin: 20px auto; width: 100%;">
@@ -1649,6 +1864,9 @@
             <div class="dashboard-header">
                 <h1 id="main-title" class="dashboard-title">Ôn tập</h1>
                 <p style="color: #64748b; font-weight: 500;">Chọn môn học để bắt đầu ôn tập ngay bây giờ</p>
+                <button class="feedback-btn" onclick="openSyllabusModal()">
+                    <span class="material-symbols-rounded">edit_note</span> Góp ý đề cương
+                </button>
             </div>
 
             <div id="subject-grid" class="subject-grid">
@@ -2068,7 +2286,7 @@
             import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
             import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
             import { getDatabase, ref, set, get, onValue, update, onDisconnect } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js';
-            import { getFirestore, doc, getDoc, updateDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+            import { getFirestore, doc, getDoc, updateDoc, onSnapshot, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
             const firebaseConfig = {
                 apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
@@ -4542,6 +4760,99 @@
                 renderQuestion(0);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+
+            // Syllabus Feedback Logic
+            const SYLL_IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+            let syllSelectedFiles = [];
+
+            window.openSyllabusModal = () => {
+                document.getElementById('modalSyllabusFeedback').classList.add('active');
+            };
+
+            window.closeSyllabusModal = () => {
+                document.getElementById('modalSyllabusFeedback').classList.remove('active');
+                // Reset form
+                document.getElementById('syllSubject').value = '';
+                document.getElementById('syllFiles').value = '';
+                syllSelectedFiles = [];
+                document.getElementById('syllPreviewGrid').innerHTML = '';
+            };
+
+            window.handleSyllPreview = (input) => {
+                const files = Array.from(input.files);
+                syllSelectedFiles = [...syllSelectedFiles, ...files];
+                renderSyllPreview();
+            };
+
+            function renderSyllPreview() {
+                const grid = document.getElementById('syllPreviewGrid');
+                grid.innerHTML = '';
+                syllSelectedFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const item = document.createElement('div');
+                        item.className = 'img-preview-item';
+                        item.innerHTML = `
+                            <img src="${e.target.result}">
+                            <button class="img-preview-remove" onclick="removeSyllImg(${index})">✕</button>
+                        `;
+                        grid.appendChild(item);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            window.removeSyllImg = (index) => {
+                syllSelectedFiles.splice(index, 1);
+                renderSyllPreview();
+            };
+
+            window.submitSyllabusFeedback = async () => {
+                const subject = document.getElementById('syllSubject').value.trim();
+                if (!subject) return window.showToast('Vui lòng nhập tên môn học!');
+                if (syllSelectedFiles.length === 0) return window.showToast('Vui lòng tải lên ít nhất 1 hình ảnh!');
+
+                const btn = document.getElementById('btnSubmitSyll');
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-container" style="width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 1s linear infinite;"></span> Đang gửi...';
+
+                try {
+                    // 1. Upload images
+                    const imageUrls = [];
+                    for (const file of syllSelectedFiles) {
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        const res = await fetch(`https://api.imgbb.com/1/upload?key=${SYLL_IMG_KEY}`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const resJson = await res.json();
+                        if (resJson.success) {
+                            imageUrls.push(resJson.data.url);
+                        }
+                    }
+
+                    // 2. Save to Firestore
+                    const feedbackCol = collection(window.firestore, 'syllabus_feedback');
+                    await addDoc(feedbackCol, {
+                        subject: subject,
+                        images: imageUrls,
+                        uid: currentUser ? currentUser.uid : 'anonymous',
+                        userName: currentUser ? (currentUser.displayName || 'Người dùng ẩn danh') : 'Người dùng ẩn danh',
+                        createdAt: serverTimestamp()
+                    });
+
+                    window.showToast('Cảm ơn bạn! Góp ý đã được gửi thành công. 🎉');
+                    closeSyllabusModal();
+                } catch (err) {
+                    console.error("Submit feedback failed:", err);
+                    window.showToast('Có lỗi xảy ra khi gửi góp ý. Vui lòng thử lại!');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            };
 
             updateCoinDisplay();
             updateInventoryDisplay();

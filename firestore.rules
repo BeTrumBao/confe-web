@@ -1,104 +1,119 @@
-  rules_version = '2';
-  service cloud.firestore {
-    match /databases/{database}/documents {
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ======== Helper Functions ========
+
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuth() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ======== Collection Rules ========
+
+    match /users/{userId} {
+      allow read: if isAuth(); 
+      allow create: if isOwner(userId) && 
+                      request.resource.data.isVerified == false && 
+                      request.resource.data.role == 'user' && 
+                      request.resource.data.isBanned == false;
       
-      // ======== Helper Functions ========
+      // Chặn user tự cấp tích xanh (isVerified), đổi role, gỡ ban hoặc gỡ cấm chat
+      allow update: if isAdmin() || (
+        isOwner(userId) && 
+        request.resource.data.isVerified == resource.data.isVerified &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.isBanned == resource.data.isBanned &&
+        request.resource.data.get('isChatMuted', false) == resource.data.get('isChatMuted', false)
+      );
+      allow delete: if isAdmin();
+    }
 
-      function isAuth() {
-        return request.auth != null;
-      }
+    match /subjects/{subjectId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
 
-      function isOwner(userId) {
-        return isAuth() && request.auth.uid == userId;
-      }
-
-      function isAdmin() {
-        return isAuth() && 
-          exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-      }
-
-      // ======== Collection Rules ========
-
-      match /users/{userId} {
+    match /topics/{topicId} {
+      allow read: if isAuth();
+      allow create: if isAuth(); 
+      allow update, delete: if isAuth() && (resource.data.authorId == request.auth.uid || isAdmin());
+      
+      // Messages within topic
+      match /chat/{docId} { 
         allow read: if isAuth(); 
-        allow create: if isOwner(userId);
-        allow update: if isOwner(userId) || isAdmin();
-        allow delete: if isAdmin();
+        allow write: if isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('isChatMuted', false) == false;
       }
-
-      match /subjects/{subjectId} {
-        allow read: if isAuth();
-        allow write: if isAdmin();
-      }
-
-      match /topics/{topicId} {
-        allow read: if isAuth();
-        allow create: if isAuth(); 
-        allow update, delete: if isAuth() && (resource.data.authorId == request.auth.uid || isAdmin());
-        
-        // Messages within topic
-        match /chat/{docId} { 
-          allow read, write: if isAuth(); 
-        }
-        
-        // Typing within topic
-        match /typing/{docId} { 
-          allow read, write: if isAuth(); 
-        }
-      }
-
-      match /comments/{commentId} {
-        allow read: if isAuth();
-        allow create: if isAuth();
-        allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
-      }
-
-      match /friend_requests/{requestId} {
-        allow read: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
-        allow create: if isAuth() && request.resource.data.from_uid == request.auth.uid;
-        allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid || isAdmin());
-      }
-
-      match /posts/{postId} {
-        allow read: if isAuth();
-        allow create: if isAuth();
-        allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
-        
-        match /user_reactions/{uid} {
-          allow read: if isAuth();
-          allow write: if isAuth() && request.auth.uid == uid;
-        }
-      }
-
-      match /feedbacks/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
-      match /reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
-      match /bug_reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
-      match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
       
-      // Community Polls (Important: allow create for voting if doc doesn't exist)
-      match /community_votes/{pollId} { 
+      // Typing within topic
+      match /typing/{docId} { 
         allow read, write: if isAuth(); 
       }
-      
-      // Public Chat & Typing
-      match /public_chat/{docId} { allow read, write: if isAuth(); }
-      match /public_typing/{docId} { allow read, write: if isAuth(); }
+    }
 
-      match /groups/{groupId} {
-        allow read, write: if isAuth();
-        match /messages/{messageId} { allow read, write: if isAuth(); }
-      }
-      
-      match /leaderboard_clicks/{userId} { allow read: if isAuth(); allow create, update: if isOwner(userId) || isAdmin(); }
-      match /system/{docId} { allow read: if isAuth(); allow write: if isAdmin(); }
-      match /follows/{followId} { allow read, write: if isAuth(); }
-      match /rps_rooms/{roomId} { allow read, write: if isAuth(); }
-      match /pending_invites/{uid}/invites/{invId} { allow read, write: if isAuth(); }
+    match /comments/{commentId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
+    }
 
-      // Catch-all
-      match /{document=**} {
-        allow read, write: if false;
+    match /friend_requests/{requestId} {
+      allow read: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid);
+      allow create: if isAuth() && request.resource.data.from_uid == request.auth.uid;
+      allow update, delete: if isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid || isAdmin());
+    }
+
+    match /posts/{postId} {
+      allow read: if isAuth();
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.authorUid == request.auth.uid || isAdmin());
+      
+      match /user_reactions/{uid} {
+        allow read: if isAuth();
+        allow write: if isAuth() && request.auth.uid == uid;
       }
     }
+
+    match /feedbacks/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /bug_reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
+    
+    // Community Polls
+    match /community_votes/{pollId} { 
+      allow read, write: if isAuth(); 
+    }
+    
+    // Public Chat & Typing
+    match /public_chat/{docId} { 
+      allow read: if isAuth(); 
+      allow write: if isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('isChatMuted', false) == false;
+    }
+    match /public_typing/{docId} { allow read, write: if isAuth(); }
+
+    match /groups/{groupId} {
+      allow read, write: if isAuth();
+      match /messages/{messageId} { allow read, write: if isAuth(); }
+    }
+    
+    match /leaderboard_clicks/{userId} { allow read: if isAuth(); allow create, update: if isOwner(userId) || isAdmin(); }
+    match /system/{docId} { allow read: if isAuth(); allow write: if isAdmin(); }
+    match /follows/{followId} { allow read, write: if isAuth(); }
+    match /rps_rooms/{roomId} { allow read, write: if isAuth(); }
+    match /pending_invites/{uid}/invites/{invId} { allow read, write: if isAuth(); }
+
+    // Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
   }
+}
