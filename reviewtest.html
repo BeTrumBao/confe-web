@@ -119,7 +119,10 @@
         .subject-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
             border-radius: inherit;
             pointer-events: none;
@@ -902,7 +905,10 @@
 
         #bo3-intro-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 9999;
             display: none;
             overflow: hidden;
@@ -955,7 +961,10 @@
 
         .intro-flash {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: white;
             opacity: 0;
             pointer-events: none;
@@ -990,7 +999,10 @@
 
         #bo3-round-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 9998;
             display: none;
             justify-content: center;
@@ -1026,7 +1038,10 @@
 
         #match-end-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 10000;
             display: none;
             flex-direction: column;
@@ -1516,7 +1531,10 @@
         .skeleton-item::after {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: skeleton-pulse 1.5s infinite;
         }
@@ -1578,7 +1596,10 @@
 
         #skeleton-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: #F9FAFB;
             z-index: 9999;
             padding: 20px 15px;
@@ -1632,7 +1653,7 @@
             gap: 8px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             margin-top: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .feedback-btn:hover {
@@ -1644,7 +1665,10 @@
 
         .modal {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -1657,8 +1681,13 @@
         }
 
         @keyframes modal-fade {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .modal.active {
@@ -1676,8 +1705,15 @@
         }
 
         @keyframes modal-pop {
-            from { opacity: 0; transform: scale(0.9) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .inp {
@@ -1716,25 +1752,27 @@
             font-size: 15px;
         }
 
-        .modal-btn:active { transform: scale(0.98); }
-
-        .btn-primary { 
-            background: #0084ff; 
-            color: white; 
+        .modal-btn:active {
+            transform: scale(0.98);
         }
 
-        .btn-primary:hover { 
-            background: #0076e5; 
-            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.2); 
+        .btn-primary {
+            background: #0084ff;
+            color: white;
         }
 
-        .btn-secondary { 
-            background: #f1f5f9; 
-            color: #1e293b; 
+        .btn-primary:hover {
+            background: #0076e5;
+            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.2);
         }
 
-        .btn-secondary:hover { 
-            background: #e2e8f0; 
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
         }
 
         .img-preview-grid {
@@ -1750,7 +1788,7 @@
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .img-preview-item img {
@@ -1819,28 +1857,35 @@
 
     <div id="modalSyllabusFeedback" class="modal">
         <div class="modal-box">
-            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #1e293b;">Góp ý đề cương 📝</h2>
-            <p style="color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Giúp chúng mình hoàn thiện nội dung bằng cách gửi tên môn và hình đề cương nhé!</p>
-            
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #1e293b;">Góp ý đề cương </h2>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.5;">Giúp tui hoàn thiện nội
+                dung bằng cách gửi tên môn và hình đề cương nhé!</p>
+
             <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Tên môn học:</label>
+                <label
+                    style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Tên
+                    môn học:</label>
                 <input type="text" id="syllSubject" class="inp" placeholder="Ví dụ: Khoa học tự nhiên 7...">
             </div>
-            
+
             <div style="margin-bottom: 28px;">
-                <label style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Hình ảnh đề cương (tải lên nhiều):</label>
+                <label
+                    style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; margin-left: 4px;">Hình
+                    ảnh đề cương (tải lên nhiều):</label>
                 <div class="upload-placeholder" onclick="document.getElementById('syllFiles').click()">
                     <span class="material-symbols-rounded" style="font-size: 36px; color: #0084ff;">add_a_photo</span>
                     <span style="font-size: 14px; font-weight: 700;">Nhấn để chọn ảnh</span>
                     <span style="font-size: 12px; color: #94a3b8;">Có thể chọn nhiều ảnh cùng lúc</span>
                 </div>
-                <input type="file" id="syllFiles" multiple accept="image/*" style="display: none;" onchange="handleSyllPreview(this)">
+                <input type="file" id="syllFiles" multiple accept="image/*" style="display: none;"
+                    onchange="handleSyllPreview(this)">
                 <div id="syllPreviewGrid" class="img-preview-grid"></div>
             </div>
-            
+
             <div style="display: flex; gap: 12px;">
                 <button onclick="closeSyllabusModal()" class="modal-btn btn-secondary">Hủy</button>
-                <button id="btnSubmitSyll" onclick="submitSyllabusFeedback()" class="modal-btn btn-primary" style="flex: 1.8;">
+                <button id="btnSubmitSyll" onclick="submitSyllabusFeedback()" class="modal-btn btn-primary"
+                    style="flex: 1.8;">
                     <span class="material-symbols-rounded">send</span> Gửi góp ý
                 </button>
             </div>

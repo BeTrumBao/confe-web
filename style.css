@@ -37,6 +37,7 @@ body {
     background: var(--bg);
     color: var(--text-main);
     min-height: 100vh;
+    min-height: 100dvh;
     line-height: 1.5;
 }
 
@@ -512,6 +513,7 @@ textarea {
     margin-bottom: 8px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

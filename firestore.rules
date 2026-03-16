@@ -86,6 +86,7 @@ service cloud.firestore {
     match /feedbacks/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
     match /reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
     match /bug_reports/{reportId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
+    match /syllabus_feedback/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
     match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
     
     // Community Polls
