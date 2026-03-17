@@ -1735,7 +1735,7 @@
                     const ownerSnap = await getDoc(doc(db, "users", topicOwnerUid));
                     if (ownerSnap.exists() && ownerSnap.data().fcmToken) {
                         const token = ownerSnap.data().fcmToken;
-                        fetch('/api/send-notification', {
+                        const res = await fetch('/api/send-notification', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -1744,8 +1744,15 @@
                                 body: text || "Đã gửi một ảnh/sticker"
                             })
                         });
+                        const result = await res.json();
+                        console.log("Push Context:", { topicOwner: topicOwnerUid, tokenExist: !!token, apiStatus: res.status, result });
+                        if (!res.ok) window.showToast("Lỗi gửi thông báo: " + (result.error || res.statusText), "⚠️");
+                    } else {
+                        console.log("Push Skip: Chủ topic không có FCM Token hoặc không tồn tại.");
                     }
-                } catch (e) { console.error("Push notify error:", e); }
+                } catch (e) { 
+                    console.error("Push notify system error:", e); 
+                }
             };
 
             const sendSingleMsg = (imgUrl = "") => {

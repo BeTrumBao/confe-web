@@ -1304,7 +1304,7 @@
                 if (permission === 'granted') {
                     const token = await getToken(messaging, { vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo' }); // User needs to replace this
                     if (token) {
-                        await updateDoc(doc(db, "users", user.uid), { fcmToken: token });
+                        await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
                         console.log("FCM Token saved to Firestore");
                     }
                 }
