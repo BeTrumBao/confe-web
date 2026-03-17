@@ -89,6 +89,12 @@ service cloud.firestore {
     match /syllabus_feedback/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
     match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
     
+    match /requests/{requestId} {
+      allow read: if isAuth() && (resource.data.ownerEmail == request.auth.token.email || resource.data.userEmail == request.auth.token.email);
+      allow create: if isAuth();
+      allow update, delete: if isAuth() && (resource.data.ownerEmail == request.auth.token.email || resource.data.userEmail == request.auth.token.email || isAdmin());
+    }
+    
     // Community Polls
     match /community_votes/{pollId} { 
       allow read, write: if isAuth(); 
