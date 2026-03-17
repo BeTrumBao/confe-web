@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         return res.status(405).send('Method Not Allowed');
     }
 
-    const { token, topic, title, body } = req.body;
+    const { token, topic, title, body, tag, senderUid } = req.body;
 
     if ((!token && !topic) || !title || !body) {
         return res.status(400).send({ success: false, error: "Missing required fields: (token or topic), title, body" });
@@ -30,10 +30,12 @@ module.exports = async (req, res) => {
 
     const message = {
         notification: { title, body },
+        data: senderUid ? { senderUid: String(senderUid) } : {},
         webpush: {
             notification: {
                 icon: 'https://confe-web.vercel.app/assets/favicon.png',
-                click_action: 'https://confe-web.vercel.app/chat.html'
+                click_action: 'https://confe-web.vercel.app/chat.html',
+                tag: tag ? String(tag) : undefined
             }
         }
     };

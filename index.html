@@ -1323,11 +1323,16 @@
         // Handle foreground notifications
         onMessage(messaging, (payload) => {
             console.log('Message received. ', payload);
+            // Suppress self-notification
+            if (payload.data && payload.data.senderUid === localStorage.getItem('confe_current_uid')) {
+                console.log("Self-notification suppressed");
+                return;
+            }
             // Show a browser notification manually since browsers don't show it automatically in foreground
             if (Notification.permission === 'granted') {
                 new Notification(payload.notification.title, {
                     body: payload.notification.body,
-                    icon: '/assets/icon.png'
+                    icon: '/assets/favicon.png'
                 });
             }
         });
