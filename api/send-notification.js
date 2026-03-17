@@ -22,22 +22,31 @@ module.exports = async (req, res) => {
         return res.status(405).send('Method Not Allowed');
     }
 
-    const { token, title, body, icon } = req.body;
+    const { token, topic, title, body } = req.body;
 
-    if (!token || !title || !body) {
-        return res.status(400).send('Missing required fields');
+    if ((!token && !topic) || !title || !body) {
+        return res.status(400).send({ success: false, error: "Missing required fields: (token or topic), title, body" });
     }
 
     const message = {
-        notification: {
-            title: title,
-            body: body,
-        },
-        token: token,
+        notification: { title, body },
+        webpush: {
+            notification: {
+                icon: 'https://confe-web.vercel.app/assets/favicon.png',
+                click_action: 'https://confe-web.vercel.app/chat.html'
+            }
+        }
     };
+
+    if (token) {
+        message.token = token;
+    } else {
+        message.topic = topic;
+    }
 
     try {
         const response = await admin.messaging().send(message);
+        console.log('Successfully sent message:', response);
         res.status(200).send({ success: true, messageId: response });
     } catch (error) {
         console.error('Error sending message:', error);

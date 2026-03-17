@@ -1256,15 +1256,12 @@
         const tid = urlParams.get('tid');
         const CHAT_COL = tid ? `topics/${tid}/chat` : "public_chat";
         const TYPING_COL = tid ? `topics/${tid}/typing` : "public_typing";
-        let topicOwnerUid = null;
 
         if (tid) {
             document.getElementById('btnBack').href = `detailv2.html?id=${tid}`;
             getDoc(doc(db, "topics", tid)).then(snap => {
-                if (snap.exists()) {
-                    const data = snap.data();
-                    topicOwnerUid = data.uid;
-                    if (data.title) document.querySelector('.header-title').textContent = data.title;
+                if (snap.exists() && snap.data().title) {
+                    document.querySelector('.header-title').textContent = snap.data().title;
                 }
             }).catch(e => console.error(e));
         } else {
@@ -1729,30 +1726,53 @@
                 return batch.commit();
             };
 
-            const triggerPushNotification = async (text) => {
-                if (!topicOwnerUid || topicOwnerUid === currentUser.uid) return;
+            const triggerPushNotification = async (messageText, isReply = false) => {
+                // 1. Global Notification (Community Chat) - Always send
+                fetch('/api/send-notification', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        topic: 'public-chat',
+                        title: `Confe: Tin mới từ ${currentUser.displayName || "Cư dân"}`,
+                        body: messageText || "Đã gửi một ảnh/sticker"
+                    })
+                }).catch(e => console.error("Global push error:", e));
+
+                // 2. Reply Notification (Targeted)
+                if (isReply && currentReply && currentReply.uid && currentReply.uid !== currentUser.uid) {
+                    try {
+                        const targetSnap = await getDoc(doc(db, "users", currentReply.uid));
+                        if (targetSnap.exists() && targetSnap.data().fcmToken) {
+                            fetch('/api/send-notification', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    token: targetSnap.data().fcmToken,
+                                    title: `${currentUser.displayName || "Bạn bè"} đã trả lời bạn`,
+                                    body: messageText || "Đã trả lời tin nhắn của bạn"
+                                })
+                            });
+                        }
+                    } catch (e) { console.error("Reply push error:", e); }
+                }
+            };
+
+            const triggerLikeNotification = async (msgOwnerUid, messagePreview) => {
+                if (!msgOwnerUid || msgOwnerUid === currentUser.uid) return;
                 try {
-                    const ownerSnap = await getDoc(doc(db, "users", topicOwnerUid));
+                    const ownerSnap = await getDoc(doc(db, "users", msgOwnerUid));
                     if (ownerSnap.exists() && ownerSnap.data().fcmToken) {
-                        const token = ownerSnap.data().fcmToken;
-                        const res = await fetch('/api/send-notification', {
+                        fetch('/api/send-notification', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
-                                token: token,
-                                title: `Tin nhắn mới từ ${currentUser.displayName || "Bạn bè"}`,
-                                body: text || "Đã gửi một ảnh/sticker"
+                                token: ownerSnap.data().fcmToken,
+                                title: `❤️ ${currentUser.displayName || "Ai đó"} đã thả tim tin nhắn của bạn`,
+                                body: messagePreview || "Xem ngay trong chat cộng đồng"
                             })
                         });
-                        const result = await res.json();
-                        console.log("Push Context:", { topicOwner: topicOwnerUid, tokenExist: !!token, apiStatus: res.status, result });
-                        if (!res.ok) window.showToast("Lỗi gửi thông báo: " + (result.error || res.statusText), "⚠️");
-                    } else {
-                        console.log("Push Skip: Chủ topic không có FCM Token hoặc không tồn tại.");
                     }
-                } catch (e) { 
-                    console.error("Push notify system error:", e); 
-                }
+                } catch (e) { console.error("Like push error:", e); }
             };
 
             const sendSingleMsg = (imgUrl = "") => {
@@ -1765,7 +1785,7 @@
                 };
                 if (currentReply) payload.replyTo = currentReply;
                 return addDoc(collection(db, CHAT_COL), payload).then(() => {
-                    triggerPushNotification(txt);
+                    triggerPushNotification(txt, !!currentReply);
                 });
             };
 
@@ -1850,8 +1870,13 @@
         window.handleHeart = async () => {
             const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             const likes = snap.data().likes || [];
-            if (likes.includes(currentUser.uid)) await updateDoc(msgRef, { likes: arrayRemove(currentUser.uid) });
-            else await updateDoc(msgRef, { likes: arrayUnion(currentUser.uid) });
+            if (likes.includes(currentUser.uid)) {
+                await updateDoc(msgRef, { likes: arrayRemove(currentUser.uid) });
+            } else {
+                await updateDoc(msgRef, { likes: arrayUnion(currentUser.uid) });
+                // Trigger notification for Like
+                triggerLikeNotification(snap.data().uid, snap.data().text || "Một hình ảnh");
+            }
             closeMsgMenu();
         }
 
@@ -1912,7 +1937,7 @@
         window.handleReply = async () => {
             const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
             if (snap.exists() && snap.data().text) {
-                window.replyData = { id: selectedMsgId, text: snap.data().text, name: snap.data().name };
+                window.replyData = { id: selectedMsgId, text: snap.data().text, name: snap.data().name, uid: snap.data().uid };
                 document.getElementById('replyToName').textContent = snap.data().name;
                 document.getElementById('replyToText').textContent = snap.data().text;
                 document.getElementById('replyBanner').style.display = 'flex';

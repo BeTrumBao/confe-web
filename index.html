@@ -1306,6 +1306,13 @@
                     if (token) {
                         await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
                         console.log("FCM Token saved to Firestore");
+                        
+                        // Subscribe to public chat notifications
+                        fetch('/api/subscribe', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ token: token, topic: 'public-chat' })
+                        }).then(r => r.json()).then(d => console.log("Subscribed:", d)).catch(e => console.error(e));
                     }
                 }
             } catch (err) {
