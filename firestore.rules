@@ -23,16 +23,16 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isAuth(); 
       allow create: if isOwner(userId) && 
-                      request.resource.data.isVerified == false && 
-                      request.resource.data.role == 'user' && 
-                      request.resource.data.isBanned == false;
+                      request.resource.data.get('isVerified', false) == false && 
+                      request.resource.data.get('role', 'user') == 'user' && 
+                      request.resource.data.get('isBanned', false) == false;
       
       // Chặn user tự cấp tích xanh (isVerified), đổi role, gỡ ban hoặc gỡ cấm chat
       allow update: if isAdmin() || (
         isOwner(userId) && 
-        request.resource.data.isVerified == resource.data.isVerified &&
-        request.resource.data.role == resource.data.role &&
-        request.resource.data.isBanned == resource.data.isBanned &&
+        request.resource.data.get('isVerified', false) == resource.data.get('isVerified', false) &&
+        request.resource.data.get('role', 'user') == resource.data.get('role', 'user') &&
+        request.resource.data.get('isBanned', false) == resource.data.get('isBanned', false) &&
         request.resource.data.get('isChatMuted', false) == resource.data.get('isChatMuted', false)
       );
       allow delete: if isAdmin();
@@ -111,6 +111,19 @@ service cloud.firestore {
     match /follows/{followId} { allow read, write: if isAuth(); }
     match /rps_rooms/{roomId} { allow read, write: if isAuth(); }
     match /pending_invites/{uid}/invites/{invId} { allow read, write: if isAuth(); }
+
+    // Matchmaking Feature
+    match /matchmaking_couples/{docId} {
+      allow read, create: if isAuth();
+      allow update: if isAuth() && (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['voteCount', 'voters']) &&
+        request.resource.data.get('voteCount', 0) == resource.data.get('voteCount', 0) + 1 &&
+        request.resource.data.get('voters', []).hasAll(resource.data.get('voters', [])) &&
+        request.resource.data.get('voters', []).size() == resource.data.get('voters', []).size() + 1 &&
+        !(request.auth.uid in resource.data.get('voters', []))
+      ) || isAdmin();
+      allow delete: if isAdmin();
+    }
 
     // Catch-all
     match /{document=**} {

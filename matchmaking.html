@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghép Đôi Đường Phố - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --primary: #ff4757;
+            --primary-bg: #fff5f6;
+            --bg: #fdf2f4;
+            --surface: #ffffff;
+            --text: #2f3542;
+            --text-secondary: #747d8c;
+            --border: #e2e8f0;
+            --radius: 28px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            padding: 24px 16px 100px;
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Background - Reduced for performance */
+        .bg-animate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 71, 87, 0.08);
+            /* Fainter */
+            font-size: 18px;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 0.6;
+            }
+
+            95% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary);
+            /* Simplified from gradient for performance */
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 20px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        /* Floating Action Button (FAB) */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+            cursor: pointer;
+            z-index: 900;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        /* Form Controls In Modal */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            padding-left: 4px;
+        }
+
+        .input-area {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #edf2f7;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+
+        .input-area:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 22px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Leaderboard */
+        .couple-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .couple-card {
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            /* Removed backdrop-filter for performance on long lists */
+        }
+
+        .couple-card:hover {
+            border-color: rgba(255, 71, 87, 0.3);
+            background: #fff;
+        }
+
+        .couple-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .rank-badge {
+            width: 36px;
+            height: 36px;
+            background: #f1f2f6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        /* Top 3 Style */
+        .couple-card:nth-child(1) {
+            border: 2.5px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+        }
+
+        .couple-card:nth-child(2) {
+            border: 2px solid #baccd9;
+        }
+
+        .couple-card:nth-child(3) {
+            border: 2px solid #eccda2;
+        }
+
+        .couple-card:nth-child(1) .rank-badge {
+            background: linear-gradient(135deg, #ffd700, #ffae00);
+            color: white;
+        }
+
+        .couple-card:nth-child(2) .rank-badge {
+            background: linear-gradient(135deg, #baccd9, #8d9da8);
+            color: white;
+        }
+
+        .couple-card:nth-child(3) .rank-badge {
+            background: linear-gradient(135deg, #eccda2, #c9a673);
+            color: white;
+        }
+
+        .names {
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .names span {
+            color: var(--primary);
+            margin: 0 6px;
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        .vote-btn {
+            background: var(--primary-bg);
+            color: var(--primary);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .vote-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .vote-btn.voted {
+            background: var(--primary);
+            color: white;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: #1e293b;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.4s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="bg-animate" id="bgAnimate"></div>
+
+    <div class="header">
+        <h1>Ghép Đôi Đường Phố</h1>
+        <p>Nơi xếp hạng những cặp đôi mà bạn biết ?</p>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="section-title">
+        <span class="material-symbols-rounded"
+            style="color: #ffa502; font-variation-settings: 'FILL' 1;">leaderboard</span>
+        Bảng Xếp Hạng
+    </div>
+    <div class="couple-list" id="coupleList">
+        <div style="text-align:center; padding:40px; color:var(--text-secondary); font-size:14px;">Đang tải danh sách...
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="openCreateModal">
+        <span class="material-symbols-rounded" style="font-size: 32px; font-variation-settings: 'FILL' 1;">add</span>
+    </button>
+
+    <!-- Create Couple Modal -->
+    <div id="modalCreate" class="modal">
+        <div class="modal-content">
+            <span class="material-symbols-rounded close-modal" id="closeCreateModal">close</span>
+            <div style="font-size: 50px; margin-bottom: 20px;"></div>
+            <h2 style="margin-bottom: 24px; font-weight: 800;">Tạo Cặp Đôi Mới</h2>
+
+            <div class="input-group">
+                <label>Tên nhân vật chính thứ 1</label>
+                <input type="text" id="name1" class="input-area" placeholder="Ví dụ: Diddi">
+            </div>
+            <div class="input-group">
+                <label>Tên nhân vật chính thứ 2</label>
+                <input type="text" id="name2" class="input-area" placeholder="Ví dụ: Diddi">
+            </div>
+
+            <button id="btnSubmitCouple" class="btn-submit">Gửi</button>
+        </div>
+    </div>
+
+    <!-- Skibidi Consent Modal -->
+    <div id="modalConsent" class="modal">
+        <div class="modal-content">
+            <div style="font-size: 70px; margin-bottom: 24px;">!</div>
+            <h2 style="margin-bottom: 12px; font-weight: 800;">Cảnh Báo !</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 32px; line-height: 1.7; font-weight: 500;">
+                Tính năng này được tạo ra để vui vẻ và có phần "kích động". Bạn cam kết không gây gổ và hoàn toàn chịu
+                trách nhiệm với những gì mình tạo ra để tiếp tục !
+            </p>
+            <button id="btnAgree" class="btn-submit">Tôi đồng ý những gì mình tạo ra</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, doc, updateDoc, arrayUnion, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUser = null;
+        let unsubscribeMatchmaking = null;
+
+        // Background Hearts
+        function createHearts() {
+            const container = document.getElementById('bgAnimate');
+            for (let i = 0; i < 8; i++) {
+                const h = document.createElement('div');
+                h.className = 'heart';
+                h.textContent = '❤';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDelay = Math.random() * 8 + 's';
+                h.style.fontSize = (12 + Math.random() * 15) + 'px';
+                container.appendChild(h);
+            }
+        }
+        createHearts();
+
+        window.showToast = (msg) => {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            c.appendChild(t);
+            setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
+        };
+
+        // Modal Logic
+        const modalCreate = document.getElementById('modalCreate');
+        document.getElementById('openCreateModal').onclick = () => {
+            if (!currentUser) return window.showToast("Bạn cần đăng nhập! 🔒");
+            modalCreate.classList.add('active');
+        };
+        document.getElementById('closeCreateModal').onclick = () => modalCreate.classList.remove('active');
+        window.onclick = (e) => { if (e.target == modalCreate) modalCreate.classList.remove('active'); };
+
+        // Consent logic
+        if (!localStorage.getItem('matchmaking_consent')) {
+            document.getElementById('modalConsent').classList.add('active');
+        }
+        document.getElementById('btnAgree').onclick = () => {
+            localStorage.setItem('matchmaking_consent', 'true');
+            document.getElementById('modalConsent').classList.remove('active');
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (!user) {
+                if (unsubscribeMatchmaking) unsubscribeMatchmaking();
+                window.showToast("Phiên đăng nhập hết hạn 🔒");
+                setTimeout(() => window.location.href = 'login.html', 2000);
+            } else {
+                startLeaderboardListener();
+            }
+        });
+
+        // Submit Couple
+        document.getElementById('btnSubmitCouple').onclick = async () => {
+            const n1 = document.getElementById('name1').value.trim();
+            const n2 = document.getElementById('name2').value.trim();
+            if (!n1 || !n2) return window.showToast("Nhập đầy đủ tên nhé! 💖");
+
+            const btn = document.getElementById('btnSubmitCouple');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-rounded">sync</span> Đang ghép...';
+
+            try {
+                await addDoc(collection(db, "matchmaking_couples"), {
+                    names: [n1, n2],
+                    voteCount: 1,
+                    voters: [currentUser.uid],
+                    createdBy: currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+                window.showToast("Ghép đôi thành công! 🎉");
+                document.getElementById('name1').value = "";
+                document.getElementById('name2').value = "";
+                modalCreate.classList.remove('active');
+            } catch (err) {
+                console.error(err);
+                window.showToast("Lỗi hệ thống! 🛠");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Bắt đầu ghép đôi 🚀";
+            }
+        };
+
+        function startLeaderboardListener() {
+            if (unsubscribeMatchmaking) unsubscribeMatchmaking();
+            const q = query(collection(db, "matchmaking_couples"), orderBy("voteCount", "desc"), limit(30));
+            unsubscribeMatchmaking = onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('coupleList');
+                list.innerHTML = "";
+                if (snapshot.empty) {
+                    list.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-secondary); font-size:14px;">Chưa có couple nào. Nhấn "+" để bắt đầu!</div>`;
+                    return;
+                }
+                snapshot.docs.forEach((d, index) => {
+                    const data = d.data();
+                    const hasVoted = data.voters?.includes(currentUser?.uid);
+                    const item = document.createElement('div');
+                    item.className = 'couple-card';
+                    item.innerHTML = `
+                        <div class="couple-info">
+                            <div class="rank-badge">${index + 1}</div>
+                            <div class="names">${window.escapeHTML(data.names[0])} <span>❤</span> ${window.escapeHTML(data.names[1])}</div>
+                        </div>
+                        <button class="vote-btn ${hasVoted ? 'voted' : ''}" onclick="window.voteForCouple('${d.id}', ${hasVoted})">
+                            <span class="material-symbols-rounded" style="font-size: 20px;">${hasVoted ? 'favorite' : 'favorite_border'}</span>
+                            ${data.voteCount || 0}
+                        </button>
+                    `;
+                    list.appendChild(item);
+                });
+            });
+        }
+
+        window.escapeHTML = (str) => { const p = document.createElement('p'); p.textContent = str; return p.innerHTML; };
+
+        window.voteForCouple = async (id, hasVoted) => {
+            if (!currentUser) return window.showToast("Cần đăng nhập! 🔒");
+            if (hasVoted) return window.showToast("Đã vote rồi! 💖");
+            try {
+                await updateDoc(doc(db, "matchmaking_couples", id), {
+                    voteCount: increment(1),
+                    voters: arrayUnion(currentUser.uid)
+                });
+                window.showToast("Đã ghi nhận vote! 💖");
+            } catch (err) { window.showToast("Lỗi khi vote! 🛠"); }
+        };
+    </script>
+</body>
+
+</html>

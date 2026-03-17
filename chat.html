@@ -608,6 +608,35 @@
             scrollbar-width: none;
         }
 
+        /* VIP Sparkling Effect */
+        @keyframes sparkle-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4); transform: scale(1.02); }
+        }
+
+        .vip-sparkle {
+            animation: sparkle-glow 2s infinite ease-in-out;
+            position: relative;
+            border: 2px solid #ffd700 !important;
+            border-radius: 12px;
+        }
+
+        .vip-sparkle::after {
+            content: "✨";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 20px;
+            animation: rotate-sparkle 3s infinite linear;
+            z-index: 10;
+        }
+
+        @keyframes rotate-sparkle {
+            0% { transform: rotate(0deg) scale(0.8); opacity: 0.5; }
+            50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+            100% { transform: rotate(360deg) scale(0.8); opacity: 0.5; }
+        }
+
         .gallery-thumbs::-webkit-scrollbar { display: none; }
 
         .gallery-thumb-item {
@@ -1227,12 +1256,15 @@
         const tid = urlParams.get('tid');
         const CHAT_COL = tid ? `topics/${tid}/chat` : "public_chat";
         const TYPING_COL = tid ? `topics/${tid}/typing` : "public_typing";
+        let topicOwnerUid = null;
 
         if (tid) {
             document.getElementById('btnBack').href = `detailv2.html?id=${tid}`;
             getDoc(doc(db, "topics", tid)).then(snap => {
-                if (snap.exists() && snap.data().title) {
-                    document.querySelector('.header-title').textContent = snap.data().title;
+                if (snap.exists()) {
+                    const data = snap.data();
+                    topicOwnerUid = data.uid;
+                    if (data.title) document.querySelector('.header-title').textContent = data.title;
                 }
             }).catch(e => console.error(e));
         } else {
@@ -1251,6 +1283,7 @@
                 currentUser.isChatMuted = !!ud.isChatMuted;
                 currentUser.displayName = ud.displayName || u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = ud.nameColor || 'default';
+                currentUser.unlockedStickers = ud.unlockedStickers || [];
 
                 // Check and update UI for muted state
                 const input = document.getElementById('msgInput');
@@ -1696,6 +1729,25 @@
                 return batch.commit();
             };
 
+            const triggerPushNotification = async (text) => {
+                if (!topicOwnerUid || topicOwnerUid === currentUser.uid) return;
+                try {
+                    const ownerSnap = await getDoc(doc(db, "users", topicOwnerUid));
+                    if (ownerSnap.exists() && ownerSnap.data().fcmToken) {
+                        const token = ownerSnap.data().fcmToken;
+                        fetch('/api/send-notification', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                token: token,
+                                title: `Tin nhắn mới từ ${currentUser.displayName || "Bạn bè"}`,
+                                body: text || "Đã gửi một ảnh/sticker"
+                            })
+                        });
+                    }
+                } catch (e) { console.error("Push notify error:", e); }
+            };
+
             const sendSingleMsg = (imgUrl = "") => {
                 const payload = {
                     text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
@@ -1705,7 +1757,9 @@
                     createdAt: serverTimestamp(), likes: []
                 };
                 if (currentReply) payload.replyTo = currentReply;
-                return addDoc(collection(db, CHAT_COL), payload);
+                return addDoc(collection(db, CHAT_COL), payload).then(() => {
+                    triggerPushNotification(txt);
+                });
             };
 
             if (filesToUpload.length > 0) {
@@ -1911,7 +1965,9 @@
                 </div>`;
             }
             if (msg.type === 'sticker') {
-                contentHtml += `<div style="margin-bottom:6px; cursor:pointer;" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')"><img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false"></div>`;
+                const vipUrl = "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png";
+                const isVip = msg.image === vipUrl;
+                contentHtml += `<div class="${isVip ? 'vip-sparkle' : ''}" style="margin-bottom:6px; cursor:pointer; display:inline-block;" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')"><img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false"></div>`;
             } else if (msg.image) {
                 contentHtml += `<div style="margin-bottom:6px;"><img src="${msg.image}" class="msg-img" onclick="window.openGallery('${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'"></div>`;
             }
@@ -2134,6 +2190,7 @@
         // === STICKER LOGIC ===
 
         const STICKERS = [
+            "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png",
             "https://i.ibb.co/Vc1PQcYT/8019bbfd3690.jpg",
             "https://i.ibb.co/Bk7BHLC/889311144247.jpg",
             "https://i.ibb.co/HTMzBSRx/15285f3f009f.jpg",
@@ -2161,7 +2218,13 @@
         function renderStickerGrid() {
             const grid = document.getElementById('stickerGrid');
             if (!grid) return;
-            grid.innerHTML = STICKERS.map((url, i) => 
+            const vipUrl = "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png";
+            const unlocked = currentUser ? (currentUser.unlockedStickers || []) : [];
+
+            grid.innerHTML = STICKERS.filter(url => {
+                if (url === vipUrl) return unlocked.includes(url);
+                return true;
+            }).map((url, i) => 
                 `<div onclick="sendSticker('${url}')" style="cursor:pointer; border-radius:8px; overflow:hidden; background:#f8fafc; display:flex; align-items:center; justify-content:center; padding:4px; transition:0.15s;" onmouseover="this.style.background='#e0e7ff'" onmouseout="this.style.background='#f8fafc'">
                     <img src="${url}" style="width:72px; height:72px; object-fit:cover; pointer-events:none; border-radius:6px;" onerror="this.parentElement.style.display='none'">
                 </div>`

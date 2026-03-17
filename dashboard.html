@@ -888,6 +888,30 @@
         </div>
     </div>
 
+    <!-- VIP Sticker Claim Modal -->
+    <div id="modalVIPSticker" class="modal" style="z-index: 3000;">
+        <div class="box" style="text-align:center; max-width:340px; background: linear-gradient(to bottom, #ffffff, #f0f7ff);">
+            <div style="font-size:50px; margin-bottom:15px;">🎁</div>
+            <h3 style="margin-bottom:10px; font-size:22px; font-weight: 800; color: var(--primary);">Quà Tặng VIP!</h3>
+            <p style="color:#475569; margin-bottom:20px; font-size:14px; line-height:1.6;">
+                Chúc mừng! Bạn nhận được sticker <b>VIP Dái D.y</b> giới hạn. Nhận ngay để sử dụng trong Chat nhé! ✨
+            </p>
+            <div style="background: white; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 2px dashed #0084ff;">
+                <img src="https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png" style="width: 120px; height: 120px; border-radius: 12px; object-fit: cover;">
+            </div>
+            <button id="btnClaimVIP" class="btn-act" style="width:100%; margin-top:0; font-size: 16px;">Nhận Ngay 🚀</button>
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 12px;">Ưu đãi kết thúc vào thứ 6 tuần này (20/03)</p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+    </style>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -1251,6 +1275,10 @@
             user = u;
             if (!u) { window.top.location.href = 'login.html'; return; }
             loadCommunityPoll();
+
+            // Handle VIP Sticker Claim Check
+            checkVIPStickerClaim(u);
+
             let displayName = u.displayName || (u.email ? u.email.split('@')[0] : null) || 'bạn';
             try {
                 const snap = await getDoc(doc(db, 'users', u.uid));
@@ -1258,6 +1286,43 @@
             } catch (e) { }
             applyGreeting(displayName);
         });
+
+        async function checkVIPStickerClaim(u) {
+            const now = new Date();
+            const deadline = new Date('2026-03-21T00:00:00'); // End of Friday
+            if (now > deadline) return;
+
+            try {
+                const userRef = doc(db, 'users', u.uid);
+                const snap = await getDoc(userRef);
+                const data = snap.data() || {};
+                const unlocked = data.unlockedStickers || [];
+                const vipUrl = "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png";
+
+                if (!unlocked.includes(vipUrl)) {
+                    document.getElementById('modalVIPSticker').classList.add('active');
+                }
+
+                document.getElementById('btnClaimVIP').onclick = async () => {
+                    const btn = document.getElementById('btnClaimVIP');
+                    btn.disabled = true;
+                    btn.textContent = "Đang nhận...";
+                    
+                    try {
+                        await updateDoc(userRef, {
+                            unlockedStickers: arrayUnion(vipUrl)
+                        });
+                        window.showToast("Đã nhận Sticker VIP thành công! 🎉");
+                        document.getElementById('modalVIPSticker').classList.remove('active');
+                    } catch (err) {
+                        console.error("Claim VIP fail:", err);
+                        window.showToast("Lỗi khi nhận quà!");
+                        btn.disabled = false;
+                        btn.textContent = "Nhận Ngay 🚀";
+                    }
+                };
+            } catch (e) { console.warn("Check VIP claim error:", e); }
+        }
 
         let newsItems = [];
 

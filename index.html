@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Confe</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <link rel="shortcut icon" href="assets/favicon.png">
@@ -49,7 +50,10 @@
         /* Modal Animation Styles */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -459,7 +463,10 @@
         /* AD POPUP PREMIUM STYLE */
         .ad-popup-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -602,7 +609,10 @@
         /* BANNED OVERLAY */
         #bannedOverlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -626,8 +636,15 @@
         }
 
         @keyframes modal-pop {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .ban-icon {
@@ -758,6 +775,10 @@
             <div class="nav-link" onclick="loadPage('game.html', this)">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
                 <span>Trò chơi</span>
+            </div>
+            <div class="nav-link" onclick="loadPage('matchmaking.html', this)">
+                <div class="nav-icon-wrap"><span class="material-symbols-rounded">favorite</span></div>
+                <span>Ghép đôi</span>
             </div>
             <div class="nav-link" onclick="loadPage('reviewtest.html', this)">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">menu_book</span></div>
@@ -1008,7 +1029,10 @@
 
         .modal-guidelines {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.6);
             z-index: 7000;
             display: flex;
@@ -1155,7 +1179,10 @@
         #siteDownOverlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             z-index: 99999;
             background: #ffffff;
             align-items: center;
@@ -1213,32 +1240,42 @@
     <div id="bannedOverlay">
         <div class="ban-card">
             <div class="ban-icon">🚫</div>
-            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">Tài khoản đã bị khóa</h1>
+            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">Tài khoản đã bị khóa
+            </h1>
             <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
                 Tài khoản của bạn đã vi phạm tiêu chuẩn cộng đồng và bị cấm truy cập vào hệ thống.
             </p>
-            
-            <div style="background: #fef2f2; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 28px; border: 1px solid #fee2e2;">
+
+            <div
+                style="background: #fef2f2; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 28px; border: 1px solid #fee2e2;">
                 <div style="margin-bottom: 8px;">
-                    <span style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Lý do khóa:</span>
-                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
+                    <span
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Lý
+                        do khóa:</span>
+                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—
+                    </p>
                 </div>
                 <div>
-                    <span style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Ngày mở khóa:</span>
-                    <p id="banUnbanDateText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
+                    <span
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Ngày
+                        mở khóa:</span>
+                    <p id="banUnbanDateText"
+                        style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
                 </div>
             </div>
 
-            <button class="btn-ad-primary" onclick="localStorage.clear(); location.reload();" style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">Đăng xuất</button>
+            <button class="btn-ad-primary" onclick="localStorage.clear(); location.reload();"
+                style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">Đăng xuất</button>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, query, where, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
         const app = initializeApp(cfg);
@@ -1246,14 +1283,41 @@
         const db = getFirestore(app);
         const rtdb = getDatabase(app);
         const remoteConfig = getRemoteConfig(app);
+        const messaging = getMessaging(app);
 
         const dot = document.getElementById('profileBadge');
         let unsubJoin = null, unsubFriend = null;
+
+        // Register Service Worker for FCM
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                .then((registration) => {
+                    console.log('Registration successful, scope is:', registration.scope);
+                }).catch((err) => {
+                    console.log('Service worker registration failed, error:', err);
+                });
+        }
+
+        async function requestNotificationPermission(user) {
+            try {
+                const permission = await Notification.requestPermission();
+                if (permission === 'granted') {
+                    const token = await getToken(messaging, { vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo' }); // User needs to replace this
+                    if (token) {
+                        await updateDoc(doc(db, "users", user.uid), { fcmToken: token });
+                        console.log("FCM Token saved to Firestore");
+                    }
+                }
+            } catch (err) {
+                console.error("FCM Permission/Token error:", err);
+            }
+        }
 
         onAuthStateChanged(auth, async (u) => {
             // Auth state
             if (u) {
                 localStorage.setItem('confe_current_uid', u.uid);
+                requestNotificationPermission(u); // Ask for permission after login
 
                 // --- KIỂM TRA TRẠNG THÁI BAN ---
                 try {
@@ -1262,7 +1326,7 @@
                         const data = uSnap.data();
                         document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
                         document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
-                        
+
                         document.getElementById('bannedOverlay').style.display = 'flex';
                         // Chặn iframe và sidebar
                         const frame = document.getElementById('mainFrame');
@@ -1372,11 +1436,11 @@
     </script>
 
     <script>
-        window.addEventListener('load', () => { 
-            setTimeout(() => { 
+        window.addEventListener('load', () => {
+            setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                if (splash) splash.classList.add('hidden'); 
-            }, 1000); 
+                if (splash) splash.classList.add('hidden');
+            }, 1000);
         });
 
         // Splash screen 3s fallback hider
