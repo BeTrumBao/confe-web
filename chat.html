@@ -1418,7 +1418,7 @@
                     topic: 'public-chat',
                     title: `Confe: Tin mới từ ${currentUser.displayName || "Cư dân"}`,
                     body: messageText || "Đã gửi một ảnh/sticker",
-                    tag: msgId || 'public-chat',
+                    tag: msgId ? String(msgId) : 'public-chat',
                     senderUid: currentUser.uid
                 })
             }).catch(e => console.error("Global push error:", e));
@@ -1435,7 +1435,7 @@
                                 token: targetSnap.data().fcmToken,
                                 title: `${currentUser.displayName || "Bạn bè"} đã trả lời bạn`,
                                 body: messageText || "Đã trả lời tin nhắn của bạn",
-                                tag: msgId || 'reply',
+                                tag: msgId ? String(msgId) : 'reply',
                                 senderUid: currentUser.uid
                             })
                         });
@@ -1778,7 +1778,9 @@
                         nameColor: window.myNameColor || 'default', createdAt: serverTimestamp(), likes: []
                     });
                 });
-                return batch.commit();
+                return batch.commit().then(() => {
+                    triggerPushNotification(txt || "Đã gửi nhiều ảnh", false, null, "batch-" + Date.now());
+                });
             };
 
 
@@ -1882,7 +1884,8 @@
             } else {
                 await updateDoc(msgRef, { likes: arrayUnion(currentUser.uid) });
                 // Trigger notification for Like
-                triggerLikeNotification(data.uid, data.text || "Một hình ảnh", selectedMsgId);
+                const msgData = snap.data();
+                triggerLikeNotification(msgData.uid, msgData.text || "Một hình ảnh", selectedMsgId);
             }
             closeMsgMenu();
         }

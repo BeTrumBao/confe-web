@@ -14,6 +14,20 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
     console.log('[firebase-messaging-sw.js] Background message received: ', payload);
-    // Browser handles the notification payload automatically if it's present.
-    // Manual call to showNotification here often causes duplicates.
+    
+    // If we want to show it manually to ensure it appears:
+    if (payload.notification) {
+        const notificationTitle = payload.notification.title;
+        const notificationOptions = {
+            body: payload.notification.body,
+            icon: '/assets/favicon.png',
+            tag: payload.notification.tag || payload.data?.tag || 'default-tag',
+            data: payload.data
+        };
+        // Note: Browsers usually handle "notification" payload automatically.
+        // We only call this if we suspect it's not happening.
+        // To fix DUPLICATES, we should check if the browser already showed it.
+        // But for "No Notifications", calling it manually is safer.
+        self.registration.showNotification(notificationTitle, notificationOptions);
+    }
 });

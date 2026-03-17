@@ -1323,8 +1323,8 @@
         // Handle foreground notifications
         onMessage(messaging, (payload) => {
             console.log('Message received. ', payload);
-            // Suppress self-notification
-            if (payload.data && payload.data.senderUid === localStorage.getItem('confe_current_uid')) {
+            const currentUid = localStorage.getItem('confe_current_uid');
+            if (payload.data && payload.data.senderUid && currentUid && payload.data.senderUid === currentUid) {
                 console.log("Self-notification suppressed");
                 return;
             }
