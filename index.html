@@ -1313,6 +1313,18 @@
             }
         }
 
+        // Handle foreground notifications
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+            // Show a browser notification manually since browsers don't show it automatically in foreground
+            if (Notification.permission === 'granted') {
+                new Notification(payload.notification.title, {
+                    body: payload.notification.body,
+                    icon: '/assets/icon.png'
+                });
+            }
+        });
+
         onAuthStateChanged(auth, async (u) => {
             // Auth state
             if (u) {
