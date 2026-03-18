@@ -847,14 +847,7 @@
                 <div class="nav-card-desc">Trắc nghiệm & đấu 1v1</div>
             </div>
         </a>
-        <a class="nav-card" onclick="go('shop.html', this)" style="display: none;">
-            <div class="nav-card-icon" style="background: #ffedd5;"><span class="material-symbols-rounded"
-                    style="color:#f97316;">shopping_cart</span></div>
-            <div>
-                <div class="nav-card-title">Cửa hàng</div>
-                <div class="nav-card-desc">Mua sắm vật phẩm & quà tặng</div>
-            </div>
-        </a>
+
         <a class="nav-card" onclick="go('qa.html', this)">
             <div class="nav-card-icon" style="background: #ecfdf5;"><span class="material-symbols-rounded"
                     style="color:#059669;">help</span></div>
@@ -1384,12 +1377,13 @@
             let msg = '', sub = '', emoji = '', label = '';
 
             let nameHtml = name;
-            // Red Tick (Creator/Admin) takes precedence
-            if (data && (data.isCreator || data.isAdmin || data.role === 'admin')) {
-                nameHtml += ' <span class="material-symbols-rounded" style="color:#ef4444; font-size:18px; vertical-align:middle;">verified</span>';
-            } else if (data && data.isVerified) {
+            // Ticks priority: Blue (Verified) takes precedence if requested
+            if (data && data.isVerified) {
                 // Blue Tick (Verified)
                 nameHtml += ' <span class="material-symbols-rounded" style="color:#0084ff; font-size:18px; vertical-align:middle;">verified</span>';
+            } else if (data && (data.isCreator || data.isAdmin || data.role === 'admin')) {
+                // Red Tick (Creator/Admin)
+                nameHtml += ' <span class="material-symbols-rounded" style="color:#ef4444; font-size:18px; vertical-align:middle;">verified</span>';
             }
 
 

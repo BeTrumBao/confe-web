@@ -303,6 +303,18 @@
             font-weight: 700;
         }
 
+        .chat-bg-gold {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7) !important;
+            color: #78350f !important;
+            border: 1px solid #f59e0b !important;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2) !important;
+        }
+
+        /* Update link color for gold background to make it visible */
+        .chat-bg-gold a {
+            color: #d97706 !important;
+        }
+
         .msg-row.theirs .msg-bubble a {
             color: #0084ff;
         }
@@ -2093,8 +2105,8 @@
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
             const avatarFrameClass = msg.avatarFrame === 'vip' ? 'avatar-frame-vip' : '';
             
-            if (msg.type === 'text' && msg.chatBackground === 'vip') {
-                contentHtml = contentHtml.replace('class="msg-bubble"', 'class="msg-bubble chat-bg-vip"');
+            if (msg.type === 'text' && (msg.chatBackground === 'vip' || msg.chatBackground === 'gold')) {
+                contentHtml = contentHtml.replace('class="msg-bubble"', 'class="msg-bubble chat-bg-gold"');
             }
 
             const html = `<div class="msg-row ${rowClass}" id="msg-${docId}">

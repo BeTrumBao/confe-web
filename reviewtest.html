@@ -1232,27 +1232,44 @@
         }
 
         .streak-mid {
-            color: #818cf8 !important; /* Indigo */
+            color: #818cf8 !important;
+            /* Indigo */
             text-shadow: 0 0 20px rgba(129, 140, 248, 0.7), 0 0 40px rgba(129, 140, 248, 0.4) !important;
         }
 
         .streak-high {
-            color: #f472b6 !important; /* Pink */
+            color: #f472b6 !important;
+            /* Pink */
             text-shadow: 0 0 20px rgba(244, 114, 182, 0.7), 0 0 40px rgba(244, 114, 182, 0.4) !important;
         }
 
         .streak-legendary {
-            color: #f43f5e !important; /* Rose/Crimson */
+            color: #f43f5e !important;
+            /* Rose/Crimson */
             text-shadow: 0 0 25px rgba(244, 63, 94, 0.8), 0 0 50px rgba(244, 63, 94, 0.5) !important;
             animation: streakShake 0.4s infinite, achievementPop 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
         }
 
         @keyframes streakShake {
-            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.15); }
-            25% { transform: translate(-52%, -48%) rotate(-1.5deg) scale(1.15); }
-            50% { transform: translate(-48%, -52%) rotate(1.5deg) scale(1.15); }
-            75% { transform: translate(-51%, -51%) rotate(0.8deg) scale(1.15); }
-            100% { transform: translate(-50%, -50%) rotate(0deg) scale(1.15); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.15);
+            }
+
+            25% {
+                transform: translate(-52%, -48%) rotate(-1.5deg) scale(1.15);
+            }
+
+            50% {
+                transform: translate(-48%, -52%) rotate(1.5deg) scale(1.15);
+            }
+
+            75% {
+                transform: translate(-51%, -51%) rotate(0.8deg) scale(1.15);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.15);
+            }
         }
 
         .perfect-text {
@@ -2676,54 +2693,35 @@
             };
 
             const khtnQuestions = [
-                // === NỘI DUNG ÔN TẬP GIỮA KÌ 2 (MỚI) ===
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Trong quá trình quang hợp, diệp lục có vai trò hấp thụ ánh sáng để chuyển hóa năng lượng ánh sáng thành hóa năng.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Diệp lục giúp hấp thụ quang năng và chuyển thành hóa năng tích lũy trong chất hữu cơ." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Nước vừa là nguyên liệu của quang hợp, vừa là yếu tố điều tiết sự đóng mở khí khổng để trao đổi khí.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nước là nguyên liệu trực tiếp và điều tiết sức trương nước ở tế bào hạt đậu." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Trong thí nghiệm quang hợp, ta dùng dung dịch iodine để thử vì iodine làm tinh bột chuyển sang màu xanh tím.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Iodine là thuốc thử đặc trưng để nhận biết tinh bột." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Ở thí nghiệm chứng minh cây thoát hơi nước, việc tẩy sắc tố diệp lục bằng cồn đun cách thủy là bước không cần thiết.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Tẩy sắc tố chỉ dùng trong thí nghiệm tìm tinh bột." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Nồng độ khí CO2 trong không khí thấp hơn 0,008% sẽ làm cho quang hợp bị ngừng trệ.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây được gọi là điểm bù CO2." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Các loại cây ưa bóng thường có cường độ quang hợp cao hơn cây ưa sáng trong điều kiện ánh sáng mạnh.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Trong điều kiện ánh sáng mạnh, cây ưa sáng mới quang hợp tốt hơn." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Trồng cây với mật độ quá dày sẽ làm giảm hiệu suất quang hợp.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Mật độ dày cản trở việc tiếp nhận ánh sáng và khí CO2." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Nhiệt độ môi trường quá cao hoặc quá thấp đều có thể làm ảnh hưởng đến tốc độ của quá trình quang hợp.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ ảnh hưởng rất lớn đến hoạt tính enzyme." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Cây xanh chỉ thực hiện quá trình hô hấp vào ban đêm khi không có ánh sáng mặt trời.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Hô hấp là quá trình tạo năng lượng sống nên diễn ra liên tục cả ngày lẫn đêm." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Khi cường độ ánh sáng tăng lên vô hạn thì tốc độ quang hợp cũng sẽ tăng lên không ngừng.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Tốc độ quang hợp chỉ tăng đến một ngưỡng nhất định gọi là điểm bão hòa ánh sáng." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Phân giải chất hữu cơ trong tế bào sẽ sinh ra phân tử năng lượng ATP và nhiệt năng.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Hóa năng được chuyển hóa thành ATP và tản ra ngoài dưới dạng nhiệt." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Hô hấp tế bào chỉ xảy ra ở thực vật, không xảy ra ở động vật.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Hô hấp tế bào xảy ra ở mọi sinh vật sống." },
-                { type: 'tf', topic: 'quanghop', q: "Đúng hay Sai: Quá trình thoát hơi nước giúp cây được làm mát và tạo động lực hút nước từ rễ.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Thoát hơi nước là động lực đầu trên của dòng mạch gỗ." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Hút chân không là biện pháp làm giảm lượng oxygen để ức chế hô hấp của vi khuẩn và thực phẩm.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Thiếu oxygen sẽ kìm hãm hô hấp mạnh mẽ." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Việc phơi khô lúa, ngô trước khi bảo quản là để tăng cường độ hô hấp của hạt.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Phơi khô làm giảm hàm lượng nước để làm GIẢM cường độ hô hấp." },
-                // === NEW QUESTIONS FROM MIDTERM 2 IMAGES ===
-                { type: 'mc', topic: 'namcham', q: "Câu 23. Từ phổ là:", o: ["A. hình ảnh của các đường hạt bụi đặt trong từ trường của nam châm.", "B. hình ảnh của các đường mạt gỗ đặt trong từ trường của nam châm.", "C. hình ảnh hướng chi của kim nam châm đặt gần một nam châm thẳng.", "D. hình ảnh của các đường mạt sắt trong từ trường của nam châm."], a: 3, e: "Từ phổ là hình ảnh cụ thể của các đường sức từ, được tạo ra bởi mạt sắt." },
-                { type: 'mc', topic: 'namcham', q: "Câu 24. Để xác định cực của một thanh nam châm chưa biết cực, ta đưa cực Bắc của kim nam châm lại gần một đầu của thanh. Nếu cực Bắc của kim bị đẩy ra xa, thì đầu đó của thanh là:", o: ["A. Cực Nam.", "B. Cực Bắc.", "C. Cực Đông.", "D. Cực Tây."], a: 1, e: "Cùng cực thì đẩy nhau (Bắc với Bắc)." },
-                { type: 'mc', topic: 'namcham', q: "Câu 25. Không gian xung quanh nam châm, xung quanh dòng điện tồn tại:", o: ["A. từ trường.", "B. trọng trường.", "C. điện trường.", "D. điện từ trường."], a: 0, e: "Xung quanh nam châm và dòng điện có lực từ tác dụng, gọi là từ trường." },
-                { type: 'mc', topic: 'namcham', q: "Câu 26. Nam châm điện có cấu tạo gồm:", o: ["A. Một lõi kim loại trong ống dây có dòng điện.", "B. Một lõi sắt non bên trong ống dây có dòng điện.", "C. Một lõi đồng bên trong ống dây có dòng điện.", "D. Chỉ có ống dây có dòng điện."], a: 1, e: "Lõi sắt non làm tăng tác dụng từ của nam châm điện." },
-                { type: 'mc', topic: 'quanghop', q: "Câu 27. Nhận định nào sau đây KHÔNG đúng về ý nghĩa của quang hợp?", o: ["A. Cung cấp khí oxygen cho sự sống.", "B. Cân bằng khí carbon dioxide trong khí quyển.", "C. Cung cấp thức ăn cho con người.", "D. Chống xói mòn và sạt lở đất trực tiếp."], a: 3, e: "Chống xói mòn là vai trò của rừng (rễ cây giữ đất), không phải là bản chất quá trình hóa học của quang hợp." },
-                { type: 'mc', topic: 'traodoichat', q: "Câu 32. Quá trình cơ thể lấy các chất từ môi trường và thải chất cặn bã ra ngoài là quá trình:", o: ["A. Trao đổi chất giữa cơ thể với môi trường.", "B. Trao đổi chất giữa tế bào với môi trường.", "C. Chuyển hóa năng lượng.", "D. Sinh trưởng."], a: 0, e: "Đây là định nghĩa cơ bản về trao đổi chất ở cấp độ cơ thể." },
-                { type: 'mc', topic: 'traodoichat', q: "Câu 33. Quá trình nào sau đây KHÔNG thuộc trao đổi chất ở sinh vật?", o: ["A. Bài tiết mồ hôi.", "B. Vận chuyển thức ăn từ miệng xuống dạ dày.", "C. Phân giải protein trong tế bào.", "D. Lấy CO2 và thải O2 ở lá."], a: 1, e: "Vận chuyển thức ăn là quá trình cơ học/vận tải, chưa có sự trao đổi hay biến đổi hóa học với môi trường/tế bào." },
-                { type: 'mc', topic: 'namcham', q: "Câu 34. Phát biểu nào sau đây là ĐÚNG về từ trường Trái Đất?", o: ["A. Cực Bắc địa từ nằm ở gần cực Nam địa lí.", "B. Cực Bắc địa từ trùng với cực Bắc địa lí.", "C. Cực Nam địa từ trùng với cực Nam địa lí.", "D. Trái Đất không có từ trường."], a: 0, e: "Các cực địa từ và địa lí của Trái Đất không trùng nhau, cực Bắc địa từ nằm gần Nam cực địa lí." },
-                { type: 'mc', topic: 'namcham', q: "Câu 9: Khi một kim nam châm để tự do, nó luôn chỉ hướng nào?", o: ["A. Bắc - Nam.", "B. Đông - Tây.", "C. Đông Bắc.", "D. Tây Nam."], a: 0, e: "Đặc tính của kim nam châm là định hướng Bắc-Nam theo từ trường Trái Đất." },
-                { type: 'mc', topic: 'traodoichat', q: "Câu 7: Tại sao vào mùa đông một số động vật (gấu, rắn) lại ngủ đông?", o: ["A. Để tìm bạn tình.", "B. Để làm chậm quá trình trao đổi chất, tiết kiệm năng lượng.", "C. Để tránh bị săn đuổi.", "D. Để da không bị khô."], a: 1, e: "Khi thức ăn khan hiếm và trời lạnh, ngủ đông giúp giảm tiêu hao năng lượng tối đa." },
-                { type: 'arrange', topic: 'hohap', q: "Tự luận: Viết phương trình chữ của quá trình hô hấp tế bào:", words: ["Oxygen", "+", "Glucose", "->", "Nước", "Năng lượng", "Carbon dioxide", "+", "+"], a: "Glucose + Oxygen -> Carbon dioxide + Nước + Năng lượng", e: "Hô hấp tế bào là quá trình phân giải glucose dưới tác dụng của oxygen." },
-                { type: 'mc', topic: 'hohap', q: "Câu 4b: Vì sao vào ban đêm, KHÔNG nên để nhiều cây xanh trong phòng ngủ đóng kín cửa?", o: ["A. Vì cây thải ra nhiều khí Oxygen.", "B. Vì cây thực hiện quang hợp làm giảm nhiệt độ phòng.", "C. Vì cây hô hấp lấy khí Oxygen và thải ra khí Carbon dioxide gây ngạt.", "D. Vì cây tỏa ra nhiệt lượng lớn làm phòng nóng lên."], a: 2, e: "Ban đêm không có ánh sáng, cây chỉ thực hiện hô hấp, lấy O2 và thải CO2." },
-                { type: 'mc', topic: 'namcham', q: "Câu 2: Trình bày cách xác định các cực của một thanh nam châm không sơn màu bằng một thanh nam châm đã biết cực?", o: ["A. Đưa cực Bắc của nam châm đã biết lại gần, nếu hút thì đầu đó là cực Nam.", "B. Đưa cực Bắc của nam châm đã biết lại gần, nếu hút thì đầu đó là cực Bắc.", "C. Đưa cực Nam của nam châm đã biết lại gần, nếu đẩy thì đầu đó là cực Nam.", "D. Cả A và C đều đúng."], a: 3, e: "Các cực cùng tên thì đẩy nhau, khác tên thì hút nhau." },
-                { type: 'mc', topic: 'hohap', q: "Câu 4. Đặc điểm nào sau đây KHÔNG CÓ ở quá trình hô hấp tế bào?", o: ["A. Phân giải chất hữu cơ đến sản phẩm cuối cùng là CO2 và H2O.", "B. Quá trình phân giải chất tạo ra nhiều sản phẩm trung gian.", "C. Toàn bộ năng lượng được giải phóng dưới dạng nhiệt.", "D. Một phần năng lượng giải phóng được tích lũy trong ATP."], a: 2, e: "Hô hấp tế bào giải phóng năng lượng dưới hai dạng: ATP (dễ sử dụng) và nhiệt năng. Không phải toàn bộ là nhiệt." },
-                { type: 'mc', topic: 'traodoichat', q: "Câu 6. Trao đổi chất ở sinh vật bao gồm:", o: ["A. quá trình trao đổi chất giữa cơ thể với môi trường và chuyển hóa các chất diễn ra trong tế bào.", "B. quá trình trao đổi chất giữa cơ thể với môi trường ngoài và trao đổi chất giữa tế bào với môi trường trong.", "C. chuyển hóa các chất diễn ra bên ngoài tế bào.", "D. bài tiết mồ hôi và hít thở."], a: 0, e: "Trao đổi chất là sự kết hợp giữa việc lấy/thải chất với môi trường và biến đổi hóa học trong tế bào." },
-                { type: 'mc', topic: 'hohap', q: "Câu 10. Tại sao hô hấp làm giảm sút khối lượng và chất lượng nông sản?", o: ["A. Hô hấp phân giải các chất hữu cơ do đó làm tiêu hao nông sản.", "B. Hô hấp tạo ra nhiệt độ cao làm chín nông sản quá mức.", "C. Hô hấp làm tăng độ ẩm của nông sản.", "D. Hô hấp làm biến đổi hình dạng nông sản."], a: 0, e: "Quá trình hô hấp tiêu thụ glucose tích lũy trong nông sản để tạo năng lượng, làm giảm khối lượng tịnh." },
-                { type: 'mc', topic: 'namcham', q: "Câu 24. Đưa một đầu la bàn lại gần một đầu thanh nam châm. Nếu đầu Bắc (N) của kim la bàn bị hút về phía đó thì đầu nam châm đó là cực gì?", o: ["A. Cực Bắc (N).", "B. Cực Nam (S).", "C. Cực Đông.", "D. Cực Tây."], a: 1, e: "Kim la bàn là một nam châm nhỏ. Cực Bắc của nó bị hút bởi cực Nam của thanh nam châm." },
-                { type: 'mc', topic: 'hohap', q: "Quan sát sơ đồ hô hấp tế bào lấy Ti thể làm trung tâm, điền tên các chất (1), (2), (3), (4) tương ứng theo chiều mũi tên vào và ra:", o: ["(1) Glucose, (2) Oxygen, (3) Carbon dioxide, (4) Nước", "(1) Nước, (2) Carbon dioxide, (3) Glucose, (4) Oxygen", "(1) Oxygen, (2) Carbon dioxide, (3) Glucose, (4) Nước", "(1) Carbon dioxide, (2) Nước, (3) Oxygen, (4) Glucose"], a: 0, e: "Glucose và Oxygen là nguyên liệu (mũi tên vào), Carbon dioxide và Nước là sản phẩm (mũi tên ra cùng ATP)." },
-                { type: 'mc', topic: 'hohap', q: "Chọn cụm từ thích hợp điền vào chỗ trống: 'Hô hấp tế bào là quá trình phân giải các phân tử chất (1)..., với sự tham gia của (2)..., tạo thành khí (3)... và nước, đồng thời sinh ra năng lượng (4)...'", o: ["(1) hữu cơ, (2) oxygen, (3) carbon dioxide, (4) ATP và nhiệt năng", "(1) vô cơ, (2) carbon dioxide, (3) oxygen, (4) điện năng", "(1) tinh bột, (2) diệp lục, (3) oxygen, (4) quang năng"], a: 0, e: "Đây là định nghĩa đầy đủ về quá trình hô hấp tế bào ở sinh vật." },
-                { type: 'mc', topic: 'quanghop', q: "Vai trò quan trọng nhất của quang hợp đối với sự sống là gì?", o: ["A. Tạo ra thức ăn (Glucose) cho sinh vật và giữ cân bằng khí O2/CO2.", "B. Làm giảm nhiệt độ Trái Đất.", "C. Cung cấp nước cho cây cối.", "D. Giúp cây phát triển nhanh hơn."], a: 0, e: "Quang hợp là nguồn sống sơ cấp của mọi hệ sinh thái và giúp duy trì bầu khí quyển." },
-                { type: 'mc', topic: 'hohap', q: "Câu 28. Quá trình chuyển hóa năng lượng nào sau đây diễn ra trong hô hấp tế bào?", o: ["A. Nhiệt năng -> hóa năng.", "B. Hóa năng -> điện năng.", "C. Hóa năng -> nhiệt năng và ATP.", "D. Quang năng -> hóa năng."], a: 2, e: "Năng lượng trong liên kết hóa học của chất hữu cơ được giải phóng thành nhiệt và năng lượng ATP." },
-                { type: 'mc', topic: 'traodoichat', q: "Vì sao người nuôi cá vàng thường cho thêm rong rêu vào bể kính? (Theo góc độ trao đổi khí)", o: ["A. Để cung cấp thêm Oxygen qua quang hợp cho cá hô hấp.", "B. Để rong rêu làm thức ăn cho cá.", "C. Để làm sạch nước.", "D. Để bể cá trông đẹp hơn."], a: 0, e: "Rong rêu quang hợp giải phóng O2 vào nước, giúp cá hô hấp tốt hơn." },
-                { type: 'mc', topic: 'hohap', q: "Dựa vào bảng số liệu ảnh hưởng của nhiệt độ đến cường độ hô hấp (mg CO2/g/giờ), tại nhiệt độ nào cường độ hô hấp đạt mức cao nhất: (5-10°C: 1.5), (15-20°C: 10.5), (25-30°C: 105.0), (35-40°C: 112.0), (45-50°C: 9.8)", o: ["A. 5-10°C", "B. 25-30°C", "C. 35-40°C", "D. 45-50°C"], a: 2, e: "Tại nhiệt độ 35-40°C, enzyme hoạt động mạnh nhất làm cường độ hô hấp đạt đỉnh (112.0)." },
-                // === FINAL SYLLABUS ADDITIONS (IMAGE 6 & MAGNETS) ===
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ môi trường có ảnh hưởng trực tiếp đến cường độ hô hấp của thực vật.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ ảnh hưởng đến hoạt tính của enzyme tham gia hô hấp." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ môi trường càng tăng thì cường độ hô hấp của thực vật luôn luôn tăng theo.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Chỉ tăng đến một mức tối ưu (khoảng 40°C), sau đó sẽ giảm mạnh do enzyme bị biến tính." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Khoảng nhiệt độ thuận lợi cho quá trình hô hấp tế bào thường là từ 25°C đến 40°C.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là khoảng nhiệt độ tối ưu cho đa số sinh vật." },
-                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Từ 40°C đến 50°C, nếu nhiệt độ càng tăng thì cường độ hô hấp càng giảm.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Sau 40°C, cường độ hô hấp giảm tỉ lệ nghịch với nhiệt độ do tế bào bị tổn thương." },
-                { type: 'mc', topic: 'namcham', q: "Để làm tăng lực từ của một nam châm điện, ta có thể thực hiện biện pháp nào sau đây?", o: ["A. Tăng cường độ dòng điện chạy qua các vòng dây.", "B. Tăng số vòng dây của ống dây.", "C. Thay lõi sắt non bằng lõi gỗ.", "D. Cả A và B đều đúng."], a: 3, e: "Lực từ của nam châm điện phụ thuộc vào cường độ dòng điện và số vòng dây." },
-                { type: 'mc', topic: 'namcham', q: "Khi đặt hai cực của hai nam châm lại gần nhau, hiện tượng nào sẽ xảy ra?", o: ["A. Hai cực cùng tên thì đẩy nhau, khác tên thì hút nhau.", "B. Hai cực trùng tên thì hút nhau, khác tên thì đẩy nhau.", "C. Luôn luôn hút nhau.", "D. Luôn luôn đẩy nhau."], a: 0, e: "Đây là quy luật tương tác cơ bản giữa các cực của nam châm." },
-                { type: 'mc', topic: 'namcham', q: "Vật liệu nào sau đây có thể dùng làm lõi của nam châm điện?", o: ["A. Nhôm.", "B. Đồng.", "C. Sắt non.", "D. Nhựa."], a: 2, e: "Sắt non có khả năng nhiễm từ mạnh và mất từ tính nhanh khi ngắt dòng điện, rất phù hợp làm lõi nam châm điện." }
+                // TRẮC NGHIỆM (Câu 1 - Câu 10)
+                { type: 'mc', topic: 'namcham', q: "Câu 1. Nam châm điện có cấu tạo gồm:", o: ["A. một lõi kim loại bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "B. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "C. một lõi vật liệu bất kì bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "D. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn không có lớp vỏ cách điện."], a: 1, e: "Nam châm điện thường gồm một lõi sắt non được quấn quanh bởi nhiều vòng dây dẫn có cách điện, khi có dòng điện chạy qua sẽ sinh ra từ trường." },
+                { type: 'mc', topic: 'namcham', q: "Câu 2. Cách làm nào dưới đây giúp ta thu được hình ảnh của từ phổ?", o: ["A. Dùng kim nam châm xếp lên tấm nhựa đặt trong từ trường của nam châm.", "B. Rắc cát lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ.", "C. Đặt thanh nam châm gần bức tường và rọi đèn vào thanh nam châm.", "D. Rắc mạt sắt lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ."], a: 3, e: "Hình ảnh từ phổ được tạo ra bằng cách gõ nhẹ để các mạt sắt tự sắp xếp theo các đường sức từ." },
+                { type: 'mc', topic: 'quanghop', q: "Câu 3. Nguyên liệu của quá trình quang hợp gồm các chất nào sau đây?", o: ["A. Khí oxygen và nước.", "B. Khí oxygen và glucose.", "C. Khí carbon dioxide và nước.", "D. Khí carbon dioxide và glucose."], a: 2, e: "Cây xanh lấy khí Carbon dioxide từ không khí và nước từ rễ để thực hiện quang hợp." },
+                { type: 'mc', topic: 'hohap', q: "Câu 4. Đặc điểm nào sau đây KHÔNG có ở hô hấp tế bào?", o: ["A. Phân giải chất hữu cơ đến sản phẩm cuối cùng là CO2 và H2O.", "B. Quá trình phân giải chất tạo ra nhiều sản phẩm trung gian.", "C. Toàn bộ năng lượng được giải phóng dưới dạng nhiệt.", "D. Một phần năng lượng giải phóng ra được tích lũy trong ATP."], a: 2, e: "Chỉ một phần năng lượng giải phóng dưới dạng nhiệt, phần lớn năng lượng hữu ích được tích lũy dưới dạng phân tử ATP." },
+                { type: 'mc', topic: 'hohap', q: "Câu 5. Sản phẩm của hô hấp tế bào gồm:", o: ["A. Oxygen, nước và năng lượng (ATP + nhiệt).", "B. Nước, đường và năng lượng (ATP + nhiệt).", "C. Nước, khí carbon dioxide và đường.", "D. Khí carbon dioxide, nước và năng lượng (ATP + nhiệt)."], a: 3, e: "Hô hấp tế bào sinh ra khí CO2, hơi nước và năng lượng (gồm ATP và nhiệt năng)." },
+                { type: 'mc', topic: 'traodoichat', q: "Câu 6. Trao đổi chất ở sinh vật gồm:", o: ["A. quá trình trao đổi chất giữa cơ thể với môi trường và chuyển hóa các chất diễn ra trong tế bào.", "B. quá trình trao đổi chất giữa cơ thể với môi trường ngoài và quá trình trao đổi chất giữa tế bào với môi trường trong.", "C. quá trình trao đổi chất giữa tế bào với môi trường trong và quá trình trao đổi chất giữa tế bào với môi trường ngoài.", "D. quá trình trao đổi chất giữa tế bào với môi trường trong và chuyển hóa các chất diễn ra trong tế bào."], a: 0, e: "Đây là định nghĩa đầy đủ về quá trình trao đổi chất, kết hợp giữa việc lấy/thải chất và biến đổi hóa học bên trong." },
+                { type: 'mc', topic: 'traodoichat', q: "Câu 7. Vì sao vào mùa đông khi nguồn thức ăn khan hiếm, nhiều loài động vật trong tự nhiên chẳng hạn như rắn, gấu lại ngủ đông?", o: ["A. Để sinh sản", "B. Giảm căng thẳng", "C. Làm chậm quá trình trao đổi chất", "D. Để tăng trưởng"], a: 2, e: "Ngủ đông giúp giảm quá trình trao đổi chất xuống mức thấp nhất, nhằm tiết kiệm năng lượng khi thức ăn khan hiếm." },
+                { type: 'mc', topic: 'traodoichat', q: "Câu 8. Người nuôi cá vàng thường đặt một số cây thủy sinh vào bể. Mục đích là:", o: ["A. tăng chất dinh dưỡng cho cá.", "B. tăng oxygen trong nước.", "C. làm thức ăn cho cá.", "D. tăng carbon dioxide trong nước"], a: 1, e: "Cây thủy sinh quang hợp dưới ánh sáng sẽ nhả ra khí Oxygen vào nước, giúp cá hô hấp." },
+                { type: 'mc', topic: 'quanghop', q: "Câu 9. Vào buổi trưa hè nóng nực, ánh sáng mặt trời mạnh làm cho khí khổng đóng lại, dẫn đến tốc độ quang hợp giảm. Nguyên nhân là:", o: ["A. Cây không hấp thụ được ánh sáng.", "B. Nước không được vận chuyển lên lá.", "C. Cây không thể được hấp thụ oxygen.", "D. Cây không thể hấp thụ Carbon dioxide."], a: 3, e: "Khí khổng đóng lại để giảm mất nước, nhưng hệ quả là CO2 không thể đi vào lá để làm nguyên liệu quang hợp." },
+                { type: 'mc', topic: 'hohap', q: "Câu 10. Tại sao hô hấp làm giảm sút khối lượng và chất lượng nông sản?", o: ["A. Hô hấp phân giải các chất hữu cơ do đó làm tiêu hao nông sản.", "B. Hô hấp tạo ra nhiệt độ cao làm chín nông sản quá mức.", "C. Hô hấp làm tăng độ ẩm của nông sản.", "D. Hô hấp làm biến đổi hình dạng nông sản."], a: 0, e: "Trong quá trình bảo quản, tế bào nông sản vẫn hô hấp tiêu thụ chất hữu cơ (glucose, tinh bột...), làm giảm khối lượng." },
+                { type: 'mc', topic: 'hohap', q: "Câu 35. Trong cơ thể sinh vật, dạng năng lượng chủ yếu dùng để cung cấp cho các hoạt động sống của cơ thể là:", o: ["A. hóa năng.", "B. cơ năng.", "C. nhiệt năng.", "D. quang năng."], a: 0, e: "Hóa năng (chủ yếu là ATP) là dạng năng lượng trực tiếp cung cấp cho các tế bào hoạt động." },
+
+                // TỰ LUẬN - ĐÚNG/SAI
+                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ có ảnh hưởng đến cường độ hô hấp của thực vật.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ ảnh hưởng lớn đến quá trình hô hấp do tác động đến hoạt tính của enzyme." },
+                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng tăng thì cường độ hô hấp càng tăng.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Chỉ tăng đến một mức nhiệt độ tối ưu, nếu quá cao (trên 40°C) enzyme bị biến tính và hô hấp giảm mạnh." },
+                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ thuận lợi cho quá trình hô hấp tế bào là từ 25°C - 40°C.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là khoảng nhiệt độ tối ưu cho các phản ứng sinh hóa của đa số sinh vật." },
+                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng giảm thì cường độ hô hấp càng giảm.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ thấp làm giảm hoạt tính của enzyme, khiến quá trình hô hấp chậm lại." },
+                { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Từ 40°C - 50°C, cường độ hô hấp tỉ lệ thuận với nhiệt độ.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Từ 40°C-50°C, cường độ hô hấp tỉ lệ NGHỊCH với nhiệt độ (nhiệt độ tăng làm hô hấp giảm) vì tế bào bị tổn thương." },
+
+                // TỰ LUẬN - KÉO THẢ VÀ CÂU HỎI MỞ
+                { type: 'arrange', topic: 'namcham', q: "Trình bày cách xác định các cực của 1 thanh nam châm không sơn màu bằng la bàn.", words: ["Đưa la bàn", "gần 1 đầu", "của nam châm.", "Nếu đầu Bắc (N) của kim la bàn", "bị hút về phía đó", "thì đầu nam châm đó là cực Nam (S)", "và cực còn lại là cực Bắc (N)."], a: "Đưa la bàn gần 1 đầu của nam châm. Nếu đầu Bắc (N) của kim la bàn bị hút về phía đó thì đầu nam châm đó là cực Nam (S) và cực còn lại là cực Bắc (N).", e: "Cực từ khác tên thì hút nhau." },
+                { type: 'arrange', topic: 'quanghop', q: "Viết phương trình chữ của quá trình quang hợp.", words: ["Nước", "+", "Carbon dioxide", "->", "Glucose", "+", "Oxygen"], a: "Nước + Carbon dioxide -> Glucose + Oxygen", e: "Diễn ra dưới điều kiện Ánh sáng và Diệp lục." },
+                { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Hấp thụ khí... giúp cân bằng không khí.", words: ["Hấp thụ", "khí Carbon dioxide", "và thải ra", "Oxygen", "giúp cân bằng không khí", "và duy trì sự sống."], a: "Hấp thụ khí Carbon dioxide và thải ra Oxygen giúp cân bằng không khí và duy trì sự sống.", e: "Quang hợp giúp điều hòa thành phần khí quyển." },
+                { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Tạo ra... làm cung cấp thức ăn.", words: ["Tạo ra glucose,", "làm nguồn", "cung cấp thức ăn", "cho hầu hết các sinh vật", "ở Trái Đất."], a: "Tạo ra glucose, làm nguồn cung cấp thức ăn cho hầu hết các sinh vật ở Trái Đất.", e: "Sản phẩm trung tâm của quang hợp là nguồn sống sơ cấp của hệ sinh thái." },
+                { type: 'arrange', topic: 'hohap', q: "Viết phương trình chữ của quá trình hô hấp tế bào.", words: ["Glucose", "+", "Oxygen", "->", "Nước", "+", "Carbon dioxide", "+", "Năng lượng (ATP, nhiệt)"], a: "Glucose + Oxygen -> Nước + Carbon dioxide + Năng lượng (ATP, nhiệt)", e: "Quá trình phân giải chất hữu cơ." },
+                { type: 'arrange', topic: 'hohap', q: "Vì sao vào ban đêm, không nên trồng nhiều cây xanh trong phòng ngủ kín cửa?", words: ["Nếu trồng nhiều cây", "trong phòng ngủ đóng kín,", "tối cây hô hấp", "lấy O2 và thải ra CO2", "và chúng ta sẽ bị ngộp."], a: "Nếu trồng nhiều cây trong phòng ngủ đóng kín, tối cây hô hấp lấy O2 và thải ra CO2 và chúng ta sẽ bị ngộp.", e: "Cây xanh không quang hợp vào ban đêm mà chỉ hô hấp cạnh tranh Oxygen." },
+                { type: 'mc', topic: 'hohap', q: "Điền vào đoạn: 'Hô hấp tế bào là phân giải chất (1)... với sự tham gia của (2)... tạo thành (3)... và nước, sinh ra năng lượng cho (4)... sống.'", o: ["(1) hữu cơ, (2) Oxygen, (3) Carbon dioxide, (4) hoạt động", "(1) vô cơ, (2) Nitrogen, (3) Carbon dioxide, (4) sự", "(1) tổng hợp, (2) Oxygen, (3) Glucose, (4) tế bào"], a: 0, e: "Nguyên liệu là chất hữu cơ và O2, sản phẩm là CO2, nước và năng lượng cho hoạt động sống." },
+                { type: 'mc', topic: 'hohap', q: "Hoàn thành sơ đồ quá trình hô hấp tế bào: (1)+(2) là sản phẩm thải ra, (3)+(4) là nguyên liệu đưa vào.", o: ["(1)+(2) là Carbon dioxide và Nước; (3)+(4) là Oxygen và Glucose", "(1)+(2) là Oxygen và Glucose; (3)+(4) là Carbon dioxide và Nước", "(1)+(2) là ATP và Nhiệt; (3)+(4) là Glucose và Vitamin"], a: 0, e: "Mũi tên đi vào ti thể mang Oxygen và Glucose, mũi tên đi ra mang Carbon dioxide và Nước." }
             ];
 
             const lsdlQuestions = [
@@ -2805,7 +2803,7 @@
                 { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. composer 2. shelter 3. remember 4. clever", o: ["composer", "shelter", "remember", "clever"], a: 0, e: "'composer' (/ou/), các từ còn lại có âm tiết nhấn liên quan đến /e/." },
                 { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. direction 2. protect 3. programmer 4. quarter", o: ["direction", "protect", "programmer", "quarter"], a: 3, e: "'quarter' (/ɔ:/), các từ còn lại có âm tiết nhấn liên quan đến /ə/ hoặc /i/." },
                 { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. wildlife 2. survive 3. risky 4. millennium", o: ["wildlife", "survive", "risky", "millennium"], a: 2, e: "'risky' (/i/), các từ còn lại có âm /ai/ hoặc nhấn khác." },
-                
+
                 // === STRESS (TRỌNG ÂM) ===
                 { type: 'mc', topic: 'stress', q: "Choose the word whose main stress pattern is not the same as that of the others: 1. scramble 2. bossy 3. fraction 4. compose", o: ["scramble", "bossy", "fraction", "compose"], a: 3, e: "'compose' nhấn âm 2, các từ còn lại nhấn âm 1." },
                 { type: 'mc', topic: 'stress', q: "Choose the word whose main stress pattern is not the same: 1. uniform 2. library 3. medicine 4. adventure", o: ["uniform", "library", "medicine", "adventure"], a: 3, e: "'adventure' nhấn âm 2, các từ còn lại nhấn âm 1." },
@@ -3079,65 +3077,65 @@
                 { type: 'mc', topic: 'geometry', q: "Câu 25: Hai tam giác bằng nhau là:", o: ["Hai tam giác có các cạnh tương ứng bằng nhau.", "Hai tam giác có ba cặp góc tương ứng bằng nhau.", "Hai tam giác có hai cặp góc tương ứng bằng nhau.", "Hai tam giác có các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau."], a: 3, e: "Định nghĩa: Hai tam giác bằng nhau nếu các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau." },
 
                 // === TỰ LUẬN INTERACTIVE (SẮP XẾP BƯỚC GIẢI) ===
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 2 (Tự luận - Đề 1): Một đội công nhân 20 người làm xong công trình trong 18 ngày. Nếu chỉ có 12 công nhân làm thì trong bao lâu? Sắp xếp các bước giải:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 2 (Tự luận - Đề 1): Một đội công nhân 20 người làm xong công trình trong 18 ngày. Nếu chỉ có 12 công nhân làm thì trong bao lâu? Sắp xếp các bước giải:",
                     words: [
-                        "Gọi thời gian 12 công nhân làm xong là x (ngày).", 
-                        "Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch:", 
-                        "Ta có: 12 * x = 20 * 18", 
-                        "12 * x = 360", 
-                        "x = 360 / 12 = 30.", 
+                        "Gọi thời gian 12 công nhân làm xong là x (ngày).",
+                        "Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch:",
+                        "Ta có: 12 * x = 20 * 18",
+                        "12 * x = 360",
+                        "x = 360 / 12 = 30.",
                         "Vậy 12 công nhân làm xong trong 30 ngày."
-                    ], 
-                    a: "Gọi thời gian 12 công nhân làm xong là x (ngày). Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch: Ta có: 12 * x = 20 * 18 12 * x = 360 x = 360 / 12 = 30. Vậy 12 công nhân làm xong trong 30 ngày.", 
-                    e: "Bài toán tỉ lệ nghịch: Số công nhân giảm thì thời gian phải tăng lên." 
+                    ],
+                    a: "Gọi thời gian 12 công nhân làm xong là x (ngày). Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch: Ta có: 12 * x = 20 * 18 12 * x = 360 x = 360 / 12 = 30. Vậy 12 công nhân làm xong trong 30 ngày.",
+                    e: "Bài toán tỉ lệ nghịch: Số công nhân giảm thì thời gian phải tăng lên."
                 },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 3 (Tự luận - Đề 1): Số học sinh lớp 7A, 7B, 7C tỉ lệ với 35, 36, 39. Tổng số vở quyên góp là 420. Tìm số vở mỗi lớp (x, y, z):", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 3 (Tự luận - Đề 1): Số học sinh lớp 7A, 7B, 7C tỉ lệ với 35, 36, 39. Tổng số vở quyên góp là 420. Tìm số vở mỗi lớp (x, y, z):",
                     words: [
-                        "Dựa vào tính chất dãy tỉ số bằng nhau:", 
-                        "x/35 = y/36 = z/39 = (x+y+z) / (35+36+39)", 
-                        "x/35 = y/36 = z/39 = 420 / 110 (số lẻ, giả sử 440/110 = 4)", 
-                        "x = 35 * 4 = 140,", 
-                        "y = 36 * 4 = 144,", 
-                        "z = 39 * 4 = 156.", 
+                        "Dựa vào tính chất dãy tỉ số bằng nhau:",
+                        "x/35 = y/36 = z/39 = (x+y+z) / (35+36+39)",
+                        "x/35 = y/36 = z/39 = 420 / 110 (số lẻ, giả sử 440/110 = 4)",
+                        "x = 35 * 4 = 140,",
+                        "y = 36 * 4 = 144,",
+                        "z = 39 * 4 = 156.",
                         "Vậy số vở là 140, 144, 156."
-                    ], 
-                    a: "Dựa vào tính chất dãy tỉ số bằng nhau: x/35 = y/36 = z/39 = (x+y+z) / (35+36+39) x/35 = y/36 = z/39 = 420 / 110 (số lẻ, giả sử 440/110 = 4) x = 35 * 4 = 140, y = 36 * 4 = 144, z = 39 * 4 = 156. Vậy số vở là 140, 144, 156.", 
-                    e: "Sử dụng tính chất dãy tỉ số bằng nhau để chia một đại lượng thành các phần tỉ lệ." 
+                    ],
+                    a: "Dựa vào tính chất dãy tỉ số bằng nhau: x/35 = y/36 = z/39 = (x+y+z) / (35+36+39) x/35 = y/36 = z/39 = 420 / 110 (số lẻ, giả sử 440/110 = 4) x = 35 * 4 = 140, y = 36 * 4 = 144, z = 39 * 4 = 156. Vậy số vở là 140, 144, 156.",
+                    e: "Sử dụng tính chất dãy tỉ số bằng nhau để chia một đại lượng thành các phần tỉ lệ."
                 },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 1 (Tự luận): Tìm x, y biết x/4 = y/6 và 2x + y = 28. Sắp xếp các bước giải đúng:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 1 (Tự luận): Tìm x, y biết x/4 = y/6 và 2x + y = 28. Sắp xếp các bước giải đúng:",
                     words: [
-                        "Áp dụng tính chất dãy tỉ số bằng nhau:", 
-                        "x/4 = y/6 = (2x+y) / (2*4 + 6)", 
-                        "x/4 = y/6 = 28 / 14 = 2", 
-                        "Suy ra: x = 2 * 4 = 8", 
+                        "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                        "x/4 = y/6 = (2x+y) / (2*4 + 6)",
+                        "x/4 = y/6 = 28 / 14 = 2",
+                        "Suy ra: x = 2 * 4 = 8",
                         "và y = 2 * 6 = 12.",
                         "Vậy x = 8, y = 12."
-                    ], 
-                    a: "Áp dụng tính chất dãy tỉ số bằng nhau: x/4 = y/6 = (2x+y) / (2*4 + 6) x/4 = y/6 = 28 / 14 = 2 Suy ra: x = 2 * 4 = 8 và y = 2 * 6 = 12. Vậy x = 8, y = 12.", 
-                    e: "Đây là cách giải phổ biến bằng tính chất dãy tỉ số bằng nhau." 
+                    ],
+                    a: "Áp dụng tính chất dãy tỉ số bằng nhau: x/4 = y/6 = (2x+y) / (2*4 + 6) x/4 = y/6 = 28 / 14 = 2 Suy ra: x = 2 * 4 = 8 và y = 2 * 6 = 12. Vậy x = 8, y = 12.",
+                    e: "Đây là cách giải phổ biến bằng tính chất dãy tỉ số bằng nhau."
                 },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 4 (Hình học): Cho ∆ABC cân tại A, M là trung điểm BC. Sắp xếp các bước chứng minh ∆ABM = ∆ACM:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 4 (Hình học): Cho ∆ABC cân tại A, M là trung điểm BC. Sắp xếp các bước chứng minh ∆ABM = ∆ACM:",
                     words: [
-                        "Xét ∆ABM và ∆ACM có:", 
-                        "AB = AC (vì ∆ABC cân tại A)", 
-                        "AM là cạnh chung", 
-                        "BM = CM (vì M là trung điểm BC)", 
+                        "Xét ∆ABM và ∆ACM có:",
+                        "AB = AC (vì ∆ABC cân tại A)",
+                        "AM là cạnh chung",
+                        "BM = CM (vì M là trung điểm BC)",
                         "Vậy ∆ABM = ∆ACM (c-c-c)."
-                    ], 
-                    a: "Xét ∆ABM và ∆ACM có: AB = AC (vì ∆ABC cân tại A) AM là cạnh chung BM = CM (vì M là trung điểm BC) Vậy ∆ABM = ∆ACM (c-c-c).", 
-                    e: "Chứng minh hai tam giác bằng nhau theo trường hợp Cạnh-Cạnh-Cạnh." 
+                    ],
+                    a: "Xét ∆ABM và ∆ACM có: AB = AC (vì ∆ABC cân tại A) AM là cạnh chung BM = CM (vì M là trung điểm BC) Vậy ∆ABM = ∆ACM (c-c-c).",
+                    e: "Chứng minh hai tam giác bằng nhau theo trường hợp Cạnh-Cạnh-Cạnh."
                 },
                 { type: 'mc', topic: 'logic', q: "Câu 2: Từ đẳng thức 6.(-20) = (-15).8, ta lập được tỉ lệ thức nào?", o: ["6/-15 = 8/-20", "6/8 = -20/-15", "6/-20 = -15/8", "6/(-15) = (-20)/8"], a: 0, e: "Tỉ lệ thức đúng khi tích ngoại tỉ bằng tích trung tỉ (6*-20 = -15*8)." },
                 { type: 'mc', topic: 'logic', q: "Câu 6: Nếu x/2 = y/d thì:", o: ["3c = 2d", "3d = 2c", "cd = 6", "3d = 2c"], a: 1, e: "Nhân chéo: 3*d = 2*c." },
@@ -3146,67 +3144,67 @@
                 { type: 'mc', topic: 'geometry', q: "Câu 23: Cho ∆ABC = ∆DEF có Góc A = 50°, Góc B = 60°. Số đo Góc F là:", o: ["50°", "60°", "70°", "110°"], a: 2, e: "Góc C = 180° - 50° - 60° = 70°. Vì ∆ABC = ∆DEF nên Góc F = Góc C = 70°." },
                 { type: 'mc', topic: 'geometry', q: "Câu 33: Cho tam giác có Góc B = 50°, Góc C = 60°. Số đo x của Góc A là:", o: ["50°", "70°", "60°", "90°"], a: 1, e: "x = 180° - (50° + 60°) = 70°." },
                 { type: 'mc', topic: 'geometry', q: "Câu 41: Cho hình vẽ, so sánh độ dài các đoạn thẳng AB, AC, AD:", o: ["AC < AB < AD", "AB < AC < AD", "AC < AD < AB", "AD < AC < AB"], a: 1, e: "Đường xiên nào có hình chiếu lớn hơn thì lớn hơn: AB (chiếu) < AC < AD." },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 1b (Tự luận - Đề 2): Tìm x, y biết x/7 = y/14 và x/7 = y/14. (Thực tế là x/7 = y/4 và x+2y=31). Sắp xếp các bước giải:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 1b (Tự luận - Đề 2): Tìm x, y biết x/7 = y/14 và x/7 = y/14. (Thực tế là x/7 = y/4 và x+2y=31). Sắp xếp các bước giải:",
                     words: [
-                        "Ta có: x/7 = y/4 => x/7 = 2y/8.", 
-                        "Áp dụng tính chất dãy tỉ số bằng nhau:", 
-                        "x/7 = 2y/8 = (x+2y) / (7+8) = 31/15.", 
-                        "x = 7 * (31/15) = 217/15,", 
+                        "Ta có: x/7 = y/4 => x/7 = 2y/8.",
+                        "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                        "x/7 = 2y/8 = (x+2y) / (7+8) = 31/15.",
+                        "x = 7 * (31/15) = 217/15,",
                         "y = 4 * (31/15) = 124/15."
-                    ], 
-                    a: "Ta có: x/7 = y/4 => x/7 = 2y/8. Áp dụng tính chất dãy tỉ số bằng nhau: x/7 = 2y/8 = (x+2y) / (7+8) = 31/15. x = 7 * (31/15) = 217/15, y = 4 * (31/15) = 124/15.", 
-                    e: "Giải bài toán tìm x, y bằng tính chất dãy tỉ số bằng nhau." 
+                    ],
+                    a: "Ta có: x/7 = y/4 => x/7 = 2y/8. Áp dụng tính chất dãy tỉ số bằng nhau: x/7 = 2y/8 = (x+2y) / (7+8) = 31/15. x = 7 * (31/15) = 217/15, y = 4 * (31/15) = 124/15.",
+                    e: "Giải bài toán tìm x, y bằng tính chất dãy tỉ số bằng nhau."
                 },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 2 (Tự luận - Đề 3): 3 vòi nước chảy đầy bể trong 4 giờ. Nếu chỉ có 2 vòi thì mất bao lâu? Sắp xếp:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 2 (Tự luận - Đề 3): 3 vòi nước chảy đầy bể trong 4 giờ. Nếu chỉ có 2 vòi thì mất bao lâu? Sắp xếp:",
                     words: [
-                        "Gọi thời gian 2 vòi chảy đầy bể là x (giờ).", 
-                        "Vì số vòi và thời gian là đại lượng tỉ lệ nghịch:", 
-                        "Ta có: 2 * x = 3 * 4", 
-                        "2 * x = 12", 
-                        "x = 12 / 2 = 6.", 
+                        "Gọi thời gian 2 vòi chảy đầy bể là x (giờ).",
+                        "Vì số vòi và thời gian là đại lượng tỉ lệ nghịch:",
+                        "Ta có: 2 * x = 3 * 4",
+                        "2 * x = 12",
+                        "x = 12 / 2 = 6.",
                         "Vậy 2 vòi chảy đầy bể trong 6 giờ."
-                    ], 
-                    a: "Gọi thời gian 2 vòi chảy đầy bể là x (giờ). Vì số vòi và thời gian là đại lượng tỉ lệ nghịch: Ta có: 2 * x = 3 * 4 2 * x = 12 x = 12 / 2 = 6. Vậy 2 vòi chảy đầy bể trong 6 giờ.", 
-                    e: "Tỉ lệ nghịch: Số vòi giảm thì thời gian phải tăng lên." 
+                    ],
+                    a: "Gọi thời gian 2 vòi chảy đầy bể là x (giờ). Vì số vòi và thời gian là đại lượng tỉ lệ nghịch: Ta có: 2 * x = 3 * 4 2 * x = 12 x = 12 / 2 = 6. Vậy 2 vòi chảy đầy bể trong 6 giờ.",
+                    e: "Tỉ lệ nghịch: Số vòi giảm thì thời gian phải tăng lên."
                 },
                 { type: 'mc', topic: 'logic', q: "Câu 12: Từ tỉ lệ thức x/45 = -6/9, suy ra x bằng:", o: ["-30", "30", "-270", "270"], a: 0, e: "x = 45 * (-6) / 9 = -30." },
                 { type: 'mc', topic: 'logic', q: "Câu 45: Cho ∆ABC = ∆DEF. Biết AB = 12cm, AC = 8cm, EF = 10cm. Chu vi tam giác DEF là:", o: ["24cm", "30cm", "18cm", "20cm"], a: 1, e: "Vì ∆ABC = ∆DEF nên các cạnh tương ứng bằng nhau. AB=DE=12, AC=DF=8, BC=EF=10. Chu vi = 12+8+10 = 30cm." },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 1b (Tự luận - Đề 5): Tìm x, y biết x/5 = y/6 và 2x + 3y = 54. Sắp xếp các bước giải:", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 1b (Tự luận - Đề 5): Tìm x, y biết x/5 = y/6 và 2x + 3y = 54. Sắp xếp các bước giải:",
                     words: [
-                        "Ta có: x/5 = y/6 => 2x/10 = 3y/18.", 
-                        "Áp dụng tính chất dãy tỉ số bằng nhau:", 
-                        "2x/10 = 3y/18 = (2x+3y) / (10+18)", 
-                        "2x/10 = 3y/18 = 54 / 28 = 27/14.", 
-                        "x = 5 * (27/14) = 135/14,", 
+                        "Ta có: x/5 = y/6 => 2x/10 = 3y/18.",
+                        "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                        "2x/10 = 3y/18 = (2x+3y) / (10+18)",
+                        "2x/10 = 3y/18 = 54 / 28 = 27/14.",
+                        "x = 5 * (27/14) = 135/14,",
                         "y = 6 * (27/14) = 81/14."
-                    ], 
-                    a: "Ta có: x/5 = y/6 => 2x/10 = 3y/18. Áp dụng tính chất dãy tỉ số bằng nhau: 2x/10 = 3y/18 = (2x+3y) / (10+18) 2x/10 = 3y/18 = 54 / 28 = 27/14. x = 5 * (27/14) = 135/14, y = 6 * (27/14) = 81/14.", 
-                    e: "Sử dụng tính chất dãy tỉ số bằng nhau để giải hệ phương trình tỉ lệ." 
+                    ],
+                    a: "Ta có: x/5 = y/6 => 2x/10 = 3y/18. Áp dụng tính chất dãy tỉ số bằng nhau: 2x/10 = 3y/18 = (2x+3y) / (10+18) 2x/10 = 3y/18 = 54 / 28 = 27/14. x = 5 * (27/14) = 135/14, y = 6 * (27/14) = 81/14.",
+                    e: "Sử dụng tính chất dãy tỉ số bằng nhau để giải hệ phương trình tỉ lệ."
                 },
-                { 
-                    type: 'arrange', 
-                    topic: 'essay', 
-                    q: "Bài 3 (Tự luận - Đề 5): 3 đơn vị góp vốn tỉ lệ 3:5:7. Tổng lãi là 300 triệu đồng. Tìm số tiền lãi mỗi đơn vị (x, y, z):", 
+                {
+                    type: 'arrange',
+                    topic: 'essay',
+                    q: "Bài 3 (Tự luận - Đề 5): 3 đơn vị góp vốn tỉ lệ 3:5:7. Tổng lãi là 300 triệu đồng. Tìm số tiền lãi mỗi đơn vị (x, y, z):",
                     words: [
-                        "Theo đề bài: x/3 = y/5 = z/7 và x + y + z = 300.", 
-                        "Áp dụng tính chất dãy tỉ số bằng nhau:", 
-                        "x/3 = y/5 = z/7 = (x+y+z) / (3+5+7)", 
-                        "x/3 = 300 / 15 = 20.", 
-                        "x = 3 * 20 = 60 triệu,", 
-                        "y = 5 * 20 = 100 triệu,", 
+                        "Theo đề bài: x/3 = y/5 = z/7 và x + y + z = 300.",
+                        "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                        "x/3 = y/5 = z/7 = (x+y+z) / (3+5+7)",
+                        "x/3 = 300 / 15 = 20.",
+                        "x = 3 * 20 = 60 triệu,",
+                        "y = 5 * 20 = 100 triệu,",
                         "z = 7 * 20 = 140 triệu."
-                    ], 
-                    a: "Theo đề bài: x/3 = y/5 = z/7 và x + y + z = 300. Áp dụng tính chất dãy tỉ số bằng nhau: x/3 = y/5 = z/7 = (x+y+z) / (3+5+7) x/3 = 300 / 15 = 20. x = 3 * 20 = 60 triệu, y = 5 * 20 = 100 triệu, z = 7 * 20 = 140 triệu.", 
-                    e: "Chia tiền lãi tỉ lệ thuận với số vốn góp." 
+                    ],
+                    a: "Theo đề bài: x/3 = y/5 = z/7 và x + y + z = 300. Áp dụng tính chất dãy tỉ số bằng nhau: x/3 = y/5 = z/7 = (x+y+z) / (3+5+7) x/3 = 300 / 15 = 20. x = 3 * 20 = 60 triệu, y = 5 * 20 = 100 triệu, z = 7 * 20 = 140 triệu.",
+                    e: "Chia tiền lãi tỉ lệ thuận với số vốn góp."
                 }
             ];
 
@@ -3540,15 +3538,15 @@
 
                 const text = document.createElement('div');
                 text.className = 'achievement-text ' + (type.includes('streak') ? 'streak-text' : 'perfect-text');
-                
+
                 if (type === 'review-streak') {
                     const count = extra || 0;
                     const compliments = [
-                        "Tuyệt quá bạn ơi!", 
-                        "Quá tuyệt vời!", 
-                        "Quá xuất sắc!", 
-                        "Đỉnh của đỉnh!", 
-                        "Thật là ảo diệu!", 
+                        "Tuyệt quá bạn ơi!",
+                        "Quá tuyệt vời!",
+                        "Quá xuất sắc!",
+                        "Đỉnh của đỉnh!",
+                        "Thật là ảo diệu!",
                         "Cậu học bài kỹ thật đấy!",
                         "Phong độ quá nể!",
                         "Không thể tin được!",
@@ -4762,10 +4760,10 @@
                     correctCounts[index]++;
                     betWonLost = currentBet;
                     userCoins += currentBet;
-                    
+
                     quizStreak++;
                     if (quizStreak > maxQuizStreak) maxQuizStreak = quizStreak;
-                    
+
                     if (quizStreak >= 2) {
                         window.showAchievement('review-streak', quizStreak);
                     } else if (quizStreak === 1) {
