@@ -565,6 +565,28 @@
                         <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                     </button>
                 </div>
+
+                <!-- LOGIN REWARDS GENERATOR -->
+                <div class="gen-card" style="grid-column: 1 / -1;">
+                    <h3><span class="material-symbols-rounded">redeem</span> Thưởng đăng nhập (JSON)</h3>
+                    <div class="form-row" style="margin-bottom:15px;">
+                        <label>Tổng số ngày tiến trình hiển thị (VD: 10, 30)</label>
+                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tổng ngày..." oninput="updateLRJson()">
+                    </div>
+                    <label>Danh sách mốc nhận thưởng</label>
+                    <div id="lr-list-wrap" style="max-height: 400px; overflow-y: auto; padding-right: 8px; margin-bottom:10px;">
+                        <!-- Reward items here -->
+                    </div>
+                    <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;" onclick="addLRItem()">
+                        <span class="material-symbols-rounded">add</span> Thêm mốc thưởng
+                    </button>
+                    
+                    <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview</label>
+                    <textarea id="lr-json" class="json-preview" readonly style="height: 100px;"></textarea>
+                    <button class="btn btn-primary" onclick="applyLR()" style="width:100%; margin-top:16px;">
+                        <span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore
+                    </button>
+                </div>
             </div>
         </div>
     </main>
@@ -1029,6 +1051,56 @@
             btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
+        window.addLRItem = (data = {}) => {
+            const container = document.getElementById('lr-list-wrap');
+            const div = document.createElement('div');
+            div.className = 'item-row';
+            div.style.display = 'grid';
+            div.style.gridTemplateColumns = '1fr 1fr';
+            div.style.gap = '10px';
+            div.innerHTML = `
+                <span class="material-symbols-rounded item-del" style="z-index: 10;" onclick="this.parentElement.remove(); updateLRJson()">delete</span>
+                <div class="form-row"><label>Ngày thưởng (VD: 3, 10)</label><input type="number" class="lr-day inp" value="${data.day || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Icon phần thưởng (Emoji)</label><input type="text" class="lr-icon inp" value="${data.icon || '🎁'}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mô tả phần thưởng hiển thị</label><input type="text" class="lr-text inp" value="${data.text || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mã hệ thống (VIP thì ghi <b>vip</b>)</label><input type="text" class="lr-type inp" value="${data.type || ''}" oninput="updateLRJson()"></div>
+            `;
+            container.appendChild(div);
+            updateLRJson();
+        };
+
+        window.updateLRJson = () => {
+            const total = parseInt(document.getElementById('lr-total').value) || 10;
+            const items = [];
+            document.querySelectorAll('#lr-list-wrap .item-row').forEach(row => {
+                const day = parseInt(row.querySelector('.lr-day').value);
+                if (!day) return;
+                items.push({
+                    day: day,
+                    text: row.querySelector('.lr-text').value,
+                    type: row.querySelector('.lr-type').value,
+                    icon: row.querySelector('.lr-icon').value || '🎁'
+                });
+            });
+            const obj = { totalDays: total, rewards: items };
+            document.getElementById('lr-json').value = JSON.stringify(obj, null, 2);
+            return obj;
+        };
+
+        window.applyLR = async () => {
+            const lr = updateLRJson();
+            const btn = event.currentTarget;
+            btn.disabled = true; btn.textContent = "Đang lưu...";
+            try {
+                await setDoc(doc(db, "system", "login_rewards"), { 
+                    json: JSON.stringify(lr),
+                    updatedAt: serverTimestamp() 
+                });
+                showToast("Đã lưu cấu hình Thưởng Đăng nhập thành công!");
+            } catch (e) { showToast(e.message, 'error'); }
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore';
+        };
+
         async function loadSystemConfig() {
             // Fetch Poll
             const pollSnap = await getDoc(doc(db, "system", "community_poll"));
@@ -1049,8 +1121,21 @@
                 const items = JSON.parse(newsSnap.data().json);
                 if (Array.isArray(items)) items.reverse().forEach(it => addNewsItem(it));
             }
+
+            // Fetch LR Config
+            const lrSnap = await getDoc(doc(db, "system", "login_rewards"));
+            document.getElementById('lr-list-wrap').innerHTML = "";
+            if (lrSnap.exists()) {
+                try {
+                    const obj = JSON.parse(lrSnap.data().json);
+                    document.getElementById('lr-total').value = obj.totalDays || 10;
+                    if (Array.isArray(obj.rewards)) obj.rewards.forEach(it => addLRItem(it));
+                } catch(e) {}
+            }
+
             updatePollJson();
             updateNewsJson();
+            updateLRJson();
         }
 
         window.viewUser = async (uid) => {

@@ -22,8 +22,11 @@
     <style>
         :root {
             --primary: #0084ff;
+            --primary-container: #e0f2fe;
+            --primary-light: #bae6fd;
             --bg: #f8fafc;
             --surface: rgba(255, 255, 255, 0.85);
+            --surface-container: #ffffff;
             --text: #0f172a;
             --text-light: #64748b;
             --danger: #ef4444;
@@ -92,11 +95,87 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 5px solid white;
+            border: 4px solid white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             object-fit: cover;
             background: white;
         }
+
+        /* Avatar frame rings shown on profile page */
+        .avt-frame-wrap {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avt-frame-vip {
+            padding: 4px;
+            background: linear-gradient(135deg, #8B4513, #5a2d0c, #22c55e, #16a34a);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+        }
+        .avt-frame-gold {
+            padding: 4px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #fde68a, #d97706);
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.7);
+        }
+        .avt-frame-wrap .avt-img {
+            width: 100%;
+            height: 100%;
+            border: 3px solid white;
+        }
+
+        /* Profile card background variants */
+        .card-bg-glass {
+            background: rgba(255, 255, 255, 0.25) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        }
+        .card-bg-gold {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2) !important;
+            position: relative;
+            z-index: 0;
+        }
+
+        .card-border-anim {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            border-radius: 30px;
+        }
+
+        .card-bg-gold .card-border-anim {
+            display: block;
+        }
+
+        .card-border-anim::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, #fbbf24, #f59e0b, #fde68a, transparent 30%);
+            animation: gold-run 4s linear infinite;
+        }
+
+        .card-border-anim::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: 3px;
+            background: linear-gradient(135deg, rgba(255, 251, 235, 0.98), rgba(254, 243, 199, 0.95));
+            border-radius: 27px;
+        }
+
 
         .btn-top {
             position: absolute;
@@ -473,11 +552,12 @@
 
         .color-opt.active,
         .frame-opt.active {
-            border-color: var(--primary);
-            background: var(--primary-container);
-            color: var(--primary);
+            border-color: #f59e0b;
+            background: #fffbeb;
+            color: #d97706;
             transform: scale(1.05);
         }
+
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -519,6 +599,11 @@
             100% {
                 opacity: 0.6;
             }
+        }
+
+        @keyframes gold-run {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .p-sk-card {
@@ -631,6 +716,7 @@
     </div>
     <div id="profileContent" class="container" style="display:none;">
         <div class="profile-card">
+            <div class="card-border-anim"></div>
             <button class="btn-top" style="left:20px; right:auto;" onclick="history.back()">
                 <span class="material-symbols-rounded">arrow_back</span>
             </button>
@@ -643,8 +729,10 @@
                 <span class="material-symbols-rounded">settings</span>
             </button>
 
-            <div class="avt-box">
-                <img id="avt" src="https://via.placeholder.com/120" class="avt-img">
+            <div class="avt-box" id="avtBox">
+                <div id="avtFrameWrap" class="avt-frame-wrap">
+                    <img id="avt" src="https://via.placeholder.com/120" class="avt-img">
+                </div>
             </div>
 
             <h1 class="user-name" id="dName"></h1>
@@ -720,11 +808,11 @@
             <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ </h3>
 
             <div class="settings-grid">
-                <label class="upload-btn">
+                <button id="btnOpenAvatarEditor" type="button" class="upload-btn" onclick="openAvatarEditor()"
+                    style="cursor:pointer; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
-                    <span>Đổi Avatar</span>
-                    <input type="file" id="fAvtFile" hidden accept="image/*">
-                </label>
+                    <span>Avatar / Khung</span>
+                </button>
                 <label class="upload-btn">
                     <span class="material-symbols-rounded" style="font-size: 24px;">image</span>
                     <span>Đổi Ảnh bìa</span>
@@ -762,6 +850,61 @@
                     <div class="color-opt" data-color="purple" style="color:#9333ea;">Tím</div>
                     <div class="color-opt" data-color="orange" style="color:#ea580c;">Cam</div>
                     <div class="color-opt" data-color="pink" style="color:#f472b6;">Hồng</div>
+                </div>
+            </div>
+
+            <!-- Added Avatar Frame / Chat Background sections -->
+
+
+            <div class="inp-group vip-reward" id="chatBgPickerWrap" style="display:none;">
+                <label class="inp-label">Nền Chat 💬</label>
+                <div class="frame-picker" id="chatBgPicker">
+                    <div class="frame-opt active" data-bg="default" onclick="updateProfilePreview()" style="display:flex; align-items:center; gap:8px; padding:10px;">
+                        <div style="min-width:60px; padding:6px 10px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0;">Tin nhắn</div>
+                        <span>Mặc định</span>
+                    </div>
+                    <div class="frame-opt" data-bg="gold" onclick="updateProfilePreview()" style="display:flex; align-items:center; gap:8px; padding:10px;">
+                        <div style="min-width:60px; padding:6px 10px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f;">Tin nhắn</div>
+                        <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Background Picker -->
+            <div class="inp-group" id="cardBgPickerWrap">
+                <label class="inp-label">Nền thẻ hồ sơ 🃏</label>
+                <div class="frame-picker" id="cardBgPicker">
+                    <div class="frame-opt active" data-cardbg="default" style="display:flex; align-items:center; gap:8px; padding:10px;">
+                        <div style="width:44px; height:28px; border-radius:8px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0;"></div>
+                        <span>Mặc định</span>
+                    </div>
+                    <div class="frame-opt" data-cardbg="glass" onclick="updateProfilePreview()" style="display:flex; align-items:center; gap:8px; padding:10px; position:relative;">
+                        <div style="width:44px; height:28px; border-radius:8px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px);"></div>
+                        <span style="font-weight:700;">Trong suốt 💎</span>
+                        <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
+                    </div>
+                    <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()" style="display:flex; align-items:center; gap:8px; padding:10px; position:relative;">
+                        <div style="width:44px; height:28px; border-radius:8px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4);"></div>
+                        <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                        <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Preview -->
+            <div class="inp-group" id="profilePreviewBox" style="background:#f8fafc; border-radius:16px; padding:14px; border:1px solid #e2e8f0;">
+                <label class="inp-label" style="margin-bottom:8px;">Xem trước</label>
+                <div id="profilePreviewMsg" style="display:flex; align-items:flex-start; gap:10px;">
+                    <div id="prevAvatarWrap" style="flex-shrink:0;">
+                        <div id="prevAvatarInner" style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:18px;">
+                            <img id="prevAvtImg" style="width:100%; height:100%; object-fit:cover; display:none;" />
+                            <span id="prevAvtPlaceholder">👤</span>
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        <div id="prevNameLabel" style="font-size:12px; font-weight:800;">Tên của bạn</div>
+                        <div id="prevBubble" style="padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:13px; border:1px solid #e2e8f0; max-width:160px;">Tin nhắn mẫu</div>
+                    </div>
                 </div>
             </div>
 
@@ -811,6 +954,18 @@
                 style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
                 <span class="material-symbols-rounded" style="vertical-align: middle;">logout</span> Đăng xuất
             </button>
+
+            <!-- Link Google account -->
+            <button id="btnLinkGoogle" onclick="linkWithGoogle()"
+                style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-top:8px; display:flex; align-items:center; justify-content:center; gap:8px; display:none;">
+                <span class="material-symbols-rounded">login</span> Liên kết tài khoản Google
+            </button>
+
+            <!-- Delete account -->
+            <button onclick="document.getElementById('modalDeleteAccount').classList.add('active')"
+                style="width:100%; padding:11px; background:none; border:1px solid rgba(239,68,68,0.3); border-radius:14px; color:#ef4444; font-weight:600; cursor:pointer; margin-top:8px; font-size:13px;">
+                <span class="material-symbols-rounded" style="vertical-align:middle; font-size:16px;">delete_forever</span> Xóa tài khoản
+            </button>
         </div>
     </div>
     <div id="modalAnonLogout" class="modal" style="z-index:9999;">
@@ -852,7 +1007,7 @@
     </div>
 
     <!-- Cropper Modal -->
-    <div id="modalCropper" class="modal" style="z-index:9999;">
+    <div id="modalCropper" class="modal" style="z-index:10001;">
         <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
             <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
             <div
@@ -867,11 +1022,62 @@
         </div>
     </div>
 
+    <!-- Avatar Editor Popup (2 tabs) -->
+    <div id="modalAvatarEditor" class="modal" style="z-index:10000;">
+        <div class="box" style="max-width:420px; padding: 0; overflow:hidden;">
+            <div style="display:flex; border-bottom:1px solid #e2e8f0;">
+                <button id="tabAvt" onclick="switchAvatarTab('avt')" style="flex:1; padding:14px; border:none; font-weight:700; font-size:13px; background:#fff; color:var(--primary); border-bottom:2px solid var(--primary); cursor:pointer;">📷 Đổi Avatar</button>
+                <button id="tabFrame" onclick="switchAvatarTab('frame')" style="flex:1; padding:14px; border:none; font-weight:700; font-size:13px; background:#fff; color:#94a3b8; cursor:pointer;">🖼️ Chọn Khung</button>
+            </div>
+            <!-- Tab 1: Upload Avatar -->
+            <div id="tabContentAvt" style="padding:20px;">
+                <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Tải ảnh lên và cắt đúng tỉ lệ.</p>
+                <label class="upload-btn" style="width:100%; justify-content:center; padding:18px;">
+                    <span class="material-symbols-rounded" style="font-size:32px;">add_photo_alternate</span>
+                    <span>Chọn ảnh...</span>
+                    <input type="file" id="fAvtFile" hidden accept="image/*">
+                </label>
+                <p style="font-size:11px; color:#94a3b8; margin-top:10px; text-align:center;">Nhấn "Lưu" trong cài đặt để áp dụng.</p>
+            </div>
+            <!-- Tab 2: Frame Picker -->
+            <div id="tabContentFrame" style="padding:20px; display:none;">
+                <p style="font-size:13px; color:#64748b; margin-bottom:12px;">Chọn kiểu khung avatar.</p>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <div class="frame-quick-opt" data-frame="default" onclick="applyAvatarFrameDirect('default')" style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; border:2px solid #e2e8f0; cursor:pointer; transition:0.2s;">
+                        <div style="width:44px; height:44px; border-radius:50%; background:#e2e8f0; border:3px solid white; flex-shrink:0;"></div>
+                        <div><div style="font-weight:700;">Không có khung</div><div style="font-size:11px; color:#94a3b8;">Hiển thị mặc định</div></div>
+                    </div>
+                    <div class="frame-quick-opt" data-frame="gold" onclick="applyAvatarFrameDirect('gold')" style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; border:2px solid #e2e8f0; cursor:pointer; transition:0.2s;" id="frameOptGold">
+                        <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; box-sizing:border-box; flex-shrink:0;"><div style="width:100%;height:100%;border-radius:50%;background:#e2e8f0;"></div></div>
+                        <div><div style="font-weight:700; color:#d97706;">✨ Khung Vàng</div><div style="font-size:11px; color:#94a3b8;">Mở khóa qua điểm danh</div></div>
+                        <div id="lockGold" style="margin-left:auto; font-size:18px;">🔒</div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:14px 20px; border-top:1px solid #f1f5f9;">
+                <button onclick="document.getElementById('modalAvatarEditor').classList.remove('active')" style="width:100%; padding:12px; border-radius:12px; border:none; background:#f1f5f9; color:#475569; font-weight:700; cursor:pointer;">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Confirm Modal -->
+    <div id="modalDeleteAccount" class="modal" style="z-index:9999;">
+        <div class="box" style="text-align:center; max-width:340px;">
+            <div style="font-size:48px; margin-bottom:10px;">⚠️</div>
+            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800; color:#ef4444;">Xóa tài khoản?</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Hành động này <b style="color:#ef4444;">không thể hoàn tác</b>. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
+            <div style="display:flex; gap:10px;">
+                <button id="btnDeleteConfirm" onclick="deleteMyAccount()" style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Xóa ngay</button>
+                <button onclick="document.getElementById('modalDeleteAccount').classList.remove('active')" style="flex:1; padding:12px; background:#f1f5f9; color:#475569; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Hủy</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, linkWithPopup, deleteUser, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
@@ -988,6 +1194,19 @@
                 const inpBio = document.getElementById('inpBio').value;
                 const activeColorEl = document.querySelector('.color-opt.active');
                 const activeColor = activeColorEl ? activeColorEl.dataset.color : 'default';
+                
+                const activeFrameEl = document.querySelector('.frame-opt.active[data-frame]');
+                const activeFrame = activeFrameEl ? activeFrameEl.dataset.frame : 'default';
+                
+                const activeChatBgEl = document.querySelector('.frame-opt.active[data-bg]');
+                const activeChatBg = activeChatBgEl ? activeChatBgEl.dataset.bg : 'default';
+
+                const cardEl = document.querySelector('.frame-opt.active[data-cardbg]');
+                let activeCardBg = cardEl ? cardEl.dataset.cardbg : 'default';
+                if (activeCardBg !== 'default' && !userData.hasCardBg) {
+                    window.showToast('🔒 Bạn cần mở khóa để sử dụng nền thẻ này!', 'error');
+                    activeCardBg = 'default';
+                }
 
                 if (!inpName) throw new Error("Tên hiển thị không được để trống!");
                 if (!inpUser) throw new Error("Username không được để trống!");
@@ -1016,7 +1235,7 @@
 
                 let nAvt = userData.photoURL || "", nCov = userData.coverURL || "";
                 if (window.croppedAvtBlob) {
-                    const avtFile = new File([window.croppedAvtBlob], "avatar.jpg", { type: "image/jpeg" });
+                    const avtFile = new File([window.croppedAvtBlob], "avatar.png", { type: "image/png" });
                     nAvt = await upload(avtFile);
                 } else if (document.getElementById('fAvtFile').files && document.getElementById('fAvtFile').files[0]) {
                     nAvt = await upload(document.getElementById('fAvtFile').files[0]);
@@ -1036,6 +1255,9 @@
                     username: inpUser,
                     bio: inpBio,
                     nameColor: activeColor,
+                    avatarFrame: activeFrame,
+                    chatBackground: activeChatBg,
+                    cardBackground: activeCardBg,
                     photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
                     is_setup: true,
                     publicFollow: chkPublicFollow
@@ -1112,12 +1334,100 @@
             document.getElementById('modalAnonLogout').classList.remove('active');
             signOut(auth).then(() => window.top.location.href = 'index.html');
         }
+
+        // Avatar Editor Popup
+        window.openAvatarEditor = () => {
+            // Refresh lock state based on current userData
+            if (userData) {
+                const lockVip = document.getElementById('lockVip');
+                const lockGold = document.getElementById('lockGold');
+                if (lockVip) lockVip.textContent = (userData.hasVipFrame || userData.has10DayReward) ? '✅' : '🔒';
+                if (lockGold) lockGold.textContent = userData.hasVipFrameGold ? '✅' : '🔒';
+            }
+            switchAvatarTab('avt');
+            document.getElementById('modalAvatarEditor').classList.add('active');
+        };
+
+        window.switchAvatarTab = (tab) => {
+            document.getElementById('tabContentAvt').style.display = tab === 'avt' ? 'block' : 'none';
+            document.getElementById('tabContentFrame').style.display = tab === 'frame' ? 'block' : 'none';
+            document.getElementById('tabAvt').style.color = tab === 'avt' ? '#d97706' : '#94a3b8';
+            document.getElementById('tabAvt').style.borderBottom = tab === 'avt' ? '2px solid #f59e0b' : '2px solid transparent';
+            document.getElementById('tabFrame').style.color = tab === 'frame' ? '#d97706' : '#94a3b8';
+            document.getElementById('tabFrame').style.borderBottom = tab === 'frame' ? '2px solid #f59e0b' : '2px solid transparent';
+        };
+
+
+        window.applyAvatarFrameDirect = async (frame) => {
+            if (!currentUser) return;
+            // Check locks
+            if (frame === 'vip' && !(userData?.hasVipFrame || userData?.has10DayReward)) {
+                window.showToast('🔒 Hãy điểm danh đủ 5 ngày để mở khóa khung này!');
+                return;
+            }
+            if (frame === 'gold' && !userData?.hasVipFrameGold) {
+                window.showToast('🔒 Khung Vàng chưa được mở khóa!');
+                return;
+            }
+            try {
+                await updateDoc(doc(db, 'users', currentUser.uid), { avatarFrame: frame });
+                if (userData) userData.avatarFrame = frame;
+                // Refresh frame ring on page
+                const fw = document.getElementById('avtFrameWrap');
+                if (fw) {
+                    fw.className = 'avt-frame-wrap';
+                    if (frame === 'vip') fw.classList.add('avt-frame-vip');
+                    else if (frame === 'gold') fw.classList.add('avt-frame-gold');
+                }
+                // Highlight selected in popup
+                document.querySelectorAll('.frame-quick-opt').forEach(o => o.style.border = '2px solid #e2e8f0');
+                const sel = document.querySelector(`.frame-quick-opt[data-frame="${frame}"]`);
+                if (sel) sel.style.border = '2px solid #f59e0b';
+
+                window.showToast('✅ Đã áp dụng khung avatar!');
+            } catch(e) { window.showToast('Lỗi: ' + e.message); }
+        };
+
+        window.linkWithGoogle = async () => {
+            try {
+                const provider = new GoogleAuthProvider();
+                await linkWithPopup(auth.currentUser, provider);
+                window.showToast('✅ Liên kết Google thành công!');
+                document.getElementById('btnLinkGoogle').style.display = 'none';
+            } catch(e) {
+                if (e.code === 'auth/credential-already-in-use') window.showToast('⚠️ Tài khoản Google này đã được sử dụng!');
+                else window.showToast('Lỗi liên kết: ' + e.message);
+            }
+        };
+
+        window.deleteMyAccount = async () => {
+            const btn = document.getElementById('btnDeleteConfirm');
+            if (!currentUser) return;
+            btn.disabled = true; btn.textContent = 'Đang xóa...';
+            try {
+                // Delete Firestore doc first
+                await deleteDoc(doc(db, 'users', currentUser.uid));
+                // Delete Firebase Auth user
+                await deleteUser(currentUser);
+                window.top.location.href = 'index.html';
+            } catch(e) {
+                window.showToast('Lỗi xóa tài khoản: ' + e.message);
+                btn.disabled = false; btn.textContent = 'Xóa ngay';
+            }
+        };
         function renderUI(data, uid) {
             document.getElementById('profileSkeleton').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            const dName = document.getElementById('dName');
-            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + (data.isVerified ? ' <span class="material-symbols-rounded verified-badge">verified</span>' : '');
+            let badgeHtml = '';
+            // Red Tick (Creator/Admin) takes precedence
+            if (data.isCreator || data.isAdmin || data.role === 'admin') {
+                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444;" title="Nhà sáng tạo">verified</span>';
+            } else if (data.isVerified) {
+                // Blue Tick (Verified)
+                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff;" title="Đã xác minh">verified</span>';
+            }
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + badgeHtml;
 
             // Apply name color
             dName.className = "user-name"; // reset
@@ -1125,7 +1435,21 @@
                 dName.classList.add(`name-color-${data.nameColor}`);
             }
 
-            // Avatar frame removed
+            // Apply avatar frame ring on profile page
+            const frameWrap = document.getElementById('avtFrameWrap');
+            if (frameWrap) {
+                frameWrap.className = 'avt-frame-wrap';
+                if (data.avatarFrame === 'vip') frameWrap.classList.add('avt-frame-vip');
+                else if (data.avatarFrame === 'gold') frameWrap.classList.add('avt-frame-gold');
+            }
+
+            // Apply profile card background
+            const card = document.querySelector('.profile-card');
+            if (card) {
+                card.classList.remove('card-bg-glass', 'card-bg-gold');
+                if (data.cardBackground === 'glass') card.classList.add('card-bg-glass');
+                else if (data.cardBackground === 'gold') card.classList.add('card-bg-gold');
+            }
 
             document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
             document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
@@ -1133,6 +1457,16 @@
             const bgUrl = data.coverURL || "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000";
             document.getElementById('bgBlur').style.backgroundImage = `url('${bgUrl}')`;
             document.getElementById('bgCover').style.backgroundImage = `url('${bgUrl}')`;
+
+            // Show Google link button if not linked yet
+            const user = auth.currentUser;
+            const googleLinkBtn = document.getElementById('btnLinkGoogle');
+            if (googleLinkBtn && user && currentUser.uid === uid) {
+                const providers = user.providerData.map(p => p.providerId);
+                if (!providers.includes('google.com') && !user.isAnonymous) {
+                    googleLinkBtn.style.display = 'flex';
+                }
+            }
 
             if (currentUser && currentUser.uid === uid) {
                 const btn = document.getElementById('btnSettings');
@@ -1142,10 +1476,48 @@
                     document.getElementById('inpBio').value = data.bio || "";
                     document.getElementById('inpUser').value = data.username || "";
 
+                    // Show VIP rewards individually if unlocked
+                    if (data.has10DayReward || data.hasVipFrame || data.hasVipFrameGold) {
+                        const frameWrap = document.getElementById('framePickerWrap');
+                        if (frameWrap) frameWrap.style.display = 'block';
+                    }
+                    if (data.has10DayReward || data.hasVipChatBg || data.hasVipChatBgGold) {
+                        const chatWrap = document.getElementById('chatBgPickerWrap');
+                        if (chatWrap) chatWrap.style.display = 'block';
+                    }
+                    // Show card bg picker always, but update locks
+                    const cardWrap = document.getElementById('cardBgPickerWrap');
+                    if (cardWrap) cardWrap.style.display = 'block';
+
+                    document.querySelectorAll('#cardBgPicker .card-lock').forEach(l => {
+                        l.style.display = data.hasCardBg ? 'none' : 'block';
+                    });
+
+                    // Call preview after unlocking
+                    setTimeout(updateProfilePreview, 100);
+
                     // Sync Color Picker
                     const color = data.nameColor || 'default';
                     document.querySelectorAll('.color-opt').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.color === color);
+                    });
+                    
+                    // Sync Avatar Frame Picker
+                    const frame = data.avatarFrame || 'default';
+                    document.querySelectorAll('.frame-opt[data-frame]').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.frame === frame);
+                    });
+
+                    // Sync Chat Bg Picker
+                    const chatBg = data.chatBackground || 'default';
+                    document.querySelectorAll('.frame-opt[data-bg]').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.bg === chatBg);
+                    });
+
+                    // Sync Card Bg Picker
+                    const cardBg = data.cardBackground || 'default';
+                    document.querySelectorAll('.frame-opt[data-cardbg]').forEach(opt => {
+                        opt.classList.toggle('active', opt.dataset.cardbg === cardBg);
                     });
 
                     // Sync Privacy Setting
@@ -1511,7 +1883,7 @@
             canvas.toBlob((blob) => {
                 if (cropType === 'avt') {
                     window.croppedAvtBlob = blob;
-                    document.getElementById('avt').src = canvas.toDataURL('image/jpeg');
+                    document.getElementById('avt').src = canvas.toDataURL('image/png');
                 } else {
                     window.croppedCovBlob = blob;
                     const url = canvas.toDataURL('image/jpeg');
@@ -1520,7 +1892,7 @@
                 }
                 modalCropper.classList.remove('active');
                 window.showToast("Đã cắt ảnh! Nhấn 'Lưu' để hoàn tất.", "✨");
-            }, 'image/jpeg', 0.9);
+            }, cropType === 'avt' ? 'image/png' : 'image/jpeg', 0.9);
         };
 
         // Name Color Picker Logic
@@ -1530,6 +1902,112 @@
             document.querySelectorAll('.color-opt').forEach(i => i.classList.remove('active'));
             opt.classList.add('active');
         };
+        
+        // Frame/Bg Picker Logic
+        document.body.addEventListener('click', (e) => {
+            const frameOpt = e.target.closest('.frame-opt');
+            if (!frameOpt) return;
+            const parent = frameOpt.closest('.frame-picker');
+            if (parent) {
+                parent.querySelectorAll('.frame-opt').forEach(i => i.classList.remove('active'));
+                frameOpt.classList.add('active');
+                setTimeout(updateProfilePreview, 0);
+            }
+        });
+
+        window.updateProfilePreview = () => {
+            const activeColorEl = document.querySelector('.color-opt.active');
+            const color = activeColorEl ? activeColorEl.dataset.color : 'default';
+            const activeFrameEl = document.querySelector('.frame-opt.active[data-frame]');
+            const frame = activeFrameEl ? activeFrameEl.dataset.frame : 'default';
+            const activeChatBgEl = document.querySelector('.frame-opt.active[data-bg]');
+            const chatBg = activeChatBgEl ? activeChatBgEl.dataset.bg : 'default';
+
+            // Name color preview
+            const nameEl = document.getElementById('prevNameLabel');
+            if (nameEl) {
+                const name = document.getElementById('inpName') ? document.getElementById('inpName').value || 'Tên của bạn' : 'Tên của bạn';
+                nameEl.textContent = name;
+                nameEl.style.background = '';
+                nameEl.style.webkitBackgroundClip = '';
+                nameEl.style.backgroundClip = '';
+                nameEl.style.webkitTextFillColor = '';
+                nameEl.style.color = '';
+                nameEl.style.fontWeight = '';
+                if (color === 'default') { nameEl.style.color = '#0f172a'; }
+                else if (color === 'vip') {
+                    nameEl.style.background = 'linear-gradient(90deg, #d97706, #b45309)';
+                    nameEl.style.webkitBackgroundClip = 'text';
+                    nameEl.style.backgroundClip = 'text';
+                    nameEl.style.webkitTextFillColor = 'transparent';
+                    nameEl.style.fontWeight = '900';
+                }
+                else { 
+                    const colorMap = { blue: '#2563eb', red: '#dc2626', green: '#16a34a', purple: '#9333ea', orange: '#ea580c', pink: '#f472b6' };
+                    nameEl.style.color = colorMap[color] || '#0f172a'; 
+                    nameEl.style.fontWeight = '800';
+                }
+            }
+
+            // Avatar frame preview
+            const avatarWrap = document.getElementById('prevAvatarWrap');
+            const avatarInner = document.getElementById('prevAvatarInner');
+            if (avatarWrap && avatarInner) {
+                if (frame === 'vip') {
+                    avatarWrap.innerHTML = `
+                        <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#8B4513,#5a2d0c,#22c55e,#16a34a); padding:3px; box-sizing:border-box; box-shadow:0 0 8px rgba(34,197,94,0.4);">
+                            <div style="width:100%; height:100%; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                                <img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
+                            </div>
+                        </div>`;
+                } else if (frame === 'gold') {
+                    avatarWrap.innerHTML = `
+                        <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; box-sizing:border-box; box-shadow:0 0 10px rgba(251,191,36,0.6);">
+                            <div style="width:100%; height:100%; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                                <img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
+                            </div>
+                        </div>`;
+                } else {
+                    avatarWrap.innerHTML = `<div style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>`;
+                }
+            }
+
+            // Chat bubble preview
+            const bubble = document.getElementById('prevBubble');
+            if (bubble) {
+                if (chatBg === 'vip') {
+                    bubble.style.background = 'linear-gradient(135deg, #dcfce7, #bbf7d0)';
+                    bubble.style.border = '1px solid #22c55e';
+                    bubble.style.color = '#166534';
+                } else if (chatBg === 'gold') {
+                    bubble.style.background = 'linear-gradient(135deg, #fffbeb, #fef3c7, #fde68a)';
+                    bubble.style.border = '1px solid #f59e0b';
+                    bubble.style.color = '#78350f';
+                } else {
+                    bubble.style.background = '#f1f5f9';
+                    bubble.style.border = '1px solid #e2e8f0';
+                    bubble.style.color = '#0f172a';
+                }
+            }
+
+            // Profile card background preview
+            const cardPrev = document.getElementById('profilePreview');
+            const activeCardBgEl = document.querySelector('.frame-opt.active[data-cardbg]');
+            const cardBg = activeCardBgEl ? activeCardBgEl.dataset.cardbg : 'default';
+            if (cardPrev) {
+                cardPrev.classList.remove('card-bg-glass', 'card-bg-gold');
+                if (cardBg === 'glass') cardPrev.classList.add('card-bg-glass');
+                else if (cardBg === 'gold') cardPrev.classList.add('card-bg-gold');
+            }
+        };
+
+        // Wire pickers
+        document.getElementById('nameColorPicker').addEventListener('click', () => setTimeout(updateProfilePreview, 10));
+        const afp = document.getElementById('avatarFramePicker');
+        if (afp) afp.addEventListener('click', () => setTimeout(updateProfilePreview, 10));
+        document.getElementById('chatBgPicker').addEventListener('click', () => setTimeout(updateProfilePreview, 10));
+        document.getElementById('cardBgPicker').addEventListener('click', () => setTimeout(updateProfilePreview, 10));
+        document.getElementById('inpName').addEventListener('input', () => updateProfilePreview());
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>

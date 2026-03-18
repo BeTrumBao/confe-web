@@ -922,6 +922,35 @@
             color: #fd79a8 !important;
             font-weight: 800 !important;
         }
+        
+        .name-color-vip {
+            background: linear-gradient(90deg, #d97706, #b45309) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: transparent !important;
+            font-weight: 900 !important;
+        }
+        
+        .avatar-frame-gold {
+            position: relative;
+            display: inline-block;
+            padding: 3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #fde68a, #d97706);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+            margin-right: 12px;
+        }
+
+        .avatar-frame-gold > img {
+            margin: 0 !important;
+            display: block;
+        }
+
+        .chat-bg-gold {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7, #fde68a) !important;
+            border: 1px solid #f59e0b !important;
+            color: #78350f !important;
+        }
     </style>
     <!-- Security Enhancements -->
     <script>
@@ -1280,6 +1309,8 @@
                 currentUser.isChatMuted = !!ud.isChatMuted;
                 currentUser.displayName = ud.displayName || u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = ud.nameColor || 'default';
+                window.myAvatarFrame = ud.avatarFrame || 'default';
+                window.myChatBackground = ud.chatBackground || 'default';
                 currentUser.unlockedStickers = ud.unlockedStickers || [];
 
                 // Check and update UI for muted state
@@ -1775,7 +1806,10 @@
                         text: txt, image: url, type: 'image',
                         uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), 
                         avatar: currentUser.photoURL, isVerified: currentUser.isVerified || false,
-                        nameColor: window.myNameColor || 'default', createdAt: serverTimestamp(), likes: []
+                        nameColor: window.myNameColor || 'default', 
+                        avatarFrame: window.myAvatarFrame || 'default',
+                        chatBackground: window.myChatBackground || 'default',
+                        createdAt: serverTimestamp(), likes: []
                     });
                 });
                 return batch.commit().then(() => {
@@ -1790,6 +1824,8 @@
                     uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                     isVerified: currentUser.isVerified || false,
                     nameColor: window.myNameColor || 'default',
+                    avatarFrame: window.myAvatarFrame || 'default',
+                    chatBackground: window.myChatBackground || 'default',
                     createdAt: serverTimestamp(), likes: []
                 };
                 if (currentReply) payload.replyTo = currentReply;
@@ -1978,10 +2014,10 @@
                 return `<span class="spoiler-text" onclick="event.stopPropagation(); this.classList.toggle('revealed')">${spoilerContent}</span>`;
             });
             const urlRegex = /(https?:\/\/[^\s<]+)/g;
-            r = r.replace(urlRegex, function(url, offset, str) {
+            r = r.replace(urlRegex, function(match, url, offset, fullStr) {
                 // Skip URLs that appear to be inside HTML attribute values (preceded by quote)
-                var before = str.charAt(offset - 1);
-                if (before === '"' || before === "'") return url;
+                var before = fullStr.charAt(offset - 1);
+                if (before === '"' || before === "'") return match;
                 return `<a href="${url}" target="_blank" onclick="event.stopPropagation()">${url}</a>`;
             });
             r = r.replace(/(<a [^>]+>.*?<\/a>)|(<span [^>]+>.*?<\/span>)|#(\w+)/g, (match, aTag, spanTag, tagText) => {
@@ -2009,9 +2045,15 @@
             if (msg.type === 'sticker') {
                 const vipUrl = "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png";
                 const isVip = msg.image === vipUrl;
-                contentHtml += `<div class="${isVip ? 'vip-sparkle' : ''}" style="margin-bottom:6px; cursor:pointer; display:inline-block;" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')"><img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false"></div>`;
+                contentHtml += `<div class="${isVip ? 'vip-sparkle' : ''}" style="margin-bottom:6px; cursor:pointer; display:inline-block; position:relative;" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">
+                    <img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false">
+                    ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
+                </div>`;
             } else if (msg.image) {
-                contentHtml += `<div style="margin-bottom:6px;"><img src="${msg.image}" class="msg-img" onclick="window.openGallery('${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'"></div>`;
+                contentHtml += `<div style="margin-bottom:6px; position:relative; display:inline-block;">
+                    <img src="${msg.image}" class="msg-img" onclick="window.openGallery('${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'">
+                    ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
+                </div>`;
             }
 
             if (msg.type === 'poll') {
@@ -2049,8 +2091,14 @@
             const verifiedHtml = isVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
             const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
+            const avatarFrameClass = msg.avatarFrame === 'vip' ? 'avatar-frame-vip' : '';
+            
+            if (msg.type === 'text' && msg.chatBackground === 'vip') {
+                contentHtml = contentHtml.replace('class="msg-bubble"', 'class="msg-bubble chat-bg-vip"');
+            }
+
             const html = `<div class="msg-row ${rowClass}" id="msg-${docId}">
-                ${!isMine ? `<img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'">` : ''}
+                ${!isMine ? `<div class="${msg.avatarFrame === 'vip' ? 'msg-avt-wrapper avatar-frame-vip' : ''}"><img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'"></div>` : ''}
                 <div class="msg-content-wrapper">
                     ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${verifiedHtml}</div>` : ''}
                     ${contentHtml}${statusHtml}
@@ -2306,8 +2354,12 @@
                 avatar: currentUser.photoURL || ANON_AVATAR,
                 isVerified: currentUser.isVerified || false,
                 nameColor: window.myNameColor || 'default',
+                avatarFrame: window.myAvatarFrame || 'default',
+                chatBackground: window.myChatBackground || 'default',
                 createdAt: serverTimestamp(),
                 likes: []
+            }).then((docRef) => {
+                triggerPushNotification("Đã gửi một sticker", false, null, docRef.id);
             });
         };
 

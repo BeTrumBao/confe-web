@@ -22,12 +22,17 @@ service cloud.firestore {
 
     match /users/{userId} {
       allow read: if isAuth(); 
+
+      // Allow any authenticated user (including anonymous) to create their own doc
       allow create: if isOwner(userId) && 
                       request.resource.data.get('isVerified', false) == false && 
                       request.resource.data.get('role', 'user') == 'user' && 
                       request.resource.data.get('isBanned', false) == false;
       
-      // Chặn user tự cấp tích xanh (isVerified), đổi role, gỡ ban hoặc gỡ cấm chat
+      // Admins can update anything.
+      // Users can update their own doc BUT:
+      //   - Cannot self-grant isVerified, role, isBanned, isChatMuted
+      //   - CAN update profile fields + streak/reward fields
       allow update: if isAdmin() || (
         isOwner(userId) && 
         request.resource.data.get('isVerified', false) == resource.data.get('isVerified', false) &&
@@ -35,7 +40,7 @@ service cloud.firestore {
         request.resource.data.get('isBanned', false) == resource.data.get('isBanned', false) &&
         request.resource.data.get('isChatMuted', false) == resource.data.get('isChatMuted', false)
       );
-      allow delete: if isAdmin();
+      allow delete: if isAdmin() || isOwner(userId);
     }
 
     match /subjects/{subjectId} {
@@ -89,12 +94,6 @@ service cloud.firestore {
     match /syllabus_feedback/{docId} { allow create: if isAuth(); allow read, update, delete: if isAdmin(); }
     match /topic_members/{docId} { allow read, create, update, delete: if isAuth(); }
     
-    match /requests/{requestId} {
-      allow read: if isAuth() && (resource.data.ownerEmail == request.auth.token.email || resource.data.userEmail == request.auth.token.email);
-      allow create: if isAuth();
-      allow update, delete: if isAuth() && (resource.data.ownerEmail == request.auth.token.email || resource.data.userEmail == request.auth.token.email || isAdmin());
-    }
-    
     // Community Polls
     match /community_votes/{pollId} { 
       allow read, write: if isAuth(); 
@@ -137,3 +136,4 @@ service cloud.firestore {
     }
   }
 }
+

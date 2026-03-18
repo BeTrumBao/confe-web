@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng Confe - Shop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-dark: #006dd9;
+            --secondary: #00c6ff;
+            --bg: #f0f7ff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --main-gradient: linear-gradient(135deg, #0084ff, #006dd9);
+            --accent-gradient: linear-gradient(135deg, #00c6ff, #0084ff);
+            --glass: rgba(255, 255, 255, 0.85);
+            --border: rgba(0, 132, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Be Vietnam Pro', sans-serif; }
+        .material-icons { font-family: 'Material Icons' !important; font-variant: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; word-break: normal; line-height: 1; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; -moz-osx-font-smoothing: grayscale; font-feature-settings: 'liga'; }
+        .material-symbols-rounded { font-family: 'Material Symbols Rounded' !important; }
+        body {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn {
+            background: #fff; border: 1px solid #e2e8f0; width: 44px; height: 44px;
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--text-main); text-decoration: none;
+        }
+        .back-btn:hover { background: #f1f5f9; transform: scale(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        .coin-box {
+            background: #fff; border: 2px solid #e0f2fe; padding: 8px 18px;
+            border-radius: 100px; display: flex; align-items: center; gap: 10px;
+            font-weight: 800; color: var(--primary); box-shadow: 0 4px 15px rgba(0,132,255,0.1);
+            transition: 0.3s;
+        }
+        .coin-box:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,132,255,0.15); }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 24px 20px; }
+
+        .shop-title { font-size: 28px; font-weight: 900; margin-bottom: 6px; color: var(--primary-dark); }
+        .shop-desc { font-size: 15px; color: var(--text-sub); margin-bottom: 28px; }
+
+        .tabs {
+            display: flex; gap: 12px; margin-bottom: 24px;
+            overflow-x: auto; padding-bottom: 8px; scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            padding: 12px 22px; border-radius: 100px; border: 1.5px solid #e2e8f0;
+            background: #fff; color: var(--text-sub); font-size: 14px; font-weight: 700;
+            cursor: pointer; transition: 0.3s ease; white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--primary); color: #fff; border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0,132,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .item-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; display: none; }
+        .item-grid.active { display: grid; animation: slideUpFade 0.4s ease; }
+
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .item-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 28px; padding: 24px; text-align: center;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .item-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,132,255,0.1); border-color: var(--primary); }
+
+        .item-preview {
+            width: 100px; height: 100px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+
+        .btn-buy {
+            width: 100%; padding: 14px; border-radius: 20px; border: none;
+            background: var(--primary); color: #fff; font-weight: 800;
+            font-size: 14px; cursor: pointer; transition: 0.3s; margin-top: auto;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 8px 25px rgba(0,132,255,0.25);
+        }
+        .btn-buy:hover { transform: scale(1.05); filter: brightness(1.1); box-shadow: 0 12px 30px rgba(0,132,255,0.35); }
+        .btn-buy:disabled { background: #cbd5e1; cursor: default; transform: none; box-shadow: none; }
+
+        .create-fab {
+            position: fixed; bottom: 35px; right: 35px; width: 64px; height: 64px;
+            background: var(--main-gradient); color: #fff; border: none; border-radius: 22px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 15px 35px rgba(0, 132, 255, 0.4);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 500;
+        }
+        .create-fab:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 20px 45px rgba(0, 132, 255, 0.5); }
+        .create-fab span { font-size: 36px; font-weight: 800; }
+
+        .owned-badge {
+            background: #22c55e; color: #fff; padding: 6px 14px; border-radius: 100px;
+            font-size: 12px; font-weight: 800; margin-top: auto;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed; inset: 0; z-index: 1000; background: rgba(15, 23, 42, 0.6);
+            display: none; align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        .modal.active { display: flex; animation: fadeInModal 0.3s ease; }
+        .modal-box {
+            background: #fff; border-radius: 32px; padding: 32px; width: 100%; max-width: 440px;
+            text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+            position: relative; overflow: hidden;
+        }
+
+        @keyframes fadeInModal { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* Custom Styles for Items */
+        .avt-preview { width: 70px; height: 70px; border-radius: 50%; background: #f1f5f9; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.05); background-image: url('https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'); background-size: cover; }
+        .frame-gold { background: linear-gradient(135deg, #fbbf24, #f59e0b); padding: 4px; box-sizing: border-box; border: none; }
+        .frame-blue { background: var(--main-gradient); padding: 4px; box-sizing: border-box; border: none; }
+
+        .bg-card-mini { width: 120px; height: 75px; border-radius: 16px; background: #fff; border: 1px solid #e2e8f0; overflow: hidden; position: relative; }
+        .premium-gold-bg { background: linear-gradient(135deg, #f0f9ff, #e0f2fe, #bae6fd); }
+        .premium-gold-bg.with-border::after, .preview-border-run::after {
+            content: ''; position: absolute; inset: 0; border: 2.5px solid var(--primary); border-radius: inherit;
+            animation: borderRun 4s linear infinite; pointer-events: none;
+        }
+        @keyframes borderRun { 0%{clip-path:inset(0 0 95% 0);} 25%{clip-path:inset(0 0 0 95%);} 50%{clip-path:inset(95% 0 0 0);} 75%{clip-path:inset(0 95% 0 0);} 100%{clip-path:inset(0 0 95% 0);} }
+        
+        #previewSticker { cursor: move; user-select: none; z-index: 10; touch-action: none; display: flex; align-items: center; justify-content: center; transform: translate(-50%, -50%); }
+        .sticker-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+
+        .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 2000; pointer-events: none; width: 100%; max-width: 300px; }
+        .toast { background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 14px; font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 8px; animation: slideUp 0.3s ease; backdrop-filter: blur(8px); }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="dashboard.html" class="back-btn"><span class="material-icons">arrow_back</span></a>
+        <div class="coin-box">
+            <span class="material-icons" style="color:var(--primary);">monetization_on</span>
+            <span id="userCoins">---</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="shop-title">Cửa hàng</h1>
+        <p class="shop-desc">Sử dụng xu ôn tập để nâng cấp hồ sơ của bạn.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('frame')">Khung Avatar</button>
+            <button class="tab-btn" onclick="switchTab('bg')">Nền Hồ Sơ</button>
+            <button class="tab-btn" onclick="switchTab('special')">Vật phẩm Đặc biệt</button>
+        </div>
+
+        <!-- Frame Tab -->
+        <div id="grid-frame" class="item-grid active">
+            <!-- Gold Frame -->
+            <div class="item-card">
+                <div class="item-preview"><div class="avt-preview frame-gold"></div></div>
+                <div style="font-weight:700; margin-bottom:4px;">Khung Vàng</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Đẳng cấp & Sang trọng</div>
+                <button class="btn-buy" id="buy-frame-gold" onclick="confirmBuy('hasVipFrameGold', 2000, 'Khung Vàng')">
+                    <span class="material-icons" style="font-size:16px;">payments</span> 2,000 Xu
+                </button>
+                <div class="owned-badge" id="owned-frame-gold" style="display:none;">Đã sở hữu</div>
+            </div>
+            <!-- Blue Frame -->
+            <div class="item-card">
+                <div class="item-preview"><div class="avt-preview frame-blue"></div></div>
+                <div style="font-weight:700; margin-bottom:4px;">Khung Xanh</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Hòa bình & Tin cậy</div>
+                <button class="btn-buy" id="buy-frame-blue" onclick="confirmBuy('hasVipFrame', 1000, 'Khung Xanh')">
+                    <span class="material-icons" style="font-size:16px;">payments</span> 1,000 Xu
+                </button>
+                <div class="owned-badge" id="owned-frame-blue" style="display:none;">Đã sở hữu</div>
+            </div>
+        </div>
+
+        <!-- Background Tab -->
+        <div id="grid-bg" class="item-grid">
+            <!-- Gold Bg -->
+            <div class="item-card">
+                <div class="item-preview"><div class="bg-card-mini premium-gold-bg"></div></div>
+                <div style="font-weight:700; margin-bottom:4px;">Nền Thẻ Vàng</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Hiệu ứng viền chạy mượt mà</div>
+                <button class="btn-buy" id="buy-bg-gold" onclick="confirmBuy('hasCardBg', 5000, 'Nền Thẻ Vàng')">
+                    <span class="material-icons" style="font-size:16px;">payments</span> 5,000 Xu
+                </button>
+                <div class="owned-badge" id="owned-bg-gold" style="display:none;">Đã sở hữu</div>
+            </div>
+        </div>
+        
+        <!-- Special Tab -->
+        <div id="grid-special" class="item-grid">
+            <div class="item-card" style="grid-column: 1/-1;">
+                <span class="material-icons" style="font-size:48px; color:#94a3b8; margin-bottom:10px;">inventory_2</span>
+                <p style="color:var(--text-sub); font-size:13px;">Nhiều vật phẩm sắp được ra mắt...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Confirm Modal -->
+    <div id="modalBuy" class="modal">
+        <div class="modal-box">
+            <h3 style="margin-bottom:10px;">Xác nhận mua</h3>
+            <p id="confirmText" style="color:var(--text-sub); font-size:14px; margin-bottom:20px;"></p>
+            <div style="display:flex; gap:10px;">
+                <button onclick="executeBuy()" class="btn-buy" style="flex:1;">Mua ngay</button>
+                <button onclick="document.getElementById('modalBuy').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Floating Create Button -->
+    <button class="create-fab" onclick="handleCreateClick()">
+        <span class="material-icons">add</span>
+    </button>
+
+    <!-- Creator Application Modal (Survey) -->
+    <div id="modalSurvey" class="modal">
+        <div class="modal-box">
+            <h3 style="margin-bottom:10px;">Đăng ký Nhà sáng tạo</h3>
+            <p style="color:var(--text-sub); font-size:13px; margin-bottom:20px;">Trở thành Nhà sáng tạo (Tick đỏ) để có thể tự thiết kế và bán vật phẩm trong shop!</p>
+            <textarea id="surveyReason" placeholder="Tại sao bạn muốn trở thành nhà sáng tạo? (Kèm link portfolio nếu có)" 
+                style="width:100%; height:100px; padding:12px; border-radius:12px; border:1px solid #e2e8f0; font-family:inherit; font-size:13px; margin-bottom:16px; outline:none;"></textarea>
+            <div style="display:flex; gap:10px;">
+                <button onclick="submitSurvey()" class="btn-buy" style="flex:1;">Gửi đơn đăng ký</button>
+                <button onclick="document.getElementById('modalSurvey').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLab" class="modal">
+        <div class="modal-box" style="max-width:560px; background: #fff; overflow: visible !important;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="font-size:22px; font-weight:900; color:var(--primary);">Creator Lab</h3>
+                <button onclick="document.getElementById('modalLab').classList.remove('active')" style="background:none; border:none; color:var(--text-sub); cursor:pointer;"><span class="material-icons">close</span></button>
+            </div>
+            
+            <div style="display:grid; grid-template-columns: 160px 1fr; gap:24px; text-align:left;">
+                <!-- Preview Canvasish -->
+                <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+                    <div style="font-size:12px; font-weight:800; color:var(--text-sub); text-transform:uppercase; letter-spacing:1px;">Xem trước</div>
+                    <div id="labPreview" style="background:#f8fafc; border:2px dashed #e2e8f0; border-radius:24px; width:160px; height:160px; display:flex; align-items:center; justify-content:center; position:relative; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);">
+                        <div id="previewObject" class="avt-preview" style="width:100px; height:100px; transition: 0.3s; position:relative;"></div>
+                    </div>
+                    <div style="font-size:10px; color:#94a3b8; text-align:center;">Vật phẩm sẽ hiển thị trên hồ sơ của bạn sau khi được duyệt.</div>
+                </div>
+
+                <!-- Controls -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">1. Loại vật phẩm</label>
+                        <select id="labType" onchange="updateLabPreview()" style="width:100%; padding:12px; border-radius:14px; border:1px solid #e2e8f0; font-family:inherit; font-weight:600; outline:none; cursor:pointer;">
+                            <option value="frame">Khung Avatar (Tròn)</option>
+                            <option value="bg">Nền Hồ Sơ (Chữ nhật)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">2. Màu sắc & Hiệu ứng</label>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <div style="display:flex; gap:8px; align-items:center; background:#f8fafc; padding:8px; border-radius:12px; border:1px solid #e2e8f0;">
+                                <input type="color" id="labColor" value="#0084ff" oninput="updateLabPreview()" style="height:32px; width:40px; border:none; border-radius:8px; cursor:pointer;">
+                                <span style="font-size:12px; font-weight:700;">Màu</span>
+                            </div>
+                            <label style="font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:12px; border:1px solid #e2e8f0;">
+                                <input type="checkbox" id="labGradient" onchange="updateLabPreview()" style="width:16px; height:16px;"> Gradient
+                            </label>
+                            <label id="borderRunToggle" style="grid-column: span 2; font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:12px; border:1px solid #e2e8f0;">
+                                <input type="checkbox" id="labBorderRun" onchange="updateLabPreview()" style="width:16px; height:16px;"> Hiệu ứng viền chạy mượt mà
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">3. Tải lên Sticker (Ảnh nhỏ)</label>
+                        <div style="display:flex; gap:10px;">
+                            <label class="btn-buy" style="margin-top:0; flex:1; background:#f1f5f9; color:var(--text-main); font-size:12px; cursor:pointer;">
+                                <span class="material-icons" style="font-size:18px;">upload_file</span>
+                                Chọn file ảnh
+                                <input type="file" id="labStickerFile" accept="image/*" onchange="handleStickerUpload(this)" style="display:none;">
+                            </label>
+                            <input type="text" id="labSticker" placeholder="Hoặc Emoji..." maxlength="2" oninput="updateLabPreview()" style="width:80px; padding:10px; border-radius:12px; border:1px solid #e2e8f0; font-family:inherit; text-align:center; font-size:18px; outline:none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:32px; display:flex; gap:12px;">
+                <button onclick="publishItem()" class="btn-buy" style="flex:1.5; height:54px; font-size:15px; letter-spacing:0.5px;">
+                    <span class="material-icons">rocket_launch</span> XUẤT BẢN THIẾT KẾ
+                </button>
+                <button onclick="document.getElementById('modalLab').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main); height:54px;">Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg); const db = getFirestore(app); const auth = getAuth(app);
+
+        let currentUser = null, userData = null, pendingBuy = null;
+
+        onAuthStateChanged(auth, u => {
+            if (u) {
+                currentUser = u;
+                onSnapshot(doc(db, 'users', u.uid), snap => {
+                    if (snap.exists()) {
+                        userData = snap.data();
+                        renderUI();
+                    }
+                });
+            } else { window.location.href = 'index.html'; }
+        });
+
+        function renderUI() {
+            if (!userData) return;
+            const coinsElement = document.getElementById('userCoins');
+            if (coinsElement) coinsElement.textContent = (userData.coins || 0).toLocaleString();
+
+            const items = [
+                { id: 'hasVipFrameGold', btn: 'buy-frame-gold', badge: 'owned-frame-gold' },
+                { id: 'hasVipFrame', btn: 'buy-frame-blue', badge: 'owned-frame-blue' },
+                { id: 'hasCardBg', btn: 'buy-bg-gold', badge: 'owned-bg-gold' }
+            ];
+
+            items.forEach(it => {
+                const isOwned = userData[it.id] === true;
+                const btn = document.getElementById(it.btn);
+                const badge = document.getElementById(it.badge);
+                if (btn) btn.style.display = isOwned ? 'none' : 'flex';
+                if (badge) badge.style.display = isOwned ? 'block' : 'none';
+            });
+        }
+
+        window.handleCreateClick = () => {
+            if (!userData) return;
+            if (userData.isCreator || userData.isAdmin || userData.role === 'admin') {
+                document.getElementById('modalLab').classList.add('active');
+                updateLabPreview();
+            } else {
+                document.getElementById('modalSurvey').classList.add('active');
+            }
+        };
+
+        window.submitSurvey = async () => {
+            const reason = document.getElementById('surveyReason').value.trim();
+            if (!reason) { showToast('⚠️ Vui lòng điền thông tin đăng ký!'); return; }
+            
+            try {
+                await addDoc(collection(db, 'creator_applications'), {
+                    uid: currentUser.uid,
+                    displayName: userData.displayName || 'Anonymous',
+                    reason: reason,
+                    timestamp: serverTimestamp(),
+                    status: 'pending'
+                });
+                showToast('✅ Đơn đăng ký đã được gửi! Admin sẽ xem xét sớm.');
+                document.getElementById('modalSurvey').classList.remove('active');
+            } catch(e) { showToast('Lỗi: ' + e.message); }
+        };
+
+        let uploadedStickerUrl = null;
+        let stickerPos = { x: 50, y: 50 };
+
+        window.handleStickerUpload = (input) => {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedStickerUrl = e.target.result;
+                    document.getElementById('labSticker').value = '';
+                    stickerPos = { x: 50, y: 50 };
+                    updateLabPreview();
+                    showToast('🖼️ Đã tải sticker lên!');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        window.updateLabPreview = () => {
+            const type = document.getElementById('labType').value;
+            const color = document.getElementById('labColor').value;
+            const isGrad = document.getElementById('labGradient').checked;
+            const isBorderRun = document.getElementById('labBorderRun').checked;
+            const emojiSticker = document.getElementById('labSticker').value;
+            const preview = document.getElementById('previewObject');
+            
+            const runToggle = document.getElementById('borderRunToggle');
+            if (runToggle) runToggle.style.display = type === 'bg' ? 'flex' : 'none';
+
+            if (type === 'frame') {
+                preview.style.width = '100px'; preview.style.height = '100px';
+                preview.style.borderRadius = '50%'; preview.style.border = 'none';
+                preview.classList.remove('preview-border-run');
+                preview.style.background = isGrad ? `linear-gradient(135deg, ${color}, #ffffff, ${color}dd)` : color;
+                preview.style.padding = '6px';
+                preview.innerHTML = `<div style="width:100%; height:100%; border-radius:50%; background:#fff; position:relative;">
+                    <div id="previewSticker" style="position:absolute; left:${stickerPos.x}%; top:${stickerPos.y}%; width:40px; height:40px;">
+                        ${uploadedStickerUrl ? `<img src="${uploadedStickerUrl}" class="sticker-img">` : 
+                          (emojiSticker ? `<span style="font-size:24px; line-height:40px; display:block; text-align:center;">${emojiSticker}</span>` : '')}
+                    </div>
+                </div>`;
+            } else {
+                preview.style.width = '140px'; preview.style.height = '90px';
+                preview.style.borderRadius = '16px';
+                if (isBorderRun) preview.classList.add('preview-border-run');
+                else preview.classList.remove('preview-border-run');
+                preview.style.background = isGrad ? `linear-gradient(135deg, ${color}, #ffffff, ${color}dd)` : color;
+                preview.style.padding = '4px';
+                preview.innerHTML = `<div style="width:100%; height:100%; border-radius:12px; background:rgba(255,255,255,0.4); position:relative; backdrop-filter:blur(4px);">
+                    <div id="previewSticker" style="position:absolute; left:${stickerPos.x}%; top:${stickerPos.y}%; width:50px; height:50px;">
+                        ${uploadedStickerUrl ? `<img src="${uploadedStickerUrl}" class="sticker-img">` : 
+                          (emojiSticker ? `<span style="font-size:32px; line-height:50px; display:block; text-align:center;">${emojiSticker}</span>` : '')}
+                    </div>
+                </div>`;
+            }
+            initStickerDrag();
+        };
+
+        function initStickerDrag() {
+            const sticker = document.getElementById('previewSticker');
+            if (!sticker) return;
+            const container = sticker.parentElement;
+            let isDragging = false;
+            const start = (e) => { isDragging = true; e.preventDefault(); };
+            const stop = () => { isDragging = false; };
+            const move = (e) => {
+                if (!isDragging) return;
+                const rect = container.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                let x = ((clientX - rect.left) / rect.width) * 100;
+                let y = ((clientY - rect.top) / rect.height) * 100;
+                stickerPos = { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+                sticker.style.left = stickerPos.x + '%';
+                sticker.style.top = stickerPos.y + '%';
+            };
+            sticker.addEventListener('mousedown', start); sticker.addEventListener('touchstart', start, {passive:false});
+            window.addEventListener('mousemove', move); window.addEventListener('touchmove', move, {passive:false});
+            window.addEventListener('mouseup', stop); window.addEventListener('touchend', stop);
+        }
+
+        window.publishItem = async () => {
+            const type = document.getElementById('labType').value;
+            const color = document.getElementById('labColor').value;
+            const isGrad = document.getElementById('labGradient').checked;
+            const isBorderRun = document.getElementById('labBorderRun').checked;
+            const emojiSticker = document.getElementById('labSticker').value;
+            try {
+                await addDoc(collection(db, 'shop_proposals'), {
+                    creatorUid: currentUser.uid, creatorName: userData.displayName || 'Anonymous',
+                    type, color, isGrad, isBorderRun, sticker: uploadedStickerUrl || emojiSticker,
+                    isImageSticker: !!uploadedStickerUrl, stickerPos, timestamp: serverTimestamp(), status: 'pending'
+                });
+                showToast('🚀 Đã xuất bản thiết kế! Đang chờ duyệt.');
+                document.getElementById('modalLab').classList.remove('active');
+                uploadedStickerUrl = null; stickerPos = { x: 50, y: 50 };
+            } catch(e) { showToast('Lỗi: ' + e.message); }
+        };
+
+        window.switchTab = (tab) => {
+            document.querySelectorAll('.item-grid').forEach(g => g.classList.remove('active'));
+            document.getElementById(`grid-${tab}`).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        };
+
+        window.confirmBuy = (id, price, name) => {
+            if ((userData.coins || 0) < price) {
+                showToast('❌ Bạn không đủ xu!');
+                return;
+            }
+            pendingBuy = { id, price, name };
+            document.getElementById('confirmText').textContent = `Bạn có muốn mua ${name} với giá ${price} Xu?`;
+            document.getElementById('modalBuy').classList.add('active');
+        };
+
+        window.executeBuy = async () => {
+            if (!currentUser || !pendingBuy) return;
+            const m = document.getElementById('modalBuy');
+            m.classList.remove('active');
+            
+            try {
+                const updateData = { coins: (userData.coins || 0) - pendingBuy.price };
+                updateData[pendingBuy.id] = true;
+                await updateDoc(doc(db, 'users', currentUser.uid), updateData);
+                showToast(`✅ Đã mua ${pendingBuy.name}!`);
+            } catch(e) {
+                showToast('Lỗi: ' + e.message);
+            }
+        };
+
+        window.showToast = (msg) => {
+            if (window.parent && window.parent.showToast) {
+                window.parent.showToast(msg);
+                return;
+            }
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            c.appendChild(t);
+            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+        };
+    </script>
+</body>
+</html>
