@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
     <style>
         :root {
             --primary: #0084ff;
@@ -1317,7 +1318,7 @@
             if (uDoc.exists()) {
                 const ud = uDoc.data();
                 currentUser.photoURL = ud.photoURL || ANON_AVATAR;
-                currentUser.isVerified = !!ud.isVerified; // Force boolean
+                currentUser.isTickVerified = !!ud.isTickVerified; // Force boolean
                 currentUser.isChatMuted = !!ud.isChatMuted;
                 currentUser.displayName = ud.displayName || u.displayName || (u.email ? u.email.split('@')[0] : '');
                 window.myNameColor = ud.nameColor || 'default';
@@ -1817,7 +1818,7 @@
                     batch.set(newDocRef, {
                         text: txt, image: url, type: 'image',
                         uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), 
-                        avatar: currentUser.photoURL, isVerified: currentUser.isVerified || false,
+                        avatar: currentUser.photoURL, isTickVerified: currentUser.isTickVerified || false,
                         nameColor: window.myNameColor || 'default', 
                         avatarFrame: window.myAvatarFrame || 'default',
                         chatBackground: window.myChatBackground || 'default',
@@ -1834,7 +1835,7 @@
                 const payload = {
                     text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
                     uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
-                    isVerified: currentUser.isVerified || false,
+                    isTickVerified: currentUser.isTickVerified || false,
                     nameColor: window.myNameColor || 'default',
                     avatarFrame: window.myAvatarFrame || 'default',
                     chatBackground: window.myChatBackground || 'default',
@@ -2099,8 +2100,8 @@
                 contentHtml += `<div class="msg-bubble" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">${linkedText}${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}</div>`;
             }
             const timeStr = formatTime(msg.createdAt);
-            let isVerified = msg.isVerified === true || (msg.uid === currentUser.uid && currentUser.isVerified === true);
-            const verifiedHtml = isVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
+            let isTickVerified = msg.isTickVerified === true || (msg.uid === currentUser.uid && currentUser.isTickVerified === true);
+            const verifiedHtml = isTickVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
             const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
             const avatarFrameClass = msg.avatarFrame === 'vip' ? 'avatar-frame-vip' : '';
@@ -2364,7 +2365,7 @@
                 uid: currentUser.uid,
                 name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Bạn'),
                 avatar: currentUser.photoURL || ANON_AVATAR,
-                isVerified: currentUser.isVerified || false,
+                isTickVerified: currentUser.isTickVerified || false,
                 nameColor: window.myNameColor || 'default',
                 avatarFrame: window.myAvatarFrame || 'default',
                 chatBackground: window.myChatBackground || 'default',

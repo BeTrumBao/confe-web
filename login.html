@@ -435,11 +435,7 @@
                     Đăng nhập với Facebook
                 </button>
 
-                <button onclick="showAnonInfo()"
-                    style="width:100%; padding:11px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:12px; font-weight:700; cursor:pointer; margin-top:10px; font-size:13px; color:#64748b; transition:.2s;"
-                    onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
-                    Tiếp tục với tư cách khách
-                </button>
+
 
                 <div class="switch-text">Chưa có tài khoản? <span class="switch-btn"
                         onclick="toggleMode('register')">Đăng ký ngay</span></div>
@@ -511,43 +507,6 @@
         </div>
 
 
-    </div>
-    <div id="anonInfoModal"
-        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:5000; align-items:center; justify-content:center; backdrop-filter:blur(6px);"
-        onclick="if(event.target===this)this.style.display='none'">
-        <div
-            style="background:white; width:90%; max-width:380px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
-            <div style="text-align:center; margin-bottom:16px;">
-                <div style="font-size:40px; margin-bottom:8px;"></div>
-                <div style="font-size:18px; font-weight:800;">👤 Tư cách khách</div>
-                <div style="font-size:13px; color:#64748b; margin-top:4px;">Hiểu trước khi vào nhé!</div>
-            </div>
-
-            <div style="background:#f0fdf4; border-radius:14px; padding:14px; margin-bottom:10px;">
-                <div style="font-weight:700; color:#16a34a; font-size:13px; margin-bottom:6px;"> Đặc quyền</div>
-                <ul style="padding-left:16px; font-size:13px; color:#374151; line-height:1.8; margin:0;">
-                    <li>Vào ngay không cần đăng ký</li>
-                    <li>Xem nội dung, chat, tương tác bình thường</li>
-                    <li>Không cần email hay mật khẩu</li>
-                </ul>
-            </div>
-
-            <div style="background:#fef2f2; border-radius:14px; padding:14px; margin-bottom:20px;">
-                <div style="font-weight:700; color:#dc2626; font-size:13px; margin-bottom:6px;">️ Nhược điểm</div>
-                <ul style="padding-left:16px; font-size:13px; color:#374151; line-height:1.8; margin:0;">
-                    <li>Tài khoản & dữ liệu mất vĩnh viễn khi đăng xuất nếu chưa lưu</li>
-                    <li>Không thể tạo Topic</li>
-                    <li>Không thể đăng ký tick xanh</li>
-                </ul>
-            </div>
-
-            <button onclick="signInAnon(); this.closest('[id]').style.display='none'"
-                style="width:100%; padding:13px; background:#475569; color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:8px;">Vào
-                với tư cách khách</button>
-            <button onclick="document.getElementById('anonInfoModal').style.display='none'"
-                style="width:100%; padding:12px; background:#f1f5f9; color:#333; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer;">Thôi,
-                đăng ký đi</button>
-        </div>
     </div>
 
     <!-- Policy Modal -->
@@ -689,7 +648,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signInAnonymously, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
@@ -726,10 +685,6 @@
 
         window.showGoogleInfo = () => {
             const m = document.getElementById('googleInfoModal'); if (m) m.remove(); // cleanup if exists
-        }
-
-        window.showAnonInfo = () => {
-            document.getElementById('anonInfoModal').style.display = 'flex';
         }
 
         window.forgotPassword = () => {
@@ -803,6 +758,7 @@
                         uid: user.uid,
                         photoURL: user.photoURL || '',
                         createdAt: new Date().toISOString(),
+                        isVerified: false,
                         role: 'member',
                         provider: 'google'
                     });
@@ -841,6 +797,7 @@
                         uid: user.uid,
                         photoURL: user.photoURL || '',
                         createdAt: new Date().toISOString(),
+                        isVerified: false,
                         role: 'member',
                         provider: 'facebook'
                     });
@@ -871,15 +828,7 @@
             arrow.style.transform = open ? '' : 'rotate(180deg)';
         }
 
-        window.signInAnon = async () => {
-            try {
-                await signInAnonymously(auth);
-                showToast('Đang vào với tư cách khách...', '');
-                setTimeout(() => window.top.location.href = 'index.html', 800);
-            } catch (err) {
-                showToast('Lỗi: ' + err.message, '');
-            }
-        }
+
 
         window.toggleMode = (mode) => {
             const container = document.getElementById('container');
@@ -970,6 +919,7 @@
                     email: e,
                     uid: user.uid,
                     createdAt: new Date().toISOString(),
+                    isVerified: false,
                     role: 'member',
                     is_setup: false
                 });

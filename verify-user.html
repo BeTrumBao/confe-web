@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác minh tài khoản - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --primary: #0057db;
+            --bg: #f0f4ff;
+            --surface: #ffffff;
+            --text: #1a1c1e;
+            --text-light: #43474e;
+            --success: #16a34a;
+            --error: #dc2626;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .verify-card {
+            background: var(--surface);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+        }
+
+        .icon-box {
+            width: 96px;
+            height: 96px;
+            background: #f0f9ff;
+            color: var(--primary);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            margin: 0 auto 24px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .description {
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .user-preview {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+            border: 1px solid #e2e8f0;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e2e8f0;
+        }
+
+        .user-info h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .user-info p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .btn-verify {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-verify:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 132, 255, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .btn-verify:disabled {
+            background: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-msg {
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-msg.error { color: var(--error); display: block; }
+        .status-msg.success { color: var(--success); display: block; }
+
+        #loading {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 600;
+            display: none;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -468px 0; }
+            100% { background-position: 468px 0; }
+        }
+        .skeleton {
+            background: #f6f7f8;
+            background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+            background-repeat: no-repeat;
+            background-size: 800px 100%; 
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards; 
+            animation-iteration-count: infinite;
+            animation-name: shimmer;
+            animation-timing-function: linear;
+            border-radius: 12px;
+        }
+        .skeleton-icon { width: 96px; height: 96px; border-radius: 28px; margin: 0 auto 24px; }
+        .skeleton-title { height: 28px; width: 60%; margin: 0 auto 12px; }
+        .skeleton-desc { height: 16px; width: 90%; margin: 0 auto 8px; }
+        .skeleton-avatar { width: 56px; height: 56px; border-radius: 50%; border: none; }
+        .skeleton-text-1 { height: 18px; width: 60%; margin-bottom: 8px; }
+        .skeleton-text-2 { height: 14px; width: 40%; }
+        .skeleton-btn { height: 56px; width: 100%; border-radius: 9999px; }
+        .skeleton-req { height: 120px; width: 100%; margin-top: 32px; border-radius: 16px; }
+
+        .requirements {
+            margin-top: 32px;
+            text-align: left;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 24px;
+            border-radius: 24px;
+        }
+
+        .requirements-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .requirements-header h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .requirements ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .requirements li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .requirements li .material-symbols-rounded {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-top: 1px;
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="verify-card" id="mainCard" style="display: none;">
+        <div class="icon-box">
+            <span class="material-symbols-rounded">verified_user</span>
+        </div>
+        <h1>Xác minh người dùng</h1>
+        <p class="description">
+            Vui lòng kiểm tra kỹ thông tin trước khi xác nhận. Bạn đang giúp cộng đồng Confe trở nên trong sạch hơn!
+        </p>
+
+        <div class="user-preview" id="userPreview">
+            <img src="" alt="" class="avatar" id="cAvt">
+            <div class="user-info">
+                <h3 id="cName">...</h3>
+                <p id="cDate">Ngày tham gia: ...</p>
+            </div>
+        </div>
+
+        <button class="btn-verify" id="btnVerify" disabled>
+            <span class="material-symbols-rounded">check_circle</span>
+            Xác minh ngay
+        </button>
+
+        <div id="statusMsg" class="status-msg"></div>
+
+        <div class="requirements">
+            <div class="requirements-header">
+                <span class="material-symbols-rounded" style="color: #0ea5e9; font-size: 20px;">info</span>
+                <h4>Điều kiện xác nhận:</h4>
+            </div>
+            <ul>
+                <li>
+                    <span class="material-symbols-rounded">calendar_month</span>
+                    Thời gian tham gia Confe trên 7 ngày.
+                </li>
+                <li>
+                    <span class="material-symbols-rounded">history</span>
+                    Chưa thực hiện xác minh cho người khác trong 7 ngày qua.
+                </li>
+                <li>
+                    <span class="material-symbols-rounded">gavel</span>
+                    Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong vòng 1 tháng.
+                </li>
+            </ul>
+        </div>
+        
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 24px;">
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 700;">Quay về Trang chủ</a>
+        </p>
+    </div>
+
+    <div class="verify-card" id="skeletonCard">
+        <div class="skeleton skeleton-icon"></div>
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-desc"></div>
+        <div class="skeleton skeleton-desc" style="width: 80%; margin-bottom: 32px;"></div>
+        
+        <div class="user-preview" style="border-color: transparent;">
+            <div class="skeleton skeleton-avatar"></div>
+            <div class="user-info" style="width: 100%;">
+                <div class="skeleton skeleton-text-1"></div>
+                <div class="skeleton skeleton-text-2"></div>
+            </div>
+        </div>
+        
+        <div class="skeleton skeleton-btn"></div>
+        <div class="skeleton skeleton-req"></div>
+    </div>
+
+    <div id="loading">...</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const candidateUid = urlParams.get('uid');
+
+        const btn = document.getElementById('btnVerify');
+        const statusMsg = document.getElementById('statusMsg');
+        const loading = document.getElementById('loading');
+        const mainCard = document.getElementById('mainCard');
+        const skeletonCard = document.getElementById('skeletonCard');
+
+        function showError(msg) {
+            skeletonCard.style.display = 'none';
+            loading.style.display = 'block';
+            loading.innerHTML = msg;
+        }
+
+        if (!candidateUid) {
+            showError("Thiếu thông tin người dùng cần xác minh.");
+        } else {
+            onAuthStateChanged(auth, async (verifier) => {
+                if (!verifier) {
+                    showError('Vui lòng <a href="login.html" style="color:#0084ff; font-weight:700;">Đăng nhập</a> để thực hiện xác minh.');
+                    return;
+                }
+
+                try {
+                    // 1. Fetch Candidate Data
+                    const cSnap = await getDoc(doc(db, "users", candidateUid));
+                    if (!cSnap.exists()) {
+                        showError("Người dùng không tồn tại.");
+                        return;
+                    }
+                    const cData = cSnap.data();
+                    if (cData.isVerified === true) {
+                        showError("Người dùng này đã được xác minh trước đó rồi.");
+                        return;
+                    }
+
+                    document.getElementById('cName').textContent = cData.displayName || 'Cư dân mới';
+                    document.getElementById('cAvt').src = cData.photoURL || 'https://placehold.co/100?text=👤';
+                    document.getElementById('cDate').textContent = `Tham gia ngày: ${new Date(cData.createdAt).toLocaleDateString('vi')}`;
+
+                    // 2. Fetch Verifier Data
+                    const vSnap = await getDoc(doc(db, "users", verifier.uid));
+                    const vData = vSnap.exists() ? vSnap.data() : {};
+
+                    skeletonCard.style.display = 'none';
+                    mainCard.style.display = 'block';
+
+                    // 3. Validate Verifier
+                    const now = new Date();
+                    const vCreatedAt = vData.createdAt ? new Date(vData.createdAt) : new Date(0);
+                    const vLastVerified = vData.lastVerifiedOthersAt ? new Date(vData.lastVerifiedOthersAt) : new Date(0);
+                    const vLastBanned = vData.lastBannedAt ? new Date(vData.lastBannedAt) : new Date(0);
+
+                    const ageDays = (now - vCreatedAt) / (1000 * 60 * 60 * 24);
+                    const cooldownDays = (now - vLastVerified) / (1000 * 60 * 60 * 24);
+                    const banRecentDays = (now - vLastBanned) / (1000 * 60 * 60 * 24);
+
+                    let errors = [];
+                    if (verifier.uid === candidateUid) errors.push("Bạn không thể tự xác minh cho chính mình.");
+                    if (ageDays < 7) errors.push("Tài khoản của bạn cần trên 7 ngày tuổi.");
+                    if (cooldownDays < 7) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 7 ngày).");
+                    if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
+                    if (banRecentDays < 30) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 1 tháng gần đây.");
+
+                    if (errors.length > 0) {
+                        statusMsg.textContent = errors[0];
+                        statusMsg.className = "status-msg error";
+                        btn.disabled = true;
+                    } else {
+                        btn.disabled = false;
+                        btn.onclick = async () => {
+                            btn.disabled = true;
+                            btn.textContent = "Đang xử lý...";
+                            try {
+                                // Update Candidate
+                                await updateDoc(doc(db, "users", candidateUid), {
+                                    isVerified: true,
+                                    verifiedAt: now.toISOString(),
+                                    verifiedBy: verifier.uid
+                                });
+                                // Update Verifier
+                                await updateDoc(doc(db, "users", verifier.uid), {
+                                    lastVerifiedOthersAt: now.toISOString()
+                                });
+                                
+                                statusMsg.textContent = "Xác minh thành công! Cảm ơn bạn.";
+                                statusMsg.className = "status-msg success";
+                                btn.style.display = 'none';
+                                setTimeout(() => window.location.href = 'index.html', 2000);
+                            } catch (e) {
+                                statusMsg.textContent = "Lỗi khi xác minh: " + e.message;
+                                statusMsg.className = "status-msg error";
+                                btn.disabled = false;
+                                btn.textContent = "Thử lại";
+                            }
+                        };
+                    }
+                } catch (e) {
+                    showError("Lỗi kết nối: " + e.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

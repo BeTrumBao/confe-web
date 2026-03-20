@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="toast.js?v=2"></script>
     <style>
         :root {
             --primary: #0057db;
@@ -1181,6 +1182,7 @@
                         <span class="poll-opt-pct">${showPct ? pct + '%' : ''}</span>
                     </div>`;
                 if (!myVote && user) el.onclick = () => castVote(poll, opt.id);
+                else if (myVote) el.style.pointerEvents = 'none';
                 else if (!user) el.onclick = () => showToast('Đăng nhập để vote nhé!');
                 box.appendChild(el);
             });
@@ -1327,12 +1329,12 @@
                     <span style="color:#16a34a; font-weight:700;">✓ Đã đính kèm thông tin chi tiết</span><br>
                     <span style="font-size:10px; opacity:0.8;">${info.screen}, ${info.cores} Cores, ${info.battery ? info.battery.level + ' 🔋' : ''}</span>
                 `;
-                window.showToast("Đã lấy thông tin chi tiết! 📱");
+                window.showToast("Đã lấy thông tin thiết bị chi tiết thành công !");
             } catch (err) {
                 console.error("Device info err:", err);
                 window.showToast("Lỗi khi lấy thông tin!");
             } finally {
-                btn.textContent = "Lấy thông tin 📱"; btn.disabled = false;
+                btn.textContent = "Lấy thông tin thiết bị"; btn.disabled = false;
                 document.getElementById('modalDeviceInfoConsent').classList.remove('active');
             }
         };
@@ -1377,14 +1379,6 @@
             let msg = '', sub = '', emoji = '', label = '';
 
             let nameHtml = name;
-            // Ticks priority: Blue (Verified) takes precedence if requested
-            if (data && data.isVerified) {
-                // Blue Tick (Verified)
-                nameHtml += ' <span class="material-symbols-rounded" style="color:#0084ff; font-size:18px; vertical-align:middle;">verified</span>';
-            } else if (data && (data.isCreator || data.isAdmin || data.role === 'admin')) {
-                // Red Tick (Creator/Admin)
-                nameHtml += ' <span class="material-symbols-rounded" style="color:#ef4444; font-size:18px; vertical-align:middle;">verified</span>';
-            }
 
 
             const isWeekday = d >= 1 && d <= 5;
@@ -1436,7 +1430,7 @@
             const now = new Date();
             const examDeadline = new Date('2026-03-21T00:00:00');
             if (now < examDeadline) {
-                msg = `Ôn bài gì chưa người đẹp?`;
+                msg = `Ôn bài gì chưa ${nameHtml}?`;
                 sub = `Lo học đi bài đi nha. Chúc người đẹp thi tốt✨`;
                 emoji = `✨`;
                 label = `Sắp thi rồi đó nha`;

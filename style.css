@@ -562,7 +562,10 @@ textarea {
 /* --- COMMUNITY GUIDELINES MODAL --- */
 .modal-guidelines {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 7000;
     display: flex;
@@ -695,10 +698,36 @@ textarea {
 }
 
 /* Improved Name Colors - Global */
-.name-color-default { color: inherit !important; }
-.name-color-blue { color: #0084ff !important; font-weight: 800 !important; }
-.name-color-red { color: #ff4b2b !important; font-weight: 800 !important; }
-.name-color-green { color: #2ecc71 !important; font-weight: 800 !important; }
-.name-color-purple { color: #a55eea !important; font-weight: 800 !important; }
-.name-color-orange { color: #fa8231 !important; font-weight: 800 !important; }
-.name-color-pink { color: #fd79a8 !important; font-weight: 800 !important; }
+.name-color-default {
+    color: inherit !important;
+}
+
+.name-color-blue {
+    color: #0084ff !important;
+    font-weight: 800 !important;
+}
+
+.name-color-red {
+    color: #ff4b2b !important;
+    font-weight: 800 !important;
+}
+
+.name-color-green {
+    color: #2ecc71 !important;
+    font-weight: 800 !important;
+}
+
+.name-color-purple {
+    color: #a55eea !important;
+    font-weight: 800 !important;
+}
+
+.name-color-orange {
+    color: #fa8231 !important;
+    font-weight: 800 !important;
+}
+
+.name-color-pink {
+    color: #fd79a8 !important;
+    font-weight: 800 !important;
+}

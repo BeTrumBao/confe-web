@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Quản trị - Confe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         :root {
             --primary: #2563eb;
@@ -28,7 +31,9 @@
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
@@ -43,256 +48,772 @@
 
         /* --- SECURITY OVERLAY --- */
         #secure-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         #secure-overlay.hidden {
-            opacity: 0; visibility: hidden; transform: scale(1.05);
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.05);
         }
+
         .lock-icon {
-            font-size: 64px; color: var(--primary); margin-bottom: 20px;
-            background: var(--primary-light); width: 120px; height: 120px;
-            display: flex; align-items: center; justify-content: center; border-radius: 40px;
+            font-size: 64px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: var(--primary-light);
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* --- SIDEBAR GLASSMORPHISM --- */
         .sidebar {
-            width: var(--sidebar-width); 
+            width: var(--sidebar-width);
             background: var(--glass);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid rgba(255, 255, 255, 0.3);
-            display: flex; flex-direction: column;
-            padding: 35px 24px; z-index: 100;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            padding: 35px 24px;
+            z-index: 100;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
         }
+
         .logo {
-            font-size: 24px; font-weight: 800; color: var(--primary);
-            display: flex; align-items: center; gap: 12px; margin-bottom: 45px;
-            text-decoration: none; padding-left: 8px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 45px;
+            text-decoration: none;
+            padding-left: 8px;
         }
+
         .logo span {
             background: linear-gradient(135deg, var(--primary), #4f46e5);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .nav-item {
-            padding: 14px 18px; border-radius: var(--radius-l); cursor: pointer;
-            display: flex; align-items: center; gap: 14px; font-weight: 600;
-            color: var(--text-gray); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            text-decoration: none; border: none; background: transparent; 
-            width: 100%; text-align: left; position: relative;
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .nav-item:hover { background: rgba(37, 99, 235, 0.05); color: var(--primary); transform: translateX(5px); }
-        .nav-item.active { 
-            background: var(--primary); color: #fff; 
+
+        .nav-item {
+            padding: 14px 18px;
+            border-radius: var(--radius-l);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(37, 99, 235, 0.05);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: #fff;
             box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
         }
-        .nav-item .material-symbols-rounded { font-size: 22px; transition: 0.3s; }
-        .nav-item.active .material-symbols-rounded { font-variation-settings: 'FILL' 1; }
+
+        .nav-item .material-symbols-rounded {
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .nav-item.active .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1;
+        }
 
         /* --- MAIN CONTENT --- */
         .main {
-            flex: 1; overflow-y: auto; padding: 45px 50px;
+            flex: 1;
+            overflow-y: auto;
+            padding: 45px 50px;
             background-image: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
         }
+
         .header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 45px;
         }
-        .page-title h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .page-title p { color: var(--text-gray); font-weight: 500; font-size: 15px; }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-title p {
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 15px;
+        }
 
         /* --- SECTIONS --- */
-        .admin-section { display: none; }
-        .admin-section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .btn {
-            padding: 12px 24px; border-radius: 14px; font-weight: 700; font-size: 14px; cursor: pointer;
-            border: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             box-shadow: var(--shadow-sm);
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25); }
-        .btn-ghost { background: #f1f5f9; color: var(--text); }
-        .btn-ghost:hover { background: #e2e8f0; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-ghost {
+            background: #f1f5f9;
+            color: var(--text);
+        }
+
+        .btn-ghost:hover {
+            background: #e2e8f0;
+        }
 
         /* --- DASHBOARD CONTENT --- */
         .top-stats-row {
-            display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
         }
+
         .chart-box {
-            background: var(--surface); border-radius: var(--radius-xl); 
-            padding: 30px; border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            border: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
         }
 
         .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
             margin-bottom: 40px;
         }
+
         .stat-card {
-            background: var(--surface); padding: 28px; border-radius: var(--radius-xl);
-            border: 1px solid var(--border); display: flex; align-items: center; gap: 20px;
-            transition: all 0.3s ease; box-shadow: var(--shadow-sm);
+            background: var(--surface);
+            padding: 28px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
         .stat-icon {
-            width: 54px; height: 54px; border-radius: 18px; display: flex;
-            align-items: center; justify-content: center; font-size: 26px;
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
         }
-        .stat-info h3 { font-size: 28px; font-weight: 800; margin-bottom: 2px; }
-        .stat-info p { font-size: 12px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .stat-info p {
+            font-size: 12px;
+            color: var(--text-gray);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         /* --- TABLE & TOOLS --- */
         .content-box {
-            background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border);
-            overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 35px;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 35px;
         }
-        .box-title { 
-            padding: 26px 35px; border-bottom: 1px solid var(--border); 
-            display: flex; justify-content: space-between; align-items: center;
+
+        .box-title {
+            padding: 26px 35px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: linear-gradient(to right, #ffffff, #fafafa);
         }
-        .box-title h2 { font-size: 20px; font-weight: 800; }
-        
-        .box-tools { display: flex; gap: 12px; align-items: center; }
-        .search-wrapper { position: relative; width: 280px; }
+
+        .box-title h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .box-tools {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 280px;
+        }
+
         .search-wrapper input {
-            width: 100%; padding: 10px 15px 10px 40px; border-radius: 12px;
-            border: 1px solid var(--border); outline: none; font-size: 14px;
-            background: var(--bg); transition: 0.3s;
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            outline: none;
+            font-size: 14px;
+            background: var(--bg);
+            transition: 0.3s;
         }
-        .search-wrapper input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px var(--primary-light); }
+
+        .search-wrapper input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
         .search-wrapper .material-symbols-rounded {
-            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-            font-size: 18px; color: var(--text-gray);
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--text-gray);
         }
 
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { background: #fafafa; text-align: left; padding: 20px 35px; font-size: 11px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; }
-        .data-table td { padding: 20px 35px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; transition: 0.2s; }
-        .data-table tr:last-child td { border-bottom: none; }
-        .data-table tr:hover td { background: #fcfdfe; }
-        
-        .user-cell { display: flex; align-items: center; gap: 14px; }
-        .user-avt { width: 40px; height: 40px; border-radius: 14px; object-fit: cover; box-shadow: var(--shadow-sm); }
-        .uid-pill { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; color: #475569; font-weight: 600; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-        .badge { padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .badge.admin { background: #fee2e2; color: #991b1b; }
-        .badge.user { background: #eff6ff; color: #1e40af; }
-        .badge.verified { background: #dcfce7; color: #166534; }
-        .badge.banned { background: #1e293b; color: white; }
+        .data-table th {
+            background: #fafafa;
+            text-align: left;
+            padding: 20px 35px;
+            font-size: 11px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+        }
+
+        .data-table td {
+            padding: 20px 35px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: middle;
+            transition: 0.2s;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: #fcfdfe;
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .user-avt {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            object-fit: cover;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .uid-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.admin {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge.user {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        .badge.verified {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge.banned {
+            background: #1e293b;
+            color: white;
+        }
 
         .action-btn {
-            background: #f8fafc; border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; cursor: pointer;
-            color: var(--text-gray); transition: all 0.2s ease; display: inline-flex; align-items: center;
-            gap: 6px; font-size: 12px; font-weight: 700;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
         }
-        .action-btn:hover { background: white; color: var(--primary); border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
-        .action-btn.delete:hover { border-color: var(--danger); color: var(--danger); background: #fff1f2; }
-        .action-btn.verify:hover { border-color: var(--success); color: var(--success); background: #f0fdf4; }
-        .action-btn .material-symbols-rounded { font-size: 18px; }
+
+        .action-btn:hover {
+            background: white;
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .action-btn.delete:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: #fff1f2;
+        }
+
+        .action-btn.verify:hover {
+            border-color: var(--success);
+            color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .action-btn .material-symbols-rounded {
+            font-size: 18px;
+        }
 
         .btn-logout {
-            margin-top: auto; padding: 15px; background: rgba(225, 29, 72, 0.05); color: #e11d48;
-            border: 1px solid rgba(225, 29, 72, 0.1); border-radius: 16px; font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
+            margin-top: auto;
+            padding: 15px;
+            background: rgba(225, 29, 72, 0.05);
+            color: #e11d48;
+            border: 1px solid rgba(225, 29, 72, 0.1);
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
         }
-        .btn-logout:hover { background: #e11d48; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(225, 29, 72, 0.3); }
+
+        .btn-logout:hover {
+            background: #e11d48;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(225, 29, 72, 0.3);
+        }
 
         /* --- JSON GENERATOR --- */
-        .gen-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .gen-card { background: white; border-radius: var(--radius-xl); padding: 30px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-        .gen-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        
-        .inp { width: 100%; padding: 12px 18px; border-radius: 14px; border: 1.5px solid var(--border); font-size: 14px; font-weight: 600; outline: none; transition: 0.3s; background: #fafafa; }
-        .inp:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 5px var(--primary-light); }
-        
+        .gen-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .gen-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gen-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .inp {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 14px;
+            border: 1.5px solid var(--border);
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+
+        .inp:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 5px var(--primary-light);
+        }
+
         .json-preview {
-            width: 100%; height: 140px; background: #0f172a; color: #94a3b8; padding: 18px;
-            border-radius: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-top: 15px;
-            border: none; resize: vertical; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); line-height: 1.6;
+            width: 100%;
+            height: 140px;
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 18px;
+            border-radius: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            margin-top: 15px;
+            border: none;
+            resize: vertical;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
         }
+
         .item-row {
-            background: white; border: 1px solid var(--border); border-radius: 12px;
-            padding: 12px; margin-bottom: 12px; position: relative;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            position: relative;
         }
+
         .item-del {
-            position: absolute; top: 12px; right: 12px; color: var(--danger);
-            cursor: pointer; font-size: 18px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 18px;
         }
 
         /* --- MODAL --- */
         .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.4);
-            z-index: 1000; display:none; align-items:center; justify-content:center;
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .modal-overlay.active { display:flex; animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
+
+        .modal-overlay.active {
+            display: flex;
+            animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         .modal-card {
-            background: white; border-radius: 30px; padding: 40px; width: 100%; max-width: 550px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border: 1px solid var(--border);
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border);
         }
-        .input-group { margin-bottom: 24px; }
-        .input-group label { display:block; margin-bottom:10px; font-size:12px; font-weight:800; color:var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
-        .input-group input, .input-group textarea { width:100%; padding:14px 18px; border-radius: 14px; border:1.5px solid var(--border); font-size: 14px; font-weight: 600; outline: none; transition: 0.3s; background: #fafafa; }
-        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 5px var(--primary-light); }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1.5px solid var(--border);
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 5px var(--primary-light);
+        }
 
         @media (max-width: 1024px) {
-            .gen-container { grid-template-columns: 1fr; }
+            .gen-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* --- CUSTOM DIALOG & TOAST --- */
         .conf-dialog-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); z-index: 11000;
-            display: none; align-items: center; justify-content: center;
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 11000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .conf-dialog-overlay.active { display: flex; animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .conf-dialog-overlay.active {
+            display: flex;
+            animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         .conf-dialog-card {
-            background: white; border-radius: 24px; padding: 35px; width: 90%; max-width: 400px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); text-align: center;
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
         }
+
         .conf-dialog-icon {
-            width: 64px; height: 64px; border-radius: 20px; margin: 0 auto 20px;
-            display: flex; align-items: center; justify-content: center; font-size: 32px;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
         }
-        .conf-dialog-title { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
-        .conf-dialog-msg { color: var(--text-gray); font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
-        .conf-dialog-actions { display: flex; gap: 12px; justify-content: center; }
+
+        .conf-dialog-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .conf-dialog-msg {
+            color: var(--text-gray);
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .conf-dialog-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
 
         .toast-container {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            z-index: 12000; pointer-events: none; display: flex; flex-direction: column; gap: 10px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 12000;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
+
         .toast {
-            background: #1e293b; color: white; padding: 14px 24px; border-radius: 16px;
-            font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); animation: toastIn 0.3s forwards, toastOut 0.3s 2.7s forwards;
+            background: #1e293b;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            animation: toastIn 0.3s forwards, toastOut 0.3s 2.7s forwards;
             opacity: 0;
         }
-        @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
-        .toast.success { background: var(--success); }
-        .toast.error { background: var(--danger); }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
+
 <body>
 
     <div id="secure-overlay">
@@ -325,9 +846,10 @@
         <div class="modal-card" style="max-width: 800px; max-height: 85vh; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                 <h2 id="commentModalTitle">Quản lý bình luận</h2>
-                <button class="action-btn" onclick="closeCommentModal()"><span class="material-symbols-rounded">close</span></button>
+                <button class="action-btn" onclick="closeCommentModal()"><span
+                        class="material-symbols-rounded">close</span></button>
             </div>
-            
+
             <div style="flex: 1; overflow-y: auto;">
                 <table class="data-table">
                     <thead>
@@ -341,7 +863,7 @@
                     <tbody id="comment-list"></tbody>
                 </table>
             </div>
-            
+
             <div style="margin-top: 30px; text-align: right;">
                 <button class="btn btn-ghost" onclick="closeCommentModal()">Đóng</button>
             </div>
@@ -356,7 +878,8 @@
                 <!-- Content injected via JS -->
             </div>
             <div style="margin-top: 30px; text-align: right;">
-                <button class="btn" style="background:#f1f5f9; color:var(--text);" onclick="closeProfileModal()">Đóng</button>
+                <button class="btn" style="background:#f1f5f9; color:var(--text);"
+                    onclick="closeProfileModal()">Đóng</button>
             </div>
         </div>
     </div>
@@ -367,11 +890,18 @@
             CONFE ADMIN
         </a>
         <nav class="nav-list">
-            <button class="nav-item active" onclick="switchSection('dashboard', this)"><span class="material-symbols-rounded">dashboard</span> Dashboard</button>
-            <button class="nav-item" onclick="switchSection('users', this)"><span class="material-symbols-rounded">group</span> Quản lý User</button>
-            <button class="nav-item" onclick="switchSection('topics', this)"><span class="material-symbols-rounded">description</span> Bài viết</button>
-            <button class="nav-item" onclick="switchSection('reports', this)"><span class="material-symbols-rounded">report</span> Báo cáo</button>
-            <button class="nav-item" onclick="switchSection('system', this)"><span class="material-symbols-rounded">settings</span> Hệ thống</button>
+            <button class="nav-item active" onclick="switchSection('dashboard', this)"><span
+                    class="material-symbols-rounded">dashboard</span> Dashboard</button>
+            <button class="nav-item" onclick="switchSection('users', this)"><span
+                    class="material-symbols-rounded">group</span> Quản lý User</button>
+            <button class="nav-item" onclick="switchSection('topics', this)"><span
+                    class="material-symbols-rounded">description</span> Bài viết</button>
+            <button class="nav-item" onclick="switchSection('outlines', this)"><span
+                    class="material-symbols-rounded">verified_user</span> Duyệt Đề Cương</button>
+            <button class="nav-item" onclick="switchSection('reports', this)"><span
+                    class="material-symbols-rounded">report</span> Báo cáo</button>
+            <button class="nav-item" onclick="switchSection('system', this)"><span
+                    class="material-symbols-rounded">settings</span> Hệ thống</button>
         </nav>
 
         <button class="btn-logout" id="btnLogout">
@@ -394,27 +924,31 @@
                 <div class="chart-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                         <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
-                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng & bài viết</div>
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng & bài
+                            viết</div>
                     </div>
                     <div id="activity-chart" style="min-height:280px;"></div>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:24px;">
                     <div class="stat-card" style="padding: 24px;">
-                        <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span class="material-symbols-rounded">person</span></div>
+                        <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span
+                                class="material-symbols-rounded">person</span></div>
                         <div class="stat-info">
                             <p>Tổng User</p>
                             <h3 id="stat-users">...</h3>
                         </div>
                     </div>
                     <div class="stat-card" style="padding: 24px;">
-                        <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span class="material-symbols-rounded">forum</span></div>
+                        <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span
+                                class="material-symbols-rounded">forum</span></div>
                         <div class="stat-info">
                             <p>Bài viết</p>
                             <h3 id="stat-topics">...</h3>
                         </div>
                     </div>
                     <div class="stat-card" style="padding: 24px;">
-                        <div class="stat-icon" style="background:rgba(225, 29, 72, 0.1); color:#e11d48;"><span class="material-symbols-rounded">warning</span></div>
+                        <div class="stat-icon" style="background:rgba(225, 29, 72, 0.1); color:#e11d48;"><span
+                                class="material-symbols-rounded">warning</span></div>
                         <div class="stat-info">
                             <p>Báo cáo</p>
                             <h3 id="stat-reports">...</h3>
@@ -426,7 +960,9 @@
             <div class="content-box">
                 <div class="box-title">
                     <h2>Người dùng mới gần đây</h2>
-                    <button class="action-btn" onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem tất cả ›</button>
+                    <button class="action-btn"
+                        onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem
+                        tất cả ›</button>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -450,7 +986,8 @@
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="user-search" placeholder="Tìm theo tên hoặc email..." oninput="filterTable('users')">
+                            <input type="text" id="user-search" placeholder="Tìm theo tên hoặc email..."
+                                oninput="filterTable('users')">
                         </div>
                     </div>
                 </div>
@@ -476,7 +1013,8 @@
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="topic-search" placeholder="Tìm tiêu đề hoặc tác giả..." oninput="filterTable('topics')">
+                            <input type="text" id="topic-search" placeholder="Tìm tiêu đề hoặc tác giả..."
+                                oninput="filterTable('topics')">
                         </div>
                     </div>
                 </div>
@@ -513,6 +1051,30 @@
             </div>
         </div>
 
+        <!-- OUTLINES APPROVAL SECTION -->
+        <div id="section-outlines" class="admin-section">
+            <div class="content-box">
+                <div class="box-title">
+                    <h2>Duyệt Đề Cương Cộng Đồng</h2>
+                    <div class="box-tools">
+                        <button class="action-btn" onclick="loadPendingOutlines()"><span
+                                class="material-symbols-rounded">refresh</span> Làm mới</button>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tiêu đề / Tác giả</th>
+                            <th>Ảnh đề cương</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-outline-list"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- SYSTEM SECTION (JSON GENERATOR) -->
         <div id="section-system" class="admin-section">
             <div class="gen-container">
@@ -521,7 +1083,8 @@
                     <h3><span class="material-symbols-rounded">poll</span> Community Poll (JSON)</h3>
                     <div class="form-row">
                         <label>Câu hỏi (Question)</label>
-                        <input type="text" id="poll-q" class="inp" placeholder="Bạn thấy thế nào về...?" oninput="updatePollJson()">
+                        <input type="text" id="poll-q" class="inp" placeholder="Bạn thấy thế nào về...?"
+                            oninput="updatePollJson()">
                     </div>
                     <div class="form-row">
                         <label>Loại (Type)</label>
@@ -533,7 +1096,8 @@
                     <div id="poll-opts-wrap" class="form-row">
                         <label>Lựa chọn (Chỉ cho Binary)</label>
                         <div id="poll-opts-list"></div>
-                        <button class="action-btn" onclick="addPollOpt()" style="margin-top:8px; color:var(--primary);">+ Thêm lựa chọn</button>
+                        <button class="action-btn" onclick="addPollOpt()"
+                            style="margin-top:8px; color:var(--primary);">+ Thêm lựa chọn</button>
                     </div>
                     <div class="form-row">
                         <label>Trạng thái</label>
@@ -542,7 +1106,8 @@
                             <option value="false">Tạm dừng (Hidden)</option>
                         </select>
                     </div>
-                    <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote Config)</label>
+                    <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
+                        Config)</label>
                     <textarea id="poll-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyPoll()" style="width:100%; margin-top:16px;">
                         <span class="material-symbols-rounded">save</span> Lưu vào Firestore
@@ -555,11 +1120,13 @@
                     <div id="news-list-wrap" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
                         <!-- News items here -->
                     </div>
-                    <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;" onclick="addNewsItem()">
+                    <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
+                        onclick="addNewsItem()">
                         <span class="material-symbols-rounded">add</span> Thêm tin mới
                     </button>
-                    
-                    <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote Config)</label>
+
+                    <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
+                        Config)</label>
                     <textarea id="news-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyNews()" style="width:100%; margin-top:16px;">
                         <span class="material-symbols-rounded">save</span> Lưu vào Firestore
@@ -571,22 +1138,56 @@
                     <h3><span class="material-symbols-rounded">redeem</span> Thưởng đăng nhập (JSON)</h3>
                     <div class="form-row" style="margin-bottom:15px;">
                         <label>Tổng số ngày tiến trình hiển thị (VD: 10, 30)</label>
-                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tổng ngày..." oninput="updateLRJson()">
+                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tổng ngày..."
+                            oninput="updateLRJson()">
                     </div>
                     <label>Danh sách mốc nhận thưởng</label>
-                    <div id="lr-list-wrap" style="max-height: 400px; overflow-y: auto; padding-right: 8px; margin-bottom:10px;">
+                    <div id="lr-list-wrap"
+                        style="max-height: 400px; overflow-y: auto; padding-right: 8px; margin-bottom:10px;">
                         <!-- Reward items here -->
                     </div>
-                    <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;" onclick="addLRItem()">
+                    <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
+                        onclick="addLRItem()">
                         <span class="material-symbols-rounded">add</span> Thêm mốc thưởng
                     </button>
-                    
+
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview</label>
                     <textarea id="lr-json" class="json-preview" readonly style="height: 100px;"></textarea>
                     <button class="btn btn-primary" onclick="applyLR()" style="width:100%; margin-top:16px;">
                         <span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore
                     </button>
                 </div>
+
+                <!-- FEATURES & MAINTENANCE -->
+                <div class="gen-card" style="grid-column: 1 / -1;">
+                    <h3><span class="material-symbols-rounded">settings_suggest</span> Tính năng & Bảo trì</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <div class="form-row">
+                                <label>Trạng thái mục "Đề cương"</label>
+                                <select id="feat-outline-status" class="inp">
+                                    <option value="active">Hoạt động bình thường</option>
+                                    <option value="maintenance">Đang bảo trì</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label>Thông báo bảo trì (Hiển thị cho người dùng)</label>
+                                <textarea id="feat-outline-msg" class="inp" style="height: 100px;" placeholder="Ví dụ: Tính năng đang được nâng cấp, vui lòng quay lại sau..."></textarea>
+                            </div>
+                        </div>
+                        <div style="background: var(--bg); padding: 20px; border-radius: 16px;">
+                            <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
+                                <span class="material-symbols-rounded" style="font-size: 18px; vertical-align: middle;">info</span>
+                                <b>Hướng dẫn:</b> Khi chuyển sang trạng thái <b>Đang bảo trì</b>, toàn bộ trang Ôn tập thông minh sẽ bị khóa và hiển thị thông báo bạn đã nhập. Admin vẫn có thể vào để kiểm tra nếu cần (tùy cấu hình logic).
+                            </p>
+                            <button class="btn btn-primary" onclick="applyFeaturesConfig()" style="width:100%; margin-top:20px;">
+                                <span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             </div>
         </div>
     </main>
@@ -594,15 +1195,15 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, getDocs, query, limit, orderBy, deleteDoc, updateDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, getDocs, query, limit, orderBy, where, deleteDoc, updateDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         // Firebase Config
         const cfg = {
-            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", 
-            authDomain: "confe-web.firebaseapp.com", 
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+            authDomain: "confe-web.firebaseapp.com",
             projectId: "confe-web",
-            storageBucket: "confe-web.firebasestorage.app", 
-            messagingSenderId: "677778119372", 
+            storageBucket: "confe-web.firebasestorage.app",
+            messagingSenderId: "677778119372",
             appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
         const app = initializeApp(cfg);
@@ -625,10 +1226,10 @@
                 const btnOk = document.getElementById('conf-dialog-confirm');
                 const btnCancel = document.getElementById('conf-dialog-cancel');
                 const iconWrap = document.getElementById('conf-dialog-icon-wrap');
-                
+
                 document.getElementById('conf-dialog-title').innerText = title;
                 document.getElementById('conf-dialog-msg').innerText = msg;
-                
+
                 const styles = {
                     danger: { bg: '#fff1f2', color: '#e11d48', icon: 'warning', btn: '#e11d48' },
                     info: { bg: '#eff6ff', color: '#2563eb', icon: 'info', btn: '#2563eb' }
@@ -681,6 +1282,7 @@
             if (id === 'dashboard') loadDashboard();
             if (id === 'users') loadUsers();
             if (id === 'topics') loadTopics();
+            if (id === 'outlines') loadPendingOutlines();
             if (id === 'reports') loadReports();
             if (id === 'system') loadSystemConfig();
         };
@@ -689,7 +1291,7 @@
         window.filterTable = (type) => {
             const query = document.getElementById(`${type === 'users' ? 'user' : 'topic'}-search`).value.toLowerCase();
             const rows = document.getElementById(type === 'users' ? 'full-user-list' : 'full-topic-list').querySelectorAll('tr');
-            
+
             rows.forEach(row => {
                 const text = row.innerText.toLowerCase();
                 row.style.display = text.includes(query) ? '' : 'none';
@@ -701,12 +1303,12 @@
         async function initActivityChart() {
             const chartEl = document.getElementById('activity-chart');
             if (!chartEl) return;
-            
+
             // Generate dummy or real trend data (simulating last 7 days)
             const days = [];
             const userCounts = [];
             const topicCounts = [];
-            
+
             for (let i = 6; i >= 0; i--) {
                 const d = new Date();
                 d.setDate(d.getDate() - i);
@@ -745,7 +1347,7 @@
             const qRecent = query(collection(db, "users"), orderBy("createdAt", "desc"), limit(5));
             const snap = await getDocs(qRecent);
             renderTable('dash-user-list', snap, (ud, id) => `
-                <td><span class="uid-pill">${id.substring(0,8)}...</span></td>
+                <td><span class="uid-pill">${id.substring(0, 8)}...</span></td>
                 <td><div class="user-cell"><img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt"><strong>${ud.displayName || 'Khách'}</strong></div></td>
                 <td><span class="badge ${ud.role === 'admin' ? 'admin' : 'user'}">${ud.role || 'user'}</span></td>
                 <td>${ud.createdAt ? new Date(ud.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
@@ -758,26 +1360,26 @@
                 const isVerified = ud.isVerified === true;
                 const isBanned = ud.isBanned === true;
                 return `
-                    <td>
-                        <div style="font-size:12px; opacity:0.6; margin-bottom:4px">UID: <span class="uid-pill">${id}</span></div>
-                        <div class="user-cell">
-                            <img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
-                            <strong>${ud.displayName || 'Khách'}</strong>
-                            ${isVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : ''}
-                        </div>
-                    </td>
+                <td>
+                    <div style="font-size:12px; opacity:0.6; margin-bottom:4px">UID: <span class="uid-pill">${id}</span></div>
+                    <div class="user-cell">
+                        <img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
+                        <strong>${ud.displayName || 'Khách'}</strong>
+                        ${isVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : '<span class="material-symbols-rounded" style="color:#94a3b8; font-size:18px;">help_outline</span>'}
+                    </div>
+                </td>
                     <td>
                         <div style="font-weight:600">${ud.email || 'N/A'}</div>
                         <div style="margin-top:4px;">
-                            ${isVerified ? '<span class="badge verified">Verified</span>' : ''}
+                            ${isVerified ? '<span class="badge verified">Verified</span>' : '<span class="badge" style="background:#fef2f2; color:#ef4444;">Unverified</span>'}
                             ${isBanned ? '<span class="badge banned">BANNED</span>' : ''}
                             ${ud.isChatMuted ? '<span class="badge" style="background:#64748b; color:white;">MUTED</span>' : ''}
                         </div>
                     </td>
                     <td>
                         <select onchange="updateRole('${id}', this.value)" style="padding:6px;border-radius:8px;border:1px solid #ddd;font-weight:600;">
-                            <option value="user" ${ud.role==='user'?'selected':''}>User</option>
-                            <option value="admin" ${ud.role==='admin'?'selected':''}>Admin</option>
+                            <option value="user" ${ud.role === 'user' ? 'selected' : ''}>User</option>
+                            <option value="admin" ${ud.role === 'admin' ? 'selected' : ''}>Admin</option>
                         </select>
                     </td>
                     <td>
@@ -790,6 +1392,93 @@
                 `;
             });
         }
+
+        async function loadPendingOutlines() {
+            const list = document.getElementById('pending-outline-list');
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center;">Đang tải...</td></tr>';
+            try {
+                // Simplified query to avoid immediate need for composite index (isPublic + createdAt)
+                // We will sort in memory for now to ensure it works even without index
+                const q = query(collection(db, "outlines"), where("isPublic", "==", true));
+                const snap = await getDocs(q);
+                list.innerHTML = '';
+                
+                let docs = [];
+                snap.forEach(doc => docs.push({ id: doc.id, ...doc.data() }));
+                
+                // Sort by createdAt desc in memory
+                docs.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                docs.forEach(d => {
+                    const isApproved = d.isApproved === true;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div style="font-weight:800; color:var(--primary);">${d.title}</div>
+                            <div style="font-size:12px; color:var(--text-gray);">Tác giả: <strong>${d.authorName || 'N/A'}</strong></div>
+                        </td>
+                        <td>
+                            <img src="${d.imageUrl}" style="width:80px; height:50px; border-radius:8px; object-fit:cover; cursor:pointer;" onclick="window.open('${d.imageUrl}', '_blank')">
+                        </td>
+                        <td>
+                            <span class="badge ${isApproved ? 'verified' : 'user'}">${isApproved ? 'ĐÃ DUYỆT' : 'CHỜ DUYỆT'}</span>
+                        </td>
+                        <td>
+                            <div style="display:flex; gap:8px;">
+                                ${!isApproved ? `
+                                    <button class="action-btn verify" onclick="approveOutline('${d.id}')">
+                                        <span class="material-symbols-rounded">check</span> Duyệt ngay
+                                    </button>
+                                ` : ''}
+                                <button class="action-btn delete" onclick="deleteOutline('${d.id}')">
+                                    <span class="material-symbols-rounded">delete</span> Xóa
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    list.appendChild(tr);
+                });
+                if (snap.empty) {
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-gray);">Không có đề cương nào cần duyệt.</td></tr>';
+                }
+            } catch (err) {
+                console.error("Load outlines error:", err);
+                list.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--danger); padding:20px;">
+                    Lỗi tải dữ liệu: ${err.message}<br>
+                    <small style="opacity:0.7;">Vui lòng kiểm tra Index trong Firestore Console nếu bạn vừa thêm tính năng này.</small>
+                </td></tr>`;
+            }
+        }
+
+        window.approveOutline = async (id) => {
+            const ok = await confConfirm("Phê duyệt", "Bạn có chắc muốn phê duyệt đề cương này lên cộng đồng?");
+            if (!ok) return;
+            try {
+                await updateDoc(doc(db, "outlines", id), { isApproved: true });
+                showToast("Đã phê duyệt thành công!");
+                loadPendingOutlines();
+            } catch (err) {
+                console.error("Approve outline error:", err);
+                showToast("Lỗi khi duyệt: " + err.message, "error");
+            }
+        };
+
+        window.deleteOutline = async (id) => {
+            const ok = await confConfirm("Xóa đề cương", "Xóa vĩnh viễn đề cương này?", "danger");
+            if (!ok) return;
+            try {
+                await deleteDoc(doc(db, "outlines", id));
+                showToast("Đã xóa đề cương.");
+                loadPendingOutlines();
+            } catch (err) {
+                console.error("Delete outline error:", err);
+                showToast("Lỗi khi xóa: " + err.message, "error");
+            }
+        };
 
         async function loadTopics() {
             const snap = await getDocs(query(collection(db, "topics"), orderBy("createdAt", "desc")));
@@ -924,17 +1613,17 @@
             if (ok) {
                 try {
                     let updateData = { isBanned: !current };
-                    
+
                     if (!current) { // Nếu là Ban nick
                         const reason = prompt("Lý do ban?", "Vi phạm tiêu chuẩn cộng đồng");
                         if (reason === null) return; // Hủy
-                        
+
                         const dateUnban = prompt("Ngày mở ban? (VD: 20/03/2026 hoặc 'Vĩnh viễn')", "Vĩnh viễn");
                         if (dateUnban === null) return; // Hủy
-                        
+
                         updateData.banReason = reason;
                         updateData.dateUnban = dateUnban;
-                        updateData.bannedAt = new Date().toISOString();
+                        updateData.lastBannedAt = new Date().toISOString();
                     } else { // Nếu là Gỡ ban
                         updateData.banReason = "";
                         updateData.dateUnban = "";
@@ -993,9 +1682,9 @@
             const btn = event.currentTarget;
             btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
-                await setDoc(doc(db, "system", "community_poll"), { 
+                await setDoc(doc(db, "system", "community_poll"), {
                     json: JSON.stringify(poll),
-                    updatedAt: serverTimestamp() 
+                    updatedAt: serverTimestamp()
                 });
                 showToast("Đã lưu cấu hình Poll thành công!");
             } catch (e) { showToast(e.message, 'error'); }
@@ -1042,9 +1731,9 @@
             const btn = event.currentTarget;
             btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
-                await setDoc(doc(db, "system", "dashboard_news"), { 
+                await setDoc(doc(db, "system", "dashboard_news"), {
                     json: JSON.stringify(news),
-                    updatedAt: serverTimestamp() 
+                    updatedAt: serverTimestamp()
                 });
                 showToast("Đã lưu cấu hình Tin tức thành công!");
             } catch (e) { showToast(e.message, 'error'); }
@@ -1092,9 +1781,9 @@
             const btn = event.currentTarget;
             btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
-                await setDoc(doc(db, "system", "login_rewards"), { 
+                await setDoc(doc(db, "system", "login_rewards"), {
                     json: JSON.stringify(lr),
-                    updatedAt: serverTimestamp() 
+                    updatedAt: serverTimestamp()
                 });
                 showToast("Đã lưu cấu hình Thưởng Đăng nhập thành công!");
             } catch (e) { showToast(e.message, 'error'); }
@@ -1130,7 +1819,15 @@
                     const obj = JSON.parse(lrSnap.data().json);
                     document.getElementById('lr-total').value = obj.totalDays || 10;
                     if (Array.isArray(obj.rewards)) obj.rewards.forEach(it => addLRItem(it));
-                } catch(e) {}
+                } catch (e) { }
+            }
+
+            // Fetch Features Config
+            const featSnap = await getDoc(doc(db, "system", "features_config"));
+            if (featSnap.exists()) {
+                const data = featSnap.data();
+                document.getElementById('feat-outline-status').value = data.outlineStatus || "active";
+                document.getElementById('feat-outline-msg').value = data.outlineMaintenanceMsg || "";
             }
 
             updatePollJson();
@@ -1138,13 +1835,29 @@
             updateLRJson();
         }
 
+        window.applyFeaturesConfig = async () => {
+            const status = document.getElementById('feat-outline-status').value;
+            const msg = document.getElementById('feat-outline-msg').value;
+            const btn = event.currentTarget;
+            btn.disabled = true; btn.textContent = "Đang lưu...";
+            try {
+                await setDoc(doc(db, "system", "features_config"), {
+                    outlineStatus: status,
+                    outlineMaintenanceMsg: msg,
+                    updatedAt: serverTimestamp()
+                });
+                showToast("Đã cập nhật cấu hình bảo trì!");
+            } catch (e) { showToast(e.message, 'error'); }
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì';
+        };
+
         window.viewUser = async (uid) => {
             const snap = await getDoc(doc(db, "users", uid));
             if (!snap.exists()) return showToast("User không tồn tại!", 'error');
             const u = snap.data();
             const isVerified = u.isVerified === true;
             const isBanned = u.isBanned === true;
-            
+
             const body = document.getElementById('profileBody');
             body.innerHTML = `
                 <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: var(--bg); padding: 20px; border-radius: 16px;">
@@ -1158,16 +1871,17 @@
                 <div class="input-group"><label>Email</label><input type="text" class="inp" value="${u.email || 'N/A'}" readonly></div>
                 <div class="input-group"><label>Vai trò</label>
                     <select onchange="updateRole('${uid}', this.value)" style="width:100%; padding:14px; border-radius:14px; border:1.5px solid var(--border); font-weight:700; background:#fff;">
-                        <option value="user" ${u.role==='user'?'selected':''}>User</option>
-                        <option value="admin" ${u.role==='admin'?'selected':''}>Admin</option>
+                        <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
+                        <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
                     </select>
                 </div>
-                <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt.seconds * 1000).toLocaleString('vi') : '---'}" readonly></div>
+                <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
+                <div class="input-group"><label>Trạng thái xác minh</label><input type="text" class="inp" value="${isVerified ? 'Đã xác minh' : 'Chưa xác minh'}" style="color: ${isVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
                 
                 <div style="grid-column: span 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
                     <button class="btn ${isVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isVerified}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isVerified ? 'verified_user' : 'verified'}</span>
-                        ${isVerified ? 'Hủy tick' : 'Cấp tick'}
+                        ${isVerified ? 'Hủy xác minh' : 'Xác minh'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
@@ -1190,4 +1904,5 @@
         document.getElementById('btnLogout').onclick = () => signOut(auth);
     </script>
 </body>
+
 </html>

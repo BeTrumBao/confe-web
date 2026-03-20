@@ -2,6 +2,7 @@
 <html lang="vi">
 
 <head>
+    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👤 Hồ sơ cá nhân</title>
@@ -832,6 +833,11 @@
                     <span>Đổi Ảnh bìa</span>
                     <input type="file" id="fCoverFile" hidden accept="image/*">
                 </label>
+                <button id="btnOpenAppearance" type="button" class="upload-btn" onclick="openAppearanceModal()"
+                    style="cursor:pointer; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
+                    <span class="material-symbols-rounded" style="font-size: 24px; color:#f59e0b;">palette</span>
+                    <span style="font-weight:700;">Giao diện</span>
+                </button>
             </div>
 
             <div class="inp-group">
@@ -867,59 +873,6 @@
                 </div>
             </div>
 
-            <!-- Added Avatar Frame / Chat Background sections -->
-
-
-            <div class="inp-group vip-reward" id="chatBgPickerWrap" style="display:none;">
-                <label class="inp-label">Nền Chat 💬</label>
-                <div class="frame-picker" id="chatBgPicker">
-                    <div class="frame-opt active" data-bg="default" onclick="updateProfilePreview()"
-                        style="display:flex; align-items:center; gap:8px; padding:10px;">
-                        <div
-                            style="min-width:60px; padding:6px 10px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0;">
-                            Tin nhắn</div>
-                        <span>Mặc định</span>
-                    </div>
-                    <div class="frame-opt" data-bg="gold" onclick="updateProfilePreview()"
-                        style="display:flex; align-items:center; gap:8px; padding:10px;">
-                        <div
-                            style="min-width:60px; padding:6px 10px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f;">
-                            Tin nhắn</div>
-                        <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card Background Picker -->
-            <div class="inp-group" id="cardBgPickerWrap">
-                <label class="inp-label">Nền thẻ hồ sơ 🃏</label>
-                <div class="frame-picker" id="cardBgPicker">
-                    <div class="frame-opt active" data-cardbg="default"
-                        style="display:flex; align-items:center; gap:8px; padding:10px;">
-                        <div
-                            style="width:44px; height:28px; border-radius:8px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0;">
-                        </div>
-                        <span>Mặc định</span>
-                    </div>
-                    <div class="frame-opt" data-cardbg="glass" onclick="updateProfilePreview()"
-                        style="display:flex; align-items:center; gap:8px; padding:10px; position:relative;">
-                        <div
-                            style="width:44px; height:28px; border-radius:8px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px);">
-                        </div>
-                        <span style="font-weight:700;">Trong suốt 💎</span>
-                        <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
-                    </div>
-                    <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()"
-                        style="display:flex; align-items:center; gap:8px; padding:10px; position:relative;">
-                        <div
-                            style="width:44px; height:28px; border-radius:8px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4);">
-                        </div>
-                        <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
-                        <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
-                    </div>
-                </div>
-            </div>
-
             <!-- Live Preview -->
             <div class="inp-group" id="profilePreviewBox"
                 style="background:#f8fafc; border-radius:16px; padding:14px; border:1px solid #e2e8f0;">
@@ -934,9 +887,6 @@
                     </div>
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <div id="prevNameLabel" style="font-size:12px; font-weight:800;">Tên của bạn</div>
-                        <div id="prevBubble"
-                            style="padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:13px; border:1px solid #e2e8f0; max-width:160px;">
-                            Tin nhắn mẫu</div>
                     </div>
                 </div>
             </div>
@@ -1110,6 +1060,90 @@
             <div style="padding:14px 20px; border-top:1px solid #f1f5f9;">
                 <button onclick="document.getElementById('modalAvatarEditor').classList.remove('active')"
                     style="width:100%; padding:12px; border-radius:12px; border:none; background:#f1f5f9; color:#475569; font-weight:700; cursor:pointer;">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAppearance" class="modal">
+        <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px;">
+            <div style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
+                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Tùy chỉnh Giao diện</h3>
+                <button class="close-x" onclick="document.getElementById('modalAppearance').classList.remove('active')" style="top:20px; right:20px;">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div style="padding:24px; max-height:70vh; overflow-y:auto;">
+                <!-- Live Preview in Appearance Modal -->
+                <div class="inp-group" style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:24px;">
+                    <label class="inp-label" style="margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">visibility</span>
+                        Xem trước nhanh
+                    </label>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div id="prevBubbleAppearance"
+                            style="padding:12px 18px; border-radius:16px; background:#f1f5f9; font-size:14px; border:1px solid #e2e8f0; width:100%; transition: 0.3s; text-align:center; font-weight:600;">
+                            Chào bạn! Đây là mẫu tin nhắn.
+                        </div>
+                        <div id="prevCardAppearance" class="profile-card"
+                            style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95);">
+                            <div class="card-border-anim"></div>
+                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ hồ sơ của bạn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Background -->
+                <div class="inp-group vip-reward" id="chatBgPickerWrap" style="display:none; margin-bottom:28px;">
+                    <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#2563eb;">chat_bubble</span>
+                        Nền Chat 💬
+                    </label>
+                    <div class="frame-picker" id="chatBgPicker" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="frame-opt active" data-bg="default" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
+                            <div style="min-width:60px; padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0; text-align:center;">
+                                Tin nhắn</div>
+                            <span style="font-weight:600;">Mặc định</span>
+                        </div>
+                        <div class="frame-opt" data-bg="gold" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
+                            <div style="min-width:60px; padding:8px 12px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f; text-align:center;">
+                                Tin nhắn</div>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Background -->
+                <div class="inp-group" id="cardBgPickerWrap" style="margin-bottom:28px;">
+                    <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#f59e0b;">account_box</span>
+                        Nền thẻ hồ sơ 🃏
+                    </label>
+                    <div class="frame-picker" id="cardBgPicker" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="frame-opt active" data-cardbg="default"
+                            style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
+                            <div style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <span style="font-weight:600;">Mặc định</span>
+                        </div>
+                        <div class="frame-opt" data-cardbg="glass" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
+                            <div style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <span style="font-weight:700;">Trong suốt 💎</span>
+                            <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
+                        </div>
+                        <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
+                            <div style="width:50px; height:32px; border-radius:10px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                            <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center;">
+                <button onclick="document.getElementById('modalAppearance').classList.remove('active')" 
+                        style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác nhận</button>
             </div>
         </div>
     </div>
@@ -1394,6 +1428,10 @@
         }
 
         // Avatar Editor Popup
+        window.openAppearanceModal = () => {
+            document.getElementById('modalAppearance').classList.add('active');
+        };
+
         window.openAvatarEditor = () => {
             // Refresh lock state based on current userData
             if (userData) {
@@ -1479,10 +1517,10 @@
 
             let badgeHtml = '';
             // Ticks priority: Blue (Verified) takes precedence
-            if (data.isVerified) {
-                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff;" title="Đã xác minh">verified</span>';
+            if (data.isTickVerified) {
+                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
-                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444;" title="Nhà sáng tạo">verified</span>';
+                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
             }
             dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + badgeHtml;
 
@@ -1583,7 +1621,7 @@
 
                     // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
-                    if (data.isVerified) {
+                    if (data.isTickVerified) {
                         verifyBtn.style.display = 'none';
                     } else {
                         verifyBtn.style.display = 'flex';
@@ -1606,7 +1644,7 @@
 
                 // Hide verification button in modal if already verified (initial load)
                 const verifyBtn = document.getElementById('btnVerifyRequest');
-                if (verifyBtn && !userData.isVerified) {
+                if (verifyBtn && !userData.isTickVerified) {
                     verifyBtn.style.display = 'flex';
                 } else if (verifyBtn) {
                     verifyBtn.style.display = 'none';
@@ -1750,7 +1788,8 @@
                             const data = d.data();
                             const avtURL = data.photoURL || "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
                             const colorClass = data.nameColor ? `name-color-${data.nameColor}` : 'name-color-default';
-                            const verifiedTag = data.isVerified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : '';
+                            const verifiedTag = data.isTickVerified ? '<span class="material-symbols-rounded verified-badge" style="font-size:16px; margin-left:4px; color:#0084ff; vertical-align:middle; font-variation-settings: \'FILL\' 1;">verified</span>' : '';
+
 
                             html += `
                                 <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9; cursor:pointer;" onclick="window.location.href='profile.html?uid=${u}'">
@@ -2030,32 +2069,37 @@
             }
 
             // Chat bubble preview
-            const bubble = document.getElementById('prevBubble');
-            if (bubble) {
-                if (chatBg === 'vip') {
-                    bubble.style.background = 'linear-gradient(135deg, #dcfce7, #bbf7d0)';
-                    bubble.style.border = '1px solid #22c55e';
-                    bubble.style.color = '#166534';
-                } else if (chatBg === 'gold') {
-                    bubble.style.background = 'linear-gradient(135deg, #fffbeb, #fef3c7, #fde68a)';
-                    bubble.style.border = '1px solid #f59e0b';
-                    bubble.style.color = '#78350f';
-                } else {
-                    bubble.style.background = '#f1f5f9';
-                    bubble.style.border = '1px solid #e2e8f0';
-                    bubble.style.color = '#0f172a';
+            const bubbles = [document.getElementById('prevBubble'), document.getElementById('prevBubbleAppearance')];
+            bubbles.forEach(bubble => {
+                if (bubble) {
+                    if (chatBg === 'vip') {
+                        bubble.style.background = 'linear-gradient(135deg, #dcfce7, #bbf7d0)';
+                        bubble.style.border = '1px solid #22c55e';
+                        bubble.style.color = '#166534';
+                    } else if (chatBg === 'gold') {
+                        bubble.style.background = 'linear-gradient(135deg, #fffbeb, #fef3c7, #fde68a)';
+                        bubble.style.border = '1px solid #f59e0b';
+                        bubble.style.color = '#78350f';
+                    } else {
+                        bubble.style.background = '#f1f5f9';
+                        bubble.style.border = '1px solid #e2e8f0';
+                        bubble.style.color = '#0f172a';
+                    }
                 }
-            }
+            });
 
             // Profile card background preview
-            const cardPrev = document.getElementById('profilePreview');
+            const cardPrevs = [document.getElementById('profilePreview'), document.getElementById('prevCardAppearance')];
             const activeCardBgEl = document.querySelector('.frame-opt.active[data-cardbg]');
             const cardBg = activeCardBgEl ? activeCardBgEl.dataset.cardbg : 'default';
-            if (cardPrev) {
-                cardPrev.classList.remove('card-bg-glass', 'card-bg-gold');
-                if (cardBg === 'glass') cardPrev.classList.add('card-bg-glass');
-                else if (cardBg === 'gold') cardPrev.classList.add('card-bg-gold');
-            }
+            
+            cardPrevs.forEach(cardPrev => {
+                if (cardPrev) {
+                    cardPrev.classList.remove('card-bg-glass', 'card-bg-gold');
+                    if (cardBg === 'glass') cardPrev.classList.add('card-bg-glass');
+                    else if (cardBg === 'gold') cardPrev.classList.add('card-bg-gold');
+                }
+            });
         };
 
         // Wire pickers

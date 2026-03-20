@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Confe </title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <meta name="google-site-verification" content="t5oQRvmsRPZ6Uz4014JmFfAFmfaQ14XoACmrDogErHg" />
@@ -11,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
     <style>
         :root {
             --primary: #0057db;
@@ -359,7 +361,10 @@
 
         .mini-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.7);
             padding: 12px;
             display: flex;
@@ -731,7 +736,10 @@
 
         .modal {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             z-index: 200;
@@ -917,7 +925,10 @@
         .skeleton::after {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: #e2e8f0;
             background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
             background-size: 200% 100%;
@@ -1242,7 +1253,10 @@
 
         .feed-img-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
@@ -1499,7 +1513,10 @@
 
         .post-img-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             color: white;
             display: flex;
@@ -1733,7 +1750,10 @@
         /* IMAGE PREVIEW MODAL */
         .modal-img {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.9);
             display: none;
             flex-direction: column;
@@ -2625,7 +2645,7 @@
                         name: data.displayName || fallbackName,
                         avt: data.photoURL || fallbackAvt,
                         color: data.nameColor || 'default',
-                        verified: !!(data.isVerified || data.verified)
+                        verified: !!(data.isTickVerified || data.verified)
                     };
                     userProfilesCache[uid] = info;
                     return info;
@@ -2928,7 +2948,8 @@
                             <img src="${info.avt}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" onerror="this.src='${MISSING_AVATAR}'">
                             <div style="flex: 1; font-weight: 500; font-size: 14px;" class="name-color-${info.color}">
                                 ${window.escapeHTML(info.name)}
-                                ${info.verified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
+                                ${info.verified ? '' : ''}
+
                             </div>
                             <div style="font-size: 20px;">${typeMap[data.type] || ''}</div>
                         </div>
@@ -3426,6 +3447,33 @@
 
 
     </script>
+</body>
+
+</html>
+<div id="cmtPreviewBox-${p.id}" class="cmt-preview-box">
+    <div id="cmtPreviewContainer-${p.id}" class="preview-container"></div>
+</div>
+<div style="display:flex; gap:10px; align-items:center; width:100%;">
+    <img src="${userAvtSrc}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;"
+        onerror="this.src='${MISSING_AVATAR}'">
+    <div style="flex:1; position:relative;">
+        <input type="text" id="cinp-${p.id}" class="feed-cmt-input"
+            style="width:100%; background:#f1f5f9; border:none; padding:10px 16px; border-radius:20px; font-size:14px;"
+            placeholder="Viết bình luận..."
+            onkeydown="if(event.key==='Enter'){event.preventDefault(); sendFeedComment('${p.id}','cinp-${p.id}');}">
+        <button class="feed-cmt-send"
+            style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--primary); cursor:pointer;"
+            onclick="sendFeedComment('${p.id}','cinp-${p.id}')">
+            <span class="material-symbols-rounded" style="font-size:20px;">send</span>
+        </button>
+    </div>
+</div>
+</div>
+</div>`;
+};
+
+
+</script>
 </body>
 
 </html>
