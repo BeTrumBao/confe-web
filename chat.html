@@ -269,10 +269,9 @@
             margin-left: 4px;
             margin-bottom: 2px;
         }
+        .msg-row.mine .msg-name { display: none; }
 
-        .msg-row.mine .msg-name {
-            display: none;
-        }
+
 
         .msg-bubble {
             padding: var(--padding-bubble);
@@ -1736,6 +1735,7 @@
             closePollModal();
             await addDoc(collection(db, CHAT_COL), {
                 type: 'poll', question: q, options: opts, uid: currentUser.uid,
+                isTickVerified: currentUser.isTickVerified || false,
                 name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL, createdAt: serverTimestamp()
             });
         }
@@ -2041,6 +2041,7 @@
         }
 
         const renderCache = new Map();
+        const userProfileCache = new Map(); // Store latest profile data including verification status
         function renderMessage(docId, msg) {
             // Cache lookup: versioning by docId + mod status + likes + timestamp presence
             const cacheKey = `${docId}_${msg.isEdited ? 'ed' : 'no'}_${(msg.likes ? msg.likes.length : 0)}_${!!msg.createdAt}`;
@@ -2100,7 +2101,15 @@
                 contentHtml += `<div class="msg-bubble" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">${linkedText}${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}</div>`;
             }
             const timeStr = formatTime(msg.createdAt);
-            let isTickVerified = msg.isTickVerified === true || (msg.uid === currentUser.uid && currentUser.isTickVerified === true);
+            
+            // Logic for Blue Tick: Use doc data OR cached profile data (for old messages)
+            let isTickVerified = msg.isTickVerified === true;
+            if (!isTickVerified && userProfileCache.has(msg.uid)) {
+                isTickVerified = userProfileCache.get(msg.uid).isTickVerified === true;
+            }
+            // But skip for currentUser if they don't want to see their own tick
+            if (isMine) isTickVerified = false;
+
             const verifiedHtml = isTickVerified ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
             const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
             const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
@@ -2249,6 +2258,39 @@
                     isInitialLoad = false;
                 } else if (hasNewAdded && wasAtBottom) {
                     box.scrollTop = box.scrollHeight;
+                }
+
+                // --- PROFILE FETCHING FOR OLD MESSAGES ---
+                const uidsToFetch = [...new Set(snapshot.docs.map(d => d.data().uid))]
+                    .filter(uid => uid !== currentUser.uid && !userProfileCache.has(uid));
+                
+                if (uidsToFetch.length > 0) {
+                    uidsToFetch.forEach(uid => {
+                        userProfileCache.set(uid, { fetching: true });
+                        getDoc(doc(db, "users", uid)).then(uSnap => {
+                            if (uSnap.exists()) {
+                                const ud = uSnap.data();
+                                userProfileCache.set(uid, ud);
+                                if (ud.isTickVerified) {
+                                    snapshot.docs.forEach(d => {
+                                        const m = d.data();
+                                        if (m.uid === uid) {
+                                            const el = document.getElementById(`msg-${d.id}`);
+                                            if (el) {
+                                                const cacheKeyPart = `${d.id}_`;
+                                                for (let key of renderCache.keys()) {
+                                                    if (key.startsWith(cacheKeyPart)) renderCache.delete(key);
+                                                }
+                                                const temp = document.createElement('div');
+                                                temp.innerHTML = renderMessage(d.id, m);
+                                                el.replaceWith(temp.firstElementChild);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }).catch(e => console.error(e));
+                    });
                 }
             });
         }
