@@ -2,10 +2,10 @@
 <html lang="vi">
 
 <head>
-    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
+    <script>window.showToast = function (msg, d) { d = d || 2500; try { if (window.self !== window.top && typeof window.top.showToast === 'function') { window.top.showToast(msg, d); return; } } catch (e) { } var b = document.body || document.documentElement; if (!b) return; var t = document.createElement('div'); t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;'; t.textContent = msg; b.appendChild(t); requestAnimationFrame(function () { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; }); setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400); }, d); };</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👤 Hồ sơ cá nhân</title>
+    <title>Hồ sơ cá nhân</title>
     <script>
         // -- Block Direct URL Access --
         if (!document.referrer && !sessionStorage.getItem('profileAccessAllowed')) {
@@ -750,7 +750,8 @@
                 </div>
             </div>
 
-            <h1 class="user-name" id="dName"></h1>
+            <h1 class="user-name" id="dName" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            </h1>
             <div class="user-handle" id="dUser"></div>
 
             <div class="stats-row">
@@ -823,6 +824,11 @@
             <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ </h3>
 
             <div class="settings-grid">
+                <button id="btnOpenBadgePicker" type="button" class="upload-btn" onclick="openBadgePicker()"
+                    style="display:none; cursor:pointer; border:none; background:none; display:none; flex-direction:column; align-items:center; gap:6px; padding:14px;">
+                    <span class="material-symbols-rounded" style="font-size: 24px; color:#10b981;">military_tech</span>
+                    <span style="font-weight:700;">Huy Hiệu</span>
+                </button>
                 <button id="btnOpenAvatarEditor" type="button" class="upload-btn" onclick="openAvatarEditor()"
                     style="cursor:pointer; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
@@ -1066,15 +1072,18 @@
 
     <div id="modalAppearance" class="modal">
         <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px;">
-            <div style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
+            <div
+                style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
                 <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Tùy chỉnh Giao diện</h3>
-                <button class="close-x" onclick="document.getElementById('modalAppearance').classList.remove('active')" style="top:20px; right:20px;">
+                <button class="close-x" onclick="document.getElementById('modalAppearance').classList.remove('active')"
+                    style="top:20px; right:20px;">
                     <span class="material-symbols-rounded">close</span>
                 </button>
             </div>
             <div style="padding:24px; max-height:70vh; overflow-y:auto;">
                 <!-- Live Preview in Appearance Modal -->
-                <div class="inp-group" style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:24px;">
+                <div class="inp-group"
+                    style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:24px;">
                     <label class="inp-label" style="margin-bottom:12px; display:flex; align-items:center; gap:6px;">
                         <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">visibility</span>
                         Xem trước nhanh
@@ -1087,7 +1096,9 @@
                         <div id="prevCardAppearance" class="profile-card"
                             style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95);">
                             <div class="card-border-anim"></div>
-                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ hồ sơ của bạn</span>
+                            <span
+                                style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ
+                                hồ sơ của bạn</span>
                         </div>
                     </div>
                 </div>
@@ -1101,13 +1112,15 @@
                     <div class="frame-picker" id="chatBgPicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-bg="default" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
-                            <div style="min-width:60px; padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0; text-align:center;">
+                            <div
+                                style="min-width:60px; padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0; text-align:center;">
                                 Tin nhắn</div>
                             <span style="font-weight:600;">Mặc định</span>
                         </div>
                         <div class="frame-opt" data-bg="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
-                            <div style="min-width:60px; padding:8px 12px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f; text-align:center;">
+                            <div
+                                style="min-width:60px; padding:8px 12px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f; text-align:center;">
                                 Tin nhắn</div>
                             <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
                         </div>
@@ -1123,18 +1136,24 @@
                     <div class="frame-picker" id="cardBgPicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-cardbg="default"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
-                            <div style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <div
+                                style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
+                            </div>
                             <span style="font-weight:600;">Mặc định</span>
                         </div>
                         <div class="frame-opt" data-cardbg="glass" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
-                            <div style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <div
+                                style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
+                            </div>
                             <span style="font-weight:700;">Trong suốt 💎</span>
                             <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
                         <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
-                            <div style="width:50px; height:32px; border-radius:10px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;"></div>
+                            <div
+                                style="width:50px; height:32px; border-radius:10px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
+                            </div>
                             <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
                             <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
@@ -1142,8 +1161,32 @@
                 </div>
             </div>
             <div style="padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center;">
-                <button onclick="document.getElementById('modalAppearance').classList.remove('active')" 
-                        style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác nhận</button>
+                <button onclick="document.getElementById('modalAppearance').classList.remove('active')"
+                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác
+                    nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badge Picker Modal -->
+    <div id="modalBadgePicker" class="modal" style="z-index:10002;">
+        <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px;">
+            <div
+                style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
+                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Trang bị Huy Hiệu</h3>
+                <button class="close-x" onclick="document.getElementById('modalBadgePicker').classList.remove('active')"
+                    style="top:20px; right:20px;">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div style="padding:24px; max-height:60vh; overflow-y:auto;" id="badgesContainer">
+                <!-- Badges will be loaded here -->
+                <p style="text-align:center; color:#64748b; font-size:14px;">Đang tải huy hiệu...</p>
+            </div>
+            <div
+                style="padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; gap:12px;">
+                <button onclick="document.getElementById('modalBadgePicker').classList.remove('active')"
+                    style="flex:1; padding:12px; border-radius:9999px; border:none; background:#f1f5f9; color:#475569; font-weight:800; cursor:pointer; font-size:14px;">Đóng</button>
             </div>
         </div>
     </div>
@@ -1231,6 +1274,84 @@
                 else showToast('Lỗi: ' + err.message);
             }
         }
+
+        // ===== BADGE SYSTEM =====
+        let allBadges = [];
+        window.openBadgePicker = async () => {
+            document.getElementById('modalBadgePicker').classList.add('active');
+            const container = document.getElementById('badgesContainer');
+            container.innerHTML = '<p style="text-align:center; color:#64748b; font-size:14px;">Đang tải huy hiệu...</p>';
+            try {
+                if (allBadges.length === 0) {
+                    const bSnap = await getDocs(collection(db, 'badges'));
+                    allBadges = bSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                }
+
+                if (allBadges.length === 0) {
+                    container.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">Chưa có huy hiệu nào trong hệ thống.</div>';
+                    return;
+                }
+
+                const owned = userData.ownedBadges || [];
+                const equipped = userData.equippedBadge || '';
+
+                let html = '<div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;">';
+
+                // Add "No badge" option
+                html += `
+                    <div onclick="equipBadge('')" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:16px; border-radius:16px; border:2px solid ${equipped === '' ? 'var(--primary)' : '#e2e8f0'}; background:${equipped === '' ? '#f0f9ff' : '#f8fafc'}; cursor:pointer; transition:0.2s; position:relative;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><span class="material-symbols-rounded">block</span></div>
+                        <div style="font-weight:700; font-size:13px; text-align:center; color:#64748b;">Không<br>trang bị</div>
+                        ${equipped === '' ? '<span class="material-symbols-rounded" style="position:absolute; top:8px; right:8px; color:var(--primary); font-size:18px;">check_circle</span>' : ''}
+                    </div>
+                `;
+
+                allBadges.forEach(b => {
+                    const isOwned = owned.includes(b.id);
+                    const isEquipped = equipped === b.id;
+                    const badgeIcon = b.icon || '🏅';
+
+                    html += `
+                        <div ${isOwned ? `onclick="equipBadge('${b.id}')"` : ''} style="display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px; border-radius:16px; border:2px solid ${isEquipped ? 'var(--primary)' : '#e2e8f0'}; background:${!isOwned ? '#f1f5f9' : isEquipped ? '#f0f9ff' : '#fff'}; cursor:${isOwned ? 'pointer' : 'not-allowed'}; transition:0.2s; position:relative; opacity:${isOwned ? 1 : 0.6};">
+                            <div style="font-size:32px;">${badgeIcon}</div>
+                            <div style="font-weight:800; font-size:14px; text-align:center; color:${b.color || '#0f172a'};">${b.name}</div>
+                            <div style="font-size:11px; color:#64748b; text-align:center;">${b.desc || ''}</div>
+                            ${!isOwned ? '<span class="material-symbols-rounded" style="position:absolute; top:8px; right:8px; color:#94a3b8; font-size:16px;">lock</span>' : ''}
+                            ${isEquipped ? '<span class="material-symbols-rounded" style="position:absolute; top:8px; right:8px; color:var(--primary); font-size:18px;">check_circle</span>' : ''}
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+                container.innerHTML = html;
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p style="text-align:center; color:#ef4444; font-size:14px;">Lỗi tải huy hiệu.</p>';
+            }
+        };
+
+        window.equipBadge = async (badgeId) => {
+            if (!currentUser) return;
+            try {
+                await updateDoc(doc(db, "users", currentUser.uid), { equippedBadge: badgeId });
+                userData.equippedBadge = badgeId;
+                window.showToast(badgeId ? "Đã trang bị thẻ mới!" : "Đã gỡ trang bị huy hiệu!");
+                window.openBadgePicker(); // reload UI
+
+                // Update display immediately
+                const span = document.getElementById('dBadgeDisp');
+                if (span) {
+                    if (!badgeId) span.innerHTML = '';
+                    else {
+                        const b = allBadges.find(x => x.id === badgeId);
+                        if (b) span.innerHTML = `<span style="font-size:24px;" title="${b.name}">${b.icon || '🏅'}</span>`;
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                window.showToast("Lỗi cập nhật huy hiệu", "error");
+            }
+        };
 
         let isSetupRequired = false;
 
@@ -1522,7 +1643,17 @@
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
                 badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
             }
-            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + badgeHtml;
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + badgeHtml + '<span id="dBadgeDisp" style="margin-left:4px;"></span>';
+
+            if (data.equippedBadge) {
+                getDoc(doc(db, 'badges', data.equippedBadge)).then(bSnap => {
+                    if (bSnap.exists()) {
+                        const bData = bSnap.data();
+                        const bSpan = document.getElementById('dBadgeDisp');
+                        if (bSpan) bSpan.innerHTML = `<span style="font-size:24px; vertical-align:middle;" title="${bData.name}">${bData.icon || '🏅'}</span>`;
+                    }
+                }).catch(e => console.error("Lỗi tải huy hiệu", e));
+            }
 
             // Apply name color
             dName.className = "user-name"; // reset
@@ -2092,7 +2223,7 @@
             const cardPrevs = [document.getElementById('profilePreview'), document.getElementById('prevCardAppearance')];
             const activeCardBgEl = document.querySelector('.frame-opt.active[data-cardbg]');
             const cardBg = activeCardBgEl ? activeCardBgEl.dataset.cardbg : 'default';
-            
+
             cardPrevs.forEach(cardPrev => {
                 if (cardPrev) {
                     cardPrev.classList.remove('card-bg-glass', 'card-bg-gold');

@@ -1705,47 +1705,38 @@
         /* SKELETON LOADING */
         .skeleton-card {
             background: var(--surface);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 16px;
             margin-bottom: 16px;
             border: 1px solid var(--surface-variant);
+            animation: sk-pulse 2s infinite ease-in-out;
         }
 
         .skeleton-item {
-            background: #e2e8f0;
-            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background: #f1f5f9;
+            background: linear-gradient(90deg, 
+                var(--surface-container) 25%, 
+                #f8fafc 50%, 
+                var(--surface-container) 75%
+            );
             background-size: 200% 100%;
-            animation: sk-shimmer 1.5s infinite linear;
-            border-radius: 8px;
+            animation: sk-shimmer 2s infinite linear;
+            border-radius: 12px;
         }
 
         @keyframes sk-shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        .sk-avt {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+        @keyframes sk-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.995); opacity: 0.85; }
         }
 
-        .sk-line {
-            height: 12px;
-            margin-bottom: 10px;
-        }
-
-        .sk-img {
-            width: 100%;
-            height: 200px;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
+        .sk-avt { width: 48px; height: 48px; border-radius: 50%; }
+        .sk-line { height: 12px; margin-bottom: 10px; }
+        .sk-img { width: 100%; height: 220px; border-radius: 16px; margin-top: 12px; }
 
         /* IMAGE PREVIEW MODAL */
         .modal-img {
@@ -1930,27 +1921,27 @@
             <!-- Feed list -->
             <div id="feedSkeleton" style="display:none;">
                 <div class="skeleton-card">
-                    <div style="display:flex; gap:12px; margin-bottom:15px;">
+                    <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
                         <div class="skeleton-item sk-avt"></div>
                         <div style="flex:1">
-                            <div class="skeleton-item sk-line" style="width:40%"></div>
-                            <div class="skeleton-item sk-line" style="width:20%"></div>
+                            <div class="skeleton-item sk-line" style="width:40%; height:14px;"></div>
+                            <div class="skeleton-item sk-line" style="width:20%; height:10px;"></div>
                         </div>
                     </div>
-                    <div class="skeleton-item sk-line"></div>
-                    <div class="skeleton-item sk-line" style="width:80%"></div>
+                    <div class="skeleton-item sk-line" style="width:90%;"></div>
+                    <div class="skeleton-item sk-line" style="width:75%;"></div>
                     <div class="skeleton-item sk-img"></div>
                 </div>
                 <div class="skeleton-card">
-                    <div style="display:flex; gap:12px; margin-bottom:15px;">
+                    <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
                         <div class="skeleton-item sk-avt"></div>
                         <div style="flex:1">
-                            <div class="skeleton-item sk-line" style="width:30%"></div>
-                            <div class="skeleton-item sk-line" style="width:15%"></div>
+                            <div class="skeleton-item sk-line" style="width:30%; height:14px;"></div>
+                            <div class="skeleton-item sk-line" style="width:15%; height:10px;"></div>
                         </div>
                     </div>
-                    <div class="skeleton-item sk-line"></div>
-                    <div class="skeleton-item sk-img"></div>
+                    <div class="skeleton-item sk-line" style="width:85%;"></div>
+                    <div class="skeleton-item sk-img" style="height:150px;"></div>
                 </div>
             </div>
             <div id="feedList"></div>
@@ -2263,9 +2254,12 @@
 
             // Background fetch full feed history to allow swiping through all posts
             try {
-                const q = query(collection(db, "posts"), where("tid", "==", "home"), limitToLast(50));
+                // Fetch last 100 posts and filter by tid in JS to avoid composite index requirements
+                const q = query(collection(db, "posts"), orderBy("createdAt"), limitToLast(100));
                 const snap = await getDocs(q);
-                const sortedDocs = snap.docs.sort((a, b) => {
+                // Filter by tid and type === 'image'
+                const filteredDocs = snap.docs.filter(d => d.data().tid === 'home' && d.data().type === 'image');
+                const sortedDocs = filteredDocs.sort((a, b) => {
                     const timeB = b.data().createdAt ? b.data().createdAt.toMillis() : 0;
                     const timeA = a.data().createdAt ? a.data().createdAt.toMillis() : 0;
                     return timeB - timeA;
@@ -2635,7 +2629,7 @@
         const userProfilesCache = {};
 
         async function getLatestUserInfo(uid, fallbackName, fallbackAvt) {
-            if (!uid) return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false };
+            if (!uid) return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false, badge: null };
             if (userProfilesCache[uid]) return userProfilesCache[uid];
             try {
                 const snap = await getDoc(doc(db, "users", uid));
@@ -2645,13 +2639,14 @@
                         name: data.displayName || fallbackName,
                         avt: data.photoURL || fallbackAvt,
                         color: data.nameColor || 'default',
-                        verified: !!(data.isTickVerified || data.verified)
+                        verified: !!(data.isTickVerified || data.verified),
+                        badge: data.equippedBadge || null
                     };
                     userProfilesCache[uid] = info;
                     return info;
                 }
             } catch (e) { }
-            return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false };
+            return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false, badge: null };
         }
 
 
@@ -3279,15 +3274,15 @@
             if (sk) {
                 sk.innerHTML = Array(3).fill(0).map(() => `
                     <div class="skeleton-card">
-                        <div style="display:flex; gap:12px; margin-bottom:15px;">
+                        <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
                             <div class="skeleton-item sk-avt"></div>
                             <div style="flex:1">
-                                <div class="skeleton-item sk-line" style="width:40%"></div>
-                                <div class="skeleton-item sk-line" style="width:20%"></div>
+                                <div class="skeleton-item sk-line" style="width:40%; height:14px;"></div>
+                                <div class="skeleton-item sk-line" style="width:20%; height:10px;"></div>
                             </div>
                         </div>
-                        <div class="skeleton-item sk-line"></div>
-                        <div class="skeleton-item sk-line" style="width:80%"></div>
+                        <div class="skeleton-item sk-line" style="width:90%;"></div>
+                        <div class="skeleton-item sk-line" style="width:75%;"></div>
                         <div class="skeleton-item sk-img"></div>
                     </div>
                 `).join('');
@@ -3355,6 +3350,18 @@
         async function renderFeedPost(p) {
             const info = await getLatestUserInfo(p.authorUid, p.author, p.authorAvatar);
 
+            // Badge lookup
+            let badgeHtml = '';
+            if (info.badge) {
+                try {
+                    const bSnap = await getDoc(doc(db, 'badges', info.badge));
+                    if (bSnap.exists()) {
+                        const b = bSnap.data();
+                        badgeHtml = `<span style="font-size:18px; margin-left:4px; vertical-align:middle;" title="${b.name}">${b.icon || '🏅'}</span>`;
+                    }
+                } catch(e) { /* badge load failed, skip */ }
+            }
+
             let imgHtml = "";
             const imgs = p.images || (p.image ? [p.image] : []);
             if (imgs.length > 0) {
@@ -3387,7 +3394,7 @@
                     <img src="${info.avt}" class="feed-post-avt" onclick="handleProfileClick('${p.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
                     <div style="flex:1">
                         <div class="feed-post-author name-color-${info.color}" onclick="handleProfileClick('${p.authorUid}')">
-                            ${window.escapeHTML(info.name)}
+                            ${window.escapeHTML(info.name)}${badgeHtml}
                             ${info.verified ? '<span class="material-symbols-rounded" style="font-size:16px; color:#1d9bf0; vertical-align:middle; margin-left:4px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
                         </div>
                         <div class="feed-post-time">${timeAgo(p.createdAt)}${p.updatedAt ? ' (đã chỉnh sửa)' : ''}</div>
@@ -3447,33 +3454,6 @@
 
 
     </script>
-</body>
-
-</html>
-<div id="cmtPreviewBox-${p.id}" class="cmt-preview-box">
-    <div id="cmtPreviewContainer-${p.id}" class="preview-container"></div>
-</div>
-<div style="display:flex; gap:10px; align-items:center; width:100%;">
-    <img src="${userAvtSrc}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;"
-        onerror="this.src='${MISSING_AVATAR}'">
-    <div style="flex:1; position:relative;">
-        <input type="text" id="cinp-${p.id}" class="feed-cmt-input"
-            style="width:100%; background:#f1f5f9; border:none; padding:10px 16px; border-radius:20px; font-size:14px;"
-            placeholder="Viết bình luận..."
-            onkeydown="if(event.key==='Enter'){event.preventDefault(); sendFeedComment('${p.id}','cinp-${p.id}');}">
-        <button class="feed-cmt-send"
-            style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--primary); cursor:pointer;"
-            onclick="sendFeedComment('${p.id}','cinp-${p.id}')">
-            <span class="material-symbols-rounded" style="font-size:20px;">send</span>
-        </button>
-    </div>
-</div>
-</div>
-</div>`;
-};
-
-
-</script>
 </body>
 
 </html>

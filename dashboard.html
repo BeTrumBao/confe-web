@@ -803,10 +803,10 @@
         </div>
     </div>
     <div class="greeting-card">
-        <div class="greeting-time" id="greetTimeLabel"> BUỔI SÁNG</div>
-        <div class="greeting-text" id="greetMsg">Xin chào!</div>
-        <div class="greeting-sub" id="greetSub">Chúc bạn một ngày năng động </div>
-        <div class="greeting-emoji" id="greetEmoji">️</div>
+        <div class="greeting-time" id="greetTimeLabel">?</div>
+        <div class="greeting-text" id="greetMsg">?</div>
+        <div class="greeting-sub" id="greetSub">?</div>
+        <div class="greeting-emoji" id="greetEmoji">️?</div>
     </div>
 
     <div class="section-title"> Tin tức & Thông báo</div>
@@ -821,7 +821,7 @@
                     style="color:#2563eb;">forum</span></div>
             <div>
                 <div class="nav-card-title">Trò chuyện</div>
-                <div class="nav-card-desc">Nhắn tin cùng mọi người</div>
+                <div class="nav-card-desc">Nhắn tin cùng bạn bè của bạn</div>
             </div>
         </a>
         <a class="nav-card" onclick="go('home.html', this)">
@@ -837,7 +837,7 @@
                     style="color:#16a34a;">person</span></div>
             <div>
                 <div class="nav-card-title">Hồ sơ</div>
-                <div class="nav-card-desc">Xem và chỉnh sửa trang cá nhân</div>
+                <div class="nav-card-desc">Xem và chỉnh sửa trang cá nhân của bạn</div>
             </div>
         </a>
         <a class="nav-card" onclick="go('reviewtest.html', this)">
@@ -845,7 +845,7 @@
                     style="color:#7c3aed;">menu_book</span></div>
             <div>
                 <div class="nav-card-title">Ôn Tập</div>
-                <div class="nav-card-desc">Trắc nghiệm & đấu 1v1</div>
+                <div class="nav-card-desc">Ôn tập đề cương của bạn và của cộng đồng</div>
             </div>
         </a>
 
@@ -869,8 +869,8 @@
             <div class="nav-card-icon" style="background: #fef3c7;"><span class="material-symbols-rounded"
                     style="color:#d97706;">redeem</span></div>
             <div>
-                <div class="nav-card-title">Quà Điểm danh</div>
-                <div class="nav-card-desc">Xem tiến trình nhận thưởng</div>
+                <div class="nav-card-title">Quà Check In</div>
+                <div class="nav-card-desc">Xem tiến trình nhận thưởng của bạn !</div>
             </div>
         </a>
     </div>
@@ -987,24 +987,23 @@
         </div>
     </div>
 
-    <!-- VIP Sticker Claim Modal -->
     <div id="modalVIPSticker" class="modal" style="z-index: 3000;">
         <div class="box"
-            style="text-align:center; max-width:340px; background: linear-gradient(to bottom, #ffffff, #f0f7ff);">
-            <h3 style="margin-bottom:10px; font-size:22px; font-weight: 800; color: var(--primary);">Quà Tặng Từ Trên
-                Trời Rơi Xuống Tặng Bạn !</h3>
+            style="text-align:center; max-width:340px; background: linear-gradient(to bottom, #ffffff, #fff1f2);">
+            <h3 style="margin-bottom:10px; font-size:22px; font-weight: 800; color: #e11d48;">Sự kiện: Nhận Sticker
+                Giới Hạn ngay! ✨</h3>
             <p style="color:#475569; margin-bottom:20px; font-size:14px; line-height:1.6;">
-                Chúc mừng! Bạn nhận được sticker <b>Giới hạn nhân ngày gì tui không biết</b> Nhận ngay để sử dụng trong
-                Chat nhé !
+                Chúc mừng bạn đã hoàn thành thử thách! Nhận ngay sticker <b>Giới hạn</b> để làm nổi bật phong cách
+                trong Chat nhé!
             </p>
             <div
-                style="background: white; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 2px dashed #0084ff;">
-                <img src="https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png"
-                    style="width: 120px; height: 120px; border-radius: 12px; object-fit: cover;">
+                style="background: white; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 2px dashed #fb7185;">
+                <img src="stickers/Ruby.png"
+                    style="width: 120px; height: 120px; border-radius: 12px; object-fit: contain;">
             </div>
-            <button id="btnClaimVIP" class="btn-act" style="width:100%; margin-top:0; font-size: 16px;">Nhận</button>
-            <p style="font-size: 11px; color: #94a3b8; margin-top: 12px;">Kết thúc vào ngày thứ 6 tuần này (20/03/2026)
-            </p>
+            <button id="btnClaimVIP" class="btn-act"
+                style="width:100%; margin-top:0; font-size: 16px; background: #e11d48;">Nhận Ngay</button>
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 12px;">Sự kiện giới hạn đến ngày 26/3/2026</p>
         </div>
     </div>
 
@@ -1204,7 +1203,7 @@
             });
 
             if (hasVoted) {
-                window.showToast('Bạn đã bình chọn rồi, không thể sửa nhé! 🚫');
+                window.showToast('Bạn không thể chỉnh sửa bình chọn của bạn !');
                 return;
             }
 
@@ -1217,7 +1216,7 @@
                 let total = 0;
                 poll.options.forEach(o => { total += (freshData['votes_' + o.id] || []).length; });
                 renderOpts(poll, freshData, total, optId);
-                window.showToast('Đã ghi nhận bình chọn! 🗳️');
+                window.showToast('Đã ghi nhận bình chọn!');
             } catch (e) {
                 console.error("Cast vote fail:", e);
                 window.showToast('Lỗi khi bình chọn!');
@@ -1234,7 +1233,7 @@
             const voteRef = doc(db, 'community_votes', pollId);
             const snap = await getDoc(voteRef);
             if (snap.exists() && snap.data()['user_' + user.uid]) {
-                window.showToast('Bạn đã gửi câu trả lời rồi! 🚫');
+                window.showToast('Bạn đã gửi câu trả lời rồi!');
                 return;
             }
 
@@ -1247,7 +1246,7 @@
             let total = Object.keys(data).filter(k => k.startsWith('user_')).length;
 
             renderOpts(currentPoll, data, total, txt);
-            window.showToast('Đã gửi câu trả lời! 🎉');
+            window.showToast('Đã gửi câu trả lời!');
         }
 
         window.go = (url, el) => {
@@ -1296,7 +1295,7 @@
                     availScreen: `${window.screen.availWidth}x${window.screen.availHeight}`,
                     pixelRatio: window.devicePixelRatio,
                     cores: navigator.hardwareConcurrency || "N/A",
-                    memory: navigator.deviceMemory || "N/A", // GB (Chỉ Chrome)
+                    memory: navigator.deviceMemory || "N/A",
                     maxTouchPoints: navigator.maxTouchPoints || 0,
 
                     // Môi trường
@@ -1313,7 +1312,6 @@
                     timestamp: new Date().toISOString()
                 };
 
-                // Lấy thông tin Pin (Nếu trình duyệt hỗ trợ)
                 if (navigator.getBattery) {
                     try {
                         const battery = await navigator.getBattery();
@@ -1426,7 +1424,6 @@
                 sub = 'Khuya rồi đó, nhớ ngủ đủ giấc nha bạn ơi! 💤';
             }
 
-            // EXAM SEASON OVERRIDE (Until end of Friday, March 20, 2026)
             const now = new Date();
             const examDeadline = new Date('2026-03-21T00:00:00');
             if (now < examDeadline) {
@@ -1448,10 +1445,7 @@
             if (!u) { window.top.location.href = 'login.html'; return; }
             loadCommunityPoll();
 
-            // Handle VIP Sticker Claim Check
-            checkVIPStickerClaim(u);
-
-            // Handle 10-Day Login Reward
+            // Handle 10-Day Login Reward & Ruby Sticker
             checkLoginStreakAndRewards(u);
 
             let displayName = u.displayName || (u.email ? u.email.split('@')[0] : null) || 'bạn';
@@ -1473,9 +1467,9 @@
                 // Default includes day 5 = frame, day 10 = chatbg
                 let lrConfig = {
                     totalDays: 10, rewards: [
-                        { day: 3, type: "cardbg_gold", text: "Nền Thẻ Vàng ✨", icon: "🃏" },
-                        { day: 5, type: "frame_gold", text: "Khung Avatar Vàng ✨", icon: "✨" },
-                        { day: 10, type: "chatbg_gold", text: "Nền Chat Vàng ✨", icon: "💬" }
+                        { day: 3, type: "cardbg_gold", text: "Nền Thẻ Vàng ", icon: "🃏" },
+                        { day: 5, type: "frame_gold", text: "Khung Avatar Vàng ", icon: "✨" },
+                        { day: 10, type: "chatbg_gold", text: "Nền Chat Vàng ", icon: "💬" }
                     ]
                 };
                 if (lrSnap.exists()) {
@@ -1562,7 +1556,7 @@
 
                     // Setup button & completion banner
                     const totalDays = lrConfig.totalDays || 10;
-                    const isCompleted = streak >= totalDays && lastLoginStr === todayStr;
+                    const isCompleted = streak >= totalDays;
                     const btn = document.getElementById('btnCheckIn');
                     const completeBanner = document.getElementById('checkInCompleteBanner');
                     const btnWrap = document.getElementById('checkInBtnWrap');
@@ -1602,7 +1596,7 @@
 
                             btn.onclick = async () => {
                                 btn.disabled = true;
-                                btn.textContent = "Đang điểm danh...";
+                                btn.textContent = "Vui lòng đợi ...";
                                 try {
                                     streak = nextStreak;
                                     lastLoginStr = todayStr;
@@ -1613,26 +1607,26 @@
                                     if (rew && rew.type === 'vip' && !hasReward) {
                                         await updateDoc(userRef, { has10DayReward: true, hasVipFrame: true, hasVipChatBg: true });
                                         hasReward = true;
-                                        window.showToast("CHÚC MỪNG! NHẬN QUÀ VIP ĐẦY ĐỦ !✨");
+                                        window.showToast("Bạn đã nhận hết !✨");
                                     } else if (rew && rew.type === 'frame_vip') {
                                         await updateDoc(userRef, { hasVipFrame: true });
-                                        window.showToast("🔥 Khung Avatar Bạn đã mở khóa!");
+                                        window.showToast("Khung Avatar Bạn đã mở khóa!");
                                     } else if (rew && rew.type === 'chatbg_vip') {
                                         await updateDoc(userRef, { hasVipChatBg: true });
-                                        window.showToast("💬 Nền Chat Xanh đã mở khóa!");
+                                        window.showToast("Nền Chat Xanh đã mở khóa!");
                                     } else if (rew && rew.type === 'frame_gold') {
                                         await updateDoc(userRef, { hasVipFrameGold: true });
-                                        window.showToast("✨ Khung Vàng đã mở khóa!");
+                                        window.showToast(" Khung Vàng đã mở khóa!");
                                     } else if (rew && rew.type === 'chatbg_gold') {
                                         await updateDoc(userRef, { hasVipChatBgGold: true });
-                                        window.showToast("💬 Nền Chat Vàng đã mở khóa!");
+                                        window.showToast(" Nền Chat Vàng đã mở khóa!");
                                     } else if (rew && rew.type === 'cardbg_gold') {
                                         await updateDoc(userRef, { hasCardBg: true });
-                                        window.showToast("🏌️ Nền thẻ hồ sơ đã mở khóa!");
+                                        window.showToast(" Nền thẻ hồ sơ đã mở khóa!");
                                     } else if (rew) {
-                                        window.showToast(`🎉 Phần thưởng ngày ${streak} đã được mở khóa!`);
+                                        window.showToast(` Phần thưởng ngày ${streak} đã được mở khóa!`);
                                     } else {
-                                        window.showToast("Điểm danh thành công! 🔥");
+                                        window.showToast("Điểm danh thành công!");
                                     }
 
                                     setupCheckInLogic();
@@ -1656,10 +1650,15 @@
                 };
 
                 const canCheck = await setupCheckInLogic();
+                const snap = await getDoc(userRef);
+                const isCompleted = (snap.data()?.loginStreak || 0) >= (lrConfig.totalDays || 10);
 
-                // Show popup automatically if they can check in
-                if (canCheck) {
+                // Show login popup if they can check in AND NOT COMPLETED
+                if (canCheck && !isCompleted) {
                     document.getElementById('modalLoginProgress').classList.add('active');
+                } else if (isCompleted) {
+                    // Check if Ruby sticker should be claimed
+                    checkVIPStickerClaim(u);
                 }
 
                 window.openLoginProgress = () => {
@@ -1691,40 +1690,36 @@
         }
 
         async function checkVIPStickerClaim(u) {
-            const now = new Date();
-            const deadline = new Date('2026-03-21T00:00:00'); // End of Friday
-            if (now > deadline) return;
-
             try {
                 const userRef = doc(db, 'users', u.uid);
+                const rubyUrl = "stickers/Ruby.png";
                 const snap = await getDoc(userRef);
                 const data = snap.data() || {};
                 const unlocked = data.unlockedStickers || [];
-                const vipUrl = "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png";
 
-                if (!unlocked.includes(vipUrl)) {
+                if (!unlocked.includes(rubyUrl)) {
                     document.getElementById('modalVIPSticker').classList.add('active');
                 }
 
                 document.getElementById('btnClaimVIP').onclick = async () => {
                     const btn = document.getElementById('btnClaimVIP');
                     btn.disabled = true;
-                    btn.textContent = "Đang nhận...";
+                    btn.textContent = "Vui lòng đợi ..";
 
                     try {
                         await updateDoc(userRef, {
-                            unlockedStickers: arrayUnion(vipUrl)
+                            unlockedStickers: arrayUnion(rubyUrl)
                         });
-                        window.showToast("Đã nhận Sticker VIP thành công! 🎉");
+                        window.showToast("Đã nhận Sitcker thành công !");
                         document.getElementById('modalVIPSticker').classList.remove('active');
                     } catch (err) {
-                        console.error("Claim VIP fail:", err);
-                        window.showToast("Lỗi khi nhận quà!");
+                        console.error("Claim Ruby fail:", err);
+                        window.showToast("Lỗi khi nhận sticker!");
                         btn.disabled = false;
-                        btn.textContent = "Nhận Ngay 🚀";
+                        btn.textContent = "Nhận Ngay";
                     }
                 };
-            } catch (e) { console.warn("Check VIP claim error:", e); }
+            } catch (e) { console.warn("Check Ruby claim error:", e); }
         }
 
         let newsItems = [];

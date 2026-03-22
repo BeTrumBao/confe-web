@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confe Review Engine</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-bg: #f1f7ff;
+            --bg-body: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #64748b;
+            --accent: #7c3aed;
+            --glass: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: transparent;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .engine-container {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Quiz Block --- */
+        .q-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .q-num {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
+        }
+
+        .q-type-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            background: #f1f5f9;
+            padding: 5px 12px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .q-text {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #334155;
+        }
+
+        /* --- Media --- */
+        .q-media-wrap {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1.5px solid #e2e8f0;
+            margin-bottom: 20px;
+            background: #0f172a;
+        }
+
+        .q-media-wrap img { width: 100%; display: block; }
+
+        .mask-overlay {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.98);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mask-overlay:hover { background: rgba(15, 23, 42, 0.85); }
+        .mask-overlay.revealed { opacity: 0; pointer-events: none; transform: scale(0.95); }
+
+        /* --- MCQ Options --- */
+        .options-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .mcq-btn {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 18px;
+            text-align: left;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mcq-btn:hover:not(:disabled) {
+            background: white;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 132, 255, 0.1);
+        }
+
+        .mcq-btn .opt-char {
+            width: 25px;
+            height: 25px;
+            border-radius: 8px;
+            background: var(--primary-bg);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .mcq-btn.correct {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .mcq-btn.wrong {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        /* --- Essay Input --- */
+        .essay-wrap {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input {
+            flex: 1;
+            padding: 15px 20px;
+            border-radius: 18px;
+            border: 2.5px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 5px var(--primary-bg);
+        }
+
+        .btn-send {
+            width: 55px;
+            height: 55px;
+            border-radius: 18px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
+        }
+
+        .btn-send:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* --- Feedback --- */
+        .feedback {
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 18px;
+            font-weight: 800;
+            font-size: 14px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } }
+
+        .feedback.success { background: #ecfdf5; color: #059669; display: flex; align-items: center; gap: 8px; }
+        .feedback.error { background: #fef2f2; color: #ef4444; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Loader --- */
+        .loader-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--primary-bg);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .nav-actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-nav {
+            flex: 1;
+            padding: 18px;
+            border-radius: 20px;
+            border: none;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-exit { background: #f1f5f9; color: #475569; }
+        .btn-exit:hover { background: #e2e8f0; }
+
+        /* --- Subject Hub UI --- */
+        .hub-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+
+        .stat-item span { font-size: 16px; color: var(--primary); }
+
+        .mode-bar {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            overflow-x: auto;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            scrollbar-width: none;
+        }
+        .mode-bar::-webkit-scrollbar { display: none; }
+
+        .mode-btn {
+            white-space: nowrap;
+            padding: 10px 18px;
+            border-radius: 15px;
+            border: none;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mode-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(0, 132, 255, 0.3); }
+        .mode-btn:not(.active) { background: #f1f5f9; color: #64748b; }
+
+        /* -- Match Mode -- */
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .match-card {
+            aspect-ratio: 1/1.2;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .match-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .match-card.selected { background: var(--primary-bg); border-color: var(--primary); color: var(--primary); }
+        .match-card.hidden { opacity: 0; pointer-events: none; }
+
+        /* -- Memory Mode -- */
+        .memory-wrap {
+            max-width: 500px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-radius: 30px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .card-back { transform: rotateY(180deg); background: var(--primary-bg); border-color: var(--primary); }
+
+        .memory-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .q-mode-header {
+            padding: 40px 30px;
+            border-radius: 35px;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* --- Solo BO3 & Shop UI --- */
+        .solo-lobby {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 40px 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .solo-card {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .solo-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            transition: 0.3s;
+        }
+        .solo-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        .room-code-input {
+            padding: 16px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+        }
+        .room-code-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-bg); }
+
+        .progress-area {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .p-bar-wrap { margin-bottom: 12px; }
+        .p-label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; font-size: 13px; }
+        .p-bar { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .p-fill { height: 100%; transition: width 0.4s ease; }
+
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            margin: 40px 0;
+            height: 200px;
+        }
+        .podium-item { display: flex; flex-direction: column; align-items: center; width: 80px; }
+        .podium-avatar { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 5px; }
+        .podium-base { width: 100%; border-radius: 10px 10px 0 0; }
+        .first .podium-base { height: 100px; background: #fbbf24; }
+        .second .podium-base { height: 70px; background: #94a3b8; }
+        .third .podium-base { height: 50px; background: #cd7f32; }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .shop-item {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .item-icon { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+        .item-name { font-weight: 800; font-size: 16px; margin-bottom: 10px; }
+        .item-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+        .item-price { font-weight: 800; color: #059669; font-size: 15px; margin-bottom: 20px; }
+
+        /* -- Quiz Item Buttons -- */
+        .quiz-tools {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .tool-btn {
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tool-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--primary); color: var(--primary); }
+        .tool-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 14px;
+            z-index: 9999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: toastIn 0.3s ease-out;
+        }
+        @keyframes toastIn { from { bottom: 0; opacity: 0; } }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* --- Mobile Optimization --- */
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .hub-header { padding: 10px 15px; padding-right: 70px; }
+            .user-stats { gap: 8px; font-size: 11px; }
+            .stat-item { padding: 4px 8px; border-radius: 8px; }
+            .stat-item span { font-size: 14px; }
+            .q-card { padding: 20px; border-radius: 20px; margin-bottom: 20px; }
+            .q-text { font-size: 16px; margin-bottom: 15px; }
+            .mcq-btn { padding: 14px 16px; border-radius: 14px; font-size: 14px; }
+            .essay-wrap { flex-direction: column; }
+            .btn-send { width: 100%; height: 50px; }
+            .btn-nav { padding: 15px; font-size: 14px; }
+            .achievement-overlay .achievement-text { font-size: 32px !important; }
+            .flashcard { height: 280px; }
+            .card-face { padding: 20px; border-radius: 20px; }
+            .q-mode-header { padding: 25px 20px; border-radius: 20px; }
+            .q-media-wrap img { max-height: 250px; object-fit: contain; background: #000; }
+        }
+        </style>
+</head>
+<body>
+    <!-- Subject Hub Header -->
+    <div class="hub-header" id="hub-header" style="display:none;">
+        <div class="user-stats">
+            <div class="stat-item"><span class="material-symbols-rounded">payments</span> <b id="stat-coins">0</b> Xu</div>
+        </div>
+        <div class="stat-item" style="font-size:11px;"><span class="material-symbols-rounded">inventory_2</span> <b id="stat-inv">0 Thẻ</b></div>
+    </div>
+
+    <!-- Mode Selector Bar -->
+    <div class="mode-bar" id="mode-bar" style="display:none;">
+        <button class="mode-btn active" id="mode-quiz" onclick="switchMode('quiz')"><span class="material-symbols-rounded">quiz</span> Học tập</button>
+        <button class="mode-btn" id="mode-wrong" onclick="switchMode('wrong')"><span class="material-symbols-rounded">error</span> Ôn Câu Sai</button>
+        <button class="mode-btn" style="background:#f0f9ff; color:#0369a1;" onclick="switchMode('shop')"><span class="material-symbols-rounded">shopping_cart</span> Cửa hàng</button>
+    </div>
+
+    <div class="engine-container" id="engine-root">
+        <div class="loader-wrap">
+            <div class="spinner"></div>
+            <p style="font-weight: 700; color: var(--text-secondary);">Đang chuẩn bị nội dung...</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getDatabase, ref, set, get, onValue, update, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", 
+            authDomain: "confe-web.firebaseapp.com", 
+            projectId: "confe-web", 
+            storageBucket: "confe-web.firebasestorage.app", 
+            messagingSenderId: "677778119372", 
+            appId: "1:677778119372:web:ee3f1132871332743b0069" 
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const rtdb = getDatabase(app);
+
+        const hardcodedSubjects = {
+            "khtn": {
+                name: "Khoa học tự nhiên 7",
+                questions: [
+                    { type: 'mc', topic: 'namcham', q: "Câu 1. Nam châm Điện có cấu tạo gồm:", o: ["A. một lõi kim loại bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "B. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "C. một lõi vật liệu bất kì bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "D. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn không có lớp vỏ cách điện."], a: 1, e: "Nam châm Điện thường gồm một lõi sắt non được quấn quanh bởi nhiều vòng dây dẫn có cách điện, khi có dòng điện chạy qua sẽ sinh ra từ trường." },
+                    { type: 'mc', topic: 'namcham', q: "Câu 2. Cách làm nào dưới đây giúp ta thu được hình ảnh của từ phổ?", o: ["A. Dùng kim nam châm xếp lên tấm nhựa đặt trong từ trường của nam châm.", "B. Rắc cát lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ.", "C. Đặt thanh nam châm gần bức tường và rọi đèn vào thanh nam châm.", "D. Rắc mạt sắt lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ."], a: 3, e: "Hình ảnh từ phổ được tạo ra bằng cách gõ nhẹ để các mạt sắt tự sắp xếp theo các đường sức từ." },
+                    { type: 'mc', topic: 'quanghop', q: "Câu 3. Nguyên liệu của quá trình quang hợp gồm các chất nào sau đây?", o: ["A. Khí oxygen và nước.", "B. Khí oxygen và glucose.", "C. Khí carbon dioxide và nước.", "D. Khí carbon dioxide và glucose."], a: 2, e: "Cây xanh lấy khí Carbon dioxide từ không khí và nước từ rễ để thực hiện quang hợp." },
+                    { type: 'mc', topic: 'hohap', q: "Câu 4. Đặc điểm nào sau đây KHÔNG có ở hô hấp tế bào?", o: ["A. Phân giải chất hữu cơ đến sản phẩm cuối cùng là CO2 và H2O.", "B. Quá trình phân giải chất tạo ra nhiều sản phẩm trung gian.", "C. Toàn bộ năng lượng được giải phóng dưới dạng nhiệt.", "D. Một phần năng lượng giải phóng ra được tích lũy trong ATP."], a: 2, e: "Chỉ một phần năng lượng giải phóng dưới dạng nhiệt, phần lớn năng lượng hữu ích được tích lũy dưới dạng phân tử ATP." },
+                    { type: 'mc', topic: 'hohap', q: "Câu 5. Sản phẩm của hô hấp tế bào gồm:", o: ["A. Oxygen, nước và năng lượng (ATP + nhiệt).", "B. Nước, đường và năng lượng (ATP + nhiệt).", "C. Nước, khí carbon dioxide và đường.", "D. Khí carbon dioxide, nước và năng lượng (ATP + nhiệt)."], a: 3, e: "Hô hấp tế bào sinh ra khí CO2, hơi nước và năng lượng (gồm ATP và nhiệt năng)." },
+                    { type: 'mc', topic: 'traodoichat', q: "Câu 6. Trao đổi chất ở sinh vật gồm:", o: ["A. quá trình trao đổi chất giữa cơ thể với môi trường và chuyển hóa các chất diễn ra trong tế bào.", "B. quá trình trao đổi chất giữa cơ thể với môi trường ngoài và quá trình trao đổi chất giữa tế bào với môi trường trong.", "C. quá trình trao đổi chất giữa tế bào với môi trường trong và quá trình trao đổi chất giữa tế bào với môi trường ngoài.", "D. quá trình trao đổi chất giữa tế bào với môi trường trong và chuyển hóa các chất diễn ra trong tế bào."], a: 0, e: "Đây là định nghĩa đầy đủ về quá trình trao đổi chất, kết hợp giữa việc lấy/thải chất và biến đổi hóa học bên trong." },
+                    { type: 'mc', topic: 'traodoichat', q: "Câu 7. Vì sao vào mùa Đông khi nguồn thức ăn khan hiếm, nhiều loài động vật trong tự nhiên chẳng hạn như rắn, gấu lại ngủ Đông?", o: ["A. Để sinh sản", "B. Giảm căng thẳng", "C. Làm chậm quá trình trao đổi chất", "D. Để tăng trưởng"], a: 2, e: "Ngủ Đông giúp giảm quá trình trao đổi chất xuống mức thấp nhất, nhằm tiết kiệm năng lượng khi thức ăn khan hiếm." },
+                    { type: 'mc', topic: 'traodoichat', q: "Câu 8. Người nuôi cá vàng thường đặt một số cây thủy sinh vào bể. Mục đích là:", o: ["A. tăng chất dinh dưỡng cho cá.", "B. tăng oxygen trong nước.", "C. làm thức ăn cho cá.", "D. tăng carbon dioxide trong nước"], a: 1, e: "Cây thủy sinh quang hợp dưới ánh sáng sẽ nhả ra khí Oxygen vào nước, giúp cá hô hấp." },
+                    { type: 'mc', topic: 'quanghop', q: "Câu 9. Vào buổi trưa hè nóng nực, ánh sáng mặt trời mạnh làm cho khí khổng đóng lại, dẫn đến tốc độ quang hợp giảm. Nguyên nhân là:", o: ["A. Cây không hấp thụ được ánh sáng.", "B. Nước không được vận chuyển lên lá.", "C. Cây không thể được hấp thụ oxygen.", "D. Cây không thể hấp thụ Carbon dioxide."], a: 3, e: "Khí khổng đóng lại để giảm mất nước, nhưng hệ quả là CO2 không thể đi vào lá để làm nguyên liệu quang hợp." },
+                    { type: 'mc', topic: 'hohap', q: "Câu 10. Tại sao hô hấp làm giảm sút khối lượng và chất lượng nông sản?", o: ["A. Hô hấp phân giải các chất hữu cơ do đó làm tiêu hao nông sản.", "B. Hô hấp tạo ra nhiệt độ cao làm chín nông sản quá mức.", "C. Hô hấp làm tăng độ ẩm của nông sản.", "D. Hô hấp làm biến đổi hình dạng nông sản."], a: 0, e: "Trong quá trình bảo quản, tế bào nông sản vẫn hô hấp tiêu thụ chất hữu cơ (glucose, tinh bột...), làm giảm khối lượng." },
+                    { type: 'mc', topic: 'hohap', q: "Câu 35. Trong cơ thể sinh vật, dạng năng lượng chủ yếu dùng để cung cấp cho các hoạt động sống của cơ thể là:", o: ["A. hóa năng.", "B. cơ năng.", "C. nhiệt năng.", "D. quang năng."], a: 0, e: "Hóa năng (chủ yếu là ATP) là dạng năng lượng trực tiếp cung cấp cho các tế bào hoạt động." },
+                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ có ảnh hưởng đến cường độ hô hấp của thực vật.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ ảnh hưởng lớn đến quá trình hô hấp do tác động đến hoạt tính của enzyme." },
+                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng tăng thì cường độ hô hấp càng tăng.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Chỉ tăng đến một mức nhiệt độ tối ưu, nếu quá cao (trên 40°C) enzyme bị biến tính và hô hấp giảm mạnh." },
+                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ thuận lợi cho quá trình hô hấp tế bào là từ 25°C - 40°C.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là khoảng nhiệt độ tối ưu cho các phản ứng sinh hóa của đa số sinh vật." },
+                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng giảm thì cường độ hô hấp càng giảm.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ thấp làm giảm hoạt tính của enzyme, khiến quá trình hô hấp chậm lại." },
+                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Từ 40°C - 50°C, cường độ hô hấp tỉ lệ thuận với nhiệt độ.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Từ 40°C-50°C, cường độ hô hấp tỉ lệ NGHỊCH với nhiệt độ (nhiệt độ tăng làm hô hấp giảm) vì tế bào bị tổn thương." },
+                    { type: 'arrange', topic: 'namcham', q: "Trình bày cách xác định các cực của 1 thanh nam châm không sơn màu bằng la bàn.", words: ["Đưa la bàn", "gần 1 đầu", "của nam châm.", "Nếu đầu Bắc (N) của kim la bàn", "bị hút về phía đó", "thì đầu nam châm đó là cực Nam (S)", "và cực còn lại là cực Bắc (N)."], a: "Đưa la bàn gần 1 đầu của nam châm. Nếu đầu Bắc (N) của kim la bàn bị hút về phía đó thì đầu nam châm đó là cực Nam (S) và cực còn lại là cực Bắc (N).", e: "Cực từ khác tên thì hút nhau." },
+                    { type: 'arrange', topic: 'quanghop', q: "Viết phương trình chữ của quá trình quang hợp.", words: ["Nước", "+", "Carbon dioxide", "->", "Glucose", "+", "Oxygen"], a: "Nước + Carbon dioxide --> Glucose + Oxygen", e: "Diễn ra dưới điều kiện Ánh sáng và Diệp lục." },
+                    { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Hấp thụ khí... giúp cân bằng không khí.", words: ["Hấp thụ", "khí Carbon dioxide", "và thải ra", "Oxygen", "giúp cân bằng không khí", "và duy trì sự sống."], a: "Hấp thụ khí Carbon dioxide và thải ra Oxygen giúp cân bằng không khí và duy trì sự sống.", e: "Quang hợp giúp điều hòa thành phần khí quyển." },
+                    { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Tạo ra... làm cung cấp thức ăn.", words: ["Tạo ra glucose,", "làm nguồn", "cung cấp thức ăn", "cho hầu hết các sinh vật", "ở Trái Đất."], a: "Tạo ra glucose, làm nguồn cung cấp thức ăn cho hầu hết các sinh vật ở Trái Đất.", e: "Sản phẩm trung tâm của quang hợp là nguồn sống sơ cấp của hệ sinh thái." },
+                    { type: 'arrange', topic: 'hohap', q: "Viết phương trình chữ của quá trình hô hấp tế bào.", words: ["Glucose", "+", "Oxygen", "->", "Nước", "+", "Carbon dioxide", "+", "Năng lượng (ATP, nhiệt)"], a: "Glucose + Oxygen --> Nước + Carbon dioxide + Năng lượng (ATP, nhiệt)", e: "Quá trình phân giải chất hữu cơ." },
+                    { type: 'arrange', topic: 'hohap', q: "Vì sao vào ban đêm, không nên trồng nhiều cây xanh trong phòng ngủ kín cửa?", words: ["Nếu trồng nhiều cây", "trong phòng ngủ đóng kín,", "tối cây hô hấp", "lấy O2 và thải ra CO2", "và chúng ta sẽ bị ngộp."], a: "Nếu trồng nhiều cây trong phòng ngủ đóng kín, tối cây hô hấp lấy O2 và thải ra CO2 và chúng ta sẽ bị ngộp.", e: "Cây xanh không quang hợp vào ban đêm mà chỉ hô hấp cạnh tranh Oxygen." },
+                    { type: 'mc', topic: 'hohap', q: "Điền vào đoạn: 'Hô hấp tế bào là phân giải chất (1)... với sự tham gia của (2)... tạo thành (3)... và nước, sinh ra năng lượng cho (4)... sống.'", o: ["(1) hữu cơ, (2) Oxygen, (3) Carbon dioxide, (4) hoạt động", "(1) vô cơ, (2) Nitrogen, (3) Carbon dioxide, (4) sự", "(1) tổng hợp, (2) Oxygen, (3) Glucose, (4) tế bào"], a: 0, e: "Nguyên liệu là chất hữu cơ và O2, sản phẩm là CO2, nước và năng lượng cho hoạt động sống." },
+                    { type: 'mc', topic: 'hohap', q: "Hoàn thành sơ đồ quá trình hô hấp tế bào: (1)+(2) là sản phẩm thải ra, (3)+(4) là nguyên liệu đưa vào.", o: ["(1)+(2) là Carbon dioxide và Nước; (3)+(4) là Oxygen và Glucose", "(1)+(2) là Oxygen và Glucose; (3)+(4) là Carbon dioxide và Nước", "(1)+(2) là ATP và Nhiệt; (3)+(4) là Glucose và Vitamin"], a: 0, e: "Mũi tên đi vào ti thể mang Oxygen và Glucose, mũi tên đi ra mang Carbon dioxide và Nước." }
+                ]
+            },
+            "lsdl7": {
+                name: "Lịch sử & Địa lý 7",
+                questions: [
+                    { type: 'tf', topic: 'ls_tran', q: "Đúng hay Sai: Nhà Trần được thành lập vào đầu năm 1226, khi Lý Chiêu Hoàng nhường ngôi cho Trần Cảnh.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là mốc quan trọng kết thúc nhà Lý và khởi đầu nhà Trần." },
+                    { type: 'mc', topic: 'ls_tran', q: "Nhà Trần được thành lập sau khi vị vua nào nhường ngôi cho Trần Cảnh?", o: ["Lý Huệ Tông", "Lý Chiêu Hoàng", "Lý Cao Tông", "Lý Anh Tông"], a: 1, e: "Năm 1226, Lý Chiêu Hoàng nhường ngôi cho chồng là Trần Cảnh, lập ra nhà Trần." },
+                    { type: 'mc', topic: 'dia_bacmy', q: "Dân cư Bắc Mỹ tập trung đông nhất ở khu vực nào?", o: ["Phía Bắc Canada", "Phía Nam Mexico", "Đông Bắc Hoa Kỳ và ven bờ Thái Bình Dương", "Vùng núi Rocky"], a: 2, e: "Đây là những vùng có điều kiện tự nhiên thuận lợi và kinh tế cực kỳ phát triển." }
+                ]
+            },
+            "en7": {
+                name: "English Friends Plus 7",
+                questions: [
+                    { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. leave 2. head 3. team 4. eat", o: ["leave", "head", "team", "eat"], a: 1, e: "'head' phát âm là /e/, các từ còn lại phát âm là /i:/." },
+                    { type: 'mc', topic: 'grammar', q: "How ____ sugar do you need for the cake?", o: ["much", "many", "few", "any"], a: 0, e: "Sugar không đếm được." },
+                    { type: 'mc', topic: 'vocabulary', q: "A person who is very good at a subject is an ____.", o: ["expert", "beginner", "student", "loser"], a: 0, e: "Expert (chuyên gia)." }
+                ]
+            },
+            "math7": {
+                name: "Toán 7",
+                questions: [
+                    { type: 'mc', topic: 'logic', q: "Câu 1: Cho tỉ lệ thức a/b = c/d. Khẳng định nào Đúng?", o: ["a-b = c-d", "a/d = b/c", "a+d = b+c", "ad = bc"], a: 3, e: "Tính chất cơ bản của tỉ lệ thức: Nếu a/b = c/d thì ad = bc." },
+                    { type: 'mc', topic: 'logic', q: "Câu 3: Cho x, y là hai đại lượng tỉ lệ thuận với nhau. Khẳng định nào sau đây là sai?", o: ["x1/y1 = x2/y2", "x1/x2 = y1/y2", "x1*y1 = x2*y2", "x2/y2 = x3/y3"], a: 2, e: "Tỉ lệ thuận thì thương không đổi (x/y = k), không phải tích không đổi." },
+                    { type: 'mc', topic: 'geometry', q: "Câu 21: Tổng số đo ba góc của một tam giác bằng bao nhiêu độ?", o: ["30°", "60°", "90°", "180°"], a: 3, e: "Định lý: Tổng ba góc trong một tam giác bằng 180°." },
+                    { type: 'mc', topic: 'geometry', q: "Câu 28: Cho tam giác ABC cân tại A. Khi đó:", o: ["Góc B = Góc C", "Góc A = Góc B", "Góc A = Góc C", "Góc A = Góc B = Góc C"], a: 0, e: "Trong tam giác cân, hai góc ở đáy bằng nhau." },
+                    {
+                        type: 'arrange',
+                        topic: 'essay',
+                        q: "Bài 2 (Tự luận - Đề 1): Một đội công nhân 20 người làm xong công trình trong 18 ngày. Nếu chỉ có 12 công nhân làm thì trong bao lâu? Sắp xếp các bước giải:",
+                        words: [
+                            "Gọi thời gian 12 công nhân làm xong là x (ngày).",
+                            "Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch:",
+                            "Ta có: 12 * x = 20 * 18",
+                            "12 * x = 360",
+                            "x = 360 / 12 = 30.",
+                            "Vậy 12 công nhân làm xong trong 30 ngày."
+                        ],
+                        a: "Gọi thời gian 12 công nhân làm xong là x (ngày). Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch: Ta có: 12 * x = 20 * 18 12 * x = 360 x = 360 / 12 = 30. Vậy 12 công nhân làm xong trong 30 ngày.",
+                        e: "Bài toán tỉ lệ nghịch: Số công nhân giảm thì thời gian phải tăng lên."
+                    },
+                    {
+                        type: 'arrange',
+                        topic: 'essay',
+                        q: "Bài 1 (Tự luận): Tìm x, y biết x/4 = y/6 và 2x + y = 28. Sắp xếp các bước giải đúng:",
+                        words: [
+                            "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                            "x/4 = y/6 = (2x+y) / (2*4 + 6)",
+                            "x/4 = y/6 = 28 / 14 = 2",
+                            "Suy ra: x = 2 * 4 = 8",
+                            "và y = 2 * 6 = 12.",
+                            "Vậy x = 8, y = 12."
+                        ],
+                        a: "Áp dụng tính chất dãy tỉ số bằng nhau: x/4 = y/6 = (2x+y) / (2*4 + 6) x/4 = y/6 = 28 / 14 = 2 Suy ra: x = 2 * 4 = 8 và y = 2 * 6 = 12. Vậy x = 8, y = 12.",
+                        e: "Đây là cách giải phổ biến bằng tính chất dãy tỉ số bằng nhau."
+                    }
+                ]
+            }
+
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const docId = params.get('docId');
+        
+        // Stats from URL
+        let stats = {
+            coins: parseInt(params.get('coins')) || 0,
+            rep: parseInt(params.get('rep')) || 0,
+            pass1: parseInt(params.get('pass1')) || 0,
+            help: parseInt(params.get('help')) || 0,
+            protect: parseInt(params.get('protect')) || 0
+        };
+
+        let currentUser = null;
+        let myProfile = { displayName: 'Khách', photoURL: '' };
+        let currentOutline = null;
+        window.currentMode = 'quiz'; // Attached to window for inline onclick handlers
+        let sessionWrongIndices = new Set();
+        let quizIdx = 0;
+        let allQuestions = []; // Full pool for Solo
+
+        // Solo State
+        let soloRoomId = null;
+        let soloRoomData = null;
+        let soloQs = [];
+        let soloMyScore = 0;
+        let soloCurrentIdx = 0;
+        let soloUnsubscribe = null;
+        const streakKey = `engine_streak_${docId}`;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) return showError("Vui lòng đăng nhập để xem nội dung!");
+            currentUser = user;
+            if (!docId) return showError("Không tìm thấy mã bài học!");
+
+            try {
+                if (hardcodedSubjects[docId]) {
+                    currentOutline = hardcodedSubjects[docId];
+                    allQuestions = currentOutline.questions || [];
+                } else {
+                    const snap = await getDoc(doc(db, 'outlines', docId));
+                    if (!snap.exists()) return showError("Bài học không tồn tại!");
+                    currentOutline = snap.data();
+                    allQuestions = currentOutline.questions || [];
+                }
+                
+                // Fetch profile
+                const uSnap = await getDoc(doc(db, 'users', user.uid));
+                if (uSnap.exists()) {
+                    const d = uSnap.data();
+                    myProfile.displayName = d.displayName || 'Học viên';
+                    myProfile.photoURL = d.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(myProfile.displayName)}&background=random`;
+                }
+
+                document.getElementById('hub-header').style.display = 'flex';
+                document.getElementById('mode-bar').style.display = 'flex';
+                updateStatsUI();
+                renderMode();
+            } catch (err) {
+                console.error(err);
+                showError("Lỗi kết nối dữ liệu. Vui lòng thử lại!");
+            }
+        });
+
+        function updateStatsUI() {
+            document.getElementById('stat-coins').textContent = stats.coins.toLocaleString();
+            const invText = window.innerWidth < 600 
+                ? `${stats.pass1} Pass | ${stats.help} 50/50`
+                : `${stats.pass1} Thẻ Pass | ${stats.help} Thẻ 50/50`;
+            document.getElementById('stat-inv').textContent = invText;
+        }
+
+        window.switchMode = (mode) => {
+            if (soloRoomId && mode !== 'solo') {
+                if (!confirm("Bạn đang trong trận Solo, thoát sẽ bị trừ điểm uy tín. Tiếp tục?")) return;
+                exitSoloRoom();
+            }
+            window.currentMode = mode;
+            quizIdx = 0; // Reset index when switching modes
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById(`mode-${mode}`);
+            if (btn) btn.classList.add('active');
+            renderMode();
+        };
+
+        window.resetQuiz = () => {
+            quizIdx = 0;
+            window.renderMode();
+        };
+
+        window.showToast = (msg) => {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        };
+
+        async function syncStats() {
+            updateStatsUI();
+            window.parent.postMessage({ 
+                type: 'syncStats', 
+                coins: stats.coins, 
+                rep: stats.rep,
+                inv: { pass1: stats.pass1, help: stats.help, protect: stats.protect }
+            }, '*');
+            
+            // Also update Firestore
+            if (currentUser) {
+                try {
+                    await updateDoc(doc(db, 'users', currentUser.uid), {
+                        coins: stats.coins,
+                        inventory: {
+                            pass1: stats.pass1,
+                            help: stats.help,
+                            protect: stats.protect
+                        }
+                    });
+                } catch(e) {}
+            }
+        }
+
+        window.renderMode = () => {
+            const root = document.getElementById('engine-root');
+            root.innerHTML = '';
+            
+            if (window.currentMode === 'quiz' || window.currentMode === 'wrong') {
+                renderQuizMode(root);
+            } else if (window.currentMode === 'match') {
+                renderMatchMode(root);
+            } else if (window.currentMode === 'solo') {
+                renderSoloMode(root);
+            } else if (window.currentMode === 'shop') {
+                renderShopMode(root);
+            }
+        }
+
+        function renderShopMode(root) {
+            root.innerHTML = `
+                <div class="hub-header" style="background:var(--primary); color:white; border-radius:25px; margin-bottom:20px; text-align:center; padding:30px;">
+                    <h2 style="margin:0;">Cửa hàng Thẻ Bài</h2>
+                    <p style="font-size:14px; opacity:0.9;">Hỗ trợ học tập hiệu quả hơn</p>
+                </div>
+                <div class="shop-grid">
+                    <div class="shop-item">
+                        <span class="material-symbols-rounded item-icon">fast_forward</span>
+                        <div class="item-name">Thẻ Pass Câu</div>
+                        <div class="item-desc">Vượt qua câu hỏi hiện tại ngay lập tức.</div>
+                        <div class="item-price">500 Xu</div>
+                        <button class="solo-btn" style="width:100%;" onclick="buyCard('pass1', 500)">Mua ngay</button>
+                    </div>
+                    <div class="shop-item">
+                        <span class="material-symbols-rounded item-icon">query_stats</span>
+                        <div class="item-name">Thẻ 50/50</div>
+                        <div class="item-desc">Loại bỏ 2 đáp án sai trong câu trắc nghiệm.</div>
+                        <div class="item-price">50 Xu</div>
+                        <button class="solo-btn" style="width:100%;" onclick="buyCard('help', 50)">Mua ngay</button>
+                    </div>
+                    <div class="shop-item">
+                        <span class="material-symbols-rounded item-icon">shield</span>
+                        <div class="item-name">Thẻ Bảo Vệ</div>
+                        <div class="item-desc">Không bị trừ Xu khi trả lời sai.</div>
+                        <div class="item-price:150 Xu"></div>
+                        <div class="item-price">150 Xu</div>
+                        <button class="solo-btn" style="width:100%;" onclick="buyCard('protect', 150)">Mua ngay</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.buyCard = (type, price) => {
+            if (stats.coins >= price) {
+                stats.coins -= price;
+                if (type === 'pass1') stats.pass1++;
+                else if (type === 'help') stats.help++;
+                else if (type === 'protect') stats.protect++;
+                showToast("Mua thành công!");
+                syncStats();
+            } else {
+                showToast("Không đủ Xu!");
+            }
+        };
+
+        function renderQuizMode(root) {
+            const questions = (currentOutline.questions || []).filter((q, idx) => {
+                if (window.currentMode === 'wrong') return sessionWrongIndices.has(idx);
+                return true;
+            });
+
+            if (questions.length === 0) {
+                root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">
+                    <span class="material-symbols-rounded" style="font-size:60px; opacity:0.3;">task_alt</span>
+                    <p style="font-weight:700;">${window.currentMode === 'wrong' ? 'Bạn chưa có câu trả lời sai nào!' : 'Không có câu hỏi nào.'}</p>
+                </div>`;
+                return;
+            }
+
+            if (quizIdx >= questions.length) {
+                root.innerHTML = `<div style="text-align:center; padding:100px 20px;">
+                    <span class="material-symbols-rounded" style="font-size:80px; color:#10b981; margin-bottom:20px;">check_circle</span>
+                    <h2 style="font-weight:700; margin-bottom:10px;">Hoàn thành!</h2>
+                    <p style="color:var(--text-secondary); margin-bottom:30px;">Bạn đã trả lời xong tất cả câu hỏi.</p>
+                    <button class="solo-btn" style="padding: 15px 40px;" onclick="resetQuiz();">Làm lại từ đầu</button>
+                </div>`;
+                return;
+            }
+
+            const q = questions[quizIdx];
+            const globalIdx = currentOutline.questions.indexOf(q);
+
+            const header = document.createElement('div');
+            header.className = 'q-mode-header';
+            header.style.background = currentOutline.color || 'linear-gradient(135deg, #0084ff, #7c3aed)';
+            header.innerHTML = `
+                <div style="font-size:12px; font-weight:700; opacity:0.8; margin-bottom:5px; text-transform:uppercase;">${currentOutline.title}</div>
+                <h1 style="margin:0; font-size:22px; font-weight:800;">Câu ${quizIdx + 1} / ${questions.length}</h1>
+            `;
+            root.appendChild(header);
+
+            // Item Buttons
+            const tools = document.createElement('div');
+            tools.className = 'quiz-tools';
+            tools.innerHTML = `
+                <button class="tool-btn" id="tool-pass" onclick="useItem('pass1')" ${stats.pass1 <= 0 ? 'disabled' : ''}>
+                    <span class="material-symbols-rounded" style="color:#f59e0b;">fast_forward</span> Pass (${stats.pass1})
+                </button>
+                <button class="tool-btn" id="tool-help" onclick="useItem('help')" ${stats.help <= 0 ? 'disabled' : ''}>
+                    <span class="material-symbols-rounded" style="color:#0ea5e9;">query_stats</span> 50/50 (${stats.help})
+                </button>
+            `;
+            root.appendChild(tools);
+
+            window.useItem = (type) => {
+                const q = questions[quizIdx];
+                const feedbackEl = document.getElementById(`fb-${quizIdx}`);
+                const options = document.querySelectorAll('.mcq-btn');
+
+                if (type === 'pass1' && stats.pass1 > 0) {
+                    stats.pass1--;
+                    showToast("Đã dùng thẻ Pass!");
+                    syncStats();
+                    
+                    if (feedbackEl) {
+                        feedbackEl.textContent = "Bạn đã bỏ qua câu hỏi này.";
+                        feedbackEl.className = 'feedback success';
+                    }
+                    // Disable all options
+                    options.forEach(btn => btn.disabled = true);
+                    // Show Next button
+                    const nextBtn = document.getElementById('next-btn');
+                    if (nextBtn) nextBtn.style.display = 'block';
+                    
+                    document.getElementById('tool-pass').innerHTML = `<span class="material-symbols-rounded" style="color:#f59e0b;">fast_forward</span> Pass (${stats.pass1})`;
+                    if (stats.pass1 <= 0) document.getElementById('tool-pass').disabled = true;
+
+                } else if (type === 'help' && stats.help > 0) {
+                    if (options.length >= 3) {
+                        stats.help--;
+                        showToast("Đã dùng 50/50!");
+                        syncStats();
+                        
+                        document.getElementById('tool-help').innerHTML = `<span class="material-symbols-rounded" style="color:#0ea5e9;">query_stats</span> 50/50 (${stats.help})`;
+                        if (stats.help <= 0) document.getElementById('tool-help').disabled = true;
+
+                        const correctVal = isV2 ? q.a : (q.a || q.answer);
+                        const wrongIndices = [];
+                        options.forEach((btn, idx) => {
+                            if (btn.dataset.val != correctVal) {
+                                wrongIndices.push(idx);
+                            }
+                        });
+
+                        // Shake and hide 2 wrong answers
+                        let hidden = 0;
+                        for (let i = 0; i < wrongIndices.length && hidden < 2; i++) {
+                            const btn = options[wrongIndices[i]];
+                            btn.style.opacity = '0.3';
+                            btn.disabled = true;
+                            hidden++;
+                        }
+                    } else {
+                        showToast("Câu hỏi này không hỗ trợ 50/50!");
+                    }
+                }
+            };
+
+            const card = document.createElement('div');
+            card.className = 'q-card';
+            const isV2 = currentOutline.type === 'user_outline_v2';
+            
+            const hasSub = q.questions && q.questions.length > 0;
+            
+            let contentHtml = `
+                <div class="q-header">
+                    <div class="q-num">${quizIdx + 1}</div>
+                    <div class="q-type-badge">${q.type === 'image' ? 'Ảnh' : (q.type === 'mc' ? 'Trắc nghiệm' : 'Tự luận')}</div>
+                </div>
+                ${q.q ? `<div class="q-text">${q.q}</div>` : ''}
+                ${(q.type === 'image' || q.img) ? `
+                    <div class="q-media-wrap">
+                        <img src="${q.img}">
+                    </div>
+                ` : ''}
+            `;
+
+            if (hasSub) {
+                contentHtml += `<div class="sub-questions-wrap" style="margin-top:20px;">
+                    ${q.questions.map((sq, sIdx) => {
+                        const isMC = sq.type === 'mc';
+                        const isEssay = sq.type === 'essay';
+                        return `
+                            <div class="sub-q-item" style="border-top:1px solid #eee; padding-top:15px; margin-top:15px;">
+                                <div class="q-text" style="font-size:14px; font-weight:600; margin-bottom:10px;">${quizIdx + 1}.${sIdx + 1}. ${sq.q || ''}</div>
+                                <div id="q-input-${globalIdx}-${sIdx}">
+                                    ${isMC ? `
+                                        <div class="options-list">
+                                            ${(sq.o || ['A','B','C','D']).map((opt, oIdx) => `
+                                                <button class="mcq-btn" onclick="checkAnswer(${globalIdx}, ${oIdx}, ${sq.a}, true, ${sIdx})">
+                                                    <div class="opt-char">${String.fromCharCode(65 + oIdx)}</div> ${opt}
+                                                </button>
+                                            `).join('')}
+                                        </div>
+                                    ` : (isEssay ? `
+                                        <div class="essay-wrap">
+                                            <input type="text" class="input" id="inp-${globalIdx}-${sIdx}" placeholder="Đáp án..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${sq.a}', ${sIdx})">
+                                            <button class="btn-send" onclick="checkEssay(${globalIdx}, '${sq.a}', ${sIdx})"><span class="material-symbols-rounded">send</span></button>
+                                        </div>
+                                    ` : '')}
+                                    <div class="feedback" id="fb-${globalIdx}-${sIdx}"></div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>`;
+            } else {
+                const isMC = q.type === 'mc' || q.type === 'mcq' || (q.type === 'image' && q.o);
+                const isEssay = q.type === 'essay' || (q.type === 'image' && q.a);
+                contentHtml += `
+                    <div id="q-input-${globalIdx}">
+                        ${isMC ? `
+                            <div class="options-list">
+                                ${(q.o || ['A','B','C','D']).map((opt, oIdx) => `
+                                    <button class="mcq-btn" onclick="checkAnswer(${globalIdx}, ${isV2 ? oIdx : `'${opt}'`}, ${isV2 ? q.a : `'${q.answer}'`}${isV2 ? ', true' : ''})">
+                                        <div class="opt-char">${String.fromCharCode(65 + oIdx)}</div> ${opt}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        ` : (isEssay ? `
+                            <div class="essay-wrap">
+                                <input type="text" class="input" id="inp-${globalIdx}" placeholder="Đáp án..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${isV2 ? q.a : q.answer}')">
+                                <button class="btn-send" onclick="checkEssay(${globalIdx}, '${isV2 ? q.a : q.answer}')"><span class="material-symbols-rounded">send</span></button>
+                            </div>
+                        ` : '')}
+                        <div class="feedback" id="fb-${globalIdx}"></div>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = contentHtml;
+            root.appendChild(card);
+
+            // Next button (hidden initially)
+            const nextBtn = document.createElement('button');
+            nextBtn.id = 'btn-next-q';
+            nextBtn.className = 'solo-btn';
+            nextBtn.style.display = 'none';
+            nextBtn.style.marginTop = '20px';
+            nextBtn.style.width = '100%';
+            nextBtn.innerHTML = `Tiếp theo <span class="material-symbols-rounded">arrow_forward</span>`;
+            nextBtn.onclick = () => {
+                quizIdx++;
+                renderMode();
+            };
+            root.appendChild(nextBtn);
+        }
+
+
+        function renderMatchMode(root) {
+            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Chế độ này đã bị gỡ bỏ.</div>`;
+        }
+
+        function renderSoloMode(root) {
+            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Chế độ này đã bị gỡ bỏ.</div>`;
+        }
+
+        window.submitSoloAns = () => {};
+        window.exitSoloRoom = () => {};
+
+        window.checkAnswer = (idx, val, correct, isV2 = false, subIdx = -1) => {
+            const isCorrect = isV2 ? (parseInt(val) === parseInt(correct)) : (String(val).toUpperCase() === String(correct).toUpperCase());
+            const feedbackId = subIdx === -1 ? `fb-${idx}` : `fb-${idx}-${subIdx}`;
+            const inputId = subIdx === -1 ? `q-input-${idx}` : `q-input-${idx}-${subIdx}`;
+            
+            const fb = document.getElementById(feedbackId);
+            const btns = document.querySelectorAll(`#${inputId} .mcq-btn`);
+            btns.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                fb.className = 'feedback success';
+                fb.innerHTML = 'Chính xác!';
+                syncStats();
+                const nextBtn = document.getElementById('btn-next-q');
+                if (nextBtn) nextBtn.style.display = 'block';
+            } else {
+                fb.className = 'feedback error';
+                fb.innerHTML = `Sai rồi. Đáp án là ${isV2 ? String.fromCharCode(65 + correct) : correct}`;
+                sessionWrongIndices.add(idx);
+            }
+        };
+
+        window.checkEssay = (idx, correct, subIdx = -1) => {
+            const inputFieldId = subIdx === -1 ? `inp-${idx}` : `inp-${idx}-${subIdx}`;
+            const feedbackId = subIdx === -1 ? `fb-${idx}` : `fb-${idx}-${subIdx}`;
+            
+            const inp = document.getElementById(inputFieldId);
+            const fb = document.getElementById(feedbackId);
+            const val = inp.value.trim().toLowerCase();
+            if (!val) return;
+            inp.disabled = true;
+
+            if (val === String(correct).toLowerCase()) {
+                fb.className = 'feedback success';
+                fb.innerHTML = 'Quá chuẩn!';
+                syncStats();
+                const nextBtn = document.getElementById('btn-next-q');
+                if (nextBtn) nextBtn.style.display = 'block';
+            } else {
+                fb.className = 'feedback error';
+                fb.innerHTML = `Chưa đúng. Đáp án: ${correct}`;
+                sessionWrongIndices.add(idx);
+            }
+        };
+
+        window.moveWord = (qIdx, btn) => {
+            const pool = document.getElementById(`arrange-pool-${qIdx}`);
+            const ans = document.getElementById(`arrange-ans-${qIdx}`);
+            if (btn.parentElement === pool) ans.appendChild(btn);
+            else pool.appendChild(btn);
+        };
+
+        window.checkArrange = (idx, correct) => {
+            const ansDiv = document.getElementById(`arrange-ans-${idx}`);
+            const fb = document.getElementById(`fb-${idx}`);
+            const btns = ansDiv.querySelectorAll('button');
+            const userStr = Array.from(btns).map(b => b.textContent).join(' ');
+            
+            if (userStr === correct) {
+                fb.className = 'feedback success';
+                fb.innerHTML = 'Tuyệt vời!';
+                syncStats();
+            } else {
+                fb.className = 'feedback error';
+                fb.innerHTML = `Chưa đúng. Hãy thử lại!`;
+                sessionWrongIndices.add(idx);
+            }
+            if (userStr !== correct) setTimeout(() => { fb.style.display = 'none'; fb.className = 'feedback'; }, 3000);
+        };
+
+        function showError(msg) {
+            const root = document.getElementById('engine-root');
+            root.innerHTML = `<div style="text-align:center; padding:50px 20px; color:#ef4444;"><h2 style="font-weight:800;">Oops!</h2><p>${msg}</p></div>`;
+        }
+    </script>
+</body>
+</html>

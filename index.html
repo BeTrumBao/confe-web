@@ -589,6 +589,92 @@
             padding: 10px;
         }
 
+        .ad-video-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            background: black;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .ad-video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .ad-unlock-timer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .ad-listening-container {
+            width: 100%;
+            background: #f0f9ff;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #bae6fd;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-listen {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
+            border: none;
+        }
+
+        .listening-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .listening-opt {
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .listening-opt:hover {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+        }
+
+        .listening-opt.correct {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .listening-opt.wrong {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
         .btn-ad-primary {
             width: 100%;
             padding: 16px;
@@ -972,183 +1058,7 @@
 
         </div>
     </div>
-    <!-- AD POPUP -->
-    <div id="adPopup" class="ad-popup-overlay">
-        <div class="ad-popup-content">
-            <button class="ad-close-btn" onclick="closeAdPopup()"
-                style="top: 12px; right: 12px; color: #64748b; background: #f1f5f9;">×</button>
-            <div class="ad-popup-body"
-                style="width: 100%; padding: 0; display: flex; flex-direction: column; align-items: center;">
-                <p
-                    style="font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; line-height: 1.4; padding: 0 10px;">
-                    Hãy coi quảng cáo để ủng hộ cho <span style="color: var(--primary);">thằng làm web này</span> nhé!
-                    ❤️
-                </p>
 
-                <!-- VÙNG DÁN MÃ ADSENSE -->
-                <div class="ads-container">
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2887374486290948"
-                        data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        let adPushed = false;
-                        function checkAndPushAd() {
-                            if (adPushed) return;
-                            const container = document.querySelector('.ads-container');
-                            const popup = document.getElementById('adPopup');
-                            if (!container || !popup) return;
-
-                            const isVisible = popup.classList.contains('show');
-                            const width = container.offsetWidth;
-
-                            if (isVisible && width > 200) {
-                                setTimeout(() => {
-                                    if (popup.classList.contains('show') && container.offsetWidth > 200) {
-                                        try {
-                                            adPushed = true;
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        } catch (e) {
-                                            console.error("AdSense push failed:", e);
-                                            adPushed = false;
-                                        }
-                                    }
-                                }, 800);
-                            } else {
-                                setTimeout(checkAndPushAd, 500);
-                            }
-                        }
-                        window.triggerAdPush = checkAndPushAd;
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modalAnnounce" class="modal-overlay">
-        <div class="modal-content" style="text-align:center; position:relative;">
-            <button onclick="closeAnnounce()"
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                title="Đóng">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <img id="annImg" src=""
-                style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
-            <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
-            <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
-
-            <div
-                style="margin-top:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
-                <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
-                <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
-                    nay</label>
-            </div>
-            <button onclick="closeAnnounce()"
-                style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
-                hiểu</button>
-        </div>
-    </div>
-
-    <div id="modalMaintenance" class="modal-overlay" style="z-index: 200000; backdrop-filter: blur(15px);">
-        <div class="modal-content" style="max-width: 420px; padding: 40px 32px; text-align: center;">
-            <h1
-                style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
-                Đang bảo trì hệ thống
-            </h1>
-
-            <p id="maintenanceMessage"
-                style="font-size:15px; font-weight:400; color:#44464F; line-height:22px; letter-spacing:0.25px; font-family:'Roboto',sans-serif;">
-                Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
-            </p>
-        </div>
-    </div>
-    <div id="modalGuidelines" class="modal-overlay" style="z-index: 100000;">
-        <div class="modal-content" style="max-width:440px; padding:28px; max-height:87vh; overflow-y:auto;">
-            <div style="text-align:center; margin-bottom:20px;">
-                <div style="font-size:64px; margin-bottom:24px; animation: bounce 2s infinite;"><span
-                        class="material-symbols-rounded" style="font-size: 64px; color: var(--primary);">book</span>
-                </div>
-                <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
-                <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
-            </div>
-
-            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)" style="overflow-y:auto;">
-
-                <!-- Nội dung cấm -->
-                <div
-                    style="background: #fff1f2; padding: 12px; border-radius: 16px; border: 1px solid #fee2e2; margin-bottom: 12px;">
-                    <h4
-                        style="font-weight:800; color:#e11d48; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded" style="color: #e11d48; font-size: 16px;">block</span> NỘI
-                        DUNG CẤM
-                    </h4>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
-                        <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
-                        <li><b>Tin giả:</b> Không lan truyền thông tin sai sự thật.</li>
-                        <li><b>Quảng cáo trái phép:</b> Cờ bạc, cá độ, vay nặng lãi đều bị cấm.</li>
-                        <li><b>Kích động, thù ghét:</b> Không phân biệt chủng tộc, tôn giáo, giới tính.</li>
-                        <li><b>Kêu gọi tẩy chay, tấn công:</b> Cá nhân hoặc tổ chức khác.</li>
-                    </ul>
-                </div>
-
-                <!-- Quyền riêng tư & Bảo mật -->
-                <div
-                    style="background: #f0f9ff; padding: 12px; border-radius: 16px; border: 1px solid #e0f2fe; margin-bottom: 12px;">
-                    <h4
-                        style="font-weight:800; color:#0284c7; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded" style="color: #0284c7; font-size: 16px;">lock</span>
-                        QUYỀN RIÊNG TƯ & BẢO MẬT
-                    </h4>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
-                        <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
-                        <li><b>Quấy rối:</b> Nghiêm cấm nhắn tin làm phiền, đe dọa, khủng bố tinh thần.</li>
-                        <li><b>Chụp màn hình:</b> Không phát tán nội dung từ nền tảng ra bên ngoài.</li>
-                    </ul>
-                </div>
-
-                <!-- Ứng xử -->
-                <div
-                    style="background: #eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
-                    <div
-                        style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded"
-                            style="color: #1d4ed8; font-size: 16px;">waving_hand</span> ỨNG XỬ & TÔN TRỌNG
-                    </div>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
-                        <li><b>Tôn trọng:</b> Thảo luận trên tinh thần xây dựng, không công kích cá nhân.</li>
-                        <li><b>Mạo danh:</b> Không giả danh Admin, Mod, người nổi tiếng.</li>
-                        <li><b>Tên hiển thị &amp; Avatar:</b> Không dùng tên/ảnh nhạy cảm, giả mạo.</li>
-                    </ul>
-                </div>
-
-                <!-- Tài khoản & Xử lý -->
-                <div
-                    style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
-                    <div
-                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded"
-                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
-                    </div>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
-                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
-                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
-                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
-                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
-                    </ul>
-                </div>
-
-                <div style="height:10px;"></div>
-            </div>
-
-            <div class="actions-area" style="margin-top:16px;">
-                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>
-                    Đọc hết để đồng ý
-                </button>
-            </div>
-        </div>
-    </div>
 
 
     <style>
@@ -1675,6 +1585,192 @@
         // Remote Config
         remoteConfig.settings.minimumFetchIntervalMillis = 3600;
 
+        // Ad Functions
+        let currentAdMedia = null;
+
+        window.closeAdPopup = () => {
+            if (currentAdMedia) {
+                try {
+                    currentAdMedia.pause();
+                    currentAdMedia.currentTime = 0;
+                } catch (e) { }
+                currentAdMedia = null;
+            }
+            const popup = document.getElementById('adPopup');
+            if (popup) popup.classList.remove('show');
+            // Clear content to stop any background activity
+            const slot = document.getElementById('adPopupSlot');
+            if (slot) slot.innerHTML = '';
+        };
+
+        const setAdHeader = (action, target) => {
+            const el = document.getElementById('adHeaderTitle');
+            if (el) el.innerHTML = `Hãy ${action} ${target} để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web này</span>, nhé! ❤️`;
+        };
+
+        window.showGoogleAd = () => {
+            setAdHeader("coi", "quảng cáo");
+            const slot = document.getElementById('adPopupSlot');
+            slot.innerHTML = `
+                <div class="ads-container" style="background: transparent; border: none; margin-bottom: 0; min-height: 280px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <ins class="adsbygoogle"
+                         style="display:block; width: 100%;"
+                         data-ad-client="ca-pub-2887374486290948"
+                         data-ad-slot="9876543210"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+            `;
+            try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }
+            document.getElementById('adCloseBtn').style.display = 'flex';
+        };
+
+        window.showVideoAd = () => {
+            try {
+                setAdHeader("coi", "video");
+                const slot = document.getElementById('adPopupSlot');
+                slot.innerHTML = `
+                    <div class="ad-video-container" style="border-radius: 24px; margin-bottom: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; background: #000;">
+                        <video id="adVideo" src="ads/ads.mp4?v=${Date.now()}" playsinline style="width:100%; border-radius: 24px; display: block;"></video>
+                        <div id="unlockTimer" class="ad-unlock-timer">30s</div>
+                        <button id="unmuteBtn" style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 12px; height: 32px; padding: 0 10px; display: flex; align-items: center; gap: 6px; cursor: pointer; z-index: 11; font-size: 11px; font-weight: 700; backdrop-filter: blur(4px);">
+                            <span class="material-symbols-rounded" style="font-size: 18px;">volume_off</span> Tắt tiếng
+                        </button>
+                    </div>
+                `;
+                const video = document.getElementById('adVideo');
+                const timer = document.getElementById('unlockTimer');
+                const closeBtn = document.getElementById('adCloseBtn');
+                const unmuteBtn = document.getElementById('unmuteBtn');
+                closeBtn.style.display = 'none';
+
+                video.onerror = () => {
+                    console.error("[AdSystem] Video load error, falling back to Google");
+                    window.showGoogleAd();
+                };
+
+                video.muted = true;
+                video.volume = 1.0;
+                currentAdMedia = video;
+
+                const attemptPlay = () => {
+                    video.play().catch(e => {
+                        console.log("[AdSystem] Video play blocked/failed:", e);
+                    });
+                };
+
+                attemptPlay();
+
+                unmuteBtn.onclick = () => {
+                    video.muted = !video.muted;
+                    unmuteBtn.innerHTML = `<span class="material-symbols-rounded" style="font-size: 18px;">${video.muted ? 'volume_off' : 'volume_up'}</span> ${video.muted ? 'Tắt tiếng' : 'Âm thanh'}`;
+                    if (!video.muted) video.play();
+                };
+
+                let timeLeft = 30;
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    if (timer) timer.textContent = timeLeft + 's';
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        if (timer) timer.style.display = 'none';
+                        closeBtn.style.display = 'flex';
+                    }
+                }, 1000);
+
+                video.onended = () => {
+                    clearInterval(interval);
+                    if (timer) timer.style.display = 'none';
+                    closeBtn.style.display = 'flex';
+                };
+            } catch (e) {
+                console.error("[AdSystem] Video ad setup error:", e);
+                window.showGoogleAd();
+            }
+        };
+
+        window.showListeningAd = async () => {
+            setAdHeader("nghe", "listening IELTS");
+            const slot = document.getElementById('adPopupSlot');
+            try {
+                const response = await fetch('ads/listening_ads.json?v=' + Date.now(), { cache: 'no-store' });
+                const ads = await response.json();
+                const randomAd = ads[Math.floor(Math.random() * ads.length)];
+
+                slot.innerHTML = `
+                    <div class="ad-listening-container" id="listeningUnit" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 28px; margin-bottom: 0; width: 100%; padding: 20px;">
+                        <button class="btn-listen" id="btnListen" style="margin-bottom: 20px;">
+                            <span class="material-symbols-rounded" style="font-size:32px;">volume_up</span>
+                        </button>
+                        <p style="font-weight:700; margin-bottom:20px; color:#1e293b; font-size: 15px; font-family: 'Be Vietnam Pro';">${randomAd.question}</p>
+                        <div class="listening-options" style="gap: 8px;">
+                            ${randomAd.options.map((opt, i) => `
+                                <div class="listening-opt" onclick="checkListeningAnswer(${i}, ${randomAd.answer}, this)" style="border-radius: 16px; font-size: 13px; padding: 12px;">${opt}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                const audio = new Audio(randomAd.audio + '?v=' + Date.now());
+                audio.volume = 1.0;
+                currentAdMedia = audio;
+
+                audio.onerror = () => {
+                    console.error("[AdSystem] Audio load error:", randomAd.audio);
+                    window.showToast("Lỗi tải âm thanh, đang dùng quảng cáo thay thế...");
+                    window.showGoogleAd();
+                };
+
+                document.getElementById('btnListen').onclick = () => {
+                    if (randomAd.startTime !== undefined) {
+                        audio.currentTime = randomAd.startTime;
+                    }
+                    audio.play().catch(e => {
+                        console.error("[AdSystem] Audio play blocked:", e);
+                        window.showToast("Bấm vào loa để nghe lại nhé!");
+                    });
+                };
+                document.getElementById('adCloseBtn').style.display = 'none';
+            } catch (e) {
+                console.error("[AdSystem] Listening ad error:", e);
+                window.showGoogleAd();
+            }
+        };
+
+        window.checkListeningAnswer = (selected, correct, el) => {
+            // Disable all options immediately
+            const options = el.parentElement.querySelectorAll('.listening-opt');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                opt.onclick = null;
+            });
+
+            if (selected === correct) {
+                el.classList.add('correct');
+                window.showToast("Chính xác! Bạn có thể đóng quảng cáo.");
+                document.getElementById('adCloseBtn').style.display = 'flex';
+                // Stop audio when answered correctly
+                if (currentAdMedia) currentAdMedia.pause();
+            } else {
+                el.classList.add('wrong');
+                window.showToast("Sai rồi! Đang tải lại trang để xem quảng cáo khác...");
+                // Pause audio on failure
+                if (currentAdMedia) currentAdMedia.pause();
+                // Reload after delay
+                setTimeout(() => location.reload(), 2000);
+            }
+        };
+
+        window.triggerAdPush = () => {
+            // Favor Video and Listening for more interactive experience
+            const types = ['video', 'listening', 'video', 'listening', 'google'];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+            console.log("[AdSystem] Selected type:", randomType);
+            if (randomType === 'google') window.showGoogleAd();
+            else if (randomType === 'video') window.showVideoAd();
+            else if (randomType === 'listening') window.showListeningAd();
+        };
+
         window.closeAnnounce = () => {
             if (document.getElementById('chkNoShow').checked) {
                 localStorage.setItem('ann_hide_date', new Date().toDateString());
@@ -1712,19 +1808,13 @@
             try {
                 const adEnabled = getValue(remoteConfig, "ad_popup_enabled").asBoolean();
                 if (adEnabled) {
-                    const lastAdTime = localStorage.getItem('confe_ad_last_time');
-                    const now = new Date().getTime();
-                    // Nếu chưa từng hiện hoặc đã qua 1 tiếng (3600000 ms)
-                    if (!lastAdTime || (now - parseInt(lastAdTime)) > 3600000) {
-                        setTimeout(() => {
-                            const popup = document.getElementById('adPopup');
-                            if (popup) {
-                                popup.classList.add('show');
-                                localStorage.setItem('confe_ad_last_time', now.toString());
-                                if (window.triggerAdPush) window.triggerAdPush();
-                            }
-                        }, 1000);
-                    }
+                    setTimeout(() => {
+                        const popup = document.getElementById('adPopup');
+                        if (popup) {
+                            popup.classList.add('show');
+                            if (window.triggerAdPush) window.triggerAdPush();
+                        }
+                    }, 1000);
                 }
             } catch (e) { console.log("Ad popup config error"); }
 
@@ -1790,6 +1880,10 @@
         }
 
         window.loadPage = function (url, el) {
+            if (url === 'chat.html' && window.innerWidth > 768) {
+                window.location.href = url;
+                return;
+            }
             document.getElementById('mainFrame').src = url;
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             if (el) el.classList.add('active');
@@ -1839,6 +1933,147 @@
             else if (chat) { f.src = `chat.html?chat=${chat}`; }
         });
     </script>
+
+    <!-- MODALS & POPUPS (DE-NESTED FROM SIDEBAR) -->
+    <div id="adPopup" class="ad-popup-overlay"
+        style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+        <div class="ad-popup-content"
+            style="background: #eceef1; border-radius: 46px; padding: 50px 24px 28px; width: 95%; max-width: 480px; border: none; box-shadow: 0 40px 100px -12px rgba(0,0,0,0.3); position: relative;">
+            <button id="adCloseBtn" class="ad-close-btn" onclick="closeAdPopup()"
+                style="top: 24px; right: 24px; width: 44px; height: 44px; background: rgba(255,255,255,0.7); border: none; color: #64748b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 10;">
+                <span class="material-symbols-rounded" style="font-size: 22px; font-weight: 700;">close</span>
+            </button>
+            <h3 id="adHeaderTitle"
+                style="text-align: center; font-size: 15px; margin-bottom: 28px; line-height: 1.5; color: #1e293b; padding: 0 20px; font-weight: 600; font-family: 'Be Vietnam Pro', sans-serif;">
+                Hãy coi quảng cáo để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web
+                    này</span>, nhé! ❤️
+            </h3>
+            <div id="adPopupSlot" class="ad-popup-body"
+                style="width: 100%; min-height: 440px; background: #ffffff; border-radius: 38px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAnnounce" class="modal-overlay">
+        <div class="modal-content" style="text-align:center; position:relative;">
+            <button onclick="closeAnnounce()"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
+                title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+            <img id="annImg" src=""
+                style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
+            <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
+            <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
+            <div
+                style="margin-top:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
+                <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
+                <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
+                    nay</label>
+            </div>
+            <button onclick="closeAnnounce()"
+                style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
+                hiểu</button>
+        </div>
+    </div>
+
+    <div id="modalMaintenance" class="modal-overlay" style="z-index: 200000; backdrop-filter: blur(15px);">
+        <div class="modal-content" style="max-width: 420px; padding: 40px 32px; text-align: center;">
+            <h1
+                style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
+                Đang bảo trì hệ thống</h1>
+            <p id="maintenanceMessage"
+                style="font-size:15px; font-weight:400; color:#44464F; line-height:22px; letter-spacing:0.25px; font-family:'Roboto',sans-serif;">
+                Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
+            </p>
+        </div>
+    </div>
+
+    <div id="modalGuidelines" class="modal-overlay" style="z-index: 100000;">
+        <div class="modal-content" style="max-width:440px; padding:28px; max-height:87vh; overflow-y:auto;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:64px; margin-bottom:24px; animation: bounce 2s infinite;"><span
+                        class="material-symbols-rounded" style="font-size: 64px; color: var(--primary);">book</span>
+                </div>
+                <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
+            </div>
+            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)" style="overflow-y:auto;">
+
+                <!-- Nội dung cấm -->
+                <div
+                    style="background: #fff1f2; padding: 12px; border-radius: 16px; border: 1px solid #fee2e2; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#e11d48; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #e11d48; font-size: 16px;">block</span> NỘI
+                        DUNG CẤM
+                    </h4>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
+                        <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
+                        <li><b>Tin giả:</b> Không lan truyền thông tin sai sự thật.</li>
+                        <li><b>Quảng cáo trái phép:</b> Cờ bạc, cá độ, vay nặng lãi đều bị cấm.</li>
+                        <li><b>Kích động, thù ghét:</b> Không phân biệt chủng tộc, tôn giáo, giới tính.</li>
+                        <li><b>Kêu gọi tẩy chay, tấn công:</b> Cá nhân hoặc tổ chức khác.</li>
+                    </ul>
+                </div>
+
+                <!-- Quyền riêng tư & Bảo mật -->
+                <div
+                    style="background: #f0f9ff; padding: 12px; border-radius: 16px; border: 1px solid #e0f2fe; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#0284c7; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #0284c7; font-size: 16px;">lock</span>
+                        QUYỀN RIÊNG TƯ & BẢO MẬT
+                    </h4>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
+                        <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
+                        <li><b>Quấy rối:</b> Nghiêm cấm nhắn tin làm phiền, đe dọa, khủng bố tinh thần.</li>
+                        <li><b>Chụp màn hình:</b> Không phát tán nội dung từ nền tảng ra bên ngoài.</li>
+                    </ul>
+                </div>
+
+                <!-- Ứng xử -->
+                <div
+                    style="background: #eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    <div
+                        style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded"
+                            style="color: #1d4ed8; font-size: 16px;">waving_hand</span> ỨNG XỬ & TÔN TRỌNG
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
+                        <li><b>Tôn trọng:</b> Thảo luận trên tinh thần xây dựng, không công kích cá nhân.</li>
+                        <li><b>Mạo danh:</b> Không giả danh Admin, Mod, người nổi tiếng.</li>
+                        <li><b>Tên hiển thị &amp; Avatar:</b> Không dùng tên/ảnh nhạy cảm, giả mạo.</li>
+                    </ul>
+                </div>
+
+                <!-- Tài khoản & Xử lý -->
+                <div
+                    style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
+                    <div
+                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded"
+                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
+                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
+                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
+                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
+                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
+                    </ul>
+                </div>
+
+                <div style="height:10px;"></div>
+            </div>
+            <div class="actions-area" style="margin-top:16px;">
+                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
+                    ý</button>
+            </div>
+        </div>
     </div>
 </body>
 

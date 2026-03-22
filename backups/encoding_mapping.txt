@@ -1,0 +1,731 @@
+Ã”n táº­p thÃ´ng minh|Ôn tập thông minh
+Há» c táº­p hiá»‡u quáº£|Học tập hiệu quả
+vá»›i Ä‘á»  cÆ°Æ¡ng|với đề cương
+tá»± chá» n|tự chọn
+vÃ  cá»™ng Ä‘á»“ng|và cộng đồng
+GÃ³p Ã½|Góp ý
+Táº¡o Ä á»  CÆ°Æ¡ng|Tạo Đề Cương
+Ä á»  cÆ°Æ¡ng cá»§a tÃ´i|Đề cương của tôi
+Cá»™ng Ä‘á»“ng shared|Cộng đồng shared
+Ä ang táº£i danh sÃ¡ch mÃ´n há» c...|Đang tải danh sách môn học...
+Khoa há» c tá»± nhiÃªn 7|Khoa học tự nhiên 7
+Cháº¿ Ä á»™ Solo BO3|Chế độ Solo BO3
+Ã”n CÃ¢u Sai|Ôn Câu Sai
+Luyá»‡n TrÃ­ Nhá»›|Luyện Trí Nhớ
+TrÃ² ChÆ¡i GhÃ©p Tháº»|Trò Chơi Ghép Thẻ
+Cá»­a HÃ ng Tháº»|Cửa Hàng Thẻ
+TÃ i sáº£n hiá»‡n táº¡i|Tài sản hiện tại
+Ä iá»ƒm Uy tÃ­n|Điểm Uy tín
+Kho Ä‘á»“|Kho đồ
+ThÃ¡ch Ä‘áº¥u BO3|Thách đấu BO3
+Thi Ä‘áº¥u tráº¯c nghiá»‡m|Thi đấu trắc nghiệm
+Nháº­n pháº§n thÆ°á»Ÿng|Nhận phần thưởng
+cá»±c ká»³ háº¥p dáº«n|cực kỳ hấp dẫn
+Táº¡o PhÃ²ng Má»›i|Tạo Phòng Mới
+Nháº­p mÃ£ phÃ²ng...|Nhập mã phòng...
+VÃ o PhÃ²ng ThÃ¡ch Ä áº¥u|Vào Phòng Thách Đấu
+MÃ£ phÃ²ng cá»§a cáº­u|Mã phòng của cậu
+CÃ¢u há» i|Câu hỏi
+Há»‡ thá»‘ng Ã”n táº­p Giá»¯a kÃ¬|Hệ thống Ôn tập Giữa kì
+Nháº¥n Ä‘á»ƒ chá» n áº£nh|Nhấn để chọn ảnh
+CÃ³ thá»ƒ chá» n nhiá» u áº£nh cÃ¹ng lÃºc|Có thể chọn nhiều ảnh cùng lúc
+Há»§y|Hủy
+Gá»­i gÃ³p Ã½|Gửi góp ý
+nhÃ©!|nhé!
+Quay vá»  Trang chá»§|Quay về Trang chủ
+TÃ­nh nÄƒng nÃ y hiá»‡n Ä‘ang Ä‘Æ°á»£c nÃ¢ng cáº¥p|Tính năng này hiện đang được nâng cấp
+Ä‘á»ƒ mang láº¡i tráº£i nghiá»‡m tá»‘t nháº¥t cho báº¡n|để mang lại trải nghiệm tốt nhất cho bạn
+Vui lÃ²ng quay láº¡i sau Ã­t phÃºt|Vui lòng quay lại sau ít phút
+CÃ¢u|Câu
+Tá»± luáº­n|Tự luận
+Nháº­p Ä‘Ã¡p Ã¡n...|Nhập đáp án...
+ChÃ­nh xÃ¡c!|Chính xác!
+ChÆ°a Ä‘Ãºng rá»“i!|Chưa đúng rồi!
+âœ… Tuyá»‡t vá» i!|✅ Tuyệt vời!
+Báº¡n Ä‘Ã£ tráº£ lá» i Ä‘Ãºng|Bạn đã trả lời đúng
+â Œ Sai rá»“i!|❌ Sai rồi!
+Báº¡n Ä‘Ã£ hoÃ n thÃ nh|Bạn đã hoàn thành
+Ä ang chá»  Ä‘á»‘i thá»§...|Đang chờ đối thủ...
+Quay vá» |Quay về
+Ä‘á»  cÆ°Æ¡ng|đề cương
+GiÃºp tui hoÃ n thiá»‡n ná»™i|Giúp tui hoàn thiện nội
+dung báº±ng cÃ¡ch gá»­i tÃªn mÃ´n vÃ  hÃ¬nh Ä‘á»  cÆ°Æ¡ng nhÃ©!|dung bằng cách gửi tên môn và hình đề cương nhé!
+TÃªn|Tên
+mÃ´n há» c:|môn học:
+VÃ­ dá»¥:|Ví dụ:
+HÃ¬nh|Hình
+áº£nh Ä‘á»  cÆ°Æ¡ng|ảnh đề cương
+(táº£i lÃªn nhiá» u):|(tải lên nhiều):
+Gá»­i gÃ³p Ã½|Gửi góp ý
+Há» c táº­p hiá»‡u quáº£ vá»›i Ä‘á»  cÆ°Æ¡ng tá»± chá» n vÃ  cá»™ng Ä‘á»“ng|Học tập hiệu quả với đề cương tự chọn và cộng đồng
+Ã”n táº­p mÃ´n Khoa há» c tá»± nhiÃªn 7|Ôn tập môn Khoa học tự nhiên 7
+Má»—i vÃ¡n 10 Ä‘iá»ƒm, ai tháº¯ng 2 vÃ¡n Ä‘áº§u tiÃªn sáº½ nháº­n pháº§n thÆ°á»Ÿng|Mỗi ván 10 điểm, ai thắng 2 ván đầu tiên sẽ nhận phần thưởng
+cá»±c|cực
+ká»³|kỳ
+háº¥p dáº«n!|hấp dẫn!
+Hoáº·c|Hoặc
+Quay|Quay
+Láº¡i|Lại
+Ä á» |Đề
+cÆ°Æ¡ng|cương
+cá»§a|của
+tÃ´i|tôi
+Cá»™ng|Cộng
+Ä‘á»“ng|đồng
+shared|shared
+Ä ang|Đang
+táº£i|tải
+danh|danh
+sÃ¡ch|sách
+mÃ´n|môn
+há» c...|học...
+áº¢nh|Ảnh
+Ä|Đ
+áº£nh|ảnh
+áº|ả
+áº£|ả
+á»|ỏ
+á» i|ỏi
+á» i!|ỏi!
+á» i?|ỏi?
+á» i...|ỏi...
+á» i |ỏi 
+âœ…|✅
+â Œ|❌
+Ä‘Ãºng|đúng
+Báº¡n|Bạn
+Ä‘Ã£|đã
+hoÃ n|hoàn
+thÃ nh|thành
+Tá»±|Tự
+luáº­n|luận
+Tráº¯c|Trắc
+nghiá»‡m|nghiệm
+Cháº¿|Chế
+Ä á»™|Độ
+Luyá»‡n|Luyện
+TrÃ­|Trí
+Nhá»›|Nhớ
+TrÃ²|Trò
+ChÆ¡i|Chơi
+GhÃ©p|Ghép
+Tháº»|Thẻ
+Cá»­a|Cửa
+HÃ ng|Hàng
+TÃ i|Tài
+sáº£n|sản
+hiá»‡n|hiện
+táº¡i|tại
+Ä iá»ƒm|Điểm
+Uy|Uy
+tÃ­n|tín
+Kho|Kho
+Ä‘á»“|đồ
+ThÃ¡ch|Thách
+Ä‘áº¥u|đấu
+Thi|Thi
+Nháº­n|Nhận
+pháº§n|phần
+thÆ°á»Ÿng|thưởng
+cá»±c|cực
+háº¥p|hấp
+dáº«n!|dẫn!
+Táº¡o|Tạo
+PhÃ²ng|Phòng
+Má»›i|Mới
+Nháº­p|Nhập
+mÃ£|mã
+phÃ²ng|phòng
+VÃ o|Vào
+ThÃ¡ch|Thách
+Ä áº¥u|Đấu
+cá»§a|của
+cáº­u|cậu
+CÃ¢u|Câu
+há» i|hỏi
+Há»‡|Hệ
+thá»‘ng|thống
+Giá»¯a|Giữa
+kÃ¬|kì
+Giá»¯a kÃ¬|Giữa kì
+Giá»¯a kÃ¬|Giữa kì
+nhÃ©!|nhé!
+Trang|Trang
+Chá»§|Chủ
+Trang chá»§|Trang chủ
+nÃ¢ng cáº¥p|nâng cấp
+trÃ¡i nghiá»‡m|trải nghiệm
+tá»‘t nháº¥t|tốt nhất
+báº¡n|bạn
+Vui lÃ²ng|Vui lòng
+quay láº¡i|quay lại
+Ã­t phÃºt|ít phút
+nhÃ©!|nhé!
+Ä|Đ
+áº£nh|ảnh
+áº|ả
+áº£|ả
+á»|ỏ
+á» i|ỏi
+á» i!|ỏi!
+á» i?|ỏi?
+á» i...|ỏi...
+á» i |ỏi 
+âœ…|✅
+â Œ|❌
+Ä‘Ãºng|đúng
+Báº¡n|Bạn
+Ä‘Ã£|đã
+hoÃ n|hoàn
+thÃ nh|thành
+Tá»±|Tự
+luáº­n|luận
+Tráº¯c|Trắc
+nghiá»‡m|nghiệm
+Cháº¿|Chế
+Ä á»™|Độ
+Luyá»‡n|Luyện
+TrÃ­|Trí
+Nhá»›|Nhớ
+TrÃ²|Trò
+ChÆ¡i|Chơi
+GhÃ©p|Ghép
+Tháº»|Thẻ
+Cá»­a|Cửa
+HÃ ng|Hàng
+TÃ i|Tài
+sáº£n|sản
+hiá»‡n|hiện
+táº¡i|tại
+Ä iá»ƒm|Điểm
+Uy|Uy
+tÃ­n|tín
+Kho|Kho
+Ä‘á»“|đồ
+ThÃ¡ch|Thách
+Ä‘áº¥u|đấu
+Thi|Thi
+Nháº­n|Nhận
+pháº§n|phần
+thÆ°á»Ÿng|thưởng
+cá»±c|cực
+háº¥p|hấp
+dáº«n!|dẫn!
+Táº¡o|Tạo
+PhÃ²ng|Phòng
+Má»›i|Mới
+Nháº­p|Nhập
+mÃ£|mã
+phÃ²ng|phòng
+VÃ o|Vào
+ThÃ¡ch|Thách
+Ä áº¥u|Đấu
+cá»§a|của
+cáº­u|cậu
+CÃ¢u|Câu
+há» i|hỏi
+Há»‡|Hệ
+thá»‘ng|thống
+Giá»¯a|Giữa
+kÃ¬|kì
+Giá»¯a kÃ¬|Giữa kì
+Giá»¯a kÃ¬|Giữa kì
+nhÃ©!|nhé!
+Trang|Trang
+Chá»§|Chủ
+Trang chá»§|Trang chủ
+nÃ¢ng cáº¥p|nâng cấp
+trÃ¡i nghiá»‡m|trải nghiệm
+tá»‘t nháº¥t|tốt nhất
+báº¡n|bạn
+Vui lÃ²ng|Vui lòng
+quay láº¡i|quay lại
+Ã­t phÃºt|ít phút
+nhÃ©!|nhé!
+GiÃºp|Giúp
+hoÃ n thiá»‡n|hoàn thiện
+ná»™i dung|nội dung
+báº±ng cÃ¡ch|bằng cách
+gá»­i|gửi
+tÃªn|tên
+mÃ´n|môn
+vÃ |và
+hÃ¬nh|hình
+Ä‘á» |đề
+cÆ°Æ¡ng|cương
+nhÃ©!|nhé!
+TÃªn mÃ´n há» c:|Tên môn học:
+VÃ­ dá»¥:|Ví dụ:
+Hiá»‡n|Hiện
+Táº¡i:|Tại:
+Uy tÃ­n:|Uy tín:
+Kho Ä‘á»“:|Kho đồ:
+Tháº»|Thẻ
+Tháº» Pass|Thẻ Pass
+Tháº» 50/50|Thẻ 50/50
+Tháº» Báº£o Vá»‡|Thẻ Bảo Vệ
+ThÃ¡ch Ä‘áº¥u BO3|Thách đấu BO3
+Thi Ä‘áº¥u tráº¯c nghiá»‡m|Thi đấu trắc nghiệm
+ai tháº¯ng|ai thắng
+vÃ¡n|ván
+Ä‘áº§u tiÃªn|đầu tiên
+sáº½ nháº­n|sẽ nhận
+pháº§n thÆ°á»Ÿng|phần thưởng
+cá»±c ká»³|cực kỳ
+háº¥p dáº«n!|hấp dẫn!
+Hoáº·c|Hoặc
+Quay Láº¡i|Quay Lại
+MÃ£ phÃ²ng cá»§a cáº­u|Mã phòng của cậu
+Chá» |Chờ
+Ä‘á»‘i thá»§...|đối thủ...
+Ä ang táº£i|Đang tải
+ danh sÃ¡ch| danh sách
+mÃ´n há» c...|môn học...
+Giá»¯a kÃ¬|Giữa kì
+há»‡ thá»‘ng|hệ thống
+Ã”n táº­p|Ôn tập
+Giá»¯a kÃ¬|Giữa kì
+Confe|Confe
+Há»— trá»£|Hỗ trợ
+HÃ¬nh áº£nh|Hình ảnh
+(táº£i lÃªn nhiá» u)|(tải lên nhiều)
+Nháº¥n Ä‘á»ƒ chá» n áº£nh|Nhấn để chọn ảnh
+CÃ³ thá»ƒ chá» n nhiá» u áº£nh cÃ¹ng lÃºc|Có thể chọn nhiều ảnh cùng lúc
+Gá»­i gÃ³p Ã½|Gửi góp ý
+Há»§y|Hủy
+Ä á» |Đề
+cÆ°Æ¡ng|cương
+cá»§a|của
+tÃ´i|tôi
+Cá»™ng|Cộng
+Ä‘á»“ng|đồng
+shared|shared
+Ä ang|Đang
+táº£i|tải
+danh|danh
+sÃ¡ch|sách
+mÃ´n|môn
+há» c...|học...
+áº¢nh|Ảnh
+Ä|Đ
+áº£nh|ảnh
+áº|ả
+áº£|ả
+á»|ỏ
+á» i|ỏi
+á» i!|ỏi!
+á» i?|ỏi?
+á» i...|ỏi...
+á» i |ỏi 
+âœ…|✅
+â Œ|❌
+Ä‘Ãºng|đúng
+Báº¡n|Bạn
+Ä‘Ã£|đã
+hoÃ n|hoàn
+thÃ nh|thành
+Tá»±|Tự
+luáº­n|luận
+Tráº¯c|Trắc
+nghiá»‡m|nghiệm
+Cháº¿|Chế
+Ä á»™|Độ
+Luyá»‡n|Luyện
+TrÃ­|Trí
+Nhá»›|Nhớ
+TrÃ²|Trò
+ChÆ¡i|Chơi
+GhÃ©p|Ghép
+Tháº»|Thẻ
+Cá»­a|Cửa
+HÃ ng|Hàng
+TÃ i|Tài
+sáº£n|sản
+hiá»‡n|hiện
+táº¡i|tại
+Ä iá»ƒm|Điểm
+Uy|Uy
+tÃ­n|tín
+Kho|Kho
+Ä‘á»“|đồ
+ThÃ¡ch|Thách
+Ä‘áº¥u|đấu
+Thi|Thi
+Nháº­n|Nhận
+pháº§n|phần
+thÆ°á»Ÿng|thưởng
+cá»±c|cực
+háº¥p|hấp
+dáº«n!|dẫn!
+Táº¡o|Tạo
+PhÃ²ng|Phòng
+Má»›i|Mới
+Nháº­p|Nhập
+mÃ£|mã
+phÃ²ng|phòng
+VÃ o|Vào
+ThÃ¡ch|Thách
+Ä áº¥u|Đấu
+cá»§a|của
+cáº­u|cậu
+CÃ¢u|Câu
+há» i|hỏi
+Há»‡|Hệ
+thá»‘ng|thống
+Giá»¯a|Giữa
+kÃ¬|kì
+Giá»¯a kÃ¬|Giữa kì
+Giá»¯a kÃ¬|Giữa kì
+nhÃ©!|nhé!
+Trang|Trang
+Chá»§|Chủ
+Trang chá»§|Trang chủ
+nÃ¢ng cáº¥p|nâng cấp
+trÃ¡i nghiá»‡m|trải nghiệm
+tá»‘t nháº¥t|tốt nhất
+báº¡n|bạn
+Vui lÃ²ng|Vui lòng
+quay láº¡i|quay lại
+Ã­t phÃºt|ít phút
+nhÃ©!|nhé!
+GiÃºp|Giúp
+hoÃ n thiá»‡n|hoàn thiện
+ná»™i dung|nội dung
+báº±ng cÃ¡ch|bằng cách
+gá»­i|gửi
+tÃªn|tên
+mÃ´n|môn
+vÃ |và
+hÃ¬nh|hình
+Ä‘á» |đề
+cÆ°Æ¡ng|cương
+nhÃ©!|nhé!
+TÃªn mÃ´n há» c:|Tên môn học:
+VÃ­ dá»¥:|Ví dụ:
+Hiá»‡n|Hiện
+Táº¡i:|Tại:
+Uy tÃ­n:|Uy tín:
+Kho Ä‘á»“:|Kho đồ:
+Tháº»|Thẻ
+Tháº» Pass|Thẻ Pass
+Tháº» 50/50|Thẻ 50/50
+Tháº» Báº£o Vá»‡|Thẻ Bảo Vệ
+ThÃ¡ch Ä‘áº¥u BO3|Thách đấu BO3
+Thi Ä‘áº¥u tráº¯c nghiá»‡m|Thi đấu trắc nghiệm
+ai tháº¯ng|ai thắng
+vÃ¡n|ván
+Ä‘áº§u tiÃªn|đầu tiên
+sáº½ nháº­n|sẽ nhận
+pháº§n thÆ°á»Ÿng|phần thưởng
+cá»±c ká»³|cực kỳ
+háº¥p dáº«n!|hấp dẫn!
+Hoáº·c|Hoặc
+Quay Láº¡i|Quay Lại
+MÃ£ phÃ²ng cá»§a cáº­u|Mã phòng của cậu
+Chá» |Chờ
+Ä‘á»‘i thá»§...|đối thủ...
+Ä ang táº£i|Đang tải
+ danh sÃ¡ch| danh sách
+mÃ´n há» c...|môn học...
+Giá»¯a kÃ¬|Giữa kì
+há»‡ thá»‘ng|hệ thống
+Ã”n táº­p|Ôn tập
+Giá»¯a kÃ¬|Giữa kì
+Confe|Confe
+Há»— trá»£|Hỗ trợ
+HÃ¬nh áº£nh|Hình ảnh
+(táº£i lÃªn nhiá» u)|(tải lên nhiều)
+Nháº¥n Ä‘á»ƒ chá» n áº£nh|Nhấn để chọn ảnh
+CÃ³ thá»ƒ chá» n nhiá» u áº£nh cÃ¹ng lÃºc|Có thể chọn nhiều ảnh cùng lúc
+Gá»­i gÃ³p Ã½|Gửi góp ý
+Há»§y|Hủy
+Há»‡ thá»‘ng Ã”n táº­p Giá»¯a kÃ¬|Hệ thống Ôn tập Giữa kì
+Ä|Đ
+áº£nh|ảnh
+áº|ả
+áº£|ả
+á»|ỏ
+á» i|ỏi
+á» i!|ỏi!
+á» i?|ỏi?
+á» i...|ỏi...
+á» i |ỏi 
+âœ…|✅
+â Œ|❌
+Ä‘Ãºng|đúng
+Báº¡n|Bạn
+Ä‘Ã£|đã
+hoÃ n|hoàn
+thÃ nh|thành
+Tá»±|Tự
+luáº­n|luận
+Tráº¯c|Trắc
+nghiá»‡m|nghiệm
+Cháº¿|Chế
+Ä á»™|Độ
+Luyá»‡n|Luyện
+TrÃ­|Trí
+Nhá»›|Nhớ
+TrÃ²|Trò
+ChÆ¡i|Chơi
+GhÃ©p|Ghép
+Tháº»|Thẻ
+Cá»­a|Cửa
+HÃ ng|Hàng
+TÃ i|Tài
+sáº£n|sản
+hiá»‡n|hiện
+táº¡i|tại
+Ä iá»ƒm|Điểm
+Uy|Uy
+tÃ­n|tín
+Kho|Kho
+Ä‘á»“|đồ
+ThÃ¡ch|Thách
+Ä‘áº¥u|đấu
+Thi|Thi
+Nháº­n|Nhận
+pháº§n|phần
+thÆ°á»Ÿng|thưởng
+cá»±c|cực
+háº¥p|hấp
+dáº«n!|dẫn!
+Táº¡o|Tạo
+PhÃ²ng|Phòng
+Má»›i|Mới
+Nháº­p|Nhập
+mÃ£|mã
+phÃ²ng|phòng
+VÃ o|Vào
+ThÃ¡ch|Thách
+Ä áº¥u|Đấu
+cá»§a|của
+cáº­u|cậu
+CÃ¢u|Câu
+há» i|hỏi
+Há»‡|Hệ
+thá»‘ng|thống
+Giá»¯a|Giữa
+kÃ¬|kì
+Giá»¯a kÃ¬|Giữa kì
+Giá»¯a kÃ¬|Giữa kì
+nhÃ©!|nhé!
+Trang|Trang
+Chá»§|Chủ
+Trang chá»§|Trang chủ
+nÃ¢ng cáº¥p|nâng cấp
+trÃ¡i nghiá»‡m|trải nghiệm
+tá»‘t nháº¥t|tốt nhất
+báº¡n|bạn
+Vui lÃ²ng|Vui lòng
+quay láº¡i|quay lại
+Ã­t phÃºt|ít phút
+nhÃ©!|nhé!
+GiÃºp|Giúp
+hoÃ n thiá»‡n|hoàn thiện
+ná»™i dung|nội dung
+báº±ng cÃ¡ch|bằng cách
+gá»­i|gửi
+tÃªn|tên
+mÃ´n|môn
+vÃ |và
+hÃ¬nh|hình
+Ä‘á» |đề
+cÆ°Æ¡ng|cương
+nhÃ©!|nhé!
+TÃªn mÃ´n há» c:|Tên môn học:
+VÃ­ dá»¥:|Ví dụ:
+Hiá»‡n|Hiện
+Táº¡i:|Tại:
+Uy tÃ­n:|Uy tín:
+Kho Ä‘á»“:|Kho đồ:
+Tháº»|Thẻ
+Tháº» Pass|Thẻ Pass
+Tháº» 50/50|Thẻ 50/50
+Tháº» Báº£o Vá»‡|Thẻ Bảo Vệ
+ThÃ¡ch Ä‘áº¥u BO3|Thách đấu BO3
+Thi Ä‘áº¥u tráº¯c nghiá»‡m|Thi đấu trắc nghiệm
+ai tháº¯ng|ai thắng
+vÃ¡n|ván
+Ä‘áº§u tiÃªn|đầu tiên
+sáº½ nháº­n|sẽ nhận
+pháº§n thÆ°á»Ÿng|phần thưởng
+cá»±c ká»³|cực kỳ
+háº¥p dáº«n!|hấp dẫn!
+Hoáº·c|Hoặc
+Quay Láº¡i|Quay Lại
+MÃ£ phÃ²ng cá»§a cáº­u|Mã phòng của cậu
+Chá» |Chờ
+Ä‘á»‘i thá»§...|đối thủ...
+Ä ang táº£i|Đang tải
+ danh sÃ¡ch| danh sách
+mÃ´n há» c...|môn học...
+Giá»¯a kÃ¬|Giữa kì
+há»‡ thá»‘ng|hệ thống
+Ã”n táº­p|Ôn tập
+Giá»¯a kÃ¬|Giữa kì
+Confe|Confe
+Há»— trá»£|Hỗ trợ
+HÃ¬nh áº£nh|Hình ảnh
+(táº£i lÃªn nhiá» u)|(tải lên nhiều)
+Nháº¥n Ä‘á»ƒ chá» n áº£nh|Nhấn để chọn ảnh
+CÃ³ thá»ƒ chá» n nhiá» u áº£nh cÃ¹ng lÃºc|Có thể chọn nhiều ảnh cùng lúc
+Gá»­i gÃ³p Ã½|Gửi góp ý
+Há»§y|Hủy
+Ä|Đ
+áº£nh|ảnh
+áº|ả
+áº£|ả
+á»|ỏ
+á» i|ỏi
+á» i!|ỏi!
+á» i?|ỏi?
+á» i...|ỏi...
+á» i |ỏi 
+âœ…|✅
+â Œ|❌
+Ä‘Ãºng|đúng
+Báº¡n|Bạn
+Ä‘Ã£|đã
+hoÃ n|hoàn
+thÃ nh|thành
+Tá»±|Tự
+luáº­n|luận
+Tráº¯c|Trắc
+nghiá»‡m|nghiệm
+Cháº¿|Chế
+Ä á»™|Độ
+Luyá»‡n|Luyện
+TrÃ­|Trí
+Nhá»›|Nhớ
+TrÃ²|Trò
+ChÆ¡i|Chơi
+GhÃ©p|Ghép
+Tháº»|Thẻ
+Cá»­a|Cửa
+HÃ ng|Hàng
+TÃ i|Tài
+sáº£n|sản
+hiá»‡n|hiện
+táº¡i|tại
+Ä iá»ƒm|Điểm
+Uy|Uy
+tÃ­n|tín
+Kho|Kho
+Ä‘á»“|đồ
+ThÃ¡ch|Thách
+Ä‘áº¥u|đấu
+Thi|Thi
+Nháº­n|Nhận
+pháº§n|phần
+thÆ°á»Ÿng|thưởng
+cá»±c|cực
+háº¥p|hấp
+dáº«n!|dẫn!
+Táº¡o|Tạo
+PhÃ²ng|Phòng
+Má»›i|Mới
+Nháº­p|Nhập
+mÃ£|mã
+phÃ²ng|phòng
+VÃ o|Vào
+ThÃ¡ch|Thách
+Ä áº¥u|Đấu
+cá»§a|của
+cáº­u|cậu
+CÃ¢u|Câu
+há» i|hỏi
+Há»‡|Hệ
+thá»‘ng|thống
+Giá»¯a|Giữa
+kÃ¬|kì
+Giá»¯a kÃ¬|Giữa kì
+Giá»¯a kÃ¬|Giữa kì
+nhÃ©!|nhé!
+Trang|Trang
+Chá»§|Chủ
+Trang chá»§|Trang chủ
+nÃ¢ng cáº¥p|nâng cấp
+trÃ¡i nghiá»‡m|trải nghiệm
+tá»‘t nháº¥t|tốt nhất
+báº¡n|bạn
+Vui lÃ²ng|Vui lòng
+quay láº¡i|quay lại
+Ã­t phÃºt|ít phút
+nhÃ©!|nhé!
+GiÃºp|Giúp
+hoÃ n thiá»‡n|hoàn thiện
+ná»™i dung|nội dung
+báº±ng cÃ¡ch|bằng cách
+gá»­i|gửi
+tÃªn|tên
+mÃ´n|môn
+vÃ |và
+hÃ¬nh|hình
+Ä‘á» |đề
+cÆ°Æ¡ng|cương
+nhÃ©!|nhé!
+TÃªn mÃ´n há» c:|Tên môn học:
+VÃ­ dá»¥:|Ví dụ:
+Hiá»‡n|Hiện
+Táº¡i:|Tại:
+Uy tÃ­n:|Uy tín:
+Kho Ä‘á»“:|Kho đồ:
+Tháº»|Thẻ
+Tháº» Pass|Thẻ Pass
+Tháº» 50/50|Thẻ 50/50
+Tháº» Báº£o Vá»‡|Thẻ Bảo Vệ
+ThÃ¡ch Ä‘áº¥u BO3|Thách đấu BO3
+Thi Ä‘áº¥u tráº¯c nghiá»‡m|Thi đấu trắc nghiệm
+ai tháº¯ng|ai thắng
+vÃ¡n|ván
+Ä‘áº§u tiÃªn|đầu tiên
+sáº½ nháº­n|sẽ nhận
+pháº§n thÆ°á»Ÿng|phần thưởng
+cá»±c ká»³|cực kỳ
+háº¥p dáº«n!|hấp dẫn!
+Hoáº·c|Hoặc
+Quay Láº¡i|Quay Lại
+MÃ£ phÃ²ng cá»§a cáº­u|Mã phòng của cậu
+Chá» |Chờ
+Ä‘á»‘i thá»§...|đối thủ...
+Ä ang táº£i|Đang tải
+ danh sÃ¡ch| danh sách
+mÃ´n há» c...|môn học...
+Giá»¯a kÃ¬|Giữa kì
+há»‡ thá»‘ng|hệ thống
+Ã”n táº­p|Ôn tập
+Giá»¯a kÃ¬|Giữa kì
+Confe|Confe
+Há»— trá»£|Hỗ trợ
+HÃ¬nh áº£nh|Hình ảnh
+(táº£i lÃªn nhiá» u)|(tải lên nhiều)
+Nháº¥n Ä‘á»ƒ chá» n áº£nh|Nhấn để chọn ảnh
+CÃ³ thá»ƒ chá» n nhiá» u áº£nh cÃ¹ng lÃºc|Có thể chọn nhiều ảnh cùng lúc
+Gá»­i gÃ³p Ã½|Gửi góp ý
+Há»§y|Hủy
+!|!
+?|?
+.|.
+,|,,
+:|:
+(|(
+)|)
+[|[
+]|]
+{|{
+}|}
+/|/
+\|\\
++|++
+-|--
+*|*
+&|&
+^|^
+%|%
+$|$
+#|#
+@|@
+!|!
+?|?
+.|.

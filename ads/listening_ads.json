@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "question": "What is the first name mentioned by the speaker?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Nam",
+      "B. Vu",
+      "C. Minh",
+      "D. Tuan"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "question": "What does the speaker tell Vu not to do?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. To ignore the call",
+      "B. To run away",
+      "C. To deny it",
+      "D. To be afraid"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 3,
+    "question": "Where does the speaker say he has the information?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. In a file",
+      "B. On a website",
+      "C. Right here",
+      "D. In his office"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 4,
+    "question": "Which of the following personal details was mentioned first in the list?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Home address",
+      "B. School",
+      "C. Name",
+      "D. Parents' names"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 5,
+    "question": "Does the speaker mention Vu's phone number in his list of information?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Yes, he did",
+      "B. No, he did not",
+      "C. He mentioned it twice",
+      "D. He only mentioned the area code"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 6,
+    "question": "What is the speaker's tone during the call?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Hesitant",
+      "B. Threatening and firm",
+      "C. Joyful",
+      "D. Apologetic"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 7,
+    "question": "What specifically about 'parents' did the man mention?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Their phone numbers",
+      "B. Their jobs",
+      "C. Their names",
+      "D. Their ages"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 8,
+    "question": "Which location is mentioned right after the home address?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. The market",
+      "B. The library",
+      "C. The school",
+      "D. The hospital"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 9,
+    "question": "What was the very first word spoken in the audio?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Hey",
+      "B. Listen",
+      "C. Hello",
+      "D. Hi"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 10,
+    "question": "The speaker knows where Vu...",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. works",
+      "B. lives",
+      "C. travels",
+      "D. plays"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 11,
+    "question": "How many items of personal information did the man list (excluding the name)?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 5"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 12,
+    "question": "Is the speaker likely a friend of Vu?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Yes, definitely",
+      "B. Probably a close friend",
+      "C. No, it sounds like a confrontation",
+      "D. It is not clear"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 13,
+    "question": "What word does the man use to refer to all the facts he has?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Evidence",
+      "B. Secrets",
+      "C. Information",
+      "D. Records"
+    ],
+    "answer": 2
+  },
+  {
+    "id": 14,
+    "question": "What is the gender of the speaker?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Male",
+      "B. Female",
+      "C. Robot",
+      "D. Unknown"
+    ],
+    "answer": 0
+  },
+  {
+    "id": 15,
+    "question": "What was the last thing mentioned in the audio?",
+    "audio": "ads/listening.mp3",
+    "startTime": 0,
+    "endTime": 26,
+    "options": [
+      "A. Home address",
+      "B. School",
+      "C. Parents' names",
+      "D. Where you live"
+    ],
+    "answer": 2
+  }
+]

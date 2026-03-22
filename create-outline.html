@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Đề Cương Mới - Confe</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0084ff;
+            --primary-bg: #eaf4ff;
+            --bg-body: #f8fafc;
+            --card-glass: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --text-main: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #7c3aed;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 132, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 40%);
+        }
+
+        .creator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .creator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            grid-column: 1 / -1;
+        }
+
+        .btn-back {
+            width: 45px;
+            height: 45px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: var(--text-secondary);
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .title-group h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .title-group p {
+            margin: 5px 0 0;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* --- Sections --- */
+        .section-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #334155;
+        }
+
+        .section-title span {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        /* --- Input Styles --- */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .input {
+            width: 100%;
+            max-width: 100%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1.5px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--text-main);
+            transition: all 0.2s;
+            background: #f8fafc;
+            display: block;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px var(--primary-bg);
+        }
+
+        textarea.input {
+            min-height: 80px;
+            resize: vertical;
+            padding: 12px 18px;
+            line-height: 1.5;
+        }
+
+        /* --- Two Columns --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* --- Question Form --- */
+        .question-item {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .q-number {
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .btn-remove-q {
+            color: #ef4444;
+            background: #fef2f2;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mcq-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .btn-add-q {
+            width: 100%;
+            padding: 16px;
+            border-radius: 18px;
+            border: 2px dashed #cbd5e1;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* --- Preview Side --- */
+        .preview-sticky {
+            position: sticky;
+            top: 40px;
+        }
+
+        .preview-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .preview-logo-wrap {
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: var(--primary);
+            font-size: 35px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .preview-logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .preview-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .preview-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .preview-badge {
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* --- Actions --- */
+        .actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 18px;
+            border-radius: 18px;
+            border: none;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-ghost {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:active {
+            filter: brightness(0.9);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* --- Image Picking --- */
+        .img-picker {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .img-option {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .img-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-option.active {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 132, 255, 0.2);
+        }
+
+        .img-option.active::after {
+            content: 'check_circle';
+            font-family: 'Material Symbols Rounded';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .btn-upload-custom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            color: #64748b;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-upload-custom:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-bg);
+        }
+
+        /* --- Toast Container --- */
+        #toastContainer {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10000;
+        }
+
+        .toast {
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: toastIn 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Image Masking Canvas --- */
+        .masking-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 20000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .masking-overlay.active {
+            display: flex;
+        }
+
+        .canvas-container {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+            max-height: 80vh;
+        }
+
+        #masking-canvas {
+            cursor: crosshair;
+            display: block;
+        }
+
+        .masking-toolbar {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-tool {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-tool.danger {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .btn-tool.primary {
+            background: var(--primary);
+            color: white;
+            width: auto;
+            padding: 0 25px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .creator-container {
+                padding: 20px 12px;
+                gap: 20px;
+            }
+
+            .section-card {
+                padding: 20px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .input {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .question-item {
+                padding: 15px;
+                border-radius: 18px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .actions {
+                margin-top: 20px;
+            }
+
+            .btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+
+            .input-group {
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="creator-container">
+        <!-- --- Header --- -->
+        <div class="header">
+            <button class="btn-back" onclick="history.back()">
+                <span class="material-symbols-rounded">arrow_back</span>
+            </button>
+            <div class="title-group">
+                <h1>Tạo Đề Cương Của Riêng Bạn !</h1>
+                <p>Nâng cao hiệu quả ôn tập với nội dung ôn tập của riêng bạn</p>
+            </div>
+        </div>
+
+        <!-- --- Left Column: Controls --- -->
+        <div class="controls-side">
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="material-symbols-rounded">category</span>
+                    1. Định dạng Đề Cương
+                </div>
+                <div class="input-group">
+                    <label class="label">Chọn Dạng Đề Cương</label>
+                    <select id="outline-format" class="input" onchange="updatePreview(); handleFormatChange();"
+                        style="border: 2px solid var(--primary); background: white;">
+                        <option value="1">Dạng 1: Trắc nghiệm + Tự luận từ Ảnh</option>
+                        <option value="2">Dạng 2: Trắc nghiệm + Tự luận từ Chữ</option>
+                        <option value="3">Dạng 3: Chỉ dùng Hình ảnh (Ôn tập ghi nhớ)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 2. Question Content -->
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="material-symbols-rounded">quiz</span>
+                    2. Nội dung đề cương
+                </div>
+
+                <div id="questions-list">
+                    <!-- Dynamic questions -->
+                </div>
+
+                <div id="add-q-wrap"
+                    style="display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px; border-radius: 20px; border: 1.5px solid #e2e8f0; margin-top: 10px;">
+                    <button id="main-add-btn" class="btn btn-primary" style="flex: 1; border-radius: 12px;"
+                        onclick="handleAddByFormat()">
+                        <span class="material-symbols-rounded">add_circle</span>
+                        Thêm câu hỏi mới
+                    </button>
+                    <input type="file" id="q-img-upload" accept="image/*" multiple style="display:none"
+                        onchange="handleQuestionImage(event)">
+                </div>
+            </div>
+
+            <!-- 3. Basic Info -->
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="material-symbols-rounded">info</span>
+                    3. Thông tin hiển thị
+                </div>
+                <div class="input-group">
+                    <label class="label">Tiêu đề đề cương</label>
+                    <input type="text" id="outline-title" class="input"
+                        placeholder="Ví dụ: Ôn tập Unit 7 - Tiếng Anh (Friends Plus)" oninput="updatePreview()">
+                </div>
+                <div class="input-group">
+                    <label class="label">Mô tả ngắn</label>
+                    <textarea id="outline-desc" class="input" placeholder="Tóm tắt nội dung chính cần ôn tập..."
+                        oninput="updatePreview()"></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label class="label">Chủ đề / Môn học</label>
+                        <input type="text" id="outline-subject" class="input" placeholder="Toán, Tiếng Anh..."
+                            oninput="updatePreview()">
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Lớp</label>
+                        <select id="outline-grade" class="input" onchange="updatePreview()">
+                            <option value="">Chọn lớp</option>
+                            <option value="6">Lớp 6</option>
+                            <option value="7">Lớp 7</option>
+                            <option value="8">Lớp 8</option>
+                            <option value="9">Lớp 9</option>
+                            <option value="10">Lớp 10</option>
+                            <option value="11">Lớp 11</option>
+                            <option value="12">Lớp 12</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Appearance -->
+            <div class="section-card">
+                <div class="section-title">
+                    <span class="material-symbols-rounded">palette</span>
+                    Tùy chỉnh giao diện
+                </div>
+
+                <label class="label">Chọn Logo biểu tượng</label>
+                <div class="img-picker" id="logo-picker">
+                    <div class="img-option active" data-icon="psychology" onclick="selectIcon('psychology')"><span
+                            class="material-symbols-rounded"
+                            style="font-size:40px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--primary);">psychology</span>
+                    </div>
+                    <div class="img-option" data-icon="calculate" onclick="selectIcon('calculate')"><span
+                            class="material-symbols-rounded"
+                            style="font-size:40px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#ef4444;">calculate</span>
+                    </div>
+                    <div class="img-option" data-icon="language" onclick="selectIcon('language')"><span
+                            class="material-symbols-rounded"
+                            style="font-size:40px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#3b82f6;">language</span>
+                    </div>
+                    <div class="img-option" data-icon="public" onclick="selectIcon('public')"><span
+                            class="material-symbols-rounded"
+                            style="font-size:40px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#f59e0b;">public</span>
+                    </div>
+                    <div class="img-option" data-icon="science" onclick="selectIcon('science')"><span
+                            class="material-symbols-rounded"
+                            style="font-size:40px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#10b981;">science</span>
+                    </div>
+                    <div class="img-option btn-upload-custom" onclick="document.getElementById('logo-upload').click()">
+                        <span class="material-symbols-rounded">add_circle</span>
+                        Tải logo
+                    </div>
+                </div>
+                <input type="file" id="logo-upload" accept="image/*" style="display:none"
+                    onchange="handleImageUpload(event, 'logo')">
+
+                <label class="label">Màu sắc chủ đạo / Background</label>
+                <div class="img-picker" id="bg-picker">
+                    <div class="img-option active" data-color="linear-gradient(135deg, #0084ff, #7c3aed)"
+                        onclick="selectColor('linear-gradient(135deg, #0084ff, #7c3aed)')"
+                        style="background: linear-gradient(135deg, #0084ff, #7c3aed);"></div>
+                    <div class="img-option" data-color="linear-gradient(135deg, #10b981, #059669)"
+                        onclick="selectColor('linear-gradient(135deg, #10b981, #059669)')"
+                        style="background: linear-gradient(135deg, #10b981, #059669);"></div>
+                    <div class="img-option" data-color="linear-gradient(135deg, #f59e0b, #d97706)"
+                        onclick="selectColor('linear-gradient(135deg, #f59e0b, #d97706)')"
+                        style="background: linear-gradient(135deg, #f59e0b, #d97706);"></div>
+                    <div class="img-option" data-color="linear-gradient(135deg, #3b82f6, #2563eb)"
+                        onclick="selectColor('linear-gradient(135deg, #3b82f6, #2563eb)')"
+                        style="background: linear-gradient(135deg, #3b82f6, #2563eb);"></div>
+                    <div class="img-option" data-color="linear-gradient(135deg, #ef4444, #b91c1c)"
+                        onclick="selectColor('linear-gradient(135deg, #ef4444, #b91c1c)')"
+                        style="background: linear-gradient(135deg, #ef4444, #b91c1c);"></div>
+                    <div class="img-option btn-upload-custom" onclick="document.getElementById('bg-upload').click()">
+                        <span class="material-symbols-rounded">wallpaper</span>
+                        Tải ảnh
+                    </div>
+                </div>
+                <input type="file" id="bg-upload" accept="image/*" style="display:none"
+                    onchange="handleImageUpload(event, 'bg')">
+
+                <div class="input-group" style="display: flex; align-items: center; gap: 12px; margin-bottom: 0;">
+                    <input type="checkbox" id="outline-public"
+                        style="width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary);">
+                    <label for="outline-public"
+                        style="margin: 0; font-weight: 700; color: #475569; cursor: pointer;">Công khai cho cộng đồng
+                        ( Cần duyệt )</label>
+                </div>
+            </div>
+
+
+            <div class="actions">
+                <button class="btn btn-ghost" onclick="history.back()">Hủy bỏ</button>
+                <button class="btn btn-primary" id="btn-save" onclick="saveOutline()">
+                    Lưu đề cương
+                </button>
+            </div>
+        </div>
+
+        <!-- --- Right Column: Preview --- -->
+        <div class="preview-side">
+            <div class="preview-sticky">
+                <div class="preview-label">Xem trước đề cương</div>
+                <div class="preview-card" id="card-preview">
+                    <!-- Background layer -->
+                    <div id="preview-bg"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; background: linear-gradient(135deg, #0084ff, #7c3aed); opacity: 0.1;">
+                    </div>
+
+                    <div style="position:relative; z-index:1;">
+                        <div class="preview-logo-wrap" id="preview-logo-box"
+                            style="background: linear-gradient(135deg, #0084ff, #7c3aed);">
+                            <span class="material-symbols-rounded"
+                                style="color:white; font-size: 35px;">psychology</span>
+                        </div>
+                        <div class="preview-title" id="preview-title-text">Tiêu đề đề cương</div>
+                        <div class="preview-desc" id="preview-desc-text">Mô tả ngắn gọn về nội dung ôn tập bạn muốn chia
+                            sẻ...</div>
+
+                        <div class="preview-footer">
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <div class="preview-badge" id="preview-tag-grade">Lớp ?</div>
+                                <div class="preview-badge" id="preview-tag-subject"
+                                    style="background:#fef3c7; color:#d97706;">Môn học</div>
+                            </div>
+                            <div
+                                style="font-size: 11px; font-weight: 700; color: #94a3b8; display: flex; align-items: center; gap: 3px;">
+                                <span class="material-symbols-rounded" style="font-size: 14px;">quiz</span>
+                                <span id="preview-q-count">0</span> câu hỏi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 30px; padding: 25px; background: white; border-radius: 28px; border: 1.5px solid #e2e8f0;">
+                    <div style="font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-rounded" style="color:#059669;">tips_and_updates</span>
+                        Tips
+                    </div>
+                    <ul
+                        style="margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); font-weight: 500;">
+                        <li>Sử dụng tiêu đề rõ ràng để người khác dễ tìm thấy.</li>
+                        <li>Tải logo hoặc ảnh background cá nhân để đề cương thêm sinh động và nổi bật !</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <!-- Masking Workspace -->
+    <div id="masking-overlay" class="masking-overlay">
+        <div class="canvas-container">
+            <canvas id="masking-canvas"></canvas>
+        </div>
+        <div class="masking-toolbar">
+            <button class="btn-tool" onclick="undoMask()" title="Hoàn tác">
+                <span class="material-symbols-rounded">undo</span>
+            </button>
+            <button class="btn-tool danger" onclick="clearMasks()" title="Xóa tất cả">
+                <span class="material-symbols-rounded">delete_sweep</span>
+            </button>
+            <button class="btn-tool primary" onclick="finishMasking()">
+                Xong, Lưu các vùng che
+            </button>
+        </div>
+        <p style="color: white; margin-top: 15px; font-weight: 500; font-size: 14px;">Kéo chuột để vẽ vùng che mặt
+            chữ/hình ảnh</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+            authDomain: "confe-web.firebaseapp.com",
+            projectId: "confe-web",
+            storageBucket: "confe-web.firebasestorage.app",
+            messagingSenderId: "677778119372",
+            appId: "1:677778119372:web:ee3f1132871332743b0069"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        let currentUser = null;
+        let questions = [];
+        let selectedIcon = 'psychology';
+        let selectedColor = 'linear-gradient(135deg, #0084ff, #7c3aed)';
+        let customLogo = null;
+        let customBg = null;
+
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                currentUser = user;
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        window.showToast = (msg) => {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        window.selectIcon = (icon) => {
+            selectedIcon = icon;
+            customLogo = null;
+            document.querySelectorAll('#logo-picker .img-option').forEach(opt => opt.classList.remove('active'));
+            const target = document.querySelector(`#logo-picker .img-option[data-icon="${icon}"]`);
+            if (target) target.classList.add('active');
+            updatePreview();
+        };
+
+        window.selectColor = (color) => {
+            selectedColor = color;
+            customBg = null;
+            document.querySelectorAll('#bg-picker .img-option').forEach(opt => opt.classList.remove('active'));
+            const target = document.querySelector(`#bg-picker .img-option[data-color="${color}"]`);
+            if (target) target.classList.add('active');
+            updatePreview();
+        };
+
+        window.handleImageUpload = async (event, type) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (type === 'logo') {
+                    customLogo = e.target.result;
+                    document.querySelectorAll('#logo-picker .img-option').forEach(opt => opt.classList.remove('active'));
+                } else {
+                    customBg = e.target.result;
+                    document.querySelectorAll('#bg-picker .img-option').forEach(opt => opt.classList.remove('active'));
+                }
+                updatePreview();
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.updatePreview = () => {
+            const format = document.getElementById('outline-format').value;
+            const title = document.getElementById('outline-title').value || 'Tiêu đề đề cương';
+
+            let formatDesc = "";
+            if (format === "1") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận từ Ảnh.";
+            else if (format === "2") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận dạng Chữ.";
+            else if (format === "3") formatDesc = "• Định dạng: Ôn tập ghi nhớ (Memory Mode) qua Ảnh.";
+
+            const userDesc = (document.getElementById('outline-desc').value || '').trim();
+            const desc = (userDesc ? userDesc + "\n" : "") + formatDesc;
+
+            const grade = document.getElementById('outline-grade').value || '?';
+            const subject = document.getElementById('outline-subject').value || 'Môn học';
+
+            if (document.getElementById('preview-title-text')) document.getElementById('preview-title-text').textContent = title;
+            if (document.getElementById('preview-desc-text')) document.getElementById('preview-desc-text').innerHTML = desc.replace(/\n/g, '<br>');
+            if (document.getElementById('preview-tag-grade')) document.getElementById('preview-tag-grade').textContent = `Lớp ${grade}`;
+            if (document.getElementById('preview-tag-subject')) document.getElementById('preview-tag-subject').textContent = subject;
+            if (document.getElementById('preview-q-count')) document.getElementById('preview-q-count').textContent = questions.length;
+
+            const logoBox = document.getElementById('preview-logo-box');
+            if (logoBox) {
+                if (customLogo) {
+                    logoBox.innerHTML = `<img src="${customLogo}">`;
+                    logoBox.style.background = 'white';
+                } else {
+                    logoBox.innerHTML = `<span class="material-symbols-rounded" style="color:white; font-size:35px;">${selectedIcon}</span>`;
+                    logoBox.style.background = selectedColor;
+                }
+            }
+
+            const bgBox = document.getElementById('preview-bg');
+            if (bgBox) {
+                if (customBg) {
+                    bgBox.style.background = `url(${customBg})`;
+                    bgBox.style.backgroundSize = 'cover';
+                    bgBox.style.backgroundPosition = 'center';
+                    bgBox.style.opacity = '0.2';
+                } else {
+                    bgBox.style.background = selectedColor;
+                    bgBox.style.opacity = '0.1';
+                }
+            }
+        };
+
+        window.addQuestion = (type, extra = {}) => {
+            const id = Date.now();
+            let q;
+            if (type === 'image') {
+                q = {
+                    id,
+                    type: 'image',
+                    img: extra.img,
+                    masks: extra.masks || [],
+                    subQuestions: [
+                        { id: Date.now() + 1, text: '', subType: extra.subType || 'mcq', options: ['', '', '', ''], correct: 0, answer: '' }
+                    ]
+                };
+            } else {
+                q = { id, type, text: '', answer: '', options: ['', '', '', ''], correct: 0 };
+            }
+            questions.push(q);
+            renderQuestions();
+            updatePreview();
+        };
+
+        window.handleFormatChange = () => {
+            const format = document.getElementById('outline-format').value;
+            const btn = document.getElementById('main-add-btn');
+            if (!btn) return;
+            if (format === '1') {
+                btn.innerHTML = `<span class="material-symbols-rounded">image</span> Thêm Ảnh (Trắc nghiệm/Tự luận)`;
+            } else if (format === '2') {
+                btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> Thêm Câu hỏi (Dạng chữ)`;
+            } else {
+                btn.innerHTML = `<span class="material-symbols-rounded">wallpaper</span> Thêm Ảnh (Ghi nhớ/Masking)`;
+            }
+        };
+
+        window.handleAddByFormat = () => {
+            const format = document.getElementById('outline-format').value;
+            if (format === '1' || format === '3') {
+                triggerImgUpload();
+            } else {
+                addQuestion('mcq');
+            }
+        };
+
+        let currentMaskingQId = null;
+        let masks = [];
+        let startX, startY;
+        let isDrawing = false;
+        let originalImg = null;
+
+        window.triggerImgUpload = () => {
+            const up = document.getElementById('q-img-upload');
+            if (up) up.click();
+        };
+
+        window.handleQuestionImage = (e) => {
+            const files = Array.from(e.target.files);
+            if (!files.length) return;
+
+            const format = document.getElementById('outline-format').value;
+            const defaultSubType = format === '1' ? 'mcq' : 'view';
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        addQuestion('image', {
+                            img: event.target.result,
+                            subType: defaultSubType,
+                            masks: []
+                        });
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+            e.target.value = "";
+        };
+
+        window.startMasking = (id) => {
+            const q = questions.find(q => q.id === id);
+            if (!q) return;
+
+            currentMaskingQId = id;
+            masks = [...(q.masks || [])];
+
+            const overlay = document.getElementById('masking-overlay');
+            const canvas = document.getElementById('masking-canvas');
+            const ctx = canvas.getContext('2d');
+
+            originalImg = new Image();
+            originalImg.onload = () => {
+                // Scale canvas to fit viewport
+                const maxW = window.innerWidth * 0.85;
+                const maxH = window.innerHeight * 0.75;
+                let w = originalImg.width;
+                let h = originalImg.height;
+
+                const ratio = Math.min(maxW / w, maxH / h);
+                canvas.width = w * ratio;
+                canvas.height = h * ratio;
+
+                overlay.classList.add('active');
+                drawCanvas();
+            };
+            originalImg.src = q.img;
+        };
+
+        function drawCanvas() {
+            const canvas = document.getElementById('masking-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = 'rgba(0, 132, 255, 0.4)';
+            ctx.strokeStyle = '#0084ff';
+            ctx.lineWidth = 2;
+
+            masks.forEach(m => {
+                ctx.fillRect(m.x * canvas.width, m.y * canvas.height, m.w * canvas.width, m.h * canvas.height);
+                ctx.strokeRect(m.x * canvas.width, m.y * canvas.height, m.w * canvas.width, m.h * canvas.height);
+            });
+        }
+
+        const mCanvas = document.getElementById('masking-canvas');
+        if (mCanvas) {
+            mCanvas.onmousedown = (e) => {
+                isDrawing = true;
+                const rect = mCanvas.getBoundingClientRect();
+                startX = (e.clientX - rect.left) / mCanvas.width;
+                startY = (e.clientY - rect.top) / mCanvas.height;
+            };
+
+            mCanvas.onmousemove = (e) => {
+                if (!isDrawing) return;
+                const rect = mCanvas.getBoundingClientRect();
+                const currX = (e.clientX - rect.left) / mCanvas.width;
+                const currY = (e.clientY - rect.top) / mCanvas.height;
+
+                drawCanvas();
+                const ctx = mCanvas.getContext('2d');
+                ctx.fillStyle = 'rgba(0, 132, 255, 0.2)';
+                ctx.strokeStyle = '#0084ff';
+                ctx.setLineDash([5, 5]);
+                ctx.strokeRect(startX * mCanvas.width, startY * mCanvas.height, (currX - startX) * mCanvas.width, (currY - startY) * mCanvas.height);
+                ctx.setLineDash([]);
+            };
+
+            mCanvas.onmouseup = (e) => {
+                if (!isDrawing) return;
+                isDrawing = false;
+                const rect = mCanvas.getBoundingClientRect();
+                const endX = (e.clientX - rect.left) / mCanvas.width;
+                const endY = (e.clientY - rect.top) / mCanvas.height;
+
+                const w = endX - startX;
+                const h = endY - startY;
+
+                if (Math.abs(w) > 0.01 && Math.abs(h) > 0.01) {
+                    masks.push({
+                        x: w > 0 ? startX : endX,
+                        y: h > 0 ? startY : endY,
+                        w: Math.abs(w),
+                        h: Math.abs(h)
+                    });
+                }
+                drawCanvas();
+            };
+        }
+
+        window.undoMask = () => { masks.pop(); drawCanvas(); };
+        window.clearMasks = () => { masks = []; drawCanvas(); };
+
+        window.finishMasking = () => {
+            const q = questions.find(q => q.id === currentMaskingQId);
+            if (q) q.masks = masks;
+            document.getElementById('masking-overlay').classList.remove('active');
+            renderQuestions();
+        };
+
+        window.removeQuestion = (id) => {
+            questions = questions.filter(q => q.id !== id);
+            renderQuestions();
+            updatePreview();
+        };
+
+        window.addSubQuestion = (parentId) => {
+            const q = questions.find(q => q.id === parentId);
+            if (!q || q.type !== 'image') return;
+            const format = document.getElementById('outline-format').value;
+            q.subQuestions.push({
+                id: Date.now() + Math.random(),
+                text: '',
+                subType: format === '1' ? 'mcq' : 'view',
+                options: ['', '', '', ''],
+                correct: 0,
+                answer: ''
+            });
+            renderQuestions();
+            updatePreview();
+        };
+
+        window.removeSubQuestion = (parentId, subId) => {
+            const q = questions.find(q => q.id === parentId);
+            if (!q) return;
+            q.subQuestions = q.subQuestions.filter(sq => sq.id !== subId);
+            if (q.subQuestions.length === 0) {
+                removeQuestion(parentId);
+            } else {
+                renderQuestions();
+            }
+            updatePreview();
+        };
+
+        function renderQuestions() {
+            const list = document.getElementById('questions-list');
+            if (!list) return;
+            list.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const item = document.createElement('div');
+                item.className = 'question-item';
+
+                if (q.type === 'image') {
+                    item.innerHTML = `
+                        <div class="q-header" style="margin-bottom: 12px;">
+                            <span class="q-number">Ảnh ${idx + 1} (${q.subQuestions.length} câu hỏi)</span>
+                            <button class="btn-remove-q" onclick="removeQuestion(${q.id})">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
+                        <div style="position:relative; margin-bottom:15px; border-radius:15px; overflow:hidden; border:1.5px solid #e2e8f0; max-height: 400px;">
+                            <img src="${q.img}" style="width:100%; display:block; object-fit: contain;">
+                            ${q.masks.map(m => `
+                                <div style="position:absolute; left:${m.x * 100}%; top:${m.y * 100}%; width:${m.w * 100}%; height:${m.h * 100}%; background:rgba(0,132,255,0.4); border:1px solid #0084ff;"></div>
+                            `).join('')}
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 15px;">
+                            <button class="btn btn-ghost" style="flex: 1; padding:10px; border-radius:12px; font-size:13px;" onclick="startMasking(${q.id})">
+                                <span class="material-symbols-rounded" style="font-size:18px;">draw</span> Chỉnh sửa vùng che
+                            </button>
+                            <button class="btn btn-ghost" style="flex: 1; padding:10px; border-radius:12px; font-size:13px; color: var(--primary);" onclick="addSubQuestion(${q.id})">
+                                <span class="material-symbols-rounded" style="font-size:18px;">add_circle</span> Thêm câu cho ảnh này
+                            </button>
+                        </div>
+                        <div class="sub-questions">
+                            ${q.subQuestions.map((sq, sIdx) => `
+                                <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                        <b style="font-size:13px; color:var(--primary);">Câu ${idx + 1}.${sIdx + 1}</b>
+                                        <button class="btn-remove-q" onclick="removeSubQuestion(${q.id}, ${sq.id})" style="width:25px; height:25px; font-size:16px;">
+                                            <span class="material-symbols-rounded" style="font-size:16px;">close</span>
+                                        </button>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Nội dung câu hỏi</label>
+                                        <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateSubQText(${q.id}, ${sq.id}, this.value)">${sq.text}</textarea>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Loại câu hỏi</label>
+                                        <select class="input" onchange="updateSubQType(${q.id}, ${sq.id}, this.value)" style="padding:8px;">
+                                            <option value="mcq" ${sq.subType === 'mcq' ? 'selected' : ''}>Trắc nghiệm</option>
+                                            <option value="essay" ${sq.subType === 'essay' ? 'selected' : ''}>Tự luận</option>
+                                            <option value="view" ${sq.subType === 'view' ? 'selected' : ''}>Chỉ che vùng</option>
+                                        </select>
+                                    </div>
+                                    ${sq.subType === 'mcq' ? `
+                                        <div class="mcq-options">
+                                            ${(sq.options || ['', '', '', '']).map((opt, oIdx) => `
+                                                <div class="mcq-option" style="margin-bottom: 5px;">
+                                                    <input type="radio" name="correct-${q.id}-${sq.id}" class="radio-custom" ${sq.correct === oIdx ? 'checked' : ''} onchange="updateSubQCorrect(${q.id}, ${sq.id}, ${oIdx})">
+                                                    <input type="text" class="input" style="padding: 10px; border-radius: 12px; font-size:13px;" placeholder="${String.fromCharCode(65 + oIdx)}" value="${opt}" oninput="updateSubQOption(${q.id}, ${sq.id}, ${oIdx}, this.value)">
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : sq.subType === 'essay' ? `
+                                        <div class="input-group">
+                                            <label class="label">Đáp án đúng</label>
+                                            <textarea class="input" rows="2" placeholder="Đáp án..." oninput="updateSubQAnswer(${q.id}, ${sq.id}, this.value)">${sq.answer || ''}</textarea>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    item.innerHTML = `
+                        <div class="q-header" style="margin-bottom: 12px;">
+                            <span class="q-number">Câu ${idx + 1}: ${q.type === 'mcq' ? 'Trắc nghiệm' : 'Tự luận'}</span>
+                            <button class="btn-remove-q" onclick="removeQuestion(${q.id})">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <label class="label">Nội dung câu hỏi</label>
+                            <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateQText(${q.id}, this.value)">${q.text}</textarea>
+                        </div>
+                        ${q.type === 'mcq' ? `
+                            <div class="mcq-options">
+                                ${(q.options || ['', '', '', '']).map((opt, oIdx) => `
+                                    <div class="mcq-option">
+                                        <input type="radio" name="correct-${q.id}" class="radio-custom" ${q.correct === oIdx ? 'checked' : ''} onchange="updateQCorrect(${q.id}, ${oIdx})">
+                                        <input type="text" class="input" style="padding: 10px 14px; border-radius: 12px;" placeholder="${String.fromCharCode(65 + oIdx)}" value="${opt}" oninput="updateQOption(${q.id}, ${oIdx}, this.value)">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : `
+                            <div class="input-group">
+                                <label class="label">Đáp án đúng</label>
+                                <textarea class="input" rows="2" placeholder="Đáp án..." oninput="updateQAnswer(${q.id}, this.value)">${q.answer || ''}</textarea>
+                            </div>
+                        `}
+                    `;
+                }
+                list.appendChild(item);
+            });
+        }
+
+        window.updateQText = (id, val) => { const q = questions.find(q => q.id === id); if (q) q.text = val; };
+        window.updateQAnswer = (id, val) => { const q = questions.find(q => q.id === id); if (q) q.answer = val; };
+        window.updateQCorrect = (id, idx) => { const q = questions.find(q => q.id === id); if (q) q.correct = idx; };
+        window.updateQOption = (id, idx, val) => { const q = questions.find(q => q.id === id); if (q) q.options[idx] = val; };
+
+        window.updateSubQText = (pId, sId, val) => {
+            const q = questions.find(q => q.id === pId);
+            if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.text = val; }
+        };
+        window.updateSubQType = (pId, sId, val) => {
+            const q = questions.find(q => q.id === pId);
+            if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.subType = val; renderQuestions(); }
+        };
+        window.updateSubQAnswer = (pId, sId, val) => {
+            const q = questions.find(q => q.id === pId);
+            if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.answer = val; }
+        };
+        window.updateSubQCorrect = (pId, sId, idx) => {
+            const q = questions.find(q => q.id === pId);
+            if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.correct = idx; }
+        };
+        window.updateSubQOption = (pId, sId, idx, val) => {
+            const q = questions.find(q => q.id === pId);
+            if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.options[idx] = val; }
+        };
+
+        const IMG_HOST_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        async function uploadImage(base64) {
+            if (!base64 || !base64.includes(",")) return "";
+            const file = base64.split(",")[1];
+            const formData = new FormData();
+            formData.append("image", file);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMG_HOST_KEY}`, { method: "POST", body: formData });
+                const json = await res.json();
+                return json.success ? json.data.url : "";
+            } catch (e) {
+                return "";
+            }
+        }
+
+        window.saveOutline = async () => {
+            const title = document.getElementById('outline-title').value.trim();
+            const desc = document.getElementById('outline-desc').value.trim();
+            const subject = document.getElementById('outline-subject').value.trim();
+            const grade = document.getElementById('outline-grade').value;
+            const isPublic = document.getElementById('outline-public').checked;
+
+            if (!title) return showToast("Vui lòng nhập tiêu đề!");
+            if (questions.length === 0) return showToast("Vui lòng thêm ít nhất một câu hỏi!");
+
+            const btn = document.getElementById('btn-save');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner" style="width:20px; height:20px; border:2px solid white; border-top-color:transparent; border-radius:50%; animation: spin 1s linear infinite;"></span> Đang lưu...`;
+
+            try {
+                let logoUrl = "";
+                let bgUrl = "";
+
+                if (customLogo) logoUrl = await uploadImage(customLogo);
+                if (customBg) bgUrl = await uploadImage(customBg);
+
+                const finalQuestions = await Promise.all(questions.map(async q => {
+                    if (q.type === 'mcq') {
+                        return { type: 'mc', q: q.text, o: q.options, a: q.correct, e: 'Đáp án đúng là ' + String.fromCharCode(65 + q.correct) };
+                    } else if (q.type === 'essay') {
+                        return { type: 'essay', q: q.text, a: q.answer, e: 'Giải thích: ' + q.answer };
+                    } else if (q.type === 'image') {
+                        const imgUrl = await uploadImage(q.img);
+                        return {
+                            type: 'image',
+                            img: imgUrl,
+                            masks: q.masks,
+                            questions: q.subQuestions.map(sq => {
+                                const res = { q: sq.text, type: sq.subType === 'mcq' ? 'mc' : (sq.subType === 'essay' ? 'essay' : 'view') };
+                                if (sq.subType === 'mcq') {
+                                    res.o = sq.options;
+                                    res.a = sq.correct;
+                                    res.e = 'Giải thích: Đáp án đúng là ' + String.fromCharCode(65 + sq.correct);
+                                } else if (sq.subType === 'essay') {
+                                    res.a = sq.answer;
+                                    res.e = 'Giải thích: ' + sq.answer;
+                                }
+                                return res;
+                            })
+                        };
+                    }
+                    return null;
+                }));
+
+                const data = {
+                    title,
+                    description: desc,
+                    subject,
+                    grade,
+                    isPublic,
+                    isApproved: false,
+                    questions: finalQuestions.filter(q => q !== null),
+                    icon: logoUrl || selectedIcon,
+                    color: bgUrl ? `url(${bgUrl})` : selectedColor,
+                    uid: currentUser.uid,
+                    authorName: currentUser.displayName || 'Người dùng Confe',
+                    createdAt: serverTimestamp(),
+                    type: 'user_outline_v2'
+                };
+
+                await addDoc(collection(firestore, 'outlines'), data);
+                showToast("Đã lưu đề cương thành công! 🎉");
+                setTimeout(() => window.location.href = 'reviewtest.html', 1500);
+            } catch (err) {
+                console.error(err);
+                showToast("Lỗi khi lưu đề cương. Thử lại!");
+                btn.disabled = false;
+                btn.innerHTML = `<span class="material-symbols-rounded">save</span> Lưu đề cương`;
+            }
+        };
+
+        // Initial
+        handleFormatChange();
+        updatePreview();
+    </script>
+</body>
+
+</html>

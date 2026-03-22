@@ -39,6 +39,11 @@ service cloud.firestore {
         request.resource.data.get('isChatMuted', false) == resource.data.get('isChatMuted', false)
       );
       allow delete: if isAdmin();
+
+      match /chatRooms/{roomId} {
+        allow read: if isOwner(userId);
+        allow write: if isAuth();
+      }
     }
 
     match /subjects/{subjectId} {
@@ -46,10 +51,22 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ======== BẢO MẬT UPDATE CHO OUTLINES ========
     match /outlines/{docId} {
+      // Ai cũng xem được đề cương
       allow read: if isAuth();
-      allow create: if isAuth();
-      allow update, delete: if isAdmin() || (isAuth() && resource.data.uid == request.auth.uid);
+      
+      // Khi tạo mới: UID lưu trong payload bắt buộc phải là người đang login, chống giả mạo
+      allow create: if isAuth() && request.resource.data.uid == request.auth.uid;
+      
+      // Khi cập nhật: Phải là Admin, HOẶC là tác giả và không được phép đổi tên tác giả sang người khác
+      allow update: if isAdmin() || (
+        isAuth() && 
+        resource.data.uid == request.auth.uid && 
+        request.resource.data.uid == request.auth.uid
+      );
+      
+      allow delete: if isAdmin() || (isAuth() && resource.data.uid == request.auth.uid);
     }
 
     match /topics/{topicId} {
@@ -79,6 +96,11 @@ service cloud.firestore {
       allow update, delete: if isAdmin() || (isAuth() && (resource.data.from_uid == request.auth.uid || resource.data.to_uid == request.auth.uid));
     }
 
+    match /friendships/{docId} {
+      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.users;
+      allow create: if isAuth() && request.auth.uid in request.resource.data.users;
+    }
+
     match /posts/{postId} {
       allow read: if isAuth();
       allow create: if isAuth();
@@ -105,16 +127,16 @@ service cloud.firestore {
     match /public_typing/{docId} { allow read, write: if isAuth(); }
 
     match /conversations/{conversationId} {
-      allow read, write: if isAuth() && request.auth.uid in resource.data.participants;
-      allow create: if isAuth() && request.auth.uid in request.resource.data.participants;
+      allow read, write: if isAuth() && conversationId.matches('.*' + request.auth.uid + '.*');
       
       match /messages/{messageId} {
-        allow read, write: if isAuth() && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+        allow read, write: if isAuth() && conversationId.matches('.*' + request.auth.uid + '.*');
       }
     }
 
     match /groups/{groupId} {
-      allow read, write: if isAuth() && request.auth.uid in resource.data.members;
+      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.members;
+      allow create: if isAuth() && request.auth.uid in request.resource.data.members;
       match /messages/{messageId} { 
         allow read, write: if isAuth() && request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.members; 
       }
@@ -145,4 +167,3 @@ service cloud.firestore {
     }
   }
 }
-
