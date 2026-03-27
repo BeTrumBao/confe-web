@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khủng Long Với Mấy Cây Xương Rồng - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --primary: #2563eb;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --radius-m: 16px;
+            --radius-l: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f0f4ff;
+            color: #1a1c1e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            z-index: 1000;
+            color: #1a1c1e;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            color: var(--primary);
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--surface);
+            padding: 32px;
+            border-radius: var(--radius-l);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dfe2eb;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .desc {
+            font-size: 13px;
+            color: var(--secondary-text);
+            margin-bottom: 24px;
+        }
+
+        #gameCanvas {
+            background: #f8fafc;
+            border-radius: var(--radius-m);
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 2 / 1;
+            height: auto;
+            touch-action: none;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .btn-start {
+            margin-top: 20px;
+            padding: 12px 32px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            width: 100%;
+            max-width: 800px;
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius-l);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dfe2eb;
+        }
+
+        .lb-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lb-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .lb-row:last-child {
+            border: none;
+        }
+
+        .lb-rank {
+            width: 30px;
+            font-weight: 800;
+            color: var(--secondary-text);
+        }
+
+        .rank-1 .lb-rank {
+            color: #f59e0b;
+        }
+
+        .lb-crown {
+            font-size: 14px;
+            margin-left: 4px;
+            display: inline-block;
+            animation: crownPulse 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes crownPulse {
+            from {
+                transform: scale(1) rotate(-5deg);
+                filter: drop-shadow(0 0 2px #f59e0b);
+            }
+
+            to {
+                transform: scale(1.2) rotate(5deg);
+                filter: drop-shadow(0 0 8px #f59e0b);
+            }
+        }
+
+        .rank-1 {
+            background: rgba(245, 158, 11, 0.05) !important;
+            border-left: 4px solid #f59e0b !important;
+            padding-left: 10px !important;
+        }
+
+        .rank-2 .lb-rank {
+            color: #94a3b8;
+        }
+
+        .rank-3 .lb-rank {
+            color: #b45309;
+        }
+
+        .lb-name {
+            flex: 1;
+            font-weight: 600;
+            padding-left: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .lb-name:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .lb-info {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .lb-score {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .lb-time {
+            font-size: 10px;
+            color: var(--secondary-text);
+            font-weight: 500;
+        }
+
+        .report-btn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 14px;
+            transition: 0.2s;
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .report-btn:hover {
+            color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        /* Confirm Modal Style */
+        .modal-box.confirm {
+            max-width: 380px;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .btn-confirm {
+            background: #ef4444;
+            color: white;
+        }
+
+        .confirm-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 2000;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* PAUSE & CONFIRM MODALS (CLICK-GAME STYLE) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: var(--radius-l);
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 44px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Pause UI */
+        .pause-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid #dfe2eb;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--secondary-text);
+            transition: 0.2s;
+            z-index: 100;
+        }
+
+        .pause-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .game-container {
+                padding: 20px 12px;
+                border-radius: var(--radius-m);
+            }
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+            h1 {
+                font-size: 18px;
+                gap: 6px;
+            }
+            h1 span {
+                font-size: 20px !important;
+            }
+            .desc {
+                font-size: 11px;
+                margin-bottom: 16px;
+                line-height: 1.4;
+            }
+            #gameCanvas {
+                height: auto;
+            }
+            .game-info {
+                font-size: 13px;
+                margin-top: 12px;
+            }
+            .pause-btn {
+                top: 10px;
+                right: 10px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="game.html" class="back-btn">
+        <span class="material-symbols-rounded">chevron_left</span>
+    </a>
+
+    <div class="game-container">
+        <button id="pauseBtn" class="pause-btn" style="display: none;">
+            <span class="material-symbols-rounded">pause</span>
+        </button>
+        <h1><span class="material-symbols-rounded">emoji_nature</span>Khủng Long Với Mấy Cây Xương Rồng</h1>
+        <p class="desc">Nhấn phím Cách hoặc Chạm vào màn hình để nhảy! Càng lâu càng tốt</p>
+
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+        <div class="game-info">
+            <div id="currentScore">Điểm: 0</div>
+            <div id="bestScore">Kỷ lục: 0</div>
+        </div>
+
+        <button id="startBtn" class="btn-start">Bắt Đầu</button>
+    </div>
+
+    <!-- PAUSE MODAL -->
+    <div id="pauseModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">⏸️</div>
+            <div class="modal-title">Đã Tạm Dừng</div>
+            <div class="modal-desc">Đừng bỏ cuộc giữa chừng nhé! Mọi thứ vẫn đang đợi bạn tiếp tục.</div>
+            <div class="modal-actions">
+                <button id="resumeBtn" class="modal-btn btn-confirm">Tiếp Tục Chơi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORT MODAL -->
+    <div id="modalConfirm" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">🚩</div>
+            <div class="modal-title" id="mTitle">Báo cáo người chơi</div>
+            <p class="modal-desc" id="mDesc"></p>
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" id="mCancel">Hủy bỏ</button>
+                <button class="modal-btn btn-confirm btn-danger" id="mConfirm">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="leaderboard">
+        <div class="lb-title">
+            <span class="material-symbols-rounded" style="color: #ffa000;">military_tech</span>
+            Bảng Xếp Hạng
+        </div>
+        <div id="lbList">
+            <!-- Leaderboard Items -->
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let userData = null;
+        onAuthStateChanged(auth, async u => {
+            currentUser = u;
+            if (!u) { window.top.location.href = 'login.html'; return; }
+            const p = await getDoc(doc(db, "users", u.uid));
+            if (p.exists()) userData = p.data();
+
+            // Fetch High Score
+            const s = await getDoc(doc(db, "leaderboard_dino", u.uid));
+            if (s.exists()) {
+                bestEl.textContent = `Kỷ lục: ${Math.floor(s.data().score / 10)}`;
+            }
+        });
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resumeBtn = document.getElementById('resumeBtn');
+        const pauseModal = document.getElementById('pauseModal');
+        const scoreEl = document.getElementById('currentScore');
+        const bestEl = document.getElementById('bestScore');
+
+        // Game State
+        let gameRunning = false;
+        let isPaused = false;
+        let score = 0;
+        let speed = 6;
+        let dino = { x: 50, y: 350, w: 44, h: 44, dy: 0, jumpForce: -13, gravity: 0.65, isGrounded: true };
+        let obstacles = [];
+        let frame = 0;
+
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function timeAgo(date) {
+            if (!date) return '';
+            const seconds = Math.floor((new Date() - date.toDate()) / 1000);
+            if (seconds < 60) return 'vừa xong';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}p trước`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h trước`;
+            return `${Math.floor(hours / 24)} ngày trước`;
+        }
+
+        // Custom confirm helper
+        let confirmAction = null;
+        const modalConfirm = document.getElementById('modalConfirm');
+        const mDesc = document.getElementById('mDesc');
+        const btnMConfirm = document.getElementById('mConfirm');
+        const btnMCancel = document.getElementById('mCancel');
+
+        function showConfirmPopup(msg, onConfirm) {
+            mDesc.textContent = msg;
+            confirmAction = onConfirm;
+            modalConfirm.classList.add('active');
+        }
+
+        btnMCancel.onclick = () => modalConfirm.classList.remove('active');
+        btnMConfirm.onclick = () => {
+            modalConfirm.classList.remove('active');
+            if (confirmAction) confirmAction();
+        };
+
+        window.reportUser = async (uid, name) => {
+            if (!currentUser) return showToast("Cần đăng nhập! 🔒");
+            showConfirmPopup(`Báo cáo "${name}" vì nghi ngờ gian lận?`, async () => {
+                try {
+                    await setDoc(doc(collection(db, 'reports')), {
+                        reporterId: currentUser.uid,
+                        targetId: uid,
+                        targetName: name,
+                        type: 'game_cheat',
+                        game: 'dino_run',
+                        timestamp: serverTimestamp()
+                    });
+                    showToast("Đã gửi báo cáo! 🚩");
+                } catch (e) { console.error(e); }
+            });
+        };
+
+        function spawnObstacle() {
+            const h = 20 + Math.random() * 40;
+            obstacles.push({ x: canvas.width, y: canvas.height - h - 10, w: 20, h: h });
+        }
+
+        function resetGame() {
+            score = 0; speed = 6; frame = 0;
+            dino.y = 350; dino.dy = 0; dino.isGrounded = true;
+
+            obstacles = [];
+            gameRunning = true; isPaused = false;
+            startBtn.style.display = 'none';
+            pauseBtn.style.display = 'flex';
+            pauseModal.classList.remove('active');
+            requestAnimationFrame(update);
+        }
+
+        function togglePause() {
+            if (!gameRunning) return;
+            isPaused = !isPaused;
+            if (isPaused) {
+                pauseModal.classList.add('active');
+            } else {
+                pauseModal.classList.remove('active');
+                requestAnimationFrame(update);
+            }
+        }
+
+        pauseBtn.onclick = (e) => { e.stopPropagation(); togglePause(); };
+        resumeBtn.onclick = (e) => { e.stopPropagation(); togglePause(); };
+
+        function jump() {
+            if (dino.isGrounded && gameRunning) {
+                dino.dy = dino.jumpForce;
+                dino.isGrounded = false;
+            }
+        }
+
+        canvas.addEventListener('mousedown', jump);
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); jump(); });
+        window.addEventListener('keydown', (e) => { if (e.code === 'Space') jump(); });
+
+        async function endGame() {
+            gameRunning = false;
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+            startBtn.textContent = 'Chơi Lại';
+
+            if (currentUser && score > 0) {
+                const ref = doc(db, "leaderboard_dino", currentUser.uid);
+                const s = await getDoc(ref);
+                if (!s.exists() || s.data().score < score) {
+                    await setDoc(ref, {
+                        uid: currentUser.uid,
+                        displayName: userData?.displayName || userData?.username || 'Cư dân Confe',
+                        score: score,
+                        updatedAt: serverTimestamp()
+                    });
+                    showToast("🎉 Kỷ lục mới! Đã lưu vào bảng xếp hạng.");
+                    bestEl.textContent = `Kỷ lục: ${Math.floor(score / 10)}`;
+                }
+            }
+        }
+
+        function update() {
+            if (!gameRunning || isPaused) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dino Physics
+            dino.dy += dino.gravity;
+            dino.y += dino.dy;
+            if (dino.y > 350) { dino.y = 350; dino.dy = 0; dino.isGrounded = true; }
+
+            // Draw Ground
+            ctx.strokeStyle = '#cbd5e1'; ctx.beginPath(); ctx.moveTo(0, 390); ctx.lineTo(canvas.width, 390); ctx.stroke();
+
+            // Draw Dino (Dino-ish Shape)
+            ctx.fillStyle = gameRunning ? '#0057db' : '#ef4444';
+            // Body
+            ctx.beginPath(); ctx.roundRect(dino.x, dino.y + 10, dino.w, dino.h - 10, 8); ctx.fill();
+            // Head
+            ctx.beginPath(); ctx.roundRect(dino.x + 15, dino.y, 25, 20, 5); ctx.fill();
+            // Eye
+            ctx.fillStyle = 'white'; ctx.beginPath(); ctx.arc(dino.x + 32, dino.y + 7, 2, 0, Math.PI * 2); ctx.fill();
+
+            // Obstacles
+            if (frame % 100 === 0) spawnObstacle();
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const o = obstacles[i];
+                o.x -= speed;
+
+                ctx.fillStyle = '#1e293b';
+                // Main stem
+                ctx.beginPath(); ctx.roundRect(o.x, o.y, o.w, o.h, 4); ctx.fill();
+                // Arms (if tall enough)
+                if (o.h > 30) {
+                    ctx.beginPath(); ctx.roundRect(o.x - 5, o.y + 10, 5, 10, 2); ctx.fill(); // Left arm
+                    ctx.beginPath(); ctx.roundRect(o.x + o.w, o.y + 5, 5, 10, 2); ctx.fill(); // Right arm
+                }
+
+                // Collision
+                if (dino.x < o.x + o.w && dino.x + dino.w > o.x && dino.y < o.y + o.h && dino.y + dino.h > o.y) {
+                    endGame();
+                }
+
+                if (o.x + o.w < 0) obstacles.splice(i, 1);
+            }
+
+            score++;
+            // Faster speed up: every 200 score units (~20 seconds of gameplay usually makes it very fast)
+            if (score % 200 === 0) speed += 0.4;
+            scoreEl.textContent = `Điểm: ${Math.floor(score / 10)}`;
+
+            frame++;
+            if (gameRunning) requestAnimationFrame(update);
+        }
+
+        startBtn.onclick = resetGame;
+
+        // Leaderboard Listener (Realtime)
+        onSnapshot(query(collection(db, "leaderboard_dino"), orderBy("score", "desc"), limit(10)), snap => {
+            const list = document.getElementById('lbList');
+            list.innerHTML = snap.docs.map((d, i) => {
+                const data = d.data();
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+                const ts = data.updatedAt ? data.updatedAt.toMillis() : Date.now();
+                return `
+                    <div class="lb-row ${rankClass}">
+                        <div class="lb-rank">${i + 1}</div>
+                        <div style="display:flex; align-items:center; flex:1;">
+                            <div class="lb-name" onclick="window.parent.loadPage('profile.html?uid=${data.uid}', this)">
+                                ${data.displayName || 'Người dùng ẩn'}
+                                ${i === 0 ? '<span class="lb-crown">👑</span>' : ''}
+                            </div>
+                            <button class="report-btn" title="Báo cáo gian lận" onclick="reportUser('${data.uid}', '${data.displayName || 'Ẩn'}')">
+                                <span class="material-symbols-rounded" style="font-size: 16px;">flag</span>
+                            </button>
+                        </div>
+                        <div class="lb-info">
+                            <div class="lb-score">${Math.floor(data.score / 10)}</div>
+                            <div class="lb-time" data-ts="${ts}">${timeAgo(data.updatedAt)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+
+</html>

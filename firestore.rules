@@ -44,6 +44,10 @@ service cloud.firestore {
         allow read: if isOwner(userId);
         allow write: if isAuth();
       }
+
+      match /friendRequests/{requestId} {
+        allow read, write: if isOwner(userId) || (isAuth() && requestId == request.auth.uid);
+      }
     }
 
     match /subjects/{subjectId} {
@@ -97,8 +101,33 @@ service cloud.firestore {
     }
 
     match /friendships/{docId} {
-      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.users;
-      allow create: if isAuth() && request.auth.uid in request.resource.data.users;
+      // Allowed if UID is in docId (for getDoc existence check) 
+      // OR if UID is in the users array (for queries)
+      allow read: if isAuth() && (
+        docId.matches('.*' + request.auth.uid + '.*') || 
+        (resource != null && request.auth.uid in resource.data.users)
+      );
+      
+      allow create: if isAuth() && (
+        docId.matches('.*' + request.auth.uid + '.*') || 
+        request.auth.uid in request.resource.data.users
+      );
+      
+      allow update: if isAuth() && request.auth.uid in resource.data.users && (
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['streak']) ||
+        request.resource.data.streak == resource.data.streak + 1 ||
+        request.resource.data.streak == 0
+      );
+      allow delete: if isAdmin() || (isAuth() && request.auth.uid in resource.data.users);
+    }
+
+    match /caro_rooms/{roomId} {
+      allow read, write: if isAuth();
+    }
+
+    match /leaderboard_caro/{userId} {
+      allow read: if isAuth();
+      allow write: if isAuth() && request.auth.uid == userId;
     }
 
     match /posts/{postId} {
@@ -158,10 +187,24 @@ service cloud.firestore {
         request.resource.data.get('voters', []).size() == resource.data.get('voters', []).size() + 1 &&
         !(request.auth.uid in resource.data.get('voters', []))
       );
+      allow delete: if isAdmin() || isOwner(resource.data.createdBy);
+    }
+    match /leaderboard_dino/{uid} {
+      allow read: if isAuth();
+      allow write: if isAuth() && request.auth.uid == uid;
+    }
+    match /badges/{badgeId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    match /requests/{requestId} {
+      allow create: if isAuth();
+      allow read, update: if isAuth();
       allow delete: if isAdmin();
     }
 
-    // Catch-all
+
     match /{document=**} {
       allow read, write: if false;
     }

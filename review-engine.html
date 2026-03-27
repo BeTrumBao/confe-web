@@ -807,7 +807,11 @@
 
         window.resetQuiz = () => {
             quizIdx = 0;
-            window.renderMode();
+            if (typeof renderMode === 'function') {
+                renderMode();
+            } else {
+                window.renderMode();
+            }
         };
 
         window.showToast = (msg) => {
@@ -842,7 +846,12 @@
             }
         }
 
-        window.renderMode = () => {
+        // Attach to window so it can be called from onclick handlers
+        window.renderMode = function() {
+            renderMode();
+        };
+
+        function renderMode() {
             const root = document.getElementById('engine-root');
             root.innerHTML = '';
             

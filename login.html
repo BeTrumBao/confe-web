@@ -643,6 +643,63 @@
         </div>
     </div>
 
+    <!-- Error Dictionary Overlay -->
+    <style>
+        .error-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 200000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .error-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+    <div id="errorOverlay" class="error-modal-overlay" onclick="closeErrorDictionary()">
+        <div class="modal-box" onclick="event.stopPropagation()" style="max-width: 480px; padding: 32px; border-radius: 28px; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                <h2 style="font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; color: #ef4444; margin:0;">
+                    <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi
+                </h2>
+                <button onclick="closeErrorDictionary()" style="background: none; border: none; cursor: pointer; color: #94a3b8;"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 24px;">
+                <p style="font-size: 14px; color: #b91c1c; font-weight: 700; text-align: center; margin:0;">
+                    Phát hiện lỗi hệ thống: <span id="errorTargetCode" style="font-size: 18px; font-weight: 900; color: #ef4444;">-</span>
+                </p>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #f1f5f9;">
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Mã Lỗi</th>
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Ý Nghĩa & Khắc Phục</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">1</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc tải lại trang.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">2</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng nhập lại.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="closeErrorDictionary()" class="btn-main" style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; border-radius: 16px; font-weight: 800;">Đã hiểu</button>
+        </div>
+    </div>
+
+
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -932,7 +989,30 @@
                 this.innerText = "Đăng Ký";
             }
         }
+        // Banned check logic ends
+
+        // Error Dictionary Logic
+        window.showErrorDictionary = (code) => {
+            const overlay = document.getElementById('errorOverlay');
+            const codeEl = document.getElementById('errorTargetCode');
+            if (codeEl) codeEl.textContent = code || "Chưa xác định";
+            if (overlay) overlay.classList.add('active');
+        }
+        window.closeErrorDictionary = () => {
+            const overlay = document.getElementById('errorOverlay');
+            if (overlay) overlay.classList.remove('active');
+        }
+
+        // URL Error Trigger for testing
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const errCode = params.get('error');
+            if (errCode) {
+                setTimeout(() => window.showErrorDictionary(errCode), 500);
+            }
+        });
     </script>
 </body>
 
 </html>
+```

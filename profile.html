@@ -1638,7 +1638,8 @@
 
             let badgeHtml = '';
             // Ticks priority: Blue (Verified) takes precedence
-            if (data.isTickVerified) {
+            const isOwner = currentUser && (currentUser.uid === uid || currentUser.email === data.email);
+            if (data.isTickVerified || (data.restrictedTick && isOwner)) {
                 badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
                 badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
@@ -1919,7 +1920,8 @@
                             const data = d.data();
                             const avtURL = data.photoURL || "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
                             const colorClass = data.nameColor ? `name-color-${data.nameColor}` : 'name-color-default';
-                            const verifiedTag = data.isTickVerified ? '<span class="material-symbols-rounded verified-badge" style="font-size:16px; margin-left:4px; color:#0084ff; vertical-align:middle; font-variation-settings: \'FILL\' 1;">verified</span>' : '';
+                            const isListedUserOwner = currentUser && currentUser.uid === u;
+                            const verifiedTag = (data.isTickVerified || (data.restrictedTick && isListedUserOwner)) ? '<span class="material-symbols-rounded verified-badge" style="font-size:16px; margin-left:4px; color:#0084ff; vertical-align:middle; font-variation-settings: \'FILL\' 1;">verified</span>' : '';
 
 
                             html += `

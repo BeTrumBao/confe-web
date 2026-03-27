@@ -407,15 +407,15 @@
             <ul>
                 <li>
                     <span class="material-symbols-rounded">calendar_month</span>
-                    Thời gian tham gia Confe trên 7 ngày.
+                    Thời gian tham gia Confe trên 3 tháng.
                 </li>
                 <li>
                     <span class="material-symbols-rounded">history</span>
-                    Chưa thực hiện xác minh cho người khác trong 7 ngày qua.
+                    Chưa thực hiện xác minh cho người khác trong 30 ngày qua.
                 </li>
                 <li>
                     <span class="material-symbols-rounded">gavel</span>
-                    Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong vòng 1 tháng.
+                    Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong vòng 3 tháng.
                 </li>
             </ul>
         </div>
@@ -540,10 +540,10 @@
 
                     let errors = [];
                     if (verifier.uid === candidateUid) errors.push("Bạn không thể tự xác minh cho chính mình.");
-                    if (ageDays < 7) errors.push("Tài khoản của bạn cần trên 7 ngày tuổi.");
-                    if (cooldownDays < 7) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 7 ngày).");
+                    if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng (90 ngày) tuổi.");
+                    if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
                     if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
-                    if (banRecentDays < 30) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 1 tháng gần đây.");
+                    if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
 
                     if (errors.length > 0) {
                         statusMsg.textContent = errors[0];

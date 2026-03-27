@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cờ Caro - Confe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        :root {
+            --primary: #0057db;
+            --secondary: #6366f1;
+            --bg: #f0f4ff;
+            --surface: rgba(255, 255, 255, 0.9);
+            --text: #1a1c1e;
+            --x-color: #ef4444;
+            --o-color: #3b82f6;
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* SCREENS */
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LOBBY & GLASS CARD */
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .hero-emoji {
+            font-size: 64px;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .join-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .inp {
+            flex: 1;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: 800;
+            outline: none;
+            transition: 0.2s;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .inp:focus {
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 16px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 87, 219, 0.2);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .btn-join {
+            width: 60px;
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* WAITING ROOM */
+        .room-code-box {
+            background: #fff;
+            border: 2px dashed var(--primary);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .code-val {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: var(--primary);
+        }
+
+        .player-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .player-item {
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .p-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .p-name {
+            flex: 1;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .p-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* GAME SCREEN */
+        .game-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .turn-box {
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 13px;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .turn-x {
+            border-color: var(--x-color);
+            color: var(--x-color);
+        }
+
+        .turn-o {
+            border-color: var(--o-color);
+            color: var(--o-color);
+        }
+
+        .turn-my {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .viewport {
+            width: 100%;
+            height: calc(100vh - 180px);
+            background: #fff;
+            border-radius: 20px;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            cursor: grab;
+        }
+
+        .viewport:active {
+            cursor: grabbing;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(20, 40px);
+            grid-template-rows: repeat(20, 40px);
+            background: #fff;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            border: 0.5px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 950;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .cell:hover:not(.taken) {
+            background: #f8fafc;
+        }
+
+        .cell.x {
+            color: var(--x-color);
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cell.o {
+            color: var(--o-color);
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cell.last {
+            background: #fffbeb;
+            border: 1px solid #f59e0b;
+        }
+
+        .cell.win {
+            background: #dcfce7;
+            border-color: #22c55e;
+            animation: winPulse 1s infinite;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes winPulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* WIN MODAL */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .win-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 32px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* UTILS */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 87, 219, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #toast-container {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: #0f172a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCREEN: LOADING -->
+    <div id="screenLoading" class="screen active" style="justify-content: center; min-height: 80vh;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- SCREEN: LOBBY -->
+    <div id="screenLobby" class="screen">
+        <div class="glass-card">
+            <div class="hero-emoji">⚔️</div>
+            <h1 class="title">Cờ Caro</h1>
+            <p class="subtitle">Thách đấu cùng bạn bè ở bất cứ đâu!</p>
+
+            <div style="margin-top: 10px;">
+                <label
+                    style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 8px; display: block;">VÀO
+                    PHÒNG</label>
+                <div class="join-group">
+                    <input type="text" id="joinCodeInp" class="inp" placeholder="Mã Phòng" maxlength="6">
+                    <button class="btn btn-join" onclick="joinRoom()">
+                        <span class="material-symbols-rounded">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items:center; gap: 10px; margin: 5px 0;">
+                <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                <span style="font-size:11px; color:#94a3b8; font-weight:700;">Hoặc</span>
+                <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+            </div>
+
+            <button class="btn btn-primary" onclick="createRoom()">
+                <span class="material-symbols-rounded">add_circle</span> Tạo phòng mới
+            </button>
+
+            <button class="btn" style="background: none; color: #64748b; font-size: 13px;"
+                onclick="location.href='game.html'">Quay lại</button>
+        </div>
+    </div>
+
+    <!-- SCREEN: WAITING -->
+    <div id="screenWaiting" class="screen">
+        <div class="glass-card">
+            <label style="font-size: 12px; font-weight: 800; color: #64748b;">Mã phòng của bạn</label>
+            <div class="room-code-box" onclick="copyRoomLink()">
+                <div class="code-val" id="waitCode">XXXXXX</div>
+                <p style="font-size: 10px; color: var(--primary); font-weight: 700; margin-top: 8px;">Chạm để copy link
+                    phòng 🔗</p>
+            </div>
+
+            <p class="subtitle">Đang đợi người chơi khác...</p>
+
+            <div class="player-list" id="playerListEl">
+                <!-- Players -->
+            </div>
+
+            <div id="hostActions" style="display: none; width: 100%;">
+                <button class="btn btn-primary" id="btnStart" onclick="hostStart()">Bắt đầu trận đấu 🚀</button>
+            </div>
+
+            <button class="btn" style="width: 100%; background: #fef2f2; color: #ef4444;" onclick="leaveRoom()">Rời
+                phòng</button>
+        </div>
+    </div>
+
+    <!-- SCREEN: GAMEPLAY -->
+    <div id="screenGame" class="screen" style="max-width: 1000px;">
+        <div class="game-header">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-size: 10px; font-weight: 800; color: #64748b;">Đối thủ</span>
+                <span id="oppName" style="font-size: 14px; font-weight: 700;">Đang kết nối...</span>
+            </div>
+
+            <div class="turn-box" id="turnBox">
+                <span id="turnText">Đang tải...</span>
+            </div>
+
+            <div style="text-align: right;">
+                <span id="mySide" style="font-size: 18px; font-weight: 900;">X</span>
+                <p style="font-size: 9px; font-weight: 700; color: #64748b;">Bạn</p>
+            </div>
+        </div>
+
+        <div class="viewport" id="viewport">
+            <div class="board" id="board">
+                <!-- Cells generated by JS -->
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; width: 100%; display: flex; justify-content: space-between;">
+            <button class="btn" style="background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05);"
+                onclick="confirmLeave()">
+                <span class="material-symbols-rounded">logout</span>
+            </button>
+            <div id="gameMsg"
+                style="font-size: 13px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px;">
+                <span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Đang đợi đối
+                thủ...
+            </div>
+        </div>
+    </div>
+
+    <!-- WIN OVERLAY -->
+    <div class="overlay" id="overlayWin">
+        <div class="win-card">
+            <div id="winEmoji" style="font-size: 72px; margin-bottom: 20px;">🏆</div>
+            <h2 id="winTitle" style="font-size: 28px; font-weight: 900; margin-bottom: 10px;">Bạn Thắng !</h2>
+            <p id="winSub" style="color: #64748b; margin-bottom: 30px;">Bạn đã nối được 5 quân cờ liên tiếp.</p>
+
+            <button id="btnRematch" class="btn btn-primary" style="margin-bottom: 12px; display: none;"
+                onclick="hostRematch()">Chơi lại ván mới</button>
+            <button class="btn" style="width: 100%;" onclick="leaveRoom()">Về sảnh</button>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getDatabase, ref, set, onValue, off, update, remove, get, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
+        const app = initializeApp(cfg);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        let myUid = null, myName = '', mySide = null;
+        let roomCode = null, isHost = false, roomListener = null;
+        let currentBoard = Array(400).fill(null);
+        let currentStatus = 'waiting', currentTurn = null;
+
+        const GRID_SIZE = 20;
+
+        // ── TOAST ──
+        function showToast(msg) {
+            const c = document.getElementById('toast-container');
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+            c.appendChild(t);
+            setTimeout(() => t.classList.add('show'), 50);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
+        }
+
+        // ── SCREENS ──
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // ── ROOM LOGIC ──
+        function genCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let c = ''; for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
+            return c;
+        }
+
+        window.createRoom = async () => {
+            if (!myUid) return;
+            const code = genCode();
+            roomCode = code; isHost = true; mySide = 'X';
+
+            const data = {
+                host: myUid,
+                status: 'waiting',
+                turn: myUid,
+                board: Array(400).fill(null),
+                players: {
+                    [myUid]: { name: myName, side: 'X' }
+                }
+            };
+
+            try {
+                const roomRef = ref(db, `caro_rooms/${code}`);
+                await set(roomRef, data);
+                onDisconnect(roomRef).remove();
+
+                document.getElementById('waitCode').textContent = code;
+                document.getElementById('hostActions').style.display = 'block';
+                listenRoom(code);
+                showScreen('screenWaiting');
+            } catch (e) { showToast("Lỗi tạo phòng!"); }
+        }
+
+        window.joinRoom = async (pCode) => {
+            const code = pCode || document.getElementById('joinCodeInp').value.trim().toUpperCase();
+            if (code.length !== 6) return showToast("Mã phòng không hợp lệ!");
+
+            const snap = await get(ref(db, `caro_rooms/${code}`));
+            if (!snap.exists()) return showToast("Phòng không tồn tại!");
+
+            const data = snap.val();
+            if (data.status !== 'waiting') return showToast("Phòng đã bắt đầu!");
+            if (Object.keys(data.players || {}).length >= 2) return showToast("Phòng đã đầy!");
+
+            roomCode = code; isHost = false; mySide = 'O';
+            const playerRef = ref(db, `caro_rooms/${code}/players/${myUid}`);
+            await update(playerRef, { name: myName, side: 'O' });
+            onDisconnect(playerRef).remove();
+
+            document.getElementById('waitCode').textContent = code;
+            document.getElementById('hostActions').style.display = 'none';
+            listenRoom(code);
+            showScreen('screenWaiting');
+        }
+
+        function listenRoom(code) {
+            if (roomListener) off(roomListener);
+            roomListener = ref(db, `caro_rooms/${code}`);
+            onValue(roomListener, (snap) => {
+                if (!snap.exists()) {
+                    if (roomCode) { showToast("Phòng đã giải tán."); leaveRoom(); }
+                    return;
+                }
+                handleUpdate(snap.val());
+            });
+        }
+
+        function handleUpdate(data) {
+            const players = data.players || {};
+            const pArr = Object.values(players);
+
+            // Waiting Room UI
+            if (data.status === 'waiting') {
+                document.getElementById('playerListEl').innerHTML = Object.entries(players).map(([uid, p]) => `
+                    <div class="player-item">
+                        <div class="p-avatar">${(p.name || 'P')[0]}</div>
+                        <div class="p-name">${p.name || 'Người chơi'} ${uid === myUid ? '(Bạn)' : ''}</div>
+                        <span class="p-badge">${p.side}</span>
+                    </div>
+                `).join('');
+                if (isHost) document.getElementById('btnStart').disabled = pArr.length < 2;
+            }
+
+            // Ensure board is always an array of 400 elements
+            const rawBoard = data.board || {};
+            currentBoard = Array.from({ length: 400 }, (_, i) => rawBoard[i] || null);
+
+            // Game UI
+            if (data.status === 'playing' || data.status === 'finished') {
+                if (currentStatus === 'waiting') showScreen('screenGame');
+
+                const opp = Object.entries(players).find(([uid]) => uid !== myUid);
+                document.getElementById('oppName').textContent = opp ? opp[1].name : "Đã rời phòng";
+                document.getElementById('mySide').textContent = mySide;
+                document.getElementById('mySide').style.color = mySide === 'X' ? 'var(--x-color)' : 'var(--o-color)';
+
+                renderBoard(currentBoard, data.lastMove, data.winLine);
+                updateTurnUI(data.turn, players, data.status);
+            }
+
+            if (data.status === 'finished') {
+                showWinModal(data, players);
+            } else {
+                document.getElementById('overlayWin').classList.remove('active');
+            }
+
+            currentStatus = data.status;
+            currentTurn = data.turn;
+        }
+
+        function renderBoard(cells, lastMove, winLine) {
+            const boardEl = document.getElementById('board');
+            if (boardEl.children.length === 0) {
+                boardEl.innerHTML = '';
+                for (let i = 0; i < 400; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'cell';
+                    el.onclick = () => handleCellClick(i);
+                    boardEl.appendChild(el);
+                }
+            }
+
+            const winSet = new Set(winLine || []);
+            for (let i = 0; i < 400; i++) {
+                const el = boardEl.children[i];
+                const val = cells ? cells[i] : null;
+                el.textContent = val || '';
+                el.className = 'cell' + (val ? ' taken ' + val.toLowerCase() : '');
+                if (lastMove && lastMove.idx === i) el.classList.add('last');
+                if (winSet.has(i)) el.classList.add('win');
+            }
+        }
+
+        function updateTurnUI(turnUid, players, status) {
+            const tb = document.getElementById('turnBox');
+            const tt = document.getElementById('turnText');
+            const msg = document.getElementById('gameMsg');
+
+            if (status === 'finished') {
+                tt.textContent = "Kết thúc";
+                msg.innerHTML = "Trận đấu đã kết thúc.";
+                return;
+            }
+
+            const isMyTurn = turnUid === myUid;
+            tb.className = 'turn-box ' + (isMyTurn ? 'turn-my' : (players[turnUid]?.side === 'X' ? 'turn-x' : 'turn-o'));
+            tt.textContent = isMyTurn ? "Lượt bạn" : "Lượt " + (players[turnUid]?.name || "...");
+
+            msg.innerHTML = isMyTurn ? "✨ Hãy đi nước cờ của bạn !" : `<span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Đang đợi đối thủ suy nghĩ...`;
+        }
+
+        async function handleCellClick(idx) {
+            if (currentStatus !== 'playing' || currentTurn !== myUid || (currentBoard && currentBoard[idx])) return;
+
+            const newBoard = [...currentBoard];
+            newBoard[idx] = mySide;
+
+            const r = Math.floor(idx / GRID_SIZE);
+            const c = idx % GRID_SIZE;
+            const winLine = checkWin(newBoard, r, c, mySide);
+
+            const updates = {};
+            updates[`caro_rooms/${roomCode}/board`] = newBoard;
+            updates[`caro_rooms/${roomCode}/lastMove`] = { idx, uid: myUid };
+
+            if (winLine) {
+                updates[`caro_rooms/${roomCode}/status`] = 'finished';
+                updates[`caro_rooms/${roomCode}/winner`] = myUid;
+                updates[`caro_rooms/${roomCode}/winLine`] = winLine;
+            } else {
+                const snap = await get(ref(db, `caro_rooms/${roomCode}/players`));
+                const pUids = Object.keys(snap.val());
+                const nextTurn = pUids.find(uid => uid !== myUid);
+                updates[`caro_rooms/${roomCode}/turn`] = nextTurn;
+            }
+
+            update(ref(db), updates);
+        }
+
+        function checkWin(board, r, c, side) {
+            const dirs = [[0, 1], [1, 0], [1, 1], [1, -1]];
+            for (let [dr, dc] of dirs) {
+                let line = [r * GRID_SIZE + c];
+                // Check positive
+                let nr = r + dr, nc = c + dc;
+                while (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && board[nr * GRID_SIZE + nc] === side) {
+                    line.push(nr * GRID_SIZE + nc);
+                    nr += dr; nc += dc;
+                }
+                // Check negative
+                nr = r - dr; nc = c - dc;
+                while (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && board[nr * GRID_SIZE + nc] === side) {
+                    line.push(nr * GRID_SIZE + nc);
+                    nr -= dr; nc -= dc;
+                }
+                if (line.length >= 5) return line;
+            }
+            return null;
+        }
+
+        function showWinModal(data, players) {
+            const isMe = data.winner === myUid;
+            document.getElementById('winEmoji').textContent = isMe ? '🏆' : '💀';
+            document.getElementById('winTitle').textContent = isMe ? "Bạn Thắng !" : "Bạn Thua !";
+            document.getElementById('winTitle').style.color = isMe ? "#16a34a" : "#ef4444";
+            document.getElementById('winSub').textContent = isMe ? "Kỹ năng tuyệt vời, bạn đã đánh bại đối thủ!" : "Đừng nản chí, làm lại ván nữa nào!";
+            document.getElementById('btnRematch').style.display = isHost ? 'block' : 'none';
+            document.getElementById('overlayWin').classList.add('active');
+        }
+
+        window.hostStart = () => {
+            update(ref(db, `caro_rooms/${roomCode}`), { status: 'playing' });
+        }
+
+        window.hostRematch = () => {
+            if (!myUid) return;
+            update(ref(db, `caro_rooms/${roomCode}`), {
+                status: 'playing',
+                board: null,
+                turn: myUid,
+                winLine: null,
+                lastMove: null,
+                winner: null
+            });
+        }
+
+        window.leaveRoom = async () => {
+            if (roomCode) {
+                if (isHost) await remove(ref(db, `caro_rooms/${roomCode}`));
+                else await remove(ref(db, `caro_rooms/${roomCode}/players/${myUid}`));
+            }
+            location.reload();
+        }
+
+        window.copyRoomLink = () => {
+            const url = window.location.origin + window.location.pathname + '?room=' + roomCode;
+            navigator.clipboard.writeText(url).then(() => showToast("Đã copy link phòng!"));
+        }
+
+        window.confirmLeave = () => {
+            if (confirm("Bạn có chắc muốn thoát phòng? Trận đấu sẽ bị hủy.")) leaveRoom();
+        }
+
+        // ── INIT ──
+        onAuthStateChanged(auth, u => {
+            if (!u) { window.top.location.href = 'login.html'; return; }
+            myUid = u.uid;
+            myName = u.displayName || u.email.split('@')[0];
+
+            const params = new URLSearchParams(window.location.search);
+            const autoJoin = params.get('room');
+            if (autoJoin) joinRoom(autoJoin);
+            else showScreen('screenLobby');
+        });
+
+        // Draggable Board
+        const vp = document.getElementById('viewport');
+        let isDown = false, sX, sY, sL, sT;
+        vp.onmousedown = (e) => { isDown = true; sX = e.pageX - vp.offsetLeft; sY = e.pageY - vp.offsetTop; sL = vp.scrollLeft; sT = vp.scrollTop; };
+        vp.onmouseleave = () => isDown = false;
+        vp.onmouseup = () => isDown = false;
+        vp.onmousemove = (e) => {
+            if (!isDown) return; e.preventDefault();
+            const x = e.pageX - vp.offsetLeft; const y = e.pageY - vp.offsetTop;
+            vp.scrollLeft = sL - (x - sX) * 1.5; vp.scrollTop = sT - (y - sY) * 1.5;
+        };
+
+    </script>
+</body>
+
+</html>

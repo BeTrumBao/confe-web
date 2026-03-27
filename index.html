@@ -576,6 +576,130 @@
             margin-bottom: 24px;
         }
 
+        /* SPIN WHEEL STYLES */
+        .wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: transform 4s cubic-bezier(0.12, 0, 0.1, 1);
+            background: conic-gradient(
+                #BA1A1A 0deg 90deg,
+                #0061A4 90deg 180deg,
+                #926B00 180deg 270deg,
+                #006D3B 270deg 360deg
+            );
+            position: relative;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .wheel-text {
+            position: absolute;
+            font-size: 11px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            width: 70px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Adjusted positions for text in 4 quadrants */
+        .wheel-text:nth-child(1) {
+            top: 22%;
+            left: 62%;
+            transform: rotate(45deg);
+        }
+
+        .wheel-text:nth-child(2) {
+            top: 62%;
+            left: 62%;
+            transform: rotate(135deg);
+        }
+
+        .wheel-text:nth-child(3) {
+            top: 62%;
+            left: 12%;
+            transform: rotate(225deg);
+        }
+
+        .wheel-text:nth-child(4) {
+            top: 22%;
+            left: 12%;
+            transform: rotate(315deg);
+        }
+
+        .wheel-needle {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 25px solid #1e293b;
+            z-index: 20;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .spin-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: #fff;
+            border: 4px solid #1e293b;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 13px;
+            cursor: pointer;
+            z-index: 25;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            color: #1e293b;
+            text-transform: uppercase;
+        }
+
+        .spin-btn:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #1e293b;
+            color: #fff;
+        }
+
+        .spin-btn:active {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        .spin-btn.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
         /* AD CONTAINER FOR ADSENSE */
         .ads-container {
             width: 100%;
@@ -1372,9 +1496,9 @@
             </p>
             <ul
                 style="text-align: left; font-size: 13px; color: #64748b; margin-bottom: 28px; padding-left: 20px; line-height: 1.6; font-weight: 600;">
-                <li>Tài khoản tham gia trên 7 ngày.</li>
-                <li>Chưa xác minh cho ai khác trong 7 ngày qua.</li>
-                <li>Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong 30 ngày gần đây.</li>
+                <li>Tài khoản tham gia trên 3 tháng.</li>
+                <li>Chưa xác minh cho ai khác trong 30 ngày qua.</li>
+                <li>Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong 3 tháng gần đây.</li>
             </ul>
             <div class="verify-v2-deadline" id="verifyDeadlineText">
                 Tài khoản sẽ bị khóa sau 10 ngày nếu chưa xác minh.
@@ -1392,6 +1516,148 @@
                 style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
                 Đăng xuất
             </button>
+        </div>
+    </div>
+
+    <!-- MODALS & POPUPS (DE-NESTED FROM SIDEBAR) -->
+    <div id="adPopup" class="ad-popup-overlay"
+        style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+        <div class="ad-popup-content"
+            style="background: #eceef1; border-radius: 46px; padding: 50px 24px 28px; width: 95%; max-width: 480px; border: none; box-shadow: 0 40px 100px -12px rgba(0,0,0,0.3); position: relative;">
+            <button id="adCloseBtn" class="ad-close-btn" onclick="closeAdPopup()"
+                style="top: 24px; right: 24px; width: 44px; height: 44px; background: rgba(255,255,255,0.7); border: none; color: #64748b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 10;">
+                <span class="material-symbols-rounded" style="font-size: 22px; font-weight: 700;">close</span>
+            </button>
+            <h3 id="adHeaderTitle"
+                style="text-align: center; font-size: 15px; margin-bottom: 28px; line-height: 1.5; color: #1e293b; padding: 0 20px; font-weight: 600; font-family: 'Be Vietnam Pro', sans-serif;">
+                Hãy coi quảng cáo để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web
+                    này</span>, nhé! ❤️
+            </h3>
+            <div id="adPopupSlot" class="ad-popup-body"
+                style="width: 100%; min-height: 440px; background: #ffffff; border-radius: 38px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAnnounce" class="modal-overlay">
+        <div class="modal-content" style="text-align:center; position:relative;">
+            <button onclick="closeAnnounce()"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
+                title="Đóng">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+            <img id="annImg" src=""
+                style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
+            <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
+            <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
+            <div
+                style="margin-top:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
+                <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
+                <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
+                    nay</label>
+            </div>
+            <button onclick="closeAnnounce()"
+                style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
+                hiểu</button>
+        </div>
+    </div>
+
+    <div id="modalMaintenance" class="modal-overlay" style="z-index: 200000; backdrop-filter: blur(15px);">
+        <div class="modal-content" style="max-width: 420px; padding: 40px 32px; text-align: center;">
+            <h1
+                style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
+                Đang bảo trì hệ thống</h1>
+            <p id="maintenanceMessage"
+                style="font-size:15px; font-weight:400; color:#44464F; line-height:22px; letter-spacing:0.25px; font-family:'Roboto',sans-serif;">
+                Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
+            </p>
+        </div>
+    </div>
+
+    <div id="modalGuidelines" class="modal-overlay" style="z-index: 100000;">
+        <div class="modal-content" style="max-width:440px; padding:28px; max-height:87vh; overflow-y:auto;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:64px; margin-bottom:24px; animation: bounce 2s infinite;"><span
+                        class="material-symbols-rounded" style="font-size: 64px; color: var(--primary);">book</span>
+                </div>
+                <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
+            </div>
+            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)" style="overflow-y:auto;">
+
+                <!-- Nội dung cấm -->
+                <div
+                    style="background: #fff1f2; padding: 12px; border-radius: 16px; border: 1px solid #fee2e2; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#e11d48; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #e11d48; font-size: 16px;">block</span> NỘI
+                        DUNG CẤM
+                    </h4>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
+                        <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
+                        <li><b>Tin giả:</b> Không lan truyền thông tin sai sự thật.</li>
+                        <li><b>Quảng cáo trái phép:</b> Cờ bạc, cá độ, vay nặng lãi đều bị cấm.</li>
+                        <li><b>Kích động, thù ghét:</b> Không phân biệt chủng tộc, tôn giáo, giới tính.</li>
+                        <li><b>Kêu gọi tẩy chay, tấn công:</b> Cá nhân hoặc tổ chức khác.</li>
+                    </ul>
+                </div>
+
+                <!-- Quyền riêng tư & Bảo mật -->
+                <div
+                    style="background: #f0f9ff; padding: 12px; border-radius: 16px; border: 1px solid #e0f2fe; margin-bottom: 12px;">
+                    <h4
+                        style="font-weight:800; color:#0284c7; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded" style="color: #0284c7; font-size: 16px;">lock</span>
+                        QUYỀN RIÊNG TƯ & BẢO MẬT
+                    </h4>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
+                        <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
+                        <li><b>Quấy rối:</b> Nghiêm cấm nhắn tin làm phiền, đe dọa, khủng bố tinh thần.</li>
+                        <li><b>Chụp màn hình:</b> Không phát tán nội dung từ nền tảng ra bên ngoài.</li>
+                    </ul>
+                </div>
+
+                <!-- Ứng xử -->
+                <div
+                    style="background: #eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
+                    <div
+                        style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded"
+                            style="color: #1d4ed8; font-size: 16px;">waving_hand</span> ỨNG XỬ & TÔN TRỌNG
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
+                        <li><b>Tôn trọng:</b> Thảo luận trên tinh thần xây dựng, không công kích cá nhân.</li>
+                        <li><b>Mạo danh:</b> Không giả danh Admin, Mod, người nổi tiếng.</li>
+                        <li><b>Tên hiển thị &amp; Avatar:</b> Không dùng tên/ảnh nhạy cảm, giả mạo.</li>
+                    </ul>
+                </div>
+
+                <!-- Tài khoản & Xử lý -->
+                <div
+                    style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
+                    <div
+                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        <span class="material-symbols-rounded"
+                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
+                    </div>
+                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
+                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
+                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
+                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
+                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
+                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
+                    </ul>
+                </div>
+
+                <div style="height:10px;"></div>
+            </div>
+            <div class="actions-area" style="margin-top:16px;">
+                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
+                    ý</button>
+            </div>
         </div>
     </div>
 
@@ -1428,23 +1694,77 @@
             try {
                 const permission = await Notification.requestPermission();
                 if (permission === 'granted') {
-                    const token = await getToken(messaging, { vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo' }); // User needs to replace this
+                    // Wait for service worker to be ready
+                    const registration = await navigator.serviceWorker.ready;
+                    const token = await getToken(messaging, { 
+                        vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo',
+                        serviceWorkerRegistration: registration 
+                    });
                     if (token) {
                         await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
                         console.log("FCM Token saved to Firestore");
 
-                        // Subscribe to public chat notifications
-                        fetch('/api/subscribe', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ token: token, topic: 'public-chat' })
-                        }).then(r => r.text()).then(t => t ? JSON.parse(t) : {}).then(d => console.log("Subscribed:", d)).catch(e => console.error(e));
+                        // Subscribe to public chat notifications (Skip on localhost as there is no backend)
+                        if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== 'localhost') {
+                            fetch('/api/subscribe', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ token: token, topic: 'public-chat' })
+                            }).then(r => r.text()).then(t => t ? JSON.parse(t) : {}).then(d => console.log("Subscribed:", d)).catch(e => console.error(e));
+                        } else {
+                            console.log("[System] Localhost detected, skipping FCM subscription backend call.");
+                        }
                     }
                 }
             } catch (err) {
                 console.error("FCM Permission/Token error:", err);
             }
         }
+
+        async function updateUserIP(uid) {
+            const tryDetailed = async (url, mapFn) => {
+                try {
+                    const r = await fetch(url, { mode: 'cors' });
+                    if (!r.ok) return null;
+                    const d = await r.json();
+                    return mapFn(d);
+                } catch (e) { return null; }
+            };
+
+            // 1. Try DB-IP (Permissive)
+            let data = await tryDetailed('https://api.db-ip.com/v2/free/self', d => ({
+                ip: d.ipAddress,
+                detail: `${d.city || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+            }));
+
+            // 2. Try FreeIPAPI
+            if (!data || !data.ip) {
+                data = await tryDetailed('https://freeipapi.com/api/json', d => ({
+                    ip: d.ipAddress,
+                    detail: `${d.cityName || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+                }));
+            }
+
+            if (data && data.ip) {
+                await updateDoc(doc(db, "users", uid), {
+                    lastIP: data.ip,
+                    lastLocation: data.detail || '',
+                    lastSeen: new Date().toISOString()
+                });
+                console.log(`[System] User IP updated: ${data.ip} ${data.detail ? '(' + data.detail + ')' : ''}`);
+            } else {
+                // Final Fallback: ipify (very reliable)
+                try {
+                    const r = await fetch('https://api64.ipify.org?format=json');
+                    const d = await r.json();
+                    if (d.ip) {
+                        await updateDoc(doc(db, "users", uid), { lastIP: d.ip, lastSeen: new Date().toISOString() });
+                        console.log(`[System] User IP updated (IP-only): ${d.ip}`);
+                    }
+                } catch (e) {}
+            }
+        }
+
 
         // Handle foreground notifications
         onMessage(messaging, (payload) => {
@@ -1468,6 +1788,7 @@
             if (u) {
                 localStorage.setItem('confe_current_uid', u.uid);
                 requestNotificationPermission(u); // Ask for permission after login
+                updateUserIP(u.uid); // Save user IP to database
 
                 // --- KIỂM TRA TRẠNG THÁI BAN ---
                 try {
@@ -1553,7 +1874,6 @@
                                     frame.src = 'dashboard.html';
                                 }
                             }
-
                         }
                     });
                 } catch (e) { console.error("Check status fail:", e); }
@@ -1762,13 +2082,73 @@
         };
 
         window.triggerAdPush = () => {
-            // Favor Video and Listening for more interactive experience
-            const types = ['video', 'listening', 'video', 'listening', 'google'];
-            const randomType = types[Math.floor(Math.random() * types.length)];
-            console.log("[AdSystem] Selected type:", randomType);
-            if (randomType === 'google') window.showGoogleAd();
-            else if (randomType === 'video') window.showVideoAd();
-            else if (randomType === 'listening') window.showListeningAd();
+            console.log("[AdSystem] Triggering Spin Wheel");
+            const popup = document.getElementById('adPopup');
+            if (popup) popup.classList.add('show');
+
+            const slot = document.getElementById('adPopupSlot');
+            setAdHeader("quay", "vòng quay");
+            document.getElementById('adCloseBtn').style.display = 'none';
+
+            slot.innerHTML = `
+                <div class="wheel-container">
+                    <div class="wheel-wrapper">
+                        <div class="wheel-needle"></div>
+                        <div class="wheel" id="mainWheel">
+                            <div class="wheel-text">GOOGLE ADS</div>
+                            <div class="wheel-text">VIDEO ADS</div>
+                            <div class="wheel-text">LISTENING</div>
+                            <div class="wheel-text">MAY MẮN</div>
+                        </div>
+                        <button class="spin-btn" id="spinBtn" onclick="window.startSpin()">QUAY</button>
+                    </div>
+                    <p style="font-size:12px; color:#64748b; margin-top:10px; font-weight:600;">Quay trúng "May mắn" để không phải xem quảng cáo!</p>
+                </div>
+            `;
+        };
+
+        window.startSpin = () => {
+            const wheel = document.getElementById('mainWheel');
+            const btn = document.getElementById('spinBtn');
+            if (!wheel || !btn || btn.classList.contains('disabled')) return;
+
+            btn.classList.add('disabled');
+            btn.textContent = "...";
+
+            // Random rotation (at least 5 full circles + random degree)
+            const randomDegree = Math.floor(Math.random() * 360);
+            const totalRotation = 1800 + randomDegree;
+
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+            setTimeout(() => {
+                // Determine result (0.4s buffer for the 4s animation)
+                const finalDegree = randomDegree % 360;
+                
+                // Conic gradient mapping (clockwise from top):
+                // 0-90: Google (Red)
+                // 90-180: Video (Blue)
+                // 180-270: Listening (Yellow)
+                // 270-360: None (Light Blue)
+                
+                // Since the wheel rotates clockwise, the degree R at top comes from initial index (360-R)
+                // BUT, it's easier to think: if we rotate by X, the part that was at -X is now at top.
+                // Needle is at top (0 deg).
+                // Part at top after rotation R is the one that was at (360 - (R % 360)) initially.
+                
+                const normalized = (360 - finalDegree) % 360;
+                
+                if (normalized >= 0 && normalized < 90) {
+                    window.showGoogleAd();
+                } else if (normalized >= 90 && normalized < 180) {
+                    window.showVideoAd();
+                } else if (normalized >= 180 && normalized < 270) {
+                    window.showListeningAd();
+                } else {
+                    window.showToast("Duyệt! Bạn quá may mắn, không cần xem quảng cáo lần này. ❤️");
+                    window.closeAdPopup();
+                }
+            }, 4200);
         };
 
         window.closeAnnounce = () => {
@@ -1798,7 +2178,9 @@
             }
 
             const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
-            if (maintenanceMode) {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            
+            if (maintenanceMode && !isLocal) {
                 const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
                 if (customMessage) document.getElementById('maintenanceMessage').textContent = customMessage;
                 document.getElementById('modalMaintenance').classList.add('active');
@@ -1808,13 +2190,22 @@
             try {
                 const adEnabled = getValue(remoteConfig, "ad_popup_enabled").asBoolean();
                 if (adEnabled) {
-                    setTimeout(() => {
-                        const popup = document.getElementById('adPopup');
-                        if (popup) {
-                            popup.classList.add('show');
-                            if (window.triggerAdPush) window.triggerAdPush();
-                        }
-                    }, 1000);
+                    const lastAdTime = localStorage.getItem('last_ad_time');
+                    const now = Date.now();
+                    const COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
+
+                    if (!lastAdTime || (now - parseInt(lastAdTime)) > COOLDOWN_MS) {
+                        setTimeout(() => {
+                            const popup = document.getElementById('adPopup');
+                            if (popup) {
+                                popup.classList.add('show');
+                                if (window.triggerAdPush) window.triggerAdPush();
+                                localStorage.setItem('last_ad_time', now.toString());
+                            }
+                        }, 1000);
+                    } else {
+                        console.log("[AdSystem] Ad cooling down. Next in:", Math.ceil((COOLDOWN_MS - (now - parseInt(lastAdTime))) / 60000), "min");
+                    }
                 }
             } catch (e) { console.log("Ad popup config error"); }
 
@@ -1927,154 +2318,68 @@
         // Deep link
         window.addEventListener('DOMContentLoaded', () => {
             const p = new URLSearchParams(window.location.search);
-            const uid = p.get('uid'), chat = p.get('chat');
+            const uid = p.get('uid'), chat = p.get('chat'), errCode = p.get('error');
             const f = document.getElementById('mainFrame');
             if (uid) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); f.src = `profile.html?uid=${uid}`; }
             else if (chat) { f.src = `chat.html?chat=${chat}`; }
+            
+            if (errCode) {
+                setTimeout(() => window.showErrorDictionary(errCode), 1000);
+            }
         });
+
+
+        // Error Dictionary Logic
+        window.showErrorDictionary = (code) => {
+            const overlay = document.getElementById('errorOverlay');
+            const codeEl = document.getElementById('errorTargetCode');
+            if (codeEl) codeEl.textContent = code || "Chưa xác định";
+            if (overlay) overlay.classList.add('active');
+        }
+        window.closeErrorDictionary = () => {
+            const overlay = document.getElementById('errorOverlay');
+            if (overlay) overlay.classList.remove('active');
+        }
     </script>
 
-    <!-- MODALS & POPUPS (DE-NESTED FROM SIDEBAR) -->
-    <div id="adPopup" class="ad-popup-overlay"
-        style="backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
-        <div class="ad-popup-content"
-            style="background: #eceef1; border-radius: 46px; padding: 50px 24px 28px; width: 95%; max-width: 480px; border: none; box-shadow: 0 40px 100px -12px rgba(0,0,0,0.3); position: relative;">
-            <button id="adCloseBtn" class="ad-close-btn" onclick="closeAdPopup()"
-                style="top: 24px; right: 24px; width: 44px; height: 44px; background: rgba(255,255,255,0.7); border: none; color: #64748b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 10;">
-                <span class="material-symbols-rounded" style="font-size: 22px; font-weight: 700;">close</span>
-            </button>
-            <h3 id="adHeaderTitle"
-                style="text-align: center; font-size: 15px; margin-bottom: 28px; line-height: 1.5; color: #1e293b; padding: 0 20px; font-weight: 600; font-family: 'Be Vietnam Pro', sans-serif;">
-                Hãy coi quảng cáo để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web
-                    này</span>, nhé! ❤️
-            </h3>
-            <div id="adPopupSlot" class="ad-popup-body"
-                style="width: 100%; min-height: 440px; background: #ffffff; border-radius: 38px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);">
+    <!-- Error Dictionary Overlay -->
+    <div id="errorOverlay" class="modal-overlay" onclick="closeErrorDictionary()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                <h2 style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #ef4444;">
+                    <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi Hệ Thống
+                </h2>
+                <button onclick="closeErrorDictionary()" style="background: none; border: none; cursor: pointer; color: #94a3b8;">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
             </div>
+            <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+                <p style="font-size: 14px; color: #b91c1c; font-weight: 600; text-align: center;">
+                    Phát hiện lỗi hệ thống: <span id="errorTargetCode" style="font-size: 18px; font-weight: 900;">-</span>
+                </p>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #f1f5f9;">
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Mã Lỗi</th>
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Ý Nghĩa & Khắc Phục</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 1</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc tải lại trang.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 2</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng nhập lại.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="closeErrorDictionary()" class="nav-link active" style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; font-weight: 700; border-radius: 16px; padding: 14px;">Đã hiểu</button>
         </div>
     </div>
 
-    <div id="modalAnnounce" class="modal-overlay">
-        <div class="modal-content" style="text-align:center; position:relative;">
-            <button onclick="closeAnnounce()"
-                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                title="Đóng">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <img id="annImg" src=""
-                style="width:100%; height:180px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
-            <h3 style="margin-bottom:10px; font-size:18px;"> Thông báo</h3>
-            <p id="annText" style="color:#64748b; font-size:14px; line-height:1.5;">...</p>
-            <div
-                style="margin-top:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:flex-start; gap:8px;">
-                <input type="checkbox" id="chkNoShow" style="width:16px; height:16px; cursor:pointer;">
-                <label for="chkNoShow" style="font-size:13px; color:#64748b; cursor:pointer;">Không hiện lại hôm
-                    nay</label>
-            </div>
-            <button onclick="closeAnnounce()"
-                style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Đã
-                hiểu</button>
-        </div>
-    </div>
-
-    <div id="modalMaintenance" class="modal-overlay" style="z-index: 200000; backdrop-filter: blur(15px);">
-        <div class="modal-content" style="max-width: 420px; padding: 40px 32px; text-align: center;">
-            <h1
-                style="font-size:24px; font-weight:500; color:#1A1C1E; margin-bottom:12px; letter-spacing:0; line-height:32px; font-family:'Roboto',sans-serif;">
-                Đang bảo trì hệ thống</h1>
-            <p id="maintenanceMessage"
-                style="font-size:15px; font-weight:400; color:#44464F; line-height:22px; letter-spacing:0.25px; font-family:'Roboto',sans-serif;">
-                Chúng tôi đang nâng cấp hệ thống để mang đến trải nghiệm tốt hơn cho bạn. Vui lòng quay lại sau!
-            </p>
-        </div>
-    </div>
-
-    <div id="modalGuidelines" class="modal-overlay" style="z-index: 100000;">
-        <div class="modal-content" style="max-width:440px; padding:28px; max-height:87vh; overflow-y:auto;">
-            <div style="text-align:center; margin-bottom:20px;">
-                <div style="font-size:64px; margin-bottom:24px; animation: bounce 2s infinite;"><span
-                        class="material-symbols-rounded" style="font-size: 64px; color: var(--primary);">book</span>
-                </div>
-                <div style="font-size:20px; font-weight:800; color:#0f172a;">Quy tắc cộng đồng</div>
-                <div style="font-size:13px; color:#64748b; margin-top:4px;">Kéo xuống để đọc hết và đồng ý nhé!</div>
-            </div>
-            <div id="guideContent" class="guide-content-scroll" onscroll="checkScroll(this)" style="overflow-y:auto;">
-
-                <!-- Nội dung cấm -->
-                <div
-                    style="background: #fff1f2; padding: 12px; border-radius: 16px; border: 1px solid #fee2e2; margin-bottom: 12px;">
-                    <h4
-                        style="font-weight:800; color:#e11d48; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded" style="color: #e11d48; font-size: 16px;">block</span> NỘI
-                        DUNG CẤM
-                    </h4>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Spam:</b> Không đăng lặp topic, comment vô nghĩa, flood chat.</li>
-                        <li><b>Nội dung đồi trụy, bạo lực:</b> Nghiêm cấm mọi hình thức.</li>
-                        <li><b>Tin giả:</b> Không lan truyền thông tin sai sự thật.</li>
-                        <li><b>Quảng cáo trái phép:</b> Cờ bạc, cá độ, vay nặng lãi đều bị cấm.</li>
-                        <li><b>Kích động, thù ghét:</b> Không phân biệt chủng tộc, tôn giáo, giới tính.</li>
-                        <li><b>Kêu gọi tẩy chay, tấn công:</b> Cá nhân hoặc tổ chức khác.</li>
-                    </ul>
-                </div>
-
-                <!-- Quyền riêng tư & Bảo mật -->
-                <div
-                    style="background: #f0f9ff; padding: 12px; border-radius: 16px; border: 1px solid #e0f2fe; margin-bottom: 12px;">
-                    <h4
-                        style="font-weight:800; color:#0284c7; font-size:13px; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded" style="color: #0284c7; font-size: 16px;">lock</span>
-                        QUYỀN RIÊNG TƯ & BẢO MẬT
-                    </h4>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Bảo mật thông tin:</b> Không chia sẻ mật khẩu, OTP, địa chỉ nhà.</li>
-                        <li><b>Doxxing:</b> Tuyệt đối không chia sẻ thông tin đời tư người khác.</li>
-                        <li><b>Quấy rối:</b> Nghiêm cấm nhắn tin làm phiền, đe dọa, khủng bố tinh thần.</li>
-                        <li><b>Chụp màn hình:</b> Không phát tán nội dung từ nền tảng ra bên ngoài.</li>
-                    </ul>
-                </div>
-
-                <!-- Ứng xử -->
-                <div
-                    style="background: #eff6ff; border:1px solid #bfdbfe; border-radius:14px; padding:16px; margin-bottom:12px;">
-                    <div
-                        style="font-weight:800; color:#1d4ed8; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded"
-                            style="color: #1d4ed8; font-size: 16px;">waving_hand</span> ỨNG XỬ & TÔN TRỌNG
-                    </div>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Ngôn từ:</b> Không chửi thề, xúc phạm nhân phẩm người khác.</li>
-                        <li><b>Tôn trọng:</b> Thảo luận trên tinh thần xây dựng, không công kích cá nhân.</li>
-                        <li><b>Mạo danh:</b> Không giả danh Admin, Mod, người nổi tiếng.</li>
-                        <li><b>Tên hiển thị &amp; Avatar:</b> Không dùng tên/ảnh nhạy cảm, giả mạo.</li>
-                    </ul>
-                </div>
-
-                <!-- Tài khoản & Xử lý -->
-                <div
-                    style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
-                    <div
-                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded"
-                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
-                    </div>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
-                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
-                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
-                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
-                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
-                    </ul>
-                </div>
-
-                <div style="height:10px;"></div>
-            </div>
-            <div class="actions-area" style="margin-top:16px;">
-                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
-                    ý</button>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
+    <script>window.showToast = function (msg, d) { d = d || 2500; try { if (window.self !== window.top && typeof window.top.showToast === 'function') { window.top.showToast(msg, d); return; } } catch (e) { } var b = document.body || document.documentElement; if (!b) return; var t = document.createElement('div'); t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;'; t.textContent = msg; b.appendChild(t); requestAnimationFrame(function () { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; }); setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400); }, d); };</script>
     <style>
         :root {
             --md-primary: #0057db;
@@ -231,22 +231,25 @@
             background: var(--md-surface-variant);
         }
 
-        /* REFINED SKELETON SHIMMER (Right to Left) */
+        /* MODERN SKELETON SHIMMER */
         @keyframes shimmer {
             0% {
-                background-position: 200% 0;
+                background-position: -200% 0;
             }
 
             100% {
-                background-position: -200% 0;
+                background-position: 200% 0;
             }
         }
 
         .skeleton {
             background: #e2e8f0;
-            background-image: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+            background-image: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.5) 50%,
+                    rgba(255, 255, 255, 0) 100%);
             background-size: 200% 100%;
-            animation: shimmer 2s infinite linear;
+            animation: shimmer 1.5s infinite linear;
             border-radius: 12px;
         }
 
@@ -254,20 +257,24 @@
             width: 60px;
             height: 60px;
             border-radius: 20px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .sk-name {
-            width: 130px;
-            height: 20px;
-            border-radius: 6px;
-            margin-bottom: 8px;
+            width: 140px;
+            height: 24px;
+            border-radius: 8px;
+            margin-bottom: 12px;
         }
 
         .sk-desc {
             width: 100%;
-            height: 40px;
-            border-radius: 6px;
+            height: 48px;
+            border-radius: 8px;
+        }
+
+        #loadingGrid {
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
@@ -296,12 +303,29 @@
 
         <div id="realGrid" class="game-grid" style="display: none;">
 
-            <div class="game-card" onclick="location.href='rps-game.html'">
+            <div class="game-card" onclick="location.href='dino-game.html'">
                 <div class="game-badge badge-hot">🔥 New !</div>
+                <div class="game-icon"><span class="material-symbols-rounded">emoji_nature</span></div>
+                <div class="game-name">Khủng Long Với Mấy Cây Xương Rồng </div>
+                <div class="game-desc">Trò chơi đơn giản nhất (hoặc không). Nhảy qua những cây xương rồng để
+                    lập kỷ lục!</div>
+                <button class="btn-play">Chơi Ngay</button>
+            </div>
+
+            <div class="game-card" onclick="location.href='rps-game.html'">
+                <div class="game-badge badge-soon">🔥 Hot !</div>
                 <div class="game-icon"><span class="material-symbols-rounded">front_hand</span></div>
                 <div class="game-name">Kéo Búa Bao</div>
                 <div class="game-desc">Chơi cùng 2–8 người! Mỗi người chọn bí mật, kết quả công bố cùng lúc. Ai thắng
                     ai lên ngôi? 🏆</div>
+                <button class="btn-play">Chơi Ngay</button>
+            </div>
+            <div class="game-card" onclick="location.href='caro-game.html'">
+                <div class="game-badge badge-hot">🔥 Phổ biến</div>
+                <div class="game-icon"><span class="material-symbols-rounded">grid_view</span></div>
+                <div class="game-name">Cờ Caro</div>
+                <div class="game-desc">Tạo phòng và thách đấu Caro cùng bạn bè. Ai sẽ là người nối được 5 quân cờ trước?
+                </div>
                 <button class="btn-play">Chơi Ngay</button>
             </div>
             <div class="game-card" onclick="location.href='click-game.html'">
@@ -311,13 +335,6 @@
                 <div class="game-desc">Thử thách tốc độ ngón tay trong 60 giây. Cạnh tranh với Top 10 cao thủ!</div>
                 <button class="btn-play">Chơi Ngay</button>
             </div>
-
-            <div class="game-card coming-soon">
-                <div class="game-badge badge-soon">Sắp ra mắt</div>
-                <div class="game-icon"><span class="material-symbols-rounded">hourglass_empty</span></div>
-                <div class="game-name">Sắp Ra Mắt...</div>
-                <div class="game-desc">?</div>
-            </div>
         </div>
     </div>
 
@@ -326,20 +343,26 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         const app = initializeApp({ apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" });
         const auth = getAuth(app);
-        onAuthStateChanged(auth, (u) => {
-            if (!u) { window.top.location.href = 'login.html'; return; }
-        });
-
-        // Resilience: Show grid after 1s regardless of auth if auth is slow
-        // (the auth redirect will still happen if they are not logged in)
-        setTimeout(() => {
+        const showGrid = () => {
             const lg = document.getElementById('loadingGrid');
             const rg = document.getElementById('realGrid');
             if (lg && rg && rg.style.display !== 'grid') {
-                lg.style.display = 'none';
-                rg.style.display = 'grid';
+                lg.style.opacity = '0';
+                setTimeout(() => {
+                    lg.style.display = 'none';
+                    rg.style.display = 'grid';
+                    rg.style.animation = 'fadeIn 0.4s ease-out';
+                }, 200);
             }
-        }, 1200);
+        };
+
+        onAuthStateChanged(auth, (u) => {
+            if (!u) { window.top.location.href = 'login.html'; return; }
+            showGrid();
+        });
+
+        // Cleanup: Show grid after 2s anyway if something fails
+        setTimeout(showGrid, 2000);
     </script>
 </body>
 

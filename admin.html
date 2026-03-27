@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -11,23 +11,24 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-light: rgba(37, 99, 235, 0.08);
-            --primary-glow: rgba(37, 99, 235, 0.15);
-            --bg: #eff3f8;
-            --surface: #ffffff;
-            --text: #0f172a;
-            --text-gray: #64748b;
-            --border: #e2e8f0;
+            --primary: #6366f1;
+            --primary-light: rgba(99, 102, 241, 0.1);
+            --primary-glow: rgba(99, 102, 241, 0.25);
+            --bg: #020617;
+            /* Deep Slate Black */
+            --surface: rgba(15, 23, 42, 0.6);
+            --text: #f8fafc;
+            --text-gray: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
             --sidebar-width: 280px;
-            --danger: #e11d48;
-            --success: #16a34a;
-            --glass: rgba(255, 255, 255, 0.7);
-            --radius-xl: 24px;
-            --radius-l: 18px;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --danger: #f43f5e;
+            --success: #10b981;
+            --glass: rgba(15, 23, 42, 0.7);
+            --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+            --radius-xl: 32px;
+            --radius-l: 22px;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.4);
         }
 
         * {
@@ -44,6 +45,9 @@
             overflow: hidden;
             display: flex;
             height: 100vh;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
         }
 
         /* --- SECURITY OVERLAY --- */
@@ -53,19 +57,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #ffffff;
+            background: #020617;
             z-index: 10000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #secure-overlay.hidden {
             opacity: 0;
             visibility: hidden;
-            transform: scale(1.05);
+            transform: scale(1.1);
+            filter: blur(20px);
         }
 
         .lock-icon {
@@ -73,41 +78,40 @@
             color: var(--primary);
             margin-bottom: 20px;
             background: var(--primary-light);
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 40px;
-            animation: pulse 2s infinite;
+            border-radius: 48px;
+            animation: float 4s ease-in-out infinite;
+            border: 1px solid var(--border);
+            box-shadow: 0 0 40px var(--primary-glow);
         }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
             }
 
             50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
+                transform: translateY(-15px);
             }
         }
 
         /* --- SIDEBAR GLASSMORPHISM --- */
         .sidebar {
             width: var(--sidebar-width);
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 35px 24px;
+            padding: 40px 24px;
             z-index: 100;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
         }
 
         .logo {
@@ -133,11 +137,11 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .nav-item {
-            padding: 14px 18px;
+            padding: 16px 20px;
             border-radius: var(--radius-l);
             cursor: pointer;
             display: flex;
@@ -145,9 +149,9 @@
             gap: 14px;
             font-weight: 600;
             color: var(--text-gray);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
-            border: none;
+            border: 1px solid transparent;
             background: transparent;
             width: 100%;
             text-align: left;
@@ -155,19 +159,21 @@
         }
 
         .nav-item:hover {
-            background: rgba(37, 99, 235, 0.05);
-            color: var(--primary);
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            transform: translateX(8px);
+            border-color: var(--border);
         }
 
         .nav-item.active {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .nav-item .material-symbols-rounded {
-            font-size: 22px;
+            font-size: 24px;
             transition: 0.3s;
         }
 
@@ -179,15 +185,16 @@
         .main {
             flex: 1;
             overflow-y: auto;
-            padding: 45px 50px;
-            background-image: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 40%);
+            padding: 50px 60px;
+            background: transparent;
+            scroll-behavior: smooth;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 45px;
+            margin-bottom: 50px;
         }
 
         .page-title h1 {
@@ -251,12 +258,14 @@
         }
 
         .btn-ghost {
-            background: #f1f5f9;
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text);
+            border: 1px solid var(--border);
         }
 
         .btn-ghost:hover {
-            background: #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* --- DASHBOARD CONTENT --- */
@@ -272,32 +281,48 @@
             border-radius: var(--radius-xl);
             padding: 30px;
             border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
             margin-bottom: 40px;
         }
 
         .stat-card {
             background: var(--surface);
-            padding: 28px;
+            padding: 32px;
             border-radius: var(--radius-xl);
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+            pointer-events: none;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: var(--shadow-lg);
-            border-color: var(--primary-light);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(30, 41, 59, 0.8);
         }
 
         .stat-icon {
@@ -330,17 +355,18 @@
             border-radius: var(--radius-xl);
             border: 1px solid var(--border);
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 35px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            backdrop-filter: blur(20px);
         }
 
         .box-title {
-            padding: 26px 35px;
+            padding: 30px 40px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to right, #ffffff, #fafafa);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .box-title h2 {
@@ -372,7 +398,7 @@
 
         .search-wrapper input:focus {
             border-color: var(--primary);
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 4px var(--primary-light);
         }
 
@@ -391,22 +417,23 @@
         }
 
         .data-table th {
-            background: #fafafa;
+            background: rgba(255, 255, 255, 0.03);
             text-align: left;
-            padding: 20px 35px;
+            padding: 24px 40px;
             font-size: 11px;
             color: var(--text-gray);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             font-weight: 800;
+            border-bottom: 1px solid var(--border);
         }
 
         .data-table td {
-            padding: 20px 35px;
+            padding: 24px 40px;
             border-bottom: 1px solid var(--border);
-            font-size: 14px;
+            font-size: 15px;
             vertical-align: middle;
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .data-table tr:last-child td {
@@ -414,7 +441,7 @@
         }
 
         .data-table tr:hover td {
-            background: #fcfdfe;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .user-cell {
@@ -442,67 +469,87 @@
         }
 
         .badge {
-            padding: 6px 12px;
-            border-radius: 10px;
+            padding: 8px 14px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .badge.admin {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(244, 63, 94, 0.15);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.2);
         }
 
         .badge.user {
-            background: #eff6ff;
-            color: #1e40af;
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         .badge.verified {
-            background: #dcfce7;
-            color: #166534;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .badge.banned {
-            background: #1e293b;
-            color: white;
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+            border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
         .action-btn {
-            background: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
-            padding: 10px 14px;
-            border-radius: 12px;
+            padding: 12px 18px;
+            border-radius: 14px;
             cursor: pointer;
             color: var(--text-gray);
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 12px;
+            gap: 8px;
+            font-size: 13px;
             font-weight: 700;
         }
 
         .action-btn:hover {
-            background: white;
-            color: var(--primary);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .action-btn.delete:hover {
             border-color: var(--danger);
-            color: var(--danger);
-            background: #fff1f2;
+            color: white;
+            background: var(--danger);
+            box-shadow: 0 10px 20px rgba(244, 63, 94, 0.3);
         }
 
         .action-btn.verify:hover {
             border-color: var(--success);
-            color: var(--success);
-            background: #f0fdf4;
+            color: white;
+            background: var(--success);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .badge.unverified {
+            background: rgba(244, 63, 94, 0.1);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        .badge.muted {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
         .action-btn .material-symbols-rounded {
@@ -540,11 +587,12 @@
         }
 
         .gen-card {
-            background: white;
+            background: var(--surface);
             border-radius: var(--radius-xl);
-            padding: 30px;
+            padding: 35px;
             border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
         }
 
         .gen-card h3 {
@@ -558,19 +606,20 @@
 
         .inp {
             width: 100%;
-            padding: 12px 18px;
-            border-radius: 14px;
+            padding: 14px 20px;
+            border-radius: 16px;
             border: 1.5px solid var(--border);
             font-size: 14px;
             font-weight: 600;
             outline: none;
             transition: 0.3s;
-            background: #fafafa;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
         }
 
         .inp:focus {
             border-color: var(--primary);
-            background: white;
+            background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 5px var(--primary-light);
         }
 
@@ -615,40 +664,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 1000;
             display: none;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .modal-overlay.active {
             display: flex;
-            animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes modalIn {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: scale(0.9) translateY(40px);
             }
 
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
             }
         }
 
         .modal-card {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 32px;
+            padding: 45px;
+            width: 90%;
             max-width: 550px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
         }
 
         .input-group {
@@ -668,21 +718,22 @@
         .input-group input,
         .input-group textarea {
             width: 100%;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
             border: 1.5px solid var(--border);
             font-size: 14px;
             font-weight: 600;
             outline: none;
             transition: 0.3s;
-            background: #fafafa;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
         }
 
         .input-group input:focus,
         .input-group textarea:focus {
             border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 5px var(--primary-light);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 5px var(--primary-glow);
         }
 
         @media (max-width: 1024px) {
@@ -713,13 +764,15 @@
         }
 
         .conf-dialog-card {
-            background: white;
-            border-radius: 24px;
-            padding: 35px;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 32px;
+            padding: 40px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            backdrop-filter: blur(20px);
         }
 
         .conf-dialog-icon {
@@ -924,7 +977,8 @@
                 <div class="chart-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                         <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
-                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng & bài
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng &amp;
+                            bài
                             viết</div>
                     </div>
                     <div id="activity-chart" style="min-height:280px;"></div>
@@ -1160,7 +1214,7 @@
 
                 <!-- FEATURES & MAINTENANCE -->
                 <div class="gen-card" style="grid-column: 1 / -1;">
-                    <h3><span class="material-symbols-rounded">settings_suggest</span> Tính năng & Bảo trì</h3>
+                    <h3><span class="material-symbols-rounded">settings_suggest</span> Tính năng &amp; Bảo trì</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div>
                             <div class="form-row">
@@ -1172,15 +1226,20 @@
                             </div>
                             <div class="form-row">
                                 <label>Thông báo bảo trì (Hiển thị cho người dùng)</label>
-                                <textarea id="feat-outline-msg" class="inp" style="height: 100px;" placeholder="Ví dụ: Tính năng đang được nâng cấp, vui lòng quay lại sau..."></textarea>
+                                <textarea id="feat-outline-msg" class="inp" style="height: 100px;"
+                                    placeholder="Ví dụ: Tính năng đang được nâng cấp, vui lòng quay lại sau..."></textarea>
                             </div>
                         </div>
                         <div style="background: var(--bg); padding: 20px; border-radius: 16px;">
                             <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
-                                <span class="material-symbols-rounded" style="font-size: 18px; vertical-align: middle;">info</span>
-                                <b>Hướng dẫn:</b> Khi chuyển sang trạng thái <b>Đang bảo trì</b>, toàn bộ trang Ôn tập thông minh sẽ bị khóa và hiển thị thông báo bạn đã nhập. Admin vẫn có thể vào để kiểm tra nếu cần (tùy cấu hình logic).
+                                <span class="material-symbols-rounded"
+                                    style="font-size: 18px; vertical-align: middle;">info</span>
+                                <b>Hướng dẫn:</b> Khi chuyển sang trạng thái <b>Đang bảo trì</b>, toàn bộ trang Ôn tập
+                                thông minh sẽ bị khóa và hiển thị thông báo bạn đã nhập. Admin vẫn có thể vào để kiểm
+                                tra nếu cần (tùy cấu hình logic).
                             </p>
-                            <button class="btn btn-primary" onclick="applyFeaturesConfig()" style="width:100%; margin-top:20px;">
+                            <button class="btn btn-primary" onclick="applyFeaturesConfig()"
+                                style="width:100%; margin-top:20px;">
                                 <span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì
                             </button>
                         </div>
@@ -1188,7 +1247,7 @@
                 </div>
             </div>
         </div>
-            </div>
+        </div>
         </div>
     </main>
 
@@ -1231,14 +1290,16 @@
                 document.getElementById('conf-dialog-msg').innerText = msg;
 
                 const styles = {
-                    danger: { bg: '#fff1f2', color: '#e11d48', icon: 'warning', btn: '#e11d48' },
-                    info: { bg: '#eff6ff', color: '#2563eb', icon: 'info', btn: '#2563eb' }
+                    danger: { bg: 'rgba(244, 63, 94, 0.1)', color: '#fb7185', icon: 'warning', btn: '#f43f5e' },
+                    info: { bg: 'rgba(99, 102, 241, 0.1)', color: '#818cf8', icon: 'info', btn: '#6366f1' }
                 };
                 const s = styles[type] || styles.info;
                 iconWrap.style.background = s.bg;
                 iconWrap.style.color = s.color;
+                iconWrap.style.border = `1px solid ${s.color}33`;
                 iconWrap.innerHTML = `<span class="material-symbols-rounded">${s.icon}</span>`;
                 btnOk.style.background = s.btn;
+                btnOk.style.color = 'white';
 
                 const close = (res) => {
                     dlg.classList.remove('active');
@@ -1319,14 +1380,15 @@
 
             const options = {
                 series: [{ name: 'Người dùng mới', data: userCounts }, { name: 'Bài viết mới', data: topicCounts }],
-                chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans' },
-                colors: ['#2563eb', '#16a34a'],
+                chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans', foreColor: '#94a3b8' },
+                theme: { mode: 'dark' },
+                colors: ['#6366f1', '#10b981'],
                 dataLabels: { enabled: false },
                 stroke: { curve: 'smooth', width: 3 },
                 fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] } },
                 xaxis: { categories: days, axisBorder: { show: false }, axisTicks: { show: false } },
                 yaxis: { show: false },
-                grid: { borderColor: '#f1f5f9', strokeDashArray: 4 },
+                grid: { borderColor: 'rgba(255, 255, 255, 0.05)', strokeDashArray: 4 },
                 legend: { position: 'top', horizontalAlign: 'right' }
             };
 
@@ -1357,7 +1419,7 @@
         async function loadUsers() {
             const snap = await getDocs(collection(db, "users"));
             renderTable('full-user-list', snap, (ud, id) => {
-                const isVerified = ud.isVerified === true;
+                const isTickVerified = ud.isTickVerified === true;
                 const isBanned = ud.isBanned === true;
                 return `
                 <td>
@@ -1365,19 +1427,19 @@
                     <div class="user-cell">
                         <img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
                         <strong>${ud.displayName || 'Khách'}</strong>
-                        ${isVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : '<span class="material-symbols-rounded" style="color:#94a3b8; font-size:18px;">help_outline</span>'}
+                        ${isTickVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : '<span class="material-symbols-rounded" style="color:#94a3b8; font-size:18px;">help_outline</span>'}
                     </div>
                 </td>
                     <td>
                         <div style="font-weight:600">${ud.email || 'N/A'}</div>
-                        <div style="margin-top:4px;">
-                            ${isVerified ? '<span class="badge verified">Verified</span>' : '<span class="badge" style="background:#fef2f2; color:#ef4444;">Unverified</span>'}
+                        <div style="margin-top:8px; display:flex; gap:5px;">
+                            ${isTickVerified ? '<span class="badge verified">Verified</span>' : '<span class="badge unverified">Unverified</span>'}
                             ${isBanned ? '<span class="badge banned">BANNED</span>' : ''}
-                            ${ud.isChatMuted ? '<span class="badge" style="background:#64748b; color:white;">MUTED</span>' : ''}
+                            ${ud.isChatMuted ? '<span class="badge muted">MUTED</span>' : ''}
                         </div>
                     </td>
                     <td>
-                        <select onchange="updateRole('${id}', this.value)" style="padding:6px;border-radius:8px;border:1px solid #ddd;font-weight:600;">
+                        <select onchange="updateRole('${id}', this.value)" class="inp" style="padding:8px 12px; height:auto; width:auto;">
                             <option value="user" ${ud.role === 'user' ? 'selected' : ''}>User</option>
                             <option value="admin" ${ud.role === 'admin' ? 'selected' : ''}>Admin</option>
                         </select>
@@ -1402,10 +1464,10 @@
                 const q = query(collection(db, "outlines"), where("isPublic", "==", true));
                 const snap = await getDocs(q);
                 list.innerHTML = '';
-                
+
                 let docs = [];
                 snap.forEach(doc => docs.push({ id: doc.id, ...doc.data() }));
-                
+
                 // Sort by createdAt desc in memory
                 docs.sort((a, b) => {
                     const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
@@ -1600,8 +1662,16 @@
 
         window.toggleVerify = async (id, current) => {
             try {
-                await updateDoc(doc(db, "users", id), { isVerified: !current });
-                showToast(current ? "Đã hủy tick xanh" : "Đã cấp tick xanh thành công!");
+                await updateDoc(doc(db, "users", id), { isTickVerified: !current });
+                showToast(current ? "Đã hủy tick xanh công khai" : "Đã cấp tick xanh công khai thành công!");
+                loadUsers();
+            } catch (e) { showToast(e.message, 'error'); }
+        };
+
+        window.toggleRestrictedTick = async (id, current) => {
+            try {
+                await updateDoc(doc(db, "users", id), { restrictedTick: !current });
+                showToast(current ? "Đã hủy tick xanh hạn chế" : "Đã cấp tick xanh hạn chế thành công!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
@@ -1855,33 +1925,38 @@
             const snap = await getDoc(doc(db, "users", uid));
             if (!snap.exists()) return showToast("User không tồn tại!", 'error');
             const u = snap.data();
-            const isVerified = u.isVerified === true;
+            const isTickVerified = u.isTickVerified === true;
             const isBanned = u.isBanned === true;
 
             const body = document.getElementById('profileBody');
             body.innerHTML = `
-                <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: var(--bg); padding: 20px; border-radius: 16px;">
-                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 4px solid #fff;">
+                <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid var(--border);">
+                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" style="width: 80px; height: 80px; border-radius: 24px; object-fit: cover; border: 2px solid var(--primary);">
                     <div>
-                        <h3 style="font-weight: 800;">${u.displayName || 'Khách'}</h3>
-                        <p style="color: var(--text-gray); font-size: 13px;">@${u.username || 'n/a'}</p>
+                        <h3 style="font-weight: 800; font-size: 20px;">${u.displayName || 'Khách'}</h3>
+                        <p style="color: var(--text-gray); font-size: 14px;">@${u.username || 'n/a'}</p>
                     </div>
                 </div>
-                <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 10px; break-all: break-all; width: 100%; overflow: hidden; text-overflow: ellipsis;">${uid}</div></div>
+                <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">${uid}</div></div>
                 <div class="input-group"><label>Email</label><input type="text" class="inp" value="${u.email || 'N/A'}" readonly></div>
                 <div class="input-group"><label>Vai trò</label>
-                    <select onchange="updateRole('${uid}', this.value)" style="width:100%; padding:14px; border-radius:14px; border:1.5px solid var(--border); font-weight:700; background:#fff;">
+                    <select onchange="updateRole('${uid}', this.value)" class="inp">
                         <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
                         <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
                     </select>
                 </div>
                 <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
-                <div class="input-group"><label>Trạng thái xác minh</label><input type="text" class="inp" value="${isVerified ? 'Đã xác minh' : 'Chưa xác minh'}" style="color: ${isVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
-                
+                <div class="input-group"><label>Trạng thái xác minh</label><input type="text" class="inp" value="${isTickVerified ? 'Đã xác minh' : 'Chưa xác minh'}" style="color: ${isTickVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
+                <div class="input-group"><label>Tick xanh cá nhân</label><input type="text" class="inp" value="${u.restrictedTick ? 'Bật' : 'Tắt'}" style="color: ${u.restrictedTick ? 'var(--primary)' : 'var(--text-gray)'}; font-weight: 800;" readonly></div>
+
                 <div style="grid-column: span 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-                    <button class="btn ${isVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isVerified}); closeProfileModal();">
-                        <span class="material-symbols-rounded">${isVerified ? 'verified_user' : 'verified'}</span>
-                        ${isVerified ? 'Hủy xác minh' : 'Xác minh'}
+                    <button class="btn ${isTickVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isTickVerified}); closeProfileModal();">
+                        <span class="material-symbols-rounded">${isTickVerified ? 'verified_user' : 'verified'}</span>
+                        ${isTickVerified ? 'Hủy Tick Công Khai' : 'Cấp Tick Công Khai'}
+                    </button>
+                    <button class="btn ${u.restrictedTick ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleRestrictedTick('${uid}', ${!!u.restrictedTick}); closeProfileModal();">
+                        <span class="material-symbols-rounded">${u.restrictedTick ? 'verified_user' : 'verified'}</span>
+                        ${u.restrictedTick ? 'Hủy Tick Cá Nhân' : 'Cấp Tick Cá Nhân'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>

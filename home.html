@@ -2634,12 +2634,12 @@
             try {
                 const snap = await getDoc(doc(db, "users", uid));
                 if (snap.exists()) {
-                    const data = snap.data();
+                    const data = snap.data(); const isOwner = user && user.uid === uid;
                     const info = {
                         name: data.displayName || fallbackName,
                         avt: data.photoURL || fallbackAvt,
                         color: data.nameColor || 'default',
-                        verified: !!(data.isTickVerified || data.verified),
+                        verified: !!(data.isTickVerified || data.verified || (data.restrictedTick && isOwner)),
                         badge: data.equippedBadge || null
                     };
                     userProfilesCache[uid] = info;
