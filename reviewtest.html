@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hệ thống Ôn tập Giữa kì - Confe</title>
+  <script type="module" src="security-lock.js"></script>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script>window.showToast = function (msg, d) { d = d || 2500; try { if (window.self !== window.top && typeof window.top.showToast === 'function') { window.top.showToast(msg, d); return; } } catch (e) { } var b = document.body || document.documentElement; if (!b) return; var t = document.createElement('div'); t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;'; t.textContent = msg; b.appendChild(t); requestAnimationFrame(function () { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; }); setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400); }, d); };</script>
@@ -2457,6 +2458,11 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
+    .hidden-option {
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
   </style>
 </head>
 
@@ -2662,9 +2668,8 @@
             <label class="inp-label" style="color: #0084ff;">Thiả¿t lả­p câu hỏi</label>
             <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
               <input type="number" id="q-count" class="inp" value="0" min="0" oninput="generateAnsInputs()"
-                placeholder="Sỏ‘ lÆ°ỏ£ng vÃ¹ng che." style="flex: 1;">
-              <div style="font-size: 13px; font-weight: 600; color: #64748b; flex: 1.5;">Nhả­p sỏ‘ lÆ°ỏ£ng vÃ¹ng bả¡n
-                muỏ‘n che trÃªn ảnh</div>
+                placeholder="Số lượng cÃ¢u hỏ i." style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 600; color: #64748b; flex: 1.5;">Nhập số lượng cÃ¢u hỏ i củ a Đ‘ỏ  cương nÃ y</div>
             </div>
             <div id="ans-keys-container" class="ans-grid">
               <!-- Dynamically generated inputs -->
@@ -2688,17 +2693,7 @@
             onchange="handleImageUpload(event)">
 
           <div id="masking-tools" class="creator-tools" style="display: none;">
-            <div style="display: flex; gap: 12px;">
-              <button class="tool-btn active"><span class="material-symbols-rounded">rectangle</span> Vả½ vÃ¹ng
-                che</button>
-              <button class="tool-btn" onclick="clearMasks()" style="color: #ef4444; border-color: #fee2e2;"><span
-                  class="material-symbols-rounded">delete</span> XÃ³a hả¿t</button>
-            </div>
-            <div
-              style="font-size: 12px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px;">
-              <span class="material-symbols-rounded" style="font-size: 18px;">important_devices</span> Chả¡m && vuỏ‘t để
-              vả½ trÃªn mobile
-            </div>
+            <!-- Masking tools hidden as per request -->
           </div>
 
           <div id="canvas-wrapper" style="display: none; margin-top: 5px;">
@@ -3373,7 +3368,7 @@
 
         document.getElementById('canvas-wrapper').style.display = 'block';
         document.getElementById('upload-placeholder-wrap').style.display = 'none';
-        document.getElementById('masking-tools').style.display = 'flex';
+        document.getElementById('masking-tools').style.display = 'none';
 
         renderGallery();
         drawCanvas();
@@ -3490,12 +3485,12 @@
         };
 
         // Mouse Events
-        canvas.addEventListener('mousedown', (e) => handleStart(e.clientX, e.clientY));
-        canvas.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-        canvas.addEventListener('mouseup', (e) => handleEnd(e.clientX, e.clientY));
+        // canvas.addEventListener('mousedown', (e) => handleStart(e.clientX, e.clientY));
+        // canvas.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+        // canvas.addEventListener('mouseup', (e) => handleEnd(e.clientX, e.clientY));
 
         // Touch Events (Mobile)
-        canvas.addEventListener('touchstart', (e) => {
+        /* canvas.addEventListener('touchstart', (e) => {
           e.preventDefault();
           const touch = e.touches[0];
           handleStart(touch.clientX, touch.clientY);
@@ -3510,7 +3505,7 @@
         canvas.addEventListener('touchend', (e) => {
           const touch = e.changedTouches[0];
           handleEnd(touch.clientX, touch.clientY);
-        });
+        }); */
       };
       initCanvasEvents();
 
@@ -3537,17 +3532,11 @@
 
           block.innerHTML = `
             <div style="font-size:10px; font-weight:800; color:#0084ff; margin-bottom:12px; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:5px;">
-              <span class="material-symbols-rounded" style="font-size:14px;">adjust</span> VÃ™NG CHE ${i}
+              <span class="material-symbols-rounded" style="font-size:14px;">adjust</span> CÃ¢u hỏ i ${i}
             </div>
-            <select class="ans-type-select" id="ans-type-${i}" onchange="toggleAnsInputType(${i})">
-              <option value="mcq">Trắc nghiệm (A,B,C,D)</option>
-              <option value="short">Tự luận ngắn (Văn bản)</option>
-            </select>
+            <input type="hidden" id="ans-type-${i}" value="short">
             <div id="ans-input-wrap-${i}" style="margin-top: 5px;">
-              <div class="mcq-options" style="display:flex; gap:8px;">
-                ${['A', 'B', 'C', 'D'].map(opt => `<button class="mcq-btn" onclick="selectMcq(${i}, '${opt}')" id="mcq-${i}-${opt}">${opt}</button>`).join('')}
-              </div>
-              <input type="hidden" id="ans-${i}" value="">
+              <input type="text" class="ans-input" placeholder="Nhập đáp án..." id="ans-${i}" style="margin-bottom: 0; padding: 12px; width: 100%; box-sizing: border-box; border-radius: 12px; border: 1.5px solid #e2e8f0;">
             </div>
           `;
           container.appendChild(block);
@@ -5471,6 +5460,26 @@
           explanationBox.appendChild(expTitle);
           explanationBox.appendChild(expContent);
           qBlock.appendChild(explanationBox);
+
+          if (!isRight && currentSelection !== -1 && !isPassUsed) {
+            const remakeBtn = document.createElement('button');
+            remakeBtn.className = 'action-btn motivate-btn';
+            remakeBtn.style.marginTop = '15px';
+            remakeBtn.style.width = '100%';
+            remakeBtn.style.background = '#f59e0b';
+            remakeBtn.style.color = 'white';
+            remakeBtn.style.borderColor = '#f59e0b';
+            remakeBtn.innerHTML = '<span class="material-symbols-rounded" style="font-size:20px; vertical-align:middle; margin-right:5px;">refresh</span> Làm lại câu này (Remake)';
+            remakeBtn.onclick = function() {
+              if (window.quizTimer) clearInterval(window.quizTimer);
+              currentQuestionAnswered = false;
+              currentSelection = null;
+              selectedArrangeWords = [];
+              poolArrangeWords = [];
+              renderQuestion(index);
+            };
+            qBlock.appendChild(remakeBtn);
+          }
 
           if (isPassUsed) {
             nextBtn.disabled = false;

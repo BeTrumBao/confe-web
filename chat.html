@@ -6,6 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Chat - Confe</title>
+    <script type="module" src="security-lock.js"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -1146,6 +1147,17 @@
             border: 1px solid #e2e8f0;
         }
 
+
+
+
+
+        .status-text {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+
         .room-info {
             flex: 1;
             min-width: 0;
@@ -1638,9 +1650,13 @@
                 <span class="material-symbols-rounded" style="font-weight:700;">arrow_back</span>
             </button>
             <div style="flex:1; min-width:0; display:flex; align-items:center; gap:8px;">
-                <h1 class="header-title" id="headerTitle"
-                    style="font-size:17px; font-weight:800; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0;">
-                    Phòng Chat</h1>
+                <div style="display: flex; flex-direction: column;">
+                    <h1 class="header-title" id="headerTitle"
+                        style="font-size:17px; font-weight:800; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0;">
+                        Phòng Chat</h1>
+                    <div id="headerStatusText" class="status-text" style="display:none; margin-top:2px;"></div>
+                </div>
+
                 <span id="streakDisplay" class="streak-badge" style="display:none;"></span>
             </div>
             <div id="addFriendChipContainer" style="display:none; font-size:11px;"></div>
@@ -2072,9 +2088,26 @@
                 </div>
             </div>
 
-            <script type="module">
+            <!-- Modal Community Members -->
+        <div id="modalCommunityMembers" class="modal-overlay">
+            <div class="modal-content">
+                <div style="padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between;">
+                    <h3 style="margin:0; font-size:18px; font-weight:800; color:#0f172a;">Thành viên cộng đồng</h3>
+                    <button onclick="document.getElementById('modalCommunityMembers').classList.remove('active')" style="background:none; border:none; color:#94a3b8; cursor:pointer;">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+                <div id="communityMembersList" style="max-height: 60vh; overflow-y: auto; padding: 8px 0;">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <script type="module">
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
                 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+                import { startPresenceHeartbeat } from "./presence.js";
+                import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
                 import {
                     getFirestore, enableIndexedDbPersistence,
                     collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc, limit, limitToLast,
@@ -2333,7 +2366,20 @@
                     }
                     document.getElementById('chatRoomBox').classList.remove('hidden');
                     document.querySelector('.chat-header').style.display = 'flex';
-                    document.getElementById('headerTitle').innerText = name;
+                    const headerTitle = document.getElementById('headerTitle');
+                    if (headerTitle) {
+                        headerTitle.innerText = name;
+                    }
+
+                    const btnSettings = document.getElementById('btnChatSettings');
+                    if (btnSettings) {
+                        btnSettings.style.display = (type === 'public') ? 'none' : 'flex';
+                    }
+
+                    const dot = document.getElementById('headerStatusDot');
+                    if (dot) dot.style.display = 'none'; // Hide by default
+                    const statusText = document.getElementById('headerStatusText');
+                    if (statusText) statusText.style.display = 'none';
 
                     const fab = document.querySelector('.fab-menu');
                     if (fab) fab.style.display = 'none';
@@ -2358,6 +2404,19 @@
                             if (snap.exists()) {
                                 p2pOpponentData = snap.data();
                                 window.checkBlockStatus();
+
+                                // Update Status Text in Header
+                                const statusTxt = document.getElementById('headerStatusText');
+                                if (statusTxt) {
+                                    const ud = p2pOpponentData;
+                                    const statusUI = window.getStatusUI(ud);
+                                    if (statusUI) {
+                                        statusTxt.style.display = 'block';
+                                        statusTxt.textContent = statusUI.text;
+                                    } else {
+                                        statusTxt.style.display = 'none';
+                                    }
+                                }
                             }
                         });
 
@@ -2489,7 +2548,9 @@
                     filtered.forEach(room => {
                         const html = `
                     <div class="room-item" onclick="openChatRoom('${room.roomId}', '${room.name}', '${room.avatar}', '${room.roomType}')">
-                        <img src="${room.avatar || ANON_AVATAR}" class="room-avt" onerror="this.src='${ANON_AVATAR}'">
+                        <div style="position:relative;">
+                            <img src="${room.avatar || ANON_AVATAR}" class="room-avt" onerror="this.src='${ANON_AVATAR}'">
+                        </div>
                         <div class="room-info">
                             <div class="room-name">${room.name}</div>
                             <div class="room-msg">${room.lastMessage || 'Chưa có tin nhắn'}</div>
@@ -2500,6 +2561,8 @@
                         </div>
                     </div>`;
                         container.insertAdjacentHTML('beforeend', html);
+                        
+
                     });
                 }
 
@@ -2593,7 +2656,9 @@
                             if (f.status === 'accepted') {
                                 fHtml += `
                             <div class="room-item" onclick="openChatRoom('${d.id}', '${u.displayName}', '${u.photoURL}', 'p2p')">
-                                <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
+                                <div style="position:relative;">
+                                    <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
+                                </div>
                                 <div class="room-info">
                                     <div class="room-name">${u.displayName}</div>
                                 </div>
@@ -3007,6 +3072,9 @@
                 const tid = urlParams.get('tid');
                 if (tid) {
                     CHAT_COL = `topics/${tid}/chat`;
+                    const rtdb = getDatabase(app);
+
+                    currentUser = u;
                     document.getElementById('chatHub').classList.add('hidden');
                     document.getElementById('chatRoomBox').classList.remove('hidden');
                     const fab = document.querySelector('.fab-menu');
@@ -3028,6 +3096,12 @@
 
                 onAuthStateChanged(auth, async (u) => {
                     if (!u) { window.top.location.href = 'login.html'; return; }
+                    const rtdb = getDatabase(app);
+                    startPresenceHeartbeat({
+                        db, rtdb, uid: u.uid,
+                        serverTimestamp, updateDoc, doc,
+                        ref, onValue, set, onDisconnect
+                    });
                     currentUser = u;
                     loadRooms();
                     loadFriends();
@@ -3051,6 +3125,7 @@
                             window.myChatBackground = ud.chatBackground || 'default';
                             currentUser.unlockedStickers = ud.unlockedStickers || [];
                             currentUser.blockedUsers = ud.blockedUsers || [];
+                            currentUser.showActivity = ud.showActivity !== false;
 
                             if (window.checkBlockStatus) window.checkBlockStatus();
                         } else {
@@ -3064,7 +3139,8 @@
 
                     if (tid) openChatRoom(tid, "Chủ đề", "", "public");
                     initTypingListener();
-
+                    // Global heartbeat moved to index.html
+                    
                     // Fetch badges after auth
                     getDocs(collection(db, 'badges')).then(snap => {
                         snap.docs.forEach(d => globalBadgesCache[d.id] = d.data());
@@ -3095,6 +3171,9 @@
                 let typingTimeout = null;
                 function updateTyping() {
                     if (!currentUser) return;
+                    // Respect Activity Status privacy
+                    if (currentUser.showActivity === false) return;
+
                     const userRef = doc(db, TYPING_COL, currentUser.uid);
                     setDoc(userRef, {
                         name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "Khách"),
@@ -3114,6 +3193,7 @@
                         deleteDoc(userRef);
                     }
                 }
+
 
                 function initTypingListener() {
                     let typersData = [];
@@ -3179,6 +3259,26 @@
                     if (diff < 3600) return `${Math.floor(diff / 60)} phút trước`;
                     if (diff < 86400) return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
                     return `${date.getDate()}/${date.getMonth() + 1} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+                }
+
+                window.getStatusUI = (ud) => {
+                    if (ud.showActivity === false) return null;
+                    if (!ud.lastSeen) return { isOnline: false, text: 'Không rõ' };
+                    const last = (typeof ud.lastSeen.toDate === 'function') ? ud.lastSeen.toDate() : new Date(ud.lastSeen);
+                    const now = new Date();
+                    const diff = (now - last) / 1000;
+                    
+                    if (diff < 180) { // 3 minutes
+                        return { isOnline: true, text: 'Đang hoạt động', html: `` };
+                    }
+                    
+                    let text = '';
+                    if (diff < 3600) text = `${Math.floor(diff / 60)} phút trước`;
+                    else if (diff < 86400) text = `${Math.floor(diff / 3600)} giờ trước`;
+                    else if (diff < 172800) text = 'Hôm qua';
+                    else text = last.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric' });
+                    
+                    return { isOnline: false, text: `Hoạt động ${text}`, html: '' };
                 }
 
                 function getDateLabel(timestamp) {
@@ -3488,6 +3588,7 @@
                                 uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'),
                                 avatar: currentUser.photoURL, isTickVerified: currentUser.isTickVerified || false,
                                 nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
+                                showTickPrefer: currentUser.showTickPrefer !== false,
                                 avatarFrame: window.myAvatarFrame || 'default',
                                 chatBackground: window.myChatBackground || 'default',
                                 createdAt: serverTimestamp(), likes: []
@@ -3506,6 +3607,7 @@
                             uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                             isTickVerified: currentUser.isTickVerified || false,
                             nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
+                            showTickPrefer: currentUser.showTickPrefer !== false,
                             avatarFrame: window.myAvatarFrame || 'default',
                             chatBackground: window.myChatBackground || 'default',
                             createdAt: serverTimestamp(), likes: []
@@ -3733,6 +3835,16 @@
 
                 const renderCache = new Map();
                 const userProfileCache = new Map(); // Store latest profile data including verification status
+                function renderBadgeIcon(icon, name, size = "16px") {
+                    if (!icon) return "";
+                    const isSymbol = /^[a-z0-9_]+$/.test(icon);
+                    if (isSymbol) {
+                        return `<span class="material-symbols-rounded" style="font-size:${size}; vertical-align:middle; color:#0084ff; margin-left:4px;">${icon}</span>`;
+                    } else {
+                        return `<span style="font-size:${size}; vertical-align:middle; margin-left:4px;" title="${name}">${icon}</span>`;
+                    }
+                }
+
                 function renderMessage(docId, msg) {
                     // Cache lookup: versioning by docId + mod status + likes + timestamp presence
                     const cacheKey = `${docId}_${msg.isEdited ? 'ed' : 'no'}_${(msg.likes ? msg.likes.length : 0)}_${!!msg.createdAt}`;
@@ -3800,33 +3912,35 @@
                     let isTickVerified = msg.isTickVerified === true;
                     let isRestrictedTick = msg.restrictedTick === true;
                     let uBadgeId = msg.equippedBadge;
+                    let showTickPrefer = true;
 
                     if (userProfileCache.has(msg.uid)) {
                         const cachedP = userProfileCache.get(msg.uid);
-                        if (!isTickVerified && cachedP.isTickVerified === true) isTickVerified = true;
-                        if (!isRestrictedTick && cachedP.restrictedTick === true) isRestrictedTick = true;
+                        if (cachedP.isTickVerified === true) isTickVerified = true;
+                        if (cachedP.restrictedTick === true) isRestrictedTick = true;
                         if (cachedP.equippedBadge) uBadgeId = cachedP.equippedBadge;
+                        if (cachedP.showTickPrefer === false) showTickPrefer = false;
                     }
 
-                    // For the sending user, they also see their own restricted tick
                     if (isMine) {
-                        // isTickVerified = false; // Original code disabled it for sender? Removing this as user wants to see it.
                         if (currentUser) {
                             if (currentUser.isTickVerified) isTickVerified = true;
                             if (currentUser.restrictedTick) isRestrictedTick = true;
                             if (currentUser.equippedBadge) uBadgeId = currentUser.equippedBadge;
+                            if (currentUser.showTickPrefer === false) showTickPrefer = false;
                         }
                     }
 
-                    // Apply the restricted visibility rule: only owner sees restrictedTick
-                    let finalShowTick = isTickVerified || (isRestrictedTick && isMine);
+                    const finalShowTick = isTickVerified || (isRestrictedTick && isMine);
+                    const tickHtml = finalShowTick ? '<span class="material-symbols-rounded" style="color:#0084ff; font-size:16px; margin-left:4px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
+                    const badgeHtml = (uBadgeId && globalBadgesCache && globalBadgesCache[uBadgeId]) ? renderBadgeIcon(globalBadgesCache[uBadgeId].icon, globalBadgesCache[uBadgeId].name, "16px") : '';
 
-                    let badgeHtml = '';
-                    if (uBadgeId && globalBadgesCache && globalBadgesCache[uBadgeId]) {
-                        badgeHtml = `<span style="font-size:16px; margin-left:4px; vertical-align:middle;" title="${globalBadgesCache[uBadgeId].name}">${globalBadgesCache[uBadgeId].icon || '🏅'}</span>`;
+                    let nameExtraHtml = '';
+                    if (showTickPrefer) {
+                        nameExtraHtml = tickHtml || badgeHtml;
+                    } else {
+                        nameExtraHtml = badgeHtml || tickHtml;
                     }
-
-                    const verifiedHtml = finalShowTick ? '<span class="material-symbols-rounded" style="color:#3b82f6; font-size:14px; margin-left:3px; vertical-align:middle; font-variation-settings: \'FILL\' 1">verified</span>' : '';
                     const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
                     const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
                     const avatarFrameClass = msg.avatarFrame === 'vip' ? 'avatar-frame-vip' : '';
@@ -3838,7 +3952,7 @@
                     const html = `<div class="msg-row ${rowClass}" id="msg-${docId}">
                 ${!isMine ? `<div class="${msg.avatarFrame === 'vip' ? 'msg-avt-wrapper avatar-frame-vip' : ''}"><img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'"></div>` : ''}
                 <div class="msg-content-wrapper">
-                    ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${badgeHtml}${verifiedHtml}</div>` : ''}
+                    ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${nameExtraHtml}</div>` : ''}
                     ${contentHtml}${statusHtml}
                 </div>
             </div>`;
@@ -3986,11 +4100,7 @@
                             }
                         });
 
-                        if (isInitialLoad && fragment.childNodes.length > 0) {
-                            box.appendChild(fragment);
-                            setTimeout(() => { box.scrollTop = box.scrollHeight; }, 50);
-                            isInitialLoad = false;
-                        } else if (hasNewAdded && wasAtBottom) {
+                        if (hasNewAdded && wasAtBottom) {
                             box.scrollTop = box.scrollHeight;
                         }
 
@@ -4005,9 +4115,9 @@
                                     if (uSnap.exists()) {
                                         const ud = uSnap.data();
                                         userProfileCache.set(uid, ud);
-                                        if (ud.isTickVerified) {
-                                            snapshot.docs.forEach(d => {
-                                                const m = d.data();
+                                        // Update all messages from this user in view
+                                        snapshot.docs.forEach(d => {
+                                            const m = d.data();
                                                 if (m.uid === uid) {
                                                     const el = document.getElementById(`msg-${d.id}`);
                                                     if (el) {
@@ -4022,11 +4132,10 @@
                                                 }
                                             });
                                         }
-                                    }
-                                }).catch(e => console.error(e));
-                            });
-                        }
-                    });
+                                    }).catch(e => console.error(e));
+                                });
+                            }
+                        });
                 }
 
                 function rebuildChatBox(docs) {
@@ -4145,6 +4254,7 @@
                         avatar: currentUser.photoURL || ANON_AVATAR,
                         isTickVerified: currentUser.isTickVerified || false,
                         nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
+                        showTickPrefer: currentUser.showTickPrefer !== false,
                         avatarFrame: window.myAvatarFrame || 'default',
                         chatBackground: window.myChatBackground || 'default',
                         createdAt: serverTimestamp(),
@@ -4175,7 +4285,7 @@
                         return;
                     }
                     if (CURRENT_ROOM_TYPE === 'public') {
-                        menu.innerHTML = `<div style="padding:10px 16px; font-size:13px; color:#64748b; white-space:nowrap;">Nhóm công khai không có thiết lập.</div>`;
+                        menu.innerHTML = `<button class="menu-btn" onclick="openReportMsg()"><span class="material-symbols-rounded">report</span> Báo cáo</button>`;
                     } else if (CURRENT_ROOM_TYPE === 'p2p') {
                         menu.innerHTML = `
                     <button class="menu-btn" onclick="setNickname()"><span class="material-symbols-rounded">edit</span> Đổi tên gợi nhớ</button>
@@ -4328,6 +4438,7 @@
                     } catch (e) { console.error(e); window.showToast("Lỗi khi giải tán nhóm."); }
                 };
 
+
                 window.previewEditGroupAvatar = (e) => {
                     const file = e.target.files[0];
                     if (file) {
@@ -4403,6 +4514,7 @@
                     } catch (e) { console.error(e); window.showToast("Lỗi tải dữ liệu nhóm."); }
                 };
             </script>
+ 
 
             <!-- Group Members Modal -->
             <div class="modal" id="modalGroupMembers" style="z-index:9999;">

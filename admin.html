@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Quản trị - Confe</title>
+    <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
@@ -640,12 +641,26 @@
         }
 
         .item-row {
-            background: white;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 12px;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
             position: relative;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .item-del {
@@ -953,6 +968,8 @@
                     class="material-symbols-rounded">verified_user</span> Duyệt Đề Cương</button>
             <button class="nav-item" onclick="switchSection('reports', this)"><span
                     class="material-symbols-rounded">report</span> Báo cáo</button>
+            <button class="nav-item" onclick="switchSection('news-system', this)"><span
+                    class="material-symbols-rounded">campaign</span> Thông báo</button>
             <button class="nav-item" onclick="switchSection('system', this)"><span
                     class="material-symbols-rounded">settings</span> Hệ thống</button>
         </nav>
@@ -1105,6 +1122,36 @@
             </div>
         </div>
 
+        <!-- NEWS/ANNOUNCEMENTS SECTION -->
+        <div id="section-news-system" class="admin-section">
+            <div class="gen-container">
+                <div class="gen-card">
+                    <h3><span class="material-symbols-rounded">campaign</span> Quản lý Thông báo hệ thống</h3>
+                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">Thông báo sẽ hiển thị trong tab "Thông Báo" của Bảng Tin.</p>
+                    
+                    <div id="ann-list-wrap">
+                        <!-- Items injected here -->
+                    </div>
+
+                    <button class="btn btn-ghost" onclick="addAnnItem()" style="width:100%; margin-top:15px; border-style:dashed;">
+                        <span class="material-symbols-rounded">add_circle</span> Thêm thông báo mới
+                    </button>
+                </div>
+
+                <div class="gen-card">
+                    <h3><span class="material-symbols-rounded">code</span> Cấu trúc JSON & Thao tác</h3>
+                    <textarea id="ann-json" class="json-preview" readonly></textarea>
+                    
+                    <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
+                        <button class="btn btn-primary" onclick="applyAnnouncements()" style="justify-content:center;">
+                            <span class="material-symbols-rounded">save</span> Lưu vào Firestore
+                        </button>
+                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">Lưu ý: Mọi thay đổi sẽ có hiệu lực ngay lập tức trên Bảng Tin News Board.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- OUTLINES APPROVAL SECTION -->
         <div id="section-outlines" class="admin-section">
             <div class="content-box">
@@ -1245,6 +1292,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
         </div>
@@ -1335,8 +1384,8 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
 
-            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', system: 'Hệ thống' };
-            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', system: 'Quản lý các tham số hệ thống từ xa' };
+            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', 'news-system': 'Thông báo hệ thống', system: 'Hệ thống' };
+            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', 'news-system': 'Quản lý nội dung hiển thị trong Bảng Tin News Board', system: 'Quản lý các tham số hệ thống từ xa' };
             document.getElementById('screen-title').textContent = titles[id];
             document.getElementById('screen-subtitle').textContent = subs[id];
 
@@ -1860,6 +1909,49 @@
             btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore';
         };
 
+        window.addAnnItem = (data = {}) => {
+            const container = document.getElementById('ann-list-wrap');
+            const div = document.createElement('div');
+            div.className = 'item-row';
+            div.innerHTML = `
+                <span class="material-symbols-rounded item-del" onclick="this.parentElement.remove(); updateAnnJson()">delete</span>
+                <div class="form-row"><label>Tiêu đề</label><input type="text" class="ann-title inp" value="${data.title || ''}" oninput="updateAnnJson()"></div>
+                <div class="form-row"><label>Nội dung chi tiết</label><textarea class="ann-content inp" style="height:100px;" oninput="updateAnnJson()">${data.content || ''}</textarea></div>
+                <div class="form-row"><label>Ngày hiển thị (VD: Hôm nay, 30/04)</label><input type="text" class="ann-date inp" value="${data.date || ''}" oninput="updateAnnJson()"></div>
+            `;
+            container.prepend(div);
+            updateAnnJson();
+        };
+
+        window.updateAnnJson = () => {
+            const items = [];
+            document.querySelectorAll('#ann-list-wrap .item-row').forEach(row => {
+                const title = row.querySelector('.ann-title').value;
+                if (!title) return;
+                items.push({
+                    title,
+                    content: row.querySelector('.ann-content').value,
+                    date: row.querySelector('.ann-date').value
+                });
+            });
+            document.getElementById('ann-json').value = JSON.stringify({ list: items }, null, 2);
+            return items;
+        };
+
+        window.applyAnnouncements = async () => {
+            const list = updateAnnJson();
+            const btn = event.currentTarget;
+            btn.disabled = true; btn.textContent = "Đang lưu...";
+            try {
+                await setDoc(doc(db, "system", "announcements"), {
+                    json: JSON.stringify({ list }),
+                    updatedAt: serverTimestamp()
+                });
+                showToast("Đã lưu Thông báo thành công!");
+            } catch (e) { showToast(e.message, 'error'); }
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
+        };
+
         async function loadSystemConfig() {
             // Fetch Poll
             const pollSnap = await getDoc(doc(db, "system", "community_poll"));
@@ -1900,6 +1992,14 @@
                 document.getElementById('feat-outline-msg').value = data.outlineMaintenanceMsg || "";
             }
 
+            // Fetch Announcements
+            const annSnap = await getDoc(doc(db, "system", "announcements"));
+            document.getElementById('ann-list-wrap').innerHTML = "";
+            if (annSnap.exists()) {
+                const data = JSON.parse(annSnap.data().json);
+                if (Array.isArray(data.list)) data.list.reverse().forEach(it => addAnnItem(it));
+            }
+
             updatePollJson();
             updateNewsJson();
             updateLRJson();
@@ -1920,6 +2020,8 @@
             } catch (e) { showToast(e.message, 'error'); }
             btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì';
         };
+
+
 
         window.viewUser = async (uid) => {
             const snap = await getDoc(doc(db, "users", uid));

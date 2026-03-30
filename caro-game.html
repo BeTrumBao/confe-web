@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cờ Caro - Confe</title>
+    <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
@@ -419,6 +420,65 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 600px) {
+            .screen {
+                padding: 12px;
+            }
+
+            .glass-card {
+                padding: 24px 16px;
+                margin-top: 20px;
+                gap: 16px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .hero-emoji {
+                font-size: 48px;
+            }
+
+            .game-header {
+                padding: 10px 12px;
+                border-radius: 16px;
+                margin-bottom: 12px;
+            }
+
+            .turn-box {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .viewport {
+                height: calc(100svh - 160px); /* Use svh for better mobile height handling */
+                padding: 10px;
+                border-radius: 16px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .cell {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+
+            .board {
+                grid-template-columns: repeat(20, 36px);
+                grid-template-rows: repeat(20, 36px);
+            }
+
+            .win-card {
+                padding: 30px 20px;
+                border-radius: 24px;
+            }
+
+            #winEmoji {
+                font-size: 56px;
+            }
+        }
     </style>
 </head>
 
@@ -662,7 +722,11 @@
 
             // Game UI
             if (data.status === 'playing' || data.status === 'finished') {
-                if (currentStatus === 'waiting') showScreen('screenGame');
+                if (currentStatus === 'waiting') {
+                    showScreen('screenGame');
+                    // Center the board on first entry
+                    setTimeout(centerBoard, 100);
+                }
 
                 const opp = Object.entries(players).find(([uid]) => uid !== myUid);
                 document.getElementById('oppName').textContent = opp ? opp[1].name : "Đã rời phòng";
@@ -671,6 +735,13 @@
 
                 renderBoard(currentBoard, data.lastMove, data.winLine);
                 updateTurnUI(data.turn, players, data.status);
+
+                // Auto-exit if opponent leaves during active game
+                if (!opp && data.status === 'playing') {
+                    showToast("Đối thủ đã thoát phòng. Đang quay về sảnh...");
+                    setTimeout(leaveRoom, 2500);
+                    return;
+                }
             }
 
             if (data.status === 'finished') {
@@ -801,10 +872,12 @@
 
         window.leaveRoom = async () => {
             if (roomCode) {
-                if (isHost) await remove(ref(db, `caro_rooms/${roomCode}`));
-                else await remove(ref(db, `caro_rooms/${roomCode}/players/${myUid}`));
+                try {
+                    if (isHost) await remove(ref(db, `caro_rooms/${roomCode}`));
+                    else await remove(ref(db, `caro_rooms/${roomCode}/players/${myUid}`));
+                } catch(e) {}
             }
-            location.reload();
+            window.top.location.href = 'index.html#game';
         }
 
         window.copyRoomLink = () => {
@@ -828,17 +901,48 @@
             else showScreen('screenLobby');
         });
 
-        // Draggable Board
+        // Draggable Board (Mouse & Touch)
         const vp = document.getElementById('viewport');
         let isDown = false, sX, sY, sL, sT;
-        vp.onmousedown = (e) => { isDown = true; sX = e.pageX - vp.offsetLeft; sY = e.pageY - vp.offsetTop; sL = vp.scrollLeft; sT = vp.scrollTop; };
-        vp.onmouseleave = () => isDown = false;
-        vp.onmouseup = () => isDown = false;
-        vp.onmousemove = (e) => {
-            if (!isDown) return; e.preventDefault();
-            const x = e.pageX - vp.offsetLeft; const y = e.pageY - vp.offsetTop;
-            vp.scrollLeft = sL - (x - sX) * 1.5; vp.scrollTop = sT - (y - sY) * 1.5;
+
+        const startDragging = (e) => {
+            isDown = true;
+            const pos = e.touches ? e.touches[0] : e;
+            sX = pos.pageX - vp.offsetLeft;
+            sY = pos.pageY - vp.offsetTop;
+            sL = vp.scrollLeft;
+            sT = vp.scrollTop;
+            if (!e.touches) e.preventDefault();
         };
+
+        const stopDragging = () => isDown = false;
+
+        const moveDragging = (e) => {
+            if (!isDown) return;
+            const pos = e.touches ? e.touches[0] : e;
+            const x = pos.pageX - vp.offsetLeft;
+            const y = pos.pageY - vp.offsetTop;
+            vp.scrollLeft = sL - (x - sX) * 1.5;
+            vp.scrollTop = sT - (y - sY) * 1.5;
+            if (!e.touches) e.preventDefault();
+        };
+
+        vp.addEventListener('mousedown', startDragging);
+        vp.addEventListener('touchstart', startDragging, { passive: true });
+        
+        window.addEventListener('mouseup', stopDragging);
+        window.addEventListener('touchend', stopDragging);
+        
+        vp.addEventListener('mousemove', moveDragging);
+        vp.addEventListener('touchmove', moveDragging, { passive: false });
+        
+        vp.addEventListener('mouseleave', stopDragging);
+
+        function centerBoard() {
+            const board = document.getElementById('board');
+            vp.scrollLeft = (board.offsetWidth - vp.clientWidth) / 2;
+            vp.scrollTop = (board.offsetHeight - vp.clientHeight) / 2;
+        }
 
     </script>
 </body>

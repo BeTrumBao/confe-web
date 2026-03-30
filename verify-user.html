@@ -495,12 +495,16 @@
             loading.innerHTML = msg;
         }
 
+
+
         if (!candidateUid) {
             showError("Thiếu thông tin người dùng cần xác minh.");
         } else {
             onAuthStateChanged(auth, async (verifier) => {
                 if (!verifier) {
-                    showError('Vui lòng <a href="login.html" style="color:#0084ff; font-weight:700;">Đăng nhập</a> để thực hiện xác minh.');
+                    showError(`
+                        Vui lòng <a href="login.html" style="color:#0084ff; font-weight:700;">Đăng nhập</a> để thực hiện xác minh.<br><br>
+                    `);
                     return;
                 }
 
@@ -539,11 +543,21 @@
                     const banRecentDays = (now - vLastBanned) / (1000 * 60 * 60 * 24);
 
                     let errors = [];
-                    if (verifier.uid === candidateUid) errors.push("Bạn không thể tự xác minh cho chính mình.");
-                    if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng (90 ngày) tuổi.");
-                    if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
-                    if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
-                    if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
+                    const isAdmin = vData.role === 'admin';
+
+                    if (verifier.uid === candidateUid) {
+                        errors.push("Bạn không thể tự xác minh cho chính mình.");
+                    }
+
+                    if (!isAdmin) {
+                        if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng (90 ngày) tuổi.");
+                        if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
+                        if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
+                        if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
+                    } else {
+                        // Admin bypass: only check if banned
+                        if (vData.isBanned === true) errors.push("Tài khoản Admin của bạn đang bị khóa.");
+                    }
 
                     if (errors.length > 0) {
                         statusMsg.textContent = errors[0];
@@ -572,16 +586,21 @@
                             btn.disabled = true;
                             btn.textContent = "...";
                             try {
-                                // Update Candidate
-                                await updateDoc(doc(db, "users", candidateUid), {
-                                    isVerified: true,
-                                    verifiedAt: now.toISOString(),
-                                    verifiedBy: verifier.uid
+                                const idToken = await verifier.getIdToken();
+                                const response = await fetch('/api/verify-user', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${idToken}`
+                                    },
+                                    body: JSON.stringify({ targetUid: candidateUid })
                                 });
-                                // Update Verifier
-                                await updateDoc(doc(db, "users", verifier.uid), {
-                                    lastVerifiedOthersAt: now.toISOString()
-                                });
+
+                                const result = await response.json();
+
+                                if (!result.success) {
+                                    throw new Error(result.error || "Xác minh thất bại.");
+                                }
 
                                 statusMsg.textContent = "Xác minh thành công! Bạn có thể đóng trang này.";
                                 statusMsg.className = "status-msg success";

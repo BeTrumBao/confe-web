@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confe Review Engine</title>
+    <script type="module" src="security-lock.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -1005,7 +1006,9 @@
                         let hidden = 0;
                         for (let i = 0; i < wrongIndices.length && hidden < 2; i++) {
                             const btn = options[wrongIndices[i]];
-                            btn.style.opacity = '0.3';
+                            btn.style.visibility = 'hidden';
+                            btn.style.opacity = '0';
+                            btn.style.pointerEvents = 'none';
                             btn.disabled = true;
                             hidden++;
                         }
@@ -1134,7 +1137,7 @@
                 if (nextBtn) nextBtn.style.display = 'block';
             } else {
                 fb.className = 'feedback error';
-                fb.innerHTML = `Sai rồi. Đáp án là ${isV2 ? String.fromCharCode(65 + correct) : correct}`;
+                fb.innerHTML = `Sai rồi. Đáp án là ${isV2 ? String.fromCharCode(65 + correct) : correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> Làm lại câu này</button>`;
                 sessionWrongIndices.add(idx);
             }
         };
@@ -1157,7 +1160,7 @@
                 if (nextBtn) nextBtn.style.display = 'block';
             } else {
                 fb.className = 'feedback error';
-                fb.innerHTML = `Chưa đúng. Đáp án: ${correct}`;
+                fb.innerHTML = `Chưa đúng. Đáp án: ${correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> Làm lại câu này</button>`;
                 sessionWrongIndices.add(idx);
             }
         };

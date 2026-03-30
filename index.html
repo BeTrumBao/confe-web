@@ -8,6 +8,12 @@
     <title>Confe</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <link rel="shortcut icon" href="assets/favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Confe">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -600,15 +606,13 @@
             height: 100%;
             border-radius: 50%;
             transition: transform 4s cubic-bezier(0.12, 0, 0.1, 1);
-            background: conic-gradient(
-                #BA1A1A 0deg 90deg,
-                #0061A4 90deg 180deg,
-                #926B00 180deg 270deg,
-                #006D3B 270deg 360deg
-            );
+            background: conic-gradient(#BA1A1A 0deg 90deg,
+                    #0061A4 90deg 180deg,
+                    #926B00 180deg 270deg,
+                    #006D3B 270deg 360deg);
             position: relative;
             border: 4px solid #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .wheel-text {
@@ -1111,9 +1115,13 @@
         // Generate or recover a persistent deviceId
         function getDeviceId() {
             let did = localStorage.getItem('confe_device_id');
-            if (!did) { did = 'dev-' + Math.random().toString(36).slice(2, 10); localStorage.setItem('confe_device_id', did); }
+            if (!did) {
+                did = 'dev-' + Math.random().toString(36).slice(2, 10);
+                localStorage.setItem('confe_device_id', did);
+            }
             const el = document.getElementById('deviceText');
             if (el) el.textContent = did;
+            return did;
         }
         getDeviceId();
 
@@ -1491,7 +1499,8 @@
             </div>
             <h1 class="verify-v2-title">Xác minh rằng đó là bạn !</h1>
             <p class="verify-v2-desc">
-                Để đảm bảo an toàn cho cộng đồng . Bạn hãy nhờ một người dùng mà bạn quen biết đáp ứng các
+                Để đảm bảo an toàn và tính toàn vẹn của cộng đồng . Bạn hãy nhờ một người dùng mà bạn quen biết đáp ứng
+                các
                 tiêu chí sau để xác minh cho bạn:
             </p>
             <ul
@@ -1664,10 +1673,12 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, where, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { startPresenceHeartbeat } from "./presence.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
         import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
+        import { onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
         const app = initializeApp(cfg);
@@ -1682,12 +1693,21 @@
 
         // Register Service Worker for FCM
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/firebase-messaging-sw.js')
-                .then((registration) => {
-                    console.log('Registration successful, scope is:', registration.scope);
-                }).catch((err) => {
-                    console.log('Service worker registration failed, error:', err);
+            window.addEventListener('load', () => {
+                // Register PWA Service Worker
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    console.log('PWA Service Worker registered:', reg.scope);
+                }).catch(err => {
+                    console.warn('PWA Service Worker registration failed:', err);
                 });
+
+                // Register FCM Service Worker
+                navigator.serviceWorker.register('/firebase-messaging-sw.js').then(reg => {
+                    console.log('FCM Service Worker registered:', reg.scope);
+                }).catch(err => {
+                    console.warn('FCM Service Worker registration failed:', err);
+                });
+            });
         }
 
         async function requestNotificationPermission(user) {
@@ -1696,9 +1716,9 @@
                 if (permission === 'granted') {
                     // Wait for service worker to be ready
                     const registration = await navigator.serviceWorker.ready;
-                    const token = await getToken(messaging, { 
+                    const token = await getToken(messaging, {
                         vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo',
-                        serviceWorkerRegistration: registration 
+                        serviceWorkerRegistration: registration
                     });
                     if (token) {
                         await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
@@ -1746,24 +1766,32 @@
             }
 
             if (data && data.ip) {
+                const deviceId = getDeviceId();
                 await updateDoc(doc(db, "users", uid), {
                     lastIP: data.ip,
                     lastLocation: data.detail || '',
-                    lastSeen: new Date().toISOString()
+                    deviceId: deviceId, // Save deviceId to Firestore
+                    lastSeen: serverTimestamp()
                 });
-                console.log(`[System] User IP updated: ${data.ip} ${data.detail ? '(' + data.detail + ')' : ''}`);
+                console.log(`[System] User IP & Device updated: ${data.ip} (${deviceId})`);
             } else {
                 // Final Fallback: ipify (very reliable)
                 try {
                     const r = await fetch('https://api64.ipify.org?format=json');
                     const d = await r.json();
                     if (d.ip) {
-                        await updateDoc(doc(db, "users", uid), { lastIP: d.ip, lastSeen: new Date().toISOString() });
-                        console.log(`[System] User IP updated (IP-only): ${d.ip}`);
+                        const deviceId = getDeviceId();
+                        await updateDoc(doc(db, "users", uid), {
+                            lastIP: d.ip,
+                            deviceId: deviceId,
+                            lastSeen: serverTimestamp()
+                        });
+                        console.log(`[System] User IP & Device updated (IP-only): ${d.ip} (${deviceId})`);
                     }
-                } catch (e) {}
+                } catch (e) { }
             }
         }
+
 
 
         // Handle foreground notifications
@@ -1789,6 +1817,11 @@
                 localStorage.setItem('confe_current_uid', u.uid);
                 requestNotificationPermission(u); // Ask for permission after login
                 updateUserIP(u.uid); // Save user IP to database
+                startPresenceHeartbeat({
+                    db, rtdb, uid: u.uid,
+                    serverTimestamp, updateDoc, doc,
+                    ref, onValue, set, onDisconnect
+                });
 
                 // --- KIỂM TRA TRẠNG THÁI BAN ---
                 try {
@@ -2124,20 +2157,20 @@
             setTimeout(() => {
                 // Determine result (0.4s buffer for the 4s animation)
                 const finalDegree = randomDegree % 360;
-                
+
                 // Conic gradient mapping (clockwise from top):
                 // 0-90: Google (Red)
                 // 90-180: Video (Blue)
                 // 180-270: Listening (Yellow)
                 // 270-360: None (Light Blue)
-                
+
                 // Since the wheel rotates clockwise, the degree R at top comes from initial index (360-R)
                 // BUT, it's easier to think: if we rotate by X, the part that was at -X is now at top.
                 // Needle is at top (0 deg).
                 // Part at top after rotation R is the one that was at (360 - (R % 360)) initially.
-                
+
                 const normalized = (360 - finalDegree) % 360;
-                
+
                 if (normalized >= 0 && normalized < 90) {
                     window.showGoogleAd();
                 } else if (normalized >= 90 && normalized < 180) {
@@ -2179,7 +2212,7 @@
 
             const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
             const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            
+
             if (maintenanceMode && !isLocal) {
                 const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
                 if (customMessage) document.getElementById('maintenanceMessage').textContent = customMessage;
@@ -2229,6 +2262,12 @@
 
     <script>
         window.addEventListener('load', () => {
+            const hash = window.location.hash.slice(1);
+            if (hash) {
+                const targetUrl = hash + '.html';
+                window.loadPage(targetUrl, null, false);
+            }
+
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if (splash) splash.classList.add('hidden');
@@ -2270,15 +2309,48 @@
             });
         }
 
-        window.loadPage = function (url, el) {
+        let isHandlingHashChange = false;
+
+        window.loadPage = function (url, el, pushHash = true) {
             if (url === 'chat.html' && window.innerWidth > 768) {
                 window.location.href = url;
                 return;
             }
+
+            if (pushHash) {
+                const hashName = url.split('.')[0];
+                if (window.location.hash !== '#' + hashName) {
+                    isHandlingHashChange = true;
+                    window.location.hash = hashName;
+                    setTimeout(() => isHandlingHashChange = false, 50);
+                }
+            }
+
             document.getElementById('mainFrame').src = url;
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            if (el) el.classList.add('active');
+
+            if (el) {
+                el.classList.add('active');
+            } else {
+                Array.from(document.querySelectorAll('.nav-link')).find(nav => {
+                    const onclickStr = nav.getAttribute('onclick') || '';
+                    if (onclickStr.includes("'" + url) || onclickStr.includes('"' + url)) {
+                        nav.classList.add('active');
+                        return true;
+                    }
+                    return false;
+                });
+            }
         }
+
+        window.addEventListener('hashchange', () => {
+            if (isHandlingHashChange) return;
+            const hash = window.location.hash.slice(1);
+            if (hash) {
+                const targetUrl = hash + '.html';
+                window.loadPage(targetUrl, null, false);
+            }
+        });
 
         window.closeGuidelines = () => {
             localStorage.setItem('confe_guidelines_last_seen', new Date().getTime().toString());
@@ -2322,7 +2394,7 @@
             const f = document.getElementById('mainFrame');
             if (uid) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); f.src = `profile.html?uid=${uid}`; }
             else if (chat) { f.src = `chat.html?chat=${chat}`; }
-            
+
             if (errCode) {
                 setTimeout(() => window.showErrorDictionary(errCode), 1000);
             }
@@ -2346,16 +2418,20 @@
     <div id="errorOverlay" class="modal-overlay" onclick="closeErrorDictionary()">
         <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                <h2 style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #ef4444;">
+                <h2
+                    style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #ef4444;">
                     <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi Hệ Thống
                 </h2>
-                <button onclick="closeErrorDictionary()" style="background: none; border: none; cursor: pointer; color: #94a3b8;">
+                <button onclick="closeErrorDictionary()"
+                    style="background: none; border: none; cursor: pointer; color: #94a3b8;">
                     <span class="material-symbols-rounded">close</span>
                 </button>
             </div>
-            <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+            <div
+                style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
                 <p style="font-size: 14px; color: #b91c1c; font-weight: 600; text-align: center;">
-                    Phát hiện lỗi hệ thống: <span id="errorTargetCode" style="font-size: 18px; font-weight: 900;">-</span>
+                    Phát hiện lỗi hệ thống: <span id="errorTargetCode"
+                        style="font-size: 18px; font-weight: 900;">-</span>
                 </p>
             </div>
             <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
@@ -2368,15 +2444,19 @@
                 <tbody>
                     <tr style="border-bottom: 1px solid #f1f5f9;">
                         <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 1</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc tải lại trang.</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc
+                            tải lại trang.</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #f1f5f9;">
                         <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 2</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng nhập lại.</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng
+                            nhập lại.</td>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="closeErrorDictionary()" class="nav-link active" style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; font-weight: 700; border-radius: 16px; padding: 14px;">Đã hiểu</button>
+            <button onclick="closeErrorDictionary()" class="nav-link active"
+                style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; font-weight: 700; border-radius: 16px; padding: 14px;">Đã
+                hiểu</button>
         </div>
     </div>
 

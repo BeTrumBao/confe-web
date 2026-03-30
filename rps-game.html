@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kéo Búa Bao - Confe</title>
+    <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
@@ -1334,10 +1335,12 @@
 
         window.leaveRoom = async () => {
             if (roomCode && myUid) {
-                if (isHost) await remove(ref(db_rtdb, `rps_rooms/${roomCode}`));
-                else await remove(ref(db_rtdb, `rps_rooms/${roomCode}/players/${myUid}`));
+                try {
+                    if (isHost) await remove(ref(db_rtdb, `rps_rooms/${roomCode}`));
+                    else await remove(ref(db_rtdb, `rps_rooms/${roomCode}/players/${myUid}`));
+                } catch(e) {}
             }
-            location.search = "";
+            window.top.location.href = 'index.html#game';
         }
 
         function confettiEffect() {

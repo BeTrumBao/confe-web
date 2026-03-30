@@ -6,14 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hồ sơ cá nhân</title>
-    <script>
-        // -- Block Direct URL Access --
-        if (!document.referrer && !sessionStorage.getItem('profileAccessAllowed')) {
-            window.location.href = 'index.html';
-        } else {
-            sessionStorage.setItem('profileAccessAllowed', 'true');
-        }
-    </script>
+    <script type="module" src="security-lock.js"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -292,6 +285,69 @@
             color: #475569;
         }
 
+        /* Badge Styles */
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .badge-card {
+            background: white;
+            border: 1.5px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .badge-card.locked {
+            filter: grayscale(1);
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .badge-card.equipped {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .badge-card .badge-icon {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .badge-card .badge-name {
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .badge-card .badge-status {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 2px 5px rgba(0, 132, 255, 0.3);
+            border: 2px solid white;
+        }
+
         .topic-grid {
             margin-top: 15px;
             display: flex;
@@ -441,6 +497,54 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
         }
+
+        /* Save button dimmed when no changes */
+        #btnSave:disabled:not([data-saving]) {
+            background: #cbd5e1 !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Upload-done notification chip */
+        #uploadDoneChip {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 99999;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            transform: translateX(calc(100% + 30px));
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 260px;
+            border: 1px solid rgba(255,255,255,0.1);
+            user-select: none;
+        }
+        #uploadDoneChip.show {
+            transform: translateX(0);
+        }
+        #uploadDoneChip .chip-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        #uploadDoneChip .chip-close {
+            margin-left: auto;
+            opacity: 0.6;
+            font-size: 16px;
+            flex-shrink: 0;
+            padding: 2px;
+        }
+        #uploadDoneChip .chip-close:hover { opacity: 1; }
 
         .request-item {
             padding: 12px;
@@ -735,11 +839,6 @@
             <button class="btn-top" style="left:20px; right:auto;" onclick="history.back()">
                 <span class="material-symbols-rounded">arrow_back</span>
             </button>
-            <button id="btnNotif" class="btn-top btn-notifications"
-                onclick="document.getElementById('modalNotif').classList.add('active')">
-                <span class="material-symbols-rounded">notifications</span>
-                <div id="notifBadge" class="notif-badge"></div>
-            </button>
             <button id="btnSettings" class="btn-top btn-settings" style="display:none;">
                 <span class="material-symbols-rounded">settings</span>
             </button>
@@ -779,17 +878,7 @@
 
         </div>
     </div>
-    <div id="modalNotif" class="modal">
-        <div class="box">
-            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
-                <span class="material-symbols-rounded">close</span>
-            </button>
-            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800;"> Thông báo</h3>
-            <div id="reqList" style="max-height:400px; overflow-y:auto;">
-                <p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>
-            </div>
-        </div>
-    </div>
+
     <div id="modalConfirm" class="modal" style="z-index: 2500;">
         <div class="box" style="text-align:center; max-width:320px;">
             <div style="font-size:48px; margin-bottom:10px;"></div>
@@ -829,11 +918,11 @@
                     <span class="material-symbols-rounded" style="font-size: 24px; color:#10b981;">military_tech</span>
                     <span style="font-weight:700;">Huy Hiệu</span>
                 </button>
-                <button id="btnOpenAvatarEditor" type="button" class="upload-btn" onclick="openAvatarEditor()"
-                    style="cursor:pointer; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
+                <label id="btnOpenAvatarEditor" class="upload-btn" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
-                    <span>Avatar / Khung</span>
-                </button>
+                    <span style="font-weight:700;">Ảnh Đại Diện</span>
+                    <input type="file" id="fAvtFile" hidden accept="image/*">
+                </label>
                 <label class="upload-btn">
                     <span class="material-symbols-rounded" style="font-size: 24px;">image</span>
                     <span>Đổi Ảnh bìa</span>
@@ -866,42 +955,64 @@
                     placeholder="Hãy nói gì đó về bạn..."></textarea>
             </div>
 
-            <div class="inp-group">
-                <label class="inp-label">Màu tên</label>
-                <div class="color-picker" id="nameColorPicker">
-                    <div class="color-opt active" data-color="default">Mặc định</div>
-                    <div class="color-opt" data-color="blue" style="color:#2563eb;">Lam</div>
-                    <div class="color-opt" data-color="red" style="color:#dc2626;">Đỏ</div>
-                    <div class="color-opt" data-color="green" style="color:#16a34a;">Lục</div>
-                    <div class="color-opt" data-color="purple" style="color:#9333ea;">Tím</div>
-                    <div class="color-opt" data-color="orange" style="color:#ea580c;">Cam</div>
-                    <div class="color-opt" data-color="pink" style="color:#f472b6;">Hồng</div>
-                </div>
-            </div>
 
-            <!-- Live Preview -->
-            <div class="inp-group" id="profilePreviewBox"
-                style="background:#f8fafc; border-radius:16px; padding:14px; border:1px solid #e2e8f0;">
-                <label class="inp-label" style="margin-bottom:8px;">Xem trước</label>
-                <div id="profilePreviewMsg" style="display:flex; align-items:flex-start; gap:10px;">
-                    <div id="prevAvatarWrap" style="flex-shrink:0;">
-                        <div id="prevAvatarInner"
-                            style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:18px;">
-                            <img id="prevAvtImg" style="width:100%; height:100%; object-fit:cover; display:none;" />
-                            <span id="prevAvtPlaceholder">👤</span>
+
+            <!-- Privacy Accordion -->
+            <div id="privacySection"
+                style="margin-top:16px; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden; margin-bottom:12px;">
+                <button type="button" onclick="togglePrivacySection()"
+                    style="width:100%; padding:14px 16px; background:#fafafa; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:14px;">
+                    <span style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#64748b;">lock</span>
+                        Quyền riêng tư
+                    </span>
+                    <span id="privacySectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
+                </button>
+                <div id="privacySectionBody" style="display:none; padding:16px; border-top:1px solid #f1f5f9; background:white; display:flex; flex-direction:column; gap:20px;">
+                    <!-- Phần bắt buộc -->
+                    <div>
+                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN BẮT BUỘC ĐỂ VẬN HÀNH</h4>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">badge</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Tên hiển thị & Ảnh đại diện</span>
+                                </div>
+                                <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
+                            </div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">devices</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Dữ liệu thiết bị (Bảo mật)</span>
+                                </div>
+                                <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
+                            </div>
                         </div>
                     </div>
-                    <div style="display:flex; flex-direction:column; gap:4px;">
-                        <div id="prevNameLabel" style="font-size:12px; font-weight:800;">Tên của bạn</div>
+
+                    <!-- Phần tùy chỉnh -->
+                    <div>
+                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN CÓ THỂ ĐỔI/TẮT</h4>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="chkPublicFollow" style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkPublicFollow" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai danh sách Follow</label>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="chkPublicEmail" style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkPublicEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai Email trên hồ sơ</label>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="chkShowActivity" style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkShowActivity" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Hiển thị trạng thái hoạt động</label>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="chkSearchByEmail" style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkSearchByEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Cho phép tìm thấy tôi qua Email</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="inp-group"
-                style="display:flex; align-items:center; gap:8px; margin-top:20px; margin-bottom:20px;">
-                <input type="checkbox" id="chkPublicFollow" style="width:18px; height:18px; transform:translateY(2px)">
-                <label for="chkPublicFollow" style="font-size:14px; font-weight:600; cursor:pointer; color:#475569;">Cho
-                    phép người khác xem danh sách Follow của tôi</label>
             </div>
 
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
@@ -956,6 +1067,7 @@
                 <span class="material-symbols-rounded"
                     style="vertical-align:middle; font-size:16px;">delete_forever</span> Xóa tài khoản
             </button>
+            <div id="uidDisplay" style="font-size:11px; color:#94a3b8; text-align:center; margin-top:12px; font-family:monospace; cursor:pointer;" onclick="copyUID()" title="Bấm để sao chép UID">UID: ---</div>
         </div>
     </div>
     <div id="modalAnonLogout" class="modal" style="z-index:9999;">
@@ -1012,93 +1124,94 @@
         </div>
     </div>
 
-    <!-- Avatar Editor Popup (2 tabs) -->
-    <div id="modalAvatarEditor" class="modal" style="z-index:10000;">
-        <div class="box" style="max-width:420px; padding: 0; overflow:hidden;">
-            <div style="display:flex; border-bottom:1px solid #e2e8f0;">
-                <button id="tabAvt" onclick="switchAvatarTab('avt')"
-                    style="flex:1; padding:14px; border:none; font-weight:700; font-size:13px; background:#fff; color:var(--primary); border-bottom:2px solid var(--primary); cursor:pointer;">📷
-                    Đổi Avatar</button>
-                <button id="tabFrame" onclick="switchAvatarTab('frame')"
-                    style="flex:1; padding:14px; border:none; font-weight:700; font-size:13px; background:#fff; color:#94a3b8; cursor:pointer;">🖼️
-                    Chọn Khung</button>
-            </div>
-            <!-- Tab 1: Upload Avatar -->
-            <div id="tabContentAvt" style="padding:20px;">
-                <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Tải ảnh lên và cắt đúng tỉ lệ.</p>
-                <label class="upload-btn" style="width:100%; justify-content:center; padding:18px;">
-                    <span class="material-symbols-rounded" style="font-size:32px;">add_photo_alternate</span>
-                    <span>Chọn ảnh...</span>
-                    <input type="file" id="fAvtFile" hidden accept="image/*">
-                </label>
-                <p style="font-size:11px; color:#94a3b8; margin-top:10px; text-align:center;">Nhấn "Lưu" trong cài đặt
-                    để áp dụng.</p>
-            </div>
-            <!-- Tab 2: Frame Picker -->
-            <div id="tabContentFrame" style="padding:20px; display:none;">
-                <p style="font-size:13px; color:#64748b; margin-bottom:12px;">Chọn kiểu khung avatar.</p>
-                <div style="display:flex; flex-direction:column; gap:10px;">
-                    <div class="frame-quick-opt" data-frame="default" onclick="applyAvatarFrameDirect('default')"
-                        style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; border:2px solid #e2e8f0; cursor:pointer; transition:0.2s;">
-                        <div
-                            style="width:44px; height:44px; border-radius:50%; background:#e2e8f0; border:3px solid white; flex-shrink:0;">
-                        </div>
-                        <div>
-                            <div style="font-weight:700;">Không có khung</div>
-                            <div style="font-size:11px; color:#94a3b8;">Hiển thị mặc định</div>
-                        </div>
-                    </div>
-                    <div class="frame-quick-opt" data-frame="gold" onclick="applyAvatarFrameDirect('gold')"
-                        style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; border:2px solid #e2e8f0; cursor:pointer; transition:0.2s;"
-                        id="frameOptGold">
-                        <div
-                            style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; box-sizing:border-box; flex-shrink:0;">
-                            <div style="width:100%;height:100%;border-radius:50%;background:#e2e8f0;"></div>
-                        </div>
-                        <div>
-                            <div style="font-weight:700; color:#d97706;">✨ Khung Vàng</div>
-                            <div style="font-size:11px; color:#94a3b8;">Mở khóa qua điểm danh</div>
-                        </div>
-                        <div id="lockGold" style="margin-left:auto; font-size:18px;">🔒</div>
-                    </div>
-                </div>
-            </div>
-            <div style="padding:14px 20px; border-top:1px solid #f1f5f9;">
-                <button onclick="document.getElementById('modalAvatarEditor').classList.remove('active')"
-                    style="width:100%; padding:12px; border-radius:12px; border:none; background:#f1f5f9; color:#475569; font-weight:700; cursor:pointer;">Đóng</button>
-            </div>
-        </div>
-    </div>
+    <!-- modalAvatarEditor removed: clicking the avatar button now directly opens file picker -->
 
     <div id="modalAppearance" class="modal">
-        <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px;">
+        <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px; display:flex; flex-direction:column; max-height:90vh;">
             <div
-                style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
+                style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative; flex-shrink:0;">
                 <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Tùy chỉnh Giao diện</h3>
                 <button class="close-x" onclick="document.getElementById('modalAppearance').classList.remove('active')"
                     style="top:20px; right:20px;">
                     <span class="material-symbols-rounded">close</span>
                 </button>
             </div>
-            <div style="padding:24px; max-height:70vh; overflow-y:auto;">
-                <!-- Live Preview in Appearance Modal -->
-                <div class="inp-group"
-                    style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:24px;">
-                    <label class="inp-label" style="margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+            <div style="padding:24px; overflow-y:auto; flex:1; min-height:0;">
+                <!-- ALL PREVIEWS AT THE TOP -->
+                <div class="inp-group" style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:28px;">
+                    <label class="inp-label" style="margin-bottom:16px; display:flex; align-items:center; gap:6px;">
                         <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">visibility</span>
-                        Xem trước nhanh
+                        Xem trước thay đổi
                     </label>
-                    <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; flex-direction:column; gap:16px;">
+                        
+                        <!-- Profile Avatar & Name Preview -->
+                        <div id="profilePreviewMsg" style="display:flex; align-items:center; gap:12px; justify-content:center; padding-bottom:16px; border-bottom:1px dashed #e2e8f0;">
+                            <div id="prevAvatarWrap" style="flex-shrink:0;">
+                                <div id="prevAvatarInner"
+                                    style="width:54px; height:54px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:24px;">
+                                    <img id="prevAvtImg" style="width:100%; height:100%; object-fit:cover; display:none;" />
+                                    <span id="prevAvtPlaceholder">👤</span>
+                                </div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; justify-content:center;">
+                                <div id="prevNameLabel" style="font-size:18px; font-weight:800;">Tên của bạn</div>
+                            </div>
+                        </div>
+
+                        <!-- Chat message preview -->
                         <div id="prevBubbleAppearance"
                             style="padding:12px 18px; border-radius:16px; background:#f1f5f9; font-size:14px; border:1px solid #e2e8f0; width:100%; transition: 0.3s; text-align:center; font-weight:600;">
                             Chào bạn! Đây là mẫu tin nhắn.
                         </div>
+
+                        <!-- Card preview -->
                         <div id="prevCardAppearance" class="profile-card"
-                            style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95);">
+                            style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95); margin-top:-8px;">
                             <div class="card-border-anim"></div>
-                            <span
-                                style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ
-                                hồ sơ của bạn</span>
+                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ hồ sơ của bạn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SELECTORS GO BELOW -->
+                
+                <!-- Name Color Picker -->
+                <div class="inp-group" style="margin-bottom:28px;">
+                    <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#ec4899;">format_color_text</span>
+                        Màu tên
+                    </label>
+                    <div class="color-picker" id="nameColorPicker" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+                        <div class="color-opt active" data-color="default" style="flex:1 1 70px; background:var(--bg);">Mặc định</div>
+                        <div class="color-opt" data-color="blue" style="color:#2563eb; flex:1 1 70px; background:var(--bg);">Lam</div>
+                        <div class="color-opt" data-color="red" style="color:#dc2626; flex:1 1 70px; background:var(--bg);">Đỏ</div>
+                        <div class="color-opt" data-color="green" style="color:#16a34a; flex:1 1 70px; background:var(--bg);">Lục</div>
+                        <div class="color-opt" data-color="purple" style="color:#9333ea; flex:1 1 70px; background:var(--bg);">Tím</div>
+                        <div class="color-opt" data-color="orange" style="color:#ea580c; flex:1 1 70px; background:var(--bg);">Cam</div>
+                        <div class="color-opt" data-color="pink" style="color:#f472b6; flex:1 1 70px; background:var(--bg);">Hồng</div>
+                    </div>
+                </div>
+
+                <!-- Avatar Frame Picker in Appearance -->
+                <div class="inp-group" id="framePickerWrap" style="margin-bottom:28px;">
+                    <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#10b981;">stars</span>
+                        Khung Avatar ✨
+                    </label>
+                    <div class="frame-picker" id="framePicker" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="frame-opt active" data-frame="default" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
+                            <div style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; border:2px solid white; flex-shrink:0;"></div>
+                            <span style="font-weight:600;">Không có</span>
+                        </div>
+                        <div class="frame-opt" data-frame="gold" onclick="updateProfilePreview()"
+                            style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
+                            <div style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; flex-shrink:0;">
+                                <div style="width:100%;height:100%;border-radius:50%;background:#e2e8f0;"></div>
+                            </div>
+                            <span style="color:#d97706; font-weight:700;">Khung Vàng</span>
+                            <span id="lockGoldInAppearance" class="card-lock" style="position:absolute; right:8px; display:none;">🔒</span>
                         </div>
                     </div>
                 </div>
@@ -1159,11 +1272,22 @@
                         </div>
                     </div>
                 </div>
+
+
+                <style>
+                    /* Basic switch toggle */
+                    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+                    .switch input { opacity: 0; width: 0; height: 0; }
+                    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #cbd5e1; transition: .4s; border-radius: 24px; }
+                    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+                    input:checked + .slider { background-color: var(--primary); }
+                    input:checked + .slider:before { transform: translateX(20px); }
+                </style>
+
             </div>
-            <div style="padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center;">
-                <button onclick="document.getElementById('modalAppearance').classList.remove('active')"
-                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác
-                    nhận</button>
+            <div style="padding:20px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; background:white; flex-shrink:0;">
+                <button onclick="document.getElementById('modalAppearance').classList.remove('active'); markDirty(); document.getElementById('btnSave').click();"
+                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác nhận & Lưu</button>
             </div>
         </div>
     </div>
@@ -1210,10 +1334,22 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Upload-done notification chip (bottom-right) -->
+    <div id="uploadDoneChip" onclick="uploadChipClick()" title="Bấm để chỉnh sửa hồ sơ">
+        <span class="chip-icon material-symbols-rounded" id="uploadChipIcon">manage_accounts</span>
+        <div>
+            <div style="font-size:11px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Hồ sơ</div>
+            <div id="uploadChipMsg" style="font-size:13px;">Chỉnh sửa hồ sơ</div>
+        </div>
+        <span class="chip-close material-symbols-rounded" onclick="event.stopPropagation(); hideUploadChip();">close</span>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, linkWithPopup, deleteUser, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+        import { startPresenceHeartbeat } from "./presence.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
@@ -1238,10 +1374,14 @@
 
         onAuthStateChanged(auth, async (u) => {
             currentUser = u;
-            if (!targetUid && u) targetUid = u.uid;
-            if (targetUid) {
-                loadProfile(targetUid);
-                if (u && u.uid === targetUid) listenToRequests(u.email);
+            if (u) {
+                const rtdb = getDatabase(app);
+                startPresenceHeartbeat({
+                    db, rtdb, uid: u.uid,
+                    serverTimestamp, updateDoc, doc,
+                    ref, onValue, set, onDisconnect
+                });
+                loadProfile(targetUid || u.uid);
 
                 // Show link section only for anonymous users
                 if (u && u.uid === targetUid && u.isAnonymous) {
@@ -1313,7 +1453,7 @@
 
                     html += `
                         <div ${isOwned ? `onclick="equipBadge('${b.id}')"` : ''} style="display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px; border-radius:16px; border:2px solid ${isEquipped ? 'var(--primary)' : '#e2e8f0'}; background:${!isOwned ? '#f1f5f9' : isEquipped ? '#f0f9ff' : '#fff'}; cursor:${isOwned ? 'pointer' : 'not-allowed'}; transition:0.2s; position:relative; opacity:${isOwned ? 1 : 0.6};">
-                            <div style="font-size:32px;">${badgeIcon}</div>
+                            <div style="font-size:32px;">${renderBadgeIcon(b.icon, b.name, "32px")}</div>
                             <div style="font-weight:800; font-size:14px; text-align:center; color:${b.color || '#0f172a'};">${b.name}</div>
                             <div style="font-size:11px; color:#64748b; text-align:center;">${b.desc || ''}</div>
                             ${!isOwned ? '<span class="material-symbols-rounded" style="position:absolute; top:8px; right:8px; color:#94a3b8; font-size:16px;">lock</span>' : ''}
@@ -1336,20 +1476,36 @@
                 await updateDoc(doc(db, "users", currentUser.uid), { equippedBadge: badgeId });
                 userData.equippedBadge = badgeId;
                 window.showToast(badgeId ? "Đã trang bị thẻ mới!" : "Đã gỡ trang bị huy hiệu!");
-                window.openBadgePicker(); // reload UI
-
-                // Update display immediately
-                const span = document.getElementById('dBadgeDisp');
-                if (span) {
-                    if (!badgeId) span.innerHTML = '';
-                    else {
-                        const b = allBadges.find(x => x.id === badgeId);
-                        if (b) span.innerHTML = `<span style="font-size:24px;" title="${b.name}">${b.icon || '🏅'}</span>`;
-                    }
-                }
+                
+                // Refresh list and UI
+                window.openBadgePicker();
+                renderUI(userData, currentUser.uid);
             } catch (err) {
                 console.error(err);
                 window.showToast("Lỗi cập nhật huy hiệu", "error");
+            }
+        };
+
+        function renderBadgeIcon(icon, name, size = "24px") {
+            if (!icon) return "";
+            const isSymbol = /^[a-z0-9_]+$/.test(icon);
+            if (isSymbol) {
+                return `<span class="material-symbols-rounded" style="font-size:${size}; vertical-align:middle; color:var(--primary);">${icon}</span>`;
+            } else {
+                return `<span style="font-size:${size}; vertical-align:middle;" title="${name}">${icon}</span>`;
+            }
+        }
+
+
+        window.copyUID = () => {
+            const uidText = document.getElementById('uidDisplay').textContent.replace('UID: ', '');
+            if (uidText && uidText !== '---') {
+                navigator.clipboard.writeText(uidText).then(() => {
+                    window.showToast("Đã sao chép UID vào bộ nhớ tạm! 📋");
+                }).catch(err => {
+                    console.error('Lỗi sao chép:', err);
+                    window.showToast("Không thể sao chép UID!");
+                });
             }
         };
 
@@ -1369,9 +1525,37 @@
                 if (currentUser && currentUser.uid === uid && (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới")) {
                     isSetupRequired = true;
                     document.getElementById('modalSettings').classList.add('active');
+                    markDirty(); // Enable save button for new user forced setup
                     // Fill data if exists
                     document.getElementById('inpName').value = (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới") ? "" : (userData.displayName || "");
                     document.getElementById('inpUser').value = userData.username || "";
+                }
+
+                // AUTO-GRANT "Nấu xói Matcha" badge
+                if (currentUser && currentUser.uid === uid && (userData.displayName || "").toLowerCase().includes("phương")) {
+                    const owned = userData.ownedBadges || [];
+                    if (!owned.includes("matcha-fox")) {
+                        (async () => {
+                            try {
+                                const bRef = doc(db, "badges", "matcha-fox");
+                                const bSnap = await getDoc(bRef);
+                                if (!bSnap.exists()) {
+                                    await setDoc(bRef, {
+                                        name: "Nấu xói Matcha",
+                                        icon: "fox",
+                                        desc: "Dành cho những người có 'Phương' trong tên",
+                                        color: "#22c55e"
+                                    });
+                                }
+                                
+                                const newOwned = [...owned, "matcha-fox"];
+                                await updateDoc(doc(db, "users", uid), { ownedBadges: newOwned });
+                                userData.ownedBadges = newOwned;
+                                window.showToast("Bạn đã nhận được huy hiệu 'Nấu xói Matcha'! 🦊", "🎁");
+                                renderUI(userData, uid);
+                            } catch (e) { console.error("Grant badge error:", e); }
+                        })();
+                    }
                 }
 
                 // Load follow counts
@@ -1394,8 +1578,91 @@
         // ... existing renderUI ...
 
         // LISTENER/HANDLERS
+        // ===== CHANGE TRACKING & SAVE BUTTON STATE =====
+        let _isDirty = false;
+
+        function markDirty() {
+            _isDirty = true;
+            const btn = document.getElementById('btnSave');
+            if (btn && !btn.hasAttribute('data-saving')) {
+                btn.disabled = false;
+                btn.style.opacity = '';
+            }
+        }
+
+        function markClean() {
+            _isDirty = false;
+            const btn = document.getElementById('btnSave');
+            if (btn) {
+                btn.disabled = true;
+                btn.removeAttribute('data-saving');
+            }
+        }
+
+        // Keep save button greyed until there's a change
+        // (will be enabled by markDirty)
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('btnSave');
+            if (btn) btn.disabled = true;
+        });
+        // Also disable right away (DOMContentLoaded may have already fired inside module)
+        (() => {
+            const btn = document.getElementById('btnSave');
+            if (btn) btn.disabled = true;
+        })();
+
+        // Watch text inputs & textarea
+        ['inpName','inpUser','inpBio'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', markDirty);
+        });
+
+        // Watch checkboxes
+        ['chkPublicFollow', 'chkPublicEmail', 'chkShowActivity', 'chkSearchByEmail'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('change', markDirty);
+        });
+
+
+        // Watch color/frame/bg pickers
+        document.getElementById('nameColorPicker').addEventListener('click', markDirty);
+        document.getElementById('chatBgPicker').addEventListener('click', markDirty);
+        document.getElementById('cardBgPicker').addEventListener('click', markDirty);
+        document.body.addEventListener('click', (e) => {
+            if (e.target.closest('.frame-opt')) markDirty();
+        });
+
+        // ===== UPLOAD CHIP HELPERS =====
+        function showUploadChip(msg) {
+            const chip = document.getElementById('uploadDoneChip');
+            const msgEl = document.getElementById('uploadChipMsg');
+            const iconEl = document.getElementById('uploadChipIcon');
+            if (!chip) return;
+            if (msg) {
+                // Upload state: update message and icon
+                if (msgEl) msgEl.textContent = msg;
+                if (iconEl) iconEl.textContent = 'check_circle';
+            } else {
+                // Default state: reset to edit-profile look
+                if (msgEl) msgEl.textContent = 'Chỉnh sửa hồ sơ';
+                if (iconEl) iconEl.textContent = 'manage_accounts';
+            }
+            chip.classList.add('show');
+        }
+
+        window.hideUploadChip = function() {
+            const chip = document.getElementById('uploadDoneChip');
+            if (chip) chip.classList.remove('show');
+        };
+
+        // Chip click opens settings modal WITHOUT hiding chip
+        window.uploadChipClick = function() {
+            document.getElementById('modalSettings').classList.add('active');
+        };
+
         document.getElementById('btnSave').onclick = async function () {
             try {
+                this.setAttribute('data-saving', '1');
                 this.textContent = "Đang lưu..."; this.disabled = true;
 
                 // DATA CHECK
@@ -1462,6 +1729,7 @@
                 }
 
                 const chkPublicFollow = document.getElementById('chkPublicFollow').checked;
+                const chkShowTickPrefer = true;
 
                 const updateData = {
                     displayName: inpName,
@@ -1473,7 +1741,11 @@
                     cardBackground: activeCardBg,
                     photoURL: nAvt, coverURL: nCov, lastUpdated: serverTimestamp(),
                     is_setup: true,
-                    publicFollow: chkPublicFollow
+                    publicFollow: document.getElementById('chkPublicFollow').checked,
+                    publicEmail: document.getElementById('chkPublicEmail').checked,
+                    showActivity: document.getElementById('chkShowActivity').checked,
+                    searchByEmail: document.getElementById('chkSearchByEmail').checked,
+                    showTickPrefer: chkShowTickPrefer
                 };
 
                 if (inpUser !== userData.username) updateData.lastUserChange = serverTimestamp();
@@ -1483,7 +1755,7 @@
                 await updateDoc(doc(db, "users", currentUser.uid), updateData);
 
                 document.getElementById('btnSave').textContent = "Lưu thay đổi";
-                document.getElementById('btnSave').disabled = false;
+                markClean();
 
                 isSetupRequired = false;
                 window.croppedAvtBlob = null;
@@ -1497,6 +1769,7 @@
                 if (msg.includes("requires an index")) msg = "Hệ thống đang tạo index, thử lại sau.";
                 window.showToast("Lỗi: " + msg, "");
                 document.getElementById('btnSave').textContent = "Lưu thay đổi";
+                document.getElementById('btnSave').removeAttribute('data-saving');
                 document.getElementById('btnSave').disabled = false;
             }
         }
@@ -1519,6 +1792,14 @@
 
         document.getElementById('btnConfirmYes').onclick = () => {
             signOut(auth).then(() => window.top.location.href = 'index.html');
+        }
+
+        window.togglePrivacySection = () => {
+            const body = document.getElementById('privacySectionBody');
+            const arrow = document.getElementById('privacySectionArrow');
+            const open = body.style.display === 'flex';
+            body.style.display = open ? 'none' : 'flex';
+            arrow.style.transform = open ? '' : 'rotate(180deg)';
         }
 
         window.toggleGuestSection = () => {
@@ -1554,55 +1835,7 @@
         };
 
         window.openAvatarEditor = () => {
-            // Refresh lock state based on current userData
-            if (userData) {
-                const lockVip = document.getElementById('lockVip');
-                const lockGold = document.getElementById('lockGold');
-                if (lockVip) lockVip.textContent = (userData.hasVipFrame || userData.has10DayReward) ? '✅' : '🔒';
-                if (lockGold) lockGold.textContent = userData.hasVipFrameGold ? '✅' : '🔒';
-            }
-            switchAvatarTab('avt');
             document.getElementById('modalAvatarEditor').classList.add('active');
-        };
-
-        window.switchAvatarTab = (tab) => {
-            document.getElementById('tabContentAvt').style.display = tab === 'avt' ? 'block' : 'none';
-            document.getElementById('tabContentFrame').style.display = tab === 'frame' ? 'block' : 'none';
-            document.getElementById('tabAvt').style.color = tab === 'avt' ? '#d97706' : '#94a3b8';
-            document.getElementById('tabAvt').style.borderBottom = tab === 'avt' ? '2px solid #f59e0b' : '2px solid transparent';
-            document.getElementById('tabFrame').style.color = tab === 'frame' ? '#d97706' : '#94a3b8';
-            document.getElementById('tabFrame').style.borderBottom = tab === 'frame' ? '2px solid #f59e0b' : '2px solid transparent';
-        };
-
-
-        window.applyAvatarFrameDirect = async (frame) => {
-            if (!currentUser) return;
-            // Check locks
-            if (frame === 'vip' && !(userData?.hasVipFrame || userData?.has10DayReward)) {
-                window.showToast('🔒 Hãy điểm danh đủ 5 ngày để mở khóa khung này!');
-                return;
-            }
-            if (frame === 'gold' && !userData?.hasVipFrameGold) {
-                window.showToast('🔒 Khung Vàng chưa được mở khóa!');
-                return;
-            }
-            try {
-                await updateDoc(doc(db, 'users', currentUser.uid), { avatarFrame: frame });
-                if (userData) userData.avatarFrame = frame;
-                // Refresh frame ring on page
-                const fw = document.getElementById('avtFrameWrap');
-                if (fw) {
-                    fw.className = 'avt-frame-wrap';
-                    if (frame === 'vip') fw.classList.add('avt-frame-vip');
-                    else if (frame === 'gold') fw.classList.add('avt-frame-gold');
-                }
-                // Highlight selected in popup
-                document.querySelectorAll('.frame-quick-opt').forEach(o => o.style.border = '2px solid #e2e8f0');
-                const sel = document.querySelector(`.frame-quick-opt[data-frame="${frame}"]`);
-                if (sel) sel.style.border = '2px solid #f59e0b';
-
-                window.showToast('✅ Đã áp dụng khung avatar!');
-            } catch (e) { window.showToast('Lỗi: ' + e.message); }
         };
 
         window.linkWithGoogle = async () => {
@@ -1636,24 +1869,80 @@
             document.getElementById('profileSkeleton').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
 
-            let badgeHtml = '';
-            // Ticks priority: Blue (Verified) takes precedence
+            // Populate UID in settings
+            const uidEl = document.getElementById('uidDisplay');
+            if (uidEl) uidEl.textContent = "UID: " + uid;
+
             const isOwner = currentUser && (currentUser.uid === uid || currentUser.email === data.email);
-            if (data.isTickVerified || (data.restrictedTick && isOwner)) {
-                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
+            const showTickPrefer = data.showTickPrefer !== false;
+            const isVerified = data.isTickVerified || (data.restrictedTick && isOwner);
+
+            let tickHtml = '';
+            if (isVerified) {
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
-                badgeHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
             }
-            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + badgeHtml + '<span id="dBadgeDisp" style="margin-left:4px;"></span>';
+
+            let nameExtraHtml = '';
+            const badgePlaceholder = '<span id="dBadgeDisp" style="margin-left:4px;"></span>';
+
+            if (showTickPrefer) {
+                nameExtraHtml = tickHtml || (data.equippedBadge ? badgePlaceholder : '');
+            } else {
+                nameExtraHtml = (data.equippedBadge ? badgePlaceholder : '') || tickHtml;
+            }
+
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + nameExtraHtml;
 
             if (data.equippedBadge) {
                 getDoc(doc(db, 'badges', data.equippedBadge)).then(bSnap => {
                     if (bSnap.exists()) {
                         const bData = bSnap.data();
                         const bSpan = document.getElementById('dBadgeDisp');
-                        if (bSpan) bSpan.innerHTML = `<span style="font-size:24px; vertical-align:middle;" title="${bData.name}">${bData.icon || '🏅'}</span>`;
+                        if (bSpan) bSpan.innerHTML = renderBadgeIcon(bData.icon, bData.name, "24px");
                     }
                 }).catch(e => console.error("Lỗi tải huy hiệu", e));
+            }
+
+            // Render badges in profile section
+            const badgesSec = document.getElementById('badgesSection');
+            const badgesList = document.getElementById('dBadgesList');
+            if (badgesSec && badgesList) {
+                const owned = data.ownedBadges || [];
+                const equipped = data.equippedBadge || '';
+                
+                // Fetch all badges if not already
+                if (allBadges.length === 0) {
+                    getDocs(collection(db, 'badges')).then(snap => {
+                        allBadges = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        renderBadgesSection(owned, equipped);
+                    }).catch(e => {
+                        console.error(e);
+                        badgesSec.style.display = 'none';
+                    });
+                } else {
+                    renderBadgesSection(owned, equipped);
+                }
+            }
+
+            function renderBadgesSection(owned, equipped) {
+                if (allBadges.length > 0) {
+                    badgesSec.style.display = 'block';
+                    badgesList.innerHTML = allBadges.map(b => {
+                        const isOwned = owned.includes(b.id);
+                        const isEquipped = equipped === b.id;
+                        return `
+                            <div class="badge-card ${!isOwned ? 'locked' : ''} ${isEquipped ? 'equipped' : ''}" ${isOwned && isOwner ? `onclick="equipBadge('${b.id}')"` : ''} title="${b.desc || b.name}">
+                                <div class="badge-icon">${renderBadgeIcon(b.icon, b.name, "28px")}</div>
+                                <div class="badge-name">${b.name}</div>
+                                ${isEquipped ? '<div class="badge-status"><span class="material-symbols-rounded" style="font-size:12px;">check</span></div>' : ''}
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    badgesSec.style.display = 'none';
+                }
             }
 
             // Apply name color
@@ -1699,6 +1988,9 @@
                 const btn = document.getElementById('btnSettings');
                 btn.style.display = 'flex';
                 btn.onclick = () => {
+                    // Xóa trạng thái isDirty của button từ lần trước
+                    if (typeof markClean === 'function') markClean();
+
                     document.getElementById('inpName').value = data.displayName || "";
                     document.getElementById('inpBio').value = data.bio || "";
                     document.getElementById('inpUser').value = data.username || "";
@@ -1708,6 +2000,8 @@
                         const frameWrap = document.getElementById('framePickerWrap');
                         if (frameWrap) frameWrap.style.display = 'block';
                     }
+                    const lockGoldApp = document.getElementById('lockGoldInAppearance');
+                    if (lockGoldApp) lockGoldApp.style.display = data.hasVipFrameGold ? 'none' : 'block';
                     if (data.has10DayReward || data.hasVipChatBg || data.hasVipChatBgGold) {
                         const chatWrap = document.getElementById('chatBgPickerWrap');
                         if (chatWrap) chatWrap.style.display = 'block';
@@ -1747,9 +2041,12 @@
                         opt.classList.toggle('active', opt.dataset.cardbg === cardBg);
                     });
 
-                    // Sync Privacy Setting
-                    // By default, it should be true if not set.
+                    // Sync Privacy Settings
                     document.getElementById('chkPublicFollow').checked = data.publicFollow !== false;
+                    document.getElementById('chkPublicEmail').checked = !!data.publicEmail;
+                    document.getElementById('chkShowActivity').checked = data.showActivity !== false;
+                    document.getElementById('chkSearchByEmail').checked = data.searchByEmail !== false;
+
 
                     // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
@@ -1783,10 +2080,8 @@
                 }
             }
 
-            // Hide Notif if visitor, but show action buttons
+            // Show Friend Actions if visitor
             if (currentUser && currentUser.uid !== uid) {
-                document.getElementById('btnNotif').style.display = 'none';
-
                 // Show Friend Actions
                 const actionContainer = document.getElementById('actionContainer');
                 if (actionContainer) {
@@ -1865,7 +2160,6 @@
                     });
                 }
             } else {
-                document.getElementById('btnNotif').style.display = 'flex';
                 if (document.getElementById('actionContainer')) document.getElementById('actionContainer').style.display = 'none';
             }
         }
@@ -1984,47 +2278,6 @@
 
 
 
-        function listenToRequests(email) {
-            const q = query(collection(db, "requests"), where("ownerEmail", "==", email), where("status", "==", "pending"));
-            onSnapshot(q, (snap) => {
-                const list = document.getElementById('reqList');
-                const badge = document.getElementById('notifBadge');
-                if (snap.empty) {
-                    list.innerHTML = `<p style="text-align:center; color:#64748b; font-size:14px; padding:20px;">Không có thông báo mới.</p>`;
-                    badge.style.display = 'none';
-                    return;
-                }
-                badge.style.display = 'block';
-                list.innerHTML = "";
-                snap.forEach(d => {
-                    const r = d.data();
-                    const item = document.createElement('div');
-                    item.className = 'request-item';
-                    item.innerHTML = `
-                        <div style="font-weight:700; font-size:14px;">${r.tTitle}</div>
-                        <div style="font-size:13px; color:#64748b; margin:4px 0;"> <b>${r.userName}</b> xin tham gia</div>
-                        <div class="req-actions">
-                            <button class="btn-req btn-approve">Duyệt</button>
-                            <button class="btn-req btn-reject">Từ chối</button>
-                        </div>`;
-                    item.querySelector('.btn-approve').onclick = () => handleReq(d.id, r.tid, r.userName, r.deviceId, true);
-                    item.querySelector('.btn-reject').onclick = () => handleReq(d.id, r.tid, r.userName, r.deviceId, false);
-                    list.appendChild(item);
-                });
-            });
-        }
-
-        async function handleReq(rid, tid, name, devId, isApprove) {
-            try {
-                if (isApprove) {
-                    await updateDoc(doc(db, "topics", tid), { whitelist: arrayUnion({ name, deviceId: devId }) });
-                    await updateDoc(doc(db, "requests", rid), { status: 'approved' });
-                } else {
-                    await updateDoc(doc(db, "requests", rid), { status: 'rejected' });
-                }
-                window.showToast(isApprove ? "Đã duyệt!" : "Đã từ chối.");
-            } catch (e) { window.showToast("Lỗi xử lý."); }
-        }
 
         async function upload(f) { const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch (e) { return ""; } }
 
@@ -2110,7 +2363,8 @@
             });
 
             canvas.toBlob((blob) => {
-                if (cropType === 'avt') {
+                const isAvt = cropType === 'avt';
+                if (isAvt) {
                     window.croppedAvtBlob = blob;
                     document.getElementById('avt').src = canvas.toDataURL('image/png');
                 } else {
@@ -2120,7 +2374,11 @@
                     document.getElementById('bgCover').style.backgroundImage = `url('${url}')`;
                 }
                 modalCropper.classList.remove('active');
-                window.showToast("Đã cắt ảnh! Nhấn 'Lưu' để hoàn tất.", "✨");
+                // Close settings modal and show bottom-right chip
+                document.getElementById('modalSettings').classList.remove('active');
+                const chipMsg = isAvt ? '📸 Ảnh đại diện đã chọn — nhấn Lưu!' : '🖼️ Ảnh bìa đã chọn — nhấn Lưu!';
+                showUploadChip(chipMsg);
+                markDirty();
             }, cropType === 'avt' ? 'image/png' : 'image/jpeg', 0.9);
         };
 
@@ -2184,20 +2442,20 @@
             if (avatarWrap && avatarInner) {
                 if (frame === 'vip') {
                     avatarWrap.innerHTML = `
-                        <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#8B4513,#5a2d0c,#22c55e,#16a34a); padding:3px; box-sizing:border-box; box-shadow:0 0 8px rgba(34,197,94,0.4);">
+                        <div style="width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#8B4513,#5a2d0c,#22c55e,#16a34a); padding:4px; box-sizing:border-box; box-shadow:0 0 10px rgba(34,197,94,0.4);">
                             <div style="width:100%; height:100%; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
                                 <img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
                             </div>
                         </div>`;
                 } else if (frame === 'gold') {
                     avatarWrap.innerHTML = `
-                        <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; box-sizing:border-box; box-shadow:0 0 10px rgba(251,191,36,0.6);">
+                        <div style="width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:4px; box-sizing:border-box; box-shadow:0 0 12px rgba(251,191,36,0.6);">
                             <div style="width:100%; height:100%; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
                                 <img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">
                             </div>
                         </div>`;
                 } else {
-                    avatarWrap.innerHTML = `<div style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>`;
+                    avatarWrap.innerHTML = `<div style="width:48px; height:48px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="${document.getElementById('avt').src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>`;
                 }
             }
 

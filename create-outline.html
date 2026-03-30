@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo Đề Cương Mới - Confe</title>
+    <script type="module" src="security-lock.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
@@ -604,7 +605,6 @@
                         style="border: 2px solid var(--primary); background: white;">
                         <option value="1">Dạng 1: Trắc nghiệm + Tự luận từ Ảnh</option>
                         <option value="2">Dạng 2: Trắc nghiệm + Tự luận từ Chữ</option>
-                        <option value="3">Dạng 3: Chỉ dùng Hình ảnh (Ôn tập ghi nhớ)</option>
                     </select>
                 </div>
             </div>
@@ -912,7 +912,6 @@
             let formatDesc = "";
             if (format === "1") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận từ Ảnh.";
             else if (format === "2") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận dạng Chữ.";
-            else if (format === "3") formatDesc = "• Định dạng: Ôn tập ghi nhớ (Memory Mode) qua Ảnh.";
 
             const userDesc = (document.getElementById('outline-desc').value || '').trim();
             const desc = (userDesc ? userDesc + "\n" : "") + formatDesc;
@@ -978,16 +977,14 @@
             if (!btn) return;
             if (format === '1') {
                 btn.innerHTML = `<span class="material-symbols-rounded">image</span> Thêm Ảnh (Trắc nghiệm/Tự luận)`;
-            } else if (format === '2') {
-                btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> Thêm Câu hỏi (Dạng chữ)`;
             } else {
-                btn.innerHTML = `<span class="material-symbols-rounded">wallpaper</span> Thêm Ảnh (Ghi nhớ/Masking)`;
+                btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> Thêm Câu hỏi (Dạng chữ)`;
             }
         };
 
         window.handleAddByFormat = () => {
             const format = document.getElementById('outline-format').value;
-            if (format === '1' || format === '3') {
+            if (format === '1') {
                 triggerImgUpload();
             } else {
                 addQuestion('mcq');
@@ -1189,9 +1186,6 @@
                             `).join('')}
                         </div>
                         <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 15px;">
-                            <button class="btn btn-ghost" style="flex: 1; padding:10px; border-radius:12px; font-size:13px;" onclick="startMasking(${q.id})">
-                                <span class="material-symbols-rounded" style="font-size:18px;">draw</span> Chỉnh sửa vùng che
-                            </button>
                             <button class="btn btn-ghost" style="flex: 1; padding:10px; border-radius:12px; font-size:13px; color: var(--primary);" onclick="addSubQuestion(${q.id})">
                                 <span class="material-symbols-rounded" style="font-size:18px;">add_circle</span> Thêm câu cho ảnh này
                             </button>
@@ -1214,7 +1208,6 @@
                                         <select class="input" onchange="updateSubQType(${q.id}, ${sq.id}, this.value)" style="padding:8px;">
                                             <option value="mcq" ${sq.subType === 'mcq' ? 'selected' : ''}>Trắc nghiệm</option>
                                             <option value="essay" ${sq.subType === 'essay' ? 'selected' : ''}>Tự luận</option>
-                                            <option value="view" ${sq.subType === 'view' ? 'selected' : ''}>Chỉ che vùng</option>
                                         </select>
                                     </div>
                                     ${sq.subType === 'mcq' ? `
@@ -1245,6 +1238,13 @@
                             </button>
                         </div>
                         <div class="input-group">
+                            <label class="label">Loại câu hỏi</label>
+                            <select class="input" onchange="updateQType(${q.id}, this.value)" style="padding: 8px;">
+                                <option value="mcq" ${q.type === 'mcq' ? 'selected' : ''}>Trắc nghiệm</option>
+                                <option value="essay" ${q.type === 'essay' ? 'selected' : ''}>Tự luận</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
                             <label class="label">Nội dung câu hỏi</label>
                             <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateQText(${q.id}, this.value)">${q.text}</textarea>
                         </div>
@@ -1269,6 +1269,7 @@
             });
         }
 
+        window.updateQType = (id, val) => { const q = questions.find(q => q.id === id); if (q) { q.type = val; renderQuestions(); } };
         window.updateQText = (id, val) => { const q = questions.find(q => q.id === id); if (q) q.text = val; };
         window.updateQAnswer = (id, val) => { const q = questions.find(q => q.id === id); if (q) q.answer = val; };
         window.updateQCorrect = (id, idx) => { const q = questions.find(q => q.id === id); if (q) q.correct = idx; };

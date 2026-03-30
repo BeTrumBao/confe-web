@@ -1,0 +1,19 @@
+{
+  "name": "Confe - Made By Em Qizi",
+  "short_name": "Confe",
+  "id": "/index.html",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "description": "Nền tảng học tập có thể gọi là tốt hơn nhưng có chắc là tốt hơn ?",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
