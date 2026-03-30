@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiáº¿t láº­p há»“ sÆ¡ - Confe</title>
+    <title>Thiết lập hồ sơ - Confe</title>
     <link rel="icon" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -253,46 +253,32 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
     </style>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
-        <p style="font-weight:700; color:var(--primary);">Äang lÆ°u thÃ´ng tin...</p>
+        <p style="font-weight:700; color:var(--primary);">Đang lưu thông tin...</p>
     </div>
 
     <div class="setup-container">
         <div class="setup-header">
-            <h1 class="setup-title">ChÃ o má»«ng báº¡n!</h1>
-            <p class="setup-subtitle">HÃ£y dÃ nh chÃºt thá»i gian Ä‘á»ƒ hoÃ n thiá»‡n há»“ sÆ¡ nhÃ©.</p>
+            <h1 class="setup-title">Chào mừng bạn!</h1>
+            <p class="setup-subtitle">Hãy dành chút thời gian để hoàn thiện hồ sơ nhé.</p>
         </div>
 
         <!-- Step 1: Basic Info -->
         <div class="step-content active" id="step1">
             <div class="input-group">
-                <label class="input-label">TÃªn hiá»ƒn thá»‹</label>
-                <input type="text" id="setupDisplayName" class="input-field" placeholder="VÃ­ dá»¥: Nguyá»…n VÄƒn A">
+                <label class="input-label">Tên hiển thị</label>
+                <input type="text" id="setupDisplayName" class="input-field" placeholder="Ví dụ: Nguyễn Văn A">
             </div>
             <div class="input-group">
-                <label class="input-label">Username (ID duy nháº¥t)</label>
-                <input type="text" id="setupUsername" class="input-field" placeholder="VÃ­ dá»¥: nva_123">
+                <label class="input-label">Username (ID duy nhất)</label>
+                <input type="text" id="setupUsername" class="input-field" placeholder="Ví dụ: nva_123">
             </div>
             <div class="btn-row">
-                <button class="btn btn-primary" onclick="nextStep(2)">Tiáº¿p theo <span class="material-symbols-rounded">arrow_forward</span></button>
+                <button class="btn btn-primary" onclick="nextStep(2)">Tiếp theo <span class="material-symbols-rounded">arrow_forward</span></button>
             </div>
         </div>
 
@@ -300,39 +286,39 @@
         <div class="step-content" id="step2">
             <div class="upload-grid">
                 <div>
-                    <label class="input-label">áº¢nh Ä‘áº¡i diá»‡n (1:1)</label>
+                    <label class="input-label">Ảnh đại diện (1:1)</label>
                     <div class="upload-box" onclick="document.getElementById('avatarFile').click()">
                         <span class="material-symbols-rounded upload-icon">account_circle</span>
-                        <p class="upload-text">Chá»n áº£nh Ä‘áº¡i diá»‡n</p>
+                        <p class="upload-text">Chọn ảnh đại diện</p>
                         <img id="avatarPreview" class="avatar-preview">
                         <input type="file" id="avatarFile" hidden accept="image/*" onchange="handleFile(this, 'avt')">
                     </div>
                 </div>
                 <div>
-                    <label class="input-label">áº¢nh bÃ¬a</label>
+                    <label class="input-label">Ảnh bìa</label>
                     <div class="upload-box" onclick="document.getElementById('coverFile').click()">
                         <span class="material-symbols-rounded upload-icon">image</span>
-                        <p class="upload-text">Chá»n áº£nh bÃ¬a</p>
+                        <p class="upload-text">Chọn ảnh bìa</p>
                         <img id="coverPreview" class="upload-preview">
                         <input type="file" id="coverFile" hidden accept="image/*" onchange="handleFile(this, 'cover')">
                     </div>
                 </div>
             </div>
             <div class="btn-row">
-                <button class="btn btn-outline" onclick="prevStep(1)">Quay láº¡i</button>
-                <button class="btn btn-primary" onclick="nextStep(3)">Tiáº¿p theo <span class="material-symbols-rounded">arrow_forward</span></button>
+                <button class="btn btn-outline" onclick="prevStep(1)">Quay lại</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">Tiếp theo <span class="material-symbols-rounded">arrow_forward</span></button>
             </div>
         </div>
 
         <!-- Step 3: Bio -->
         <div class="step-content" id="step3">
             <div class="input-group">
-                <label class="input-label">Tiá»ƒu sá»­</label>
-                <textarea id="setupBio" class="input-field" rows="4" style="resize:none;" placeholder="Má»™t chÃºt vá» báº£n thÃ¢n báº¡n..."></textarea>
+                <label class="input-label">Tiểu sử</label>
+                <textarea id="setupBio" class="input-field" rows="4" style="resize:none;" placeholder="Một chút về bản thân bạn..."></textarea>
             </div>
             <div class="btn-row">
-                <button class="btn btn-outline" onclick="prevStep(2)">Quay láº¡i</button>
-                <button id="btnFinish" class="btn btn-primary" onclick="finishSetup()">HoÃ n táº¥t <span class="material-symbols-rounded">done_all</span></button>
+                <button class="btn btn-outline" onclick="prevStep(2)">Quay lại</button>
+                <button id="btnFinish" class="btn btn-primary" onclick="finishSetup()">Hoàn tất <span class="material-symbols-rounded">done_all</span></button>
             </div>
         </div>
     </div>
@@ -340,13 +326,13 @@
     <!-- Cropper Modal -->
     <div id="modalCropper" class="modal">
         <div class="cropper-box">
-            <h3 style="margin-bottom:15px; font-weight:800;">Cáº¯t áº£nh</h3>
+            <h3 style="margin-bottom:15px; font-weight:800;">Cắt ảnh</h3>
             <div class="cropper-container">
                 <img id="cropImg" style="max-width:100%;">
             </div>
             <div class="btn-row">
-                <button class="btn btn-outline" onclick="closeCropper()">Há»§y</button>
-                <button class="btn btn-primary" onclick="confirmCrop()">Cáº¯t & LÆ°u</button>
+                <button class="btn btn-outline" onclick="closeCropper()">Hủy</button>
+                <button class="btn btn-primary" onclick="confirmCrop()">Cắt & Lưu</button>
             </div>
         </div>
     </div>
@@ -401,8 +387,8 @@
             if (n === 2) {
                 const name = document.getElementById('setupDisplayName').value.trim();
                 const user = document.getElementById('setupUsername').value.trim();
-                if (!name || !user) return window.showToast("Vui lÃ²ng nháº­p tÃªn vÃ  username!");
-                if (user.length < 3) return window.showToast("Username tá»‘i thiá»ƒu 3 kÃ½ tá»±!");
+                if (!name || !user) return window.showToast("Vui lòng nhập tên và username!");
+                if (user.length < 3) return window.showToast("Username tối thiểu 3 ký tự!");
             }
             document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + n).classList.add('active');
@@ -484,12 +470,12 @@
             const username = document.getElementById('setupUsername').value.trim().toLowerCase();
             const bio = document.getElementById('setupBio').value.trim();
 
-            if (!name || !username) return window.showToast("Vui lÃ²ng nháº­p tÃªn vÃ  username!");
+            if (!name || !username) return window.showToast("Vui lòng nhập tên và username!");
             
             // Basic username validation: no spaces, no special chars, 3-20 chars
             const userRegex = /^[a-zA-Z0-9_]+$/;
             if (!userRegex.test(username)) {
-                return window.showToast("Username viáº¿t liá»n, khÃ´ng dáº¥u, khÃ´ng kÃ½ tá»± Ä‘áº·c biá»‡t!", "âš ï¸");
+                return window.showToast("Username viết liền, không dấu, không ký tự đặc biệt!", "⚠️");
             }
 
             btn.disabled = true;
@@ -505,7 +491,7 @@
                     if (hasOther) {
                         btn.disabled = false;
                         document.getElementById('loadingOverlay').style.display = 'none';
-                        return window.showToast("Username Ä‘Ã£ tá»“n táº¡i!");
+                        return window.showToast("Username đã tồn tại!");
                     }
                 }
 
@@ -518,7 +504,7 @@
                     if (up) {
                         photoURL = up;
                     } else {
-                        window.showToast("Lá»—i táº£i áº£nh Ä‘áº¡i diá»‡n, Ä‘ang dÃ¹ng máº·c Ä‘á»‹nh...");
+                        window.showToast("Lỗi tải ảnh đại diện, đang dùng mặc định...");
                     }
                 }
                 if (coverBlob) {
@@ -526,7 +512,7 @@
                     if (up) {
                         coverURL = up;
                     } else {
-                        window.showToast("Lá»—i táº£i áº£nh bÃ¬a...");
+                        window.showToast("Lỗi tải ảnh bìa...");
                     }
                 }
 
@@ -540,7 +526,7 @@
                     updatedAt: new Date().toISOString()
                 });
 
-                window.showToast("Thiáº¿t láº­p thÃ nh cÃ´ng! Äang chuyá»ƒn hÆ°á»›ng...");
+                window.showToast("Thiết lập thành công! Đang chuyển hướng...");
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1500);
@@ -549,7 +535,7 @@
                 console.error(err);
                 btn.disabled = false;
                 document.getElementById('loadingOverlay').style.display = 'none';
-                window.showToast("Lá»—i khi lÆ°u dá»¯ liá»‡u!");
+                window.showToast("Lỗi khi lưu dữ liệu!");
             }
         };
     </script>

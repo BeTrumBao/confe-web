@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <script src="toast.js?v=2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cá»­a hÃ ng Confe - Shop</title>
+    <title>Cửa hàng Confe - Shop</title>
     <script type="module" src="security-lock.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -160,20 +160,6 @@
         .toast { background: rgba(0,0,0,0.8); color: #fff; padding: 12px 20px; border-radius: 14px; font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 8px; animation: slideUp 0.3s ease; backdrop-filter: blur(8px); }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 <body>
     <header>
@@ -185,13 +171,13 @@
     </header>
 
     <div class="container">
-        <h1 class="shop-title">Cá»­a hÃ ng</h1>
-        <p class="shop-desc">Sá»­ dá»¥ng xu Ã´n táº­p Ä‘á»ƒ nÃ¢ng cáº¥p há»“ sÆ¡ cá»§a báº¡n.</p>
+        <h1 class="shop-title">Cửa hàng</h1>
+        <p class="shop-desc">Sử dụng xu ôn tập để nâng cấp hồ sơ của bạn.</p>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('frame')">Khung Avatar</button>
-            <button class="tab-btn" onclick="switchTab('bg')">Ná»n Há»“ SÆ¡</button>
-            <button class="tab-btn" onclick="switchTab('special')">Váº­t pháº©m Äáº·c biá»‡t</button>
+            <button class="tab-btn" onclick="switchTab('bg')">Nền Hồ Sơ</button>
+            <button class="tab-btn" onclick="switchTab('special')">Vật phẩm Đặc biệt</button>
         </div>
 
         <!-- Frame Tab -->
@@ -199,22 +185,22 @@
             <!-- Gold Frame -->
             <div class="item-card">
                 <div class="item-preview"><div class="avt-preview frame-gold"></div></div>
-                <div style="font-weight:700; margin-bottom:4px;">Khung VÃ ng</div>
-                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Äáº³ng cáº¥p & Sang trá»ng</div>
-                <button class="btn-buy" id="buy-frame-gold" onclick="confirmBuy('hasVipFrameGold', 2000, 'Khung VÃ ng')">
+                <div style="font-weight:700; margin-bottom:4px;">Khung Vàng</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Đẳng cấp & Sang trọng</div>
+                <button class="btn-buy" id="buy-frame-gold" onclick="confirmBuy('hasVipFrameGold', 2000, 'Khung Vàng')">
                     <span class="material-icons" style="font-size:16px;">payments</span> 2,000 Xu
                 </button>
-                <div class="owned-badge" id="owned-frame-gold" style="display:none;">ÄÃ£ sá»Ÿ há»¯u</div>
+                <div class="owned-badge" id="owned-frame-gold" style="display:none;">Đã sở hữu</div>
             </div>
             <!-- Blue Frame -->
             <div class="item-card">
                 <div class="item-preview"><div class="avt-preview frame-blue"></div></div>
                 <div style="font-weight:700; margin-bottom:4px;">Khung Xanh</div>
-                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">HÃ²a bÃ¬nh & Tin cáº­y</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Hòa bình & Tin cậy</div>
                 <button class="btn-buy" id="buy-frame-blue" onclick="confirmBuy('hasVipFrame', 1000, 'Khung Xanh')">
                     <span class="material-icons" style="font-size:16px;">payments</span> 1,000 Xu
                 </button>
-                <div class="owned-badge" id="owned-frame-blue" style="display:none;">ÄÃ£ sá»Ÿ há»¯u</div>
+                <div class="owned-badge" id="owned-frame-blue" style="display:none;">Đã sở hữu</div>
             </div>
         </div>
 
@@ -223,12 +209,12 @@
             <!-- Gold Bg -->
             <div class="item-card">
                 <div class="item-preview"><div class="bg-card-mini premium-gold-bg"></div></div>
-                <div style="font-weight:700; margin-bottom:4px;">Ná»n Tháº» VÃ ng</div>
-                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Hiá»‡u á»©ng viá»n cháº¡y mÆ°á»£t mÃ </div>
-                <button class="btn-buy" id="buy-bg-gold" onclick="confirmBuy('hasCardBg', 5000, 'Ná»n Tháº» VÃ ng')">
+                <div style="font-weight:700; margin-bottom:4px;">Nền Thẻ Vàng</div>
+                <div style="font-size:11px; color:var(--text-sub); margin-bottom:12px;">Hiệu ứng viền chạy mượt mà</div>
+                <button class="btn-buy" id="buy-bg-gold" onclick="confirmBuy('hasCardBg', 5000, 'Nền Thẻ Vàng')">
                     <span class="material-icons" style="font-size:16px;">payments</span> 5,000 Xu
                 </button>
-                <div class="owned-badge" id="owned-bg-gold" style="display:none;">ÄÃ£ sá»Ÿ há»¯u</div>
+                <div class="owned-badge" id="owned-bg-gold" style="display:none;">Đã sở hữu</div>
             </div>
         </div>
         
@@ -236,7 +222,7 @@
         <div id="grid-special" class="item-grid">
             <div class="item-card" style="grid-column: 1/-1;">
                 <span class="material-icons" style="font-size:48px; color:#94a3b8; margin-bottom:10px;">inventory_2</span>
-                <p style="color:var(--text-sub); font-size:13px;">Nhiá»u váº­t pháº©m sáº¯p Ä‘Æ°á»£c ra máº¯t...</p>
+                <p style="color:var(--text-sub); font-size:13px;">Nhiều vật phẩm sắp được ra mắt...</p>
             </div>
         </div>
     </div>
@@ -244,11 +230,11 @@
     <!-- Buy Confirm Modal -->
     <div id="modalBuy" class="modal">
         <div class="modal-box">
-            <h3 style="margin-bottom:10px;">XÃ¡c nháº­n mua</h3>
+            <h3 style="margin-bottom:10px;">Xác nhận mua</h3>
             <p id="confirmText" style="color:var(--text-sub); font-size:14px; margin-bottom:20px;"></p>
             <div style="display:flex; gap:10px;">
                 <button onclick="executeBuy()" class="btn-buy" style="flex:1;">Mua ngay</button>
-                <button onclick="document.getElementById('modalBuy').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Há»§y</button>
+                <button onclick="document.getElementById('modalBuy').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Hủy</button>
             </div>
         </div>
     </div>
@@ -263,13 +249,13 @@
     <!-- Creator Application Modal (Survey) -->
     <div id="modalSurvey" class="modal">
         <div class="modal-box">
-            <h3 style="margin-bottom:10px;">ÄÄƒng kÃ½ NhÃ  sÃ¡ng táº¡o</h3>
-            <p style="color:var(--text-sub); font-size:13px; margin-bottom:20px;">Trá»Ÿ thÃ nh NhÃ  sÃ¡ng táº¡o (Tick Ä‘á») Ä‘á»ƒ cÃ³ thá»ƒ tá»± thiáº¿t káº¿ vÃ  bÃ¡n váº­t pháº©m trong shop!</p>
-            <textarea id="surveyReason" placeholder="Táº¡i sao báº¡n muá»‘n trá»Ÿ thÃ nh nhÃ  sÃ¡ng táº¡o? (KÃ¨m link portfolio náº¿u cÃ³)" 
+            <h3 style="margin-bottom:10px;">Đăng ký Nhà sáng tạo</h3>
+            <p style="color:var(--text-sub); font-size:13px; margin-bottom:20px;">Trở thành Nhà sáng tạo (Tick đỏ) để có thể tự thiết kế và bán vật phẩm trong shop!</p>
+            <textarea id="surveyReason" placeholder="Tại sao bạn muốn trở thành nhà sáng tạo? (Kèm link portfolio nếu có)" 
                 style="width:100%; height:100px; padding:12px; border-radius:12px; border:1px solid #e2e8f0; font-family:inherit; font-size:13px; margin-bottom:16px; outline:none;"></textarea>
             <div style="display:flex; gap:10px;">
-                <button onclick="submitSurvey()" class="btn-buy" style="flex:1;">Gá»­i Ä‘Æ¡n Ä‘Äƒng kÃ½</button>
-                <button onclick="document.getElementById('modalSurvey').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Há»§y</button>
+                <button onclick="submitSurvey()" class="btn-buy" style="flex:1;">Gửi đơn đăng ký</button>
+                <button onclick="document.getElementById('modalSurvey').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main);">Hủy</button>
             </div>
         </div>
     </div>
@@ -284,48 +270,48 @@
             <div style="display:grid; grid-template-columns: 160px 1fr; gap:24px; text-align:left;">
                 <!-- Preview Canvasish -->
                 <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
-                    <div style="font-size:12px; font-weight:800; color:var(--text-sub); text-transform:uppercase; letter-spacing:1px;">Xem trÆ°á»›c</div>
+                    <div style="font-size:12px; font-weight:800; color:var(--text-sub); text-transform:uppercase; letter-spacing:1px;">Xem trước</div>
                     <div id="labPreview" style="background:#f8fafc; border:2px dashed #e2e8f0; border-radius:24px; width:160px; height:160px; display:flex; align-items:center; justify-content:center; position:relative; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);">
                         <div id="previewObject" class="avt-preview" style="width:100px; height:100px; transition: 0.3s; position:relative;"></div>
                     </div>
-                    <div style="font-size:10px; color:#94a3b8; text-align:center;">Váº­t pháº©m sáº½ hiá»ƒn thá»‹ trÃªn há»“ sÆ¡ cá»§a báº¡n sau khi Ä‘Æ°á»£c duyá»‡t.</div>
+                    <div style="font-size:10px; color:#94a3b8; text-align:center;">Vật phẩm sẽ hiển thị trên hồ sơ của bạn sau khi được duyệt.</div>
                 </div>
 
                 <!-- Controls -->
                 <div style="display:flex; flex-direction:column; gap:16px;">
                     <div>
-                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">1. Loáº¡i váº­t pháº©m</label>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">1. Loại vật phẩm</label>
                         <select id="labType" onchange="updateLabPreview()" style="width:100%; padding:12px; border-radius:14px; border:1px solid #e2e8f0; font-family:inherit; font-weight:600; outline:none; cursor:pointer;">
-                            <option value="frame">Khung Avatar (TrÃ²n)</option>
-                            <option value="bg">Ná»n Há»“ SÆ¡ (Chá»¯ nháº­t)</option>
+                            <option value="frame">Khung Avatar (Tròn)</option>
+                            <option value="bg">Nền Hồ Sơ (Chữ nhật)</option>
                         </select>
                     </div>
 
                     <div>
-                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">2. MÃ u sáº¯c & Hiá»‡u á»©ng</label>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">2. Màu sắc & Hiệu ứng</label>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                             <div style="display:flex; gap:8px; align-items:center; background:#f8fafc; padding:8px; border-radius:12px; border:1px solid #e2e8f0;">
                                 <input type="color" id="labColor" value="#0084ff" oninput="updateLabPreview()" style="height:32px; width:40px; border:none; border-radius:8px; cursor:pointer;">
-                                <span style="font-size:12px; font-weight:700;">MÃ u</span>
+                                <span style="font-size:12px; font-weight:700;">Màu</span>
                             </div>
                             <label style="font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:12px; border:1px solid #e2e8f0;">
                                 <input type="checkbox" id="labGradient" onchange="updateLabPreview()" style="width:16px; height:16px;"> Gradient
                             </label>
                             <label id="borderRunToggle" style="grid-column: span 2; font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; cursor:pointer; background:#f8fafc; padding:8px 12px; border-radius:12px; border:1px solid #e2e8f0;">
-                                <input type="checkbox" id="labBorderRun" onchange="updateLabPreview()" style="width:16px; height:16px;"> Hiá»‡u á»©ng viá»n cháº¡y mÆ°á»£t mÃ 
+                                <input type="checkbox" id="labBorderRun" onchange="updateLabPreview()" style="width:16px; height:16px;"> Hiệu ứng viền chạy mượt mà
                             </label>
                         </div>
                     </div>
 
                     <div>
-                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">3. Táº£i lÃªn Sticker (áº¢nh nhá»)</label>
+                        <label style="font-size:11px; font-weight:800; color:var(--text-sub); text-transform:uppercase; display:block; margin-bottom:8px;">3. Tải lên Sticker (Ảnh nhỏ)</label>
                         <div style="display:flex; gap:10px;">
                             <label class="btn-buy" style="margin-top:0; flex:1; background:#f1f5f9; color:var(--text-main); font-size:12px; cursor:pointer;">
                                 <span class="material-icons" style="font-size:18px;">upload_file</span>
-                                Chá»n file áº£nh
+                                Chọn file ảnh
                                 <input type="file" id="labStickerFile" accept="image/*" onchange="handleStickerUpload(this)" style="display:none;">
                             </label>
-                            <input type="text" id="labSticker" placeholder="Hoáº·c Emoji..." maxlength="2" oninput="updateLabPreview()" style="width:80px; padding:10px; border-radius:12px; border:1px solid #e2e8f0; font-family:inherit; text-align:center; font-size:18px; outline:none;">
+                            <input type="text" id="labSticker" placeholder="Hoặc Emoji..." maxlength="2" oninput="updateLabPreview()" style="width:80px; padding:10px; border-radius:12px; border:1px solid #e2e8f0; font-family:inherit; text-align:center; font-size:18px; outline:none;">
                         </div>
                     </div>
                 </div>
@@ -333,9 +319,9 @@
 
             <div style="margin-top:32px; display:flex; gap:12px;">
                 <button onclick="publishItem()" class="btn-buy" style="flex:1.5; height:54px; font-size:15px; letter-spacing:0.5px;">
-                    <span class="material-icons">rocket_launch</span> XUáº¤T Báº¢N THIáº¾T Káº¾
+                    <span class="material-icons">rocket_launch</span> XUẤT BẢN THIẾT KẾ
                 </button>
-                <button onclick="document.getElementById('modalLab').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main); height:54px;">Há»§y bá»</button>
+                <button onclick="document.getElementById('modalLab').classList.remove('active')" class="btn-buy" style="flex:1; background:#f1f5f9; color:var(--text-main); height:54px;">Hủy bỏ</button>
             </div>
         </div>
     </div>
@@ -394,7 +380,7 @@
 
         window.submitSurvey = async () => {
             const reason = document.getElementById('surveyReason').value.trim();
-            if (!reason) { showToast('âš ï¸ Vui lÃ²ng Ä‘iá»n thÃ´ng tin Ä‘Äƒng kÃ½!'); return; }
+            if (!reason) { showToast('⚠️ Vui lòng điền thông tin đăng ký!'); return; }
             
             try {
                 await addDoc(collection(db, 'creator_applications'), {
@@ -404,9 +390,9 @@
                     timestamp: serverTimestamp(),
                     status: 'pending'
                 });
-                showToast('âœ… ÄÆ¡n Ä‘Äƒng kÃ½ Ä‘Ã£ Ä‘Æ°á»£c gá»­i! Admin sáº½ xem xÃ©t sá»›m.');
+                showToast('✅ Đơn đăng ký đã được gửi! Admin sẽ xem xét sớm.');
                 document.getElementById('modalSurvey').classList.remove('active');
-            } catch(e) { showToast('Lá»—i: ' + e.message); }
+            } catch(e) { showToast('Lỗi: ' + e.message); }
         };
 
         let uploadedStickerUrl = null;
@@ -420,7 +406,7 @@
                     document.getElementById('labSticker').value = '';
                     stickerPos = { x: 50, y: 50 };
                     updateLabPreview();
-                    showToast('ðŸ–¼ï¸ ÄÃ£ táº£i sticker lÃªn!');
+                    showToast('🖼️ Đã tải sticker lên!');
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -501,10 +487,10 @@
                     type, color, isGrad, isBorderRun, sticker: uploadedStickerUrl || emojiSticker,
                     isImageSticker: !!uploadedStickerUrl, stickerPos, timestamp: serverTimestamp(), status: 'pending'
                 });
-                showToast('ðŸš€ ÄÃ£ xuáº¥t báº£n thiáº¿t káº¿! Äang chá» duyá»‡t.');
+                showToast('🚀 Đã xuất bản thiết kế! Đang chờ duyệt.');
                 document.getElementById('modalLab').classList.remove('active');
                 uploadedStickerUrl = null; stickerPos = { x: 50, y: 50 };
-            } catch(e) { showToast('Lá»—i: ' + e.message); }
+            } catch(e) { showToast('Lỗi: ' + e.message); }
         };
 
         window.switchTab = (tab) => {
@@ -516,11 +502,11 @@
 
         window.confirmBuy = (id, price, name) => {
             if ((userData.coins || 0) < price) {
-                showToast('âŒ Báº¡n khÃ´ng Ä‘á»§ xu!');
+                showToast('❌ Bạn không đủ xu!');
                 return;
             }
             pendingBuy = { id, price, name };
-            document.getElementById('confirmText').textContent = `Báº¡n cÃ³ muá»‘n mua ${name} vá»›i giÃ¡ ${price} Xu?`;
+            document.getElementById('confirmText').textContent = `Bạn có muốn mua ${name} với giá ${price} Xu?`;
             document.getElementById('modalBuy').classList.add('active');
         };
 
@@ -533,9 +519,9 @@
                 const updateData = { coins: (userData.coins || 0) - pendingBuy.price };
                 updateData[pendingBuy.id] = true;
                 await updateDoc(doc(db, 'users', currentUser.uid), updateData);
-                showToast(`âœ… ÄÃ£ mua ${pendingBuy.name}!`);
+                showToast(`✅ Đã mua ${pendingBuy.name}!`);
             } catch(e) {
-                showToast('Lá»—i: ' + e.message);
+                showToast('Lỗi: ' + e.message);
             }
         };
 

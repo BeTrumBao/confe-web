@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <script>window.showToast = function (msg, d) { d = d || 2500; try { if (window.self !== window.top && typeof window.top.showToast === 'function') { window.top.showToast(msg, d); return; } } catch (e) { } var b = document.body || document.documentElement; if (!b) return; var t = document.createElement('div'); t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;'; t.textContent = msg; b.appendChild(t); requestAnimationFrame(function () { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; }); setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400); }, d); };</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Há»“ sÆ¡ cÃ¡ nhÃ¢n</title>
+    <title>Hồ sơ cá nhân</title>
     <script type="module" src="security-lock.js"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
@@ -688,20 +688,6 @@
             });
         };
     </script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -870,23 +856,23 @@
             <div class="stats-row">
                 <div class="stat-item" onclick="showFollowList('followers')" style="cursor:pointer;">
                     <span class="stat-val" id="followerCount">0</span>
-                    <span class="stat-label">NgÆ°á»i theo dÃµi</span>
+                    <span class="stat-label">Người theo dõi</span>
                 </div>
                 <div class="stat-item" onclick="showFollowList('following')" style="cursor:pointer;">
                     <span class="stat-val" id="followingCount">0</span>
-                    <span class="stat-label">Äang theo dÃµi</span>
+                    <span class="stat-label">Đang theo dõi</span>
                 </div>
             </div>
             <!-- Follow button (shown when viewing other's profile) -->
             <div id="followBtnWrap" style="display:none; margin-top:12px;">
                 <button id="btnFollow" onclick="toggleFollow()"
                     style="padding:10px 28px; border:none; border-radius:20px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s; background:var(--primary-container); color:var(--primary);">Theo
-                    dÃµi</button>
+                    dõi</button>
             </div>
 
             <div class="section-box">
                 <span class="sec-title"><span class="material-symbols-rounded"
-                        style="font-size: 18px;">format_quote</span> Tiá»ƒu Sá»­</span>
+                        style="font-size: 18px;">format_quote</span> Tiểu Sử</span>
                 <div class="bio-box" id="dBio"></div>
             </div>
 
@@ -896,12 +882,12 @@
     <div id="modalConfirm" class="modal" style="z-index: 2500;">
         <div class="box" style="text-align:center; max-width:320px;">
             <div style="font-size:48px; margin-bottom:10px;"></div>
-            <h3 style="margin-bottom:10px; font-size:18px;">Báº¡n cháº¯c chá»©?</h3>
-            <p style="color:#64748b; margin-bottom:20px;" id="confirmMsg">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n Ä‘Äƒng xuáº¥t khÃ´ng?</p>
+            <h3 style="margin-bottom:10px; font-size:18px;">Bạn chắc chứ?</h3>
+            <p style="color:#64748b; margin-bottom:20px;" id="confirmMsg">Bạn có chắc chắn muốn đăng xuất không?</p>
             <div style="display:flex; gap:10px;">
-                <button id="btnConfirmYes" class="btn-main" style="background:var(--danger);">ÄÄƒng xuáº¥t</button>
+                <button id="btnConfirmYes" class="btn-main" style="background:var(--danger);">Đăng xuất</button>
                 <button onclick="document.getElementById('modalConfirm').classList.remove('active')" class="btn-main"
-                    style="background:#f1f5f9; color:#475569;">Há»§y</button>
+                    style="background:#f1f5f9; color:#475569;">Hủy</button>
             </div>
         </div>
     </div>
@@ -909,12 +895,12 @@
     <div id="modalFollow" class="modal">
         <div class="box" style="text-align:center; max-width:400px; padding: 0;">
             <div style="padding: 20px; border-bottom: 1px solid #e2e8f0; position: relative;">
-                <h3 id="modalFollowTitle" style="margin: 0; font-size: 18px; color: #0f172a;">Danh sÃ¡ch</h1>
+                <h3 id="modalFollowTitle" style="margin: 0; font-size: 18px; color: #0f172a;">Danh sách</h1>
                     <button onclick="document.getElementById('modalFollow').classList.remove('active')"
                         style="position: absolute; right: 20px; top: 16px; background: none; border: none; font-size: 24px; color: #64748b; cursor: pointer;">&times;</button>
             </div>
             <div id="modalFollowList" style="max-height: 60vh; overflow-y: auto; padding: 10px;">
-                <div style="padding: 20px; color: #94a3b8;">Äang táº£i...</div>
+                <div style="padding: 20px; color: #94a3b8;">Đang tải...</div>
             </div>
         </div>
     </div>
@@ -924,28 +910,28 @@
             <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
                 <span class="material-symbols-rounded">close</span>
             </button>
-            <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">CÃ i Ä‘áº·t há»“ sÆ¡ </h3>
+            <h3 style="margin-bottom:24px; font-size:20px; font-weight:800; text-align:center;">Cài đặt hồ sơ </h3>
 
             <div class="settings-grid">
                 <button id="btnOpenBadgePicker" type="button" class="upload-btn" onclick="openBadgePicker()"
                     style="display:none; cursor:pointer; border:none; background:none; display:none; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px; color:#10b981;">military_tech</span>
-                    <span style="font-weight:700;">Huy Hiá»‡u</span>
+                    <span style="font-weight:700;">Huy Hiệu</span>
                 </button>
                 <label id="btnOpenAvatarEditor" class="upload-btn" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
-                    <span style="font-weight:700;">áº¢nh Äáº¡i Diá»‡n</span>
+                    <span style="font-weight:700;">Ảnh Đại Diện</span>
                     <input type="file" id="fAvtFile" hidden accept="image/*">
                 </label>
                 <label class="upload-btn">
                     <span class="material-symbols-rounded" style="font-size: 24px;">image</span>
-                    <span>Äá»•i áº¢nh bÃ¬a</span>
+                    <span>Đổi Ảnh bìa</span>
                     <input type="file" id="fCoverFile" hidden accept="image/*">
                 </label>
                 <button id="btnOpenAppearance" type="button" class="upload-btn" onclick="openAppearanceModal()"
                     style="cursor:pointer; border:none; background:none; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px; color:#f59e0b;">palette</span>
-                    <span style="font-weight:700;">Giao diá»‡n</span>
+                    <span style="font-weight:700;">Giao diện</span>
                 </button>
             </div>
 
@@ -959,14 +945,14 @@
             </div>
 
             <div class="inp-group">
-                <label class="inp-label">TÃªn hiá»ƒn thá»‹ <span style="color:red; margin-left:4px;">*</span></label>
-                <input type="text" id="inpName" class="inp" placeholder="TÃªn cá»§a báº¡n">
+                <label class="inp-label">Tên hiển thị <span style="color:red; margin-left:4px;">*</span></label>
+                <input type="text" id="inpName" class="inp" placeholder="Tên của bạn">
             </div>
 
             <div class="inp-group">
-                <label class="inp-label">Tiá»ƒu Sá»­</label>
+                <label class="inp-label">Tiểu Sử</label>
                 <textarea id="inpBio" class="inp" rows="3" style="resize:none"
-                    placeholder="HÃ£y nÃ³i gÃ¬ Ä‘Ã³ vá» báº¡n..."></textarea>
+                    placeholder="Hãy nói gì đó về bạn..."></textarea>
             </div>
 
 
@@ -978,51 +964,51 @@
                     style="width:100%; padding:14px 16px; background:#fafafa; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:14px;">
                     <span style="display:flex; align-items:center; gap:8px;">
                         <span class="material-symbols-rounded" style="font-size:18px; color:#64748b;">lock</span>
-                        Quyá»n riÃªng tÆ°
+                        Quyền riêng tư
                     </span>
                     <span id="privacySectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
                 </button>
                 <div id="privacySectionBody" style="display:none; padding:16px; border-top:1px solid #f1f5f9; background:white; display:flex; flex-direction:column; gap:20px;">
-                    <!-- Pháº§n báº¯t buá»™c -->
+                    <!-- Phần bắt buộc -->
                     <div>
-                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÃ”NG TIN Báº®T BUá»˜C Äá»‚ Váº¬N HÃ€NH</h4>
+                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN BẮT BUỘC ĐỂ VẬN HÀNH</h4>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
                                 <div style="display:flex; align-items:center; gap:8px;">
                                     <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">badge</span>
-                                    <span style="font-size:13px; font-weight:600; color:#475569;">TÃªn hiá»ƒn thá»‹ & áº¢nh Ä‘áº¡i diá»‡n</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Tên hiển thị & Ảnh đại diện</span>
                                 </div>
                                 <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
                             </div>
                             <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
                                 <div style="display:flex; align-items:center; gap:8px;">
                                     <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">devices</span>
-                                    <span style="font-size:13px; font-weight:600; color:#475569;">Dá»¯ liá»‡u thiáº¿t bá»‹ (Báº£o máº­t)</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Dữ liệu thiết bị (Bảo mật)</span>
                                 </div>
                                 <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Pháº§n tÃ¹y chá»‰nh -->
+                    <!-- Phần tùy chỉnh -->
                     <div>
-                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÃ”NG TIN CÃ“ THá»‚ Äá»”I/Táº®T</h4>
+                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN CÓ THỂ ĐỔI/TẮT</h4>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="chkPublicFollow" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkPublicFollow" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">CÃ´ng khai danh sÃ¡ch Follow</label>
+                                <label for="chkPublicFollow" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai danh sách Follow</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="chkPublicEmail" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkPublicEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">CÃ´ng khai Email trÃªn há»“ sÆ¡</label>
+                                <label for="chkPublicEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai Email trên hồ sơ</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="chkShowActivity" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkShowActivity" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Hiá»ƒn thá»‹ tráº¡ng thÃ¡i hoáº¡t Ä‘á»™ng</label>
+                                <label for="chkShowActivity" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Hiển thị trạng thái hoạt động</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="chkSearchByEmail" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkSearchByEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Cho phÃ©p tÃ¬m tháº¥y tÃ´i qua Email</label>
+                                <label for="chkSearchByEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Cho phép tìm thấy tôi qua Email</label>
                             </div>
                         </div>
                     </div>
@@ -1031,70 +1017,70 @@
 
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
-                <span class="material-symbols-rounded">verified</span> ÄÄƒng kÃ½ tÃ­ch xanh
+                <span class="material-symbols-rounded">verified</span> Đăng ký tích xanh
             </button>
 
-            <button id="btnSave" class="btn-main">LÆ°u thay Ä‘á»•i</button>
+            <button id="btnSave" class="btn-main">Lưu thay đổi</button>
 
             <div id="googleLinkSection"
                 style="display:none; margin-top:16px; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden;">
                 <button onclick="toggleGuestSection()"
                     style="width:100%; padding:14px 16px; background:#fafafa; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:14px;">
-                    <span> Táº¡o tÃ i khoáº£n tá»« tÆ° cÃ¡ch khÃ¡ch</span>
+                    <span> Tạo tài khoản từ tư cách khách</span>
                     <span id="guestSectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
                 </button>
                 <div id="guestSectionBody" style="display:none; padding:16px; border-top:1px solid #f1f5f9;">
-                    <div style="font-size:12px; color:#64748b; margin-bottom:12px;">Báº¡n Ä‘ang dÃ¹ng tÆ° cÃ¡ch khÃ¡ch. Äáº·t
-                        email & máº­t kháº©u Ä‘á»ƒ lÆ°u tÃ i khoáº£n vÄ©nh viá»…n!</div>
+                    <div style="font-size:12px; color:#64748b; margin-bottom:12px;">Bạn đang dùng tư cách khách. Đặt
+                        email & mật khẩu để lưu tài khoản vĩnh viễn!</div>
                     <div class="inp-group">
-                        <label class="inp-label">Gmail má»›i (tÃ¹y chá»n)</label>
+                        <label class="inp-label">Gmail mới (tùy chọn)</label>
                         <input type="email" id="linkEmail" class="inp" placeholder="email@gmail.com">
                     </div>
                     <div class="inp-group">
-                        <label class="inp-label">Máº­t kháº©u má»›i <span style="color:red">*</span></label>
-                        <input type="password" id="linkPass" class="inp" placeholder="Ãt nháº¥t 6 kÃ½ tá»±">
+                        <label class="inp-label">Mật khẩu mới <span style="color:red">*</span></label>
+                        <input type="password" id="linkPass" class="inp" placeholder="Ít nhất 6 ký tự">
                     </div>
                     <div class="inp-group">
-                        <label class="inp-label">Nháº­p láº¡i máº­t kháº©u <span style="color:red">*</span></label>
-                        <input type="password" id="linkPassConfirm" class="inp" placeholder="Nháº­p láº¡i">
+                        <label class="inp-label">Nhập lại mật khẩu <span style="color:red">*</span></label>
+                        <input type="password" id="linkPassConfirm" class="inp" placeholder="Nhập lại">
                     </div>
                     <button onclick="saveLinkEmailPass()"
-                        style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">LÆ°u
-                        tÃ i khoáº£n</button>
+                        style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">Lưu
+                        tài khoản</button>
                 </div>
             </div>
 
             <button id="btnLogout"
                 style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
-                <span class="material-symbols-rounded" style="vertical-align: middle;">logout</span> ÄÄƒng xuáº¥t
+                <span class="material-symbols-rounded" style="vertical-align: middle;">logout</span> Đăng xuất
             </button>
 
             <!-- Link Google account -->
             <button id="btnLinkGoogle" onclick="linkWithGoogle()"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-top:8px; display:flex; align-items:center; justify-content:center; gap:8px; display:none;">
-                <span class="material-symbols-rounded">login</span> LiÃªn káº¿t tÃ i khoáº£n Google
+                <span class="material-symbols-rounded">login</span> Liên kết tài khoản Google
             </button>
 
             <!-- Delete account -->
             <button onclick="document.getElementById('modalDeleteAccount').classList.add('active')"
                 style="width:100%; padding:11px; background:none; border:1px solid rgba(239,68,68,0.3); border-radius:14px; color:#ef4444; font-weight:600; cursor:pointer; margin-top:8px; font-size:13px;">
                 <span class="material-symbols-rounded"
-                    style="vertical-align:middle; font-size:16px;">delete_forever</span> XÃ³a tÃ i khoáº£n
+                    style="vertical-align:middle; font-size:16px;">delete_forever</span> Xóa tài khoản
             </button>
-            <div id="uidDisplay" style="font-size:11px; color:#94a3b8; text-align:center; margin-top:12px; font-family:monospace; cursor:pointer;" onclick="copyUID()" title="Báº¥m Ä‘á»ƒ sao chÃ©p UID">UID: ---</div>
+            <div id="uidDisplay" style="font-size:11px; color:#94a3b8; text-align:center; margin-top:12px; font-family:monospace; cursor:pointer;" onclick="copyUID()" title="Bấm để sao chép UID">UID: ---</div>
         </div>
     </div>
     <div id="modalAnonLogout" class="modal" style="z-index:9999;">
         <div class="box" style="text-align:center; max-width:340px;">
-            <div style="font-size:48px; margin-bottom:10px;">ï¸</div>
-            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800;">ChÆ°a lÆ°u tÃ i khoáº£n!</h3>
-            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Báº¡n Ä‘ang dÃ¹ng <b>tÆ° cÃ¡ch
-                    khÃ¡ch</b>. Náº¿u Ä‘Äƒng xuáº¥t bÃ¢y giá», <b style="color:#ef4444;">tÃ i khoáº£n vÃ  dá»¯ liá»‡u sáº½ máº¥t vÄ©nh
-                    viá»…n!</b><br><br>HÃ£y táº¡o tÃ i khoáº£n trÆ°á»›c Ä‘á»ƒ giá»¯ láº¡i má»i thá»©.</p>
-            <button onclick="openGuestSectionAndClose()" class="btn-main" style="margin-bottom:10px;">LÆ°u tÃ i khoáº£n
+            <div style="font-size:48px; margin-bottom:10px;">️</div>
+            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800;">Chưa lưu tài khoản!</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Bạn đang dùng <b>tư cách
+                    khách</b>. Nếu đăng xuất bây giờ, <b style="color:#ef4444;">tài khoản và dữ liệu sẽ mất vĩnh
+                    viễn!</b><br><br>Hãy tạo tài khoản trước để giữ lại mọi thứ.</p>
+            <button onclick="openGuestSectionAndClose()" class="btn-main" style="margin-bottom:10px;">Lưu tài khoản
                 ngay</button>
-            <button onclick="forceLogout()" class="btn-main" style="background:rgba(239,68,68,0.1); color:#ef4444;">Váº«n
-                Ä‘Äƒng xuáº¥t (máº¥t dá»¯ liá»‡u)</button>
+            <button onclick="forceLogout()" class="btn-main" style="background:rgba(239,68,68,0.1); color:#ef4444;">Vẫn
+                đăng xuất (mất dữ liệu)</button>
         </div>
     </div>
 
@@ -1102,38 +1088,38 @@
         <div class="box" style="position:relative;">
             <button onclick="document.getElementById('modalVerify').classList.remove('active')"
                 style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                title="ÄÃ³ng">
+                title="Đóng">
                 <span class="material-symbols-rounded">close</span>
             </button>
-            <h3 style="margin-bottom:20px; font-size:20px;">ÄÄƒng kÃ½ Tick Xanh</h3>
+            <h3 style="margin-bottom:20px; font-size:20px;">Đăng ký Tick Xanh</h3>
             <div style="margin-bottom:15px">
-                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Há» vÃ 
-                    tÃªn tháº­t</label>
-                <input type="text" id="reqName" class="inp" placeholder="Nháº­p tÃªn cá»§a báº¡n"
+                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Họ và
+                    tên thật</label>
+                <input type="text" id="reqName" class="inp" placeholder="Nhập tên của bạn"
                     style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px;">
             </div>
             <div style="margin-bottom:15px">
-                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">LÃ½ do
-                    cáº¥p tick xanh</label>
-                <textarea id="reqReason" class="inp" placeholder="VÃ¬ sao báº¡n xá»©ng Ä‘Ã¡ng?" rows="3"
+                <label style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:4px; display:block;">Lý do
+                    cấp tick xanh</label>
+                <textarea id="reqReason" class="inp" placeholder="Vì sao bạn xứng đáng?" rows="3"
                     style="width:100%; border:1px solid #e2e8f0; padding:10px; border-radius:10px;"></textarea>
             </div>
-            <button id="btnReqVerify" class="btn-main" onclick="reqVerify()">Gá»­i Ä‘Æ¡n Ä‘Äƒng kÃ½</button>
+            <button id="btnReqVerify" class="btn-main" onclick="reqVerify()">Gửi đơn đăng ký</button>
         </div>
     </div>
 
     <!-- Cropper Modal -->
     <div id="modalCropper" class="modal" style="z-index:10001;">
         <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
-            <h3 style="margin-bottom:15px; font-size:18px;">Cáº¯t áº£nh</h3>
+            <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
             <div
                 style="width:100%; max-height:400px; background:#f1f5f9; border-radius:15px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;">
                 <img id="cropperImage" src="" style="max-width:100%; display:block;">
             </div>
             <div style="display:flex; gap:10px;">
-                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cáº¯t & Xem trÆ°á»›c</button>
+                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cắt & Xem trước</button>
                 <button onclick="document.getElementById('modalCropper').classList.remove('active')" class="btn-main"
-                    style="flex:1; background:#f1f5f9; color:#475569;">Há»§y</button>
+                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
             </div>
         </div>
     </div>
@@ -1144,7 +1130,7 @@
         <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px; display:flex; flex-direction:column; max-height:90vh;">
             <div
                 style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative; flex-shrink:0;">
-                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">TÃ¹y chá»‰nh Giao diá»‡n</h3>
+                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Tùy chỉnh Giao diện</h3>
                 <button class="close-x" onclick="document.getElementById('modalAppearance').classList.remove('active')"
                     style="top:20px; right:20px;">
                     <span class="material-symbols-rounded">close</span>
@@ -1155,7 +1141,7 @@
                 <div class="inp-group" style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:28px;">
                     <label class="inp-label" style="margin-bottom:16px; display:flex; align-items:center; gap:6px;">
                         <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">visibility</span>
-                        Xem trÆ°á»›c thay Ä‘á»•i
+                        Xem trước thay đổi
                     </label>
                     <div style="display:flex; flex-direction:column; gap:16px;">
                         
@@ -1165,25 +1151,25 @@
                                 <div id="prevAvatarInner"
                                     style="width:54px; height:54px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:24px;">
                                     <img id="prevAvtImg" style="width:100%; height:100%; object-fit:cover; display:none;" />
-                                    <span id="prevAvtPlaceholder">ðŸ‘¤</span>
+                                    <span id="prevAvtPlaceholder">👤</span>
                                 </div>
                             </div>
                             <div style="display:flex; flex-direction:column; justify-content:center;">
-                                <div id="prevNameLabel" style="font-size:18px; font-weight:800;">TÃªn cá»§a báº¡n</div>
+                                <div id="prevNameLabel" style="font-size:18px; font-weight:800;">Tên của bạn</div>
                             </div>
                         </div>
 
                         <!-- Chat message preview -->
                         <div id="prevBubbleAppearance"
                             style="padding:12px 18px; border-radius:16px; background:#f1f5f9; font-size:14px; border:1px solid #e2e8f0; width:100%; transition: 0.3s; text-align:center; font-weight:600;">
-                            ChÃ o báº¡n! ÄÃ¢y lÃ  máº«u tin nháº¯n.
+                            Chào bạn! Đây là mẫu tin nhắn.
                         </div>
 
                         <!-- Card preview -->
                         <div id="prevCardAppearance" class="profile-card"
                             style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95); margin-top:-8px;">
                             <div class="card-border-anim"></div>
-                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Tháº» há»“ sÆ¡ cá»§a báº¡n</span>
+                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ hồ sơ của bạn</span>
                         </div>
                     </div>
                 </div>
@@ -1194,16 +1180,16 @@
                 <div class="inp-group" style="margin-bottom:28px;">
                     <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
                         <span class="material-symbols-rounded" style="font-size:18px; color:#ec4899;">format_color_text</span>
-                        MÃ u tÃªn
+                        Màu tên
                     </label>
                     <div class="color-picker" id="nameColorPicker" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
-                        <div class="color-opt active" data-color="default" style="flex:1 1 70px; background:var(--bg);">Máº·c Ä‘á»‹nh</div>
+                        <div class="color-opt active" data-color="default" style="flex:1 1 70px; background:var(--bg);">Mặc định</div>
                         <div class="color-opt" data-color="blue" style="color:#2563eb; flex:1 1 70px; background:var(--bg);">Lam</div>
-                        <div class="color-opt" data-color="red" style="color:#dc2626; flex:1 1 70px; background:var(--bg);">Äá»</div>
-                        <div class="color-opt" data-color="green" style="color:#16a34a; flex:1 1 70px; background:var(--bg);">Lá»¥c</div>
-                        <div class="color-opt" data-color="purple" style="color:#9333ea; flex:1 1 70px; background:var(--bg);">TÃ­m</div>
+                        <div class="color-opt" data-color="red" style="color:#dc2626; flex:1 1 70px; background:var(--bg);">Đỏ</div>
+                        <div class="color-opt" data-color="green" style="color:#16a34a; flex:1 1 70px; background:var(--bg);">Lục</div>
+                        <div class="color-opt" data-color="purple" style="color:#9333ea; flex:1 1 70px; background:var(--bg);">Tím</div>
                         <div class="color-opt" data-color="orange" style="color:#ea580c; flex:1 1 70px; background:var(--bg);">Cam</div>
-                        <div class="color-opt" data-color="pink" style="color:#f472b6; flex:1 1 70px; background:var(--bg);">Há»“ng</div>
+                        <div class="color-opt" data-color="pink" style="color:#f472b6; flex:1 1 70px; background:var(--bg);">Hồng</div>
                     </div>
                 </div>
 
@@ -1211,21 +1197,21 @@
                 <div class="inp-group" id="framePickerWrap" style="margin-bottom:28px;">
                     <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
                         <span class="material-symbols-rounded" style="font-size:18px; color:#10b981;">stars</span>
-                        Khung Avatar âœ¨
+                        Khung Avatar ✨
                     </label>
                     <div class="frame-picker" id="framePicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-frame="default" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
                             <div style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; border:2px solid white; flex-shrink:0;"></div>
-                            <span style="font-weight:600;">KhÃ´ng cÃ³</span>
+                            <span style="font-weight:600;">Không có</span>
                         </div>
                         <div class="frame-opt" data-frame="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
                             <div style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; flex-shrink:0;">
                                 <div style="width:100%;height:100%;border-radius:50%;background:#e2e8f0;"></div>
                             </div>
-                            <span style="color:#d97706; font-weight:700;">Khung VÃ ng</span>
-                            <span id="lockGoldInAppearance" class="card-lock" style="position:absolute; right:8px; display:none;">ðŸ”’</span>
+                            <span style="color:#d97706; font-weight:700;">Khung Vàng</span>
+                            <span id="lockGoldInAppearance" class="card-lock" style="position:absolute; right:8px; display:none;">🔒</span>
                         </div>
                     </div>
                 </div>
@@ -1234,22 +1220,22 @@
                 <div class="inp-group vip-reward" id="chatBgPickerWrap" style="display:none; margin-bottom:28px;">
                     <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
                         <span class="material-symbols-rounded" style="font-size:18px; color:#2563eb;">chat_bubble</span>
-                        Ná»n Chat ðŸ’¬
+                        Nền Chat 💬
                     </label>
                     <div class="frame-picker" id="chatBgPicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-bg="default" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
                             <div
                                 style="min-width:60px; padding:8px 12px; border-radius:12px; background:#f1f5f9; font-size:12px; border:1px solid #e2e8f0; text-align:center;">
-                                Tin nháº¯n</div>
-                            <span style="font-weight:600;">Máº·c Ä‘á»‹nh</span>
+                                Tin nhắn</div>
+                            <span style="font-weight:600;">Mặc định</span>
                         </div>
                         <div class="frame-opt" data-bg="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
                             <div
                                 style="min-width:60px; padding:8px 12px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f; text-align:center;">
-                                Tin nháº¯n</div>
-                            <span style="color:#d97706; font-weight:700;">Ná»n VÃ ng âœ¨</span>
+                                Tin nhắn</div>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
                         </div>
                     </div>
                 </div>
@@ -1258,7 +1244,7 @@
                 <div class="inp-group" id="cardBgPickerWrap" style="margin-bottom:28px;">
                     <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
                         <span class="material-symbols-rounded" style="font-size:18px; color:#f59e0b;">account_box</span>
-                        Ná»n tháº» há»“ sÆ¡ ðŸƒ
+                        Nền thẻ hồ sơ 🃏
                     </label>
                     <div class="frame-picker" id="cardBgPicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-cardbg="default"
@@ -1266,23 +1252,23 @@
                             <div
                                 style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.65); border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
                             </div>
-                            <span style="font-weight:600;">Máº·c Ä‘á»‹nh</span>
+                            <span style="font-weight:600;">Mặc định</span>
                         </div>
                         <div class="frame-opt" data-cardbg="glass" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
                             <div
                                 style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
                             </div>
-                            <span style="font-weight:700;">Trong suá»‘t ðŸ’Ž</span>
-                            <span class="card-lock" style="margin-left:auto; display:none;">ðŸ”’</span>
+                            <span style="font-weight:700;">Trong suốt 💎</span>
+                            <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
                         <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
                             <div
                                 style="width:50px; height:32px; border-radius:10px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
                             </div>
-                            <span style="color:#d97706; font-weight:700;">Ná»n VÃ ng âœ¨</span>
-                            <span class="card-lock" style="margin-left:auto; display:none;">ðŸ”’</span>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                            <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
                     </div>
                 </div>
@@ -1301,7 +1287,7 @@
             </div>
             <div style="padding:20px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; background:white; flex-shrink:0;">
                 <button onclick="document.getElementById('modalAppearance').classList.remove('active'); markDirty(); document.getElementById('btnSave').click();"
-                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">XÃ¡c nháº­n & LÆ°u</button>
+                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác nhận & Lưu</button>
             </div>
         </div>
     </div>
@@ -1311,7 +1297,7 @@
         <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px;">
             <div
                 style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative;">
-                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Trang bá»‹ Huy Hiá»‡u</h3>
+                <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Trang bị Huy Hiệu</h3>
                 <button class="close-x" onclick="document.getElementById('modalBadgePicker').classList.remove('active')"
                     style="top:20px; right:20px;">
                     <span class="material-symbols-rounded">close</span>
@@ -1319,12 +1305,12 @@
             </div>
             <div style="padding:24px; max-height:60vh; overflow-y:auto;" id="badgesContainer">
                 <!-- Badges will be loaded here -->
-                <p style="text-align:center; color:#64748b; font-size:14px;">Äang táº£i huy hiá»‡u...</p>
+                <p style="text-align:center; color:#64748b; font-size:14px;">Đang tải huy hiệu...</p>
             </div>
             <div
                 style="padding:16px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; gap:12px;">
                 <button onclick="document.getElementById('modalBadgePicker').classList.remove('active')"
-                    style="flex:1; padding:12px; border-radius:9999px; border:none; background:#f1f5f9; color:#475569; font-weight:800; cursor:pointer; font-size:14px;">ÄÃ³ng</button>
+                    style="flex:1; padding:12px; border-radius:9999px; border:none; background:#f1f5f9; color:#475569; font-weight:800; cursor:pointer; font-size:14px;">Đóng</button>
             </div>
         </div>
     </div>
@@ -1332,16 +1318,16 @@
     <!-- Delete Account Confirm Modal -->
     <div id="modalDeleteAccount" class="modal" style="z-index:9999;">
         <div class="box" style="text-align:center; max-width:340px;">
-            <div style="font-size:48px; margin-bottom:10px;">âš ï¸</div>
-            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800; color:#ef4444;">XÃ³a tÃ i khoáº£n?</h3>
-            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">HÃ nh Ä‘á»™ng nÃ y <b
-                    style="color:#ef4444;">khÃ´ng thá»ƒ hoÃ n tÃ¡c</b>. Táº¥t cáº£ dá»¯ liá»‡u cá»§a báº¡n sáº½ bá»‹ xÃ³a vÄ©nh viá»…n.</p>
+            <div style="font-size:48px; margin-bottom:10px;">⚠️</div>
+            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800; color:#ef4444;">Xóa tài khoản?</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Hành động này <b
+                    style="color:#ef4444;">không thể hoàn tác</b>. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
             <div style="display:flex; gap:10px;">
                 <button id="btnDeleteConfirm" onclick="deleteMyAccount()"
-                    style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">XÃ³a
+                    style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Xóa
                     ngay</button>
                 <button onclick="document.getElementById('modalDeleteAccount').classList.remove('active')"
-                    style="flex:1; padding:12px; background:#f1f5f9; color:#475569; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Há»§y</button>
+                    style="flex:1; padding:12px; background:#f1f5f9; color:#475569; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Hủy</button>
             </div>
         </div>
     </div>
@@ -1349,11 +1335,11 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Upload-done notification chip (bottom-right) -->
-    <div id="uploadDoneChip" onclick="uploadChipClick()" title="Báº¥m Ä‘á»ƒ chá»‰nh sá»­a há»“ sÆ¡">
+    <div id="uploadDoneChip" onclick="uploadChipClick()" title="Bấm để chỉnh sửa hồ sơ">
         <span class="chip-icon material-symbols-rounded" id="uploadChipIcon">manage_accounts</span>
         <div>
-            <div style="font-size:11px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Há»“ sÆ¡</div>
-            <div id="uploadChipMsg" style="font-size:13px;">Chá»‰nh sá»­a há»“ sÆ¡</div>
+            <div style="font-size:11px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Hồ sơ</div>
+            <div id="uploadChipMsg" style="font-size:13px;">Chỉnh sửa hồ sơ</div>
         </div>
         <span class="chip-close material-symbols-rounded" onclick="event.stopPropagation(); hideUploadChip();">close</span>
     </div>
@@ -1408,9 +1394,9 @@
             const emailVal = document.getElementById('linkEmail').value.trim();
             const passVal = document.getElementById('linkPass').value;
             const passConfirm = document.getElementById('linkPassConfirm').value;
-            if (!passVal) return showToast('Vui lÃ²ng nháº­p máº­t kháº©u!');
-            if (passVal !== passConfirm) return showToast('Máº­t kháº©u khÃ´ng khá»›p!');
-            if (passVal.length < 6) return showToast('Máº­t kháº©u Ã­t nháº¥t 6 kÃ½ tá»±!');
+            if (!passVal) return showToast('Vui lòng nhập mật khẩu!');
+            if (passVal !== passConfirm) return showToast('Mật khẩu không khớp!');
+            if (passVal.length < 6) return showToast('Mật khẩu ít nhất 6 ký tự!');
             try {
                 const u = auth.currentUser;
                 const emailToUse = emailVal || u.email;
@@ -1421,11 +1407,11 @@
                     await updateEmail(u, emailVal);
                     await updateDoc(doc(db, 'users', u.uid), { email: emailVal });
                 }
-                showToast('LiÃªn káº¿t thÃ nh cÃ´ng! BÃ¢y giá» báº¡n cÃ³ thá»ƒ Ä‘Äƒng nháº­p báº±ng email & máº­t kháº©u.');
+                showToast('Liên kết thành công! Bây giờ bạn có thể đăng nhập bằng email & mật khẩu.');
                 document.getElementById('googleLinkSection').style.display = 'none';
             } catch (err) {
-                if (err.code === 'auth/provider-already-linked') showToast('ÄÃ£ liÃªn káº¿t rá»“i!');
-                else showToast('Lá»—i: ' + err.message);
+                if (err.code === 'auth/provider-already-linked') showToast('Đã liên kết rồi!');
+                else showToast('Lỗi: ' + err.message);
             }
         }
 
@@ -1434,7 +1420,7 @@
         window.openBadgePicker = async () => {
             document.getElementById('modalBadgePicker').classList.add('active');
             const container = document.getElementById('badgesContainer');
-            container.innerHTML = '<p style="text-align:center; color:#64748b; font-size:14px;">Äang táº£i huy hiá»‡u...</p>';
+            container.innerHTML = '<p style="text-align:center; color:#64748b; font-size:14px;">Đang tải huy hiệu...</p>';
             try {
                 if (allBadges.length === 0) {
                     const bSnap = await getDocs(collection(db, 'badges'));
@@ -1442,7 +1428,7 @@
                 }
 
                 if (allBadges.length === 0) {
-                    container.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">ChÆ°a cÃ³ huy hiá»‡u nÃ o trong há»‡ thá»‘ng.</div>';
+                    container.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;">Chưa có huy hiệu nào trong hệ thống.</div>';
                     return;
                 }
 
@@ -1455,7 +1441,7 @@
                 html += `
                     <div onclick="equipBadge('')" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:16px; border-radius:16px; border:2px solid ${equipped === '' ? 'var(--primary)' : '#e2e8f0'}; background:${equipped === '' ? '#f0f9ff' : '#f8fafc'}; cursor:pointer; transition:0.2s; position:relative;">
                         <div style="width:40px; height:40px; border-radius:50%; background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><span class="material-symbols-rounded">block</span></div>
-                        <div style="font-weight:700; font-size:13px; text-align:center; color:#64748b;">KhÃ´ng<br>trang bá»‹</div>
+                        <div style="font-weight:700; font-size:13px; text-align:center; color:#64748b;">Không<br>trang bị</div>
                         ${equipped === '' ? '<span class="material-symbols-rounded" style="position:absolute; top:8px; right:8px; color:var(--primary); font-size:18px;">check_circle</span>' : ''}
                     </div>
                 `;
@@ -1463,7 +1449,7 @@
                 allBadges.forEach(b => {
                     const isOwned = owned.includes(b.id);
                     const isEquipped = equipped === b.id;
-                    const badgeIcon = b.icon || 'ðŸ…';
+                    const badgeIcon = b.icon || '🏅';
 
                     html += `
                         <div ${isOwned ? `onclick="equipBadge('${b.id}')"` : ''} style="display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px; border-radius:16px; border:2px solid ${isEquipped ? 'var(--primary)' : '#e2e8f0'}; background:${!isOwned ? '#f1f5f9' : isEquipped ? '#f0f9ff' : '#fff'}; cursor:${isOwned ? 'pointer' : 'not-allowed'}; transition:0.2s; position:relative; opacity:${isOwned ? 1 : 0.6};">
@@ -1480,7 +1466,7 @@
                 container.innerHTML = html;
             } catch (err) {
                 console.error(err);
-                container.innerHTML = '<p style="text-align:center; color:#ef4444; font-size:14px;">Lá»—i táº£i huy hiá»‡u.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#ef4444; font-size:14px;">Lỗi tải huy hiệu.</p>';
             }
         };
 
@@ -1489,14 +1475,14 @@
             try {
                 await updateDoc(doc(db, "users", currentUser.uid), { equippedBadge: badgeId });
                 userData.equippedBadge = badgeId;
-                window.showToast(badgeId ? "ÄÃ£ trang bá»‹ tháº» má»›i!" : "ÄÃ£ gá»¡ trang bá»‹ huy hiá»‡u!");
+                window.showToast(badgeId ? "Đã trang bị thẻ mới!" : "Đã gỡ trang bị huy hiệu!");
                 
                 // Refresh list and UI
                 window.openBadgePicker();
                 renderUI(userData, currentUser.uid);
             } catch (err) {
                 console.error(err);
-                window.showToast("Lá»—i cáº­p nháº­t huy hiá»‡u", "error");
+                window.showToast("Lỗi cập nhật huy hiệu", "error");
             }
         };
 
@@ -1515,10 +1501,10 @@
             const uidText = document.getElementById('uidDisplay').textContent.replace('UID: ', '');
             if (uidText && uidText !== '---') {
                 navigator.clipboard.writeText(uidText).then(() => {
-                    window.showToast("ÄÃ£ sao chÃ©p UID vÃ o bá»™ nhá»› táº¡m! ðŸ“‹");
+                    window.showToast("Đã sao chép UID vào bộ nhớ tạm! 📋");
                 }).catch(err => {
-                    console.error('Lá»—i sao chÃ©p:', err);
-                    window.showToast("KhÃ´ng thá»ƒ sao chÃ©p UID!");
+                    console.error('Lỗi sao chép:', err);
+                    window.showToast("Không thể sao chép UID!");
                 });
             }
         };
@@ -1526,7 +1512,7 @@
         let isSetupRequired = false;
 
         window.closeSettings = () => {
-            if (isSetupRequired) return showToast("Vui lÃ²ng hoÃ n táº¥t há»“ sÆ¡ trÆ°á»›c!", "ï¸");
+            if (isSetupRequired) return showToast("Vui lòng hoàn tất hồ sơ trước!", "️");
             document.getElementById('modalSettings').classList.remove('active');
         }
 
@@ -1536,17 +1522,17 @@
                 userData = snap.data(); renderUI(userData, uid);
 
                 // CHECK SETUP
-                if (currentUser && currentUser.uid === uid && (userData.displayName === "CÆ° dÃ¢n má»›i" || userData.displayName === "NgÆ°á»i dÃ¹ng má»›i")) {
+                if (currentUser && currentUser.uid === uid && (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới")) {
                     isSetupRequired = true;
                     document.getElementById('modalSettings').classList.add('active');
                     markDirty(); // Enable save button for new user forced setup
                     // Fill data if exists
-                    document.getElementById('inpName').value = (userData.displayName === "CÆ° dÃ¢n má»›i" || userData.displayName === "NgÆ°á»i dÃ¹ng má»›i") ? "" : (userData.displayName || "");
+                    document.getElementById('inpName').value = (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới") ? "" : (userData.displayName || "");
                     document.getElementById('inpUser').value = userData.username || "";
                 }
 
-                // AUTO-GRANT "Náº¥u xÃ³i Matcha" badge
-                if (currentUser && currentUser.uid === uid && (userData.displayName || "").toLowerCase().includes("phÆ°Æ¡ng")) {
+                // AUTO-GRANT "Nấu xói Matcha" badge
+                if (currentUser && currentUser.uid === uid && (userData.displayName || "").toLowerCase().includes("phương")) {
                     const owned = userData.ownedBadges || [];
                     if (!owned.includes("matcha-fox")) {
                         (async () => {
@@ -1555,9 +1541,9 @@
                                 const bSnap = await getDoc(bRef);
                                 if (!bSnap.exists()) {
                                     await setDoc(bRef, {
-                                        name: "Náº¥u xÃ³i Matcha",
+                                        name: "Nấu xói Matcha",
                                         icon: "fox",
-                                        desc: "DÃ nh cho nhá»¯ng ngÆ°á»i cÃ³ 'PhÆ°Æ¡ng' trong tÃªn",
+                                        desc: "Dành cho những người có 'Phương' trong tên",
                                         color: "#22c55e"
                                     });
                                 }
@@ -1565,7 +1551,7 @@
                                 const newOwned = [...owned, "matcha-fox"];
                                 await updateDoc(doc(db, "users", uid), { ownedBadges: newOwned });
                                 userData.ownedBadges = newOwned;
-                                window.showToast("Báº¡n Ä‘Ã£ nháº­n Ä‘Æ°á»£c huy hiá»‡u 'Náº¥u xÃ³i Matcha'! ðŸ¦Š", "ðŸŽ");
+                                window.showToast("Bạn đã nhận được huy hiệu 'Nấu xói Matcha'! 🦊", "🎁");
                                 renderUI(userData, uid);
                             } catch (e) { console.error("Grant badge error:", e); }
                         })();
@@ -1581,7 +1567,7 @@
                 }
             } else if (currentUser && currentUser.uid === uid) {
                 // New user without doc (should not happen if registration works, but fallback)
-                userData = { displayName: "CÆ° dÃ¢n má»›i", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
+                userData = { displayName: "Cư dân mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
                 renderUI(userData, uid);
                 isSetupRequired = true;
                 document.getElementById('btnSettings').click();
@@ -1658,7 +1644,7 @@
                 if (iconEl) iconEl.textContent = 'check_circle';
             } else {
                 // Default state: reset to edit-profile look
-                if (msgEl) msgEl.textContent = 'Chá»‰nh sá»­a há»“ sÆ¡';
+                if (msgEl) msgEl.textContent = 'Chỉnh sửa hồ sơ';
                 if (iconEl) iconEl.textContent = 'manage_accounts';
             }
             chip.classList.add('show');
@@ -1677,10 +1663,10 @@
         document.getElementById('btnSave').onclick = async function () {
             try {
                 this.setAttribute('data-saving', '1');
-                this.textContent = "Äang lÆ°u..."; this.disabled = true;
+                this.textContent = "Đang lưu..."; this.disabled = true;
 
                 // DATA CHECK
-                if (!userData) throw new Error("Dá»¯ liá»‡u chÆ°a táº£i xong. Vui lÃ²ng thá»­ láº¡i.");
+                if (!userData) throw new Error("Dữ liệu chưa tải xong. Vui lòng thử lại.");
 
                 // VALIDATION
                 const inpName = document.getElementById('inpName').value.trim();
@@ -1698,12 +1684,12 @@
                 const cardEl = document.querySelector('.frame-opt.active[data-cardbg]');
                 let activeCardBg = cardEl ? cardEl.dataset.cardbg : 'default';
                 if (activeCardBg !== 'default' && !userData.hasCardBg) {
-                    window.showToast('ðŸ”’ Báº¡n cáº§n má»Ÿ khÃ³a Ä‘á»ƒ sá»­ dá»¥ng ná»n tháº» nÃ y!', 'error');
+                    window.showToast('🔒 Bạn cần mở khóa để sử dụng nền thẻ này!', 'error');
                     activeCardBg = 'default';
                 }
 
-                if (!inpName) throw new Error("TÃªn hiá»ƒn thá»‹ khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!");
-                if (!inpUser) throw new Error("Username khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!");
+                if (!inpName) throw new Error("Tên hiển thị không được để trống!");
+                if (!inpUser) throw new Error("Username không được để trống!");
 
                 // COOLDOWN CHECK
                 const now = Date.now();
@@ -1714,7 +1700,7 @@
                     const lastChange = userData.lastUserChange ? userData.lastUserChange.toMillis() : 0;
                     if (now - lastChange < 30 * ONE_DAY) {
                         const daysLeft = Math.ceil((30 * ONE_DAY - (now - lastChange)) / ONE_DAY);
-                        throw new Error(`Báº¡n chá»‰ Ä‘Æ°á»£c Ä‘á»•i Username sau ${daysLeft} ngÃ y ná»¯a!`);
+                        throw new Error(`Bạn chỉ được đổi Username sau ${daysLeft} ngày nữa!`);
                     }
                 }
 
@@ -1723,7 +1709,7 @@
                     const lastChange = userData.lastNameChange ? userData.lastNameChange.toMillis() : 0;
                     if (now - lastChange < 7 * ONE_DAY) {
                         const daysLeft = Math.ceil((7 * ONE_DAY - (now - lastChange)) / ONE_DAY);
-                        throw new Error(`Báº¡n chá»‰ Ä‘Æ°á»£c Ä‘á»•i TÃªn sau ${daysLeft} ngÃ y ná»¯a!`);
+                        throw new Error(`Bạn chỉ được đổi Tên sau ${daysLeft} ngày nữa!`);
                     }
                 }
 
@@ -1768,21 +1754,21 @@
                 console.log("Updating user:", updateData);
                 await updateDoc(doc(db, "users", currentUser.uid), updateData);
 
-                document.getElementById('btnSave').textContent = "LÆ°u thay Ä‘á»•i";
+                document.getElementById('btnSave').textContent = "Lưu thay đổi";
                 markClean();
 
                 isSetupRequired = false;
                 window.croppedAvtBlob = null;
                 window.croppedCovBlob = null;
-                window.showToast("Cáº­p nháº­t thÃ nh cÃ´ng!");
+                window.showToast("Cập nhật thành công!");
                 setTimeout(() => window.top.location.reload(), 500);
 
             } catch (e) {
                 console.error(e);
                 let msg = e.message;
-                if (msg.includes("requires an index")) msg = "Há»‡ thá»‘ng Ä‘ang táº¡o index, thá»­ láº¡i sau.";
-                window.showToast("Lá»—i: " + msg, "");
-                document.getElementById('btnSave').textContent = "LÆ°u thay Ä‘á»•i";
+                if (msg.includes("requires an index")) msg = "Hệ thống đang tạo index, thử lại sau.";
+                window.showToast("Lỗi: " + msg, "");
+                document.getElementById('btnSave').textContent = "Lưu thay đổi";
                 document.getElementById('btnSave').removeAttribute('data-saving');
                 document.getElementById('btnSave').disabled = false;
             }
@@ -1792,7 +1778,7 @@
         document.body.addEventListener('change', (e) => {
             if (e.target.type === 'file' && e.target.files[0]) {
                 const f = e.target.files[0];
-                window.showToast(` ÄÃ£ chá»n: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`);
+                window.showToast(` Đã chọn: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`);
             }
         });
 
@@ -1856,18 +1842,18 @@
             try {
                 const provider = new GoogleAuthProvider();
                 await linkWithPopup(auth.currentUser, provider);
-                window.showToast('âœ… LiÃªn káº¿t Google thÃ nh cÃ´ng!');
+                window.showToast('✅ Liên kết Google thành công!');
                 document.getElementById('btnLinkGoogle').style.display = 'none';
             } catch (e) {
-                if (e.code === 'auth/credential-already-in-use') window.showToast('âš ï¸ TÃ i khoáº£n Google nÃ y Ä‘Ã£ Ä‘Æ°á»£c sá»­ dá»¥ng!');
-                else window.showToast('Lá»—i liÃªn káº¿t: ' + e.message);
+                if (e.code === 'auth/credential-already-in-use') window.showToast('⚠️ Tài khoản Google này đã được sử dụng!');
+                else window.showToast('Lỗi liên kết: ' + e.message);
             }
         };
 
         window.deleteMyAccount = async () => {
             const btn = document.getElementById('btnDeleteConfirm');
             if (!currentUser) return;
-            btn.disabled = true; btn.textContent = 'Äang xÃ³a...';
+            btn.disabled = true; btn.textContent = 'Đang xóa...';
             try {
                 // Delete Firestore doc first
                 await deleteDoc(doc(db, 'users', currentUser.uid));
@@ -1875,8 +1861,8 @@
                 await deleteUser(currentUser);
                 window.top.location.href = 'index.html';
             } catch (e) {
-                window.showToast('Lá»—i xÃ³a tÃ i khoáº£n: ' + e.message);
-                btn.disabled = false; btn.textContent = 'XÃ³a ngay';
+                window.showToast('Lỗi xóa tài khoản: ' + e.message);
+                btn.disabled = false; btn.textContent = 'Xóa ngay';
             }
         };
         function renderUI(data, uid) {
@@ -1893,9 +1879,9 @@
 
             let tickHtml = '';
             if (isVerified) {
-                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="ÄÃ£ xÃ¡c minh">verified</span>';
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
-                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="NhÃ  sÃ¡ng táº¡o">verified</span>';
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
             }
 
             let nameExtraHtml = '';
@@ -1907,7 +1893,7 @@
                 nameExtraHtml = (data.equippedBadge ? badgePlaceholder : '') || tickHtml;
             }
 
-            dName.innerHTML = (window.escapeHTML(data.displayName) || "CÆ° dÃ¢n Hub") + nameExtraHtml;
+            dName.innerHTML = (window.escapeHTML(data.displayName) || "Cư dân Hub") + nameExtraHtml;
 
             if (data.equippedBadge) {
                 getDoc(doc(db, 'badges', data.equippedBadge)).then(bSnap => {
@@ -1916,7 +1902,7 @@
                         const bSpan = document.getElementById('dBadgeDisp');
                         if (bSpan) bSpan.innerHTML = renderBadgeIcon(bData.icon, bData.name, "24px");
                     }
-                }).catch(e => console.error("Lá»—i táº£i huy hiá»‡u", e));
+                }).catch(e => console.error("Lỗi tải huy hiệu", e));
             }
 
             // Render badges in profile section
@@ -1982,7 +1968,7 @@
             }
 
             document.getElementById('dUser').textContent = "@" + (data.username || (data.email ? data.email.split('@')[0] : uid.slice(0, 8)));
-            document.getElementById('dBio').textContent = data.bio || "NgÆ°á»i dÃ¹ng nÃ y chÆ°a viáº¿t gÃ¬.";
+            document.getElementById('dBio').textContent = data.bio || "Người dùng này chưa viết gì.";
             document.getElementById('avt').src = data.photoURL || `https://ui-avatars.com/api/?name=${data.displayName || 'U'}&background=random`;
             const bgUrl = data.coverURL || "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000";
             document.getElementById('bgBlur').style.backgroundImage = `url('${bgUrl}')`;
@@ -2002,7 +1988,7 @@
                 const btn = document.getElementById('btnSettings');
                 btn.style.display = 'flex';
                 btn.onclick = () => {
-                    // XÃ³a tráº¡ng thÃ¡i isDirty cá»§a button tá»« láº§n trÆ°á»›c
+                    // Xóa trạng thái isDirty của button từ lần trước
                     if (typeof markClean === 'function') markClean();
 
                     document.getElementById('inpName').value = data.displayName || "";
@@ -2105,7 +2091,7 @@
 
                     messageBtn.onclick = () => { window.location.href = `chatv2.html?chat=${uid}`; };
 
-                    addFriendBtn.textContent = 'Äang táº£i...';
+                    addFriendBtn.textContent = 'Đang tải...';
                     addFriendBtn.disabled = true;
 
                     // Fetch my friends array
@@ -2113,7 +2099,7 @@
                         const md = meSnap.data();
                         const myFriends = md ? (md.friends || []) : [];
                         if (myFriends.includes(uid)) {
-                            addFriendBtn.textContent = 'Báº¡n bÃ¨';
+                            addFriendBtn.textContent = 'Bạn bè';
                             addFriendBtn.style.background = '#e2e8f0';
                             addFriendBtn.style.color = '#475569';
                             addFriendBtn.disabled = true;
@@ -2123,35 +2109,35 @@
 
                             Promise.all([getDocs(qSent), getDocs(qReceived)]).then(([sentSnap, receivedSnap]) => {
                                 if (!sentSnap.empty) {
-                                    addFriendBtn.textContent = 'ÄÃ£ gá»­i lá»i má»i';
+                                    addFriendBtn.textContent = 'Đã gửi lời mời';
                                     addFriendBtn.style.background = '#e2e8f0';
                                     addFriendBtn.style.color = '#475569';
                                     addFriendBtn.disabled = true;
                                 } else if (!receivedSnap.empty) {
-                                    addFriendBtn.textContent = 'Cháº¥p nháº­n';
+                                    addFriendBtn.textContent = 'Chấp nhận';
                                     addFriendBtn.disabled = false;
                                     addFriendBtn.onclick = async () => {
-                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Äang xá»­ lÃ½...';
+                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Đang xử lý...';
                                         try {
                                             const reqId = receivedSnap.docs[0].id;
                                             await updateDoc(doc(db, 'friend_requests', reqId), { status: 'accepted' });
                                             await updateDoc(doc(db, 'users', currentUser.uid), { friends: arrayUnion(uid) });
                                             await updateDoc(doc(db, 'users', uid), { friends: arrayUnion(currentUser.uid) });
 
-                                            addFriendBtn.textContent = 'Báº¡n bÃ¨';
+                                            addFriendBtn.textContent = 'Bạn bè';
                                             addFriendBtn.style.background = '#e2e8f0';
                                             addFriendBtn.style.color = '#475569';
-                                            window.showToast('ÄÃ£ káº¿t báº¡n!', 'success');
+                                            window.showToast('Đã kết bạn!', 'success');
                                         } catch (e) {
-                                            window.showToast("Lá»—i: " + e.message, "error");
-                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Cháº¥p nháº­n';
+                                            window.showToast("Lỗi: " + e.message, "error");
+                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Chấp nhận';
                                         }
                                     };
                                 } else {
-                                    addFriendBtn.textContent = 'Káº¿t báº¡n';
+                                    addFriendBtn.textContent = 'Kết bạn';
                                     addFriendBtn.disabled = false;
                                     addFriendBtn.onclick = async () => {
-                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Äang gá»­i...';
+                                        addFriendBtn.disabled = true; addFriendBtn.textContent = 'Đang gửi...';
                                         try {
                                             await addDoc(collection(db, 'friend_requests'), {
                                                 from_uid: currentUser.uid,
@@ -2159,13 +2145,13 @@
                                                 status: 'pending',
                                                 timestamp: serverTimestamp()
                                             });
-                                            addFriendBtn.textContent = 'ÄÃ£ gá»­i lá»i má»i';
+                                            addFriendBtn.textContent = 'Đã gửi lời mời';
                                             addFriendBtn.style.background = '#e2e8f0';
                                             addFriendBtn.style.color = '#475569';
-                                            window.showToast('ÄÃ£ gá»­i lá»i má»i káº¿t báº¡n!', 'success');
+                                            window.showToast('Đã gửi lời mời kết bạn!', 'success');
                                         } catch (e) {
-                                            window.showToast("Lá»—i: " + e.message, "error");
-                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Káº¿t báº¡n';
+                                            window.showToast("Lỗi: " + e.message, "error");
+                                            addFriendBtn.disabled = false; addFriendBtn.textContent = 'Kết bạn';
                                         }
                                     };
                                 }
@@ -2197,14 +2183,14 @@
             // Privacy guard for visitors
             const isOwner = currentUser && currentUser.uid === targetUid;
             if (!isOwner && userData.publicFollow === false) {
-                return window.showToast("NgÆ°á»i dÃ¹ng nÃ y Ä‘Ã£ áº©n danh sÃ¡ch " + (type === 'followers' ? "ngÆ°á»i theo dÃµi" : "Ä‘ang theo dÃµi") + "!", "error");
+                return window.showToast("Người dùng này đã ẩn danh sách " + (type === 'followers' ? "người theo dõi" : "đang theo dõi") + "!", "error");
             }
 
             const modal = document.getElementById('modalFollow');
             const listBody = document.getElementById('modalFollowList');
-            document.getElementById('modalFollowTitle').textContent = type === 'followers' ? 'NgÆ°á»i theo dÃµi' : 'Äang theo dÃµi';
+            document.getElementById('modalFollowTitle').textContent = type === 'followers' ? 'Người theo dõi' : 'Đang theo dõi';
             modal.classList.add('active');
-            listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">Äang táº£i...</div>';
+            listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">Đang tải...</div>';
 
             try {
                 const q = type === 'followers' ?
@@ -2213,7 +2199,7 @@
                 const snap = await getDocs(q);
 
                 if (snap.empty) {
-                    listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">ChÆ°a cÃ³ ai á»Ÿ Ä‘Ã¢y.</div>';
+                    listBody.innerHTML = '<div style="padding: 20px; color: #94a3b8;">Chưa có ai ở đây.</div>';
                     return;
                 }
 
@@ -2236,7 +2222,7 @@
                                 <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9; cursor:pointer;" onclick="window.location.href='profile.html?uid=${u}'">
                                     <img src="${avtURL}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                                     <div style="flex: 1; text-align: left; font-weight: 600; font-size: 15px;" class="${colorClass}">
-                                        ${window.escapeHTML(data.displayName || 'NgÆ°á»i dÃ¹ng')} ${verifiedTag}
+                                        ${window.escapeHTML(data.displayName || 'Người dùng')} ${verifiedTag}
                                         <div style="font-size: 12px; font-weight: normal; color: #64748b; margin-top:2px;">@${data.username || (data.email ? data.email.split('@')[0] : u.slice(0, 8))}</div>
                                     </div>
                                 </div>
@@ -2247,7 +2233,7 @@
                 listBody.innerHTML = html;
             } catch (err) {
                 console.error(err);
-                listBody.innerHTML = '<div style="padding: 20px; color: #ef4444;">Lá»—i táº£i dá»¯ liá»‡u</div>';
+                listBody.innerHTML = '<div style="padding: 20px; color: #ef4444;">Lỗi tải dữ liệu</div>';
             }
         };
 
@@ -2262,29 +2248,29 @@
             const btn = document.getElementById('btnFollow');
             if (!btn) return;
             if (isFollowing) {
-                btn.textContent = 'Äang theo dÃµi';
+                btn.textContent = 'Đang theo dõi';
                 btn.style.background = '#f1f5f9';
                 btn.style.color = '#64748b';
             } else {
-                btn.textContent = 'Theo dÃµi';
+                btn.textContent = 'Theo dõi';
                 btn.style.background = 'var(--primary-container)';
                 btn.style.color = 'var(--primary)';
             }
         }
 
         window.toggleFollow = async () => {
-            if (!currentUser) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ theo dÃµi!");
+            if (!currentUser) return window.showToast("Đăng nhập để theo dõi!");
             if (!targetUid || currentUser.uid === targetUid) return;
             const followId = `${currentUser.uid}_${targetUid}`;
             const followRef = doc(db, "follows", followId);
             if (isFollowing) {
                 await deleteDoc(followRef);
                 isFollowing = false;
-                window.showToast("ÄÃ£ bá» theo dÃµi!");
+                window.showToast("Đã bỏ theo dõi!");
             } else {
                 await setDoc(followRef, { followerId: currentUser.uid, followingId: targetUid, createdAt: serverTimestamp() });
                 isFollowing = true;
-                window.showToast("ÄÃ£ theo dÃµi!");
+                window.showToast("Đã theo dõi!");
             }
             updateFollowBtn();
             loadFollowCounts(targetUid);
@@ -2300,15 +2286,15 @@
 
         window.reqVerify = async () => {
             if (auth.currentUser && auth.currentUser.isAnonymous) {
-                window.showToast('TÆ° cÃ¡ch khÃ¡ch khÃ´ng thá»ƒ Ä‘Äƒng kÃ½ tick xanh! HÃ£y táº¡o tÃ i khoáº£n trÆ°á»›c.', 'ï¸');
+                window.showToast('Tư cách khách không thể đăng ký tick xanh! Hãy tạo tài khoản trước.', '️');
                 document.getElementById('modalVerify').classList.remove('active');
                 return;
             }
             const name = document.getElementById('reqName').value.trim();
             const reason = document.getElementById('reqReason').value.trim();
-            if (!name || !reason) return window.showToast("Vui lÃ²ng nháº­p Ä‘áº§y Ä‘á»§!", "ï¸");
+            if (!name || !reason) return window.showToast("Vui lòng nhập đầy đủ!", "️");
 
-            document.getElementById('btnReqVerify').textContent = "Äang gá»­i...";
+            document.getElementById('btnReqVerify').textContent = "Đang gửi...";
             try {
                 await addDoc(collection(db, "requests"), {
                     type: 'verify',
@@ -2319,10 +2305,10 @@
                     status: 'pending',
                     createdAt: serverTimestamp()
                 });
-                window.showToast("ÄÃ£ gá»­i Ä‘Æ¡n Ä‘Äƒng kÃ½!");
+                window.showToast("Đã gửi đơn đăng ký!");
                 document.getElementById('modalVerify').classList.remove('active');
-            } catch (e) { window.showToast("Lá»—i gá»­i request."); }
-            document.getElementById('btnReqVerify').textContent = "Gá»­i Ä‘Æ¡n Ä‘Äƒng kÃ½";
+            } catch (e) { window.showToast("Lỗi gửi request."); }
+            document.getElementById('btnReqVerify').textContent = "Gửi đơn đăng ký";
         }
 
         // -- CROPPER LOGIC --
@@ -2390,7 +2376,7 @@
                 modalCropper.classList.remove('active');
                 // Close settings modal and show bottom-right chip
                 document.getElementById('modalSettings').classList.remove('active');
-                const chipMsg = isAvt ? 'ðŸ“¸ áº¢nh Ä‘áº¡i diá»‡n Ä‘Ã£ chá»n â€” nháº¥n LÆ°u!' : 'ðŸ–¼ï¸ áº¢nh bÃ¬a Ä‘Ã£ chá»n â€” nháº¥n LÆ°u!';
+                const chipMsg = isAvt ? '📸 Ảnh đại diện đã chọn — nhấn Lưu!' : '🖼️ Ảnh bìa đã chọn — nhấn Lưu!';
                 showUploadChip(chipMsg);
                 markDirty();
             }, cropType === 'avt' ? 'image/png' : 'image/jpeg', 0.9);
@@ -2427,7 +2413,7 @@
             // Name color preview
             const nameEl = document.getElementById('prevNameLabel');
             if (nameEl) {
-                const name = document.getElementById('inpName') ? document.getElementById('inpName').value || 'TÃªn cá»§a báº¡n' : 'TÃªn cá»§a báº¡n';
+                const name = document.getElementById('inpName') ? document.getElementById('inpName').value || 'Tên của bạn' : 'Tên của bạn';
                 nameEl.textContent = name;
                 nameEl.style.background = '';
                 nameEl.style.webkitBackgroundClip = '';

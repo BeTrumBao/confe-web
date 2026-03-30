@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -688,7 +688,7 @@
         }
 
         .vip-sparkle::after {
-            content: "âœ¨";
+            content: "✨";
             position: absolute;
             top: -10px;
             right: -10px;
@@ -722,7 +722,7 @@
         }
 
         .ruby-sparkle::after {
-            content: "âœ¨";
+            content: "✨";
             position: absolute;
             top: -10px;
             right: -10px;
@@ -1292,7 +1292,7 @@
         }
 
         .streak-sparkle::after {
-            content: "âœ¨";
+            content: "✨";
             position: absolute;
             top: -6px;
             right: -6px;
@@ -1376,20 +1376,6 @@
             });
         };
     </script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1397,7 +1383,7 @@
     <div id="chatHub" class="chat-hub">
         <div class="hub-header" style="display:flex; flex-direction:column; gap:16px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h1 class="hub-title" style="margin:0;">TrÃ² chuyá»‡n</h1>
+                <h1 class="hub-title" style="margin:0;">Trò chuyện</h1>
                 <button class="btn-home-top" onclick="window.location.href='index.html'"
                     style="border:none; background:#f0f2f5; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#1e293b;">
                     <span class="material-symbols-rounded">home</span>
@@ -1405,35 +1391,35 @@
             </div>
             <div class="hub-tabs">
                 <img id="sidebarProfile" class="sidebar-profile" src="assets/favicon.png"
-                    onclick="window.location.href='profile.html'" title="Trang cÃ¡ nhÃ¢n">
+                    onclick="window.location.href='profile.html'" title="Trang cá nhân">
                 <button class="hub-tab btn-home-pc" onclick="window.location.href='index.html'"
                     style="display:none;"><span class="material-symbols-rounded">home</span> <span
-                        class="tab-text">Trang chá»§</span></button>
+                        class="tab-text">Trang chủ</span></button>
                 <button id="tabChats" class="hub-tab active" onclick="switchHubView('chats')"><span
                         class="material-symbols-rounded">chat_bubble</span> <span class="tab-text">Tin
-                        nháº¯n</span></button>
+                        nhắn</span></button>
                 <button id="tabFriends" class="hub-tab" onclick="switchHubView('friends')"><span
                         class="material-symbols-rounded">contact_page</span> <span class="tab-text">Danh
-                        báº¡</span></button>
+                        bạ</span></button>
             </div>
         </div>
 
         <div id="hubChats" class="hub-content">
             <div class="search-box">
                 <span class="material-symbols-rounded">search</span>
-                <input type="text" id="dbSearch" placeholder="TÃ¬m kiáº¿m há»™i thoáº¡i..."
+                <input type="text" id="dbSearch" placeholder="Tìm kiếm hội thoại..."
                     oninput="searchLocalRooms(this.value)">
             </div>
             <div id="roomsList">
                 <!-- Public Chat Room (Always there) -->
                 <div class="room-item" id="publicChatRoomItem"
-                    onclick="openChatRoom('public', 'Cá»™ng Ä‘á»“ng', 'assets/favicon.png', 'public')">
+                    onclick="openChatRoom('public', 'Cộng đồng', 'assets/favicon.png', 'public')">
                     <img src="assets/favicon.png" class="room-avt">
                     <div class="room-info">
-                        <div class="room-name">ðŸ“¢ Cá»™ng Ä‘á»“ng <span class="material-symbols-rounded"
+                        <div class="room-name">📢 Cộng đồng <span class="material-symbols-rounded"
                                 style="font-size:14px; color:var(--primary); font-variation-settings:'FILL' 1">verified</span>
                         </div>
-                        <div class="room-msg">ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i Confe!</div>
+                        <div class="room-msg">Chào mừng bạn đến với Confe!</div>
                     </div>
                 </div>
                 <div id="dynamicRooms"></div>
@@ -1445,7 +1431,7 @@
             <div id="requestGroups" style="margin-top:32px;">
                 <h3
                     style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:#94a3b8; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
-                    <span class="material-symbols-rounded" style="font-size:16px;">person_add</span> Lá»œI Má»œI Káº¾T Báº N
+                    <span class="material-symbols-rounded" style="font-size:16px;">person_add</span> LỜI MỜI KẾT BẠN
                 </h3>
                 <div id="pendingRequests"></div>
             </div>
@@ -1457,11 +1443,11 @@
                     style="border:none; background:#f1f5f9; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#1e293b;">
                     <span class="material-symbols-rounded" style="font-size:18px;">arrow_back</span>
                 </button>
-                <h3 style="margin:0; font-size:18px; font-weight:800;">TÃ¬m ngÆ°á»i dÃ¹ng</h3>
+                <h3 style="margin:0; font-size:18px; font-weight:800;">Tìm người dùng</h3>
             </div>
             <div class="search-box" style="margin-bottom:20px;">
                 <span class="material-symbols-rounded">search</span>
-                <input type="text" id="findUserInput" placeholder="Nháº­p tÃªn ngÆ°á»i dÃ¹ng..."
+                <input type="text" id="findUserInput" placeholder="Nhập tên người dùng..."
                     oninput="searchUsers(this.value)">
             </div>
             <div id="findUsersResult"></div>
@@ -1626,10 +1612,10 @@
         <div class="fab-menu">
             <div id="fabItems" class="fab-items">
                 <button class="fab-btn" onclick="openAddFriendModal(); toggleFab()">
-                    <span class="material-symbols-rounded" style="color:var(--primary);">person_add</span> Káº¿t báº¡n
+                    <span class="material-symbols-rounded" style="color:var(--primary);">person_add</span> Kết bạn
                 </button>
                 <button class="fab-btn" onclick="openCreateGroupModal(); toggleFab()">
-                    <span class="material-symbols-rounded" style="color:var(--primary);">group_add</span> Táº¡o nhÃ³m
+                    <span class="material-symbols-rounded" style="color:var(--primary);">group_add</span> Tạo nhóm
                 </button>
             </div>
             <button id="fabMainBtn" class="floating-action fab-main" onclick="toggleFab()">
@@ -1667,7 +1653,7 @@
                 <div style="display: flex; flex-direction: column;">
                     <h1 class="header-title" id="headerTitle"
                         style="font-size:17px; font-weight:800; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0;">
-                        PhÃ²ng Chat</h1>
+                        Phòng Chat</h1>
                     <div id="headerStatusText" class="status-text" style="display:none; margin-top:2px;"></div>
                 </div>
 
@@ -1746,7 +1732,7 @@
                 <span style="font-weight:700; font-size:14px; display:flex; align-items:center; gap:6px;"><span
                         class="material-symbols-rounded" style="font-size:18px;">mood</span> Sticker</span>
                 <button onclick="toggleStickerPanel()"
-                    style="background:none; border:none; cursor:pointer; color:#94a3b8; font-size:18px;">âœ•</button>
+                    style="background:none; border:none; cursor:pointer; color:#94a3b8; font-size:18px;">✕</button>
             </div>
             <div id="stickerGrid"
                 style="display:grid; grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); gap:6px;"></div>
@@ -1768,15 +1754,15 @@
         <div id="editBanner" class="edit-banner"
             style="display:none; background: #fff7ed; border-left: 4px solid #fb923c; padding: 10px 16px; align-items: center; justify-content: space-between; border-radius: 12px; margin: 0 16px 8px 16px; box-shadow: 0 2px 8px rgba(251,146,60,0.15); transition: 0.3s;">
             <div style="display:flex; flex-direction:column; max-width: 70%;">
-                <span style="color:#fb923c; font-weight:700; font-size:12px; margin-bottom:2px;">Äang chá»‰nh
-                    sá»­a</span>
+                <span style="color:#fb923c; font-weight:700; font-size:12px; margin-bottom:2px;">Đang chỉnh
+                    sửa</span>
                 <span id="editOriginalText"
                     style="color:#475569; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></span>
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
                 <button onclick="insertSpoiler('msgInput')"
                     style="background:#ffedd5; border:1.5px solid #fed7aa; color:#9a3412; padding:6px 10px; border-radius:10px; font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:4px;">
-                    <span class="material-symbols-rounded" style="font-size:16px;">visibility_off</span> Má» chá»¯
+                    <span class="material-symbols-rounded" style="font-size:16px;">visibility_off</span> Mờ chữ
                 </button>
                 <button onclick="cancelEdit()"
                     style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer; padding:0 5px; display:flex; align-items:center; justify-content:center;">
@@ -1788,7 +1774,7 @@
         <div id="replyBanner"
             style="display:none; background: #f0f9ff; border-left: 4px solid #0084ff; padding: 10px 16px; align-items: center; justify-content: space-between; border-radius: 12px; margin: 0 16px 8px 16px; box-shadow: 0 2px 8px rgba(0,132,255,0.15); transition: 0.3s;">
             <div style="display:flex; flex-direction:column; max-width: 85%;">
-                <span style="color:#0084ff; font-weight:700; font-size:12px; margin-bottom:2px;">Äang tráº£ lá»i <span
+                <span style="color:#0084ff; font-weight:700; font-size:12px; margin-bottom:2px;">Đang trả lời <span
                         id="replyToName"></span></span>
                 <span id="replyToText"
                     style="color:#475569; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></span>
@@ -1814,12 +1800,12 @@
             </label>
             <button class="action-btn" onclick="openPollModal()"><span
                     class="material-symbols-rounded">poll</span></button>
-            <button class="action-btn" onclick="insertSpoiler('msgInput')" title="Má» chá»¯"><span
+            <button class="action-btn" onclick="insertSpoiler('msgInput')" title="Mờ chữ"><span
                     class="material-symbols-rounded">visibility_off</span></button>
             <button class="action-btn" onclick="window.toggleStickerPanel()" id="btnSticker" title="Sticker"><span
                     class="material-symbols-rounded">mood</span></button>
             <div class="inp-wrapper">
-                <input type="text" id="msgInput" class="inp" placeholder="Nháº­p tin nháº¯n..." autocomplete="off">
+                <input type="text" id="msgInput" class="inp" placeholder="Nhập tin nhắn..." autocomplete="off">
             </div>
             <button id="btnSend" class="action-btn btn-send">
                 <span class="material-symbols-rounded">send</span>
@@ -1839,23 +1825,23 @@
                     onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
                     <span class="material-symbols-rounded" style="font-size: 20px;">close</span>
                 </button>
-                <h3 style="font-size:16px; font-weight:800; margin-bottom:10px; color:#0f172a; padding: 0 5px;">TÃ¹y
-                    chá»n</h3>
-                <button class="menu-btn" id="btnViewImg" onclick="handleViewImage()"><span class="material-symbols-rounded">image</span> Xem áº£nh</button>
+                <h3 style="font-size:16px; font-weight:800; margin-bottom:10px; color:#0f172a; padding: 0 5px;">Tùy
+                    chọn</h3>
+                <button class="menu-btn" id="btnViewImg" onclick="handleViewImage()"><span class="material-symbols-rounded">image</span> Xem ảnh</button>
                 <button class="menu-btn" onclick="handleHeart()"><span class="material-symbols-rounded"
-                        style='color:#ff4757; font-variation-settings: "FILL" 1'>favorite</span> Tháº£ tim</button>
+                        style='color:#ff4757; font-variation-settings: "FILL" 1'>favorite</span> Thả tim</button>
                 <button class="menu-btn" onclick="handleReply()"><span class="material-symbols-rounded">reply</span>
-                    Tráº£
-                    lá»i</button>
+                    Trả
+                    lời</button>
                 <button class="menu-btn" onclick="handleCopy()"><span
                         class="material-symbols-rounded">content_copy</span>
-                    Sao chÃ©p</button>
+                    Sao chép</button>
                 <button class="menu-btn" id="btnEditMsg" onclick="handleEdit()"><span
-                        class="material-symbols-rounded">edit</span> Chá»‰nh sá»­a</button>
+                        class="material-symbols-rounded">edit</span> Chỉnh sửa</button>
                 <button class="menu-btn danger" id="btnDeleteMsg" onclick="handleDelete()"><span
-                        class="material-symbols-rounded">delete</span> Thu há»“i</button>
+                        class="material-symbols-rounded">delete</span> Thu hồi</button>
                 <button class="menu-btn warning" id="btnReportMsg" onclick="openReportMsg()"><span
-                        class="material-symbols-rounded">report</span> BÃ¡o cÃ¡o</button>
+                        class="material-symbols-rounded">report</span> Báo cáo</button>
             </div>
         </div>
 
@@ -1864,15 +1850,15 @@
                 style="padding:24px; border-radius:20px; background:white; width:90%; max-width:300px; text-align:center;">
                 <div style="font-size:32px; margin-bottom:10px; color:#ef4444;"><span class="material-symbols-rounded"
                         style="font-size: 40px;">warning</span></div>
-                <h3 id="confirmTitle" style="font-size:17px; font-weight:800; margin-bottom:8px;">XÃ¡c nháº­n</h3>
+                <h3 id="confirmTitle" style="font-size:17px; font-weight:800; margin-bottom:8px;">Xác nhận</h3>
                 <p id="confirmMessage" style="font-size:14px; color:#64748b; margin-bottom:20px; line-height:1.5;">
                 </p>
                 <div style="display:flex; gap:10px;">
                     <button id="confirmCancel"
-                        style="flex:1; padding:12px; background:#f1f5f9; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">Há»§y</button>
+                        style="flex:1; padding:12px; background:#f1f5f9; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">Hủy</button>
                     <button id="confirmOk"
-                        style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">XÃ¡c
-                        nháº­n</button>
+                        style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:14px;">Xác
+                        nhận</button>
                 </div>
             </div>
         </div>
@@ -1882,16 +1868,16 @@
                 style="padding:20px; border-radius:16px; background:white; width:90%; max-width:320px;">
                 <h3
                     style="margin-bottom:12px; font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px;">
-                    BÃ¡o cÃ¡o tin nháº¯n <span class="material-symbols-rounded"
+                    Báo cáo tin nhắn <span class="material-symbols-rounded"
                         style="color:#ef4444; font-variation-settings: 'FILL' 1">report</span>
                 </h3>
-                <textarea id="reportReason" class="inp" placeholder="LÃ½ do bÃ¡o cÃ¡o..." rows="3"
+                <textarea id="reportReason" class="inp" placeholder="Lý do báo cáo..." rows="3"
                     style="width:100%; border:1px solid #e2e8f0; padding:12px; border-radius:12px; margin-bottom:15px; font-family:inherit; resize:none;"></textarea>
                 <div style="display:flex; gap:10px;">
-                    <button onclick="submitReport()" class="btn-main" style="background:var(--danger); flex:1;">Gá»­i
-                        bÃ¡o cÃ¡o</button>
+                    <button onclick="submitReport()" class="btn-main" style="background:var(--danger); flex:1;">Gửi
+                        báo cáo</button>
                     <button onclick="document.getElementById('msgReportModal').classList.remove('active')"
-                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Há»§y</button>
+                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
                 </div>
             </div>
         </div>
@@ -1900,17 +1886,17 @@
         <div id="userReportModal" class="modal" style="z-index:9999;">
             <div class="modal-box"
                 style="padding:24px; border-radius:20px; background:white; width:90%; max-width:320px;">
-                <h3 id="userReportTitle" style="font-size:17px; font-weight:800; margin-bottom:12px; color:#ef4444;">BÃ¡o
-                    cÃ¡o ngÆ°á»i dÃ¹ng
+                <h3 id="userReportTitle" style="font-size:17px; font-weight:800; margin-bottom:12px; color:#ef4444;">Báo
+                    cáo người dùng
                 </h3>
                 <textarea id="userReportReason" class="inp"
                     style="width:100%; border:1.5px solid #eee; padding:12px; border-radius:14px; margin-bottom:15px; font-family:inherit; resize:none;"
-                    rows="3" placeholder="LÃ½ do bÃ¡o cÃ¡o..."></textarea>
+                    rows="3" placeholder="Lý do báo cáo..."></textarea>
                 <div style="display:flex; gap:10px;">
                     <button onclick="document.getElementById('userReportModal').classList.remove('active')"
-                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Há»§y</button>
-                    <button id="btnConfirmUserReport" class="btn-main" style="background:var(--danger); flex:1;">Gá»­i
-                        bÃ¡o cÃ¡o</button>
+                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
+                    <button id="btnConfirmUserReport" class="btn-main" style="background:var(--danger); flex:1;">Gửi
+                        báo cáo</button>
                 </div>
             </div>
         </div>
@@ -1919,38 +1905,38 @@
             <div class="modal-box" style="position:relative;">
                 <button onclick="closePollModal()"
                     style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                    title="ÄÃ³ng">
+                    title="Đóng">
                     <span class="material-symbols-rounded">close</span>
                 </button>
                 <h2
                     style="font-size:20px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
-                    Táº¡o bÃ¬nh chá»n <span class="material-symbols-rounded">poll</span></h2>
+                    Tạo bình chọn <span class="material-symbols-rounded">poll</span></h2>
                 <div style="display:flex; flex-direction:column; gap:12px;">
                     <div>
                         <label
-                            style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">CÃ¢u
-                            há»i</label>
+                            style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">Câu
+                            hỏi</label>
                         <input type="text" id="pollQ" class="inp"
                             style="border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500;"
-                            placeholder="Báº¡n muá»‘n há»i gÃ¬?">
+                            placeholder="Bạn muốn hỏi gì?">
                     </div>
                     <div id="pollOptionsContainer" style="display:flex; flex-direction:column; gap:8px;">
                         <label
-                            style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">Lá»±a
-                            chá»n</label>
+                            style="font-size:11px; font-weight:700; color:var(--gray); margin-bottom:4px; display:block;">Lựa
+                            chọn</label>
                         <input type="text" class="inp poll-opt-inp"
                             style="border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500;"
-                            placeholder="Lá»±a chá»n 1">
+                            placeholder="Lựa chọn 1">
                         <input type="text" class="inp poll-opt-inp"
                             style="border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500;"
-                            placeholder="Lá»±a chá»n 2">
+                            placeholder="Lựa chọn 2">
                     </div>
                     <button onclick="addPollOptionUI()"
                         style="background:rgba(0,132,255,0.08); border:none; color:#0084ff; font-weight:700; font-size:13px; cursor:pointer; padding:10px; border-radius:12px;">+
-                        ThÃªm lá»±a chá»n</button>
+                        Thêm lựa chọn</button>
                     <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
                         <button onclick="createPoll()"
-                            style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:14px; font-weight:700; font-size:15px; cursor:pointer; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.1);">Táº¡o
+                            style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:14px; font-weight:700; font-size:15px; cursor:pointer; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.1);">Tạo
                             ngay</button>
                     </div>
                 </div>
@@ -1963,11 +1949,11 @@
                 style="padding:24px; border-radius:20px; background:white; width:90%; max-width:320px;">
                 <textarea id="spoilerInputText" class="inp" rows="3"
                     style="width:100%; border:1.5px solid #eee; padding:12px; border-radius:14px; margin-bottom:15px; font-family:inherit; resize:none;"
-                    placeholder="Ná»™i dung sáº½ bá»‹ tÃ ng hÃ¬nh..."></textarea>
+                    placeholder="Nội dung sẽ bị tàng hình..."></textarea>
                 <div style="display:flex; gap:10px;">
                     <button onclick="document.getElementById('modalSpoilerInput').classList.remove('active')"
-                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Há»§y</button>
-                    <button id="btnConfirmSpoiler" class="btn-main" style="background:var(--primary); flex:1;">ChÃ¨n
+                        class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
+                    <button id="btnConfirmSpoiler" class="btn-main" style="background:var(--primary); flex:1;">Chèn
                         ngay</button>
                 </div>
             </div>
@@ -1978,14 +1964,14 @@
     <div id="modalNickname" class="modal" style="z-index:6000;">
         <div class="modal-box"
             style="padding:24px; border-radius:20px; background:white; width:90%; max-width:320px;">
-            <h3 style="font-size:17px; font-weight:800; margin-bottom:12px;">Äá»•i tÃªn gá»£i nhá»›</h3>
+            <h3 style="font-size:17px; font-weight:800; margin-bottom:12px;">Đổi tên gợi nhớ</h3>
             <input type="text" id="nicknameInputText" class="inp"
                 style="width:100%; border:1.5px solid #eee; padding:12px; border-radius:14px; margin-bottom:15px; font-family:inherit;"
-                placeholder="Nháº­p tÃªn má»›i...">
+                placeholder="Nhập tên mới...">
             <div style="display:flex; gap:10px;">
                 <button onclick="document.getElementById('modalNickname').classList.remove('active')"
-                    class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Há»§y</button>
-                <button id="btnConfirmNickname" class="btn-main" style="background:var(--primary); flex:1;">LÆ°u láº¡i</button>
+                    class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
+                <button id="btnConfirmNickname" class="btn-main" style="background:var(--primary); flex:1;">Lưu lại</button>
             </div>
         </div>
     </div>
@@ -1995,7 +1981,7 @@
                 <div class="modal-box"
                     style="padding:24px; border-radius:30px; background:white; width:95%; max-width:380px;">
                     <h3 style="font-size:20px; font-weight:900; margin-bottom:20px; color:#0f172a; text-align:center;">
-                        Táº¡o nhÃ³m má»›i</h3>
+                        Tạo nhóm mới</h3>
 
                     <!-- Avatar Upload -->
                     <div style="margin-bottom:24px; text-align:center;">
@@ -2010,13 +1996,13 @@
                         </div>
                         <input type="file" id="createGroupAvatarFile" accept="image/*" style="display:none;"
                             onchange="previewCreateGroupAvatar(event)">
-                        <p style="font-size:11px; color:#94a3b8; font-weight:600; margin-top:8px;">Chá»n áº£nh Ä‘áº¡i diá»‡n
-                            nhÃ³m</p>
+                        <p style="font-size:11px; color:#94a3b8; font-weight:600; margin-top:8px;">Chọn ảnh đại diện
+                            nhóm</p>
                     </div>
 
                     <div style="margin-bottom:16px;">
-                        <label class="inp-label" style="font-size:12px; font-weight:700;">TÃªn nhÃ³m</label>
-                        <input type="text" id="groupNameInp" class="inp" placeholder="Nháº­p tÃªn nhÃ³m..."
+                        <label class="inp-label" style="font-size:12px; font-weight:700;">Tên nhóm</label>
+                        <input type="text" id="groupNameInp" class="inp" placeholder="Nhập tên nhóm..."
                             style="background:#f8fafc; border:none; padding:14px; border-radius:16px;">
                     </div>
                     <div id="groupFriendSelect"
@@ -2026,9 +2012,9 @@
                     <div style="display:flex; gap:12px;">
                         <button onclick="document.getElementById('modalCreateGroup').classList.remove('active')"
                             class="btn-main"
-                            style="background:#f1f5f9; color:#64748b; flex:1; border-radius:16px;">Há»§y</button>
+                            style="background:#f1f5f9; color:#64748b; flex:1; border-radius:16px;">Hủy</button>
                         <button id="btnSubmitCreateGroup" onclick="createGroupSubmit()" class="btn-main"
-                            style="flex:1; border-radius:16px;">Táº¡o nhÃ³m</button>
+                            style="flex:1; border-radius:16px;">Tạo nhóm</button>
                     </div>
                 </div>
             </div>
@@ -2038,21 +2024,21 @@
                 <div class="modal-box"
                     style="padding:24px; border-radius:24px; background:white; width:95%; max-width:400px; display:flex; flex-direction:column; gap:16px;">
                     <div style="display:flex; align-items:center; justify-content:space-between;">
-                        <h3 style="font-size:18px; font-weight:800; color:#0f172a; margin:0;">Káº¿t báº¡n</h3>
+                        <h3 style="font-size:18px; font-weight:800; color:#0f172a; margin:0;">Kết bạn</h3>
                         <button onclick="document.getElementById('modalAddFriend').classList.remove('active')"
                             style="background:none; border:none; cursor:pointer; color:#94a3b8;"><span
                                 class="material-symbols-rounded">close</span></button>
                     </div>
                     <div class="search-box" style="margin:0;">
                         <span class="material-symbols-rounded">search</span>
-                        <input type="text" id="modalFriendSearchInp" placeholder="TÃ¬m tÃªn hoáº·c username..."
+                        <input type="text" id="modalFriendSearchInp" placeholder="Tìm tên hoặc username..."
                             oninput="searchUsersModal(this.value)">
                     </div>
                     <div id="modalFriendSearchResults"
                         style="max-height:400px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
                         <!-- Results -->
-                        <p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nháº­p tÃªn hoáº·c
-                            @username Ä‘á»ƒ tÃ¬m kiáº¿m báº¡n bÃ¨.</p>
+                        <p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nhập tên hoặc
+                            @username để tìm kiếm bạn bè.</p>
                     </div>
                 </div>
             </div>
@@ -2061,44 +2047,44 @@
             <div id="modalStreakInfo" class="modal" style="z-index:9999;">
                 <div class="modal-box" style="max-width:400px; padding:25px; border-radius:30px;">
                     <div style="text-align:center; margin-bottom:25px;">
-                        <div style="font-size:50px; margin-bottom:10px;">ðŸ”¥</div>
-                        <h2 style="font-size:22px; font-weight:800; color:#1e293b; margin-bottom:8px;">Chuá»—i lÃ  gÃ¬?</h2>
-                        <p style="font-size:14px; color:#64748b; line-height:1.6;">Chuá»—i minh chá»©ng cho sá»± gáº¯n káº¿t hÃ ng ngÃ y giá»¯a báº¡n vÃ  ngÆ°á»i áº¥y. HÃ£y duy trÃ¬ nháº¯n tin má»—i ngÃ y Ä‘á»ƒ tháº¯p sÃ¡ng ngá»n lá»­a!</p>
-                        <p style="font-size:12px; color:var(--primary); font-weight:700; margin-top:5px;">âš ï¸ Chuá»—i chá»‰ hiá»‡n khi hai báº¡n Ä‘Ã£ nháº¯n tin liÃªn tá»¥c 3 ngÃ y trá»Ÿ lÃªn.</p>
+                        <div style="font-size:50px; margin-bottom:10px;">🔥</div>
+                        <h2 style="font-size:22px; font-weight:800; color:#1e293b; margin-bottom:8px;">Chuỗi là gì?</h2>
+                        <p style="font-size:14px; color:#64748b; line-height:1.6;">Chuỗi minh chứng cho sự gắn kết hàng ngày giữa bạn và người ấy. Hãy duy trì nhắn tin mỗi ngày để thắp sáng ngọn lửa!</p>
+                        <p style="font-size:12px; color:var(--primary); font-weight:700; margin-top:5px;">⚠️ Chuỗi chỉ hiện khi hai bạn đã nhắn tin liên tục 3 ngày trở lên.</p>
                     </div>
 
                     <div class="streak-info-item">
-                        <div class="streak-info-icon" style="background:rgba(255,107,0,0.1);">ðŸ“ˆ</div>
+                        <div class="streak-info-icon" style="background:rgba(255,107,0,0.1);">📈</div>
                         <div>
-                            <div style="font-weight:700; color:#1e293b; margin-bottom:4px; font-size:15px;">CÃ¡ch tÄƒng chuá»—i</div>
-                            <div style="font-size:13px; color:#64748b;">Má»—i ngÃ y, hÃ£y Ä‘áº£m báº£o cáº£ hai ngÆ°á»i Ä‘á»u gá»­i Ã­t nháº¥t 1 tin nháº¯n cho nhau.</div>
+                            <div style="font-weight:700; color:#1e293b; margin-bottom:4px; font-size:15px;">Cách tăng chuỗi</div>
+                            <div style="font-size:13px; color:#64748b;">Mỗi ngày, hãy đảm bảo cả hai người đều gửi ít nhất 1 tin nhắn cho nhau.</div>
                         </div>
                     </div>
 
                     <div class="streak-info-item">
-                        <div class="streak-info-icon" style="background:rgba(239,68,68,0.1);">â³</div>
+                        <div class="streak-info-icon" style="background:rgba(239,68,68,0.1);">⏳</div>
                         <div>
-                            <div style="font-weight:700; color:#1e293b; margin-bottom:4px; font-size:15px;">Duy trÃ¬ liÃªn tá»¥c</div>
-                            <div style="font-size:13px; color:#64748b;">Äá»«ng Ä‘á»ƒ quÃ¡ 24h mÃ  khÃ´ng nháº¯n tin, náº¿u khÃ´ng chuá»—i sáº½ bá»‹ dáº­p táº¯t (vá» 0).</div>
+                            <div style="font-weight:700; color:#1e293b; margin-bottom:4px; font-size:15px;">Duy trì liên tục</div>
+                            <div style="font-size:13px; color:#64748b;">Đừng để quá 24h mà không nhắn tin, nếu không chuỗi sẽ bị dập tắt (về 0).</div>
                         </div>
                     </div>
 
                     <div style="background:#f1f5f9; border-radius:20px; padding:18px; margin-top:10px;">
-                        <div style="font-weight:800; font-size:11px; color:#94a3b8; text-transform:uppercase; margin-bottom:12px; letter-spacing:1px;">Cáº¥p Ä‘á»™ Chuá»—i</div>
+                        <div style="font-weight:800; font-size:11px; color:#94a3b8; text-transform:uppercase; margin-bottom:12px; letter-spacing:1px;">Cấp độ Chuỗi</div>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div style="display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; color:#475569;">
-                                <span style="width:24px;">ðŸ”¥</span> <span>3-29 ngÃ y: Chuá»—i rá»±c chÃ¡y</span>
+                                <span style="width:24px;">🔥</span> <span>3-29 ngày: Chuỗi rực cháy</span>
                             </div>
                             <div style="display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; color:#8b5cf6;">
-                                <span style="width:24px;">âš¡ðŸ”¥</span> <span>30-99 ngÃ y: Chuá»—i bá»n bá»‰</span>
+                                <span style="width:24px;">⚡🔥</span> <span>30-99 ngày: Chuỗi bền bỉ</span>
                             </div>
                             <div style="display:flex; align-items:center; gap:12px; font-size:14px; font-weight:700; color:#eab308;">
-                                <span style="width:24px;">ðŸ’ŽðŸ”¥</span> <span>100+ ngÃ y: Chuá»—i huyá»n thoáº¡i</span>
+                                <span style="width:24px;">💎🔥</span> <span>100+ ngày: Chuỗi huyền thoại</span>
                             </div>
                         </div>
                     </div>
 
-                    <button class="btn-main" style="width:100%; margin-top:25px; border-radius:18px;" onclick="document.getElementById('modalStreakInfo').classList.remove('active')">ÄÃ£ hiá»ƒu!</button>
+                    <button class="btn-main" style="width:100%; margin-top:25px; border-radius:18px;" onclick="document.getElementById('modalStreakInfo').classList.remove('active')">Đã hiểu!</button>
                 </div>
             </div>
 
@@ -2106,7 +2092,7 @@
         <div id="modalCommunityMembers" class="modal-overlay">
             <div class="modal-content">
                 <div style="padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between;">
-                    <h3 style="margin:0; font-size:18px; font-weight:800; color:#0f172a;">ThÃ nh viÃªn cá»™ng Ä‘á»“ng</h3>
+                    <h3 style="margin:0; font-size:18px; font-weight:800; color:#0f172a;">Thành viên cộng đồng</h3>
                     <button onclick="document.getElementById('modalCommunityMembers').classList.remove('active')" style="background:none; border:none; color:#94a3b8; cursor:pointer;">
                         <span class="material-symbols-rounded">close</span>
                     </button>
@@ -2264,7 +2250,7 @@
                     try {
                         const snap = await getDocs(query(collection(db, "users"), where("displayName", ">=", q), where("displayName", "<=", q + '\uf8ff'), limit(5)));
                         res.innerHTML = '';
-                        if (snap.empty) { res.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">KhÃ´ng tÃ¬m tháº¥y ngÆ°á»i dÃ¹ng.</div>'; return; }
+                        if (snap.empty) { res.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">Không tìm thấy người dùng.</div>'; return; }
                         snap.forEach(d => {
                             const ud = d.data();
                             if (d.id === currentUser.uid) return;
@@ -2277,13 +2263,13 @@
                             <div style="font-size:12px; color:#64748b;">${ud.email || ''}</div>
                         </div>
                         <div style="display:flex; gap:8px;">
-                            <button class="btn btn-primary" onclick="window.sendFriendRequest('${d.id}')" style="padding:6px 12px; font-size:12px;">Káº¿t báº¡n</button>
-                            <button class="btn" onclick="window.location.href='profile.html?uid=${d.id}'" style="padding:6px 12px; font-size:12px; background:#f1f5f9;">Trang cÃ¡ nhÃ¢n</button>
+                            <button class="btn btn-primary" onclick="window.sendFriendRequest('${d.id}')" style="padding:6px 12px; font-size:12px;">Kết bạn</button>
+                            <button class="btn" onclick="window.location.href='profile.html?uid=${d.id}'" style="padding:6px 12px; font-size:12px; background:#f1f5f9;">Trang cá nhân</button>
                         </div>
                     `;
                             res.appendChild(div);
                         });
-                    } catch (e) { res.innerHTML = "Lá»—i khi tÃ¬m kiáº¿m."; }
+                    } catch (e) { res.innerHTML = "Lỗi khi tìm kiếm."; }
                 }
 
                 window.sendFriendRequest = async (targetUid) => {
@@ -2294,9 +2280,9 @@
                             avatar: currentUser.photoURL,
                             timestamp: serverTimestamp()
                         });
-                        window.showToast("ÄÃ£ gá»­i lá»i má»i káº¿t báº¡n!");
+                        window.showToast("Đã gửi lời mời kết bạn!");
                         document.getElementById('modalAddFriend').classList.remove('active');
-                    } catch (e) { window.showToast("Lá»—i gá»­i lá»i má»i."); }
+                    } catch (e) { window.showToast("Lỗi gửi lời mời."); }
                 }
 
                 // --- Hub Functionality ---
@@ -2322,7 +2308,7 @@
                     if (currentUser && currentUser.isChatMuted) {
                         inputContainer.style.display = 'none';
                         blockBanner.style.display = 'flex';
-                        blockBanner.innerHTML = 'Báº¡n Ä‘Ã£ bá»‹ cáº¥m chat ðŸ”‡';
+                        blockBanner.innerHTML = 'Bạn đã bị cấm chat 🔇';
                         return;
                     }
                     if (CURRENT_ROOM_TYPE !== 'p2p' || !p2pOpponentData || !currentUser) {
@@ -2338,11 +2324,11 @@
                     if (didIBlock) {
                         inputContainer.style.display = 'none';
                         blockBanner.style.display = 'flex';
-                        blockBanner.innerHTML = `Báº¡n Ä‘Ã£ cháº·n ngÆ°á»i dÃ¹ng nÃ y. <button onclick="unblockUser('${opponentUid}')" style="margin-left:10px; padding:6px 14px; border-radius:10px; background:white; color:#ef4444; border:1px solid #fecdd3; font-weight:700; cursor:pointer; font-size:12px; transition:0.2s;" onmouseover="this.style.background='#fff1f2'" onmouseout="this.style.background='white'">Bá» cháº·n</button>`;
+                        blockBanner.innerHTML = `Bạn đã chặn người dùng này. <button onclick="unblockUser('${opponentUid}')" style="margin-left:10px; padding:6px 14px; border-radius:10px; background:white; color:#ef4444; border:1px solid #fecdd3; font-weight:700; cursor:pointer; font-size:12px; transition:0.2s;" onmouseover="this.style.background='#fff1f2'" onmouseout="this.style.background='white'">Bỏ chặn</button>`;
                     } else if (amIBlocked) {
                         inputContainer.style.display = 'none';
                         blockBanner.style.display = 'flex';
-                        blockBanner.innerHTML = `NgÆ°á»i dÃ¹ng nÃ y Ä‘Ã£ cháº·n báº¡n.`;
+                        blockBanner.innerHTML = `Người dùng này đã chặn bạn.`;
                     } else {
                         inputContainer.style.display = 'flex';
                         blockBanner.style.display = 'none';
@@ -2350,15 +2336,15 @@
                 };
 
                 window.unblockUser = async (targetUid) => {
-                    const confirmed = await window.showConfirm("Báº¡n muá»‘n bá» cháº·n ngÆ°á»i dÃ¹ng nÃ y?", "Bá» cháº·n");
+                    const confirmed = await window.showConfirm("Bạn muốn bỏ chặn người dùng này?", "Bỏ chặn");
                     if (!confirmed) return;
                     try {
                         await updateDoc(doc(db, "users", currentUser.uid), {
                             blockedUsers: arrayRemove(targetUid)
                         });
-                        window.showToast("ÄÃ£ bá» cháº·n thÃ nh cÃ´ng.");
+                        window.showToast("Đã bỏ chặn thành công.");
                     } catch (e) {
-                        window.showToast("Lá»—i khi bá» cháº·n.");
+                        window.showToast("Lỗi khi bỏ chặn.");
                     }
                 };
 
@@ -2445,11 +2431,11 @@
                             if (chipContainer) {
                                 chipContainer.style.display = 'block';
                                 if (!snap.exists()) {
-                                    chipContainer.innerHTML = `<button onclick="sendFriendRequestFromChat('${opponentUid}', '${name}', '${avatar}')" style="background:#e0e7ff; color:var(--primary); font-size:11px; padding:4px 8px; border-radius:10px; font-weight:700; border:none; cursor:pointer; display:flex; align-items:center; gap:2px;"><span class="material-symbols-rounded" style="font-size:14px;">person_add</span> Káº¿t báº¡n</button>`;
+                                    chipContainer.innerHTML = `<button onclick="sendFriendRequestFromChat('${opponentUid}', '${name}', '${avatar}')" style="background:#e0e7ff; color:var(--primary); font-size:11px; padding:4px 8px; border-radius:10px; font-weight:700; border:none; cursor:pointer; display:flex; align-items:center; gap:2px;"><span class="material-symbols-rounded" style="font-size:14px;">person_add</span> Kết bạn</button>`;
                                 } else {
                                     const f = snap.data();
                                     if (f.status === 'pending') {
-                                        chipContainer.innerHTML = `<span style="font-size:11px; color:#64748b; font-weight:600; padding:4px; background:#f1f5f9; border-radius:10px;">ÄÃ£ gá»­i lá»i má»i</span>`;
+                                        chipContainer.innerHTML = `<span style="font-size:11px; color:#64748b; font-weight:600; padding:4px; background:#f1f5f9; border-radius:10px;">Đã gửi lời mời</span>`;
                                     } else if (f.status === 'accepted') {
                                         chipContainer.style.display = 'none';
                                     }
@@ -2493,10 +2479,10 @@
                     };
 
                     let tier = 0;
-                    let icon = "ðŸ”¥";
-                    if (count >= 100) { tier = 3; icon = "ðŸ’ŽðŸ”¥"; }
-                    else if (count >= 30) { tier = 2; icon = "âš¡ðŸ”¥"; }
-                    else if (count >= 3) { tier = 1; icon = "ðŸ”¥"; }
+                    let icon = "🔥";
+                    if (count >= 100) { tier = 3; icon = "💎🔥"; }
+                    else if (count >= 30) { tier = 2; icon = "⚡🔥"; }
+                    else if (count >= 3) { tier = 1; icon = "🔥"; }
 
                     el.className = `streak-badge streak-tier-${tier} ${tier >= 2 ? 'streak-sparkle' : ''}`;
                     el.innerHTML = `<span>${icon}</span> <span>${count}</span>`;
@@ -2545,17 +2531,17 @@
 
                     const pRoom = document.getElementById('publicChatRoomItem');
                     if (pRoom) {
-                        if ("cá»™ng Ä‘á»“ng public".includes(val)) pRoom.style.display = 'flex';
+                        if ("cộng đồng public".includes(val)) pRoom.style.display = 'flex';
                         else pRoom.style.display = 'none';
                     }
 
                     const filtered = localRoomsData.filter(r => r.name && r.name.toLowerCase().includes(val));
                     if (filtered.length === 0 && val.length > 0) {
-                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">KhÃ´ng tÃ¬m tháº¥y há»™i thoáº¡i nÃ o.</p>';
+                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Không tìm thấy hội thoại nào.</p>';
                         return;
                     }
                     if (filtered.length === 0 && localRoomsData.length === 0 && hasLoadedRooms) {
-                        container.innerHTML = '<div class="chat-empty" style="padding:20px;"><div class="chat-empty-icon" style="font-size:32px;"><span class="material-symbols-rounded">chat_bubble</span></div><div class="chat-empty-title" style="font-size:14px;">ChÆ°a cÃ³ cuá»™c trÃ² chuyá»‡n nÃ o</div></div>';
+                        container.innerHTML = '<div class="chat-empty" style="padding:20px;"><div class="chat-empty-icon" style="font-size:32px;"><span class="material-symbols-rounded">chat_bubble</span></div><div class="chat-empty-title" style="font-size:14px;">Chưa có cuộc trò chuyện nào</div></div>';
                         return;
                     }
 
@@ -2567,7 +2553,7 @@
                         </div>
                         <div class="room-info">
                             <div class="room-name">${room.name}</div>
-                            <div class="room-msg">${room.lastMessage || 'ChÆ°a cÃ³ tin nháº¯n'}</div>
+                            <div class="room-msg">${room.lastMessage || 'Chưa có tin nhắn'}</div>
                         </div>
                         <div class="room-meta">
                             <div class="room-time">${formatTime(room.lastTimestamp)}</div>
@@ -2627,21 +2613,21 @@
 
                             const roomInfo1 = {
                                 roomId: requestId, roomType: 'p2p', name: u2.data().displayName, avatar: u2.data().photoURL,
-                                lastMessage: "CÃ¡c báº¡n Ä‘Ã£ trá»Ÿ thÃ nh báº¡n bÃ¨!", lastTimestamp: serverTimestamp(), unreadCount: 0
+                                lastMessage: "Các bạn đã trở thành bạn bè!", lastTimestamp: serverTimestamp(), unreadCount: 0
                             };
                             const roomInfo2 = {
                                 roomId: requestId, roomType: 'p2p', name: u1.data().displayName, avatar: u1.data().photoURL,
-                                lastMessage: "CÃ¡c báº¡n Ä‘Ã£ trá»Ÿ thÃ nh báº¡n bÃ¨!", lastTimestamp: serverTimestamp(), unreadCount: 0
+                                lastMessage: "Các bạn đã trở thành bạn bè!", lastTimestamp: serverTimestamp(), unreadCount: 0
                             };
 
                             batch.set(doc(db, `users/${f.users[0]}/chatRooms`, requestId), roomInfo1);
                             batch.set(doc(db, `users/${f.users[1]}/chatRooms`, requestId), roomInfo2);
                         }
                         await batch.commit();
-                        window.showToast(newStatus === 'accepted' ? "ÄÃ£ cháº¥p nháº­n káº¿t báº¡n!" : "ÄÃ£ tá»« chá»‘i.");
+                        window.showToast(newStatus === 'accepted' ? "Đã chấp nhận kết bạn!" : "Đã từ chối.");
                     } catch (e) {
                         console.error(e);
-                        window.showToast("Lá»—i khi cáº­p nháº­t tráº¡ng thÃ¡i.");
+                        window.showToast("Lỗi khi cập nhật trạng thái.");
                     }
                 };
 
@@ -2687,11 +2673,11 @@
                                 <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
                                 <div class="room-info">
                                     <div class="room-name">${u.displayName}</div>
-                                    <div class="room-msg" style="color:#64748b;">ÄÃ£ gá»­i lá»i má»i káº¿t báº¡n</div>
+                                    <div class="room-msg" style="color:#64748b;">Đã gửi lời mời kết bạn</div>
                                 </div>
                                 <div style="display:flex; gap:6px;">
-                                    <button onclick="updateFriendStatus('${d.id}', 'accepted')" style="padding:8px 14px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='var(--primary)'">Cháº¥p nháº­n</button>
-                                    <button onclick="updateFriendStatus('${d.id}', 'rejected')" style="padding:8px 14px; background:#f1f5f9; color:#ef4444; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Tá»« chá»‘i</button>
+                                    <button onclick="updateFriendStatus('${d.id}', 'accepted')" style="padding:8px 14px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='var(--primary)'">Chấp nhận</button>
+                                    <button onclick="updateFriendStatus('${d.id}', 'rejected')" style="padding:8px 14px; background:#f1f5f9; color:#ef4444; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Từ chối</button>
                                 </div>
                             </div>
                         `;
@@ -2716,7 +2702,7 @@
                 window.searchUsersModal = async (val) => {
                     const container = document.getElementById('modalFriendSearchResults');
                     if (!val || val.length < 2) {
-                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nháº­p tÃªn hoáº·c @username Ä‘á»ƒ tÃ¬m kiáº¿m báº¡n bÃ¨.</p>';
+                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nhập tên hoặc @username để tìm kiếm bạn bè.</p>';
                         return;
                     }
                     renderUserResults(val, container);
@@ -2741,7 +2727,7 @@
                     });
 
                     if (results.length === 0) {
-                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">KhÃ´ng tÃ¬m tháº¥y ngÆ°á»i dÃ¹ng nÃ o.</p>';
+                        container.innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8;">Không tìm thấy người dùng nào.</p>';
                         return;
                     }
 
@@ -2771,13 +2757,13 @@
                 window.openAddFriendModal = () => {
                     document.getElementById('modalAddFriend').classList.add('active');
                     document.getElementById('modalFriendSearchInp').value = '';
-                    document.getElementById('modalFriendSearchResults').innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nháº­p tÃªn hoáº·c @username Ä‘á»ƒ tÃ¬m kiáº¿m báº¡n bÃ¨.</p>';
+                    document.getElementById('modalFriendSearchResults').innerHTML = '<p style="text-align:center; padding:20px; color:#94a3b8; font-size:13px;">Nhập tên hoặc @username để tìm kiếm bạn bè.</p>';
                 };
 
                 window.sendFriendRequest = async (targetUid, targetName, targetAvt) => {
                     if (!currentUser) return;
                     if (targetUid === currentUser.uid) {
-                        window.showToast("Báº¡n khÃ´ng thá»ƒ káº¿t báº¡n vá»›i chÃ­nh mÃ¬nh!");
+                        window.showToast("Bạn không thể kết bạn với chính mình!");
                         return;
                     }
                     try {
@@ -2787,9 +2773,9 @@
                         if (snap.exists()) {
                             const status = snap.data().status;
                             if (status === 'pending') {
-                                return window.showToast("ÄÃ£ gá»­i lá»i má»i hoáº·c Ä‘ang chá» pháº£n há»“i!", "âš ï¸");
+                                return window.showToast("Đã gửi lời mời hoặc đang chờ phản hồi!", "⚠️");
                             } else if (status === 'accepted') {
-                                return window.showToast("Hai báº¡n Ä‘Ã£ lÃ  báº¡n bÃ¨ rá»“i!", "âœ…");
+                                return window.showToast("Hai bạn đã là bạn bè rồi!", "✅");
                             }
                         }
 
@@ -2803,10 +2789,10 @@
 
                         // Also add a system notification or similar if possible.
                         // For now, just toast.
-                        window.showToast("ÄÃ£ gá»­i lá»i má»i káº¿t báº¡n!", "âœ…");
+                        window.showToast("Đã gửi lời mời kết bạn!", "✅");
                     } catch (e) {
                         console.error(e);
-                        window.showToast("Lá»—i khi gá»­i lá»i má»i.");
+                        window.showToast("Lỗi khi gửi lời mời.");
                     }
                 };
 
@@ -2826,13 +2812,13 @@
                     document.getElementById('createGroupAvatarFile').value = '';
 
                     const container = document.getElementById('groupFriendSelect');
-                    container.innerHTML = '<p style="text-align:center; padding:10px;">Äang táº£i báº¡n bÃ¨...</p>';
+                    container.innerHTML = '<p style="text-align:center; padding:10px;">Đang tải bạn bè...</p>';
 
                     const q = query(collection(db, "friendships"), where("users", "array-contains", currentUser.uid), where("status", "==", "accepted"));
                     getDocs(q).then(async snap => {
                         container.innerHTML = '';
                         if (snap.empty) {
-                            container.innerHTML = '<p style="text-align:center; padding:10px; color:#94a3b8;">Báº¡n cáº§n cÃ³ báº¡n bÃ¨ Ä‘á»ƒ táº¡o nhÃ³m.</p>';
+                            container.innerHTML = '<p style="text-align:center; padding:10px; color:#94a3b8;">Bạn cần có bạn bè để tạo nhóm.</p>';
                             return;
                         }
                         for (const dSnap of snap.docs) {
@@ -2858,12 +2844,12 @@
                     const checked = document.querySelectorAll('.group-member-check:checked');
                     const btn = document.getElementById('btnSubmitCreateGroup');
 
-                    if (!name) return window.showToast("Vui lÃ²ng nháº­p tÃªn nhÃ³m!");
-                    if (checked.length === 0) return window.showToast("Vui lÃ²ng chá»n Ã­t nháº¥t 1 thÃ nh viÃªn!");
+                    if (!name) return window.showToast("Vui lòng nhập tên nhóm!");
+                    if (checked.length === 0) return window.showToast("Vui lòng chọn ít nhất 1 thành viên!");
 
                     const members = [currentUser.uid, ...Array.from(checked).map(c => c.value)];
 
-                    btn.innerHTML = "Äang táº¡o...";
+                    btn.innerHTML = "Đang tạo...";
                     btn.disabled = true;
 
                     try {
@@ -2879,7 +2865,7 @@
                             owner: currentUser.uid,
                             members: members,
                             createdAt: serverTimestamp(),
-                            lastMessage: `${currentUser.displayName} Ä‘Ã£ táº¡o nhÃ³m`,
+                            lastMessage: `${currentUser.displayName} đã tạo nhóm`,
                             lastMessageAt: serverTimestamp()
                         });
 
@@ -2891,7 +2877,7 @@
                                 roomType: 'group',
                                 name: name,
                                 avatar: avatarUrl,
-                                lastMessage: `${currentUser.displayName} Ä‘Ã£ táº¡o nhÃ³m`,
+                                lastMessage: `${currentUser.displayName} đã tạo nhóm`,
                                 lastTimestamp: serverTimestamp(),
                                 unreadCount: 0
                             });
@@ -2899,13 +2885,13 @@
                         await batch.commit();
 
                         document.getElementById('modalCreateGroup').classList.remove('active');
-                        window.showToast("Táº¡o nhÃ³m thÃ nh cÃ´ng!");
+                        window.showToast("Tạo nhóm thành công!");
                         openChatRoom(groupRef.id, name, avatarUrl, "group");
                     } catch (e) {
                         console.error(e);
-                        window.showToast("Lá»—i khi táº¡o nhÃ³m.");
+                        window.showToast("Lỗi khi tạo nhóm.");
                     } finally {
-                        btn.innerHTML = "Táº¡o nhÃ³m";
+                        btn.innerHTML = "Tạo nhóm";
                         btn.disabled = false;
                     }
                 };
@@ -2972,7 +2958,7 @@
                             const gSnap = await getDoc(doc(db, "groups", CURRENT_ROOM_ID));
                             if (gSnap.exists()) {
                                 const members = gSnap.data().members;
-                                const groupName = gSnap.data().name || "NhÃ³m";
+                                const groupName = gSnap.data().name || "Nhóm";
                                 const groupAvt = gSnap.data().avatar || ANON_AVATAR;
                                 const batch = writeBatch(db);
                                 members.forEach(uid => {
@@ -2988,22 +2974,22 @@
                     } catch (e) { console.warn("Sync failed", e); }
                 }
                 window.blockUser = async (targetUid) => {
-                    const confirmed = await window.showConfirm("Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n cháº·n ngÆ°á»i dÃ¹ng nÃ y?", "Cháº·n ngÆ°á»i dÃ¹ng");
+                    const confirmed = await window.showConfirm("Bạn có chắc chắn muốn chặn người dùng này?", "Chặn người dùng");
                     if (!confirmed) return;
                     try {
                         await updateDoc(doc(db, "users", currentUser.uid), {
                             blockedUsers: arrayUnion(targetUid)
                         });
-                        window.showToast("ÄÃ£ cháº·n ngÆ°á»i dÃ¹ng.");
+                        window.showToast("Đã chặn người dùng.");
                         closeChatRoom();
                     } catch (e) {
-                        window.showToast("Lá»—i khi cháº·n.");
+                        window.showToast("Lỗi khi chặn.");
                     }
                 };
 
                 window.reportUser = async (targetUid, name) => {
                     const modal = document.getElementById('userReportModal');
-                    document.getElementById('userReportTitle').innerText = `BÃ¡o cÃ¡o ${name}`;
+                    document.getElementById('userReportTitle').innerText = `Báo cáo ${name}`;
                     const input = document.getElementById('userReportReason');
                     input.value = '';
                     modal.classList.add('active');
@@ -3016,10 +3002,10 @@
                     newConfirmBtn.addEventListener('click', async () => {
                         const reason = input.value.trim();
                         if (!reason) {
-                            window.showToast("Vui lÃ²ng nháº­p lÃ½ do!");
+                            window.showToast("Vui lòng nhập lý do!");
                             return;
                         }
-                        newConfirmBtn.innerHTML = "Äang gá»­i...";
+                        newConfirmBtn.innerHTML = "Đang gửi...";
                         try {
                             await addDoc(collection(db, "reports"), {
                                 targetUid: targetUid,
@@ -3028,17 +3014,17 @@
                                 reporter: currentUser.uid,
                                 createdAt: serverTimestamp()
                             });
-                            window.showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o thÃ nh cÃ´ng.");
+                            window.showToast("Đã gửi báo cáo thành công.");
                         } catch (e) {
-                            window.showToast("Lá»—i khi gá»­i bÃ¡o cÃ¡o.");
+                            window.showToast("Lỗi khi gửi báo cáo.");
                         }
                         modal.classList.remove('active');
-                        newConfirmBtn.innerHTML = "Gá»­i bÃ¡o cÃ¡o";
+                        newConfirmBtn.innerHTML = "Gửi báo cáo";
                     });
                 };
 
                 enableIndexedDbPersistence(db).catch(function (e) {
-                    console.warn("Máº¥t kháº£ nÄƒng lÆ°u trá»¯ ngoáº¡i tuyáº¿n.", e);
+                    console.warn("Mất khả năng lưu trữ ngoại tuyến.", e);
                 });
 
                 // CHECK DB VERSION
@@ -3050,13 +3036,13 @@
                     <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
                         <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
                         <div style="display:flex; align-items:flex-start; gap:15px;">
-                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">ðŸ”„</div>
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
                             <div>
-                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cáº­p nháº­t phiÃªn báº£n</h3>
-                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Há»‡ thá»‘ng vá»«a Ä‘Æ°á»£c nÃ¢ng cáº¥p cáº¥u trÃºc má»›i Ä‘á»ƒ hoáº¡t Ä‘á»™ng á»•n Ä‘á»‹nh hÆ¡n. Vui lÃ²ng táº£i láº¡i trang nhÃ©!</p>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
                             </div>
                         </div>
-                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Táº£i láº¡i trang ngay</button>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
                     </div>
                 `;
                         document.body.appendChild(alertBox);
@@ -3151,14 +3137,14 @@
                         }
                     });
 
-                    if (tid) openChatRoom(tid, "Chá»§ Ä‘á»", "", "public");
+                    if (tid) openChatRoom(tid, "Chủ đề", "", "public");
                     initTypingListener();
                     // Global heartbeat moved to index.html
                     
                     // Fetch badges after auth
                     getDocs(collection(db, 'badges')).then(snap => {
                         snap.docs.forEach(d => globalBadgesCache[d.id] = d.data());
-                    }).catch(e => console.error("Lá»—i táº£i badges", e));
+                    }).catch(e => console.error("Lỗi tải badges", e));
                 });
 
 
@@ -3190,7 +3176,7 @@
 
                     const userRef = doc(db, TYPING_COL, currentUser.uid);
                     setDoc(userRef, {
-                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "KhÃ¡ch"),
+                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "Khách"),
                         timestamp: serverTimestamp()
                     });
 
@@ -3222,7 +3208,7 @@
                         const ind = document.getElementById('typingIndicator');
                         if (typers.length > 0) {
                             ind.style.display = 'block';
-                            ind.textContent = `${typers.join(', ')} Ä‘ang soáº¡n tin...`;
+                            ind.textContent = `${typers.join(', ')} đang soạn tin...`;
                         } else {
                             ind.style.display = 'none';
                         }
@@ -3266,33 +3252,33 @@
                 });
 
                 function formatTime(timestamp) {
-                    if (!timestamp) return 'Vá»«a xong';
+                    if (!timestamp) return 'Vừa xong';
                     const date = (typeof timestamp.toDate === 'function') ? timestamp.toDate() : new Date(timestamp);
                     const now = new Date(); const diff = (now - date) / 1000;
-                    if (diff < 60) return 'Vá»«a xong';
-                    if (diff < 3600) return `${Math.floor(diff / 60)} phÃºt trÆ°á»›c`;
+                    if (diff < 60) return 'Vừa xong';
+                    if (diff < 3600) return `${Math.floor(diff / 60)} phút trước`;
                     if (diff < 86400) return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
                     return `${date.getDate()}/${date.getMonth() + 1} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
                 }
 
                 window.getStatusUI = (ud) => {
                     if (ud.showActivity === false) return null;
-                    if (!ud.lastSeen) return { isOnline: false, text: 'KhÃ´ng rÃµ' };
+                    if (!ud.lastSeen) return { isOnline: false, text: 'Không rõ' };
                     const last = (typeof ud.lastSeen.toDate === 'function') ? ud.lastSeen.toDate() : new Date(ud.lastSeen);
                     const now = new Date();
                     const diff = (now - last) / 1000;
                     
                     if (diff < 180) { // 3 minutes
-                        return { isOnline: true, text: 'Äang hoáº¡t Ä‘á»™ng', html: `` };
+                        return { isOnline: true, text: 'Đang hoạt động', html: `` };
                     }
                     
                     let text = '';
-                    if (diff < 3600) text = `${Math.floor(diff / 60)} phÃºt trÆ°á»›c`;
-                    else if (diff < 86400) text = `${Math.floor(diff / 3600)} giá» trÆ°á»›c`;
-                    else if (diff < 172800) text = 'HÃ´m qua';
+                    if (diff < 3600) text = `${Math.floor(diff / 60)} phút trước`;
+                    else if (diff < 86400) text = `${Math.floor(diff / 3600)} giờ trước`;
+                    else if (diff < 172800) text = 'Hôm qua';
                     else text = last.toLocaleDateString('vi-VN', { day: 'numeric', month: 'numeric' });
                     
-                    return { isOnline: false, text: `Hoáº¡t Ä‘á»™ng ${text}`, html: '' };
+                    return { isOnline: false, text: `Hoạt động ${text}`, html: '' };
                 }
 
                 function getDateLabel(timestamp) {
@@ -3303,8 +3289,8 @@
                     const yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
                     const msgDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-                    if (msgDate.getTime() === today.getTime()) return "HÃ´m nay";
-                    if (msgDate.getTime() === yesterday.getTime()) return "HÃ´m qua";
+                    if (msgDate.getTime() === today.getTime()) return "Hôm nay";
+                    if (msgDate.getTime() === yesterday.getTime()) return "Hôm qua";
 
                     return date.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: (date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined) });
                 }
@@ -3317,8 +3303,8 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 topic: 'public-chat',
-                                title: `Confe: Tin má»›i tá»« ${currentUser.displayName || "CÆ° dÃ¢n"}`,
-                                body: messageText || "ÄÃ£ gá»­i má»™t áº£nh/sticker",
+                                title: `Confe: Tin mới từ ${currentUser.displayName || "Cư dân"}`,
+                                body: messageText || "Đã gửi một ảnh/sticker",
                                 tag: msgId ? String(msgId) : 'public-chat',
                                 senderUid: currentUser.uid
                             })
@@ -3332,8 +3318,8 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 token: p2pOpponentData.fcmToken,
-                                title: `Tin nháº¯n má»›i tá»« ${currentUser.displayName || "Báº¡n bÃ¨"}`,
-                                body: messageText || "ÄÃ£ gá»­i cho báº¡n má»™t áº£nh/sticker",
+                                title: `Tin nhắn mới từ ${currentUser.displayName || "Bạn bè"}`,
+                                body: messageText || "Đã gửi cho bạn một ảnh/sticker",
                                 tag: msgId ? String(msgId) : 'p2p',
                                 senderUid: currentUser.uid
                             })
@@ -3350,8 +3336,8 @@
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({
                                         token: targetSnap.data().fcmToken,
-                                        title: `${currentUser.displayName || "Báº¡n bÃ¨"} Ä‘Ã£ tráº£ lá»i báº¡n`,
-                                        body: messageText || "ÄÃ£ tráº£ lá»i tin nháº¯n cá»§a báº¡n",
+                                        title: `${currentUser.displayName || "Bạn bè"} đã trả lời bạn`,
+                                        body: messageText || "Đã trả lời tin nhắn của bạn",
                                         tag: msgId ? String(msgId) : 'reply',
                                         senderUid: currentUser.uid
                                     })
@@ -3371,8 +3357,8 @@
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     token: ownerSnap.data().fcmToken,
-                                    title: `â¤ï¸ ${currentUser.displayName || "Ai Ä‘Ã³"} Ä‘Ã£ tháº£ tim tin nháº¯n cá»§a báº¡n`,
-                                    body: messagePreview || "Xem ngay trong tin nháº¯n cá»§a báº¡n",
+                                    title: `❤️ ${currentUser.displayName || "Ai đó"} đã thả tim tin nhắn của bạn`,
+                                    body: messagePreview || "Xem ngay trong tin nhắn của bạn",
                                     tag: `like-${msgId}`,
                                     senderUid: currentUser.uid
                                 })
@@ -3417,7 +3403,7 @@
 
                             const closeBtn = document.createElement('button');
                             closeBtn.className = 'preview-item-close';
-                            closeBtn.innerHTML = 'Ã—';
+                            closeBtn.innerHTML = '×';
                             closeBtn.onclick = (e) => {
                                 e.stopPropagation();
                                 removeImage(index);
@@ -3478,7 +3464,7 @@
                             const val = area.value;
                             const before = val.substring(0, start);
                             const after = val.substring(end);
-                            area.value = before + "||" + (text || "vÄƒn báº£n áº©n") + "||" + after;
+                            area.value = before + "||" + (text || "văn bản ẩn") + "||" + after;
                             area.focus();
                             const newPos = start + 2 + (text ? text.length : 10) + 2;
                             area.setSelectionRange(newPos, newPos);
@@ -3502,22 +3488,22 @@
                     const container = document.getElementById('pollOptionsContainer');
                     const inp = document.createElement('input'); inp.className = 'inp poll-opt-inp';
                     inp.style.cssText = "border:1.5px solid #eee; padding:10px 14px; width:100%; border-radius:14px; font-weight:500; margin-bottom:2px;";
-                    inp.placeholder = `Lá»±a chá»n ${container.querySelectorAll('.poll-opt-inp').length + 1}`;
+                    inp.placeholder = `Lựa chọn ${container.querySelectorAll('.poll-opt-inp').length + 1}`;
                     container.appendChild(inp);
                 }
 
                 window.createPoll = async () => {
                     const q = document.getElementById('pollQ').value; const opts = [];
                     document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => { if (i.value) opts.push({ id: idx, text: i.value, votes: [] }) });
-                    if (!q || opts.length < 2) return window.showToast("Nháº­p cÃ¢u há»i vÃ  Ã­t nháº¥t 2 lá»±a chá»n!");
+                    if (!q || opts.length < 2) return window.showToast("Nhập câu hỏi và ít nhất 2 lựa chọn!");
                     closePollModal();
                     await addDoc(collection(db, CHAT_COL), {
                         type: 'poll', question: q, options: opts, uid: currentUser.uid,
                         isTickVerified: currentUser.isTickVerified || false,
-                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'áº¨n danh'), avatar: currentUser.photoURL, createdAt: serverTimestamp()
+                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL, createdAt: serverTimestamp()
                     }).then((docRef) => {
-                        syncChatRoom(`[BÃ¬nh chá»n] ${q}`);
-                        triggerPushNotification(`Biá»ƒu quyáº¿t: ${q}`, false, null, docRef.id);
+                        syncChatRoom(`[Bình chọn] ${q}`);
+                        triggerPushNotification(`Biểu quyết: ${q}`, false, null, docRef.id);
                     });
                 }
 
@@ -3526,18 +3512,18 @@
                     if (event) event.stopPropagation();
                     if (isVoting) return;
                     isVoting = true;
-                    window.showToast("Äang xá»­ lÃ½ bÃ¬nh chá»n...", "â³");
+                    window.showToast("Đang xử lý bình chọn...", "⏳");
 
                     try {
                         const msgRef = doc(db, CHAT_COL, msgId);
                         const msgSnap = await getDoc(msgRef);
-                        if (!msgSnap.exists()) throw new Error("KhÃ´ng tÃ¬m tháº¥y tin nháº¯n!");
+                        if (!msgSnap.exists()) throw new Error("Không tìm thấy tin nhắn!");
 
                         let opts = msgSnap.data().options;
                         // Strict Check: Has already voted in this poll?
                         const alreadyVoted = opts.some(o => o.votes.includes(currentUser.uid));
                         if (alreadyVoted) {
-                            window.showToast("Báº¡n Ä‘Ã£ bÃ¬nh chá»n rá»“i, khÃ´ng thá»ƒ sá»­a nhÃ©! ðŸš«", "âš ï¸");
+                            window.showToast("Bạn đã bình chọn rồi, không thể sửa nhé! 🚫", "⚠️");
                             return;
                         }
 
@@ -3545,10 +3531,10 @@
                         opts[optId].votes.push(currentUser.uid);
 
                         await updateDoc(msgRef, { options: opts });
-                        window.showToast("ÄÃ£ ghi nháº­n bÃ¬nh chá»n!", "âœ…");
+                        window.showToast("Đã ghi nhận bình chọn!", "✅");
                     } catch (err) {
                         console.error("Vote failed:", err);
-                        window.showToast("Lá»—i khi bÃ¬nh chá»n: " + err.message, "âŒ");
+                        window.showToast("Lỗi khi bình chọn: " + err.message, "❌");
                     } finally {
                         isVoting = false;
                     }
@@ -3556,7 +3542,7 @@
 
                 document.getElementById('btnSend').onclick = () => {
                     if (currentUser && currentUser.isChatMuted) {
-                        window.showToast("Báº¡n Ä‘ang bá»‹ cáº¥m chat! ðŸ”‡", "âŒ");
+                        window.showToast("Bạn đang bị cấm chat! 🔇", "❌");
                         return;
                     }
                     const input = document.getElementById('msgInput');
@@ -3599,7 +3585,7 @@
                             const newDocRef = doc(collection(db, CHAT_COL));
                             batch.set(newDocRef, {
                                 text: txt, image: url, type: 'image',
-                                uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'áº¨n danh'),
+                                uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'),
                                 avatar: currentUser.photoURL, isTickVerified: currentUser.isTickVerified || false,
                                 nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
                                 showTickPrefer: currentUser.showTickPrefer !== false,
@@ -3609,8 +3595,8 @@
                             });
                         });
                         return batch.commit().then(() => {
-                            syncChatRoom(txt || "ÄÃ£ gá»­i nhiá»u áº£nh");
-                            triggerPushNotification(txt || "ÄÃ£ gá»­i nhiá»u áº£nh", false, null, "batch-" + Date.now());
+                            syncChatRoom(txt || "Đã gửi nhiều ảnh");
+                            triggerPushNotification(txt || "Đã gửi nhiều ảnh", false, null, "batch-" + Date.now());
                         });
                     };
 
@@ -3618,7 +3604,7 @@
                     const sendSingleMsg = (imgUrl = "") => {
                         const payload = {
                             text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
-                            uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'áº¨n danh'), avatar: currentUser.photoURL,
+                            uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                             isTickVerified: currentUser.isTickVerified || false,
                             nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
                             showTickPrefer: currentUser.showTickPrefer !== false,
@@ -3649,7 +3635,7 @@
                                 else if (validUrls.length === 1) await sendSingleMsg(validUrls[0]);
                             } catch (err) {
                                 console.error("Upload/Send failed", err);
-                                window.showToast("Lá»—i khi gá»­i báº£n nhÃ¡p!", "âŒ");
+                                window.showToast("Lỗi khi gửi bản nháp!", "❌");
                             } finally {
                                 filesToUpload.forEach((_, idx) => {
                                     const el = document.getElementById(`${tempId}-${idx}`);
@@ -3669,7 +3655,7 @@
 
                         sendSingleMsg("").catch(function (err) {
                             console.error("Send failed:", err);
-                            window.showToast("Lá»—i gá»­i tin: " + err.message);
+                            window.showToast("Lỗi gửi tin: " + err.message);
                             if (tempEl) tempEl.remove();
                         });
                     }
@@ -3689,11 +3675,11 @@
 
                 window.submitReport = async () => {
                     const r = document.getElementById('reportReason').value;
-                    if (!r) return window.showToast("Vui lÃ²ng nháº­p lÃ½ do bÃ¡o cÃ¡o!");
+                    if (!r) return window.showToast("Vui lòng nhập lý do báo cáo!");
                     await addDoc(collection(db, "reports"), {
                         targetId: selectedMsgId, type: 'message', reason: r, reporter: currentUser.uid, createdAt: serverTimestamp()
                     });
-                    window.showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o thÃ nh cÃ´ng!");
+                    window.showToast("Đã gửi báo cáo thành công!");
                     document.getElementById('msgReportModal').classList.remove('active');
                     document.getElementById('reportReason').value = '';
                 }
@@ -3728,12 +3714,12 @@
                         await updateDoc(msgRef, { likes: arrayUnion(currentUser.uid) });
                         // Trigger notification for Like
                         const msgData = snap.data();
-                        triggerLikeNotification(msgData.uid, msgData.text || "Má»™t hÃ¬nh áº£nh", selectedMsgId);
+                        triggerLikeNotification(msgData.uid, msgData.text || "Một hình ảnh", selectedMsgId);
                     }
                     closeMsgMenu();
                 }
 
-                window.showConfirm = (message, title = "XÃ¡c nháº­n") => {
+                window.showConfirm = (message, title = "Xác nhận") => {
                     return new Promise((resolve) => {
                         const modal = document.getElementById('confirmModal');
                         document.getElementById('confirmTitle').textContent = title;
@@ -3760,7 +3746,7 @@
                 }
 
                 window.handleDelete = async () => {
-                    const confirmed = await showConfirm("Thu há»“i tin nháº¯n nÃ y?", "XÃ¡c nháº­n thu há»“i");
+                    const confirmed = await showConfirm("Thu hồi tin nhắn này?", "Xác nhận thu hồi");
                     if (confirmed) {
                         await deleteDoc(doc(db, CHAT_COL, selectedMsgId));
                         closeMsgMenu();
@@ -3821,7 +3807,7 @@
                     const msgRef = doc(db, CHAT_COL, selectedMsgId); const snap = await getDoc(msgRef);
                     if (snap.exists() && snap.data().text) {
                         navigator.clipboard.writeText(snap.data().text);
-                        window.showToast("ÄÃ£ sao chÃ©p tin nháº¯n!");
+                        window.showToast("Đã sao chép tin nhắn!");
                     }
                     closeMsgMenu();
                 }
@@ -3869,7 +3855,7 @@
                     // ... rest of rendering logic ...
                     if (msg.replyTo) {
                         contentHtml += `<div style="background:rgba(0,0,0,0.1); padding:8px 12px; border-radius:12px; border-left:4px solid ${isMine ? 'rgba(255,255,255,0.8)' : '#0084ff'}; margin-bottom:6px; font-size:13px; opacity:0.9; cursor:pointer;" onclick="const el = document.getElementById('msg-${msg.replyTo.id}'); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('msg-highlight'); setTimeout(()=>el.classList.remove('msg-highlight'), 2000); }">
-                    <div style="font-weight:700; margin-bottom:4px; font-size: 11px;">Tráº£ lá»i ${msg.replyTo.name}</div>
+                    <div style="font-weight:700; margin-bottom:4px; font-size: 11px;">Trả lời ${msg.replyTo.name}</div>
                     <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 200px;">${msg.replyTo.text}</div>
                 </div>`;
                     }
@@ -3885,7 +3871,7 @@
                 </div>`;
                     } else if (msg.image) {
                         contentHtml += `<div style="margin-bottom:6px; position:relative; display:inline-block;">
-                    <img src="${msg.image}" class="msg-img" onclick="window.openMsgMenu('${docId}', '${msg.uid}', '${msg.type}', '${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lá»—i+áº£nh'">
+                    <img src="${msg.image}" class="msg-img" onclick="window.openMsgMenu('${docId}', '${msg.uid}', '${msg.type}', '${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'">
                     ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
                 </div>`;
                     }
@@ -3910,11 +3896,11 @@
                         contentHtml += `<div class="poll-box" onclick="openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')" oncontextmenu="event.preventDefault(); openMsgMenu('${docId}', '${msg.uid}', '${msg.type}')">
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
                         <span style="font-size:11px; font-weight:800; color:#0084ff; background:rgba(0,132,255,0.1); padding:3px 10px; border-radius:100px;">Poll</span>
-                        <span class="material-symbols-rounded" style="font-size:16px; color:#999; cursor:pointer;" onclick="event.stopPropagation(); window.showToast('Má»—i ngÆ°á»i chá»‰ Ä‘Æ°á»£c bÃ¬nh chá»n 1 láº§n duy nháº¥t.', 'â„¹ï¸')">info</span>
+                        <span class="material-symbols-rounded" style="font-size:16px; color:#999; cursor:pointer;" onclick="event.stopPropagation(); window.showToast('Mỗi người chỉ được bình chọn 1 lần duy nhất.', 'ℹ️')">info</span>
                     </div>
                     <div class="poll-q">${msg.question || ''}</div>
                     ${optsHtml}
-                    <div style="font-size:10px; color:#999; margin-top:8px; text-align:center;"> ${totalVotes} lÆ°á»£t bÃ¬nh chá»n</div>
+                    <div style="font-size:10px; color:#999; margin-top:8px; text-align:center;"> ${totalVotes} lượt bình chọn</div>
                 </div>`;
                     } else if (msg.text) {
                         const linkedText = linkify(msg.text);
@@ -3955,7 +3941,7 @@
                     } else {
                         nameExtraHtml = badgeHtml || tickHtml;
                     }
-                    const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</div>`;
+                    const statusHtml = isMine ? `<div class="msg-status"><span>${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</span><svg viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" /></svg></div>` : `<div class="msg-status" style="text-align:left; margin-left:8px;">${timeStr}${msg.isEdited ? ' (đã chỉnh sửa)' : ''}</div>`;
                     const nameColorClass = msg.nameColor ? `name-color-${msg.nameColor}` : '';
                     const avatarFrameClass = msg.avatarFrame === 'vip' ? 'avatar-frame-vip' : '';
 
@@ -3994,7 +3980,7 @@
 
                         if (snapshot.empty) {
                             if (!box.querySelector('.chat-empty') && box.querySelectorAll('[id^="temp-"]').length === 0) {
-                                box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon"><span class="material-symbols-rounded">forum</span></div><div class="chat-empty-title">ChÆ°a cÃ³ tin nháº¯n nÃ o</div></div>`;
+                                box.innerHTML = `<div class="chat-empty"><div class="chat-empty-icon"><span class="material-symbols-rounded">forum</span></div><div class="chat-empty-title">Chưa có tin nhắn nào</div></div>`;
                             }
                             return;
                         } else {
@@ -4246,7 +4232,7 @@
                 };
 
                 window.sendSticker = async (url) => {
-                    if (!currentUser) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ gá»­i sticker!");
+                    if (!currentUser) return window.showToast("Đăng nhập để gửi sticker!");
                     document.getElementById('stickerPanel').style.display = 'none';
 
                     if (isEditing && editingMsgId) {
@@ -4264,7 +4250,7 @@
                         image: url,
                         text: '',
                         uid: currentUser.uid,
-                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Báº¡n'),
+                        name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Bạn'),
                         avatar: currentUser.photoURL || ANON_AVATAR,
                         isTickVerified: currentUser.isTickVerified || false,
                         nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
@@ -4275,7 +4261,7 @@
                         likes: []
                     }).then((docRef) => {
                         syncChatRoom("[Sticker]");
-                        triggerPushNotification("ÄÃ£ gá»­i má»™t sticker", false, null, docRef.id);
+                        triggerPushNotification("Đã gửi một sticker", false, null, docRef.id);
                     });
                 };
 
@@ -4286,7 +4272,7 @@
                         // Inline toast logic since showToast might not be global here
                         const t = document.createElement('div');
                         t.style.cssText = "position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:10px 20px; border-radius:30px; z-index:9999; font-size:13px;";
-                        t.textContent = ` ÄÃ£ chá»n: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`;
+                        t.textContent = ` Đã chọn: ${f.name.length > 20 ? f.name.slice(0, 15) + "..." : f.name}`;
                         document.body.appendChild(t);
                         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
                     }
@@ -4299,25 +4285,25 @@
                         return;
                     }
                     if (CURRENT_ROOM_TYPE === 'public') {
-                        menu.innerHTML = `<button class="menu-btn" onclick="openReportMsg()"><span class="material-symbols-rounded">report</span> BÃ¡o cÃ¡o</button>`;
+                        menu.innerHTML = `<button class="menu-btn" onclick="openReportMsg()"><span class="material-symbols-rounded">report</span> Báo cáo</button>`;
                     } else if (CURRENT_ROOM_TYPE === 'p2p') {
                         menu.innerHTML = `
-                    <button class="menu-btn" onclick="setNickname()"><span class="material-symbols-rounded">edit</span> Äá»•i tÃªn gá»£i nhá»›</button>
-                    ${isFriend ? `<button class="menu-btn" style="color:#ef4444;" onclick="unfriendUser()"><span class="material-symbols-rounded" style="color:#ef4444;">person_remove</span> XÃ³a káº¿t báº¡n</button>` : ''}
-                    <button class="menu-btn" style="color:#ef4444;" onclick="blockChatUser()"><span class="material-symbols-rounded" style="color:#ef4444;">block</span> Cháº·n ngÆ°á»i dÃ¹ng</button>
+                    <button class="menu-btn" onclick="setNickname()"><span class="material-symbols-rounded">edit</span> Đổi tên gợi nhớ</button>
+                    ${isFriend ? `<button class="menu-btn" style="color:#ef4444;" onclick="unfriendUser()"><span class="material-symbols-rounded" style="color:#ef4444;">person_remove</span> Xóa kết bạn</button>` : ''}
+                    <button class="menu-btn" style="color:#ef4444;" onclick="blockChatUser()"><span class="material-symbols-rounded" style="color:#ef4444;">block</span> Chặn người dùng</button>
                 `;
                     } else if (CURRENT_ROOM_TYPE === 'group') {
-                        menu.innerHTML = `<div style="padding:10px 16px; font-size:13px; color:#64748b; text-align:center;">Äang táº£i...</div>`;
+                        menu.innerHTML = `<div style="padding:10px 16px; font-size:13px; color:#64748b; text-align:center;">Đang tải...</div>`;
                         menu.style.display = 'block';
                         const snap = await getDoc(doc(db, "groups", CURRENT_ROOM_ID));
                         if (snap.exists()) {
                             const group = snap.data();
                             const isOwner = group.owner === currentUser.uid;
                             menu.innerHTML = `
-                        <button class="menu-btn" onclick="viewGroupMembers()"><span class="material-symbols-rounded">groups</span> ThÃ nh viÃªn nhÃ³m</button>
-                        ${isOwner ? `<button class="menu-btn" onclick="openEditGroup()"><span class="material-symbols-rounded">edit</span> Chá»‰nh sá»­a nhÃ³m</button>` : ''}
-                        <button class="menu-btn" style="color:#ef4444;" onclick="leaveGroup()"><span class="material-symbols-rounded" style="color:#ef4444;">logout</span> Rá»i nhÃ³m</button>
-                        ${isOwner ? `<button class="menu-btn" style="color:#ef4444;" onclick="disbandGroup()"><span class="material-symbols-rounded" style="color:#ef4444;">delete_forever</span> Giáº£i tÃ¡n nhÃ³m</button>` : ''}
+                        <button class="menu-btn" onclick="viewGroupMembers()"><span class="material-symbols-rounded">groups</span> Thành viên nhóm</button>
+                        ${isOwner ? `<button class="menu-btn" onclick="openEditGroup()"><span class="material-symbols-rounded">edit</span> Chỉnh sửa nhóm</button>` : ''}
+                        <button class="menu-btn" style="color:#ef4444;" onclick="leaveGroup()"><span class="material-symbols-rounded" style="color:#ef4444;">logout</span> Rời nhóm</button>
+                        ${isOwner ? `<button class="menu-btn" style="color:#ef4444;" onclick="disbandGroup()"><span class="material-symbols-rounded" style="color:#ef4444;">delete_forever</span> Giải tán nhóm</button>` : ''}
                     `;
                         }
                         return;
@@ -4353,15 +4339,15 @@
                         if (newName && newName !== "" && newName !== oldName) {
                             try {
                                 const btn = document.getElementById('btnConfirmNickname');
-                                if (btn) btn.innerHTML = 'Äang lÆ°u...';
+                                if (btn) btn.innerHTML = 'Đang lưu...';
                                 await updateDoc(doc(db, `users/${currentUser.uid}/chatRooms`, CURRENT_ROOM_ID), { name: newName });
                                 document.getElementById('headerTitle').innerText = newName;
-                                window.showToast("ÄÃ£ Ä‘á»•i tÃªn gá»£i nhá»›.");
-                            } catch (e) { console.error(e); window.showToast("Lá»—i khi Ä‘á»•i tÃªn."); }
+                                window.showToast("Đã đổi tên gợi nhớ.");
+                            } catch (e) { console.error(e); window.showToast("Lỗi khi đổi tên."); }
                         }
                         modal.classList.remove('active');
                         const btn = document.getElementById('btnConfirmNickname');
-                        if (btn) btn.innerHTML = 'LÆ°u láº¡i';
+                        if (btn) btn.innerHTML = 'Lưu lại';
                     });
                 };
 
@@ -4373,20 +4359,20 @@
 
                 window.unfriendUser = async () => {
                     document.getElementById('chatOptionsMenu').style.display = 'none';
-                    const confirm = await showConfirm("Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a báº¡n bÃ¨ vá»›i ngÆ°á»i nÃ y? Cuá»™c trÃ² chuyá»‡n cÅ© sáº½ Ä‘Æ°á»£c giá»¯ láº¡i.", "XÃ³a káº¿t báº¡n");
+                    const confirm = await showConfirm("Bạn có chắc chắn muốn xóa bạn bè với người này? Cuộc trò chuyện cũ sẽ được giữ lại.", "Xóa kết bạn");
                     if (!confirm) return;
-                    window.showToast("Äang xÃ³a...", "â³");
+                    window.showToast("Đang xóa...", "⏳");
                     try {
                         await deleteDoc(doc(db, "friendships", CURRENT_ROOM_ID));
-                        window.showToast("ÄÃ£ xÃ³a káº¿t báº¡n.");
-                    } catch (e) { console.error(e); window.showToast("Lá»—i khi xÃ³a káº¿t báº¡n."); }
+                        window.showToast("Đã xóa kết bạn.");
+                    } catch (e) { console.error(e); window.showToast("Lỗi khi xóa kết bạn."); }
                 };
 
                 window.viewGroupMembers = async () => {
                     document.getElementById('chatOptionsMenu').style.display = 'none';
                     const modal = document.getElementById('modalGroupMembers');
                     const container = document.getElementById('groupMembersList');
-                    container.innerHTML = '<p style="text-align:center; padding:10px;">Äang táº£i...</p>';
+                    container.innerHTML = '<p style="text-align:center; padding:10px;">Đang tải...</p>';
                     modal.classList.add('active');
 
                     try {
@@ -4404,22 +4390,22 @@
                                 <img src="${u.photoURL || ANON_AVATAR}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
                                 <div style="flex:1;">
                                     <div style="font-weight:700; font-size:14px; color:#0f172a;">${u.displayName}</div>
-                                    ${isLeader ? '<div style="font-size:11px; color:#fbbf24; font-weight:700;"><span class="material-symbols-rounded" style="font-size:12px; vertical-align:middle;">stars</span> TrÆ°á»Ÿng nhÃ³m</div>' : ''}
+                                    ${isLeader ? '<div style="font-size:11px; color:#fbbf24; font-weight:700;"><span class="material-symbols-rounded" style="font-size:12px; vertical-align:middle;">stars</span> Trưởng nhóm</div>' : ''}
                                 </div>
                             </div>
                         `);
                             }
                         }
-                    } catch (e) { console.error(e); container.innerHTML = '<p style="text-align:center; color:red;">Lá»—i táº£i dá»¯ liá»‡u.</p>'; }
+                    } catch (e) { console.error(e); container.innerHTML = '<p style="text-align:center; color:red;">Lỗi tải dữ liệu.</p>'; }
                 };
 
                 window.leaveGroup = async () => {
                     document.getElementById('chatOptionsMenu').style.display = 'none';
-                    const confirm = await showConfirm("Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n rá»i nhÃ³m nÃ y?", "Rá»i nhÃ³m");
+                    const confirm = await showConfirm("Bạn có chắc chắn muốn rời nhóm này?", "Rời nhóm");
                     if (!confirm) return;
                     try {
                         await addDoc(collection(db, CHAT_COL), {
-                            text: `${currentUser.displayName} Ä‘Ã£ rá»i nhÃ³m.`,
+                            text: `${currentUser.displayName} đã rời nhóm.`,
                             type: 'system',
                             createdAt: serverTimestamp()
                         });
@@ -4427,14 +4413,14 @@
                             members: arrayRemove(currentUser.uid)
                         });
                         await deleteDoc(doc(db, `users/${currentUser.uid}/chatRooms`, CURRENT_ROOM_ID));
-                        window.showToast("Báº¡n Ä‘Ã£ rá»i nhÃ³m.");
+                        window.showToast("Bạn đã rời nhóm.");
                         closeChatRoom();
-                    } catch (e) { console.error(e); window.showToast("Lá»—i khi rá»i nhÃ³m."); }
+                    } catch (e) { console.error(e); window.showToast("Lỗi khi rời nhóm."); }
                 };
 
                 window.disbandGroup = async () => {
                     document.getElementById('chatOptionsMenu').style.display = 'none';
-                    const confirm = await showConfirm("Giáº£i tÃ¡n nhÃ³m nÃ y? ToÃ n bá»™ thÃ nh viÃªn sáº½ bá»‹ máº¥t liÃªn láº¡c trong nhÃ³m.", "Giáº£i tÃ¡n nhÃ³m");
+                    const confirm = await showConfirm("Giải tán nhóm này? Toàn bộ thành viên sẽ bị mất liên lạc trong nhóm.", "Giải tán nhóm");
                     if (!confirm) return;
                     try {
                         const snap = await getDoc(doc(db, "groups", CURRENT_ROOM_ID));
@@ -4446,10 +4432,10 @@
                             });
                             await batch.commit();
                             await deleteDoc(doc(db, "groups", CURRENT_ROOM_ID));
-                            window.showToast("NhÃ³m Ä‘Ã£ Ä‘Æ°á»£c giáº£i tÃ¡n.");
+                            window.showToast("Nhóm đã được giải tán.");
                             closeChatRoom();
                         }
-                    } catch (e) { console.error(e); window.showToast("Lá»—i khi giáº£i tÃ¡n nhÃ³m."); }
+                    } catch (e) { console.error(e); window.showToast("Lỗi khi giải tán nhóm."); }
                 };
 
 
@@ -4481,30 +4467,30 @@
 
                         newConfirmBtn.addEventListener('click', async () => {
                             const newName = document.getElementById('editGroupNameInp').value.trim();
-                            if (!newName) return window.showToast("TÃªn nhÃ³m khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!");
+                            if (!newName) return window.showToast("Tên nhóm không được để trống!");
 
                             let finalAvatar = group.avatar;
                             const fileInp = document.getElementById('editGroupAvatarFile');
                             if (fileInp.files && fileInp.files[0]) {
-                                newConfirmBtn.innerHTML = "Äang táº£i áº£nh...";
+                                newConfirmBtn.innerHTML = "Đang tải ảnh...";
                                 const file = fileInp.files[0];
                                 const sizeInMB = file.size / (1024 * 1024);
                                 if (sizeInMB > 10) {
-                                    window.showToast("áº¢nh tá»‘i Ä‘a 10MB");
-                                    newConfirmBtn.innerHTML = "LÆ°u thay Ä‘á»•i";
+                                    window.showToast("Ảnh tối đa 10MB");
+                                    newConfirmBtn.innerHTML = "Lưu thay đổi";
                                     return;
                                 }
                                 const url = await uploadImage(file);
                                 if (url) {
                                     finalAvatar = url;
                                 } else {
-                                    window.showToast("Lá»—i táº£i áº£nh!");
-                                    newConfirmBtn.innerHTML = "LÆ°u thay Ä‘á»•i";
+                                    window.showToast("Lỗi tải ảnh!");
+                                    newConfirmBtn.innerHTML = "Lưu thay đổi";
                                     return;
                                 }
                             }
 
-                            newConfirmBtn.innerHTML = "Äang lÆ°u...";
+                            newConfirmBtn.innerHTML = "Đang lưu...";
                             try {
                                 await updateDoc(doc(db, "groups", CURRENT_ROOM_ID), {
                                     name: newName,
@@ -4520,12 +4506,12 @@
                                 await batch.commit();
 
                                 document.getElementById('headerTitle').innerText = newName;
-                                window.showToast("Cáº­p nháº­t nhÃ³m thÃ nh cÃ´ng!");
+                                window.showToast("Cập nhật nhóm thành công!");
                                 modal.classList.remove('active');
-                            } catch (e) { console.error(e); window.showToast("Lá»—i khi cáº­p nháº­t."); }
-                            newConfirmBtn.innerHTML = "LÆ°u thay Ä‘á»•i";
+                            } catch (e) { console.error(e); window.showToast("Lỗi khi cập nhật."); }
+                            newConfirmBtn.innerHTML = "Lưu thay đổi";
                         });
-                    } catch (e) { console.error(e); window.showToast("Lá»—i táº£i dá»¯ liá»‡u nhÃ³m."); }
+                    } catch (e) { console.error(e); window.showToast("Lỗi tải dữ liệu nhóm."); }
                 };
             </script>
  
@@ -4534,14 +4520,14 @@
             <div class="modal" id="modalGroupMembers" style="z-index:9999;">
                 <div class="modal-box"
                     style="width:90%; max-width:350px; padding:24px; border-radius:20px; background:white;">
-                    <h3 style="font-size:18px; font-weight:800; margin-bottom:15px; color:#0f172a;">ThÃ nh viÃªn nhÃ³m</h3>
+                    <h3 style="font-size:18px; font-weight:800; margin-bottom:15px; color:#0f172a;">Thành viên nhóm</h3>
                     <div id="groupMembersList"
                         style="max-height:300px; overflow-y:auto; margin-bottom:15px; display:flex; flex-direction:column; gap:10px;">
                         <!-- Populated dynamically -->
                     </div>
                     <button class="btn-main"
                         onclick="document.getElementById('modalGroupMembers').classList.remove('active')"
-                        style="width:100%; background:#f1f5f9; color:#333;">ÄÃ³ng</button>
+                        style="width:100%; background:#f1f5f9; color:#333;">Đóng</button>
                 </div>
             </div>
 
@@ -4550,8 +4536,8 @@
                 <div class="modal-box"
                     style="padding:24px; border-radius:20px; background:white; width:90%; max-width:320px;">
                     <h3 style="font-size:18px; font-weight:800; margin-bottom:15px; color:#0f172a; text-align:center;">
-                        Chá»‰nh
-                        sá»­a nhÃ³m</h3>
+                        Chỉnh
+                        sửa nhóm</h3>
                     <div style="margin-bottom:20px; text-align:center;">
                         <div style="position:relative; display:inline-block; cursor:pointer;"
                             onclick="document.getElementById('editGroupAvatarFile').click()">
@@ -4567,17 +4553,17 @@
                     </div>
                     <div style="margin-bottom:15px;">
                         <label
-                            style="font-size:12px; font-weight:700; color:var(--gray); display:block; margin-bottom:4px;">TÃªn
-                            nhÃ³m má»›i</label>
+                            style="font-size:12px; font-weight:700; color:var(--gray); display:block; margin-bottom:4px;">Tên
+                            nhóm mới</label>
                         <input type="text" id="editGroupNameInp" class="inp"
                             style="width:100%; border:1.5px solid #eee; padding:12px; border-radius:14px; font-family:inherit;"
-                            placeholder="Nháº­p tÃªn nhÃ³m...">
+                            placeholder="Nhập tên nhóm...">
                     </div>
                     <div style="display:flex; gap:10px;">
                         <button onclick="document.getElementById('modalEditGroup').classList.remove('active')"
-                            class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Há»§y</button>
-                        <button id="btnConfirmEditGroup" class="btn-main" style="background:var(--primary); flex:1;">LÆ°u
-                            thay Ä‘á»•i</button>
+                            class="btn-main" style="background:#f1f5f9; color:#333; flex:1;">Hủy</button>
+                        <button id="btnConfirmEditGroup" class="btn-main" style="background:var(--primary); flex:1;">Lưu
+                            thay đổi</button>
                     </div>
                 </div>
             </div>

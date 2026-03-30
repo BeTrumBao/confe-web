@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Há»‡ thá»‘ng Quáº£n trá»‹ - Confe</title>
+    <title>Hệ thống Quản trị - Confe</title>
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -880,20 +880,6 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -902,8 +888,8 @@
         <div class="lock-icon">
             <span class="material-symbols-rounded">shield_lock</span>
         </div>
-        <h2 style="font-weight: 800; margin-bottom: 8px;">Äang xÃ¡c thá»±c báº£o máº­t...</h2>
-        <p style="color: var(--text-gray);">Chá»‰ dÃ nh cho quáº£n trá»‹ viÃªn há»‡ thá»‘ng</p>
+        <h2 style="font-weight: 800; margin-bottom: 8px;">Đang xác thực bảo mật...</h2>
+        <p style="color: var(--text-gray);">Chỉ dành cho quản trị viên hệ thống</p>
     </div>
 
 
@@ -911,11 +897,11 @@
     <div id="conf-dialog" class="conf-dialog-overlay">
         <div class="conf-dialog-card">
             <div id="conf-dialog-icon-wrap" class="conf-dialog-icon"></div>
-            <h3 id="conf-dialog-title" class="conf-dialog-title">XÃ¡c nháº­n</h3>
-            <p id="conf-dialog-msg" class="conf-dialog-msg">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n thá»±c hiá»‡n hÃ nh Ä‘á»™ng nÃ y?</p>
+            <h3 id="conf-dialog-title" class="conf-dialog-title">Xác nhận</h3>
+            <p id="conf-dialog-msg" class="conf-dialog-msg">Bạn có chắc chắn muốn thực hiện hành động này?</p>
             <div class="conf-dialog-actions">
-                <button id="conf-dialog-cancel" class="btn btn-ghost" style="flex: 1;">Há»§y</button>
-                <button id="conf-dialog-confirm" class="btn btn-primary" style="flex: 1;">XÃ¡c nháº­n</button>
+                <button id="conf-dialog-cancel" class="btn btn-ghost" style="flex: 1;">Hủy</button>
+                <button id="conf-dialog-confirm" class="btn btn-primary" style="flex: 1;">Xác nhận</button>
             </div>
         </div>
     </div>
@@ -927,7 +913,7 @@
     <div id="topicCommentsModal" class="modal-overlay">
         <div class="modal-card" style="max-width: 800px; max-height: 85vh; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <h2 id="commentModalTitle">Quáº£n lÃ½ bÃ¬nh luáº­n</h2>
+                <h2 id="commentModalTitle">Quản lý bình luận</h2>
                 <button class="action-btn" onclick="closeCommentModal()"><span
                         class="material-symbols-rounded">close</span></button>
             </div>
@@ -936,10 +922,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>NgÆ°á»i dÃ¹ng</th>
-                            <th>Ná»™i dung bÃ¬nh luáº­n</th>
-                            <th>NgÃ y Ä‘Äƒng</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Người dùng</th>
+                            <th>Nội dung bình luận</th>
+                            <th>Ngày đăng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="comment-list"></tbody>
@@ -947,7 +933,7 @@
             </div>
 
             <div style="margin-top: 30px; text-align: right;">
-                <button class="btn btn-ghost" onclick="closeCommentModal()">ÄÃ³ng</button>
+                <button class="btn btn-ghost" onclick="closeCommentModal()">Đóng</button>
             </div>
         </div>
     </div>
@@ -955,13 +941,13 @@
     <!-- USER PROFILE MODAL -->
     <div id="userProfileModal" class="modal-overlay">
         <div class="modal-card" style="max-width: 600px;">
-            <h2 style="margin-bottom: 24px;">ThÃ´ng tin ngÆ°á»i dÃ¹ng</h2>
+            <h2 style="margin-bottom: 24px;">Thông tin người dùng</h2>
             <div id="profileBody" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <!-- Content injected via JS -->
             </div>
             <div style="margin-top: 30px; text-align: right;">
                 <button class="btn" style="background:#f1f5f9; color:var(--text);"
-                    onclick="closeProfileModal()">ÄÃ³ng</button>
+                    onclick="closeProfileModal()">Đóng</button>
             </div>
         </div>
     </div>
@@ -975,30 +961,30 @@
             <button class="nav-item active" onclick="switchSection('dashboard', this)"><span
                     class="material-symbols-rounded">dashboard</span> Dashboard</button>
             <button class="nav-item" onclick="switchSection('users', this)"><span
-                    class="material-symbols-rounded">group</span> Quáº£n lÃ½ User</button>
+                    class="material-symbols-rounded">group</span> Quản lý User</button>
             <button class="nav-item" onclick="switchSection('topics', this)"><span
-                    class="material-symbols-rounded">description</span> BÃ i viáº¿t</button>
+                    class="material-symbols-rounded">description</span> Bài viết</button>
             <button class="nav-item" onclick="switchSection('outlines', this)"><span
-                    class="material-symbols-rounded">verified_user</span> Duyá»‡t Äá» CÆ°Æ¡ng</button>
+                    class="material-symbols-rounded">verified_user</span> Duyệt Đề Cương</button>
             <button class="nav-item" onclick="switchSection('reports', this)"><span
-                    class="material-symbols-rounded">report</span> BÃ¡o cÃ¡o</button>
+                    class="material-symbols-rounded">report</span> Báo cáo</button>
             <button class="nav-item" onclick="switchSection('news-system', this)"><span
-                    class="material-symbols-rounded">campaign</span> ThÃ´ng bÃ¡o</button>
+                    class="material-symbols-rounded">campaign</span> Thông báo</button>
             <button class="nav-item" onclick="switchSection('system', this)"><span
-                    class="material-symbols-rounded">settings</span> Há»‡ thá»‘ng</button>
+                    class="material-symbols-rounded">settings</span> Hệ thống</button>
         </nav>
 
         <button class="btn-logout" id="btnLogout">
             <span class="material-symbols-rounded">logout</span>
-            ÄÄƒng xuáº¥t
+            Đăng xuất
         </button>
     </aside>
 
     <main class="main">
         <header class="header">
             <div class="page-title">
-                <h1 id="screen-title">Tá»•ng quan há»‡ thá»‘ng</h1>
-                <p id="screen-subtitle">ChÃ o má»«ng quay trá»Ÿ láº¡i, Admin</p>
+                <h1 id="screen-title">Tổng quan hệ thống</h1>
+                <p id="screen-subtitle">Chào mừng quay trở lại, Admin</p>
             </div>
         </header>
 
@@ -1007,10 +993,10 @@
             <div class="top-stats-row">
                 <div class="chart-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h3 style="font-weight:800; font-size:16px;">Hoáº¡t Ä‘á»™ng 7 ngÃ y gáº§n nháº¥t</h3>
-                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hÆ°á»›ng ngÆ°á»i dÃ¹ng &amp;
-                            bÃ i
-                            viáº¿t</div>
+                        <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng &amp;
+                            bài
+                            viết</div>
                     </div>
                     <div id="activity-chart" style="min-height:280px;"></div>
                 </div>
@@ -1019,7 +1005,7 @@
                         <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span
                                 class="material-symbols-rounded">person</span></div>
                         <div class="stat-info">
-                            <p>Tá»•ng User</p>
+                            <p>Tổng User</p>
                             <h3 id="stat-users">...</h3>
                         </div>
                     </div>
@@ -1027,7 +1013,7 @@
                         <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span
                                 class="material-symbols-rounded">forum</span></div>
                         <div class="stat-info">
-                            <p>BÃ i viáº¿t</p>
+                            <p>Bài viết</p>
                             <h3 id="stat-topics">...</h3>
                         </div>
                     </div>
@@ -1035,7 +1021,7 @@
                         <div class="stat-icon" style="background:rgba(225, 29, 72, 0.1); color:#e11d48;"><span
                                 class="material-symbols-rounded">warning</span></div>
                         <div class="stat-info">
-                            <p>BÃ¡o cÃ¡o</p>
+                            <p>Báo cáo</p>
                             <h3 id="stat-reports">...</h3>
                         </div>
                     </div>
@@ -1044,18 +1030,18 @@
 
             <div class="content-box">
                 <div class="box-title">
-                    <h2>NgÆ°á»i dÃ¹ng má»›i gáº§n Ä‘Ã¢y</h2>
+                    <h2>Người dùng mới gần đây</h2>
                     <button class="action-btn"
                         onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem
-                        táº¥t cáº£ â€º</button>
+                        tất cả ›</button>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>UID</th>
-                            <th>NgÆ°á»i dÃ¹ng</th>
-                            <th>Vai trÃ²</th>
-                            <th>NgÃ y táº¡o</th>
+                            <th>Người dùng</th>
+                            <th>Vai trò</th>
+                            <th>Ngày tạo</th>
                         </tr>
                     </thead>
                     <tbody id="dash-user-list"></tbody>
@@ -1067,11 +1053,11 @@
         <div id="section-users" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Danh sÃ¡ch thÃ nh viÃªn</h2>
+                    <h2>Danh sách thành viên</h2>
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="user-search" placeholder="TÃ¬m theo tÃªn hoáº·c email..."
+                            <input type="text" id="user-search" placeholder="Tìm theo tên hoặc email..."
                                 oninput="filterTable('users')">
                         </div>
                     </div>
@@ -1079,10 +1065,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>UID / TÃªn hiá»ƒn thá»‹</th>
-                            <th>Email / Tráº¡ng thÃ¡i</th>
-                            <th>Vai trÃ²</th>
-                            <th>HÃ nh Ä‘á»™ng quáº£n lÃ½</th>
+                            <th>UID / Tên hiển thị</th>
+                            <th>Email / Trạng thái</th>
+                            <th>Vai trò</th>
+                            <th>Hành động quản lý</th>
                         </tr>
                     </thead>
                     <tbody id="full-user-list"></tbody>
@@ -1094,11 +1080,11 @@
         <div id="section-topics" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Quáº£n lÃ½ ná»™i dung tháº£o luáº­n</h2>
+                    <h2>Quản lý nội dung thảo luận</h2>
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="topic-search" placeholder="TÃ¬m tiÃªu Ä‘á» hoáº·c tÃ¡c giáº£..."
+                            <input type="text" id="topic-search" placeholder="Tìm tiêu đề hoặc tác giả..."
                                 oninput="filterTable('topics')">
                         </div>
                     </div>
@@ -1106,10 +1092,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>TiÃªu Ä‘á» bÃ i viáº¿t</th>
-                            <th>TÃ¡c giáº£</th>
-                            <th>NgÃ y Ä‘Äƒng</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Tiêu đề bài viết</th>
+                            <th>Tác giả</th>
+                            <th>Ngày đăng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="full-topic-list"></tbody>
@@ -1121,14 +1107,14 @@
         <div id="section-reports" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>BÃ¡o cÃ¡o vi pháº¡m Ä‘ang chá»</h2>
+                    <h2>Báo cáo vi phạm đang chờ</h2>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>LÃ½ do bÃ¡o cÃ¡o</th>
-                            <th>ID má»¥c / NgÆ°á»i bÃ¡o cÃ¡o</th>
-                            <th>HÃ nh Ä‘á»™ng xá»­ lÃ½</th>
+                            <th>Lý do báo cáo</th>
+                            <th>ID mục / Người báo cáo</th>
+                            <th>Hành động xử lý</th>
                         </tr>
                     </thead>
                     <tbody id="full-report-list"></tbody>
@@ -1140,27 +1126,27 @@
         <div id="section-news-system" class="admin-section">
             <div class="gen-container">
                 <div class="gen-card">
-                    <h3><span class="material-symbols-rounded">campaign</span> Quáº£n lÃ½ ThÃ´ng bÃ¡o há»‡ thá»‘ng</h3>
-                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">ThÃ´ng bÃ¡o sáº½ hiá»ƒn thá»‹ trong tab "ThÃ´ng BÃ¡o" cá»§a Báº£ng Tin.</p>
+                    <h3><span class="material-symbols-rounded">campaign</span> Quản lý Thông báo hệ thống</h3>
+                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">Thông báo sẽ hiển thị trong tab "Thông Báo" của Bảng Tin.</p>
                     
                     <div id="ann-list-wrap">
                         <!-- Items injected here -->
                     </div>
 
                     <button class="btn btn-ghost" onclick="addAnnItem()" style="width:100%; margin-top:15px; border-style:dashed;">
-                        <span class="material-symbols-rounded">add_circle</span> ThÃªm thÃ´ng bÃ¡o má»›i
+                        <span class="material-symbols-rounded">add_circle</span> Thêm thông báo mới
                     </button>
                 </div>
 
                 <div class="gen-card">
-                    <h3><span class="material-symbols-rounded">code</span> Cáº¥u trÃºc JSON & Thao tÃ¡c</h3>
+                    <h3><span class="material-symbols-rounded">code</span> Cấu trúc JSON & Thao tác</h3>
                     <textarea id="ann-json" class="json-preview" readonly></textarea>
                     
                     <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
                         <button class="btn btn-primary" onclick="applyAnnouncements()" style="justify-content:center;">
-                            <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                            <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                         </button>
-                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">LÆ°u Ã½: Má»i thay Ä‘á»•i sáº½ cÃ³ hiá»‡u lá»±c ngay láº­p tá»©c trÃªn Báº£ng Tin News Board.</p>
+                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">Lưu ý: Mọi thay đổi sẽ có hiệu lực ngay lập tức trên Bảng Tin News Board.</p>
                     </div>
                 </div>
             </div>
@@ -1170,19 +1156,19 @@
         <div id="section-outlines" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Duyá»‡t Äá» CÆ°Æ¡ng Cá»™ng Äá»“ng</h2>
+                    <h2>Duyệt Đề Cương Cộng Đồng</h2>
                     <div class="box-tools">
                         <button class="action-btn" onclick="loadPendingOutlines()"><span
-                                class="material-symbols-rounded">refresh</span> LÃ m má»›i</button>
+                                class="material-symbols-rounded">refresh</span> Làm mới</button>
                     </div>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>TiÃªu Ä‘á» / TÃ¡c giáº£</th>
-                            <th>áº¢nh Ä‘á» cÆ°Æ¡ng</th>
-                            <th>Tráº¡ng thÃ¡i</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Tiêu đề / Tác giả</th>
+                            <th>Ảnh đề cương</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="pending-outline-list"></tbody>
@@ -1197,35 +1183,35 @@
                 <div class="gen-card">
                     <h3><span class="material-symbols-rounded">poll</span> Community Poll (JSON)</h3>
                     <div class="form-row">
-                        <label>CÃ¢u há»i (Question)</label>
-                        <input type="text" id="poll-q" class="inp" placeholder="Báº¡n tháº¥y tháº¿ nÃ o vá»...?"
+                        <label>Câu hỏi (Question)</label>
+                        <input type="text" id="poll-q" class="inp" placeholder="Bạn thấy thế nào về...?"
                             oninput="updatePollJson()">
                     </div>
                     <div class="form-row">
-                        <label>Loáº¡i (Type)</label>
+                        <label>Loại (Type)</label>
                         <select id="poll-type" class="inp" onchange="togglePollOpts(); updatePollJson()">
-                            <option value="binary">Tráº¯c nghiá»‡m (Binary)</option>
-                            <option value="survey">Kháº£o sÃ¡t (Survey)</option>
+                            <option value="binary">Trắc nghiệm (Binary)</option>
+                            <option value="survey">Khảo sát (Survey)</option>
                         </select>
                     </div>
                     <div id="poll-opts-wrap" class="form-row">
-                        <label>Lá»±a chá»n (Chá»‰ cho Binary)</label>
+                        <label>Lựa chọn (Chỉ cho Binary)</label>
                         <div id="poll-opts-list"></div>
                         <button class="action-btn" onclick="addPollOpt()"
-                            style="margin-top:8px; color:var(--primary);">+ ThÃªm lá»±a chá»n</button>
+                            style="margin-top:8px; color:var(--primary);">+ Thêm lựa chọn</button>
                     </div>
                     <div class="form-row">
-                        <label>Tráº¡ng thÃ¡i</label>
+                        <label>Trạng thái</label>
                         <select id="poll-active" class="inp" onchange="updatePollJson()">
-                            <option value="true">Hoáº¡t Ä‘á»™ng (Active)</option>
-                            <option value="false">Táº¡m dá»«ng (Hidden)</option>
+                            <option value="true">Hoạt động (Active)</option>
+                            <option value="false">Tạm dừng (Hidden)</option>
                         </select>
                     </div>
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
                         Config)</label>
                     <textarea id="poll-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyPoll()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                     </button>
                 </div>
 
@@ -1237,71 +1223,71 @@
                     </div>
                     <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
                         onclick="addNewsItem()">
-                        <span class="material-symbols-rounded">add</span> ThÃªm tin má»›i
+                        <span class="material-symbols-rounded">add</span> Thêm tin mới
                     </button>
 
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
                         Config)</label>
                     <textarea id="news-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyNews()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                     </button>
                 </div>
 
                 <!-- LOGIN REWARDS GENERATOR -->
                 <div class="gen-card" style="grid-column: 1 / -1;">
-                    <h3><span class="material-symbols-rounded">redeem</span> ThÆ°á»Ÿng Ä‘Äƒng nháº­p (JSON)</h3>
+                    <h3><span class="material-symbols-rounded">redeem</span> Thưởng đăng nhập (JSON)</h3>
                     <div class="form-row" style="margin-bottom:15px;">
-                        <label>Tá»•ng sá»‘ ngÃ y tiáº¿n trÃ¬nh hiá»ƒn thá»‹ (VD: 10, 30)</label>
-                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tá»•ng ngÃ y..."
+                        <label>Tổng số ngày tiến trình hiển thị (VD: 10, 30)</label>
+                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tổng ngày..."
                             oninput="updateLRJson()">
                     </div>
-                    <label>Danh sÃ¡ch má»‘c nháº­n thÆ°á»Ÿng</label>
+                    <label>Danh sách mốc nhận thưởng</label>
                     <div id="lr-list-wrap"
                         style="max-height: 400px; overflow-y: auto; padding-right: 8px; margin-bottom:10px;">
                         <!-- Reward items here -->
                     </div>
                     <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
                         onclick="addLRItem()">
-                        <span class="material-symbols-rounded">add</span> ThÃªm má»‘c thÆ°á»Ÿng
+                        <span class="material-symbols-rounded">add</span> Thêm mốc thưởng
                     </button>
 
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview</label>
                     <textarea id="lr-json" class="json-preview" readonly style="height: 100px;"></textarea>
                     <button class="btn btn-primary" onclick="applyLR()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u cáº¥u hÃ¬nh vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore
                     </button>
                 </div>
 
                 <!-- FEATURES & MAINTENANCE -->
                 <div class="gen-card" style="grid-column: 1 / -1;">
-                    <h3><span class="material-symbols-rounded">settings_suggest</span> TÃ­nh nÄƒng &amp; Báº£o trÃ¬</h3>
+                    <h3><span class="material-symbols-rounded">settings_suggest</span> Tính năng &amp; Bảo trì</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div>
                             <div class="form-row">
-                                <label>Tráº¡ng thÃ¡i má»¥c "Äá» cÆ°Æ¡ng"</label>
+                                <label>Trạng thái mục "Đề cương"</label>
                                 <select id="feat-outline-status" class="inp">
-                                    <option value="active">Hoáº¡t Ä‘á»™ng bÃ¬nh thÆ°á»ng</option>
-                                    <option value="maintenance">Äang báº£o trÃ¬</option>
+                                    <option value="active">Hoạt động bình thường</option>
+                                    <option value="maintenance">Đang bảo trì</option>
                                 </select>
                             </div>
                             <div class="form-row">
-                                <label>ThÃ´ng bÃ¡o báº£o trÃ¬ (Hiá»ƒn thá»‹ cho ngÆ°á»i dÃ¹ng)</label>
+                                <label>Thông báo bảo trì (Hiển thị cho người dùng)</label>
                                 <textarea id="feat-outline-msg" class="inp" style="height: 100px;"
-                                    placeholder="VÃ­ dá»¥: TÃ­nh nÄƒng Ä‘ang Ä‘Æ°á»£c nÃ¢ng cáº¥p, vui lÃ²ng quay láº¡i sau..."></textarea>
+                                    placeholder="Ví dụ: Tính năng đang được nâng cấp, vui lòng quay lại sau..."></textarea>
                             </div>
                         </div>
                         <div style="background: var(--bg); padding: 20px; border-radius: 16px;">
                             <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
                                 <span class="material-symbols-rounded"
                                     style="font-size: 18px; vertical-align: middle;">info</span>
-                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Äang báº£o trÃ¬</b>, toÃ n bá»™ trang Ã”n táº­p
-                                thÃ´ng minh sáº½ bá»‹ khÃ³a vÃ  hiá»ƒn thá»‹ thÃ´ng bÃ¡o báº¡n Ä‘Ã£ nháº­p. Admin váº«n cÃ³ thá»ƒ vÃ o Ä‘á»ƒ kiá»ƒm
-                                tra náº¿u cáº§n (tÃ¹y cáº¥u hÃ¬nh logic).
+                                <b>Hướng dẫn:</b> Khi chuyển sang trạng thái <b>Đang bảo trì</b>, toàn bộ trang Ôn tập
+                                thông minh sẽ bị khóa và hiển thị thông báo bạn đã nhập. Admin vẫn có thể vào để kiểm
+                                tra nếu cần (tùy cấu hình logic).
                             </p>
                             <button class="btn btn-primary" onclick="applyFeaturesConfig()"
                                 style="width:100%; margin-top:20px;">
-                                <span class="material-symbols-rounded">save</span> Cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬
+                                <span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì
                             </button>
                         </div>
                     </div>
@@ -1381,7 +1367,7 @@
             try {
                 const uSnap = await getDoc(doc(db, "users", user.uid));
                 if (!uSnap.exists() || uSnap.data().role !== 'admin') {
-                    alert("Báº¡n khÃ´ng cÃ³ quyá»n quáº£n trá»‹!");
+                    alert("Bạn không có quyền quản trị!");
                     window.location.href = 'index.html';
                 } else {
                     document.getElementById('secure-overlay').classList.add('hidden');
@@ -1398,8 +1384,8 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
 
-            const titles = { dashboard: 'Tá»•ng quan', users: 'ThÃ nh viÃªn', topics: 'BÃ i tháº£o luáº­n', reports: 'BÃ¡o cÃ¡o vi pháº¡m', 'news-system': 'ThÃ´ng bÃ¡o há»‡ thá»‘ng', system: 'Há»‡ thá»‘ng' };
-            const subs = { dashboard: 'Thá»‘ng kÃª hoáº¡t Ä‘á»™ng cá»§a trang web', users: 'Quáº£n lÃ½ ngÆ°á»i dÃ¹ng, cáº¥p tick xanh vÃ  ban nick', topics: 'Quáº£n lÃ½ ná»™i dung cá»™ng Ä‘á»“ng', reports: 'Xá»­ lÃ½ pháº£n há»“i tá»« ngÆ°á»i dÃ¹ng', 'news-system': 'Quáº£n lÃ½ ná»™i dung hiá»ƒn thá»‹ trong Báº£ng Tin News Board', system: 'Quáº£n lÃ½ cÃ¡c tham sá»‘ há»‡ thá»‘ng tá»« xa' };
+            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', 'news-system': 'Thông báo hệ thống', system: 'Hệ thống' };
+            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', 'news-system': 'Quản lý nội dung hiển thị trong Bảng Tin News Board', system: 'Quản lý các tham số hệ thống từ xa' };
             document.getElementById('screen-title').textContent = titles[id];
             document.getElementById('screen-subtitle').textContent = subs[id];
 
@@ -1442,7 +1428,7 @@
             }
 
             const options = {
-                series: [{ name: 'NgÆ°á»i dÃ¹ng má»›i', data: userCounts }, { name: 'BÃ i viáº¿t má»›i', data: topicCounts }],
+                series: [{ name: 'Người dùng mới', data: userCounts }, { name: 'Bài viết mới', data: topicCounts }],
                 chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans', foreColor: '#94a3b8' },
                 theme: { mode: 'dark' },
                 colors: ['#6366f1', '#10b981'],
@@ -1473,7 +1459,7 @@
             const snap = await getDocs(qRecent);
             renderTable('dash-user-list', snap, (ud, id) => `
                 <td><span class="uid-pill">${id.substring(0, 8)}...</span></td>
-                <td><div class="user-cell"><img src="${ud.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" class="user-avt"><strong>${ud.displayName || 'KhÃ¡ch'}</strong></div></td>
+                <td><div class="user-cell"><img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt"><strong>${ud.displayName || 'Khách'}</strong></div></td>
                 <td><span class="badge ${ud.role === 'admin' ? 'admin' : 'user'}">${ud.role || 'user'}</span></td>
                 <td>${ud.createdAt ? new Date(ud.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
             `);
@@ -1488,8 +1474,8 @@
                 <td>
                     <div style="font-size:12px; opacity:0.6; margin-bottom:4px">UID: <span class="uid-pill">${id}</span></div>
                     <div class="user-cell">
-                        <img src="${ud.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" class="user-avt">
-                        <strong>${ud.displayName || 'KhÃ¡ch'}</strong>
+                        <img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
+                        <strong>${ud.displayName || 'Khách'}</strong>
                         ${isTickVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : '<span class="material-symbols-rounded" style="color:#94a3b8; font-size:18px;">help_outline</span>'}
                     </div>
                 </td>
@@ -1510,7 +1496,7 @@
                     <td>
                         <div style="display:flex; gap:8px;">
                             <button class="action-btn" onclick="viewUser('${id}')">
-                                <span class="material-symbols-rounded">visibility</span> Chi tiáº¿t & Quáº£n lÃ½
+                                <span class="material-symbols-rounded">visibility</span> Chi tiết & Quản lý
                             </button>
                         </div>
                     </td>
@@ -1520,7 +1506,7 @@
 
         async function loadPendingOutlines() {
             const list = document.getElementById('pending-outline-list');
-            list.innerHTML = '<tr><td colspan="4" style="text-align:center;">Äang táº£i...</td></tr>';
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center;">Đang tải...</td></tr>';
             try {
                 // Simplified query to avoid immediate need for composite index (isPublic + createdAt)
                 // We will sort in memory for now to ensure it works even without index
@@ -1544,23 +1530,23 @@
                     tr.innerHTML = `
                         <td>
                             <div style="font-weight:800; color:var(--primary);">${d.title}</div>
-                            <div style="font-size:12px; color:var(--text-gray);">TÃ¡c giáº£: <strong>${d.authorName || 'N/A'}</strong></div>
+                            <div style="font-size:12px; color:var(--text-gray);">Tác giả: <strong>${d.authorName || 'N/A'}</strong></div>
                         </td>
                         <td>
                             <img src="${d.imageUrl}" style="width:80px; height:50px; border-radius:8px; object-fit:cover; cursor:pointer;" onclick="window.open('${d.imageUrl}', '_blank')">
                         </td>
                         <td>
-                            <span class="badge ${isApproved ? 'verified' : 'user'}">${isApproved ? 'ÄÃƒ DUYá»†T' : 'CHá»œ DUYá»†T'}</span>
+                            <span class="badge ${isApproved ? 'verified' : 'user'}">${isApproved ? 'ĐÃ DUYỆT' : 'CHỜ DUYỆT'}</span>
                         </td>
                         <td>
                             <div style="display:flex; gap:8px;">
                                 ${!isApproved ? `
                                     <button class="action-btn verify" onclick="approveOutline('${d.id}')">
-                                        <span class="material-symbols-rounded">check</span> Duyá»‡t ngay
+                                        <span class="material-symbols-rounded">check</span> Duyệt ngay
                                     </button>
                                 ` : ''}
                                 <button class="action-btn delete" onclick="deleteOutline('${d.id}')">
-                                    <span class="material-symbols-rounded">delete</span> XÃ³a
+                                    <span class="material-symbols-rounded">delete</span> Xóa
                                 </button>
                             </div>
                         </td>
@@ -1568,40 +1554,40 @@
                     list.appendChild(tr);
                 });
                 if (snap.empty) {
-                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-gray);">KhÃ´ng cÃ³ Ä‘á» cÆ°Æ¡ng nÃ o cáº§n duyá»‡t.</td></tr>';
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-gray);">Không có đề cương nào cần duyệt.</td></tr>';
                 }
             } catch (err) {
                 console.error("Load outlines error:", err);
                 list.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--danger); padding:20px;">
-                    Lá»—i táº£i dá»¯ liá»‡u: ${err.message}<br>
-                    <small style="opacity:0.7;">Vui lÃ²ng kiá»ƒm tra Index trong Firestore Console náº¿u báº¡n vá»«a thÃªm tÃ­nh nÄƒng nÃ y.</small>
+                    Lỗi tải dữ liệu: ${err.message}<br>
+                    <small style="opacity:0.7;">Vui lòng kiểm tra Index trong Firestore Console nếu bạn vừa thêm tính năng này.</small>
                 </td></tr>`;
             }
         }
 
         window.approveOutline = async (id) => {
-            const ok = await confConfirm("PhÃª duyá»‡t", "Báº¡n cÃ³ cháº¯c muá»‘n phÃª duyá»‡t Ä‘á» cÆ°Æ¡ng nÃ y lÃªn cá»™ng Ä‘á»“ng?");
+            const ok = await confConfirm("Phê duyệt", "Bạn có chắc muốn phê duyệt đề cương này lên cộng đồng?");
             if (!ok) return;
             try {
                 await updateDoc(doc(db, "outlines", id), { isApproved: true });
-                showToast("ÄÃ£ phÃª duyá»‡t thÃ nh cÃ´ng!");
+                showToast("Đã phê duyệt thành công!");
                 loadPendingOutlines();
             } catch (err) {
                 console.error("Approve outline error:", err);
-                showToast("Lá»—i khi duyá»‡t: " + err.message, "error");
+                showToast("Lỗi khi duyệt: " + err.message, "error");
             }
         };
 
         window.deleteOutline = async (id) => {
-            const ok = await confConfirm("XÃ³a Ä‘á» cÆ°Æ¡ng", "XÃ³a vÄ©nh viá»…n Ä‘á» cÆ°Æ¡ng nÃ y?", "danger");
+            const ok = await confConfirm("Xóa đề cương", "Xóa vĩnh viễn đề cương này?", "danger");
             if (!ok) return;
             try {
                 await deleteDoc(doc(db, "outlines", id));
-                showToast("ÄÃ£ xÃ³a Ä‘á» cÆ°Æ¡ng.");
+                showToast("Đã xóa đề cương.");
                 loadPendingOutlines();
             } catch (err) {
                 console.error("Delete outline error:", err);
-                showToast("Lá»—i khi xÃ³a: " + err.message, "error");
+                showToast("Lỗi khi xóa: " + err.message, "error");
             }
         };
 
@@ -1609,15 +1595,15 @@
             const snap = await getDocs(query(collection(db, "topics"), orderBy("createdAt", "desc")));
             renderTable('full-topic-list', snap, (td, id) => `
                 <td><div style="font-weight:700; max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${td.title}</div></td>
-                <td><div class="user-cell"><strong>${td.authorName || 'áº¨n danh'}</strong></div></td>
+                <td><div class="user-cell"><strong>${td.authorName || 'Ẩn danh'}</strong></div></td>
                 <td>${td.createdAt ? new Date(td.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
                 <td>
                     <div style="display:flex; gap:8px;">
-                        <button class="action-btn" onclick="viewComments('${id}', '${(td.title || "BÃ i viáº¿t").replace(/'/g, "\\'")}')">
-                            <span class="material-symbols-rounded">chat</span> BÃ¬nh luáº­n
+                        <button class="action-btn" onclick="viewComments('${id}', '${(td.title || "Bài viết").replace(/'/g, "\\'")}')">
+                            <span class="material-symbols-rounded">chat</span> Bình luận
                         </button>
                         <button class="action-btn delete" onclick="deleteItem('topics', '${id}')">
-                            <span class="material-symbols-rounded">delete</span> Gá»¡ bÃ i
+                            <span class="material-symbols-rounded">delete</span> Gỡ bài
                         </button>
                     </div>
                 </td>
@@ -1626,22 +1612,22 @@
 
         window.viewComments = async (topicId, title) => {
             const modal = document.getElementById('topicCommentsModal');
-            document.getElementById('commentModalTitle').innerText = `BÃ¬nh luáº­n: ${title}`;
+            document.getElementById('commentModalTitle').innerText = `Bình luận: ${title}`;
             const list = document.getElementById('comment-list');
-            list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Äang táº£i bÃ¬nh luáº­n...</td></tr>';
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Đang tải bình luận...</td></tr>';
             modal.classList.add('active');
 
             try {
                 const cSnap = await getDocs(collection(db, "topics", topicId, "comments"));
                 list.innerHTML = '';
                 if (cSnap.empty) {
-                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">ChÆ°a cÃ³ bÃ¬nh luáº­n nÃ o</td></tr>';
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Chưa có bình luận nào</td></tr>';
                 } else {
                     cSnap.forEach(d => {
                         const c = d.data();
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td><div class="user-cell"><strong>${c.authorName || 'áº¨n danh'}</strong></div></td>
+                            <td><div class="user-cell"><strong>${c.authorName || 'Ẩn danh'}</strong></div></td>
                             <td><div style="max-width:300px; font-size:13px; line-height:1.4;">${c.text}</div></td>
                             <td>${c.createdAt ? new Date(c.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
                             <td>
@@ -1659,11 +1645,11 @@
         window.closeCommentModal = () => document.getElementById('topicCommentsModal').classList.remove('active');
 
         window.deleteComment = async (topicId, commentId) => {
-            const ok = await confConfirm("XÃ¡c nháº­n xÃ³a", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ¬nh luáº­n nÃ y?", "danger");
+            const ok = await confConfirm("Xác nhận xóa", "Bạn có chắc chắn muốn xóa bình luận này?", "danger");
             if (ok) {
                 try {
                     await deleteDoc(doc(db, "topics", topicId, "comments", commentId));
-                    showToast("ÄÃ£ xÃ³a bÃ¬nh luáº­n!");
+                    showToast("Đã xóa bình luận!");
                     viewComments(topicId, "..."); // Refresh
                 } catch (e) { showToast(e.message, 'error'); }
             }
@@ -1677,7 +1663,7 @@
                     <div style="font-size:12px; opacity:0.6;">Target: <span class="uid-pill">${rd.targetId}</span></div>
                     <div style="font-size:12px; margin-top:4px;">Reporter: <span class="uid-pill">${rd.reporter}</span></div>
                 </td>
-                <td><button class="action-btn verify" onclick="deleteItem('reports', '${id}')"><span class="material-symbols-rounded">check_circle</span> Giáº£i quyáº¿t</button></td>
+                <td><button class="action-btn verify" onclick="deleteItem('reports', '${id}')"><span class="material-symbols-rounded">check_circle</span> Giải quyết</button></td>
             `);
         }
 
@@ -1685,7 +1671,7 @@
         function renderTable(tbodyId, snap, rowFn) {
             const tbody = document.getElementById(tbodyId);
             tbody.innerHTML = '';
-            if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:#999;">KhÃ´ng cÃ³ dá»¯ liá»‡u hiá»ƒn thá»‹</td></tr>'; return; }
+            if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:#999;">Không có dữ liệu hiển thị</td></tr>'; return; }
             snap.forEach(d => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = rowFn(d.data(), d.id);
@@ -1695,11 +1681,11 @@
 
         // --- ACTIONS ---
         window.deleteItem = async (col, id) => {
-            const ok = await confConfirm("XÃ¡c nháº­n xÃ³a", "HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c. Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a má»¥c nÃ y?", "danger");
+            const ok = await confConfirm("Xác nhận xóa", "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa mục này?", "danger");
             if (ok) {
                 try {
                     await deleteDoc(doc(db, col, id));
-                    showToast("ÄÃ£ xÃ³a má»¥c thÃ nh cÃ´ng!");
+                    showToast("Đã xóa mục thành công!");
                     if (col === 'users') loadUsers();
                     if (col === 'topics') loadTopics();
                     if (col === 'reports') loadReports();
@@ -1711,14 +1697,14 @@
         window.updateRole = async (id, role) => {
             try {
                 await updateDoc(doc(db, "users", id), { role });
-                showToast("ÄÃ£ cáº­p nháº­t quyá»n thÃ nh cÃ´ng!");
+                showToast("Đã cập nhật quyền thành công!");
             } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleChatMute = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { isChatMuted: !current });
-                showToast(current ? "ÄÃ£ gá»¡ cáº¥m chat" : "ÄÃ£ cáº¥m chat ngÆ°á»i dÃ¹ng nÃ y!");
+                showToast(current ? "Đã gỡ cấm chat" : "Đã cấm chat người dùng này!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
@@ -1726,7 +1712,7 @@
         window.toggleVerify = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { isTickVerified: !current });
-                showToast(current ? "ÄÃ£ há»§y tick xanh cÃ´ng khai" : "ÄÃ£ cáº¥p tick xanh cÃ´ng khai thÃ nh cÃ´ng!");
+                showToast(current ? "Đã hủy tick xanh công khai" : "Đã cấp tick xanh công khai thành công!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
@@ -1734,36 +1720,36 @@
         window.toggleRestrictedTick = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { restrictedTick: !current });
-                showToast(current ? "ÄÃ£ há»§y tick xanh háº¡n cháº¿" : "ÄÃ£ cáº¥p tick xanh háº¡n cháº¿ thÃ nh cÃ´ng!");
+                showToast(current ? "Đã hủy tick xanh hạn chế" : "Đã cấp tick xanh hạn chế thành công!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleBan = async (id, current) => {
-            const title = current ? "Gá»¡ Ban" : "Ban Nick";
-            const msg = current ? "XÃ¡c nháº­n gá»¡ gáº­y cho ngÆ°á»i dÃ¹ng nÃ y?" : "Cáº¥m tÃ i khoáº£n ngÆ°á»i dÃ¹ng nÃ y khá»i há»‡ thá»‘ng?";
+            const title = current ? "Gỡ Ban" : "Ban Nick";
+            const msg = current ? "Xác nhận gỡ gậy cho người dùng này?" : "Cấm tài khoản người dùng này khỏi hệ thống?";
             const ok = await confConfirm(title, msg, current ? 'info' : 'danger');
             if (ok) {
                 try {
                     let updateData = { isBanned: !current };
 
-                    if (!current) { // Náº¿u lÃ  Ban nick
-                        const reason = prompt("LÃ½ do ban?", "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng");
-                        if (reason === null) return; // Há»§y
+                    if (!current) { // Nếu là Ban nick
+                        const reason = prompt("Lý do ban?", "Vi phạm tiêu chuẩn cộng đồng");
+                        if (reason === null) return; // Hủy
 
-                        const dateUnban = prompt("NgÃ y má»Ÿ ban? (VD: 20/03/2026 hoáº·c 'VÄ©nh viá»…n')", "VÄ©nh viá»…n");
-                        if (dateUnban === null) return; // Há»§y
+                        const dateUnban = prompt("Ngày mở ban? (VD: 20/03/2026 hoặc 'Vĩnh viễn')", "Vĩnh viễn");
+                        if (dateUnban === null) return; // Hủy
 
                         updateData.banReason = reason;
                         updateData.dateUnban = dateUnban;
                         updateData.lastBannedAt = new Date().toISOString();
-                    } else { // Náº¿u lÃ  Gá»¡ ban
+                    } else { // Nếu là Gỡ ban
                         updateData.banReason = "";
                         updateData.dateUnban = "";
                     }
 
                     await updateDoc(doc(db, "users", id), updateData);
-                    showToast(current ? "ÄÃ£ gá»¡ ban thÃ nh cÃ´ng" : "NgÆ°á»i dÃ¹ng Ä‘Ã£ bá»‹ ban!");
+                    showToast(current ? "Đã gỡ ban thành công" : "Người dùng đã bị ban!");
                     loadUsers();
                 } catch (e) { showToast(e.message, 'error'); }
             }
@@ -1783,7 +1769,7 @@
             row.style.display = 'flex';
             row.style.gap = '8px';
             row.innerHTML = `
-                <input type="text" class="inp poll-opt-val" value="${val}" placeholder="NhÃ£n lá»±a chá»n" oninput="updatePollJson()">
+                <input type="text" class="inp poll-opt-val" value="${val}" placeholder="Nhãn lựa chọn" oninput="updatePollJson()">
                 <button class="action-btn delete" onclick="this.parentElement.remove(); updatePollJson()"><span class="material-symbols-rounded">delete</span></button>
             `;
             container.appendChild(row);
@@ -1811,17 +1797,17 @@
 
         window.applyPoll = async () => {
             const poll = updatePollJson();
-            if (!poll.question) return showToast("Vui lÃ²ng nháº­p cÃ¢u há»i!", 'error');
+            if (!poll.question) return showToast("Vui lòng nhập câu hỏi!", 'error');
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "community_poll"), {
                     json: JSON.stringify(poll),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh Poll thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Poll thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         window.addNewsItem = (data = {}) => {
@@ -1831,11 +1817,11 @@
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" onclick="this.parentElement.remove(); updateNewsJson()">delete</span>
                 <div class="form-row"><label>Icon (Emoji/Text)</label><input type="text" class="news-icon inp" value="${data.icon || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>TiÃªu Ä‘á»</label><input type="text" class="news-title inp" value="${data.title || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>MÃ´ táº£ ngáº¯n</label><input type="text" class="news-short inp" value="${data.short || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>Chi tiáº¿t</label><textarea class="news-detail inp" oninput="updateNewsJson()">${data.detail || ''}</textarea></div>
+                <div class="form-row"><label>Tiêu đề</label><input type="text" class="news-title inp" value="${data.title || ''}" oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Mô tả ngắn</label><input type="text" class="news-short inp" value="${data.short || ''}" oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Chi tiết</label><textarea class="news-detail inp" oninput="updateNewsJson()">${data.detail || ''}</textarea></div>
                 <div class="form-row"><label>Link (URL)</label><input type="text" class="news-link inp" value="${data.link || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>Tag (mÃ u Ä‘á»)</label><input type="text" class="news-tag inp" value="${data.tag || ''}" oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Tag (màu đỏ)</label><input type="text" class="news-tag inp" value="${data.tag || ''}" oninput="updateNewsJson()"></div>
             `;
             container.prepend(div);
             updateNewsJson();
@@ -1862,15 +1848,15 @@
         window.applyNews = async () => {
             const news = updateNewsJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "dashboard_news"), {
                     json: JSON.stringify(news),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh Tin tá»©c thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Tin tức thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         window.addLRItem = (data = {}) => {
@@ -1882,10 +1868,10 @@
             div.style.gap = '10px';
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" style="z-index: 10;" onclick="this.parentElement.remove(); updateLRJson()">delete</span>
-                <div class="form-row"><label>NgÃ y thÆ°á»Ÿng (VD: 3, 10)</label><input type="number" class="lr-day inp" value="${data.day || ''}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>Icon pháº§n thÆ°á»Ÿng (Emoji)</label><input type="text" class="lr-icon inp" value="${data.icon || 'ðŸŽ'}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>MÃ´ táº£ pháº§n thÆ°á»Ÿng hiá»ƒn thá»‹</label><input type="text" class="lr-text inp" value="${data.text || ''}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>MÃ£ há»‡ thá»‘ng (VIP thÃ¬ ghi <b>vip</b>)</label><input type="text" class="lr-type inp" value="${data.type || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Ngày thưởng (VD: 3, 10)</label><input type="number" class="lr-day inp" value="${data.day || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Icon phần thưởng (Emoji)</label><input type="text" class="lr-icon inp" value="${data.icon || '🎁'}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mô tả phần thưởng hiển thị</label><input type="text" class="lr-text inp" value="${data.text || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mã hệ thống (VIP thì ghi <b>vip</b>)</label><input type="text" class="lr-type inp" value="${data.type || ''}" oninput="updateLRJson()"></div>
             `;
             container.appendChild(div);
             updateLRJson();
@@ -1901,7 +1887,7 @@
                     day: day,
                     text: row.querySelector('.lr-text').value,
                     type: row.querySelector('.lr-type').value,
-                    icon: row.querySelector('.lr-icon').value || 'ðŸŽ'
+                    icon: row.querySelector('.lr-icon').value || '🎁'
                 });
             });
             const obj = { totalDays: total, rewards: items };
@@ -1912,15 +1898,15 @@
         window.applyLR = async () => {
             const lr = updateLRJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "login_rewards"), {
                     json: JSON.stringify(lr),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh ThÆ°á»Ÿng ÄÄƒng nháº­p thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Thưởng Đăng nhập thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u cáº¥u hÃ¬nh vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore';
         };
 
         window.addAnnItem = (data = {}) => {
@@ -1929,9 +1915,9 @@
             div.className = 'item-row';
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" onclick="this.parentElement.remove(); updateAnnJson()">delete</span>
-                <div class="form-row"><label>TiÃªu Ä‘á»</label><input type="text" class="ann-title inp" value="${data.title || ''}" oninput="updateAnnJson()"></div>
-                <div class="form-row"><label>Ná»™i dung chi tiáº¿t</label><textarea class="ann-content inp" style="height:100px;" oninput="updateAnnJson()">${data.content || ''}</textarea></div>
-                <div class="form-row"><label>NgÃ y hiá»ƒn thá»‹ (VD: HÃ´m nay, 30/04)</label><input type="text" class="ann-date inp" value="${data.date || ''}" oninput="updateAnnJson()"></div>
+                <div class="form-row"><label>Tiêu đề</label><input type="text" class="ann-title inp" value="${data.title || ''}" oninput="updateAnnJson()"></div>
+                <div class="form-row"><label>Nội dung chi tiết</label><textarea class="ann-content inp" style="height:100px;" oninput="updateAnnJson()">${data.content || ''}</textarea></div>
+                <div class="form-row"><label>Ngày hiển thị (VD: Hôm nay, 30/04)</label><input type="text" class="ann-date inp" value="${data.date || ''}" oninput="updateAnnJson()"></div>
             `;
             container.prepend(div);
             updateAnnJson();
@@ -1955,15 +1941,15 @@
         window.applyAnnouncements = async () => {
             const list = updateAnnJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "announcements"), {
                     json: JSON.stringify({ list }),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u ThÃ´ng bÃ¡o thÃ nh cÃ´ng!");
+                showToast("Đã lưu Thông báo thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         async function loadSystemConfig() {
@@ -2023,23 +2009,23 @@
             const status = document.getElementById('feat-outline-status').value;
             const msg = document.getElementById('feat-outline-msg').value;
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "features_config"), {
                     outlineStatus: status,
                     outlineMaintenanceMsg: msg,
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬!");
+                showToast("Đã cập nhật cấu hình bảo trì!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì';
         };
 
 
 
         window.viewUser = async (uid) => {
             const snap = await getDoc(doc(db, "users", uid));
-            if (!snap.exists()) return showToast("User khÃ´ng tá»“n táº¡i!", 'error');
+            if (!snap.exists()) return showToast("User không tồn tại!", 'error');
             const u = snap.data();
             const isTickVerified = u.isTickVerified === true;
             const isBanned = u.isBanned === true;
@@ -2047,43 +2033,43 @@
             const body = document.getElementById('profileBody');
             body.innerHTML = `
                 <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid var(--border);">
-                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" style="width: 80px; height: 80px; border-radius: 24px; object-fit: cover; border: 2px solid var(--primary);">
+                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" style="width: 80px; height: 80px; border-radius: 24px; object-fit: cover; border: 2px solid var(--primary);">
                     <div>
-                        <h3 style="font-weight: 800; font-size: 20px;">${u.displayName || 'KhÃ¡ch'}</h3>
+                        <h3 style="font-weight: 800; font-size: 20px;">${u.displayName || 'Khách'}</h3>
                         <p style="color: var(--text-gray); font-size: 14px;">@${u.username || 'n/a'}</p>
                     </div>
                 </div>
                 <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">${uid}</div></div>
                 <div class="input-group"><label>Email</label><input type="text" class="inp" value="${u.email || 'N/A'}" readonly></div>
-                <div class="input-group"><label>Vai trÃ²</label>
+                <div class="input-group"><label>Vai trò</label>
                     <select onchange="updateRole('${uid}', this.value)" class="inp">
                         <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
                         <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
                     </select>
                 </div>
-                <div class="input-group"><label>NgÃ y tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
-                <div class="input-group"><label>Tráº¡ng thÃ¡i xÃ¡c minh</label><input type="text" class="inp" value="${isTickVerified ? 'ÄÃ£ xÃ¡c minh' : 'ChÆ°a xÃ¡c minh'}" style="color: ${isTickVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
-                <div class="input-group"><label>Tick xanh cÃ¡ nhÃ¢n</label><input type="text" class="inp" value="${u.restrictedTick ? 'Báº­t' : 'Táº¯t'}" style="color: ${u.restrictedTick ? 'var(--primary)' : 'var(--text-gray)'}; font-weight: 800;" readonly></div>
+                <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
+                <div class="input-group"><label>Trạng thái xác minh</label><input type="text" class="inp" value="${isTickVerified ? 'Đã xác minh' : 'Chưa xác minh'}" style="color: ${isTickVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
+                <div class="input-group"><label>Tick xanh cá nhân</label><input type="text" class="inp" value="${u.restrictedTick ? 'Bật' : 'Tắt'}" style="color: ${u.restrictedTick ? 'var(--primary)' : 'var(--text-gray)'}; font-weight: 800;" readonly></div>
 
                 <div style="grid-column: span 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
                     <button class="btn ${isTickVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isTickVerified}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isTickVerified ? 'verified_user' : 'verified'}</span>
-                        ${isTickVerified ? 'Há»§y Tick CÃ´ng Khai' : 'Cáº¥p Tick CÃ´ng Khai'}
+                        ${isTickVerified ? 'Hủy Tick Công Khai' : 'Cấp Tick Công Khai'}
                     </button>
                     <button class="btn ${u.restrictedTick ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleRestrictedTick('${uid}', ${!!u.restrictedTick}); closeProfileModal();">
                         <span class="material-symbols-rounded">${u.restrictedTick ? 'verified_user' : 'verified'}</span>
-                        ${u.restrictedTick ? 'Há»§y Tick CÃ¡ NhÃ¢n' : 'Cáº¥p Tick CÃ¡ NhÃ¢n'}
+                        ${u.restrictedTick ? 'Hủy Tick Cá Nhân' : 'Cấp Tick Cá Nhân'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
-                        ${isBanned ? 'Gá»¡ Ban' : 'Ban Nick'}
+                        ${isBanned ? 'Gỡ Ban' : 'Ban Nick'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${u.isChatMuted ? '#f1f5f9' : '#fef3c7'}; color: ${u.isChatMuted ? 'var(--text)' : '#92400e'};" onclick="toggleChatMute('${uid}', ${!!u.isChatMuted}); closeProfileModal();">
                         <span class="material-symbols-rounded">${u.isChatMuted ? 'chat' : 'comments_disabled'}</span>
-                        ${u.isChatMuted ? 'Gá»¡ Cáº¥m Chat' : 'Cáº¥m Chat'}
+                        ${u.isChatMuted ? 'Gỡ Cấm Chat' : 'Cấm Chat'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: #fee2e2; color: #991b1b;" onclick="deleteItem('users', '${uid}'); closeProfileModal();">
-                        <span class="material-symbols-rounded">delete</span> XÃ³a User
+                        <span class="material-symbols-rounded">delete</span> Xóa User
                     </button>
                 </div>
             `;

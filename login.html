@@ -1,17 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÄÄƒng nháº­p - Confe</title>
+    <title>Đăng nhập - Confe</title>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ÄÄƒng nháº­p Confe">
+    <meta name="apple-mobile-web-app-title" content="Đăng nhập Confe">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
@@ -390,20 +390,6 @@
             });
         };
     </script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -419,22 +405,22 @@
                 <div class="title">Confe </div>
 
                 <div class="inp-group">
-                    <label class="inp-label">Email hoáº·c Username</label>
-                    <input type="text" id="lEmail" class="inp" placeholder="user123 hoáº·c email@domain.com">
+                    <label class="inp-label">Email hoặc Username</label>
+                    <input type="text" id="lEmail" class="inp" placeholder="user123 hoặc email@domain.com">
                 </div>
                 <div class="inp-group">
-                    <label class="inp-label">Máº­t kháº©u</label>
-                    <input type="password" id="lPass" class="inp" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="lPass" class="inp" placeholder="••••••••">
                 </div>
                 <div style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
                     <span class="switch-btn" style="font-size: 12px; text-decoration: none;"
-                        onclick="window.forgotPassword()">QuÃªn máº­t kháº©u?</span>
+                        onclick="window.forgotPassword()">Quên mật khẩu?</span>
                 </div>
-                <button id="btnLogin" class="btn-main">ÄÄƒng Nháº­p</button>
+                <button id="btnLogin" class="btn-main">Đăng Nhập</button>
 
                 <div style="display:flex; align-items:center; gap:10px; margin:16px 0 0;">
                     <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoáº·c</span>
+                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoặc</span>
                     <div style="flex:1; height:1px; background:#e2e8f0;"></div>
                 </div>
                 <button id="btnGoogleLogin" onclick="signInWithGoogle()"
@@ -442,7 +428,7 @@
                     onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                         style="width:20px; height:20px;">
-                    ÄÄƒng nháº­p vá»›i Google
+                    Đăng nhập với Google
                 </button>
 
                 <button id="btnFacebookLogin" onclick="signInWithFacebook()" class="btn-fb-login"
@@ -452,28 +438,28 @@
                         <path
                             d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                    ÄÄƒng nháº­p vá»›i Facebook
+                    Đăng nhập với Facebook
                 </button>
 
 
 
-                <div class="switch-text">ChÆ°a cÃ³ tÃ i khoáº£n? <span class="switch-btn"
-                        onclick="toggleMode('register')">ÄÄƒng kÃ½ ngay</span></div>
+                <div class="switch-text">Chưa có tài khoản? <span class="switch-btn"
+                        onclick="toggleMode('register')">Đăng ký ngay</span></div>
             </div>
 
             <div id="formRegister">
-                <div class="title">Táº¡o tÃ i khoáº£n má»›i </div>
-                <div class="subtitle">Tham gia Confe ngay hÃ´m nay !</div>
+                <div class="title">Tạo tài khoản mới </div>
+                <div class="subtitle">Tham gia Confe ngay hôm nay !</div>
 
                 <div style="margin-bottom:12px;">
-                    <label class="inp-label">Há» vÃ  tÃªn</label>
-                    <input type="text" id="rDisplayName" class="inp" placeholder="VÃ­ dá»¥: Nguyá»…n VÄƒn A">
+                    <label class="inp-label">Họ và tên</label>
+                    <input type="text" id="rDisplayName" class="inp" placeholder="Ví dụ: Nguyễn Văn A">
                 </div>
                 <div style="margin-bottom:12px;">
                     <label class="inp-label">Username</label>
-                    <input type="text" id="rUsername" class="inp" placeholder="TÃªn gá»£i nhá»› (viáº¿t liá»n, khÃ´ng dáº¥u)">
+                    <input type="text" id="rUsername" class="inp" placeholder="Tên gợi nhớ (viết liền, không dấu)">
                     <div style="font-size: 11px; color: #64748b; margin-top: 4px; font-weight: 500;">
-                        TiÃªu chÃ­: viáº¿t liá»n, khÃ´ng dáº¥u, khÃ´ng kÃ½ tá»± Ä‘áº·c biá»‡t.
+                        Tiêu chí: viết liền, không dấu, không ký tự đặc biệt.
                     </div>
                 </div>
                 <div style="margin-bottom:12px;">
@@ -481,29 +467,29 @@
                     <input type="email" id="rEmail" class="inp" placeholder="email@gmail.com">
                 </div>
                 <div style="margin-bottom:10px;">
-                    <label class="inp-label">Máº­t kháº©u</label>
-                    <input type="password" id="rPass" class="inp" placeholder="Ãt nháº¥t 6 kÃ½ tá»±">
+                    <label class="inp-label">Mật khẩu</label>
+                    <input type="password" id="rPass" class="inp" placeholder="Ít nhất 6 ký tự">
                 </div>
                 <div style="margin-bottom:10px;">
-                    <label class="inp-label">Nháº­p láº¡i máº­t kháº©u</label>
-                    <input type="password" id="rPassConfirm" class="inp" placeholder="Nháº­p láº¡i cho cháº¯c">
+                    <label class="inp-label">Nhập lại mật khẩu</label>
+                    <input type="password" id="rPassConfirm" class="inp" placeholder="Nhập lại cho chắc">
                 </div>
 
                 <div
                     style="display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:13px; color:var(--text); cursor:pointer;">
                     <input type="checkbox" id="agreePolicy"
                         style="width:16px; height:16px; cursor:pointer; accent-color:var(--primary);">
-                    <label for="agreePolicy" style="cursor:pointer; user-select:none;">TÃ´i Ä‘á»“ng Ã½ vá»›i <span
+                    <label for="agreePolicy" style="cursor:pointer; user-select:none;">Tôi đồng ý với <span
                             onclick="event.preventDefault(); document.getElementById('policyModal').style.display='flex'"
-                            style="color:var(--primary); font-weight:700; text-decoration:underline;">ChÃ­nh sÃ¡ch &amp;
-                            Ná»™i quy</span></label>
+                            style="color:var(--primary); font-weight:700; text-decoration:underline;">Chính sách &amp;
+                            Nội quy</span></label>
                 </div>
 
-                <button id="btnReg" class="btn-main">ÄÄƒng KÃ½</button>
+                <button id="btnReg" class="btn-main">Đăng Ký</button>
 
                 <div style="display:flex; align-items:center; gap:10px; margin:16px 0 0;">
                     <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoáº·c</span>
+                    <span style="font-size:12px; color:#94a3b8; font-weight:600;">hoặc</span>
                     <div style="flex:1; height:1px; background:#e2e8f0;"></div>
                 </div>
                 <button onclick="signInWithGoogle()"
@@ -511,7 +497,7 @@
                     onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                         style="width:20px; height:20px;">
-                    ÄÄƒng kÃ½ vá»›i Google
+                    Đăng ký với Google
                 </button>
                 <button onclick="signInWithFacebook()" class="btn-fb-login"
                     style="width:100%; padding:12px; background:#1877F2; border:none; border-radius:12px; color:white; font-weight:700; cursor:pointer; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:14px; transition:.2s;"
@@ -520,11 +506,11 @@
                         <path
                             d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                    ÄÄƒng kÃ½ vá»›i Facebook
+                    Đăng ký với Facebook
                 </button>
 
-                <div class="switch-text">ÄÃ£ cÃ³ tÃ i khoáº£n? <span class="switch-btn" onclick="toggleMode('login')">ÄÄƒng
-                        nháº­p</span></div>
+                <div class="switch-text">Đã có tài khoản? <span class="switch-btn" onclick="toggleMode('login')">Đăng
+                        nhập</span></div>
             </div>
 
 
@@ -540,29 +526,29 @@
         <div
             style="background:white; width:90%; max-width:420px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2); max-height:85vh; overflow-y:auto;">
             <div style="text-align:center; margin-bottom:20px;">
-                <div style="font-size:32px; margin-bottom:8px;">âš–ï¸</div>
-                <div style="font-size:18px; font-weight:800; color:#0f172a;">Quy Ä‘á»‹nh & ChÃ­nh sÃ¡ch Ná»n táº£ng</div>
-                <div style="font-size:12px; color:#64748b; margin-top:4px;">Vui lÃ²ng Ä‘á»c ká»¹ cÃ¡c Ä‘iá»u khoáº£n dÆ°á»›i Ä‘Ã¢y trÆ°á»›c khi tham gia</div>
+                <div style="font-size:32px; margin-bottom:8px;">⚖️</div>
+                <div style="font-size:18px; font-weight:800; color:#0f172a;">Quy định & Chính sách Nền tảng</div>
+                <div style="font-size:12px; color:#64748b; margin-top:4px;">Vui lòng đọc kỹ các điều khoản dưới đây trước khi tham gia</div>
             </div>
 
             <div style="font-size:13px; color:#475569; line-height:1.6; margin-bottom:20px; border:1px solid #e2e8f0; border-radius:12px; padding:16px; background:#f8fafc; overflow-y:auto; max-height:300px;">
-                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">1. Äiá»u khoáº£n Dá»‹ch vá»¥</h4>
-                <p style="margin-bottom:12px;">Khi Ä‘Äƒng kÃ½ tÃ i khoáº£n vÃ  sá»­ dá»¥ng ná»n táº£ng Confe, báº¡n Ä‘á»“ng Ã½ tuÃ¢n thá»§ toÃ n bá»™ cÃ¡c quy Ä‘á»‹nh. Má»—i cÃ¡ nhÃ¢n chá»‰ Ä‘Æ°á»£c sá»­ dá»¥ng tÃ i khoáº£n cá»§a chÃ­nh mÃ¬nh. HÃ nh vi cá»‘ Ã½ láº¡m dá»¥ng, táº¡o hÃ ng loáº¡t tÃ i khoáº£n áº£o nháº±m phÃ¡ hoáº¡i, gÃ¢y áº£nh hÆ°á»Ÿng mÃ¡y chá»§ lÃ  vi pháº¡m nghiÃªm trá»ng. KhÃ´ng Ä‘Äƒng táº£i cÃ¡c ná»™i dung vi pháº¡m phÃ¡p luáº­t, Ä‘á»“i trá»¥y, báº¡o lá»±c hoáº·c trÃ¡i vá»›i thuáº§n phong má»¹ tá»¥c. <a href="terms.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiáº¿t Äiá»u khoáº£n</a></p>
+                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">1. Điều khoản Dịch vụ</h4>
+                <p style="margin-bottom:12px;">Khi đăng ký tài khoản và sử dụng nền tảng Confe, bạn đồng ý tuân thủ toàn bộ các quy định. Mỗi cá nhân chỉ được sử dụng tài khoản của chính mình. Hành vi cố ý lạm dụng, tạo hàng loạt tài khoản ảo nhằm phá hoại, gây ảnh hưởng máy chủ là vi phạm nghiêm trọng. Không đăng tải các nội dung vi phạm pháp luật, đồi trụy, bạo lực hoặc trái với thuần phong mỹ tục. <a href="terms.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiết Điều khoản</a></p>
 
-                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">2. TiÃªu chuáº©n Cá»™ng Ä‘á»“ng</h4>
-                <p style="margin-bottom:12px;">Má»i tranh luáº­n cáº§n dá»±a trÃªn tÆ° duy, cá»Ÿi má»Ÿ. NghiÃªm cáº¥m má»i hÃ nh vi chá»­i thá», lÄƒng máº¡, Ä‘e dá»a vÅ© lá»±c hay cÃ´ng kÃ­ch cÃ¡ nhÃ¢n thÃ nh viÃªn khÃ¡c. KhÃ´ng láº·p láº¡i cÃ¡c tin nháº¯n vÃ´ nghÄ©a (spam), gá»­i Ä‘Æ°á»ng dáº«n lá»«a Ä‘áº£o, mÃ£ Ä‘á»™c. Báº¥t ká»³ hÃ nh vi quáº¥y rá»‘i cá»‘ Ã½, dá»“n Ã©p tÃ¢m lÃ½ hay doxxing Ä‘á»u bá»‹ xem lÃ  vi pháº¡m há»‡ thá»‘ng nghiÃªm trá»ng vÃ  sáº½ bá»‹ khÃ³a vÄ©nh viá»…n. <a href="community-rules.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiáº¿t Cá»™ng Ä‘á»“ng</a></p>
+                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">2. Tiêu chuẩn Cộng đồng</h4>
+                <p style="margin-bottom:12px;">Mọi tranh luận cần dựa trên tư duy, cởi mở. Nghiêm cấm mọi hành vi chửi thề, lăng mạ, đe dọa vũ lực hay công kích cá nhân thành viên khác. Không lặp lại các tin nhắn vô nghĩa (spam), gửi đường dẫn lừa đảo, mã độc. Bất kỳ hành vi quấy rối cố ý, dồn ép tâm lý hay doxxing đều bị xem là vi phạm hệ thống nghiêm trọng và sẽ bị khóa vĩnh viễn. <a href="community-rules.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiết Cộng đồng</a></p>
 
-                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">3. Quyá»n riÃªng tÆ° & Dá»¯ liá»‡u</h4>
-                <p style="margin-bottom:0;">ChÃºng tÃ´i chá»‰ thu tháº­p thÃ´ng tin há»“ sÆ¡ cÆ¡ báº£n (Email, TÃªn, áº¢nh Ä‘áº¡i diá»‡n) vÃ  ID thiáº¿t bá»‹ Ä‘á»ƒ quáº£n lÃ½ Ä‘Äƒng nháº­p á»•n Ä‘á»‹nh. Dá»¯ liá»‡u Ä‘Æ°á»£c mÃ£ hÃ³a vÃ  khÃ´ng bao giá» Ä‘Æ°á»£c bÃ¡n cho bÃªn thá»© ba vÃ¬ má»¥c Ä‘Ã­ch thÆ°Æ¡ng máº¡i. Báº¡n cÃ³ thá»ƒ thay Ä‘á»•i hoáº·c quyáº¿t Ä‘á»‹nh xÃ³a tÃ i khoáº£n vÄ©nh viá»…n trong CÃ i Ä‘áº·t. <a href="privacy.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiáº¿t Báº£o máº­t</a></p>
+                <h4 style="margin-top:0; margin-bottom:8px; color:#0f172a; font-size:14px;">3. Quyền riêng tư & Dữ liệu</h4>
+                <p style="margin-bottom:0;">Chúng tôi chỉ thu thập thông tin hồ sơ cơ bản (Email, Tên, Ảnh đại diện) và ID thiết bị để quản lý đăng nhập ổn định. Dữ liệu được mã hóa và không bao giờ được bán cho bên thứ ba vì mục đích thương mại. Bạn có thể thay đổi hoặc quyết định xóa tài khoản vĩnh viễn trong Cài đặt. <a href="privacy.html" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;">Xem chi tiết Bảo mật</a></p>
             </div>
 
             <button id="btnAgreePolicy"
                 onclick="document.getElementById('agreePolicy').checked=true; document.getElementById('policyModal').style.display='none'"
-                style="width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:10px; transition:0.2s;">âœ…
-                Äá»“ng Ã½ &amp; Tiáº¿p tá»¥c</button>
+                style="width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; margin-bottom:10px; transition:0.2s;">✅
+                Đồng ý &amp; Tiếp tục</button>
             <button id="btnClosePolicy" onclick="document.getElementById('policyModal').style.display='none'"
-                style="width:100%; padding:12px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s;">Chá»‰
-                Ä‘á»c, tÃ´i sáº½ cÃ¢n nháº¯c</button>
+                style="width:100%; padding:12px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s;">Chỉ
+                đọc, tôi sẽ cân nhắc</button>
         </div>
     </div>
 
@@ -573,54 +559,54 @@
         <div
             style="background:white; width:90%; max-width:380px; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
             <div style="text-align:center; margin-bottom:20px;">
-                <div style="font-size:36px; margin-bottom:8px;">ðŸ”‘</div>
-                <div style="font-size:18px; font-weight:800;">Láº¥y láº¡i máº­t kháº©u</div>
-                <div style="font-size:13px; color:#64748b; margin-top:4px;">Nháº­p email báº¡n Ä‘Ã£ Ä‘Äƒng kÃ½ Ä‘á»ƒ nháº­n link
+                <div style="font-size:36px; margin-bottom:8px;">🔑</div>
+                <div style="font-size:18px; font-weight:800;">Lấy lại mật khẩu</div>
+                <div style="font-size:13px; color:#64748b; margin-top:4px;">Nhập email bạn đã đăng ký để nhận link
                     reset.</div>
             </div>
 
             <div class="inp-group">
-                <label class="inp-label">Email tÃ i khoáº£n</label>
+                <label class="inp-label">Email tài khoản</label>
                 <input type="email" id="fEmail" class="inp" placeholder="email@domain.com">
             </div>
 
             <button id="btnSendReset" onclick="window.sendResetEmail()"
-                style="width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:10px; transition:0.2s;">Gá»­i
-                yÃªu cáº§u reset</button>
+                style="width:100%; padding:13px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:10px; transition:0.2s;">Gửi
+                yêu cầu reset</button>
             <button onclick="document.getElementById('forgotPasswordModal').style.display='none'"
-                style="width:100%; padding:12px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s;">Há»§y</button>
+                style="width:100%; padding:12px; background:#f1f5f9; color:#1e293b; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; transition:0.2s;">Hủy</button>
         </div>
     </div>
 
     <div id="bannedOverlay">
         <div class="ban-card">
-            <div class="ban-icon">ðŸš«</div>
-            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">TÃ i khoáº£n Ä‘Ã£ bá»‹ khÃ³a
+            <div class="ban-icon">🚫</div>
+            <h1 style="color: #1e293b; font-weight: 800; font-size: 24px; margin-bottom: 12px;">Tài khoản đã bị khóa
             </h1>
             <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
-                TÃ i khoáº£n cá»§a báº¡n Ä‘Ã£ vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng vÃ  khÃ´ng thá»ƒ tiáº¿p tá»¥c sá»­ dá»¥ng.
+                Tài khoản của bạn đã vi phạm tiêu chuẩn cộng đồng và không thể tiếp tục sử dụng.
             </p>
 
             <div
                 style="background: #fef2f2; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 28px; border: 1px solid #fee2e2;">
                 <div style="margin-bottom: 8px;">
                     <span
-                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">LÃ½
-                        do khÃ³a:</span>
-                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">â€”
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Lý
+                        do khóa:</span>
+                    <p id="banReasonText" style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—
                     </p>
                 </div>
                 <div>
                     <span
-                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">NgÃ y
-                        má»Ÿ khÃ³a:</span>
+                        style="font-size: 12px; font-weight: 800; color: #991b1b; text-transform: uppercase; letter-spacing: 0.5px;">Ngày
+                        mở khóa:</span>
                     <p id="banUnbanDateText"
-                        style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">â€”</p>
+                        style="font-size: 14px; color: #b91c1c; margin-top: 4px; font-weight: 500;">—</p>
                 </div>
             </div>
 
             <button class="btn-main" onclick="localStorage.clear(); location.reload();"
-                style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">ÄÄƒng xuáº¥t</button>
+                style="width: 100%; border-radius: 16px; padding: 14px; font-weight: 700;">Đăng xuất</button>
         </div>
     </div>
 
@@ -649,34 +635,34 @@
         <div class="modal-box" onclick="event.stopPropagation()" style="max-width: 480px; padding: 32px; border-radius: 28px; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
                 <h2 style="font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; color: #ef4444; margin:0;">
-                    <span class="material-symbols-rounded">menu_book</span> Tá»« Äiá»ƒn Lá»—i
+                    <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi
                 </h2>
                 <button onclick="closeErrorDictionary()" style="background: none; border: none; cursor: pointer; color: #94a3b8;"><span class="material-symbols-rounded">close</span></button>
             </div>
             <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 24px;">
                 <p style="font-size: 14px; color: #b91c1c; font-weight: 700; text-align: center; margin:0;">
-                    PhÃ¡t hiá»‡n lá»—i há»‡ thá»‘ng: <span id="errorTargetCode" style="font-size: 18px; font-weight: 900; color: #ef4444;">-</span>
+                    Phát hiện lỗi hệ thống: <span id="errorTargetCode" style="font-size: 18px; font-weight: 900; color: #ef4444;">-</span>
                 </p>
             </div>
             <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
                 <thead>
                     <tr style="border-bottom: 2px solid #f1f5f9;">
-                        <th style="padding: 12px; color: #64748b; font-weight: 700;">MÃ£ Lá»—i</th>
-                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Ã NghÄ©a & Kháº¯c Phá»¥c</th>
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Mã Lỗi</th>
+                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Ý Nghĩa & Khắc Phục</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="border-bottom: 1px solid #f1f5f9;">
                         <td style="padding: 12px; font-weight: 800; color: #0f172a;">1</td>
-                        <td style="padding: 12px; color: #475569;">Lá»—i káº¿t ná»‘i mÃ¡y chá»§. Vui lÃ²ng kiá»ƒm tra láº¡i máº¡ng hoáº·c táº£i láº¡i trang.</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc tải lại trang.</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #f1f5f9;">
                         <td style="padding: 12px; font-weight: 800; color: #0f172a;">2</td>
-                        <td style="padding: 12px; color: #475569;">Lá»—i xÃ¡c thá»±c ngÆ°á»i dÃ¹ng. HÃ£y thá»­ Ä‘Äƒng xuáº¥t vÃ  Ä‘Äƒng nháº­p láº¡i.</td>
+                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng nhập lại.</td>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="closeErrorDictionary()" class="btn-main" style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; border-radius: 16px; font-weight: 800;">ÄÃ£ hiá»ƒu</button>
+            <button onclick="closeErrorDictionary()" class="btn-main" style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; border-radius: 16px; font-weight: 800;">Đã hiểu</button>
         </div>
     </div>
 
@@ -698,7 +684,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const targetRedirect = urlParams.get('redirect') ? decodeURIComponent(urlParams.get('redirect')) : 'index.html';
 
-        // --- KIá»‚M TRA GIá»šI Háº N THIáº¾T Bá»Š ---
+        // --- KIỂM TRA GIỚI HẠN THIẾT BỊ ---
         function getDeviceId() {
             let did = localStorage.getItem('confe_device_id');
             if (!did) {
@@ -720,15 +706,15 @@
             }
         }
 
-        // --- KIá»‚M TRA TRáº NG THÃI BAN KHI LOAD TRANG ---
+        // --- KIỂM TRA TRẠNG THÁI BAN KHI LOAD TRANG ---
         onAuthStateChanged(auth, async (u) => {
             if (u) {
                 try {
                     const uSnap = await getDoc(doc(db, "users", u.uid));
                     if (uSnap.exists() && uSnap.data().isBanned === true) {
                         const data = uSnap.data();
-                        document.getElementById('banReasonText').textContent = data.banReason || "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng";
-                        document.getElementById('banUnbanDateText').textContent = data.dateUnban || "VÄ©nh viá»…n";
+                        document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                        document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
                         document.getElementById('bannedOverlay').style.display = 'flex';
                         await signOut(auth);
                     }
@@ -762,20 +748,20 @@
 
         window.sendResetEmail = async () => {
             const email = document.getElementById('fEmail').value.trim();
-            if (!email) return showToast("Vui lÃ²ng nháº­p email!", "âš ï¸");
+            if (!email) return showToast("Vui lòng nhập email!", "⚠️");
 
             const btn = document.getElementById('btnSendReset');
-            btn.innerText = "Äang gá»­i...";
+            btn.innerText = "Đang gửi...";
             btn.disabled = true;
 
             try {
                 await sendPasswordResetEmail(auth, email);
-                showToast("Link reset máº­t kháº©u Ä‘Ã£ Ä‘Æ°á»£c gá»­i vÃ o email cá»§a báº¡n!", "âœ…");
+                showToast("Link reset mật khẩu đã được gửi vào email của bạn!", "✅");
                 document.getElementById('forgotPasswordModal').style.display = 'none';
             } catch (err) {
-                showToast("Lá»—i: " + err.message, "âŒ");
+                showToast("Lỗi: " + err.message, "❌");
             } finally {
-                btn.innerText = "Gá»­i yÃªu cáº§u reset";
+                btn.innerText = "Gửi yêu cầu reset";
                 btn.disabled = false;
             }
         }
@@ -813,11 +799,11 @@
                 const user = result.user;
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
-                    // New account â€” must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Báº¡n cáº§n Ä‘á»“ng Ã½ chÃ­nh sÃ¡ch Ä‘á»ƒ Ä‘Äƒng kÃ½!', 'âš ï¸'); return; }
+                    // New account — must agree to policy first
+                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
                         username: user.displayName || (user.email ? user.email.split('@')[0] : 'google_user'),
-                        displayName: user.displayName || 'CÆ° dÃ¢n má»›i',
+                        displayName: user.displayName || 'Cư dân mới',
                         email: user.email,
                         uid: user.uid,
                         photoURL: user.photoURL || '',
@@ -828,19 +814,19 @@
                     });
                 } else if (snap.data().isBanned === true) {
                     const data = snap.data();
-                    document.getElementById('banReasonText').textContent = data.banReason || "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng";
-                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "VÄ©nh viá»…n";
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
                     await signOut(auth);
                     document.getElementById('bannedOverlay').style.display = 'flex';
                     return;
                 }
-                showToast('ÄÄƒng nháº­p Google thÃ nh cÃ´ng!', '');
+                showToast('Đăng nhập Google thành công!', '');
                 setTimeout(() => window.top.location.href = targetRedirect, 1000);
             } catch (err) {
                 if (err.code === 'auth/popup-closed-by-user') {
-                    showToast('Báº¡n Ä‘Ã£ Ä‘Ã³ng cá»­a sá»• Ä‘Äƒng nháº­p. Vui lÃ²ng thá»­ láº¡i!', 'âš ï¸');
+                    showToast('Bạn đã đóng cửa sổ đăng nhập. Vui lòng thử lại!', '⚠️');
                 } else if (err.message !== 'policy_rejected') {
-                    showToast('Lá»—i: ' + err.message, '');
+                    showToast('Lỗi: ' + err.message, '');
                 }
             }
         }
@@ -852,11 +838,11 @@
                 const user = result.user;
                 const snap = await getDoc(doc(db, 'users', user.uid));
                 if (!snap.exists()) {
-                    // New account â€” must agree to policy first
-                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Báº¡n cáº§n Ä‘á»“ng Ã½ chÃ­nh sÃ¡ch Ä‘á»ƒ Ä‘Äƒng kÃ½!', 'âš ï¸'); return; }
+                    // New account — must agree to policy first
+                    try { await waitForPolicyAgreement(); } catch (e) { if (auth.currentUser && auth.currentUser.delete) { await auth.currentUser.delete(); } showToast('Bạn cần đồng ý chính sách để đăng ký!', '⚠️'); return; }
                     await setDoc(doc(db, 'users', user.uid), {
                         username: user.displayName || (user.email ? user.email.split('@')[0] : 'fb_user'),
-                        displayName: user.displayName || 'CÆ° dÃ¢n má»›i',
+                        displayName: user.displayName || 'Cư dân mới',
                         email: user.email || '',
                         uid: user.uid,
                         photoURL: user.photoURL || '',
@@ -867,19 +853,19 @@
                     });
                 } else if (snap.data().isBanned === true) {
                     const data = snap.data();
-                    document.getElementById('banReasonText').textContent = data.banReason || "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng";
-                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "VÄ©nh viá»…n";
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
                     await signOut(auth);
                     document.getElementById('bannedOverlay').style.display = 'flex';
                     return;
                 }
-                showToast('ÄÄƒng nháº­p Facebook thÃ nh cÃ´ng!', '');
+                showToast('Đăng nhập Facebook thành công!', '');
                 setTimeout(() => window.top.location.href = targetRedirect, 1000);
             } catch (err) {
                 if (err.code === 'auth/popup-closed-by-user') {
-                    showToast('Báº¡n Ä‘Ã£ Ä‘Ã³ng cá»­a sá»• Ä‘Äƒng nháº­p. Vui lÃ²ng thá»­ láº¡i!', 'âš ï¸');
+                    showToast('Bạn đã đóng cửa sổ đăng nhập. Vui lòng thử lại!', '⚠️');
                 } else if (err.message !== 'policy_rejected') {
-                    showToast('Lá»—i: ' + err.message, '');
+                    showToast('Lỗi: ' + err.message, '');
                 }
             }
         }
@@ -910,7 +896,7 @@
 
         const processInput = (val) => {
             val = val.trim();
-            // Náº¿u cÃ³ @ thÃ¬ coi lÃ  email, khÃ´ng cÃ³ thÃ¬ thÃªm Ä‘uÃ´i gmail
+            // Nếu có @ thì coi là email, không có thì thêm đuôi gmail
             if (val.includes('@')) return val;
             return `${val}@gmail.com`;
         }
@@ -919,28 +905,28 @@
             let inp = document.getElementById('lEmail').value;
             const p = document.getElementById('lPass').value;
 
-            if (!inp || !p) return showToast("Nháº­p Ä‘á»§ thÃ´ng tin Ä‘i!", "ï¸");
+            if (!inp || !p) return showToast("Nhập đủ thông tin đi!", "️");
 
             const e = processInput(inp);
 
-            this.innerText = "Äang xá»­ lÃ½...";
+            this.innerText = "Đang xử lý...";
             try {
                 const cred = await signInWithEmailAndPassword(auth, e, p);
                 const user = cred.user;
-                // --- KIá»‚M TRA BAN ---
+                // --- KIỂM TRA BAN ---
                 const uSnap = await getDoc(doc(db, "users", user.uid));
                 if (uSnap.exists() && uSnap.data().isBanned === true) {
                     const data = uSnap.data();
-                    document.getElementById('banReasonText').textContent = data.banReason || "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng";
-                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "VÄ©nh viá»…n";
+                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
                     await signOut(auth);
                     document.getElementById('bannedOverlay').style.display = 'flex';
                     return;
                 }
-                showToast("ÄÄƒng nháº­p thÃ nh cÃ´ng!", "");
+                showToast("Đăng nhập thành công!", "");
                 setTimeout(() => window.top.location.href = targetRedirect, 1000);
             }
-            catch (err) { showToast("Lá»—i: " + err.message, ""); this.innerText = "ÄÄƒng Nháº­p"; }
+            catch (err) { showToast("Lỗi: " + err.message, ""); this.innerText = "Đăng Nhập"; }
         }
 
         document.getElementById('btnReg').onclick = async function () {
@@ -951,41 +937,41 @@
             const pc = document.getElementById('rPassConfirm').value;
             const agreed = document.getElementById('agreePolicy').checked;
 
-            if (!name || !username || !email || !p) return showToast("Nháº­p Ä‘á»§ thÃ´ng tin Ä‘i!", "ï¸");
+            if (!name || !username || !email || !p) return showToast("Nhập đủ thông tin đi!", "️");
 
             // Username validation: no spaces, no special chars, 3-20 chars
             const userRegex = /^[a-zA-Z0-9_]+$/;
             if (!userRegex.test(username)) {
-                return showToast("Username viáº¿t liá»n, khÃ´ng dáº¥u, khÃ´ng kÃ½ tá»± Ä‘áº·c biá»‡t!", "âš ï¸");
+                return showToast("Username viết liền, không dấu, không ký tự đặc biệt!", "⚠️");
             }
             if (username.length < 3) {
-                return showToast("Username tá»‘i thiá»ƒu 3 kÃ½ tá»± nhÃ©!", "âš ï¸");
+                return showToast("Username tối thiểu 3 ký tự nhé!", "⚠️");
             }
 
-            if (p !== pc) return showToast("Máº­t kháº©u khÃ´ng khá»›p!", "");
-            if (!agreed) return showToast("Vui lÃ²ng Ä‘á»“ng Ã½ vá»›i ChÃ­nh sÃ¡ch & Ná»™i quy!", "ï¸");
+            if (p !== pc) return showToast("Mật khẩu không khớp!", "");
+            if (!agreed) return showToast("Vui lòng đồng ý với Chính sách & Nội quy!", "️");
 
             // Process email format
             const e = processInput(email);
 
-            this.innerText = "Äang táº¡o...";
+            this.innerText = "Đang tạo...";
             try {
-                // 1. Kiá»ƒm tra giá»›i háº¡n thiáº¿t bá»‹
+                // 1. Kiểm tra giới hạn thiết bị
                 const isAllowed = await checkDeviceLimit();
                 if (!isAllowed) {
-                    showToast("Má»—i thiáº¿t bá»‹ chá»‰ Ä‘Æ°á»£c táº¡o tá»‘i Ä‘a 3 tÃ i khoáº£n!", "âš ï¸");
-                    this.innerText = "ÄÄƒng KÃ½";
+                    showToast("Mỗi thiết bị chỉ được tạo tối đa 3 tài khoản!", "⚠️");
+                    this.innerText = "Đăng Ký";
                     return;
                 }
 
-                // 2. Táº¡o tÃ i khoáº£n Auth
+                // 2. Tạo tài khoản Auth
                 const cred = await createUserWithEmailAndPassword(auth, e, p);
                 const user = cred.user;
 
-                // 3. Cáº­p nháº­t Display Name trong Auth
+                // 3. Cập nhật Display Name trong Auth
                 await updateProfile(user, { displayName: name });
 
-                // 4. LÆ°u thÃ´ng tin chi tiáº¿t vÃ o Firestore
+                // 4. Lưu thông tin chi tiết vào Firestore
                 await setDoc(doc(db, "users", user.uid), {
                     username: username,
                     displayName: name,
@@ -998,12 +984,12 @@
                     is_setup: false
                 });
 
-                showToast("ÄÄƒng kÃ½ thÃ nh cÃ´ng!", "");
+                showToast("Đăng ký thành công!", "");
                 setTimeout(() => window.top.location.href = targetRedirect, 1500);
             } catch (err) {
                 console.error(err);
-                showToast("Lá»—i: " + err.message, "");
-                this.innerText = "ÄÄƒng KÃ½";
+                showToast("Lỗi: " + err.message, "");
+                this.innerText = "Đăng Ký";
             }
         }
         // Banned check logic ends
@@ -1012,7 +998,7 @@
         window.showErrorDictionary = (code) => {
             const overlay = document.getElementById('errorOverlay');
             const codeEl = document.getElementById('errorTargetCode');
-            if (codeEl) codeEl.textContent = code || "ChÆ°a xÃ¡c Ä‘á»‹nh";
+            if (codeEl) codeEl.textContent = code || "Chưa xác định";
             if (overlay) overlay.classList.add('active');
         }
         window.closeErrorDictionary = () => {
