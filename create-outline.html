@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Đề Cương Mới - Confe</title>
+    <title>Táº¡o Äá» CÆ°Æ¡ng Má»›i - Confe</title>
     <script type="module" src="security-lock.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -577,6 +577,20 @@
             }
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -587,8 +601,8 @@
                 <span class="material-symbols-rounded">arrow_back</span>
             </button>
             <div class="title-group">
-                <h1>Tạo Đề Cương Của Riêng Bạn !</h1>
-                <p>Nâng cao hiệu quả ôn tập với nội dung ôn tập của riêng bạn</p>
+                <h1>Táº¡o Äá» CÆ°Æ¡ng Cá»§a RiÃªng Báº¡n !</h1>
+                <p>NÃ¢ng cao hiá»‡u quáº£ Ã´n táº­p vá»›i ná»™i dung Ã´n táº­p cá»§a riÃªng báº¡n</p>
             </div>
         </div>
 
@@ -597,14 +611,14 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">category</span>
-                    1. Định dạng Đề Cương
+                    1. Äá»‹nh dáº¡ng Äá» CÆ°Æ¡ng
                 </div>
                 <div class="input-group">
-                    <label class="label">Chọn Dạng Đề Cương</label>
+                    <label class="label">Chá»n Dáº¡ng Äá» CÆ°Æ¡ng</label>
                     <select id="outline-format" class="input" onchange="updatePreview(); handleFormatChange();"
                         style="border: 2px solid var(--primary); background: white;">
-                        <option value="1">Dạng 1: Trắc nghiệm + Tự luận từ Ảnh</option>
-                        <option value="2">Dạng 2: Trắc nghiệm + Tự luận từ Chữ</option>
+                        <option value="1">Dáº¡ng 1: Tráº¯c nghiá»‡m + Tá»± luáº­n tá»« áº¢nh</option>
+                        <option value="2">Dáº¡ng 2: Tráº¯c nghiá»‡m + Tá»± luáº­n tá»« Chá»¯</option>
                     </select>
                 </div>
             </div>
@@ -613,7 +627,7 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">quiz</span>
-                    2. Nội dung đề cương
+                    2. Ná»™i dung Ä‘á» cÆ°Æ¡ng
                 </div>
 
                 <div id="questions-list">
@@ -625,7 +639,7 @@
                     <button id="main-add-btn" class="btn btn-primary" style="flex: 1; border-radius: 12px;"
                         onclick="handleAddByFormat()">
                         <span class="material-symbols-rounded">add_circle</span>
-                        Thêm câu hỏi mới
+                        ThÃªm cÃ¢u há»i má»›i
                     </button>
                     <input type="file" id="q-img-upload" accept="image/*" multiple style="display:none"
                         onchange="handleQuestionImage(event)">
@@ -636,35 +650,35 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">info</span>
-                    3. Thông tin hiển thị
+                    3. ThÃ´ng tin hiá»ƒn thá»‹
                 </div>
                 <div class="input-group">
-                    <label class="label">Tiêu đề đề cương</label>
+                    <label class="label">TiÃªu Ä‘á» Ä‘á» cÆ°Æ¡ng</label>
                     <input type="text" id="outline-title" class="input"
-                        placeholder="Ví dụ: Ôn tập Unit 7 - Tiếng Anh (Friends Plus)" oninput="updatePreview()">
+                        placeholder="VÃ­ dá»¥: Ã”n táº­p Unit 7 - Tiáº¿ng Anh (Friends Plus)" oninput="updatePreview()">
                 </div>
                 <div class="input-group">
-                    <label class="label">Mô tả ngắn</label>
-                    <textarea id="outline-desc" class="input" placeholder="Tóm tắt nội dung chính cần ôn tập..."
+                    <label class="label">MÃ´ táº£ ngáº¯n</label>
+                    <textarea id="outline-desc" class="input" placeholder="TÃ³m táº¯t ná»™i dung chÃ­nh cáº§n Ã´n táº­p..."
                         oninput="updatePreview()"></textarea>
                 </div>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label class="label">Chủ đề / Môn học</label>
-                        <input type="text" id="outline-subject" class="input" placeholder="Toán, Tiếng Anh..."
+                        <label class="label">Chá»§ Ä‘á» / MÃ´n há»c</label>
+                        <input type="text" id="outline-subject" class="input" placeholder="ToÃ¡n, Tiáº¿ng Anh..."
                             oninput="updatePreview()">
                     </div>
                     <div class="input-group">
-                        <label class="label">Lớp</label>
+                        <label class="label">Lá»›p</label>
                         <select id="outline-grade" class="input" onchange="updatePreview()">
-                            <option value="">Chọn lớp</option>
-                            <option value="6">Lớp 6</option>
-                            <option value="7">Lớp 7</option>
-                            <option value="8">Lớp 8</option>
-                            <option value="9">Lớp 9</option>
-                            <option value="10">Lớp 10</option>
-                            <option value="11">Lớp 11</option>
-                            <option value="12">Lớp 12</option>
+                            <option value="">Chá»n lá»›p</option>
+                            <option value="6">Lá»›p 6</option>
+                            <option value="7">Lá»›p 7</option>
+                            <option value="8">Lá»›p 8</option>
+                            <option value="9">Lá»›p 9</option>
+                            <option value="10">Lá»›p 10</option>
+                            <option value="11">Lá»›p 11</option>
+                            <option value="12">Lá»›p 12</option>
                         </select>
                     </div>
                 </div>
@@ -674,10 +688,10 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">palette</span>
-                    Tùy chỉnh giao diện
+                    TÃ¹y chá»‰nh giao diá»‡n
                 </div>
 
-                <label class="label">Chọn Logo biểu tượng</label>
+                <label class="label">Chá»n Logo biá»ƒu tÆ°á»£ng</label>
                 <div class="img-picker" id="logo-picker">
                     <div class="img-option active" data-icon="psychology" onclick="selectIcon('psychology')"><span
                             class="material-symbols-rounded"
@@ -701,13 +715,13 @@
                     </div>
                     <div class="img-option btn-upload-custom" onclick="document.getElementById('logo-upload').click()">
                         <span class="material-symbols-rounded">add_circle</span>
-                        Tải logo
+                        Táº£i logo
                     </div>
                 </div>
                 <input type="file" id="logo-upload" accept="image/*" style="display:none"
                     onchange="handleImageUpload(event, 'logo')">
 
-                <label class="label">Màu sắc chủ đạo / Background</label>
+                <label class="label">MÃ u sáº¯c chá»§ Ä‘áº¡o / Background</label>
                 <div class="img-picker" id="bg-picker">
                     <div class="img-option active" data-color="linear-gradient(135deg, #0084ff, #7c3aed)"
                         onclick="selectColor('linear-gradient(135deg, #0084ff, #7c3aed)')"
@@ -726,7 +740,7 @@
                         style="background: linear-gradient(135deg, #ef4444, #b91c1c);"></div>
                     <div class="img-option btn-upload-custom" onclick="document.getElementById('bg-upload').click()">
                         <span class="material-symbols-rounded">wallpaper</span>
-                        Tải ảnh
+                        Táº£i áº£nh
                     </div>
                 </div>
                 <input type="file" id="bg-upload" accept="image/*" style="display:none"
@@ -736,16 +750,16 @@
                     <input type="checkbox" id="outline-public"
                         style="width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary);">
                     <label for="outline-public"
-                        style="margin: 0; font-weight: 700; color: #475569; cursor: pointer;">Công khai cho cộng đồng
-                        ( Cần duyệt )</label>
+                        style="margin: 0; font-weight: 700; color: #475569; cursor: pointer;">CÃ´ng khai cho cá»™ng Ä‘á»“ng
+                        ( Cáº§n duyá»‡t )</label>
                 </div>
             </div>
 
 
             <div class="actions">
-                <button class="btn btn-ghost" onclick="history.back()">Hủy bỏ</button>
+                <button class="btn btn-ghost" onclick="history.back()">Há»§y bá»</button>
                 <button class="btn btn-primary" id="btn-save" onclick="saveOutline()">
-                    Lưu đề cương
+                    LÆ°u Ä‘á» cÆ°Æ¡ng
                 </button>
             </div>
         </div>
@@ -753,7 +767,7 @@
         <!-- --- Right Column: Preview --- -->
         <div class="preview-side">
             <div class="preview-sticky">
-                <div class="preview-label">Xem trước đề cương</div>
+                <div class="preview-label">Xem trÆ°á»›c Ä‘á» cÆ°Æ¡ng</div>
                 <div class="preview-card" id="card-preview">
                     <!-- Background layer -->
                     <div id="preview-bg"
@@ -766,20 +780,20 @@
                             <span class="material-symbols-rounded"
                                 style="color:white; font-size: 35px;">psychology</span>
                         </div>
-                        <div class="preview-title" id="preview-title-text">Tiêu đề đề cương</div>
-                        <div class="preview-desc" id="preview-desc-text">Mô tả ngắn gọn về nội dung ôn tập bạn muốn chia
-                            sẻ...</div>
+                        <div class="preview-title" id="preview-title-text">TiÃªu Ä‘á» Ä‘á» cÆ°Æ¡ng</div>
+                        <div class="preview-desc" id="preview-desc-text">MÃ´ táº£ ngáº¯n gá»n vá» ná»™i dung Ã´n táº­p báº¡n muá»‘n chia
+                            sáº»...</div>
 
                         <div class="preview-footer">
                             <div style="display: flex; gap: 8px; align-items: center;">
-                                <div class="preview-badge" id="preview-tag-grade">Lớp ?</div>
+                                <div class="preview-badge" id="preview-tag-grade">Lá»›p ?</div>
                                 <div class="preview-badge" id="preview-tag-subject"
-                                    style="background:#fef3c7; color:#d97706;">Môn học</div>
+                                    style="background:#fef3c7; color:#d97706;">MÃ´n há»c</div>
                             </div>
                             <div
                                 style="font-size: 11px; font-weight: 700; color: #94a3b8; display: flex; align-items: center; gap: 3px;">
                                 <span class="material-symbols-rounded" style="font-size: 14px;">quiz</span>
-                                <span id="preview-q-count">0</span> câu hỏi
+                                <span id="preview-q-count">0</span> cÃ¢u há»i
                             </div>
                         </div>
                     </div>
@@ -793,8 +807,8 @@
                     </div>
                     <ul
                         style="margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); font-weight: 500;">
-                        <li>Sử dụng tiêu đề rõ ràng để người khác dễ tìm thấy.</li>
-                        <li>Tải logo hoặc ảnh background cá nhân để đề cương thêm sinh động và nổi bật !</li>
+                        <li>Sá»­ dá»¥ng tiÃªu Ä‘á» rÃµ rÃ ng Ä‘á»ƒ ngÆ°á»i khÃ¡c dá»… tÃ¬m tháº¥y.</li>
+                        <li>Táº£i logo hoáº·c áº£nh background cÃ¡ nhÃ¢n Ä‘á»ƒ Ä‘á» cÆ°Æ¡ng thÃªm sinh Ä‘á»™ng vÃ  ná»•i báº­t !</li>
                     </ul>
                 </div>
             </div>
@@ -809,18 +823,18 @@
             <canvas id="masking-canvas"></canvas>
         </div>
         <div class="masking-toolbar">
-            <button class="btn-tool" onclick="undoMask()" title="Hoàn tác">
+            <button class="btn-tool" onclick="undoMask()" title="HoÃ n tÃ¡c">
                 <span class="material-symbols-rounded">undo</span>
             </button>
-            <button class="btn-tool danger" onclick="clearMasks()" title="Xóa tất cả">
+            <button class="btn-tool danger" onclick="clearMasks()" title="XÃ³a táº¥t cáº£">
                 <span class="material-symbols-rounded">delete_sweep</span>
             </button>
             <button class="btn-tool primary" onclick="finishMasking()">
-                Xong, Lưu các vùng che
+                Xong, LÆ°u cÃ¡c vÃ¹ng che
             </button>
         </div>
-        <p style="color: white; margin-top: 15px; font-weight: 500; font-size: 14px;">Kéo chuột để vẽ vùng che mặt
-            chữ/hình ảnh</p>
+        <p style="color: white; margin-top: 15px; font-weight: 500; font-size: 14px;">KÃ©o chuá»™t Ä‘á»ƒ váº½ vÃ¹ng che máº·t
+            chá»¯/hÃ¬nh áº£nh</p>
     </div>
 
     <script type="module">
@@ -907,21 +921,21 @@
 
         window.updatePreview = () => {
             const format = document.getElementById('outline-format').value;
-            const title = document.getElementById('outline-title').value || 'Tiêu đề đề cương';
+            const title = document.getElementById('outline-title').value || 'TiÃªu Ä‘á» Ä‘á» cÆ°Æ¡ng';
 
             let formatDesc = "";
-            if (format === "1") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận từ Ảnh.";
-            else if (format === "2") formatDesc = "• Định dạng: Trắc nghiệm & Tự luận dạng Chữ.";
+            if (format === "1") formatDesc = "â€¢ Äá»‹nh dáº¡ng: Tráº¯c nghiá»‡m & Tá»± luáº­n tá»« áº¢nh.";
+            else if (format === "2") formatDesc = "â€¢ Äá»‹nh dáº¡ng: Tráº¯c nghiá»‡m & Tá»± luáº­n dáº¡ng Chá»¯.";
 
             const userDesc = (document.getElementById('outline-desc').value || '').trim();
             const desc = (userDesc ? userDesc + "\n" : "") + formatDesc;
 
             const grade = document.getElementById('outline-grade').value || '?';
-            const subject = document.getElementById('outline-subject').value || 'Môn học';
+            const subject = document.getElementById('outline-subject').value || 'MÃ´n há»c';
 
             if (document.getElementById('preview-title-text')) document.getElementById('preview-title-text').textContent = title;
             if (document.getElementById('preview-desc-text')) document.getElementById('preview-desc-text').innerHTML = desc.replace(/\n/g, '<br>');
-            if (document.getElementById('preview-tag-grade')) document.getElementById('preview-tag-grade').textContent = `Lớp ${grade}`;
+            if (document.getElementById('preview-tag-grade')) document.getElementById('preview-tag-grade').textContent = `Lá»›p ${grade}`;
             if (document.getElementById('preview-tag-subject')) document.getElementById('preview-tag-subject').textContent = subject;
             if (document.getElementById('preview-q-count')) document.getElementById('preview-q-count').textContent = questions.length;
 
@@ -976,9 +990,9 @@
             const btn = document.getElementById('main-add-btn');
             if (!btn) return;
             if (format === '1') {
-                btn.innerHTML = `<span class="material-symbols-rounded">image</span> Thêm Ảnh (Trắc nghiệm/Tự luận)`;
+                btn.innerHTML = `<span class="material-symbols-rounded">image</span> ThÃªm áº¢nh (Tráº¯c nghiá»‡m/Tá»± luáº­n)`;
             } else {
-                btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> Thêm Câu hỏi (Dạng chữ)`;
+                btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> ThÃªm CÃ¢u há»i (Dáº¡ng chá»¯)`;
             }
         };
 
@@ -1174,7 +1188,7 @@
                 if (q.type === 'image') {
                     item.innerHTML = `
                         <div class="q-header" style="margin-bottom: 12px;">
-                            <span class="q-number">Ảnh ${idx + 1} (${q.subQuestions.length} câu hỏi)</span>
+                            <span class="q-number">áº¢nh ${idx + 1} (${q.subQuestions.length} cÃ¢u há»i)</span>
                             <button class="btn-remove-q" onclick="removeQuestion(${q.id})">
                                 <span class="material-symbols-rounded">delete</span>
                             </button>
@@ -1187,27 +1201,27 @@
                         </div>
                         <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 15px;">
                             <button class="btn btn-ghost" style="flex: 1; padding:10px; border-radius:12px; font-size:13px; color: var(--primary);" onclick="addSubQuestion(${q.id})">
-                                <span class="material-symbols-rounded" style="font-size:18px;">add_circle</span> Thêm câu cho ảnh này
+                                <span class="material-symbols-rounded" style="font-size:18px;">add_circle</span> ThÃªm cÃ¢u cho áº£nh nÃ y
                             </button>
                         </div>
                         <div class="sub-questions">
                             ${q.subQuestions.map((sq, sIdx) => `
                                 <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
                                     <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                                        <b style="font-size:13px; color:var(--primary);">Câu ${idx + 1}.${sIdx + 1}</b>
+                                        <b style="font-size:13px; color:var(--primary);">CÃ¢u ${idx + 1}.${sIdx + 1}</b>
                                         <button class="btn-remove-q" onclick="removeSubQuestion(${q.id}, ${sq.id})" style="width:25px; height:25px; font-size:16px;">
                                             <span class="material-symbols-rounded" style="font-size:16px;">close</span>
                                         </button>
                                     </div>
                                     <div class="input-group">
-                                        <label class="label">Nội dung câu hỏi</label>
-                                        <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateSubQText(${q.id}, ${sq.id}, this.value)">${sq.text}</textarea>
+                                        <label class="label">Ná»™i dung cÃ¢u há»i</label>
+                                        <textarea class="input" rows="2" placeholder="Nháº­p cÃ¢u há»i..." oninput="updateSubQText(${q.id}, ${sq.id}, this.value)">${sq.text}</textarea>
                                     </div>
                                     <div class="input-group">
-                                        <label class="label">Loại câu hỏi</label>
+                                        <label class="label">Loáº¡i cÃ¢u há»i</label>
                                         <select class="input" onchange="updateSubQType(${q.id}, ${sq.id}, this.value)" style="padding:8px;">
-                                            <option value="mcq" ${sq.subType === 'mcq' ? 'selected' : ''}>Trắc nghiệm</option>
-                                            <option value="essay" ${sq.subType === 'essay' ? 'selected' : ''}>Tự luận</option>
+                                            <option value="mcq" ${sq.subType === 'mcq' ? 'selected' : ''}>Tráº¯c nghiá»‡m</option>
+                                            <option value="essay" ${sq.subType === 'essay' ? 'selected' : ''}>Tá»± luáº­n</option>
                                         </select>
                                     </div>
                                     ${sq.subType === 'mcq' ? `
@@ -1221,8 +1235,8 @@
                                         </div>
                                     ` : sq.subType === 'essay' ? `
                                         <div class="input-group">
-                                            <label class="label">Đáp án đúng</label>
-                                            <textarea class="input" rows="2" placeholder="Đáp án..." oninput="updateSubQAnswer(${q.id}, ${sq.id}, this.value)">${sq.answer || ''}</textarea>
+                                            <label class="label">ÄÃ¡p Ã¡n Ä‘Ãºng</label>
+                                            <textarea class="input" rows="2" placeholder="ÄÃ¡p Ã¡n..." oninput="updateSubQAnswer(${q.id}, ${sq.id}, this.value)">${sq.answer || ''}</textarea>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -1232,21 +1246,21 @@
                 } else {
                     item.innerHTML = `
                         <div class="q-header" style="margin-bottom: 12px;">
-                            <span class="q-number">Câu ${idx + 1}: ${q.type === 'mcq' ? 'Trắc nghiệm' : 'Tự luận'}</span>
+                            <span class="q-number">CÃ¢u ${idx + 1}: ${q.type === 'mcq' ? 'Tráº¯c nghiá»‡m' : 'Tá»± luáº­n'}</span>
                             <button class="btn-remove-q" onclick="removeQuestion(${q.id})">
                                 <span class="material-symbols-rounded">delete</span>
                             </button>
                         </div>
                         <div class="input-group">
-                            <label class="label">Loại câu hỏi</label>
+                            <label class="label">Loáº¡i cÃ¢u há»i</label>
                             <select class="input" onchange="updateQType(${q.id}, this.value)" style="padding: 8px;">
-                                <option value="mcq" ${q.type === 'mcq' ? 'selected' : ''}>Trắc nghiệm</option>
-                                <option value="essay" ${q.type === 'essay' ? 'selected' : ''}>Tự luận</option>
+                                <option value="mcq" ${q.type === 'mcq' ? 'selected' : ''}>Tráº¯c nghiá»‡m</option>
+                                <option value="essay" ${q.type === 'essay' ? 'selected' : ''}>Tá»± luáº­n</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label class="label">Nội dung câu hỏi</label>
-                            <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateQText(${q.id}, this.value)">${q.text}</textarea>
+                            <label class="label">Ná»™i dung cÃ¢u há»i</label>
+                            <textarea class="input" rows="2" placeholder="Nháº­p cÃ¢u há»i..." oninput="updateQText(${q.id}, this.value)">${q.text}</textarea>
                         </div>
                         ${q.type === 'mcq' ? `
                             <div class="mcq-options">
@@ -1259,8 +1273,8 @@
                             </div>
                         ` : `
                             <div class="input-group">
-                                <label class="label">Đáp án đúng</label>
-                                <textarea class="input" rows="2" placeholder="Đáp án..." oninput="updateQAnswer(${q.id}, this.value)">${q.answer || ''}</textarea>
+                                <label class="label">ÄÃ¡p Ã¡n Ä‘Ãºng</label>
+                                <textarea class="input" rows="2" placeholder="ÄÃ¡p Ã¡n..." oninput="updateQAnswer(${q.id}, this.value)">${q.answer || ''}</textarea>
                             </div>
                         `}
                     `;
@@ -1318,12 +1332,12 @@
             const grade = document.getElementById('outline-grade').value;
             const isPublic = document.getElementById('outline-public').checked;
 
-            if (!title) return showToast("Vui lòng nhập tiêu đề!");
-            if (questions.length === 0) return showToast("Vui lòng thêm ít nhất một câu hỏi!");
+            if (!title) return showToast("Vui lÃ²ng nháº­p tiÃªu Ä‘á»!");
+            if (questions.length === 0) return showToast("Vui lÃ²ng thÃªm Ã­t nháº¥t má»™t cÃ¢u há»i!");
 
             const btn = document.getElementById('btn-save');
             btn.disabled = true;
-            btn.innerHTML = `<span class="spinner" style="width:20px; height:20px; border:2px solid white; border-top-color:transparent; border-radius:50%; animation: spin 1s linear infinite;"></span> Đang lưu...`;
+            btn.innerHTML = `<span class="spinner" style="width:20px; height:20px; border:2px solid white; border-top-color:transparent; border-radius:50%; animation: spin 1s linear infinite;"></span> Äang lÆ°u...`;
 
             try {
                 let logoUrl = "";
@@ -1334,9 +1348,9 @@
 
                 const finalQuestions = await Promise.all(questions.map(async q => {
                     if (q.type === 'mcq') {
-                        return { type: 'mc', q: q.text, o: q.options, a: q.correct, e: 'Đáp án đúng là ' + String.fromCharCode(65 + q.correct) };
+                        return { type: 'mc', q: q.text, o: q.options, a: q.correct, e: 'ÄÃ¡p Ã¡n Ä‘Ãºng lÃ  ' + String.fromCharCode(65 + q.correct) };
                     } else if (q.type === 'essay') {
-                        return { type: 'essay', q: q.text, a: q.answer, e: 'Giải thích: ' + q.answer };
+                        return { type: 'essay', q: q.text, a: q.answer, e: 'Giáº£i thÃ­ch: ' + q.answer };
                     } else if (q.type === 'image') {
                         const imgUrl = await uploadImage(q.img);
                         return {
@@ -1348,10 +1362,10 @@
                                 if (sq.subType === 'mcq') {
                                     res.o = sq.options;
                                     res.a = sq.correct;
-                                    res.e = 'Giải thích: Đáp án đúng là ' + String.fromCharCode(65 + sq.correct);
+                                    res.e = 'Giáº£i thÃ­ch: ÄÃ¡p Ã¡n Ä‘Ãºng lÃ  ' + String.fromCharCode(65 + sq.correct);
                                 } else if (sq.subType === 'essay') {
                                     res.a = sq.answer;
-                                    res.e = 'Giải thích: ' + sq.answer;
+                                    res.e = 'Giáº£i thÃ­ch: ' + sq.answer;
                                 }
                                 return res;
                             })
@@ -1371,19 +1385,19 @@
                     icon: logoUrl || selectedIcon,
                     color: bgUrl ? `url(${bgUrl})` : selectedColor,
                     uid: currentUser.uid,
-                    authorName: currentUser.displayName || 'Người dùng Confe',
+                    authorName: currentUser.displayName || 'NgÆ°á»i dÃ¹ng Confe',
                     createdAt: serverTimestamp(),
                     type: 'user_outline_v2'
                 };
 
                 await addDoc(collection(firestore, 'outlines'), data);
-                showToast("Đã lưu đề cương thành công! 🎉");
+                showToast("ÄÃ£ lÆ°u Ä‘á» cÆ°Æ¡ng thÃ nh cÃ´ng! ðŸŽ‰");
                 setTimeout(() => window.location.href = 'reviewtest.html', 1500);
             } catch (err) {
                 console.error(err);
-                showToast("Lỗi khi lưu đề cương. Thử lại!");
+                showToast("Lá»—i khi lÆ°u Ä‘á» cÆ°Æ¡ng. Thá»­ láº¡i!");
                 btn.disabled = false;
-                btn.innerHTML = `<span class="material-symbols-rounded">save</span> Lưu đề cương`;
+                btn.innerHTML = `<span class="material-symbols-rounded">save</span> LÆ°u Ä‘á» cÆ°Æ¡ng`;
             }
         };
 

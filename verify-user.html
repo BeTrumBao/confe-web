@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xác minh tài khoản - Confe</title>
+    <title>XÃ¡c minh tÃ i khoáº£n - Confe</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
@@ -371,6 +371,20 @@
             background: #e2e8f0;
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -379,22 +393,22 @@
         <div class="icon-box">
             <span class="material-symbols-rounded">verified_user</span>
         </div>
-        <h1>Xác minh rằng đó là bạn !</h1>
+        <h1>XÃ¡c minh ráº±ng Ä‘Ã³ lÃ  báº¡n !</h1>
         <p class="description">
-            Vui lòng kiểm tra kỹ thông tin trước khi xác nhận. Bạn đang giúp cộng đồng Confe trở nên trong sạch hơn!
+            Vui lÃ²ng kiá»ƒm tra ká»¹ thÃ´ng tin trÆ°á»›c khi xÃ¡c nháº­n. Báº¡n Ä‘ang giÃºp cá»™ng Ä‘á»“ng Confe trá»Ÿ nÃªn trong sáº¡ch hÆ¡n!
         </p>
 
         <div class="user-preview" id="userPreview">
             <img src="" alt="" class="avatar" id="cAvt">
             <div class="user-info">
                 <h3 id="cName">...</h3>
-                <p id="cDate">Ngày tham gia: ...</p>
+                <p id="cDate">NgÃ y tham gia: ...</p>
             </div>
         </div>
 
         <button class="btn-verify" id="btnVerify" disabled>
             <span class="material-symbols-rounded">check_circle</span>
-            Xác minh
+            XÃ¡c minh
         </button>
 
         <div id="statusMsg" class="status-msg"></div>
@@ -402,50 +416,50 @@
         <div class="requirements">
             <div class="requirements-header">
                 <span class="material-symbols-rounded" style="color: #0ea5e9; font-size: 20px;">info</span>
-                <h4>Điều kiện xác nhận:</h4>
+                <h4>Äiá»u kiá»‡n xÃ¡c nháº­n:</h4>
             </div>
             <ul>
                 <li>
                     <span class="material-symbols-rounded">calendar_month</span>
-                    Thời gian tham gia Confe trên 3 tháng.
+                    Thá»i gian tham gia Confe trÃªn 3 thÃ¡ng.
                 </li>
                 <li>
                     <span class="material-symbols-rounded">history</span>
-                    Chưa thực hiện xác minh cho người khác trong 30 ngày qua.
+                    ChÆ°a thá»±c hiá»‡n xÃ¡c minh cho ngÆ°á»i khÃ¡c trong 30 ngÃ y qua.
                 </li>
                 <li>
                     <span class="material-symbols-rounded">gavel</span>
-                    Không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong vòng 3 tháng.
+                    KhÃ´ng vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng hoáº·c bá»‹ khÃ³a tÃ i khoáº£n trong vÃ²ng 3 thÃ¡ng.
                 </li>
             </ul>
         </div>
 
         <p style="font-size: 12px; color: #94a3b8; margin-top: 24px;">
-            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 700;">Quay về Trang
-                chủ</a>
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 700;">Quay vá» Trang
+                chá»§</a>
         </p>
     </div>
 
     <!-- Confirmation Modals -->
     <div id="modalConfirm1" class="modal">
         <div class="modal-box">
-            <h3 style="color: var(--primary);">Xác nhận ?</h3>
-            <p id="msgConfirm1">Bạn có muốn xác minh cho người dùng này không?</p>
+            <h3 style="color: var(--primary);">XÃ¡c nháº­n ?</h3>
+            <p id="msgConfirm1">Báº¡n cÃ³ muá»‘n xÃ¡c minh cho ngÆ°á»i dÃ¹ng nÃ y khÃ´ng?</p>
             <div class="modal-btns">
-                <button class="modal-btn btn-cancel" onclick="closeModal('modalConfirm1')">Hủy bỏ</button>
-                <button class="modal-btn btn-confirm" id="btnNextConfirm">Đồng ý</button>
+                <button class="modal-btn btn-cancel" onclick="closeModal('modalConfirm1')">Há»§y bá»</button>
+                <button class="modal-btn btn-confirm" id="btnNextConfirm">Äá»“ng Ã½</button>
             </div>
         </div>
     </div>
 
     <div id="modalConfirm2" class="modal">
         <div class="modal-box">
-            <h3 style="color: var(--error);">Xác nhận lần cuối</h3>
-            <p>Hành động này không thể hoàn tác. Bạn chắc chắn 100% muốn xác minh cho người dùng này chứ?</p>
+            <h3 style="color: var(--error);">XÃ¡c nháº­n láº§n cuá»‘i</h3>
+            <p>HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c. Báº¡n cháº¯c cháº¯n 100% muá»‘n xÃ¡c minh cho ngÆ°á»i dÃ¹ng nÃ y chá»©?</p>
             <div class="modal-btns">
-                <button class="modal-btn btn-cancel" onclick="closeModal('modalConfirm2')">Quay lại</button>
-                <button class="modal-btn btn-confirm" id="btnFinalConfirm" style="background: var(--error);">Xác
-                    nhận</button>
+                <button class="modal-btn btn-cancel" onclick="closeModal('modalConfirm2')">Quay láº¡i</button>
+                <button class="modal-btn btn-confirm" id="btnFinalConfirm" style="background: var(--error);">XÃ¡c
+                    nháº­n</button>
             </div>
         </div>
     </div>
@@ -498,12 +512,12 @@
 
 
         if (!candidateUid) {
-            showError("Thiếu thông tin người dùng cần xác minh.");
+            showError("Thiáº¿u thÃ´ng tin ngÆ°á»i dÃ¹ng cáº§n xÃ¡c minh.");
         } else {
             onAuthStateChanged(auth, async (verifier) => {
                 if (!verifier) {
                     showError(`
-                        Vui lòng <a href="login.html" style="color:#0084ff; font-weight:700;">Đăng nhập</a> để thực hiện xác minh.<br><br>
+                        Vui lÃ²ng <a href="login.html" style="color:#0084ff; font-weight:700;">ÄÄƒng nháº­p</a> Ä‘á»ƒ thá»±c hiá»‡n xÃ¡c minh.<br><br>
                     `);
                     return;
                 }
@@ -512,18 +526,18 @@
                     // 1. Fetch Candidate Data
                     const cSnap = await getDoc(doc(db, "users", candidateUid));
                     if (!cSnap.exists()) {
-                        showError("Người dùng không tồn tại.");
+                        showError("NgÆ°á»i dÃ¹ng khÃ´ng tá»“n táº¡i.");
                         return;
                     }
                     const cData = cSnap.data();
                     if (cData.isVerified === true) {
-                        showError("Người dùng này đã được xác minh trước đó rồi.");
+                        showError("NgÆ°á»i dÃ¹ng nÃ y Ä‘Ã£ Ä‘Æ°á»£c xÃ¡c minh trÆ°á»›c Ä‘Ã³ rá»“i.");
                         return;
                     }
 
-                    document.getElementById('cName').textContent = cData.displayName || 'Cư dân mới';
-                    document.getElementById('cAvt').src = cData.photoURL || 'https://placehold.co/100?text=👤';
-                    document.getElementById('cDate').textContent = `Tham gia ngày: ${new Date(cData.createdAt).toLocaleDateString('vi')}`;
+                    document.getElementById('cName').textContent = cData.displayName || 'CÆ° dÃ¢n má»›i';
+                    document.getElementById('cAvt').src = cData.photoURL || 'https://placehold.co/100?text=ðŸ‘¤';
+                    document.getElementById('cDate').textContent = `Tham gia ngÃ y: ${new Date(cData.createdAt).toLocaleDateString('vi')}`;
 
                     // 2. Fetch Verifier Data
                     const vSnap = await getDoc(doc(db, "users", verifier.uid));
@@ -546,17 +560,17 @@
                     const isAdmin = vData.role === 'admin';
 
                     if (verifier.uid === candidateUid) {
-                        errors.push("Bạn không thể tự xác minh cho chính mình.");
+                        errors.push("Báº¡n khÃ´ng thá»ƒ tá»± xÃ¡c minh cho chÃ­nh mÃ¬nh.");
                     }
 
                     if (!isAdmin) {
-                        if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng (90 ngày) tuổi.");
-                        if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
-                        if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
-                        if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
+                        if (ageDays < 90) errors.push("TÃ i khoáº£n cá»§a báº¡n cáº§n trÃªn 3 thÃ¡ng (90 ngÃ y) tuá»•i.");
+                        if (cooldownDays < 30) errors.push("Báº¡n vá»«a xÃ¡c minh cho ngÆ°á»i khÃ¡c gáº§n Ä‘Ã¢y (pháº£i Ä‘á»£i 30 ngÃ y).");
+                        if (vData.isBanned === true) errors.push("TÃ i khoáº£n cá»§a báº¡n Ä‘ang bá»‹ khÃ³a.");
+                        if (banRecentDays < 90) errors.push("TÃ i khoáº£n cá»§a báº¡n cÃ³ lá»‹ch sá»­ bá»‹ cáº¥m/khÃ³a trong 3 thÃ¡ng gáº§n Ä‘Ã¢y.");
                     } else {
                         // Admin bypass: only check if banned
-                        if (vData.isBanned === true) errors.push("Tài khoản Admin của bạn đang bị khóa.");
+                        if (vData.isBanned === true) errors.push("TÃ i khoáº£n Admin cá»§a báº¡n Ä‘ang bá»‹ khÃ³a.");
                     }
 
                     if (errors.length > 0) {
@@ -572,7 +586,7 @@
 
                         btn.onclick = () => {
                             const name = document.getElementById('cName').textContent;
-                            document.getElementById('msgConfirm1').innerHTML = `Bạn có muốn xác minh cho người dùng <b style="color:var(--primary)">${name}</b> này không, bạn chắc chứ?`;
+                            document.getElementById('msgConfirm1').innerHTML = `Báº¡n cÃ³ muá»‘n xÃ¡c minh cho ngÆ°á»i dÃ¹ng <b style="color:var(--primary)">${name}</b> nÃ y khÃ´ng, báº¡n cháº¯c chá»©?`;
                             openModal('modalConfirm1');
                         };
 
@@ -599,23 +613,23 @@
                                 const result = await response.json();
 
                                 if (!result.success) {
-                                    throw new Error(result.error || "Xác minh thất bại.");
+                                    throw new Error(result.error || "XÃ¡c minh tháº¥t báº¡i.");
                                 }
 
-                                statusMsg.textContent = "Xác minh thành công! Bạn có thể đóng trang này.";
+                                statusMsg.textContent = "XÃ¡c minh thÃ nh cÃ´ng! Báº¡n cÃ³ thá»ƒ Ä‘Ã³ng trang nÃ y.";
                                 statusMsg.className = "status-msg success";
                                 btn.style.display = 'none';
                                 setTimeout(() => window.location.href = 'index.html', 2000);
                             } catch (e) {
-                                statusMsg.textContent = "Lỗi khi xác minh: " + e.message;
+                                statusMsg.textContent = "Lá»—i khi xÃ¡c minh: " + e.message;
                                 statusMsg.className = "status-msg error";
                                 btn.disabled = false;
-                                btn.textContent = "Thử lại";
+                                btn.textContent = "Thá»­ láº¡i";
                             }
                         };
                     }
                 } catch (e) {
-                    showError("Lỗi kết nối: " + e.message);
+                    showError("Lá»—i káº¿t ná»‘i: " + e.message);
                 }
             });
         }

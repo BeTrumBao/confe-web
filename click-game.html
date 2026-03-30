@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1 cái nút - Confe Game</title>
+    <title>1 cÃ¡i nÃºt - Confe Game</title>
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -481,6 +481,20 @@
             width: 60px;
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body class="light">
@@ -488,26 +502,26 @@
         <span class="material-symbols-rounded">chevron_left</span>
     </a>
     <div class="game-container">
-        <h1> 1 cái nút</h1>
-        <p class="desc">Bạn có 60 giây để bấm nút nhiều nhất có thể! Sẵn sàng chưa?</p>
+        <h1> 1 cÃ¡i nÃºt</h1>
+        <p class="desc">Báº¡n cÃ³ 60 giÃ¢y Ä‘á»ƒ báº¥m nÃºt nhiá»u nháº¥t cÃ³ thá»ƒ! Sáºµn sÃ ng chÆ°a?</p>
 
         <div class="stats">
             <div class="stat-box">
-                <div class="stat-label">Thời gian</div>
+                <div class="stat-label">Thá»i gian</div>
                 <div class="stat-value" id="timer">60s</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">Lượt bấm</div>
+                <div class="stat-label">LÆ°á»£t báº¥m</div>
                 <div class="stat-value" id="counter">0</div>
             </div>
         </div>
 
-        <button class="click-btn" id="clickBtn" disabled>BẤM!</button>
-        <button class="btn-start" id="startBtn">Bắt đầu ngay</button>
+        <button class="click-btn" id="clickBtn" disabled>Báº¤M!</button>
+        <button class="btn-start" id="startBtn">Báº¯t Ä‘áº§u ngay</button>
     </div>
 
     <div class="leaderboard">
-        <div class="lb-title"> Bảng Xếp Hạng Cao Thủ</div>
+        <div class="lb-title"> Báº£ng Xáº¿p Háº¡ng Cao Thá»§</div>
         <div id="lbContent">
             <!-- Skeleton items -->
             <div class="lb-row">
@@ -554,26 +568,26 @@
     <!-- CELEBRATION MODAL -->
     <div id="modalCelebration" class="modal-overlay">
         <div class="modal-box celebration-box">
-            <div class="celebration-icon">🎉</div>
-            <div class="modal-title" style="color:#d97706">SIÊU CẤP ĐỈNH CAO!</div>
-            <div class="modal-desc">Bạn vừa lập một kỷ lục mới vô cùng ấn tượng!</div>
+            <div class="celebration-icon">ðŸŽ‰</div>
+            <div class="modal-title" style="color:#d97706">SIÃŠU Cáº¤P Äá»ˆNH CAO!</div>
+            <div class="modal-desc">Báº¡n vá»«a láº­p má»™t ká»· lá»¥c má»›i vÃ´ cÃ¹ng áº¥n tÆ°á»£ng!</div>
             <div class="record-value" id="finalRecord">0</div>
-            <div style="font-size:14px; color:#92400e; margin-bottom:24px; font-weight:600;">Kỷ lục của bạn đã được ghi
-                danh bảng vàng.</div>
+            <div style="font-size:14px; color:#92400e; margin-bottom:24px; font-weight:600;">Ká»· lá»¥c cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c ghi
+                danh báº£ng vÃ ng.</div>
             <button class="modal-btn btn-celebrate"
-                onclick="document.getElementById('modalCelebration').classList.remove('active')">Tuyệt vời!</button>
+                onclick="document.getElementById('modalCelebration').classList.remove('active')">Tuyá»‡t vá»i!</button>
         </div>
     </div>
 
     <!-- CUSTOM CONFIRM MODAL -->
     <div id="modalConfirm" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icon">🚩</div>
-            <div class="modal-title" id="mTitle">Báo cáo người chơi</div>
-            <div class="modal-desc" id="mDesc">Bạn có chắc chắn muốn thực hiện hành động này?</div>
+            <div class="modal-icon">ðŸš©</div>
+            <div class="modal-title" id="mTitle">BÃ¡o cÃ¡o ngÆ°á»i chÆ¡i</div>
+            <div class="modal-desc" id="mDesc">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n thá»±c hiá»‡n hÃ nh Ä‘á»™ng nÃ y?</div>
             <div class="modal-actions">
-                <button class="modal-btn btn-cancel" id="mCancel">Hủy bỏ</button>
-                <button class="modal-btn btn-confirm" id="mConfirm">Xác nhận</button>
+                <button class="modal-btn btn-cancel" id="mCancel">Há»§y bá»</button>
+                <button class="modal-btn btn-confirm" id="mConfirm">XÃ¡c nháº­n</button>
             </div>
         </div>
     </div>
@@ -594,10 +608,10 @@
             if (d.exists() && d.data().db_version > CLIENT_DB_VERSION) {
                 document.body.innerHTML = `
                     <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#fee2e2; color:#b91c1c; padding:20px; text-align:center; font-family:sans-serif; z-index:99999; position:fixed; inset:0;">
-                        <span style="font-size:60px; margin-bottom:20px;">⚠️</span>
-                        <h1 style="font-size:28px; margin-bottom:10px; font-weight:800;">Lỗi Phiên Bản Web</h1>
-                        <p style="font-size:16px; max-width:500px; line-height:1.5;">Hệ thống Máy chủ vừa được nâng cấp cấu trúc mới. Phiên bản hiện tại của bạn đã cũ nên tạm thời bị khóa để tránh gây rủi ro dữ liệu.</p>
-                        <p style="font-size:16px; margin-top:20px; font-weight:bold; background:#b91c1c; color:white; padding:10px 20px; border-radius:10px;">👉 Vui lòng Tải lại trang (F5) hoặc Xóa Cache trình duyệt!</p>
+                        <span style="font-size:60px; margin-bottom:20px;">âš ï¸</span>
+                        <h1 style="font-size:28px; margin-bottom:10px; font-weight:800;">Lá»—i PhiÃªn Báº£n Web</h1>
+                        <p style="font-size:16px; max-width:500px; line-height:1.5;">Há»‡ thá»‘ng MÃ¡y chá»§ vá»«a Ä‘Æ°á»£c nÃ¢ng cáº¥p cáº¥u trÃºc má»›i. PhiÃªn báº£n hiá»‡n táº¡i cá»§a báº¡n Ä‘Ã£ cÅ© nÃªn táº¡m thá»i bá»‹ khÃ³a Ä‘á»ƒ trÃ¡nh gÃ¢y rá»§i ro dá»¯ liá»‡u.</p>
+                        <p style="font-size:16px; margin-top:20px; font-weight:bold; background:#b91c1c; color:white; padding:10px 20px; border-radius:10px;">ðŸ‘‰ Vui lÃ²ng Táº£i láº¡i trang (F5) hoáº·c XÃ³a Cache trÃ¬nh duyá»‡t!</p>
                     </div>
                 `;
             }
@@ -631,12 +645,12 @@
         function timeAgo(date) {
             if (!date) return '';
             const seconds = Math.floor((new Date() - date.toDate()) / 1000);
-            if (seconds < 60) return 'vừa xong';
+            if (seconds < 60) return 'vá»«a xong';
             const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}p trước`;
+            if (minutes < 60) return `${minutes}p trÆ°á»›c`;
             const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}h trước`;
-            return `${Math.floor(hours / 24)} ngày trước`;
+            if (hours < 24) return `${hours}h trÆ°á»›c`;
+            return `${Math.floor(hours / 24)} ngÃ y trÆ°á»›c`;
         }
 
         // Realtime update labels every 30s
@@ -672,10 +686,10 @@
 
         window.reportUser = async (uid, name) => {
             if (!currentUser) {
-                showToast("Bạn cần đăng nhập để báo cáo.");
+                showToast("Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ bÃ¡o cÃ¡o.");
                 return;
             }
-            showConfirmPopup(`Bạn muốn báo cáo tài khoản "${name}" vì nghi ngờ gian lận?`, async () => {
+            showConfirmPopup(`Báº¡n muá»‘n bÃ¡o cÃ¡o tÃ i khoáº£n "${name}" vÃ¬ nghi ngá» gian láº­n?`, async () => {
                 try {
                     await setDoc(doc(collection(db, 'reports')), {
                         reporterId: currentUser.uid,
@@ -685,9 +699,9 @@
                         game: '1_cai_nut',
                         timestamp: serverTimestamp()
                     });
-                    showToast("Đã gửi báo cáo. Cảm ơn bạn!");
+                    showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o. Cáº£m Æ¡n báº¡n!");
                 } catch (e) {
-                    showToast("Lỗi khi gửi báo cáo.");
+                    showToast("Lá»—i khi gá»­i bÃ¡o cÃ¡o.");
                 }
             });
         };
@@ -704,10 +718,10 @@
                         <div class="lb-rank">${i + 1}</div>
                         <div style="display:flex; align-items:center; flex:1;">
                             <div class="lb-name" onclick="window.parent.loadPage('profile.html?uid=${data.uid}', this)">
-                                ${data.displayName || 'Người dùng ẩn'}
-                                ${i === 0 ? '<span class="lb-crown">👑</span>' : ''}
+                                ${data.displayName || 'NgÆ°á»i dÃ¹ng áº©n'}
+                                ${i === 0 ? '<span class="lb-crown">ðŸ‘‘</span>' : ''}
                             </div>
-                            <button class="report-btn" title="Báo cáo gian lận" onclick="reportUser('${data.uid}', '${data.displayName || 'Ẩn'}')">🚩</button>
+                            <button class="report-btn" title="BÃ¡o cÃ¡o gian láº­n" onclick="reportUser('${data.uid}', '${data.displayName || 'áº¨n'}')">ðŸš©</button>
                         </div>
                         <div class="lb-info">
                             <div class="lb-score">${data.score}</div>
@@ -720,7 +734,7 @@
 
         startBtn.onclick = () => {
             if (!currentUser) {
-                showToast("Vui lòng đăng nhập để lưu kết quả nhé!");
+                showToast("Vui lÃ²ng Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u káº¿t quáº£ nhÃ©!");
                 return;
             }
             startGame();
@@ -753,19 +767,19 @@
             isPlaying = false;
             clickBtn.disabled = true;
             startBtn.style.display = 'block';
-            startBtn.textContent = "Chơi lại";
+            startBtn.textContent = "ChÆ¡i láº¡i";
 
-            showToast(`Hết giờ! Bạn đạt được ${score} lượt bấm.`);
+            showToast(`Háº¿t giá»! Báº¡n Ä‘áº¡t Ä‘Æ°á»£c ${score} lÆ°á»£t báº¥m.`);
 
             if (currentUser && score > 0) {
                 try {
                     // FIX: Fetch profile info to ensure displayName exists
                     const profileSnap = await getDoc(doc(db, 'users', currentUser.uid));
-                    let finalName = 'Người dùng ẩn';
+                    let finalName = 'NgÆ°á»i dÃ¹ng áº©n';
                     if (profileSnap.exists()) {
-                        finalName = profileSnap.data().displayName || profileSnap.data().username || 'Cư dân mới';
+                        finalName = profileSnap.data().displayName || profileSnap.data().username || 'CÆ° dÃ¢n má»›i';
                     } else {
-                        finalName = currentUser.displayName || 'Cư dân mới';
+                        finalName = currentUser.displayName || 'CÆ° dÃ¢n má»›i';
                     }
 
                     const userRef = doc(db, 'leaderboard_clicks', currentUser.uid);
@@ -780,7 +794,7 @@
                         document.getElementById('finalRecord').textContent = score;
                         document.getElementById('modalCelebration').classList.add('active');
                     } else {
-                        showToast(`Cố lên! Bạn còn thiếu ${snap.data().score - score + 1} điểm nữa để phá kỷ lục cũ.`);
+                        showToast(`Cá»‘ lÃªn! Báº¡n cÃ²n thiáº¿u ${snap.data().score - score + 1} Ä‘iá»ƒm ná»¯a Ä‘á»ƒ phÃ¡ ká»· lá»¥c cÅ©.`);
                     }
                 } catch (e) {
                     console.error(e);

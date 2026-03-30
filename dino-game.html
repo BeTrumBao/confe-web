@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khủng Long Với Mấy Cây Xương Rồng - Confe</title>
+    <title>Khá»§ng Long Vá»›i Máº¥y CÃ¢y XÆ°Æ¡ng Rá»“ng - Confe</title>
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -479,6 +479,20 @@
             }
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -491,27 +505,27 @@
         <button id="pauseBtn" class="pause-btn" style="display: none;">
             <span class="material-symbols-rounded">pause</span>
         </button>
-        <h1><span class="material-symbols-rounded">emoji_nature</span>Khủng Long Với Mấy Cây Xương Rồng</h1>
-        <p class="desc">Nhấn phím Cách hoặc Chạm vào màn hình để nhảy! Càng lâu càng tốt</p>
+        <h1><span class="material-symbols-rounded">emoji_nature</span>Khá»§ng Long Vá»›i Máº¥y CÃ¢y XÆ°Æ¡ng Rá»“ng</h1>
+        <p class="desc">Nháº¥n phÃ­m CÃ¡ch hoáº·c Cháº¡m vÃ o mÃ n hÃ¬nh Ä‘á»ƒ nháº£y! CÃ ng lÃ¢u cÃ ng tá»‘t</p>
 
         <canvas id="gameCanvas" width="800" height="400"></canvas>
 
         <div class="game-info">
-            <div id="currentScore">Điểm: 0</div>
-            <div id="bestScore">Kỷ lục: 0</div>
+            <div id="currentScore">Äiá»ƒm: 0</div>
+            <div id="bestScore">Ká»· lá»¥c: 0</div>
         </div>
 
-        <button id="startBtn" class="btn-start">Bắt Đầu</button>
+        <button id="startBtn" class="btn-start">Báº¯t Äáº§u</button>
     </div>
 
     <!-- PAUSE MODAL -->
     <div id="pauseModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icon">⏸️</div>
-            <div class="modal-title">Đã Tạm Dừng</div>
-            <div class="modal-desc">Đừng bỏ cuộc giữa chừng nhé! Mọi thứ vẫn đang đợi bạn tiếp tục.</div>
+            <div class="modal-icon">â¸ï¸</div>
+            <div class="modal-title">ÄÃ£ Táº¡m Dá»«ng</div>
+            <div class="modal-desc">Äá»«ng bá» cuá»™c giá»¯a chá»«ng nhÃ©! Má»i thá»© váº«n Ä‘ang Ä‘á»£i báº¡n tiáº¿p tá»¥c.</div>
             <div class="modal-actions">
-                <button id="resumeBtn" class="modal-btn btn-confirm">Tiếp Tục Chơi</button>
+                <button id="resumeBtn" class="modal-btn btn-confirm">Tiáº¿p Tá»¥c ChÆ¡i</button>
             </div>
         </div>
     </div>
@@ -519,12 +533,12 @@
     <!-- REPORT MODAL -->
     <div id="modalConfirm" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icon">🚩</div>
-            <div class="modal-title" id="mTitle">Báo cáo người chơi</div>
+            <div class="modal-icon">ðŸš©</div>
+            <div class="modal-title" id="mTitle">BÃ¡o cÃ¡o ngÆ°á»i chÆ¡i</div>
             <p class="modal-desc" id="mDesc"></p>
             <div class="modal-actions">
-                <button class="modal-btn btn-cancel" id="mCancel">Hủy bỏ</button>
-                <button class="modal-btn btn-confirm btn-danger" id="mConfirm">Xác nhận</button>
+                <button class="modal-btn btn-cancel" id="mCancel">Há»§y bá»</button>
+                <button class="modal-btn btn-confirm btn-danger" id="mConfirm">XÃ¡c nháº­n</button>
             </div>
         </div>
     </div>
@@ -532,7 +546,7 @@
     <div class="leaderboard">
         <div class="lb-title">
             <span class="material-symbols-rounded" style="color: #ffa000;">military_tech</span>
-            Bảng Xếp Hạng
+            Báº£ng Xáº¿p Háº¡ng
         </div>
         <div id="lbList">
             <!-- Leaderboard Items -->
@@ -562,7 +576,7 @@
             // Fetch High Score
             const s = await getDoc(doc(db, "leaderboard_dino", u.uid));
             if (s.exists()) {
-                bestEl.textContent = `Kỷ lục: ${Math.floor(s.data().score / 10)}`;
+                bestEl.textContent = `Ká»· lá»¥c: ${Math.floor(s.data().score / 10)}`;
             }
         });
 
@@ -594,12 +608,12 @@
         function timeAgo(date) {
             if (!date) return '';
             const seconds = Math.floor((new Date() - date.toDate()) / 1000);
-            if (seconds < 60) return 'vừa xong';
+            if (seconds < 60) return 'vá»«a xong';
             const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}p trước`;
+            if (minutes < 60) return `${minutes}p trÆ°á»›c`;
             const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}h trước`;
-            return `${Math.floor(hours / 24)} ngày trước`;
+            if (hours < 24) return `${hours}h trÆ°á»›c`;
+            return `${Math.floor(hours / 24)} ngÃ y trÆ°á»›c`;
         }
 
         // Custom confirm helper
@@ -622,8 +636,8 @@
         };
 
         window.reportUser = async (uid, name) => {
-            if (!currentUser) return showToast("Cần đăng nhập! 🔒");
-            showConfirmPopup(`Báo cáo "${name}" vì nghi ngờ gian lận?`, async () => {
+            if (!currentUser) return showToast("Cáº§n Ä‘Äƒng nháº­p! ðŸ”’");
+            showConfirmPopup(`BÃ¡o cÃ¡o "${name}" vÃ¬ nghi ngá» gian láº­n?`, async () => {
                 try {
                     await setDoc(doc(collection(db, 'reports')), {
                         reporterId: currentUser.uid,
@@ -633,7 +647,7 @@
                         game: 'dino_run',
                         timestamp: serverTimestamp()
                     });
-                    showToast("Đã gửi báo cáo! 🚩");
+                    showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o! ðŸš©");
                 } catch (e) { console.error(e); }
             });
         };
@@ -684,7 +698,7 @@
             gameRunning = false;
             startBtn.style.display = 'inline-block';
             pauseBtn.style.display = 'none';
-            startBtn.textContent = 'Chơi Lại';
+            startBtn.textContent = 'ChÆ¡i Láº¡i';
 
             if (currentUser && score > 0) {
                 const ref = doc(db, "leaderboard_dino", currentUser.uid);
@@ -692,12 +706,12 @@
                 if (!s.exists() || s.data().score < score) {
                     await setDoc(ref, {
                         uid: currentUser.uid,
-                        displayName: userData?.displayName || userData?.username || 'Cư dân Confe',
+                        displayName: userData?.displayName || userData?.username || 'CÆ° dÃ¢n Confe',
                         score: score,
                         updatedAt: serverTimestamp()
                     });
-                    showToast("🎉 Kỷ lục mới! Đã lưu vào bảng xếp hạng.");
-                    bestEl.textContent = `Kỷ lục: ${Math.floor(score / 10)}`;
+                    showToast("ðŸŽ‰ Ká»· lá»¥c má»›i! ÄÃ£ lÆ°u vÃ o báº£ng xáº¿p háº¡ng.");
+                    bestEl.textContent = `Ká»· lá»¥c: ${Math.floor(score / 10)}`;
                 }
             }
         }
@@ -750,7 +764,7 @@
             score++;
             // Faster speed up: every 200 score units (~20 seconds of gameplay usually makes it very fast)
             if (score % 200 === 0) speed += 0.4;
-            scoreEl.textContent = `Điểm: ${Math.floor(score / 10)}`;
+            scoreEl.textContent = `Äiá»ƒm: ${Math.floor(score / 10)}`;
 
             frame++;
             if (gameRunning) requestAnimationFrame(update);
@@ -770,10 +784,10 @@
                         <div class="lb-rank">${i + 1}</div>
                         <div style="display:flex; align-items:center; flex:1;">
                             <div class="lb-name" onclick="window.parent.loadPage('profile.html?uid=${data.uid}', this)">
-                                ${data.displayName || 'Người dùng ẩn'}
-                                ${i === 0 ? '<span class="lb-crown">👑</span>' : ''}
+                                ${data.displayName || 'NgÆ°á»i dÃ¹ng áº©n'}
+                                ${i === 0 ? '<span class="lb-crown">ðŸ‘‘</span>' : ''}
                             </div>
-                            <button class="report-btn" title="Báo cáo gian lận" onclick="reportUser('${data.uid}', '${data.displayName || 'Ẩn'}')">
+                            <button class="report-btn" title="BÃ¡o cÃ¡o gian láº­n" onclick="reportUser('${data.uid}', '${data.displayName || 'áº¨n'}')">
                                 <span class="material-symbols-rounded" style="font-size: 16px;">flag</span>
                             </button>
                         </div>

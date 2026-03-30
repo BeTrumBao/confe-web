@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đang tải...</title>
+    <title>Äang táº£i...</title>
     <script type="module" src="security-lock.js"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
@@ -1620,6 +1620,20 @@
             });
         };
     </script>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1634,12 +1648,12 @@
                     <span class="material-symbols-rounded" style="font-size: 24px;">settings</span>
                 </button>
                 <div id="adminMenu" class="admin-menu">
-                    <div id="btnEditTopic" class="menu-item"><span class="material-symbols-rounded">edit</span> Sửa
-                        thông tin</div>
+                    <div id="btnEditTopic" class="menu-item"><span class="material-symbols-rounded">edit</span> Sá»­a
+                        thÃ´ng tin</div>
                     <div id="btnManageMembers" class="menu-item"><span class="material-symbols-rounded">group</span>
-                        Quản lý thành viên</div>
+                        Quáº£n lÃ½ thÃ nh viÃªn</div>
                     <div id="btnDeleteTopic" class="menu-item danger"><span
-                            class="material-symbols-rounded">delete</span> Xóa Chủ đề này</div>
+                            class="material-symbols-rounded">delete</span> XÃ³a Chá»§ Ä‘á» nÃ y</div>
                 </div>
             </div>
 
@@ -1658,7 +1672,7 @@
                 <img id="logo" class="avt" src="">
                 <div class="info">
                     <div id="catBadge"></div>
-                    <h1 id="title" class="title">Đang tải...</h1>
+                    <h1 id="title" class="title">Äang táº£i...</h1>
                     <div class="host-info">
                         <span class="host-badge">HOST</span>
                         <span id="hostName" class="skeleton"
@@ -1666,21 +1680,21 @@
 
                         <button id="btnGoChat" class="btn-chat" style="display:none;">
                             <span class="material-symbols-rounded" style="font-size: 18px;">chat_bubble_outline</span>
-                            Vào phòng Chat
+                            VÃ o phÃ²ng Chat
                         </button>
 
                         <button id="btnLeaveTopicHeader" class="btn-leave" style="display:none;"
                             onclick="window.leaveTopic()">
-                            <span class="material-symbols-rounded" style="font-size: 18px;">logout</span> Rời Chủ đề
+                            <span class="material-symbols-rounded" style="font-size: 18px;">logout</span> Rá»i Chá»§ Ä‘á»
                         </button>
                     </div>
 
                     <div id="desc" class="desc">
                         <span class="material-symbols-rounded desc-icon">description</span>
                         <div style="flex:1; text-align:left;">
-                            <div style="font-weight:800; color:#1e40af; font-size:16px; margin-bottom: 4px;">Ghi chú của
+                            <div style="font-weight:800; color:#1e40af; font-size:16px; margin-bottom: 4px;">Ghi chÃº cá»§a
                                 Admin</div>
-                            <div id="descContent" style="width:100%;">Vui lòng tham gia để xem nội quy...</div>
+                            <div id="descContent" style="width:100%;">Vui lÃ²ng tham gia Ä‘á»ƒ xem ná»™i quy...</div>
                         </div>
                     </div>
                 </div>
@@ -1692,8 +1706,8 @@
                 <img src="" class="post-avt inline-creator-avt"
                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/847/847969.png'"
                     style="width:40px; height:40px;">
-                <div class="creator-inp-fake">Có gì mới?</div>
-                <button class="creator-btn">Đăng</button>
+                <div class="creator-inp-fake">CÃ³ gÃ¬ má»›i?</div>
+                <button class="creator-btn">ÄÄƒng</button>
             </div>
         </div>
         <div class="container" id="list" style="width:100%; padding: 20px 0;"></div>
@@ -1702,107 +1716,107 @@
     <div class="fab-wrapper" id="fabWrapper">
         <button id="fab" class="fab">+</button>
         <div class="fab-menu" id="fabMenu">
-            <button class="fab-item" id="btnCreatePoll"> Tạo Khảo sát</button>
-            <button class="fab-item" id="btnCreateConfession"> Đăng bài</button>
+            <button class="fab-item" id="btnCreatePoll"> Táº¡o Kháº£o sÃ¡t</button>
+            <button class="fab-item" id="btnCreateConfession"> ÄÄƒng bÃ i</button>
         </div>
     </div>
 
     <div id="modalPost" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:16px; font-size:20px;">Đăng bài</h3>
+            <h3 style="margin-bottom:16px; font-size:20px;">ÄÄƒng bÃ i</h3>
             <div id="guestNameInput" style="margin-bottom: 16px; display: none;">
-                <input type="text" id="guestName" class="inp" placeholder="Tên hiển thị (Tự làm xoá mờ)"
+                <input type="text" id="guestName" class="inp" placeholder="TÃªn hiá»ƒn thá»‹ (Tá»± lÃ m xoÃ¡ má»)"
                     style="margin-bottom:12px; display:none;">
             </div>
-            <textarea id="content" class="inp-area" rows="4" placeholder="Bạn đang nghĩ gì?"></textarea>
+            <textarea id="content" class="inp-area" rows="4" placeholder="Báº¡n Ä‘ang nghÄ© gÃ¬?"></textarea>
 
             <button onclick="insertSpoiler('content')"
                 style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer; display:flex; align-items:center; gap:4px;"
-                title="In chữ mờ"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span>
-                Chữ mờ</button>
+                title="In chá»¯ má»"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span>
+                Chá»¯ má»</button>
 
             <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <label id="btnUploadImg" class="btn-act"> Chọn ảnh <input type="file" id="fImg" hidden></label>
+                <label id="btnUploadImg" class="btn-act"> Chá»n áº£nh <input type="file" id="fImg" hidden></label>
                 <label class="btn-act"
                     style="cursor:pointer; display:flex; align-items:center; justify-content:flex-start; gap:8px; flex:1; padding-left:15px;">
                     <input type="checkbox" id="chkAnon" checked style="width:18px; height:18px; cursor:pointer;">
-                    <span style="font-size:14px; font-weight:700;">Đăng ẩn danh</span>
+                    <span style="font-size:14px; font-weight:700;">ÄÄƒng áº©n danh</span>
                 </label>
             </div>
-            <div id="fileMsg" class="file-ok"> Đã chọn ảnh</div>
+            <div id="fileMsg" class="file-ok"> ÄÃ£ chá»n áº£nh</div>
             <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
                 <input type="checkbox" id="chkTermsPost" style="margin-top:3px; cursor:pointer;">
                 <label for="chkTermsPost" style="color:var(--text-secondary); cursor:pointer;">
-                    Tôi đồng ý với <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
+                    TÃ´i Ä‘á»“ng Ã½ vá»›i <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
                         onclick="event.preventDefault(); document.getElementById('modalTerms').classList.add('active')">Quy
-                        định</span>. Tôi chịu trách nhiệm hoàn toàn về nội dung mình tạo ra.
+                        Ä‘á»‹nh</span>. TÃ´i chá»‹u trÃ¡ch nhiá»‡m hoÃ n toÃ n vá» ná»™i dung mÃ¬nh táº¡o ra.
                 </label>
             </div>
-            <button id="btnSubmitPost" class="btn-main">Đăng Bài</button>
+            <button id="btnSubmitPost" class="btn-main">ÄÄƒng BÃ i</button>
             <button onclick="document.getElementById('modalPost').classList.remove('active')"
-                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Hủy
-                bỏ</button>
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Há»§y
+                bá»</button>
         </div>
     </div>
 
     <div id="modalEditPost" class="modal">
         <div class="box">
             <h3 style="margin-bottom:16px;"><span class="material-symbols-rounded"
-                    style="font-size: 20px; vertical-align: middle;">edit</span> Chỉnh sửa bài viết</h3>
+                    style="font-size: 20px; vertical-align: middle;">edit</span> Chá»‰nh sá»­a bÃ i viáº¿t</h3>
             <textarea id="editPostContent" class="inp-area" rows="4"></textarea>
             <button onclick="insertSpoiler('editPostContent')"
                 style="background:#f1f5f9; border:none; border-radius:8px; padding:4px 10px; font-size:12px; font-weight:600; color:#475569; margin-top:8px; cursor:pointer; display:flex; align-items:center; gap:4px;"
-                title="In chữ mờ"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span>
-                Chữ mờ</button>
+                title="In chá»¯ má»"><span class="material-symbols-rounded" style="font-size: 18px;">visibility_off</span>
+                Chá»¯ má»</button>
 
             <img id="editImgPreview" class="edit-img-preview" src="">
 
             <div style="display:grid; grid-template-columns:1fr; gap:12px;">
                 <label class="btn-act" style="text-align:center;">
-                    Đổi ảnh khác (hoặc thêm ảnh) <input type="file" id="editPostFile" hidden>
+                    Äá»•i áº£nh khÃ¡c (hoáº·c thÃªm áº£nh) <input type="file" id="editPostFile" hidden>
                 </label>
             </div>
-            <div id="editFileMsg" class="file-ok"> Đã chọn ảnh mới</div>
+            <div id="editFileMsg" class="file-ok"> ÄÃ£ chá»n áº£nh má»›i</div>
 
-            <button id="btnSubmitEdit" class="btn-main">Lưu thay đổi</button>
+            <button id="btnSubmitEdit" class="btn-main">LÆ°u thay Ä‘á»•i</button>
             <button onclick="document.getElementById('modalEditPost').classList.remove('active')"
-                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Há»§y</button>
         </div>
     </div>
 
     <div id="modalPoll" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:16px; font-size:20px;">Tạo cuộc khảo sát</h3>
+            <h3 style="margin-bottom:16px; font-size:20px;">Táº¡o cuá»™c kháº£o sÃ¡t</h3>
             <div id="pollGuestInput" style="margin-bottom: 16px; display: none;">
-                <input type="text" id="pollGuestName" class="inp-text" placeholder="Tên hiển thị (Bỏ trống = Ẩn danh)">
+                <input type="text" id="pollGuestName" class="inp-text" placeholder="TÃªn hiá»ƒn thá»‹ (Bá» trá»‘ng = áº¨n danh)">
             </div>
-            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">Câu
-                hỏi</label>
-            <input type="text" id="pollQuestion" class="inp-text" placeholder="Bạn muốn hỏi gì?">
-            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">Các lựa
-                chọn</label>
+            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">CÃ¢u
+                há»i</label>
+            <input type="text" id="pollQuestion" class="inp-text" placeholder="Báº¡n muá»‘n há»i gÃ¬?">
+            <label style="font-weight:700; font-size:13px; color:#64748b; margin-bottom:5px; display:block;">CÃ¡c lá»±a
+                chá»n</label>
             <div id="pollOptionsContainer">
-                <input type="text" class="inp-text poll-opt-inp" placeholder="Lựa chọn 1">
-                <input type="text" class="inp-text poll-opt-inp" placeholder="Lựa chọn 2">
+                <input type="text" class="inp-text poll-opt-inp" placeholder="Lá»±a chá»n 1">
+                <input type="text" class="inp-text poll-opt-inp" placeholder="Lá»±a chá»n 2">
             </div>
-            <button onclick="window.addPollOption()" class="add-opt-btn">+ Thêm lựa chọn</button>
+            <button onclick="window.addPollOption()" class="add-opt-btn">+ ThÃªm lá»±a chá»n</button>
             <label class="btn-act"
                 style="cursor:pointer; display:flex; align-items:center; justify-content:flex-start; gap:8px; padding-left:15px; margin-bottom:15px;">
                 <input type="checkbox" id="chkAnonPoll" checked style="width:18px; height:18px; cursor:pointer;">
-                <span style="font-size:14px; font-weight:700;">Đăng ẩn danh</span>
+                <span style="font-size:14px; font-weight:700;">ÄÄƒng áº©n danh</span>
             </label>
             <div style="margin-bottom:15px; font-size:13px; display:flex; align-items:flex-start; gap:8px;">
                 <input type="checkbox" id="chkTermsPoll" style="margin-top:3px; cursor:pointer;">
                 <label for="chkTermsPoll" style="color:var(--text-secondary); cursor:pointer;">
-                    Tôi đồng ý với <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
+                    TÃ´i Ä‘á»“ng Ã½ vá»›i <span style="color:var(--primary); font-weight:600; text-decoration:underline;"
                         onclick="event.preventDefault(); document.getElementById('modalTerms').classList.add('active')">Quy
-                        định</span>. Tôi chịu trách nhiệm hoàn toàn về nội dung mình tạo ra.
+                        Ä‘á»‹nh</span>. TÃ´i chá»‹u trÃ¡ch nhiá»‡m hoÃ n toÃ n vá» ná»™i dung mÃ¬nh táº¡o ra.
                 </label>
             </div>
-            <button id="btnSubmitPoll" class="btn-main">Tạo Khảo Sát</button>
+            <button id="btnSubmitPoll" class="btn-main">Táº¡o Kháº£o SÃ¡t</button>
             <button onclick="document.getElementById('modalPoll').classList.remove('active')"
-                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Hủy
-                bỏ</button>
+                style="width:100%; padding:12px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px; font-weight:600;">Há»§y
+                bá»</button>
         </div>
     </div>
 
@@ -1816,99 +1830,99 @@
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <h3 class="modal-title" style="font-size:20px; margin-bottom:10px;"> Tất cả Bình luận</h3>
+            <h3 class="modal-title" style="font-size:20px; margin-bottom:10px;"> Táº¥t cáº£ BÃ¬nh luáº­n</h3>
             <div id="allCommentsList" style="max-height: 500px; overflow-y: auto; padding-right: 10px;"></div>
         </div>
     </div>
 
     <div id="modalEdit" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:16px;">Chỉnh sửa Chủ đề</h3>
-            <label style="font-size:12px; font-weight:700; color:#64748b">Tên Chủ đề</label>
+            <h3 style="margin-bottom:16px;">Chá»‰nh sá»­a Chá»§ Ä‘á»</h3>
+            <label style="font-size:12px; font-weight:700; color:#64748b">TÃªn Chá»§ Ä‘á»</label>
             <input type="text" id="editTitle" class="inp-text">
-            <label style="font-size:12px; font-weight:700; color:#64748b; margin-top:10px; display:block;">Thể
-                loại</label>
+            <label style="font-size:12px; font-weight:700; color:#64748b; margin-top:10px; display:block;">Thá»ƒ
+                loáº¡i</label>
             <select id="editCat" class="inp-text" style="background:white">
-                <option value="life"> Đời thường</option>
+                <option value="life"> Äá»i thÆ°á»ng</option>
                 <option value="drama"> Drama</option>
-                <option value="love"> Tình yêu</option>
-                <option value="school"> Học đường</option>
+                <option value="love"> TÃ¬nh yÃªu</option>
+                <option value="school"> Há»c Ä‘Æ°á»ng</option>
                 <option value="game"> Game</option>
             </select>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
                 <label class="btn-up">
                     <span class="material-symbols-rounded">image</span>
-                    Đổi Bìa
+                    Äá»•i BÃ¬a
                     <input type="file" id="editBanner" hidden>
                 </label>
                 <label class="btn-up">
                     <span class="material-symbols-rounded">perm_media</span>
-                    Đổi Logo
+                    Äá»•i Logo
                     <input type="file" id="editLogo" hidden>
                 </label>
             </div>
-            <label style="font-size:12px; font-weight:700; color:#64748b">Nội quy / Mô tả</label>
+            <label style="font-size:12px; font-weight:700; color:#64748b">Ná»™i quy / MÃ´ táº£</label>
             <textarea id="editRules" class="inp-area" rows="3"></textarea>
-            <h4 style="font-size:14px; font-weight:700; color:var(--primary); margin-top:15px; margin-bottom:10px;">Tùy
-                chọn đăng bài</h4>
+            <h4 style="font-size:14px; font-weight:700; color:var(--primary); margin-top:15px; margin-bottom:10px;">TÃ¹y
+                chá»n Ä‘Äƒng bÃ i</h4>
             <div class="option-group-full">
-                <label class="option-item"><span>Ai được xem Chủ đề</span><select id="editPrivacyMode"
+                <label class="option-item"><span>Ai Ä‘Æ°á»£c xem Chá»§ Ä‘á»</span><select id="editPrivacyMode"
                         style="border:none; background:none; font-weight:600; color:var(--text); cursor:pointer;">
-                        <option value="public">Công khai</option>
-                        <option value="private">Cần phê duyệt</option>
+                        <option value="public">CÃ´ng khai</option>
+                        <option value="private">Cáº§n phÃª duyá»‡t</option>
                     </select></label>
-                <label class="option-item"><span>Trạng thái Chủ đề</span><select id="editStatus"
+                <label class="option-item"><span>Tráº¡ng thÃ¡i Chá»§ Ä‘á»</span><select id="editStatus"
                         style="border:none; background:none; font-weight:600; color:var(--text); cursor:pointer;">
-                        <option value="open"> Mở</option>
-                        <option value="closed"> Đóng</option>
+                        <option value="open"> Má»Ÿ</option>
+                        <option value="closed"> ÄÃ³ng</option>
                     </select></label>
-                <label class="option-item"><span>Ai được đăng Confession</span><select id="editPostRule"
+                <label class="option-item"><span>Ai Ä‘Æ°á»£c Ä‘Äƒng Confession</span><select id="editPostRule"
                         style="border:none; background:none; font-weight:600; color:var(--text); cursor:pointer;">
-                        <option value="all">Mọi người</option>
-                        <option value="logged">Chỉ đăng nhập</option>
+                        <option value="all">Má»i ngÆ°á»i</option>
+                        <option value="logged">Chá»‰ Ä‘Äƒng nháº­p</option>
                     </select></label>
-                <label class="option-item"><span>Cho phép tải ảnh</span><input type="checkbox" id="editAllowImg"
+                <label class="option-item"><span>Cho phÃ©p táº£i áº£nh</span><input type="checkbox" id="editAllowImg"
                         style="width:18px; height:18px;"></label>
-                <label class="option-item"><span>Bật phòng Chat</span><input type="checkbox" id="editAllowChat"
+                <label class="option-item"><span>Báº­t phÃ²ng Chat</span><input type="checkbox" id="editAllowChat"
                         style="width:18px; height:18px;"></label>
                 <label class="option-item">
-                    <span><b>Bảo vệ Chủ đề</b></span>
+                    <span><b>Báº£o vá»‡ Chá»§ Ä‘á»</b></span>
                     <input type="checkbox" id="editProtectResource" style="width:18px; height:18px;">
                 </label>
-                <p style="font-size:11px; color:#64748b; margin-top:-8px; margin-bottom:10px;">(Chế độ Bảo vệ sẽ che mờ
-                    tên, ẩn ảnh bìa và logo của Chủ đề ngoài Trang chủ đối với những người chưa Nhấn tham gia)</p>
+                <p style="font-size:11px; color:#64748b; margin-top:-8px; margin-bottom:10px;">(Cháº¿ Ä‘á»™ Báº£o vá»‡ sáº½ che má»
+                    tÃªn, áº©n áº£nh bÃ¬a vÃ  logo cá»§a Chá»§ Ä‘á» ngoÃ i Trang chá»§ Ä‘á»‘i vá»›i nhá»¯ng ngÆ°á»i chÆ°a Nháº¥n tham gia)</p>
             </div>
-            <button id="btnSaveTopic" class="btn-main">Lưu thay đổi</button>
+            <button id="btnSaveTopic" class="btn-main">LÆ°u thay Ä‘á»•i</button>
             <button onclick="document.getElementById('modalEdit').classList.remove('active')"
-                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Há»§y</button>
         </div>
     </div>
 
     <div id="modalReport" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:8px;"> Báo cáo bài viết</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo.</p>
+            <h3 style="margin-bottom:8px;"> BÃ¡o cÃ¡o bÃ i viáº¿t</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chá»n lÃ½ do báº¡n muá»‘n bÃ¡o cÃ¡o.</p>
             <select id="rReason" class="inp-text" style="cursor:pointer">
-                <option>Nội dung thô tục / Phản cảm</option>
-                <option>Spam / Quảng cáo rác</option>
-                <option>Bắt nạt / Quấy rối</option>
-                <option>Thông tin sai lệch</option>
+                <option>Ná»™i dung thÃ´ tá»¥c / Pháº£n cáº£m</option>
+                <option>Spam / Quáº£ng cÃ¡o rÃ¡c</option>
+                <option>Báº¯t náº¡t / Quáº¥y rá»‘i</option>
+                <option>ThÃ´ng tin sai lá»‡ch</option>
             </select>
-            <button id="btnSendReport" class="btn-main" style="background:var(--warn);">Gửi Báo Cáo</button>
+            <button id="btnSendReport" class="btn-main" style="background:var(--warn);">Gá»­i BÃ¡o CÃ¡o</button>
             <button onclick="document.getElementById('modalReport').classList.remove('active')"
-                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Hủy</button>
+                style="width:100%; padding:10px; background:none; border:none; color:#64748b; cursor:pointer; margin-top:8px;">Há»§y</button>
         </div>
     </div>
 
     <div id="modalConfirmAction" class="modal" style="z-index: 2500;">
         <div class="box" style="max-width:350px; text-align:center;">
             <div style="font-size:30px; margin-bottom:10px;"></div>
-            <div class="modal-title">Xác nhận</div>
-            <div class="modal-desc" id="confirmMsg">Bạn có chắc chắn không?</div>
+            <div class="modal-title">XÃ¡c nháº­n</div>
+            <div class="modal-desc" id="confirmMsg">Báº¡n cÃ³ cháº¯c cháº¯n khÃ´ng?</div>
             <div class="modal-actions">
-                <button id="btnConfirmYes" class="btn-confirm-modal btn-confirm-ok">Đồng ý</button>
+                <button id="btnConfirmYes" class="btn-confirm-modal btn-confirm-ok">Äá»“ng Ã½</button>
                 <button onclick="document.getElementById('modalConfirmAction').classList.remove('active')"
-                    class="btn-confirm-modal btn-confirm-cancel">Hủy</button>
+                    class="btn-confirm-modal btn-confirm-cancel">Há»§y</button>
             </div>
         </div>
     </div>
@@ -1924,9 +1938,9 @@
         style="display:none; text-align:center; padding: 60px 20px; background:rgba(255, 255, 255, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius:16px; border:1px solid rgba(255, 255, 255, 0.4); margin-top:20px;">
         <div style="font-size:48px; margin-bottom:16px; color:#64748b;"><span class="material-symbols-rounded"
                 style="font-size: 64px;">lock</span></div>
-        <h3 style="font-size:20px; margin-bottom:10px;">Bạn chưa tham gia Chủ đề này</h3>
-        <p id="notJoinedDesc" style="color:#64748b; margin-bottom:20px;">Vui lòng tham gia để có thể xem bài viết và
-            bình luận.</p>
+        <h3 style="font-size:20px; margin-bottom:10px;">Báº¡n chÆ°a tham gia Chá»§ Ä‘á» nÃ y</h3>
+        <p id="notJoinedDesc" style="color:#64748b; margin-bottom:20px;">Vui lÃ²ng tham gia Ä‘á»ƒ cÃ³ thá»ƒ xem bÃ i viáº¿t vÃ 
+            bÃ¬nh luáº­n.</p>
         <button id="btnJoinTopic" class="btn-main" style="width:auto; padding:12px 24px; margin:0 auto;"
             onclick="joinTopic()">Tham gia ngay</button>
     </div>
@@ -1938,20 +1952,20 @@
                 <span class="material-symbols-rounded" style="font-size: 18px;">close</span>
             </button>
             <h3 style="margin-bottom:16px; font-size:20px; display:flex; align-items:center; gap:8px;">
-                <span class="material-symbols-rounded">group</span> Quản lý thành viên
+                <span class="material-symbols-rounded">group</span> Quáº£n lÃ½ thÃ nh viÃªn
             </h3>
 
             <div style="display:flex; border-bottom:1px solid #e2e8f0; margin-bottom:10px;">
                 <button class="tab-btn active" id="tabPendingMembers" onclick="switchMemberTab('pending')"
-                    style="flex:1; padding:10px; background:none; border:none; font-weight:600; cursor:pointer; border-bottom:2px solid var(--primary); color:var(--primary);">Chờ
-                    duyệt</button>
+                    style="flex:1; padding:10px; background:none; border:none; font-weight:600; cursor:pointer; border-bottom:2px solid var(--primary); color:var(--primary);">Chá»
+                    duyá»‡t</button>
                 <button class="tab-btn" id="tabApprovedMembers" onclick="switchMemberTab('approved')"
-                    style="flex:1; padding:10px; background:none; border:none; font-weight:600; cursor:pointer; color:#64748b; border-bottom:2px solid transparent;">Đã
-                    duyệt</button>
+                    style="flex:1; padding:10px; background:none; border:none; font-weight:600; cursor:pointer; color:#64748b; border-bottom:2px solid transparent;">ÄÃ£
+                    duyá»‡t</button>
             </div>
 
             <div id="membersList" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
-                <div style="text-align:center; padding:20px; color:#64748b;">Đang tải...</div>
+                <div style="text-align:center; padding:20px; color:#64748b;">Äang táº£i...</div>
             </div>
         </div>
     </div>
@@ -1959,15 +1973,15 @@
     <!-- Cropper Modal -->
     <div id="modalCropper" class="modal" style="z-index:9999;">
         <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
-            <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
+            <h3 style="margin-bottom:15px; font-size:18px;">Cáº¯t áº£nh</h3>
             <div
                 style="width:100%; max-height:400px; background:#f1f5f9; border-radius:15px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;">
                 <img id="cropperImage" src="" style="max-width:100%; display:block;">
             </div>
             <div style="display:flex; gap:10px;">
-                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cắt & Xem trước</button>
+                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cáº¯t & Xem trÆ°á»›c</button>
                 <button onclick="document.getElementById('modalCropper').classList.remove('active')" class="btn-main"
-                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
+                    style="flex:1; background:#f1f5f9; color:#475569;">Há»§y</button>
             </div>
         </div>
     </div>
@@ -1998,13 +2012,13 @@
                     <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
                         <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
                         <div style="display:flex; align-items:flex-start; gap:15px;">
-                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">ðŸ”„</div>
                             <div>
-                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
-                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cáº­p nháº­t phiÃªn báº£n</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Há»‡ thá»‘ng vá»«a Ä‘Æ°á»£c nÃ¢ng cáº¥p cáº¥u trÃºc má»›i Ä‘á»ƒ hoáº¡t Ä‘á»™ng á»•n Ä‘á»‹nh hÆ¡n. Vui lÃ²ng táº£i láº¡i trang nhÃ©!</p>
                             </div>
                         </div>
-                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Táº£i láº¡i trang ngay</button>
                     </div>
                 `;
                 document.body.appendChild(alertBox);
@@ -2073,7 +2087,7 @@
 
         window.handleProfileClick = (uid) => {
             if (!uid || uid === 'null' || uid === 'undefined') {
-                window.showToast("Đây là tài khoản ẩn danh!", "️");
+                window.showToast("ÄÃ¢y lÃ  tÃ i khoáº£n áº©n danh!", "ï¸");
             } else {
                 location.href = `profile.html?uid=${uid}&src=detail`;
             }
@@ -2084,7 +2098,7 @@
             const start = txtArea.selectionStart;
             const end = txtArea.selectionEnd;
             const sel = txtArea.value.substring(start, end);
-            const replacement = sel ? `||${sel}||` : `||Nội dung ẩn||`;
+            const replacement = sel ? `||${sel}||` : `||Ná»™i dung áº©n||`;
             txtArea.value = txtArea.value.substring(0, start) + replacement + txtArea.value.substring(end);
             txtArea.focus();
             const cursorPos = start + replacement.length - (sel ? 0 : 2);
@@ -2159,11 +2173,11 @@
                 window.renderTopicHeader = (hasAccess) => {
                     const isProtected = topicData.protectResource === true && !hasAccess;
 
-                    document.title = isProtected ? "Confession (Nội dung ẩn)" : "Confession " + topicData.title;
-                    document.getElementById('title').innerHTML = isProtected ? '<span class="spoiler-text" onclick="window.showToast(\'Bạn chưa tham gia Chủ đề này!\')">Nội dung ẩn</span>' : window.escapeHTML(topicData.title);
-                    document.getElementById('descContent').textContent = isProtected ? 'Nội dung nội quy đã bị ẩn do Topic đang trong chế độ bảo vệ.' : (topicData.rules || "Chưa có nội quy.");
+                    document.title = isProtected ? "Confession (Ná»™i dung áº©n)" : "Confession " + topicData.title;
+                    document.getElementById('title').innerHTML = isProtected ? '<span class="spoiler-text" onclick="window.showToast(\'Báº¡n chÆ°a tham gia Chá»§ Ä‘á» nÃ y!\')">Ná»™i dung áº©n</span>' : window.escapeHTML(topicData.title);
+                    document.getElementById('descContent').textContent = isProtected ? 'Ná»™i dung ná»™i quy Ä‘Ã£ bá»‹ áº©n do Topic Ä‘ang trong cháº¿ Ä‘á»™ báº£o vá»‡.' : (topicData.rules || "ChÆ°a cÃ³ ná»™i quy.");
 
-                    const bgUrl = isProtected ? 'https://placehold.co/800x250/e2e8f0/64748b?text=Chủ+đề+Bảo+Mật' : (topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?');
+                    const bgUrl = isProtected ? 'https://placehold.co/800x250/e2e8f0/64748b?text=Chá»§+Ä‘á»+Báº£o+Máº­t' : (topicData.banner || 'https://placehold.co/800x250/e2e8f0/64748b?text=?');
                     document.getElementById('bgBlur').style.backgroundImage = `url('${bgUrl}')`;
                     document.getElementById('bgCover').style.backgroundImage = `url('${bgUrl}')`;
 
@@ -2179,7 +2193,7 @@
                         if (isProtected) {
                             hostEl.style.filter = 'blur(5px)';
                             hostEl.style.userSelect = 'none';
-                            hostEl.title = 'Tham gia Chủ đề để xem chi tiết';
+                            hostEl.title = 'Tham gia Chá»§ Ä‘á» Ä‘á»ƒ xem chi tiáº¿t';
                         } else {
                             hostEl.style.filter = 'none';
                             hostEl.style.userSelect = 'auto';
@@ -2213,7 +2227,7 @@
                         btnLeave.style.display = 'none';
                     }
 
-                    const catMap = { 'drama': ['#fee2e2', '#b91c1c', 'DRAMA '], 'love': ['#fce7f3', '#be185d', 'TÌNH YÊU ️'], 'school': ['#dbeafe', '#1d4ed8', 'HỌC ĐƯỜNG '], 'game': ['#dcfce7', '#15803d', 'GAME '], 'life': ['#f3f4f6', '#4b5563', 'ĐỜI THƯỜNG '] };
+                    const catMap = { 'drama': ['#fee2e2', '#b91c1c', 'DRAMA '], 'love': ['#fce7f3', '#be185d', 'TÃŒNH YÃŠU ï¸'], 'school': ['#dbeafe', '#1d4ed8', 'Há»ŒC ÄÆ¯á»œNG '], 'game': ['#dcfce7', '#15803d', 'GAME '], 'life': ['#f3f4f6', '#4b5563', 'Äá»œI THÆ¯á»œNG '] };
                     const c = catMap[topicData.category] || catMap['life'];
                     document.getElementById('catBadge').innerHTML = `<span class="cat-tag" style="background:${c[0]}; color:${c[1]}">${c[2]}</span>`;
 
@@ -2236,8 +2250,8 @@
                     verifyMembershipAndLoadPosts();
                 }
             } else {
-                console.error("Chủ đề not found or permission denied. ID:", tid);
-                window.showToast("Lỗi: Topic không tồn tại hoặc đã bị xóa!");
+                console.error("Chá»§ Ä‘á» not found or permission denied. ID:", tid);
+                window.showToast("Lá»—i: Topic khÃ´ng tá»“n táº¡i hoáº·c Ä‘Ã£ bá»‹ xÃ³a!");
                 setTimeout(() => location.href = 'home.html', 1500);
             }
         });
@@ -2257,21 +2271,21 @@
             const isOwner = currentUser && topicData.owner === currentUser.email;
             if (topicData.protectResource === true && !window.hasMembershipAccess && !isOwner) {
                 fab.style.display = 'none';
-                if (triggerByClick) window.showToast("Bạn chưa tham gia Chủ đề này!", "");
+                if (triggerByClick) window.showToast("Báº¡n chÆ°a tham gia Chá»§ Ä‘á» nÃ y!", "");
                 return false;
             }
             if (!window.hasMembershipAccess && !isOwner) {
                 fab.style.display = 'none';
-                if (triggerByClick) window.showToast("Cần tham gia để viết bài!", "");
+                if (triggerByClick) window.showToast("Cáº§n tham gia Ä‘á»ƒ viáº¿t bÃ i!", "");
                 return false;
             }
 
             if (status === 'closed') {
-                if (triggerByClick) window.showToast("Chủ đề đang tạm đóng.", "");
+                if (triggerByClick) window.showToast("Chá»§ Ä‘á» Ä‘ang táº¡m Ä‘Ã³ng.", "");
                 fab.style.display = 'none'; return false;
             }
             if (rule === 'logged' && !currentUser) {
-                if (triggerByClick) window.showToast("Chủ đề này cần đăng nhập.", "");
+                if (triggerByClick) window.showToast("Chá»§ Ä‘á» nÃ y cáº§n Ä‘Äƒng nháº­p.", "");
                 fab.style.display = 'none'; return false;
             }
 
@@ -2372,12 +2386,12 @@
                     window.croppedBannerBlob = blob;
                 }
                 document.getElementById('modalCropper').classList.remove('active');
-                window.showToast("Đã cắt ảnh thành công!");
+                window.showToast("ÄÃ£ cáº¯t áº£nh thÃ nh cÃ´ng!");
             }, 'image/jpeg', 0.9);
         };
 
         document.getElementById('btnSaveTopic').onclick = async function () {
-            this.textContent = "Đang lưu...";
+            this.textContent = "Äang lÆ°u...";
             let nb = topicData.banner, nl = topicData.logo;
 
             if (window.croppedBannerBlob) {
@@ -2394,13 +2408,13 @@
                 allowImages: document.getElementById('editAllowImg').checked, allowChat: document.getElementById('editAllowChat').checked,
                 privacyMode: document.getElementById('editPrivacyMode').value, protectResource: document.getElementById('editProtectResource').checked
             });
-            window.showToast("Đã cập nhật Chủ đề!"); location.reload();
+            window.showToast("ÄÃ£ cáº­p nháº­t Chá»§ Ä‘á»!"); location.reload();
         }
 
         document.getElementById('btnDeleteTopic').onclick = () => {
-            window.showCustomConfirm("Xóa vĩnh viễn Chủ đề này?", async () => {
+            window.showCustomConfirm("XÃ³a vÄ©nh viá»…n Chá»§ Ä‘á» nÃ y?", async () => {
                 await deleteDoc(doc(db, "topics", tid));
-                window.showToast("Đã xóa!", "️"); setTimeout(() => location.href = 'index.html', 1000);
+                window.showToast("ÄÃ£ xÃ³a!", "ï¸"); setTimeout(() => location.href = 'index.html', 1000);
             });
         }
 
@@ -2418,15 +2432,15 @@
         // SUBMIT POST
         document.getElementById('btnSubmitPost').onclick = async function () {
             const txt = document.getElementById('content').value;
-            if (!document.getElementById('chkTermsPost').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
-            if (!txt) return window.showToast("Viết gì đi!", "️");
+            if (!document.getElementById('chkTermsPost').checked) return window.showToast("Báº¡n chÆ°a Ä‘á»“ng Ã½ quy Ä‘á»‹nh!", "ï¸");
+            if (!txt) return window.showToast("Viáº¿t gÃ¬ Ä‘i!", "ï¸");
             document.getElementById('modalPost').classList.remove('active');
             document.getElementById('content').value = "";
             document.getElementById('fileMsg').style.display = 'none';
             let img = ""; const f = document.getElementById('fImg').files[0];
             if (f && topicData.allowImages !== false) img = await up(f);
 
-            let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
+            let userAvt = ANON_AVATAR; let name = "áº¨n danh"; let authorUid = null;
             if (currentUser) {
                 userAvt = (userData && userData.photoURL) ? userData.photoURL : MISSING_AVATAR;
                 name = (userData && userData.displayName) ? userData.displayName : (currentUser.email ? currentUser.email.split('@')[0] : 'Guest');
@@ -2435,7 +2449,7 @@
                 const gn = document.getElementById('guestName').value.trim();
                 if (gn) name = gn;
             }
-            if (document.getElementById('chkAnon').checked) { name = "Ẩn danh"; authorUid = null; userAvt = ANON_AVATAR; }
+            if (document.getElementById('chkAnon').checked) { name = "áº¨n danh"; authorUid = null; userAvt = ANON_AVATAR; }
 
             addDoc(collection(db, "posts"), { tid, content: txt, image: img, author: name, authorUid: authorUid, authorAvatar: userAvt, createdAt: serverTimestamp(), reactions: { heart: 0, sad: 0, laugh: 0 }, type: 'text', pinned: false, is_agree_terms: true })
                 .then(() => { updateDoc(doc(db, "topics", tid), { heat: increment(5) }); });
@@ -2444,14 +2458,14 @@
         // SUBMIT POLL
         window.addPollOption = () => {
             const c = document.getElementById('pollOptionsContainer');
-            if (c.children.length >= 5) return window.showToast("Tối đa 5 lựa chọn", "️");
-            const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'inp-text poll-opt-inp'; inp.placeholder = `Lựa chọn ${c.children.length + 1}`; c.appendChild(inp);
+            if (c.children.length >= 5) return window.showToast("Tá»‘i Ä‘a 5 lá»±a chá»n", "ï¸");
+            const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'inp-text poll-opt-inp'; inp.placeholder = `Lá»±a chá»n ${c.children.length + 1}`; c.appendChild(inp);
         }
 
         document.getElementById('btnSubmitPoll').onclick = async function () {
             const q = document.getElementById('pollQuestion').value.trim();
-            if (!q) return window.showToast("Nhập câu hỏi!", "️");
-            if (!document.getElementById('chkTermsPoll').checked) return window.showToast("Bạn chưa đồng ý quy định!", "️");
+            if (!q) return window.showToast("Nháº­p cÃ¢u há»i!", "ï¸");
+            if (!document.getElementById('chkTermsPoll').checked) return window.showToast("Báº¡n chÆ°a Ä‘á»“ng Ã½ quy Ä‘á»‹nh!", "ï¸");
 
             let opts = [];
             document.querySelectorAll('.poll-opt-inp').forEach((i, idx) => {
@@ -2460,10 +2474,10 @@
                     opts.push({ id: idx, text: v, votes: [] });
                 }
             });
-            if (opts.length < 2) return window.showToast("Nhập ít nhất 2 lựa chọn!", "️");
+            if (opts.length < 2) return window.showToast("Nháº­p Ã­t nháº¥t 2 lá»±a chá»n!", "ï¸");
             document.getElementById('modalPoll').classList.remove('active');
 
-            let userAvt = ANON_AVATAR; let name = "Ẩn danh"; let authorUid = null;
+            let userAvt = ANON_AVATAR; let name = "áº¨n danh"; let authorUid = null;
             if (currentUser) {
                 userAvt = (userData && userData.photoURL) ? userData.photoURL : MISSING_AVATAR;
                 name = (userData && userData.displayName) ? userData.displayName : (currentUser.email ? currentUser.email.split('@')[0] : 'Guest');
@@ -2472,7 +2486,7 @@
                 const gn = document.getElementById('pollGuestName').value.trim();
                 if (gn) name = gn;
             }
-            if (document.getElementById('chkAnonPoll').checked) { name = "Ẩn danh"; authorUid = null; userAvt = ANON_AVATAR; }
+            if (document.getElementById('chkAnonPoll').checked) { name = "áº¨n danh"; authorUid = null; userAvt = ANON_AVATAR; }
 
             addDoc(collection(db, "posts"), { tid, content: q, author: name, authorUid: authorUid, authorAvatar: userAvt, createdAt: serverTimestamp(), reactions: { heart: 0, sad: 0, laugh: 0 }, type: 'poll', pollOptions: opts, totalVotes: 0, pinned: false, is_agree_terms: true })
                 .then(() => { updateDoc(doc(db, "topics", tid), { heat: increment(5) }); });
@@ -2481,7 +2495,7 @@
         // EDIT POST LOGIC (WITH IMAGE & POLL CHECK)
         window.openEditPost = (pid, type, imgUrl) => {
             if (type === 'poll') {
-                return window.showToast("Không thể sửa khảo sát (để bảo đảm tính công bằng)!", "");
+                return window.showToast("KhÃ´ng thá»ƒ sá»­a kháº£o sÃ¡t (Ä‘á»ƒ báº£o Ä‘áº£m tÃ­nh cÃ´ng báº±ng)!", "");
             }
 
             editingPostId = pid;
@@ -2517,14 +2531,14 @@
         }
 
         document.getElementById('btnSubmitEdit').onclick = async function () {
-            this.textContent = "Đang lưu...";
+            this.textContent = "Äang lÆ°u...";
             this.disabled = true;
 
             const newContent = document.getElementById('editPostContent').value;
             if (!newContent) {
-                this.textContent = "Lưu thay đổi";
+                this.textContent = "LÆ°u thay Ä‘á»•i";
                 this.disabled = false;
-                return window.showToast("Nội dung không được để trống!", "️");
+                return window.showToast("Ná»™i dung khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!", "ï¸");
             }
 
             // Handle Image Upload logic
@@ -2542,21 +2556,21 @@
             });
 
             document.getElementById('modalEditPost').classList.remove('active');
-            window.showToast("Đã cập nhật bài viết!", "️");
-            this.textContent = "Lưu thay đổi";
+            window.showToast("ÄÃ£ cáº­p nháº­t bÃ i viáº¿t!", "ï¸");
+            this.textContent = "LÆ°u thay Ä‘á»•i";
             this.disabled = false;
         }
 
         // VOTE POLL LOGIC (PORTED FROM CHAT)
         window.votePoll = async (pid, optId) => {
-            if (!currentUser) return window.showToast("Đăng nhập để vote!", "");
+            if (!currentUser) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ vote!", "");
 
             const postRef = doc(db, "posts", pid);
             const pDoc = await getDoc(postRef);
             if (!pDoc.exists()) return;
 
             let opts = pDoc.data().pollOptions;
-            if (!Array.isArray(opts)) return window.showToast("Bình chọn này sử dụng phiên bản cũ!", "");
+            if (!Array.isArray(opts)) return window.showToast("BÃ¬nh chá»n nÃ y sá»­ dá»¥ng phiÃªn báº£n cÅ©!", "");
 
             // Logic: remove from any other option, add to this one
             opts.forEach(o => {
@@ -2574,7 +2588,7 @@
 
         // REACTION LOGIC
         window.handleReaction = async (pid, type) => {
-            if (!currentUser) return window.showToast("Cần đăng nhập!", "");
+            if (!currentUser) return window.showToast("Cáº§n Ä‘Äƒng nháº­p!", "");
             const btn = document.getElementById(`btn-react-${pid}-${type}`);
             if (!btn) return;
 
@@ -2602,7 +2616,7 @@
             runTransaction(db, async (transaction) => {
                 const reactionDoc = await transaction.get(reactionRef);
                 const postDoc = await transaction.get(postRef);
-                if (!postDoc.exists()) throw "Bài viết không tồn tại!";
+                if (!postDoc.exists()) throw "BÃ i viáº¿t khÃ´ng tá»“n táº¡i!";
                 let reactions = postDoc.data().reactions || { heart: 0, sad: 0, laugh: 0 };
                 if (reactionDoc.exists()) {
                     const oldType = reactionDoc.data().type;
@@ -2632,10 +2646,10 @@
 
         // PIN POST LOGIC (REPLACED CONFIRM)
         window.togglePin = async (pid, isPinned) => {
-            const msg = isPinned ? "Bỏ ghim bài viết này?" : "Ghim bài viết này lên đầu?";
+            const msg = isPinned ? "Bá» ghim bÃ i viáº¿t nÃ y?" : "Ghim bÃ i viáº¿t nÃ y lÃªn Ä‘áº§u?";
             window.showCustomConfirm(msg, async () => {
                 await updateDoc(doc(db, "posts", pid), { pinned: !isPinned });
-                window.showToast(isPinned ? "Đã bỏ ghim" : "Đã ghim bài viết", "");
+                window.showToast(isPinned ? "ÄÃ£ bá» ghim" : "ÄÃ£ ghim bÃ i viáº¿t", "");
             });
         }
 
@@ -2649,7 +2663,7 @@
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const info = {
-                        name: data.displayName || (data.email ? data.email.split('@')[0] : "Cư dân"),
+                        name: data.displayName || (data.email ? data.email.split('@')[0] : "CÆ° dÃ¢n"),
                         avt: data.photoURL || MISSING_AVATAR,
                         color: data.nameColor || 'default',
                         frame: data.avatarFrame || 'none'
@@ -2672,7 +2686,7 @@
                 let postsData = [];
                 s.forEach(doc => postsData.push({ id: doc.id, ...doc.data() }));
 
-                if (postsData.length === 0) { list.innerHTML = `<div style="text-align:center; padding:60px; color:var(--gray);">Chưa có bài viết.</div>`; return; }
+                if (postsData.length === 0) { list.innerHTML = `<div style="text-align:center; padding:60px; color:var(--gray);">ChÆ°a cÃ³ bÃ i viáº¿t.</div>`; return; }
 
                 postsData.sort((a, b) => {
                     // Pinned priority (True > False)
@@ -2744,7 +2758,7 @@
                         let reportBtn = `<button class="btn-icon btn-report" onclick="window.openReport('${pid}')"><span class="material-symbols-rounded" style="font-size: 20px;">report</span></button>`;
                         let pinBtn = isAdmin ? `<button class="btn-icon btn-pin ${data.pinned ? 'active' : ''}" onclick="window.togglePin('${pid}', ${data.pinned})"><span class="material-symbols-rounded" style="font-size: 20px;">push_pin</span></button>` : '';
 
-                        let pinBadge = data.pinned ? `<div class="pin-badge"> Đã ghim</div>` : '';
+                        let pinBadge = data.pinned ? `<div class="pin-badge"> ÄÃ£ ghim</div>` : '';
                         let pinClass = data.pinned ? 'pinned' : '';
 
                         let contentBody = `<div class="post-content">${window.linkifyText(data.content)}</div>`;
@@ -2765,15 +2779,15 @@
                                 // Fallback for old map-based polls
                                 for (const [key, val] of Object.entries(opts)) {
                                     const pct = total === 0 ? 0 : Math.round((val.count / total) * 100);
-                                    pollHtml += `<div class="poll-opt-btn" id="poll-${pid}-${key}" onclick="window.showToast('Bình chọn này quá cũ!')"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
+                                    pollHtml += `<div class="poll-opt-btn" id="poll-${pid}-${key}" onclick="window.showToast('BÃ¬nh chá»n nÃ y quÃ¡ cÅ©!')"><div class="poll-bg" style="width:${pct}%"></div><div class="poll-text"><span>${val.text}</span><span>${pct}%</span></div></div>`;
                                 }
                             }
-                            contentBody += `<div class="poll-container">${pollHtml}<div class="poll-meta">${total} lượt chọn</div></div>`;
+                            contentBody += `<div class="poll-container">${pollHtml}<div class="poll-meta">${total} lÆ°á»£t chá»n</div></div>`;
                         } else if (data.image) {
                             contentBody += `
                                 <div class="post-img-wrap" id="img-wrap-${pid}" onclick="this.classList.toggle('revealed'); event.stopPropagation();">
-                                    <div class="blur-overlay">Nhấn để xem ảnh</div>
-                                    <img src="${data.image}" class="post-img blurred" onerror="this.src='https://placehold.co/600x400?text=Lỗi+ảnh'">
+                                    <div class="blur-overlay">Nháº¥n Ä‘á»ƒ xem áº£nh</div>
+                                    <img src="${data.image}" class="post-img blurred" onerror="this.src='https://placehold.co/600x400?text=Lá»—i+áº£nh'">
                                 </div>
                             `;
                         }
@@ -2785,11 +2799,11 @@
                         if (previewComments.length > 0) {
                             previewHtml = `<div class="preview-comments">`;
                             if (totalCmt > 3) {
-                                previewHtml += `<span class="view-more-text" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})">Xem tất cả ${totalCmt} bình luận...</span>`;
+                                previewHtml += `<span class="view-more-text" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})">Xem táº¥t cáº£ ${totalCmt} bÃ¬nh luáº­n...</span>`;
                             }
                             previewComments.forEach(c => {
                                 const isMineCmt = currentUser && c.authorUid === currentUser.uid;
-                                const delBtn = (isMineCmt || isAdmin) ? `<span class="btn-del-cmt" onclick="window.deleteComment('${c.id}')">Xóa</span>` : '';
+                                const delBtn = (isMineCmt || isAdmin) ? `<span class="btn-del-cmt" onclick="window.deleteComment('${c.id}')">XÃ³a</span>` : '';
 
                                 const dynamicCmtInfo = c.authorUid && window.userProfilesCache[c.authorUid]
                                     ? window.userProfilesCache[c.authorUid]
@@ -2806,7 +2820,7 @@
                                                 ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImage('${img}')">`).join('')}</div>` : ''}
                                             </div>
                                             <div class="preview-actions">
-                                                <span>${timeAgo(c.createdAt)}${c.isEdited ? ' (đã chỉnh sửa)' : ''}</span>
+                                                <span>${timeAgo(c.createdAt)}${c.isEdited ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</span>
                                                 ${delBtn}
                                             </div>
                                         </div>
@@ -2826,7 +2840,7 @@
                                         <div class="post-header" style="margin-bottom: 4px;">
                                             <div class="post-info" style="flex-direction: row; align-items: center; gap: 8px;">
                                                 <span class="post-author name-color-${finalPostColor}" onclick="window.handleProfileClick('${data.authorUid}')">${window.escapeHTML(finalPostAuthor)}</span>
-                                                <span class="post-time">• ${timeAgo(data.createdAt)}${data.updatedAt ? ' (đã chỉnh sửa)' : ''}</span>
+                                                <span class="post-time">â€¢ ${timeAgo(data.createdAt)}${data.updatedAt ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</span>
                                             </div>
                                         </div>
                                         ${contentBody}
@@ -2841,7 +2855,7 @@
                                                 <div class="reaction-btn" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})"><span class="material-symbols-rounded" style="font-size: 20px;">chat_bubble</span></div>
                                             </div>
                                             <div style="font-size: 13px; color: #999; margin-top: 4px; cursor: pointer;" onclick="window.openAllCommentsModal('${pid}', ${totalCmt})">
-                                                ${totalCmt > 0 ? `${totalCmt} câu trả lời` : 'Chưa có câu trả lời'}
+                                                ${totalCmt > 0 ? `${totalCmt} cÃ¢u tráº£ lá»i` : 'ChÆ°a cÃ³ cÃ¢u tráº£ lá»i'}
                                             </div>
                                         </div>
                                     </div>
@@ -2859,7 +2873,7 @@
 
         // COMMENT LOGIC
         window.sendInlineComment = async (pid, inpId, parentId = null) => {
-            if (!currentUser) return window.showToast("Đăng nhập đi!", "");
+            if (!currentUser) return window.showToast("ÄÄƒng nháº­p Ä‘i!", "");
             const inp = document.getElementById(inpId); const txt = inp.value.trim();
             const files = window.selectedInlineFiles[pid] || [];
             if (!txt && files.length === 0) return;
@@ -2900,7 +2914,7 @@
         }
 
         window.deletePost = async (pid) => {
-            window.showCustomConfirm("Xóa bài viết vĩnh viễn?", async () => {
+            window.showCustomConfirm("XÃ³a bÃ i viáº¿t vÄ©nh viá»…n?", async () => {
                 await deleteDoc(doc(db, "posts", pid));
             });
         }
@@ -2949,7 +2963,7 @@
                     img.src = URL.createObjectURL(file);
                     const closeBtn = document.createElement('button');
                     closeBtn.className = 'preview-item-close';
-                    closeBtn.innerHTML = '×';
+                    closeBtn.innerHTML = 'Ã—';
                     closeBtn.onclick = () => {
                         window.selectedInlineFiles[pid].splice(index, 1);
                         window.renderInlinePreview(pid);
@@ -2978,11 +2992,11 @@
                 if (container.style.display === 'none') {
                     container.style.display = 'block';
                     const count = container.querySelectorAll('.cmt-row').length;
-                    btn.innerHTML = `Ẩn ${count} phản hồi`;
+                    btn.innerHTML = `áº¨n ${count} pháº£n há»“i`;
                 } else {
                     container.style.display = 'none';
                     const count = container.querySelectorAll('.cmt-row').length;
-                    btn.innerHTML = `Xem ${count} phản hồi`;
+                    btn.innerHTML = `Xem ${count} pháº£n há»“i`;
                 }
             }
         }
@@ -3006,7 +3020,7 @@
         window.openAllCommentsModal = (pid, total) => {
             activePostId = pid;
             const box = document.getElementById('allCommentsList');
-            box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Đang tải...</div>`;
+            box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Äang táº£i...</div>`;
 
             getDocs(query(collection(db, "comments"), where("pid", "==", pid), orderBy("createdAt", "asc"))).then(async (s) => {
                 const comments = [];
@@ -3039,8 +3053,8 @@
                 const renderComment = (c, level = 0) => {
                     const isMineCmt = currentUser && c.authorUid === currentUser.uid;
                     const isAdmin = currentUser && topicData && currentUser.email === topicData.owner;
-                    const delBtn = (isMineCmt || isAdmin) ? `<span style="color:var(--danger); cursor:pointer;" onclick="window.deleteComment('${c.id}')">Xóa</span>` : '';
-                    const replyBtn = `<span class="btn-reply" onclick="window.toggleReplyInput('${c.id}')">Phản hồi</span>`;
+                    const delBtn = (isMineCmt || isAdmin) ? `<span style="color:var(--danger); cursor:pointer;" onclick="window.deleteComment('${c.id}')">XÃ³a</span>` : '';
+                    const replyBtn = `<span class="btn-reply" onclick="window.toggleReplyInput('${c.id}')">Pháº£n há»“i</span>`;
 
                     let childHtml = '';
                     let toggleBtn = '';
@@ -3050,7 +3064,7 @@
 
                         // Add toggle button if has more than 2 replies
                         const displayStyle = c.children.length > 2 ? 'none' : 'block';
-                        const btnText = c.children.length > 2 ? `Xem ${c.children.length} phản hồi` : `Ẩn ${c.children.length} phản hồi`;
+                        const btnText = c.children.length > 2 ? `Xem ${c.children.length} pháº£n há»“i` : `áº¨n ${c.children.length} pháº£n há»“i`;
                         toggleBtn = `<span class="btn-reply" id="toggle-replies-${c.id}" onclick="window.toggleReplies('${c.id}')" style="color:var(--primary); font-weight:600;">${btnText}</span>`;
                         childHtml = `<div id="reply-container-${c.id}" class="cmt-reply-container" style="display:${displayStyle};">${childHtml}</div>`;
                     } else {
@@ -3062,7 +3076,7 @@
                         <div id="reply-box-${c.id}" class="reply-box">
                             <div class="nested-connector"></div>
                             <div style="display:flex; gap:5px;">
-                                <input type="text" id="reply-inp-${c.id}" class="inp-text" style="font-size:13px; margin-bottom:0;" placeholder="Viết phản hồi..." onkeydown="if(event.key==='Enter') window.sendInlineComment('${activePostId}', 'reply-inp-${c.id}', '${c.id}')">
+                                <input type="text" id="reply-inp-${c.id}" class="inp-text" style="font-size:13px; margin-bottom:0;" placeholder="Viáº¿t pháº£n há»“i..." onkeydown="if(event.key==='Enter') window.sendInlineComment('${activePostId}', 'reply-inp-${c.id}', '${c.id}')">
                                 <button class="btn-act" style="padding:8px 12px;" onclick="window.sendInlineComment('${activePostId}', 'reply-inp-${c.id}', '${c.id}')"></button>
                             </div>
                         </div>
@@ -3085,7 +3099,7 @@
                                         ${c.images && c.images.length > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">${c.images.map(img => `<img src="${img}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="viewImage('${img}')">`).join('')}</div>` : ''}
                                     </div>
                                     <div class="cmt-actions" style="margin-top: 4px; color: #999;">
-                                        <span>${timeAgo(c.createdAt)}${c.isEdited ? ' (đã chỉnh sửa)' : ''}</span>
+                                        <span>${timeAgo(c.createdAt)}${c.isEdited ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</span>
                                         ${replyBtn}
                                         ${toggleBtn}
                                         ${delBtn}
@@ -3099,7 +3113,7 @@
                 }
 
                 if (roots.length === 0) {
-                    box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">Chưa có bình luận.</div>`;
+                    box.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b">ChÆ°a cÃ³ bÃ¬nh luáº­n.</div>`;
                 } else {
                     let html = '';
                     roots.forEach(c => html += renderComment(c));
@@ -3112,7 +3126,7 @@
 
 
         window.deleteComment = async (cid) => {
-            window.showCustomConfirm("Xóa bình luận này?", async () => {
+            window.showCustomConfirm("XÃ³a bÃ¬nh luáº­n nÃ y?", async () => {
                 await deleteDoc(doc(db, "comments", cid));
                 if (document.getElementById('modalAllComments').classList.contains('active') && activePostId) {
                     window.openAllCommentsModal(activePostId, 0);
@@ -3121,7 +3135,7 @@
         }
 
         window.deletePost = async (pid) => {
-            window.showCustomConfirm("Xóa bài viết vĩnh viễn?", async () => {
+            window.showCustomConfirm("XÃ³a bÃ i viáº¿t vÄ©nh viá»…n?", async () => {
                 await deleteDoc(doc(db, "posts", pid));
             });
         }
@@ -3130,8 +3144,8 @@
         document.getElementById('btnSendReport').onclick = async function () {
             if (!reportTargetId) return;
             const reason = document.getElementById('rReason').value.trim();
-            if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
-            this.textContent = "Đang gửi...";
+            if (!reason) return window.showToast("Vui lÃ²ng nháº­p lÃ½ do bÃ¡o cÃ¡o!");
+            this.textContent = "Äang gá»­i...";
             try {
                 await addDoc(collection(db, "reports"), {
                     targetId: reportTargetId,
@@ -3141,12 +3155,12 @@
                     tid: tid,
                     createdAt: serverTimestamp()
                 });
-                window.showToast("Đã gửi báo cáo!");
+                window.showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o!");
                 document.getElementById('modalReport').classList.remove('active');
-            } catch (e) { window.showToast("Lỗi gửi báo cáo!"); }
-            this.textContent = "Gửi Báo Cáo";
+            } catch (e) { window.showToast("Lá»—i gá»­i bÃ¡o cÃ¡o!"); }
+            this.textContent = "Gá»­i BÃ¡o CÃ¡o";
         }
-        window.timeAgo = (date) => { if (!date) return "Vừa xong"; const s = Math.floor((new Date() - date.toDate()) / 1000); if (s < 60) return "Vừa xong"; const m = Math.floor(s / 60); if (m < 60) return `${m} phút trước`; const h = Math.floor(m / 60); if (h < 24) return `${h} giờ trước`; return `${Math.floor(h / 24)} ngày trước`; }
+        window.timeAgo = (date) => { if (!date) return "Vá»«a xong"; const s = Math.floor((new Date() - date.toDate()) / 1000); if (s < 60) return "Vá»«a xong"; const m = Math.floor(s / 60); if (m < 60) return `${m} phÃºt trÆ°á»›c`; const h = Math.floor(m / 60); if (h < 24) return `${h} giá» trÆ°á»›c`; return `${Math.floor(h / 24)} ngÃ y trÆ°á»›c`; }
         // OPEN SECURITY MODAL
         window.openSecurityModal = () => {
             // Removed in favor of topic_members manager.
@@ -3185,7 +3199,7 @@
             const listEl = document.getElementById('membersList');
             const filtered = allMembersData.filter(m => m.status === currentMemberTab);
             if (filtered.length === 0) {
-                listEl.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-size:14px;">Không có thành viên nào.</div>`;
+                listEl.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-size:14px;">KhÃ´ng cÃ³ thÃ nh viÃªn nÃ o.</div>`;
                 return;
             }
 
@@ -3199,8 +3213,8 @@
                         </div>
                     </div>
                     <div style="display:flex; gap:8px;">
-                        ${m.status === 'pending' ? `<button onclick="approveMember('${m.id}')" style="background:#dcfce7; color:#166534; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer;">Duyệt</button>` : ''}
-                        <button onclick="removeMember('${m.id}')" style="background:#fee2e2; color:#b91c1c; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer;">Xóa</button>
+                        ${m.status === 'pending' ? `<button onclick="approveMember('${m.id}')" style="background:#dcfce7; color:#166534; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer;">Duyá»‡t</button>` : ''}
+                        <button onclick="removeMember('${m.id}')" style="background:#fee2e2; color:#b91c1c; border:none; padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer;">XÃ³a</button>
                     </div>
                 </div>
             `).join('');
@@ -3208,22 +3222,22 @@
 
         window.approveMember = async (id) => {
             await updateDoc(doc(db, "topic_members", id), { status: 'approved' });
-            window.showToast("Đã duyệt thành viên!");
+            window.showToast("ÄÃ£ duyá»‡t thÃ nh viÃªn!");
         }
 
         window.removeMember = async (id) => {
-            window.showCustomConfirm("Xóa thành viên này?", async () => {
+            window.showCustomConfirm("XÃ³a thÃ nh viÃªn nÃ y?", async () => {
                 await deleteDoc(doc(db, "topic_members", id));
-                window.showToast("Đã xóa khỏi danh sách!");
+                window.showToast("ÄÃ£ xÃ³a khá»i danh sÃ¡ch!");
             });
         }
 
         window.leaveTopic = () => {
             if (!currentUser || !tid) return;
-            window.showCustomConfirm("🙏 Bạn chắc chắn muốn rời khỏi Chủ đề này chứ? Bạn có thể tham gia lại sau!", async () => {
+            window.showCustomConfirm("ðŸ™ Báº¡n cháº¯c cháº¯n muá»‘n rá»i khá»i Chá»§ Ä‘á» nÃ y chá»©? Báº¡n cÃ³ thá»ƒ tham gia láº¡i sau!", async () => {
                 const memberRef = doc(db, "topic_members", `${tid}_${currentUser.uid}`);
                 await deleteDoc(memberRef);
-                window.showToast("👋 Đã rời khỏi Chủ đề!");
+                window.showToast("ðŸ‘‹ ÄÃ£ rá»i khá»i Chá»§ Ä‘á»!");
                 setTimeout(() => location.reload(), 800);
             });
         }
@@ -3266,14 +3280,14 @@
 
                 if (memberDoc.exists() && memberDoc.data().status === 'pending') {
                     btn.disabled = true;
-                    btn.textContent = "Đang chờ duyệt...";
+                    btn.textContent = "Äang chá» duyá»‡t...";
                     btn.style.background = "#94a3b8";
-                    desc.textContent = "Bạn đã gửi yêu cầu tham gia. Vui lòng chờ Admin phê duyệt.";
+                    desc.textContent = "Báº¡n Ä‘Ã£ gá»­i yÃªu cáº§u tham gia. Vui lÃ²ng chá» Admin phÃª duyá»‡t.";
                 } else {
                     btn.disabled = false;
                     btn.textContent = "Tham gia ngay";
                     btn.style.background = "var(--primary)";
-                    desc.textContent = "Vui lòng tham gia để có thể xem bài viết và bình luận.";
+                    desc.textContent = "Vui lÃ²ng tham gia Ä‘á»ƒ cÃ³ thá»ƒ xem bÃ i viáº¿t vÃ  bÃ¬nh luáº­n.";
                 }
             }
         }
@@ -3282,11 +3296,11 @@
             if (!topicData) return;
             const btn = document.getElementById('btnJoinTopic');
             btn.disabled = true;
-            btn.textContent = "Đang xử lý...";
+            btn.textContent = "Äang xá»­ lÃ½...";
 
             let deviceId = localStorage.getItem('confe_device_id');
             const uid = currentUser ? currentUser.uid : deviceId;
-            let name = currentUser ? (currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Thành viên')) : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
+            let name = currentUser ? (currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'ThÃ nh viÃªn')) : "Guest_" + (deviceId ? deviceId.substring(0, 4) : 'anon');
             let avt = currentUser ? currentUser.photoURL : ANON_AVATAR;
 
             const mode = topicData.privacyMode || 'public';
@@ -3303,15 +3317,15 @@
                 });
 
                 if (status === 'approved') {
-                    window.showToast("Tham gia thành công!");
+                    window.showToast("Tham gia thÃ nh cÃ´ng!");
                     verifyMembershipAndLoadPosts();
                 } else {
-                    window.showToast("Đã gửi yêu cầu tham gia!");
+                    window.showToast("ÄÃ£ gá»­i yÃªu cáº§u tham gia!");
                     verifyMembershipAndLoadPosts();
                 }
             } catch (e) {
                 console.error(e);
-                window.showToast("Lỗi khi kết nối!");
+                window.showToast("Lá»—i khi káº¿t ná»‘i!");
                 btn.disabled = false;
                 btn.textContent = "Tham gia ngay";
             }
@@ -3332,21 +3346,21 @@
     </script>
     <div id="modalTerms" class="modal" style="z-index:2000;">
         <div class="box">
-            <h3 style="margin-bottom:20px;"> Quy định Đăng bài</h3>
+            <h3 style="margin-bottom:20px;"> Quy Ä‘á»‹nh ÄÄƒng bÃ i</h3>
             <div
                 style="max-height:60vh; overflow-y:auto; margin-bottom:20px; font-size:14px; color:var(--text-secondary); line-height:1.6;">
-                <p style="margin-bottom:10px;">1. <b>Nội dung cấm:</b> Không đăng tải nội dung vi phạm pháp luật, đồi
-                    trụy, phản động, hoặc trái với thuần phong mỹ tục Việt Nam.</p>
-                <p style="margin-bottom:10px;">2. <b>Tôn trọng:</b> Không xúc phạm, công kích, quấy rối cá nhân hoặc tổ
-                    chức khác.</p>
-                <p style="margin-bottom:10px;">3. <b>Spam:</b> Không spam, quảng cáo trái phép, lừa đảo.</p>
-                <p style="margin-bottom:10px;">4. <b>Trách nhiệm:</b> Bạn chịu hoàn toàn trách nhiệm pháp lý về nội dung
-                    mình đăng tải.</p>
-                <p style="margin-bottom:10px;">5. <b>Quyền hạn:</b> Admin có quyền xóa bài viết và chặn tài khoản vĩnh
-                    viễn nếu phát hiện vi phạm.</p>
+                <p style="margin-bottom:10px;">1. <b>Ná»™i dung cáº¥m:</b> KhÃ´ng Ä‘Äƒng táº£i ná»™i dung vi pháº¡m phÃ¡p luáº­t, Ä‘á»“i
+                    trá»¥y, pháº£n Ä‘á»™ng, hoáº·c trÃ¡i vá»›i thuáº§n phong má»¹ tá»¥c Viá»‡t Nam.</p>
+                <p style="margin-bottom:10px;">2. <b>TÃ´n trá»ng:</b> KhÃ´ng xÃºc pháº¡m, cÃ´ng kÃ­ch, quáº¥y rá»‘i cÃ¡ nhÃ¢n hoáº·c tá»•
+                    chá»©c khÃ¡c.</p>
+                <p style="margin-bottom:10px;">3. <b>Spam:</b> KhÃ´ng spam, quáº£ng cÃ¡o trÃ¡i phÃ©p, lá»«a Ä‘áº£o.</p>
+                <p style="margin-bottom:10px;">4. <b>TrÃ¡ch nhiá»‡m:</b> Báº¡n chá»‹u hoÃ n toÃ n trÃ¡ch nhiá»‡m phÃ¡p lÃ½ vá» ná»™i dung
+                    mÃ¬nh Ä‘Äƒng táº£i.</p>
+                <p style="margin-bottom:10px;">5. <b>Quyá»n háº¡n:</b> Admin cÃ³ quyá»n xÃ³a bÃ i viáº¿t vÃ  cháº·n tÃ i khoáº£n vÄ©nh
+                    viá»…n náº¿u phÃ¡t hiá»‡n vi pháº¡m.</p>
             </div>
-            <button onclick="document.getElementById('modalTerms').classList.remove('active')" class="btn-main">Đã
-                hiểu</button>
+            <button onclick="document.getElementById('modalTerms').classList.remove('active')" class="btn-main">ÄÃ£
+                hiá»ƒu</button>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>

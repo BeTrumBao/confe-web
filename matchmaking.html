@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghép Đôi Đường Phố - Confe</title>
+    <title>GhÃ©p ÄÃ´i ÄÆ°á»ng Phá»‘ - Confe</title>
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -556,6 +556,20 @@
             }
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -565,14 +579,14 @@
     <div class="bg-animate" id="bgAnimate"></div>
 
     <div class="header">
-        <h1>Ghép Đôi Đường Phố</h1>
-        <p>Xếp hạng những cặp đôi mà bạn biết !</p>
+        <h1>GhÃ©p ÄÃ´i ÄÆ°á»ng Phá»‘</h1>
+        <p>Xáº¿p háº¡ng nhá»¯ng cáº·p Ä‘Ã´i mÃ  báº¡n biáº¿t !</p>
     </div>
 
     <!-- Leaderboard Section -->
     <div class="section-title">
         <span class="material-symbols-rounded" style="color: #ffa502; font-variation-settings: 'FILL' 1;">stars</span>
-        Bảng Xếp Hạng Cặp Đôi
+        Báº£ng Xáº¿p Háº¡ng Cáº·p ÄÃ´i
     </div>
     <div class="couple-list" id="coupleList">
         <div style="text-align:center; padding:60px;">
@@ -590,7 +604,7 @@
     </div>
 
     <!-- Floating Action Button -->
-    <button class="fab" id="openCreateModal" title="Tạo cặp đôi mới">
+    <button class="fab" id="openCreateModal" title="Táº¡o cáº·p Ä‘Ã´i má»›i">
         <span class="material-symbols-rounded" style="font-size: 32px; font-variation-settings: 'FILL' 1;">add</span>
     </button>
 
@@ -598,23 +612,23 @@
     <div id="modalCreate" class="modal">
         <div class="modal-content">
             <span class="material-symbols-rounded close-modal" id="closeCreateModal">close</span>
-            <div style="font-size: 50px; margin-bottom: 10px;">💖</div>
-            <h2 style="margin-bottom: 8px; font-weight: 900; letter-spacing: -0.5px;">Tạo Couple Mới</h2>
-            <p style="color: var(--secondary); font-size: 14px; margin-bottom: 30px;">Tạo một cặp đôi để cộng đồng cùng
-                bình chọn nào!</p>
+            <div style="font-size: 50px; margin-bottom: 10px;">ðŸ’–</div>
+            <h2 style="margin-bottom: 8px; font-weight: 900; letter-spacing: -0.5px;">Táº¡o Couple Má»›i</h2>
+            <p style="color: var(--secondary); font-size: 14px; margin-bottom: 30px;">Táº¡o má»™t cáº·p Ä‘Ã´i Ä‘á»ƒ cá»™ng Ä‘á»“ng cÃ¹ng
+                bÃ¬nh chá»n nÃ o!</p>
 
             <div class="input-group">
-                <label>Nhân vật chính 01</label>
-                <input type="text" id="name1" class="input-area" placeholder="Tên người thứ nhất...">
+                <label>NhÃ¢n váº­t chÃ­nh 01</label>
+                <input type="text" id="name1" class="input-area" placeholder="TÃªn ngÆ°á»i thá»© nháº¥t...">
             </div>
             <div class="input-group">
-                <label>Nhân vật chính 02</label>
-                <input type="text" id="name2" class="input-area" placeholder="Tên người thứ hai...">
+                <label>NhÃ¢n váº­t chÃ­nh 02</label>
+                <input type="text" id="name2" class="input-area" placeholder="TÃªn ngÆ°á»i thá»© hai...">
             </div>
 
             <button id="btnSubmitCouple" class="btn-submit">
                 <span class="material-symbols-rounded">favorite</span>
-                Xác nhận
+                XÃ¡c nháº­n
             </button>
         </div>
     </div>
@@ -622,49 +636,49 @@
     <!-- Delete Confirmation Modal -->
     <div id="modalDelete" class="modal">
         <div class="modal-content">
-            <div style="font-size: 50px; margin-bottom: 20px;">🗑️</div>
-            <h2 style="margin-bottom: 12px; font-weight: 900;">Xoá cặp đôi này?</h2>
-            <p style="color: var(--secondary); margin-bottom: 32px; line-height: 1.6;">Hành động này không thể hoàn tác.
-                Bạn chắc chắn muốn gỡ cặp đôi này khỏi bảng xếp hạng chứ?</p>
-            <button id="btnConfirmDelete" class="btn-submit" style="background: #ef4444;">Xoá vĩnh viễn</button>
-            <button onclick="closeModal('modalDelete')" class="btn-cancel">Quay lại</button>
+            <div style="font-size: 50px; margin-bottom: 20px;">ðŸ—‘ï¸</div>
+            <h2 style="margin-bottom: 12px; font-weight: 900;">XoÃ¡ cáº·p Ä‘Ã´i nÃ y?</h2>
+            <p style="color: var(--secondary); margin-bottom: 32px; line-height: 1.6;">HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c.
+                Báº¡n cháº¯c cháº¯n muá»‘n gá»¡ cáº·p Ä‘Ã´i nÃ y khá»i báº£ng xáº¿p háº¡ng chá»©?</p>
+            <button id="btnConfirmDelete" class="btn-submit" style="background: #ef4444;">XoÃ¡ vÄ©nh viá»…n</button>
+            <button onclick="closeModal('modalDelete')" class="btn-cancel">Quay láº¡i</button>
         </div>
     </div>
 
     <!-- Report Confirmation Modal -->
     <div id="modalReport" class="modal">
         <div class="modal-content">
-            <div style="font-size: 50px; margin-bottom: 20px;">⚠️</div>
-            <h2 style="margin-bottom: 12px; font-weight: 900;">Báo cáo vi phạm?</h2>
-            <p style="color: var(--secondary); margin-bottom: 24px; line-height: 1.6;">Bạn thấy cặp đôi này có nội dung
-                không phù hợp hoặc xúc phạm?</p>
+            <div style="font-size: 50px; margin-bottom: 20px;">âš ï¸</div>
+            <h2 style="margin-bottom: 12px; font-weight: 900;">BÃ¡o cÃ¡o vi pháº¡m?</h2>
+            <p style="color: var(--secondary); margin-bottom: 24px; line-height: 1.6;">Báº¡n tháº¥y cáº·p Ä‘Ã´i nÃ y cÃ³ ná»™i dung
+                khÃ´ng phÃ¹ há»£p hoáº·c xÃºc pháº¡m?</p>
 
             <div class="input-group">
-                <label>Lý do báo cáo</label>
+                <label>LÃ½ do bÃ¡o cÃ¡o</label>
                 <select id="reportReason" class="input-area" style="appearance: none;">
-                    <option value="Xúc phạm người khác">Xúc phạm người khác</option>
-                    <option value="Nội dung nhạy cảm">Nội dung nhạy cảm</option>
-                    <option value="Spam / Nội dung rác">Spam / Nội dung rác</option>
-                    <option value="Khác">Khác...</option>
+                    <option value="XÃºc pháº¡m ngÆ°á»i khÃ¡c">XÃºc pháº¡m ngÆ°á»i khÃ¡c</option>
+                    <option value="Ná»™i dung nháº¡y cáº£m">Ná»™i dung nháº¡y cáº£m</option>
+                    <option value="Spam / Ná»™i dung rÃ¡c">Spam / Ná»™i dung rÃ¡c</option>
+                    <option value="KhÃ¡c">KhÃ¡c...</option>
                 </select>
             </div>
 
-            <button id="btnConfirmReport" class="btn-submit" style="background: #f59e0b;">Gửi báo cáo</button>
-            <button onclick="closeModal('modalReport')" class="btn-cancel">Hủy bỏ</button>
+            <button id="btnConfirmReport" class="btn-submit" style="background: #f59e0b;">Gá»­i bÃ¡o cÃ¡o</button>
+            <button onclick="closeModal('modalReport')" class="btn-cancel">Há»§y bá»</button>
         </div>
     </div>
 
     <!-- Consent Modal -->
     <div id="modalConsent" class="modal">
         <div class="modal-content">
-            <div style="font-size: 70px; margin-bottom: 24px;">📝</div>
-            <h2 style="margin-bottom: 12px; font-weight: 900; letter-spacing: -1px;">Nội quy ghép đôi</h2>
+            <div style="font-size: 70px; margin-bottom: 24px;">ðŸ“</div>
+            <h2 style="margin-bottom: 12px; font-weight: 900; letter-spacing: -1px;">Ná»™i quy ghÃ©p Ä‘Ã´i</h2>
             <p
                 style="color: var(--text-light); margin-bottom: 32px; line-height: 1.7; font-weight: 500; font-size: 15px;">
-                Cộng đồng văn minh là ưu tiên hàng đầu. Bạn cam kết không mạo danh, không xúc phạm và chịu trách nhiệm
-                100% về nội dung mình chia sẻ.
+                Cá»™ng Ä‘á»“ng vÄƒn minh lÃ  Æ°u tiÃªn hÃ ng Ä‘áº§u. Báº¡n cam káº¿t khÃ´ng máº¡o danh, khÃ´ng xÃºc pháº¡m vÃ  chá»‹u trÃ¡ch nhiá»‡m
+                100% vá» ná»™i dung mÃ¬nh chia sáº».
             </p>
-            <button id="btnAgree" class="btn-submit">Tôi đã hiểu và đồng ý</button>
+            <button id="btnAgree" class="btn-submit">TÃ´i Ä‘Ã£ hiá»ƒu vÃ  Ä‘á»“ng Ã½</button>
         </div>
     </div>
 
@@ -691,7 +705,7 @@
             for (let i = 0; i < heartCount; i++) {
                 const h = document.createElement('div');
                 h.className = 'heart';
-                h.textContent = '❤';
+                h.textContent = 'â¤';
                 h.style.left = Math.random() * 100 + 'vw';
                 h.style.animationDelay = Math.random() * 8 + 's';
                 h.style.fontSize = (12 + Math.random() * 15) + 'px';
@@ -713,7 +727,7 @@
 
         // Modal Logic
         document.getElementById('openCreateModal').onclick = () => {
-            if (!currentUser) return window.showToast("Bạn cần đăng nhập để tạo bài! 🔒");
+            if (!currentUser) return window.showToast("Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ táº¡o bÃ i! ðŸ”’");
             openModal('modalCreate');
         };
         document.getElementById('closeCreateModal').onclick = () => closeModal('modalCreate');
@@ -731,7 +745,7 @@
             currentUser = user;
             if (!user) {
                 if (unsubscribeMatchmaking) unsubscribeMatchmaking();
-                window.showToast("Cần đăng nhập để xem nội dung 🔒");
+                window.showToast("Cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem ná»™i dung ðŸ”’");
                 setTimeout(() => window.top.location.href = 'login.html', 1500);
             } else {
                 startLeaderboardListener();
@@ -742,11 +756,11 @@
         document.getElementById('btnSubmitCouple').onclick = async () => {
             const n1 = document.getElementById('name1').value.trim();
             const n2 = document.getElementById('name2').value.trim();
-            if (!n1 || !n2) return window.showToast("Mọi cặp đôi đều có 2 người mà! 💖");
+            if (!n1 || !n2) return window.showToast("Má»i cáº·p Ä‘Ã´i Ä‘á»u cÃ³ 2 ngÆ°á»i mÃ ! ðŸ’–");
 
             const btn = document.getElementById('btnSubmitCouple');
             btn.disabled = true;
-            btn.innerHTML = '<span class="material-symbols-rounded">sync</span> Đang tạo...';
+            btn.innerHTML = '<span class="material-symbols-rounded">sync</span> Äang táº¡o...';
 
             try {
                 await addDoc(collection(db, "matchmaking_couples"), {
@@ -756,16 +770,16 @@
                     createdBy: currentUser.uid,
                     createdAt: serverTimestamp()
                 });
-                window.showToast("Đã tạo cặp đôi mới! Bình chọn ngay đi 🎉");
+                window.showToast("ÄÃ£ táº¡o cáº·p Ä‘Ã´i má»›i! BÃ¬nh chá»n ngay Ä‘i ðŸŽ‰");
                 document.getElementById('name1').value = "";
                 document.getElementById('name2').value = "";
                 closeModal('modalCreate');
             } catch (err) {
                 console.error(err);
-                window.showToast("Lỗi hệ thống! Vui lòng thử lại sau 🛠");
+                window.showToast("Lá»—i há»‡ thá»‘ng! Vui lÃ²ng thá»­ láº¡i sau ðŸ› ");
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<span class="material-symbols-rounded">favorite</span> Xác nhận ghép đôi';
+                btn.innerHTML = '<span class="material-symbols-rounded">favorite</span> XÃ¡c nháº­n ghÃ©p Ä‘Ã´i';
             }
         };
 
@@ -776,7 +790,7 @@
                 const list = document.getElementById('coupleList');
                 list.innerHTML = "";
                 if (snapshot.empty) {
-                    list.innerHTML = `<div style="text-align:center; padding:60px; color:var(--secondary); font-size:15px; font-weight:600;">Chưa có couple nào. <br>Bấm "+" để là người đầu tiên!</div>`;
+                    list.innerHTML = `<div style="text-align:center; padding:60px; color:var(--secondary); font-size:15px; font-weight:600;">ChÆ°a cÃ³ couple nÃ o. <br>Báº¥m "+" Ä‘á»ƒ lÃ  ngÆ°á»i Ä‘áº§u tiÃªn!</div>`;
                     return;
                 }
                 snapshot.docs.forEach((d, index) => {
@@ -790,7 +804,7 @@
                         <div class="card-main">
                             <div class="couple-info">
                                 <div class="rank-badge">${index + 1}</div>
-                                <div class="names">${window.escapeHTML(data.names[0])} <span>❤</span> ${window.escapeHTML(data.names[1])}</div>
+                                <div class="names">${window.escapeHTML(data.names[0])} <span>â¤</span> ${window.escapeHTML(data.names[1])}</div>
                             </div>
                             <button class="vote-btn ${hasVoted ? 'voted' : ''}" onclick="window.voteForCouple('${d.id}', ${hasVoted})">
                                 <span class="material-symbols-rounded" style="font-size: 20px;">${hasVoted ? 'favorite' : 'favorite_border'}</span>
@@ -800,11 +814,11 @@
                         <div class="card-actions">
                             <div class="utility-btns">
                                 ${isOwner ? `
-                                    <button class="util-btn delete" onclick="window.requestDelete('${d.id}')" title="Xoá cặp đôi của bạn">
+                                    <button class="util-btn delete" onclick="window.requestDelete('${d.id}')" title="XoÃ¡ cáº·p Ä‘Ã´i cá»§a báº¡n">
                                         <span class="material-symbols-rounded" style="font-size: 18px;">delete</span>
                                     </button>
                                 ` : `
-                                    <button class="util-btn report" onclick="window.requestReport('${d.id}')" title="Báo cáo vi phạm">
+                                    <button class="util-btn report" onclick="window.requestReport('${d.id}')" title="BÃ¡o cÃ¡o vi pháº¡m">
                                         <span class="material-symbols-rounded" style="font-size: 18px;">flag</span>
                                     </button>
                                 `}
@@ -820,14 +834,14 @@
         window.escapeHTML = (str) => { const p = document.createElement('p'); p.textContent = str; return p.innerHTML; };
 
         window.voteForCouple = async (id, hasVoted) => {
-            if (!currentUser) return window.showToast("Cần đăng nhập! 🔒");
-            if (hasVoted) return window.showToast("Bạn đã bày tỏ sự yêu thích cho cặp đôi này rồi! 💖");
+            if (!currentUser) return window.showToast("Cáº§n Ä‘Äƒng nháº­p! ðŸ”’");
+            if (hasVoted) return window.showToast("Báº¡n Ä‘Ã£ bÃ y tá» sá»± yÃªu thÃ­ch cho cáº·p Ä‘Ã´i nÃ y rá»“i! ðŸ’–");
             try {
                 await updateDoc(doc(db, "matchmaking_couples", id), {
                     voteCount: increment(1),
                     voters: arrayUnion(currentUser.uid)
                 });
-            } catch (err) { window.showToast("Lỗi khi bình chọn! 🛠"); }
+            } catch (err) { window.showToast("Lá»—i khi bÃ¬nh chá»n! ðŸ› "); }
         };
 
         // NEW: Delete Logic
@@ -839,16 +853,16 @@
         document.getElementById('btnConfirmDelete').onclick = async () => {
             if (!pendingActionId) return;
             const btn = document.getElementById('btnConfirmDelete');
-            btn.disabled = true; btn.textContent = "Đang xoá...";
+            btn.disabled = true; btn.textContent = "Äang xoÃ¡...";
             try {
                 await deleteDoc(doc(db, "matchmaking_couples", pendingActionId));
-                window.showToast("Đã xoá thành công! 🗑️");
+                window.showToast("ÄÃ£ xoÃ¡ thÃ nh cÃ´ng! ðŸ—‘ï¸");
                 closeModal('modalDelete');
             } catch (err) {
                 console.error(err);
-                window.showToast("Không thể xoá. Có thể bạn không phải chủ bài đăng! 🔒");
+                window.showToast("KhÃ´ng thá»ƒ xoÃ¡. CÃ³ thá»ƒ báº¡n khÃ´ng pháº£i chá»§ bÃ i Ä‘Äƒng! ðŸ”’");
             } finally {
-                btn.disabled = false; btn.textContent = "Xoá vĩnh viễn";
+                btn.disabled = false; btn.textContent = "XoÃ¡ vÄ©nh viá»…n";
                 pendingActionId = null;
             }
         };
@@ -864,7 +878,7 @@
             const reason = document.getElementById('reportReason').value;
             const btn = document.getElementById('btnConfirmReport');
 
-            btn.disabled = true; btn.textContent = "Đang gửi...";
+            btn.disabled = true; btn.textContent = "Äang gá»­i...";
             try {
                 await addDoc(collection(db, "reports"), {
                     targetId: pendingActionId,
@@ -874,13 +888,13 @@
                     createdAt: serverTimestamp(),
                     status: 'pending'
                 });
-                window.showToast("Báo cáo đã được gửi. Cảm ơn bạn! 🙏");
+                window.showToast("BÃ¡o cÃ¡o Ä‘Ã£ Ä‘Æ°á»£c gá»­i. Cáº£m Æ¡n báº¡n! ðŸ™");
                 closeModal('modalReport');
             } catch (err) {
                 console.error(err);
-                window.showToast("Lỗi khi gửi báo cáo! 🛠");
+                window.showToast("Lá»—i khi gá»­i bÃ¡o cÃ¡o! ðŸ› ");
             } finally {
-                btn.disabled = false; btn.textContent = "Gửi báo cáo";
+                btn.disabled = false; btn.textContent = "Gá»­i bÃ¡o cÃ¡o";
                 pendingActionId = null;
             }
         };

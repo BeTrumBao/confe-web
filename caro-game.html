@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cờ Caro - Confe</title>
+    <title>Cá» Caro - Confe</title>
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -480,6 +480,20 @@
             }
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -492,16 +506,16 @@
     <!-- SCREEN: LOBBY -->
     <div id="screenLobby" class="screen">
         <div class="glass-card">
-            <div class="hero-emoji">⚔️</div>
-            <h1 class="title">Cờ Caro</h1>
-            <p class="subtitle">Thách đấu cùng bạn bè ở bất cứ đâu!</p>
+            <div class="hero-emoji">âš”ï¸</div>
+            <h1 class="title">Cá» Caro</h1>
+            <p class="subtitle">ThÃ¡ch Ä‘áº¥u cÃ¹ng báº¡n bÃ¨ á»Ÿ báº¥t cá»© Ä‘Ã¢u!</p>
 
             <div style="margin-top: 10px;">
                 <label
-                    style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 8px; display: block;">VÀO
-                    PHÒNG</label>
+                    style="font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 8px; display: block;">VÃ€O
+                    PHÃ’NG</label>
                 <div class="join-group">
-                    <input type="text" id="joinCodeInp" class="inp" placeholder="Mã Phòng" maxlength="6">
+                    <input type="text" id="joinCodeInp" class="inp" placeholder="MÃ£ PhÃ²ng" maxlength="6">
                     <button class="btn btn-join" onclick="joinRoom()">
                         <span class="material-symbols-rounded">arrow_forward</span>
                     </button>
@@ -510,41 +524,41 @@
 
             <div style="display: flex; align-items:center; gap: 10px; margin: 5px 0;">
                 <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-                <span style="font-size:11px; color:#94a3b8; font-weight:700;">Hoặc</span>
+                <span style="font-size:11px; color:#94a3b8; font-weight:700;">Hoáº·c</span>
                 <div style="flex:1; height:1px; background:#e2e8f0;"></div>
             </div>
 
             <button class="btn btn-primary" onclick="createRoom()">
-                <span class="material-symbols-rounded">add_circle</span> Tạo phòng mới
+                <span class="material-symbols-rounded">add_circle</span> Táº¡o phÃ²ng má»›i
             </button>
 
             <button class="btn" style="background: none; color: #64748b; font-size: 13px;"
-                onclick="location.href='game.html'">Quay lại</button>
+                onclick="location.href='game.html'">Quay láº¡i</button>
         </div>
     </div>
 
     <!-- SCREEN: WAITING -->
     <div id="screenWaiting" class="screen">
         <div class="glass-card">
-            <label style="font-size: 12px; font-weight: 800; color: #64748b;">Mã phòng của bạn</label>
+            <label style="font-size: 12px; font-weight: 800; color: #64748b;">MÃ£ phÃ²ng cá»§a báº¡n</label>
             <div class="room-code-box" onclick="copyRoomLink()">
                 <div class="code-val" id="waitCode">XXXXXX</div>
-                <p style="font-size: 10px; color: var(--primary); font-weight: 700; margin-top: 8px;">Chạm để copy link
-                    phòng 🔗</p>
+                <p style="font-size: 10px; color: var(--primary); font-weight: 700; margin-top: 8px;">Cháº¡m Ä‘á»ƒ copy link
+                    phÃ²ng ðŸ”—</p>
             </div>
 
-            <p class="subtitle">Đang đợi người chơi khác...</p>
+            <p class="subtitle">Äang Ä‘á»£i ngÆ°á»i chÆ¡i khÃ¡c...</p>
 
             <div class="player-list" id="playerListEl">
                 <!-- Players -->
             </div>
 
             <div id="hostActions" style="display: none; width: 100%;">
-                <button class="btn btn-primary" id="btnStart" onclick="hostStart()">Bắt đầu trận đấu 🚀</button>
+                <button class="btn btn-primary" id="btnStart" onclick="hostStart()">Báº¯t Ä‘áº§u tráº­n Ä‘áº¥u ðŸš€</button>
             </div>
 
-            <button class="btn" style="width: 100%; background: #fef2f2; color: #ef4444;" onclick="leaveRoom()">Rời
-                phòng</button>
+            <button class="btn" style="width: 100%; background: #fef2f2; color: #ef4444;" onclick="leaveRoom()">Rá»i
+                phÃ²ng</button>
         </div>
     </div>
 
@@ -552,17 +566,17 @@
     <div id="screenGame" class="screen" style="max-width: 1000px;">
         <div class="game-header">
             <div style="display: flex; flex-direction: column; gap: 2px;">
-                <span style="font-size: 10px; font-weight: 800; color: #64748b;">Đối thủ</span>
-                <span id="oppName" style="font-size: 14px; font-weight: 700;">Đang kết nối...</span>
+                <span style="font-size: 10px; font-weight: 800; color: #64748b;">Äá»‘i thá»§</span>
+                <span id="oppName" style="font-size: 14px; font-weight: 700;">Äang káº¿t ná»‘i...</span>
             </div>
 
             <div class="turn-box" id="turnBox">
-                <span id="turnText">Đang tải...</span>
+                <span id="turnText">Äang táº£i...</span>
             </div>
 
             <div style="text-align: right;">
                 <span id="mySide" style="font-size: 18px; font-weight: 900;">X</span>
-                <p style="font-size: 9px; font-weight: 700; color: #64748b;">Bạn</p>
+                <p style="font-size: 9px; font-weight: 700; color: #64748b;">Báº¡n</p>
             </div>
         </div>
 
@@ -579,8 +593,8 @@
             </button>
             <div id="gameMsg"
                 style="font-size: 13px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 5px;">
-                <span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Đang đợi đối
-                thủ...
+                <span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Äang Ä‘á»£i Ä‘á»‘i
+                thá»§...
             </div>
         </div>
     </div>
@@ -588,13 +602,13 @@
     <!-- WIN OVERLAY -->
     <div class="overlay" id="overlayWin">
         <div class="win-card">
-            <div id="winEmoji" style="font-size: 72px; margin-bottom: 20px;">🏆</div>
-            <h2 id="winTitle" style="font-size: 28px; font-weight: 900; margin-bottom: 10px;">Bạn Thắng !</h2>
-            <p id="winSub" style="color: #64748b; margin-bottom: 30px;">Bạn đã nối được 5 quân cờ liên tiếp.</p>
+            <div id="winEmoji" style="font-size: 72px; margin-bottom: 20px;">ðŸ†</div>
+            <h2 id="winTitle" style="font-size: 28px; font-weight: 900; margin-bottom: 10px;">Báº¡n Tháº¯ng !</h2>
+            <p id="winSub" style="color: #64748b; margin-bottom: 30px;">Báº¡n Ä‘Ã£ ná»‘i Ä‘Æ°á»£c 5 quÃ¢n cá» liÃªn tiáº¿p.</p>
 
             <button id="btnRematch" class="btn btn-primary" style="margin-bottom: 12px; display: none;"
-                onclick="hostRematch()">Chơi lại ván mới</button>
-            <button class="btn" style="width: 100%;" onclick="leaveRoom()">Về sảnh</button>
+                onclick="hostRematch()">ChÆ¡i láº¡i vÃ¡n má»›i</button>
+            <button class="btn" style="width: 100%;" onclick="leaveRoom()">Vá» sáº£nh</button>
         </div>
     </div>
 
@@ -617,7 +631,7 @@
 
         const GRID_SIZE = 20;
 
-        // ── TOAST ──
+        // â”€â”€ TOAST â”€â”€
         function showToast(msg) {
             const c = document.getElementById('toast-container');
             const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
@@ -626,13 +640,13 @@
             setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
         }
 
-        // ── SCREENS ──
+        // â”€â”€ SCREENS â”€â”€
         function showScreen(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        // ── ROOM LOGIC ──
+        // â”€â”€ ROOM LOGIC â”€â”€
         function genCode() {
             const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
             let c = ''; for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
@@ -663,19 +677,19 @@
                 document.getElementById('hostActions').style.display = 'block';
                 listenRoom(code);
                 showScreen('screenWaiting');
-            } catch (e) { showToast("Lỗi tạo phòng!"); }
+            } catch (e) { showToast("Lá»—i táº¡o phÃ²ng!"); }
         }
 
         window.joinRoom = async (pCode) => {
             const code = pCode || document.getElementById('joinCodeInp').value.trim().toUpperCase();
-            if (code.length !== 6) return showToast("Mã phòng không hợp lệ!");
+            if (code.length !== 6) return showToast("MÃ£ phÃ²ng khÃ´ng há»£p lá»‡!");
 
             const snap = await get(ref(db, `caro_rooms/${code}`));
-            if (!snap.exists()) return showToast("Phòng không tồn tại!");
+            if (!snap.exists()) return showToast("PhÃ²ng khÃ´ng tá»“n táº¡i!");
 
             const data = snap.val();
-            if (data.status !== 'waiting') return showToast("Phòng đã bắt đầu!");
-            if (Object.keys(data.players || {}).length >= 2) return showToast("Phòng đã đầy!");
+            if (data.status !== 'waiting') return showToast("PhÃ²ng Ä‘Ã£ báº¯t Ä‘áº§u!");
+            if (Object.keys(data.players || {}).length >= 2) return showToast("PhÃ²ng Ä‘Ã£ Ä‘áº§y!");
 
             roomCode = code; isHost = false; mySide = 'O';
             const playerRef = ref(db, `caro_rooms/${code}/players/${myUid}`);
@@ -693,7 +707,7 @@
             roomListener = ref(db, `caro_rooms/${code}`);
             onValue(roomListener, (snap) => {
                 if (!snap.exists()) {
-                    if (roomCode) { showToast("Phòng đã giải tán."); leaveRoom(); }
+                    if (roomCode) { showToast("PhÃ²ng Ä‘Ã£ giáº£i tÃ¡n."); leaveRoom(); }
                     return;
                 }
                 handleUpdate(snap.val());
@@ -709,7 +723,7 @@
                 document.getElementById('playerListEl').innerHTML = Object.entries(players).map(([uid, p]) => `
                     <div class="player-item">
                         <div class="p-avatar">${(p.name || 'P')[0]}</div>
-                        <div class="p-name">${p.name || 'Người chơi'} ${uid === myUid ? '(Bạn)' : ''}</div>
+                        <div class="p-name">${p.name || 'NgÆ°á»i chÆ¡i'} ${uid === myUid ? '(Báº¡n)' : ''}</div>
                         <span class="p-badge">${p.side}</span>
                     </div>
                 `).join('');
@@ -729,7 +743,7 @@
                 }
 
                 const opp = Object.entries(players).find(([uid]) => uid !== myUid);
-                document.getElementById('oppName').textContent = opp ? opp[1].name : "Đã rời phòng";
+                document.getElementById('oppName').textContent = opp ? opp[1].name : "ÄÃ£ rá»i phÃ²ng";
                 document.getElementById('mySide').textContent = mySide;
                 document.getElementById('mySide').style.color = mySide === 'X' ? 'var(--x-color)' : 'var(--o-color)';
 
@@ -738,7 +752,7 @@
 
                 // Auto-exit if opponent leaves during active game
                 if (!opp && data.status === 'playing') {
-                    showToast("Đối thủ đã thoát phòng. Đang quay về sảnh...");
+                    showToast("Äá»‘i thá»§ Ä‘Ã£ thoÃ¡t phÃ²ng. Äang quay vá» sáº£nh...");
                     setTimeout(leaveRoom, 2500);
                     return;
                 }
@@ -783,16 +797,16 @@
             const msg = document.getElementById('gameMsg');
 
             if (status === 'finished') {
-                tt.textContent = "Kết thúc";
-                msg.innerHTML = "Trận đấu đã kết thúc.";
+                tt.textContent = "Káº¿t thÃºc";
+                msg.innerHTML = "Tráº­n Ä‘áº¥u Ä‘Ã£ káº¿t thÃºc.";
                 return;
             }
 
             const isMyTurn = turnUid === myUid;
             tb.className = 'turn-box ' + (isMyTurn ? 'turn-my' : (players[turnUid]?.side === 'X' ? 'turn-x' : 'turn-o'));
-            tt.textContent = isMyTurn ? "Lượt bạn" : "Lượt " + (players[turnUid]?.name || "...");
+            tt.textContent = isMyTurn ? "LÆ°á»£t báº¡n" : "LÆ°á»£t " + (players[turnUid]?.name || "...");
 
-            msg.innerHTML = isMyTurn ? "✨ Hãy đi nước cờ của bạn !" : `<span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Đang đợi đối thủ suy nghĩ...`;
+            msg.innerHTML = isMyTurn ? "âœ¨ HÃ£y Ä‘i nÆ°á»›c cá» cá»§a báº¡n !" : `<span class="loading-spinner" style="width:14px; height:14px; border-width:2px;"></span> Äang Ä‘á»£i Ä‘á»‘i thá»§ suy nghÄ©...`;
         }
 
         async function handleCellClick(idx) {
@@ -846,10 +860,10 @@
 
         function showWinModal(data, players) {
             const isMe = data.winner === myUid;
-            document.getElementById('winEmoji').textContent = isMe ? '🏆' : '💀';
-            document.getElementById('winTitle').textContent = isMe ? "Bạn Thắng !" : "Bạn Thua !";
+            document.getElementById('winEmoji').textContent = isMe ? 'ðŸ†' : 'ðŸ’€';
+            document.getElementById('winTitle').textContent = isMe ? "Báº¡n Tháº¯ng !" : "Báº¡n Thua !";
             document.getElementById('winTitle').style.color = isMe ? "#16a34a" : "#ef4444";
-            document.getElementById('winSub').textContent = isMe ? "Kỹ năng tuyệt vời, bạn đã đánh bại đối thủ!" : "Đừng nản chí, làm lại ván nữa nào!";
+            document.getElementById('winSub').textContent = isMe ? "Ká»¹ nÄƒng tuyá»‡t vá»i, báº¡n Ä‘Ã£ Ä‘Ã¡nh báº¡i Ä‘á»‘i thá»§!" : "Äá»«ng náº£n chÃ­, lÃ m láº¡i vÃ¡n ná»¯a nÃ o!";
             document.getElementById('btnRematch').style.display = isHost ? 'block' : 'none';
             document.getElementById('overlayWin').classList.add('active');
         }
@@ -882,14 +896,14 @@
 
         window.copyRoomLink = () => {
             const url = window.location.origin + window.location.pathname + '?room=' + roomCode;
-            navigator.clipboard.writeText(url).then(() => showToast("Đã copy link phòng!"));
+            navigator.clipboard.writeText(url).then(() => showToast("ÄÃ£ copy link phÃ²ng!"));
         }
 
         window.confirmLeave = () => {
-            if (confirm("Bạn có chắc muốn thoát phòng? Trận đấu sẽ bị hủy.")) leaveRoom();
+            if (confirm("Báº¡n cÃ³ cháº¯c muá»‘n thoÃ¡t phÃ²ng? Tráº­n Ä‘áº¥u sáº½ bá»‹ há»§y.")) leaveRoom();
         }
 
-        // ── INIT ──
+        // â”€â”€ INIT â”€â”€
         onAuthStateChanged(auth, u => {
             if (!u) { window.top.location.href = 'login.html'; return; }
             myUid = u.uid;

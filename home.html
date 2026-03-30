@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -1883,6 +1883,20 @@
             });
         };
     </script>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1893,12 +1907,12 @@
                 <div class="box" style="max-width: 400px; padding: 0;">
                     <div
                         style="padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0; position: relative;">
-                        <h3 style="margin: 0; font-size: 18px; color: #0f172a;">Lượt bày tỏ cảm xúc</h3>
+                        <h3 style="margin: 0; font-size: 18px; color: #0f172a;">LÆ°á»£t bÃ y tá» cáº£m xÃºc</h3>
                         <button onclick="document.getElementById('modalReactions').classList.remove('active')"
                             style="position: absolute; right: 20px; top: 16px; background: none; border: none; font-size: 24px; color: #64748b; cursor: pointer;">&times;</button>
                     </div>
                     <div id="reactionsListBody" style="max-height: 60vh; overflow-y: auto; padding: 10px;">
-                        <div style="text-align:center; padding: 20px; color: #94a3b8;">Đang tải...</div>
+                        <div style="text-align:center; padding: 20px; color: #94a3b8;">Äang táº£i...</div>
                     </div>
                 </div>
             </div>
@@ -1910,10 +1924,10 @@
                     src="https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg"
                     style="width:40px;height:40px;border-radius:50%;flex-shrink:0;">
                 <div class="compose-input-area" onclick="openPostModal()">
-                    <span id="composePlaceholder" style="color:#94a3b8; font-size:14px;">Hôm nay bạn muốn chia sẻ
-                        gì?</span>
+                    <span id="composePlaceholder" style="color:#94a3b8; font-size:14px;">HÃ´m nay báº¡n muá»‘n chia sáº»
+                        gÃ¬?</span>
                 </div>
-                <button class="compose-img-btn" onclick="document.getElementById('fPostImg').click()" title="Thêm ảnh">
+                <button class="compose-img-btn" onclick="document.getElementById('fPostImg').click()" title="ThÃªm áº£nh">
                     <span class="material-symbols-rounded">add_photo_alternate</span>
                 </button>
                 <input type="file" id="fPostImg" hidden accept="image/*" multiple>
@@ -1949,19 +1963,19 @@
             <div id="feedEmpty" style="display:none; text-align:center; padding:40px; color:#94a3b8;">
                 <span class="material-symbols-rounded"
                     style="font-size:48px; display:block; margin-bottom:12px;">inbox</span>
-                Chưa có bài viết nào. Hãy là người đầu tiên!
+                ChÆ°a cÃ³ bÃ i viáº¿t nÃ o. HÃ£y lÃ  ngÆ°á»i Ä‘áº§u tiÃªn!
             </div>
             <!-- SPOILER INPUT MODAL -->
             <div id="modalSpoilerInput" class="modal" style="z-index:6000;">
                 <div class="box" style="max-width:320px;">
-                    <h3 style="font-size:17px; margin-bottom:12px;">Nhập nội dung mờ</h3>
+                    <h3 style="font-size:17px; margin-bottom:12px;">Nháº­p ná»™i dung má»</h3>
                     <textarea id="spoilerInputText" class="inp-area" rows="3"
                         style="width:100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom:15px;"
-                        placeholder="Nội dung sẽ bị tàng hình..."></textarea>
+                        placeholder="Ná»™i dung sáº½ bá»‹ tÃ ng hÃ¬nh..."></textarea>
                     <div class="confirm-btns">
                         <button class="btn-cancel"
-                            onclick="document.getElementById('modalSpoilerInput').classList.remove('active')">Hủy</button>
-                        <button id="btnConfirmSpoiler" class="btn-confirm">Chèn ngay</button>
+                            onclick="document.getElementById('modalSpoilerInput').classList.remove('active')">Há»§y</button>
+                        <button id="btnConfirmSpoiler" class="btn-confirm">ChÃ¨n ngay</button>
                     </div>
                 </div>
             </div>
@@ -1995,18 +2009,18 @@
 
     <div id="modalReport" class="modal">
         <div class="box">
-            <h3 style="margin-bottom:8px;"> Báo cáo</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chọn lý do bạn muốn báo cáo nội dung này.</p>
+            <h3 style="margin-bottom:8px;"> BÃ¡o cÃ¡o</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:16px;">Chá»n lÃ½ do báº¡n muá»‘n bÃ¡o cÃ¡o ná»™i dung nÃ y.</p>
             <select id="rReason" class="inp" style="cursor:pointer; margin-bottom:10px;">
-                <option>Nội dung thô tục / Phản cảm</option>
-                <option>Spam / Quảng cáo rác</option>
-                <option>Bắt nạt / Quấy rối</option>
-                <option>Thông tin sai lệch</option>
-                <option>Vi phạm bản quyền</option>
+                <option>Ná»™i dung thÃ´ tá»¥c / Pháº£n cáº£m</option>
+                <option>Spam / Quáº£ng cÃ¡o rÃ¡c</option>
+                <option>Báº¯t náº¡t / Quáº¥y rá»‘i</option>
+                <option>ThÃ´ng tin sai lá»‡ch</option>
+                <option>Vi pháº¡m báº£n quyá»n</option>
             </select>
-            <button id="btnSendReport" class="btn-act" style="background:var(--warn);">Gửi Báo Cáo</button>
+            <button id="btnSendReport" class="btn-act" style="background:var(--warn);">Gá»­i BÃ¡o CÃ¡o</button>
             <button onclick="document.getElementById('modalReport').classList.remove('active')"
-                style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:8px;">Hủy</button>
+                style="width:100%; padding:12px; background:none; border:none; color:var(--text-secondary); cursor:pointer; margin-top:8px;">Há»§y</button>
         </div>
     </div>
 
@@ -2014,17 +2028,17 @@
         <div class="box" style="position:relative;">
             <button onclick="document.getElementById('modalNews').classList.remove('active')"
                 style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                title="Đóng">
+                title="ÄÃ³ng">
                 <span class="material-symbols-rounded">close</span>
             </button>
-            <h3 style="margin-bottom:20px; font-size:20px;"> Cập nhật mới</h3>
+            <h3 style="margin-bottom:20px; font-size:20px;"> Cáº­p nháº­t má»›i</h3>
             <div class="changelog-list">
                 <div class="cl-item">
-                    <div class="cl-icon">️</div>
+                    <div class="cl-icon">ï¸</div>
                     <div class="cl-content">
-                        <div class="cl-date">Mới</div>
-                        <h4>Bảo mật & Trải nghiệm mới</h4>
-                        <p>Hệ thống Đăng bài (Feed) đã thay thế hoàn toàn mục Chủ đề. Trải nghiệm nhanh hơn, mượt hơn!
+                        <div class="cl-date">Má»›i</div>
+                        <h4>Báº£o máº­t & Tráº£i nghiá»‡m má»›i</h4>
+                        <p>Há»‡ thá»‘ng ÄÄƒng bÃ i (Feed) Ä‘Ã£ thay tháº¿ hoÃ n toÃ n má»¥c Chá»§ Ä‘á». Tráº£i nghiá»‡m nhanh hÆ¡n, mÆ°á»£t hÆ¡n!
                         </p>
                     </div>
                 </div>
@@ -2032,8 +2046,8 @@
                     <div class="cl-icon"></div>
                     <div class="cl-content">
                         <div class="cl-date">14/12</div>
-                        <h4>Cải thiện giao diện</h4>
-                        <p>Bảng tạo bài viết mới cực "xịn", hỗ trợ làm mờ chữ và ảnh.</p>
+                        <h4>Cáº£i thiá»‡n giao diá»‡n</h4>
+                        <p>Báº£ng táº¡o bÃ i viáº¿t má»›i cá»±c "xá»‹n", há»— trá»£ lÃ m má» chá»¯ vÃ  áº£nh.</p>
                     </div>
                 </div>
             </div>
@@ -2045,27 +2059,27 @@
         <div class="box" style="position:relative;">
             <button onclick="document.getElementById('modalFeedback').classList.remove('active')"
                 style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;"
-                title="Đóng">
+                title="ÄÃ³ng">
                 <span class="material-symbols-rounded">close</span>
             </button>
-            <h3 style="margin-bottom:20px; font-size:20px;"> Góp ý cho Admin</h3>
-            <div style="margin-bottom:15px"><label class="inp-label">Nội dung góp ý</label><textarea
-                    id="feedbackContent" class="inp-area" rows="5" placeholder="Bạn muốn thêm tính năng gì?"></textarea>
+            <h3 style="margin-bottom:20px; font-size:20px;"> GÃ³p Ã½ cho Admin</h3>
+            <div style="margin-bottom:15px"><label class="inp-label">Ná»™i dung gÃ³p Ã½</label><textarea
+                    id="feedbackContent" class="inp-area" rows="5" placeholder="Báº¡n muá»‘n thÃªm tÃ­nh nÄƒng gÃ¬?"></textarea>
             </div>
-            <button id="btnSendFeedback" class="btn-act">Gửi góp ý</button>
+            <button id="btnSendFeedback" class="btn-act">Gá»­i gÃ³p Ã½</button>
         </div>
     </div>
 
     <!-- CUSTOM CONFIRM MODAL -->
     <div id="modalConfirm" class="modal">
         <div class="box">
-            <h3 id="confirmTitle" style="font-size:18px; margin-bottom:10px;">Xác nhận</h3>
-            <p id="confirmDesc" style="color:#64748b; font-size:14px; line-height:1.5;">Bạn có chắc chắn muốn thực hiện
-                hành động này không?</p>
+            <h3 id="confirmTitle" style="font-size:18px; margin-bottom:10px;">XÃ¡c nháº­n</h3>
+            <p id="confirmDesc" style="color:#64748b; font-size:14px; line-height:1.5;">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n thá»±c hiá»‡n
+                hÃ nh Ä‘á»™ng nÃ y khÃ´ng?</p>
             <div class="confirm-btns">
                 <button class="btn-cancel" id="btnConfirmCancel"
-                    onclick="document.getElementById('modalConfirm').classList.remove('active')">Hủy</button>
-                <button id="btnConfirmOk" class="btn-confirm">Xác nhận</button>
+                    onclick="document.getElementById('modalConfirm').classList.remove('active')">Há»§y</button>
+                <button id="btnConfirmOk" class="btn-confirm">XÃ¡c nháº­n</button>
             </div>
         </div>
     </div>
@@ -2084,8 +2098,8 @@
                 onmouseout="this.style.background='#f1f5f9'; this.style.color='#64748b'"><span
                     class="material-symbols-rounded" style="font-size:20px;">close</span></button>
             <h3 id="modalPostTitle"
-                style="margin-bottom:20px; font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#1e293b;">Tạo
-                bài viết mới</h3>
+                style="margin-bottom:20px; font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#1e293b;">Táº¡o
+                bÃ i viáº¿t má»›i</h3>
             <div class="post-modal-header" style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
                 <img id="postModalAvt"
                     src="https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg"
@@ -2093,35 +2107,35 @@
                     style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
                 <div style="flex:1;">
                     <div class="post-modal-name" id="postModalName"
-                        style="font-weight:800; font-size:16px; color:#1e293b;">Bạn</div>
+                        style="font-weight:800; font-size:16px; color:#1e293b;">Báº¡n</div>
                     <div
                         style="font-size:13px; color:#94a3b8; font-weight:500; display:flex; align-items:center; gap:4px;">
-                        <span class="material-symbols-rounded" style="font-size:14px;">public</span> Công khai
+                        <span class="material-symbols-rounded" style="font-size:14px;">public</span> CÃ´ng khai
                     </div>
                 </div>
             </div>
             <textarea id="postContent" class="post-textarea"
-                placeholder="Hôm nay bạn muốn chia sẻ gì? Dùng ||text|| để làm mờ chữ..." maxlength="1000"></textarea>
+                placeholder="HÃ´m nay báº¡n muá»‘n chia sáº» gÃ¬? DÃ¹ng ||text|| Ä‘á»ƒ lÃ m má» chá»¯..." maxlength="1000"></textarea>
             <div id="postImgPreviewBox" class="cmt-preview-box">
                 <div id="postImgPreviewContainer" class="preview-container"></div>
             </div>
 
             <div class="post-options-row">
                 <div class="post-opt-chip" onclick="document.getElementById('fPostImg').click()">
-                    <span class="material-symbols-rounded" style="font-size:18px;">add_photo_alternate</span> Ảnh
+                    <span class="material-symbols-rounded" style="font-size:18px;">add_photo_alternate</span> áº¢nh
                 </div>
                 <div class="post-opt-chip" onclick="window.insertSpoiler()">
-                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Mờ chữ
+                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Má» chá»¯
                 </div>
                 <label class="post-opt-chip" id="btnBlurImg" style="display:none;">
                     <input type="checkbox" id="chkBlurImg"
                         onchange="this.parentElement.classList.toggle('active', this.checked)">
-                    <span class="material-symbols-rounded" style="font-size:18px;">image_not_supported</span> Mờ ảnh
+                    <span class="material-symbols-rounded" style="font-size:18px;">image_not_supported</span> Má» áº£nh
                 </label>
                 <label class="post-opt-chip">
                     <input type="checkbox" id="chkAnon"
                         onchange="this.parentElement.classList.toggle('active', this.checked)">
-                    <span class="material-symbols-rounded" style="font-size:18px;">person_off</span> Ẩn danh
+                    <span class="material-symbols-rounded" style="font-size:18px;">person_off</span> áº¨n danh
                 </label>
             </div>
             <div class="post-modal-footer"
@@ -2129,12 +2143,12 @@
                 <button id="btnDeletePostInModal" onclick="confirmDeletePost()"
                     style="display:none; background:none; border:none; color:#94a3b8; cursor:pointer; font-size:13px; font-weight:600; padding:8px 0; transition:0.2s;">
                     <span class="material-symbols-rounded"
-                        style="vertical-align:middle; font-size:18px; margin-right:4px;">delete</span> Xóa bài viết
+                        style="vertical-align:middle; font-size:18px; margin-right:4px;">delete</span> XÃ³a bÃ i viáº¿t
                 </button>
                 <div style="flex:1;"></div>
                 <button id="btnSubmitPost" class="btn-post-submit"
-                    style="width:auto; padding:10px 24px; border-radius:12px; font-weight:700; background:var(--primary); color:white; border:none; cursor:pointer;">Đăng
-                    bài</button>
+                    style="width:auto; padding:10px 24px; border-radius:12px; font-weight:700; background:var(--primary); color:white; border:none; cursor:pointer;">ÄÄƒng
+                    bÃ i</button>
             </div>
         </div>
     </div>
@@ -2146,10 +2160,10 @@
                 style="position:absolute; top:15px; right:15px; background:none; border:none; color:#94a3b8; cursor:pointer;">
                 <span class="material-symbols-rounded">close</span>
             </button>
-            <h3 style="margin-bottom:16px;">Bình luận</h3>
+            <h3 style="margin-bottom:16px;">BÃ¬nh luáº­n</h3>
             <div id="allCmtsList" style="max-height:55vh; overflow-y:auto; margin-bottom:16px;"></div>
             <div id="cmtReplyBanner" class="cmt-reply-banner">
-                <div style="font-size: 12px; color: #0084ff; font-weight: 700;">Đang trả lời <span
+                <div style="font-size: 12px; color: #0084ff; font-weight: 700;">Äang tráº£ lá»i <span
                         id="replyingToName"></span></div>
                 <button onclick="cancelCmtReply()"
                     style="background:none; border:none; color:#94a3b8; cursor:pointer;"><span
@@ -2166,7 +2180,7 @@
                     <span class="material-symbols-rounded" style="font-size:24px;">image</span>
                 </label>
                 <input type="file" id="fCmtImg" accept="image/*" multiple hidden>
-                <input type="text" id="allCmtsInput" class="feed-cmt-input" placeholder="Viết bình luận...">
+                <input type="text" id="allCmtsInput" class="feed-cmt-input" placeholder="Viáº¿t bÃ¬nh luáº­n...">
                 <button class="feed-cmt-send" onclick="sendAllCmtsComment()">
                     <span class="material-symbols-rounded" style="font-size:16px;">send</span>
                 </button>
@@ -2177,21 +2191,21 @@
     <!-- EDIT COMMENT MODAL -->
     <div id="modalEditComment" class="modal" style="z-index:5000;">
         <div class="box">
-            <h3 style="font-size:18px; margin-bottom:15px;">Chỉnh sửa bình luận</h3>
+            <h3 style="font-size:18px; margin-bottom:15px;">Chá»‰nh sá»­a bÃ¬nh luáº­n</h3>
             <div style="margin-bottom:15px">
                 <textarea id="editCmtInput" class="inp-area" rows="4"
                     style="width:100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;"
-                    placeholder="Nội dung bình luận..."></textarea>
+                    placeholder="Ná»™i dung bÃ¬nh luáº­n..."></textarea>
             </div>
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <button class="post-opt-chip" onclick="window.insertSpoiler('editCmtInput')" style="border:none;">
-                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Mờ chữ
+                    <span class="material-symbols-rounded" style="font-size:18px;">blur_on</span> Má» chá»¯
                 </button>
             </div>
             <div class="confirm-btns">
                 <button class="btn-cancel"
-                    onclick="document.getElementById('modalEditComment').classList.remove('active')">Hủy</button>
-                <button id="btnSaveEditCmt" class="btn-confirm">Lưu thay đổi</button>
+                    onclick="document.getElementById('modalEditComment').classList.remove('active')">Há»§y</button>
+                <button id="btnSaveEditCmt" class="btn-confirm">LÆ°u thay Ä‘á»•i</button>
             </div>
         </div>
     </div>
@@ -2215,13 +2229,13 @@
                     <div style="position:fixed; bottom:20px; right:20px; left:20px; max-width:400px; margin:0 auto; background:white; padding:20px; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:15px; border:1px solid #e2e8f0; font-family:sans-serif; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
                         <style>@keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
                         <div style="display:flex; align-items:flex-start; gap:15px;">
-                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🔄</div>
+                            <div style="background:#eff6ff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">ðŸ”„</div>
                             <div>
-                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cập nhật phiên bản</h3>
-                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Hệ thống vừa được nâng cấp cấu trúc mới để hoạt động ổn định hơn. Vui lòng tải lại trang nhé!</p>
+                                <h3 style="font-size:16px; margin:0 0 5px 0; color:#0f172a; font-weight:700;">Cáº­p nháº­t phiÃªn báº£n</h3>
+                                <p style="font-size:14px; margin:0; color:#475569; line-height:1.5;">Há»‡ thá»‘ng vá»«a Ä‘Æ°á»£c nÃ¢ng cáº¥p cáº¥u trÃºc má»›i Ä‘á»ƒ hoáº¡t Ä‘á»™ng á»•n Ä‘á»‹nh hÆ¡n. Vui lÃ²ng táº£i láº¡i trang nhÃ©!</p>
                             </div>
                         </div>
-                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Tải lại trang ngay</button>
+                        <button onclick="window.location.reload(true)" style="width:100%; padding:12px; background:#2563eb; color:white; border:none; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Táº£i láº¡i trang ngay</button>
                     </div>
                 `;
                 document.body.appendChild(alertBox);
@@ -2352,8 +2366,8 @@
             btnSendReport.onclick = async function () {
                 if (!reportTargetId) return;
                 const reason = document.getElementById('rReason').value.trim();
-                if (!reason) return window.showToast("Vui lòng nhập lý do báo cáo!");
-                this.textContent = "Đang gửi...";
+                if (!reason) return window.showToast("Vui lÃ²ng nháº­p lÃ½ do bÃ¡o cÃ¡o!");
+                this.textContent = "Äang gá»­i...";
                 try {
                     await addDoc(collection(db, "reports"), {
                         targetId: reportTargetId,
@@ -2362,10 +2376,10 @@
                         reporter: user ? user.email : "Anonymous",
                         createdAt: serverTimestamp()
                     });
-                    window.showToast("Đã gửi báo cáo!");
+                    window.showToast("ÄÃ£ gá»­i bÃ¡o cÃ¡o!");
                     document.getElementById('modalReport').classList.remove('active');
-                } catch (e) { window.showToast("Lỗi gửi báo cáo!"); }
-                this.textContent = "Gửi Báo Cáo";
+                } catch (e) { window.showToast("Lá»—i gá»­i bÃ¡o cÃ¡o!"); }
+                this.textContent = "Gá»­i BÃ¡o CÃ¡o";
             }
         }
 
@@ -2374,20 +2388,20 @@
         if (btnSendFeedback) {
             btnSendFeedback.onclick = async () => {
                 const txt = document.getElementById('feedbackContent').value;
-                if (!txt) return window.showToast("Bạn chưa nhập nội dung!");
-                btnSendFeedback.textContent = "Đang gửi...";
+                if (!txt) return window.showToast("Báº¡n chÆ°a nháº­p ná»™i dung!");
+                btnSendFeedback.textContent = "Äang gá»­i...";
                 try {
                     await addDoc(collection(db, "feedbacks"), {
                         content: txt,
-                        user: user ? user.email : "Ẩn danh",
+                        user: user ? user.email : "áº¨n danh",
                         uid: user ? user.uid : null,
                         createdAt: serverTimestamp()
                     });
-                    window.showToast("Cảm ơn góp ý của bạn! ️");
+                    window.showToast("Cáº£m Æ¡n gÃ³p Ã½ cá»§a báº¡n! ï¸");
                     document.getElementById('feedbackContent').value = "";
                     document.getElementById('modalFeedback').classList.remove('active');
-                } catch (e) { window.showToast("Lỗi khi gửi!"); }
-                btnSendFeedback.textContent = "Gửi góp ý";
+                } catch (e) { window.showToast("Lá»—i khi gá»­i!"); }
+                btnSendFeedback.textContent = "Gá»­i gÃ³p Ã½";
             }
         }
 
@@ -2429,22 +2443,22 @@
                 } catch (e) { }
                 const guestBanner = u.isAnonymous ? `
                     <a href="profile.html?uid=${u.uid}" class="menu-item" style="background:#fffbeb; border-bottom:1px solid #fde68a; color:#92400e; font-size:12px; line-height:1.4; padding:10px 14px; white-space:normal; display:block;">
-                         <b>👤 Tư cách khách</b><br>
-                        <span style="font-weight:400;">Bấm để đặt email & mật khẩu lưu tài khoản vĩnh viễn</span>
+                         <b>ðŸ‘¤ TÆ° cÃ¡ch khÃ¡ch</b><br>
+                        <span style="font-weight:400;">Báº¥m Ä‘á»ƒ Ä‘áº·t email & máº­t kháº©u lÆ°u tÃ i khoáº£n vÄ©nh viá»…n</span>
                     </a>` : '';
                 nav.innerHTML = `
                     <div class="nav-user" onclick="this.querySelector('.dropdown-menu').classList.toggle('show')">
                         <img src="${avt}" class="nav-avt frame-${frame}">
                         <div class="dropdown-menu">
                             ${guestBanner}
-                            <a href="profile.html?uid=${u.uid}" class="menu-item">👤 Hồ sơ của tôi</a>
-                            <div id="btnNavFeedback" class="menu-item">💡 Góp ý cho Admin</div>
-                            <div id="btnLogout" class="menu-item danger">Đăng xuất</div>
+                            <a href="profile.html?uid=${u.uid}" class="menu-item">ðŸ‘¤ Há»“ sÆ¡ cá»§a tÃ´i</a>
+                            <div id="btnNavFeedback" class="menu-item">ðŸ’¡ GÃ³p Ã½ cho Admin</div>
+                            <div id="btnLogout" class="menu-item danger">ÄÄƒng xuáº¥t</div>
                         </div>
                     </div>`;
                 document.getElementById('btnNavFeedback').onclick = () => document.getElementById('modalFeedback').classList.add('active');
                 document.getElementById('btnLogout').onclick = () => signOut(auth).then(() => location.reload());
-            } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">Đăng nhập</a>`; }
+            } else { nav.innerHTML = `<a href="login.html" class="btn-login" target="_top">ÄÄƒng nháº­p</a>`; }
         }
         // FAB scroll-to-hide on mobile
         (() => {
@@ -2461,7 +2475,7 @@
         })();
 
 
-        // ========== FEED (Đăng Bài) LOGIC ==========
+        // ========== FEED (ÄÄƒng BÃ i) LOGIC ==========
         const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
         const MISSING_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
 
@@ -2511,7 +2525,7 @@
                     img.src = URL.createObjectURL(file);
                     const closeBtn = document.createElement('button');
                     closeBtn.className = 'preview-item-close';
-                    closeBtn.innerHTML = '×';
+                    closeBtn.innerHTML = 'Ã—';
                     closeBtn.onclick = () => {
                         selectedCommentFiles[pid].splice(index, 1);
                         renderCommentPreview(pid);
@@ -2553,7 +2567,7 @@
             snap.forEach(d => {
                 if (d.data().content && d.data().content.includes(`#${tag}`)) count++;
             });
-            const confirmed = await window.showConfirm(`Hashtag #${tag}`, `Đang có ${count} bài viết sử dụng hashtag này. Bạn muốn xem tất cả? (Tính năng lọc đang phát triển)`);
+            const confirmed = await window.showConfirm(`Hashtag #${tag}`, `Äang cÃ³ ${count} bÃ i viáº¿t sá»­ dá»¥ng hashtag nÃ y. Báº¡n muá»‘n xem táº¥t cáº£? (TÃ­nh nÄƒng lá»c Ä‘ang phÃ¡t triá»ƒn)`);
         };
 
         let trendingPost = null;
@@ -2619,10 +2633,10 @@
             if (!ts) return '';
             const d = ts.toDate ? ts.toDate() : new Date(ts);
             const s = Math.floor((Date.now() - d.getTime()) / 1000);
-            if (s < 60) return 'Vừa xong';
-            if (s < 3600) return `${Math.floor(s / 60)} phút trước`;
-            if (s < 86400) return `${Math.floor(s / 3600)} giờ trước`;
-            return `${Math.floor(s / 86400)} ngày trước`;
+            if (s < 60) return 'Vá»«a xong';
+            if (s < 3600) return `${Math.floor(s / 60)} phÃºt trÆ°á»›c`;
+            if (s < 86400) return `${Math.floor(s / 3600)} giá» trÆ°á»›c`;
+            return `${Math.floor(s / 86400)} ngÃ y trÆ°á»›c`;
         }
 
         let activeFeedPid = null;
@@ -2654,7 +2668,7 @@
 
         // Compose box click
         window.openPostModal = () => {
-            if (!user) return window.showToast("Đăng nhập để đăng bài!");
+            if (!user) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ Ä‘Äƒng bÃ i!");
             const modal = document.getElementById('modalPost');
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 1);
@@ -2687,12 +2701,12 @@
                 editingPostId = null;
                 editingPostExistingImg = "";
                 editingPostExistingImages = [];
-                document.getElementById('modalPostTitle').textContent = "Tạo bài viết mới";
-                document.getElementById('btnSubmitPost').textContent = "Đăng bài";
+                document.getElementById('modalPostTitle').textContent = "Táº¡o bÃ i viáº¿t má»›i";
+                document.getElementById('btnSubmitPost').textContent = "ÄÄƒng bÃ i";
             };
 
             if (isDirty) {
-                const confirmed = await window.showConfirm("Hủy bài viết?", "Bạn có nội dung chưa đăng tải. Bạn có thực sự muốn đóng không?");
+                const confirmed = await window.showConfirm("Há»§y bÃ i viáº¿t?", "Báº¡n cÃ³ ná»™i dung chÆ°a Ä‘Äƒng táº£i. Báº¡n cÃ³ thá»±c sá»± muá»‘n Ä‘Ã³ng khÃ´ng?");
                 if (confirmed) {
                     executeClose();
                 }
@@ -2716,7 +2730,7 @@
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 1);
 
-            document.getElementById('modalPostTitle').textContent = "Chỉnh sửa bài viết";
+            document.getElementById('modalPostTitle').textContent = "Chá»‰nh sá»­a bÃ i viáº¿t";
             document.getElementById('postContent').value = content;
             document.getElementById('btnDeletePostInModal').style.display = 'block';
 
@@ -2749,7 +2763,7 @@
                     item.className = 'preview-item';
                     item.innerHTML = `
                         <img src="${img.src}">
-                        <div class="preview-item-close" onclick="removePostImg(${img.index}, ${img.isExisting})">×</div>
+                        <div class="preview-item-close" onclick="removePostImg(${img.index}, ${img.isExisting})">Ã—</div>
                     `;
                     container.appendChild(item);
                 });
@@ -2764,14 +2778,14 @@
 
         window.confirmDeletePost = async () => {
             if (!editingPostId) return;
-            const confirmed = await window.showConfirm("Xóa bài viết?", "Dữ liệu sẽ bị xóa vĩnh viễn và không thể khôi phục.");
+            const confirmed = await window.showConfirm("XÃ³a bÃ i viáº¿t?", "Dá»¯ liá»‡u sáº½ bá»‹ xÃ³a vÄ©nh viá»…n vÃ  khÃ´ng thá»ƒ khÃ´i phá»¥c.");
             if (confirmed) {
                 try {
                     await deleteDoc(doc(db, "posts", editingPostId));
-                    window.showToast("Đã xóa bài viết");
+                    window.showToast("ÄÃ£ xÃ³a bÃ i viáº¿t");
                     closePostModal(true);
                 } catch (e) {
-                    window.showToast("Lỗi khi xóa bài viết");
+                    window.showToast("Lá»—i khi xÃ³a bÃ i viáº¿t");
                 }
             }
         };
@@ -2779,13 +2793,13 @@
         window.deleteFeedPost = async (pid) => {
             // This is the old cards-based delete, we can keep it for admin or remove
             // But the user wants it in the edit modal, so we'll mainly use confirmDeletePost
-            const confirmed = await window.showConfirm("Xóa bài viết?", "Bạn có chắc chắn muốn xóa bài viết này không?");
+            const confirmed = await window.showConfirm("XÃ³a bÃ i viáº¿t?", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ i viáº¿t nÃ y khÃ´ng?");
             if (confirmed) {
                 try {
                     await deleteDoc(doc(db, "posts", pid));
-                    window.showToast("Đã xóa bài viết");
+                    window.showToast("ÄÃ£ xÃ³a bÃ i viáº¿t");
                 } catch (e) {
-                    window.showToast("Lỗi khi xóa bài viết");
+                    window.showToast("Lá»—i khi xÃ³a bÃ i viáº¿t");
                 }
             }
         };
@@ -2813,7 +2827,7 @@
                     const val = area.value;
                     const before = val.substring(0, start);
                     const after = val.substring(end);
-                    area.value = before + "||" + (text || "văn bản ẩn") + "||" + after;
+                    area.value = before + "||" + (text || "vÄƒn báº£n áº©n") + "||" + after;
                     area.focus();
                     const newPos = start + 2 + (text ? text.length : 10) + 2;
                     area.setSelectionRange(newPos, newPos);
@@ -2839,7 +2853,7 @@
         function updateComposeAvatar() {
             if (!user || !userData) return;
             const avt = userData.photoURL || MISSING_AVATAR;
-            const name = userData.displayName || (user.email ? user.email.split('@')[0] : '') || 'Cư dân mới';
+            const name = userData.displayName || (user.email ? user.email.split('@')[0] : '') || 'CÆ° dÃ¢n má»›i';
             document.getElementById('composeAvt').src = avt;
             document.getElementById('postModalAvt').src = avt;
             document.getElementById('postModalName').textContent = name;
@@ -2849,11 +2863,11 @@
 
         // Submit post
         document.getElementById('btnSubmitPost').onclick = async function () {
-            if (!user) return window.showToast("Đăng nhập để đăng bài!");
+            if (!user) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ Ä‘Äƒng bÃ i!");
             const txt = document.getElementById('postContent').value.trim();
-            if (!txt && selectedPostFiles.length === 0 && editingPostExistingImages.length === 0) return window.showToast("Viết gì đó đi!");
+            if (!txt && selectedPostFiles.length === 0 && editingPostExistingImages.length === 0) return window.showToast("Viáº¿t gÃ¬ Ä‘Ã³ Ä‘i!");
 
-            this.textContent = editingPostId ? "Đang cập nhật..." : "Đang đăng...";
+            this.textContent = editingPostId ? "Äang cáº­p nháº­t..." : "Äang Ä‘Äƒng...";
             this.disabled = true;
 
             try {
@@ -2869,7 +2883,7 @@
                         images: finalImages,
                         updatedAt: serverTimestamp()
                     });
-                    window.showToast("Đã cập nhật bài viết!");
+                    window.showToast("ÄÃ£ cáº­p nháº­t bÃ i viáº¿t!");
                 } else {
                     const isAnon = document.getElementById('chkAnon').checked;
                     const blurImgEl = document.getElementById('chkBlurImg');
@@ -2881,7 +2895,7 @@
                         image: finalImg,
                         images: finalImages,
                         blurImage: blurImage && finalImages.length > 0,
-                        author: isAnon ? "Ẩn danh" : (userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới')),
+                        author: isAnon ? "áº¨n danh" : (userData.displayName || (user.email ? user.email.split('@')[0] : 'CÆ° dÃ¢n má»›i')),
                         authorUid: isAnon ? null : user.uid,
                         authorAvatar: isAnon ? ANON_AVATAR : (userData.photoURL || MISSING_AVATAR),
                         createdAt: serverTimestamp(),
@@ -2891,14 +2905,14 @@
                         is_agree_terms: true
                     };
                     await addDoc(collection(db, "posts"), postData);
-                    window.showToast("Đã đăng bài!");
+                    window.showToast("ÄÃ£ Ä‘Äƒng bÃ i!");
                 }
                 closePostModal(true);
             } catch (err) {
                 console.error("Submit error:", err);
-                window.showToast("Lỗi khi đăng bài. Vui lòng thử lại!");
+                window.showToast("Lá»—i khi Ä‘Äƒng bÃ i. Vui lÃ²ng thá»­ láº¡i!");
             } finally {
-                this.textContent = "Đăng bài";
+                this.textContent = "ÄÄƒng bÃ i";
                 this.disabled = false;
             }
         };
@@ -2925,20 +2939,20 @@
             const modal = document.getElementById('modalReactions');
             const body = document.getElementById('reactionsListBody');
             modal.classList.add('active');
-            body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">Đang tải...</div>';
+            body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">Äang táº£i...</div>';
 
             try {
                 const snap = await getDocs(collection(db, "posts", pid, "user_reactions"));
                 if (snap.empty) {
-                    body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">Chưa có lượt bày tỏ cảm xúc nào.</div>';
+                    body.innerHTML = '<div style="text-align:center; padding: 20px; color: #94a3b8;">ChÆ°a cÃ³ lÆ°á»£t bÃ y tá» cáº£m xÃºc nÃ o.</div>';
                     return;
                 }
 
                 let html = '';
-                const typeMap = { 'heart': '❤️', 'laugh': '😆', 'sad': '😢' };
+                const typeMap = { 'heart': 'â¤ï¸', 'laugh': 'ðŸ˜†', 'sad': 'ðŸ˜¢' };
                 for (const d of snap.docs) {
                     const data = d.data();
-                    const info = await getLatestUserInfo(d.id, 'Người dùng', MISSING_AVATAR);
+                    const info = await getLatestUserInfo(d.id, 'NgÆ°á»i dÃ¹ng', MISSING_AVATAR);
                     html += `
                         <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9;">
                             <img src="${info.avt}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" onerror="this.src='${MISSING_AVATAR}'">
@@ -2954,7 +2968,7 @@
                 body.innerHTML = html;
             } catch (err) {
                 console.error(err);
-                body.innerHTML = '<div style="text-align:center; padding: 20px; color: #ef4444;">Lỗi tải dữ liệu</div>';
+                body.innerHTML = '<div style="text-align:center; padding: 20px; color: #ef4444;">Lá»—i táº£i dá»¯ liá»‡u</div>';
             }
         };
 
@@ -2964,8 +2978,8 @@
                 event.preventDefault();
                 event.stopPropagation();
             }
-            if (!user) return window.showToast("Đăng nhập để thả tim!");
-            if (user.isAnonymous) return window.showToast("Dùng tài khoản thường để thả tim!");
+            if (!user) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ tháº£ tim!");
+            if (user.isAnonymous) return window.showToast("DÃ¹ng tÃ i khoáº£n thÆ°á»ng Ä‘á»ƒ tháº£ tim!");
 
             const btn = document.getElementById(`feed-react-${pid}-${type}`);
             const countEl = btn ? btn.querySelector('.react-count') : null;
@@ -3019,8 +3033,8 @@
 
         // Profile click
         window.handleProfileClick = (uid) => {
-            if (!uid || uid === 'null' || uid === 'undefined') return window.showToast("Người dùng ẩn danh");
-            if (user && user.isAnonymous) return window.showToast("Vui lòng đăng ký để xem profile & theo dõi");
+            if (!uid || uid === 'null' || uid === 'undefined') return window.showToast("NgÆ°á»i dÃ¹ng áº©n danh");
+            if (user && user.isAnonymous) return window.showToast("Vui lÃ²ng Ä‘Äƒng kÃ½ Ä‘á»ƒ xem profile & theo dÃµi");
             window.location.href = `profile.html?uid=${uid}`;
         };
 
@@ -3031,13 +3045,13 @@
             if (authorUidParam) postAuthorUid = authorUidParam;
             document.getElementById('modalAllCmts').classList.add('active');
             const box = document.getElementById('allCmtsList');
-            if (!silent) box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">Đang tải...</div>';
+            if (!silent) box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">Äang táº£i...</div>';
             const snap = await getDocs(query(collection(db, "comments"), where("pid", "==", pid), orderBy("createdAt", "asc")));
             const allCmts = snap.docs.map(d => ({ ...d.data(), id: d.id }));
 
 
             if (allCmts.length === 0) {
-                box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">Chưa có bình luận nào.</div>';
+                box.innerHTML = '<div style="text-align:center;padding:20px;color:#94a3b8;">ChÆ°a cÃ³ bÃ¬nh luáº­n nÃ o.</div>';
                 return;
             }
 
@@ -3058,8 +3072,8 @@
                         <div class="preview-cmt-bubble">
                             <span class="preview-cmt-name name-color-${info.color}" onclick="handleProfileClick('${c.authorUid}')">
                                 ${window.escapeHTML(info.name)}
-                                ${info.verified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
-                                ${isPostAuthor ? '<span style="background: #1d9bf0; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 6px; font-weight: bold; vertical-align: middle;">Tác giả</span>' : ''}
+                                ${info.verified ? '<span class="material-symbols-rounded" style="font-size:14px; color:#1d9bf0; vertical-align:middle; margin-left:2px; font-variation-settings: \'FILL\' 1;" title="TÃ i khoáº£n xÃ¡c thá»±c">verified</span>' : ''}
+                                ${isPostAuthor ? '<span style="background: #1d9bf0; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 6px; font-weight: bold; vertical-align: middle;">TÃ¡c giáº£</span>' : ''}
                             </span>
                             <div class="preview-cmt-text" id="cmt-content-${c.id}">
                                 ${window.linkifyText(c.content)}
@@ -3068,10 +3082,10 @@
                             </div>
                         </div>
                         <div class="cmt-actions">
-                            <span style="font-size:11px; color:#94a3b8;">${timeAgo(c.createdAt)}${c.isEdited ? ' (đã chỉnh sửa)' : ''}</span>
-                            <button class="cmt-btn" onclick="replyToComment('${window.escapeHTML(info.name)}', '${rootId || c.id}')">Trả lời</button>
-                            ${isOwner ? `<button class="cmt-btn" onclick="editComment('${c.id}')">Sửa</button>
-                                         <button class="cmt-btn danger" onclick="deleteComment('${c.id}')">Xóa</button>` : ''}
+                            <span style="font-size:11px; color:#94a3b8;">${timeAgo(c.createdAt)}${c.isEdited ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</span>
+                            <button class="cmt-btn" onclick="replyToComment('${window.escapeHTML(info.name)}', '${rootId || c.id}')">Tráº£ lá»i</button>
+                            ${isOwner ? `<button class="cmt-btn" onclick="editComment('${c.id}')">Sá»­a</button>
+                                         <button class="cmt-btn danger" onclick="deleteComment('${c.id}')">XÃ³a</button>` : ''}
                         </div>
                     </div>`;
                 return div;
@@ -3113,31 +3127,31 @@
                     try {
                         await updateDoc(doc(db, "comments", cid), { content: newText, isEdited: true });
                         currentContentEl.innerHTML = window.linkifyText(newText);
-                        window.showToast("Đã cập nhật bình luận!");
+                        window.showToast("ÄÃ£ cáº­p nháº­t bÃ¬nh luáº­n!");
                         modal.classList.remove('active');
                     } catch (err) {
                         console.error(err);
-                        window.showToast("Lỗi khi sửa bình luận");
+                        window.showToast("Lá»—i khi sá»­a bÃ¬nh luáº­n");
                     }
                 } else if (newText === currentText) {
                     modal.classList.remove('active');
                 } else {
-                    window.showToast("Nội dung không được để trống!");
+                    window.showToast("Ná»™i dung khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!");
                 }
             };
         }
 
         window.deleteComment = async (cid) => {
-            const confirmed = await window.showConfirm("Xóa bình luận", "Bạn có chắc chắn muốn xóa bình luận này không?");
+            const confirmed = await window.showConfirm("XÃ³a bÃ¬nh luáº­n", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ¬nh luáº­n nÃ y khÃ´ng?");
             if (confirmed) {
                 try {
                     await deleteDoc(doc(db, "comments", cid));
-                    window.showToast("Đã xóa bình luận!");
+                    window.showToast("ÄÃ£ xÃ³a bÃ¬nh luáº­n!");
                     // Re-render silently
                     if (activeFeedPid) openFeedComments(activeFeedPid, null, true);
                 } catch (e) {
                     console.error("Delete cmt err:", e);
-                    window.showToast("Không thể xóa bình luận!");
+                    window.showToast("KhÃ´ng thá»ƒ xÃ³a bÃ¬nh luáº­n!");
                 }
             }
         };
@@ -3187,7 +3201,7 @@
                     img.src = URL.createObjectURL(file);
                     const closeBtn = document.createElement('button');
                     closeBtn.className = 'preview-item-close';
-                    closeBtn.innerHTML = '×';
+                    closeBtn.innerHTML = 'Ã—';
                     closeBtn.onclick = () => {
                         selectedCmtFiles.splice(index, 1);
                         renderAllCmtsPreview();
@@ -3209,7 +3223,7 @@
         }
 
         window.sendAllCmtsComment = async () => {
-            if (!user || !activeFeedPid) return window.showToast("Đăng nhập để bình luận!");
+            if (!user || !activeFeedPid) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ bÃ¬nh luáº­n!");
             const inp = document.getElementById('allCmtsInput');
             const txt = inp.value.trim();
             if (!txt && selectedCmtFiles.length === 0) return;
@@ -3223,7 +3237,7 @@
 
             const payload = {
                 pid: activeFeedPid,
-                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới'),
+                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'CÆ° dÃ¢n má»›i'),
                 authorAvt: userData.photoURL || MISSING_AVATAR,
                 nameColor: userData.nameColor || 'default',
                 authorUid: user.uid,
@@ -3239,7 +3253,7 @@
         };
 
         window.sendFeedComment = async (pid, inpId) => {
-            if (!user) return window.showToast("Đăng nhập để bình luận!");
+            if (!user) return window.showToast("ÄÄƒng nháº­p Ä‘á»ƒ bÃ¬nh luáº­n!");
             const inp = document.getElementById(inpId);
             const txt = inp.value.trim();
             const files = selectedCommentFiles[pid] || [];
@@ -3255,7 +3269,7 @@
 
             await addDoc(collection(db, "comments"), {
                 pid,
-                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới'),
+                author: userData.displayName || (user.email ? user.email.split('@')[0] : 'CÆ° dÃ¢n má»›i'),
                 authorAvt: userData.photoURL || MISSING_AVATAR,
                 authorUid: user.uid,
                 nameColor: userData.nameColor || 'default',
@@ -3358,7 +3372,7 @@
                     const bSnap = await getDoc(doc(db, 'badges', info.badge));
                     if (bSnap.exists()) {
                         const b = bSnap.data();
-                        badgeHtml = `<span style="font-size:18px; margin-left:4px; vertical-align:middle;" title="${b.name}">${b.icon || '🏅'}</span>`;
+                        badgeHtml = `<span style="font-size:18px; margin-left:4px; vertical-align:middle;" title="${b.name}">${b.icon || 'ðŸ…'}</span>`;
                     }
                 } catch(e) { /* badge load failed, skip */ }
             }
@@ -3396,9 +3410,9 @@
                     <div style="flex:1">
                         <div class="feed-post-author name-color-${info.color}" onclick="handleProfileClick('${p.authorUid}')">
                             ${window.escapeHTML(info.name)}${badgeHtml}
-                            ${info.verified ? '<span class="material-symbols-rounded" style="font-size:16px; color:#1d9bf0; vertical-align:middle; margin-left:4px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
+                            ${info.verified ? '<span class="material-symbols-rounded" style="font-size:16px; color:#1d9bf0; vertical-align:middle; margin-left:4px; font-variation-settings: \'FILL\' 1;" title="TÃ i khoáº£n xÃ¡c thá»±c">verified</span>' : ''}
                         </div>
-                        <div class="feed-post-time">${timeAgo(p.createdAt)}${p.updatedAt ? ' (đã chỉnh sửa)' : ''}</div>
+                        <div class="feed-post-time">${timeAgo(p.createdAt)}${p.updatedAt ? ' (Ä‘Ã£ chá»‰nh sá»­a)' : ''}</div>
                     </div>
                     ${canManage ? `
                         <div style="display:flex; gap:4px;">
@@ -3407,7 +3421,7 @@
                                     data-content="${p.content.replace(/"/g, '&quot;')}" 
                                     data-image="${p.image || ''}" 
                                     data-images='${JSON.stringify(p.images || []).replace(/'/g, "&apos;")}'
-                                    onclick="openEditFeedPost(this.dataset.pid, this.dataset.content, this.dataset.image, JSON.parse(this.dataset.images))" title="Sửa">
+                                    onclick="openEditFeedPost(this.dataset.pid, this.dataset.content, this.dataset.image, JSON.parse(this.dataset.images))" title="Sá»­a">
                                 <span class="material-symbols-rounded" style="font-size:18px;">edit</span>
                             </button>
                         </div>
@@ -3431,8 +3445,8 @@
                                 <span class="material-symbols-rounded">chat_bubble</span> <span id="cmt-count-${p.id}">0</span>
                             </button>
                         </div>
-                        <div style="font-size: 11px; color:#94a3b8; cursor:pointer;" onclick="viewReactions('${p.id}')" title="Xem danh sách người bày tỏ cảm xúc">
-                            Nhấn để xem ai đã thả cảm xúc
+                        <div style="font-size: 11px; color:#94a3b8; cursor:pointer;" onclick="viewReactions('${p.id}')" title="Xem danh sÃ¡ch ngÆ°á»i bÃ y tá» cáº£m xÃºc">
+                            Nháº¥n Ä‘á»ƒ xem ai Ä‘Ã£ tháº£ cáº£m xÃºc
                         </div>
                     </div>
                 </div>
@@ -3443,7 +3457,7 @@
                     <div style="display:flex; gap:10px; align-items:center; width:100%;">
                         <img src="${userAvtSrc}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" onerror="this.src='${MISSING_AVATAR}'">
                         <div style="flex:1; position:relative;">
-                            <input type="text" id="cinp-${p.id}" class="feed-cmt-input" style="width:100%; background:#f1f5f9; border:none; padding:10px 16px; border-radius:20px; font-size:14px;" placeholder="Viết bình luận..." onkeydown="if(event.key==='Enter'){event.preventDefault(); sendFeedComment('${p.id}','cinp-${p.id}');}">
+                            <input type="text" id="cinp-${p.id}" class="feed-cmt-input" style="width:100%; background:#f1f5f9; border:none; padding:10px 16px; border-radius:20px; font-size:14px;" placeholder="Viáº¿t bÃ¬nh luáº­n..." onkeydown="if(event.key==='Enter'){event.preventDefault(); sendFeedComment('${p.id}','cinp-${p.id}');}">
                             <button class="feed-cmt-send" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--primary); cursor:pointer;" onclick="sendFeedComment('${p.id}','cinp-${p.id}')">
                                 <span class="material-symbols-rounded" style="font-size:20px;">send</span>
                             </button>

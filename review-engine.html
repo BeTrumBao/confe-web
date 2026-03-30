@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -590,6 +590,20 @@
             .q-media-wrap img { max-height: 250px; object-fit: contain; background: #000; }
         }
         </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 <body>
     <!-- Subject Hub Header -->
@@ -597,20 +611,20 @@
         <div class="user-stats">
             <div class="stat-item"><span class="material-symbols-rounded">payments</span> <b id="stat-coins">0</b> Xu</div>
         </div>
-        <div class="stat-item" style="font-size:11px;"><span class="material-symbols-rounded">inventory_2</span> <b id="stat-inv">0 Thẻ</b></div>
+        <div class="stat-item" style="font-size:11px;"><span class="material-symbols-rounded">inventory_2</span> <b id="stat-inv">0 Tháº»</b></div>
     </div>
 
     <!-- Mode Selector Bar -->
     <div class="mode-bar" id="mode-bar" style="display:none;">
-        <button class="mode-btn active" id="mode-quiz" onclick="switchMode('quiz')"><span class="material-symbols-rounded">quiz</span> Học tập</button>
-        <button class="mode-btn" id="mode-wrong" onclick="switchMode('wrong')"><span class="material-symbols-rounded">error</span> Ôn Câu Sai</button>
-        <button class="mode-btn" style="background:#f0f9ff; color:#0369a1;" onclick="switchMode('shop')"><span class="material-symbols-rounded">shopping_cart</span> Cửa hàng</button>
+        <button class="mode-btn active" id="mode-quiz" onclick="switchMode('quiz')"><span class="material-symbols-rounded">quiz</span> Há»c táº­p</button>
+        <button class="mode-btn" id="mode-wrong" onclick="switchMode('wrong')"><span class="material-symbols-rounded">error</span> Ã”n CÃ¢u Sai</button>
+        <button class="mode-btn" style="background:#f0f9ff; color:#0369a1;" onclick="switchMode('shop')"><span class="material-symbols-rounded">shopping_cart</span> Cá»­a hÃ ng</button>
     </div>
 
     <div class="engine-container" id="engine-root">
         <div class="loader-wrap">
             <div class="spinner"></div>
-            <p style="font-weight: 700; color: var(--text-secondary);">Đang chuẩn bị nội dung...</p>
+            <p style="font-weight: 700; color: var(--text-secondary);">Äang chuáº©n bá»‹ ná»™i dung...</p>
         </div>
     </div>
 
@@ -636,86 +650,86 @@
 
         const hardcodedSubjects = {
             "khtn": {
-                name: "Khoa học tự nhiên 7",
+                name: "Khoa há»c tá»± nhiÃªn 7",
                 questions: [
-                    { type: 'mc', topic: 'namcham', q: "Câu 1. Nam châm Điện có cấu tạo gồm:", o: ["A. một lõi kim loại bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "B. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "C. một lõi vật liệu bất kì bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn có lớp vỏ cách điện.", "D. một lõi sắt bên trong một ống dây dẫn có dòng điện chạy qua, các dây dẫn không có lớp vỏ cách điện."], a: 1, e: "Nam châm Điện thường gồm một lõi sắt non được quấn quanh bởi nhiều vòng dây dẫn có cách điện, khi có dòng điện chạy qua sẽ sinh ra từ trường." },
-                    { type: 'mc', topic: 'namcham', q: "Câu 2. Cách làm nào dưới đây giúp ta thu được hình ảnh của từ phổ?", o: ["A. Dùng kim nam châm xếp lên tấm nhựa đặt trong từ trường của nam châm.", "B. Rắc cát lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ.", "C. Đặt thanh nam châm gần bức tường và rọi đèn vào thanh nam châm.", "D. Rắc mạt sắt lên tấm nhựa đặt trong từ trường của nam châm và gõ nhẹ."], a: 3, e: "Hình ảnh từ phổ được tạo ra bằng cách gõ nhẹ để các mạt sắt tự sắp xếp theo các đường sức từ." },
-                    { type: 'mc', topic: 'quanghop', q: "Câu 3. Nguyên liệu của quá trình quang hợp gồm các chất nào sau đây?", o: ["A. Khí oxygen và nước.", "B. Khí oxygen và glucose.", "C. Khí carbon dioxide và nước.", "D. Khí carbon dioxide và glucose."], a: 2, e: "Cây xanh lấy khí Carbon dioxide từ không khí và nước từ rễ để thực hiện quang hợp." },
-                    { type: 'mc', topic: 'hohap', q: "Câu 4. Đặc điểm nào sau đây KHÔNG có ở hô hấp tế bào?", o: ["A. Phân giải chất hữu cơ đến sản phẩm cuối cùng là CO2 và H2O.", "B. Quá trình phân giải chất tạo ra nhiều sản phẩm trung gian.", "C. Toàn bộ năng lượng được giải phóng dưới dạng nhiệt.", "D. Một phần năng lượng giải phóng ra được tích lũy trong ATP."], a: 2, e: "Chỉ một phần năng lượng giải phóng dưới dạng nhiệt, phần lớn năng lượng hữu ích được tích lũy dưới dạng phân tử ATP." },
-                    { type: 'mc', topic: 'hohap', q: "Câu 5. Sản phẩm của hô hấp tế bào gồm:", o: ["A. Oxygen, nước và năng lượng (ATP + nhiệt).", "B. Nước, đường và năng lượng (ATP + nhiệt).", "C. Nước, khí carbon dioxide và đường.", "D. Khí carbon dioxide, nước và năng lượng (ATP + nhiệt)."], a: 3, e: "Hô hấp tế bào sinh ra khí CO2, hơi nước và năng lượng (gồm ATP và nhiệt năng)." },
-                    { type: 'mc', topic: 'traodoichat', q: "Câu 6. Trao đổi chất ở sinh vật gồm:", o: ["A. quá trình trao đổi chất giữa cơ thể với môi trường và chuyển hóa các chất diễn ra trong tế bào.", "B. quá trình trao đổi chất giữa cơ thể với môi trường ngoài và quá trình trao đổi chất giữa tế bào với môi trường trong.", "C. quá trình trao đổi chất giữa tế bào với môi trường trong và quá trình trao đổi chất giữa tế bào với môi trường ngoài.", "D. quá trình trao đổi chất giữa tế bào với môi trường trong và chuyển hóa các chất diễn ra trong tế bào."], a: 0, e: "Đây là định nghĩa đầy đủ về quá trình trao đổi chất, kết hợp giữa việc lấy/thải chất và biến đổi hóa học bên trong." },
-                    { type: 'mc', topic: 'traodoichat', q: "Câu 7. Vì sao vào mùa Đông khi nguồn thức ăn khan hiếm, nhiều loài động vật trong tự nhiên chẳng hạn như rắn, gấu lại ngủ Đông?", o: ["A. Để sinh sản", "B. Giảm căng thẳng", "C. Làm chậm quá trình trao đổi chất", "D. Để tăng trưởng"], a: 2, e: "Ngủ Đông giúp giảm quá trình trao đổi chất xuống mức thấp nhất, nhằm tiết kiệm năng lượng khi thức ăn khan hiếm." },
-                    { type: 'mc', topic: 'traodoichat', q: "Câu 8. Người nuôi cá vàng thường đặt một số cây thủy sinh vào bể. Mục đích là:", o: ["A. tăng chất dinh dưỡng cho cá.", "B. tăng oxygen trong nước.", "C. làm thức ăn cho cá.", "D. tăng carbon dioxide trong nước"], a: 1, e: "Cây thủy sinh quang hợp dưới ánh sáng sẽ nhả ra khí Oxygen vào nước, giúp cá hô hấp." },
-                    { type: 'mc', topic: 'quanghop', q: "Câu 9. Vào buổi trưa hè nóng nực, ánh sáng mặt trời mạnh làm cho khí khổng đóng lại, dẫn đến tốc độ quang hợp giảm. Nguyên nhân là:", o: ["A. Cây không hấp thụ được ánh sáng.", "B. Nước không được vận chuyển lên lá.", "C. Cây không thể được hấp thụ oxygen.", "D. Cây không thể hấp thụ Carbon dioxide."], a: 3, e: "Khí khổng đóng lại để giảm mất nước, nhưng hệ quả là CO2 không thể đi vào lá để làm nguyên liệu quang hợp." },
-                    { type: 'mc', topic: 'hohap', q: "Câu 10. Tại sao hô hấp làm giảm sút khối lượng và chất lượng nông sản?", o: ["A. Hô hấp phân giải các chất hữu cơ do đó làm tiêu hao nông sản.", "B. Hô hấp tạo ra nhiệt độ cao làm chín nông sản quá mức.", "C. Hô hấp làm tăng độ ẩm của nông sản.", "D. Hô hấp làm biến đổi hình dạng nông sản."], a: 0, e: "Trong quá trình bảo quản, tế bào nông sản vẫn hô hấp tiêu thụ chất hữu cơ (glucose, tinh bột...), làm giảm khối lượng." },
-                    { type: 'mc', topic: 'hohap', q: "Câu 35. Trong cơ thể sinh vật, dạng năng lượng chủ yếu dùng để cung cấp cho các hoạt động sống của cơ thể là:", o: ["A. hóa năng.", "B. cơ năng.", "C. nhiệt năng.", "D. quang năng."], a: 0, e: "Hóa năng (chủ yếu là ATP) là dạng năng lượng trực tiếp cung cấp cho các tế bào hoạt động." },
-                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ có ảnh hưởng đến cường độ hô hấp của thực vật.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ ảnh hưởng lớn đến quá trình hô hấp do tác động đến hoạt tính của enzyme." },
-                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng tăng thì cường độ hô hấp càng tăng.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Chỉ tăng đến một mức nhiệt độ tối ưu, nếu quá cao (trên 40°C) enzyme bị biến tính và hô hấp giảm mạnh." },
-                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Nhiệt độ thuận lợi cho quá trình hô hấp tế bào là từ 25°C - 40°C.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là khoảng nhiệt độ tối ưu cho các phản ứng sinh hóa của đa số sinh vật." },
-                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Sự ảnh hưởng của nhiệt độ đến hô hấp: Nhiệt độ càng giảm thì cường độ hô hấp càng giảm.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Nhiệt độ thấp làm giảm hoạt tính của enzyme, khiến quá trình hô hấp chậm lại." },
-                    { type: 'tf', topic: 'hohap', q: "Đúng hay Sai: Từ 40°C - 50°C, cường độ hô hấp tỉ lệ thuận với nhiệt độ.", o: ["Đúng", "Sai"], a: 1, e: "SAI. Từ 40°C-50°C, cường độ hô hấp tỉ lệ NGHỊCH với nhiệt độ (nhiệt độ tăng làm hô hấp giảm) vì tế bào bị tổn thương." },
-                    { type: 'arrange', topic: 'namcham', q: "Trình bày cách xác định các cực của 1 thanh nam châm không sơn màu bằng la bàn.", words: ["Đưa la bàn", "gần 1 đầu", "của nam châm.", "Nếu đầu Bắc (N) của kim la bàn", "bị hút về phía đó", "thì đầu nam châm đó là cực Nam (S)", "và cực còn lại là cực Bắc (N)."], a: "Đưa la bàn gần 1 đầu của nam châm. Nếu đầu Bắc (N) của kim la bàn bị hút về phía đó thì đầu nam châm đó là cực Nam (S) và cực còn lại là cực Bắc (N).", e: "Cực từ khác tên thì hút nhau." },
-                    { type: 'arrange', topic: 'quanghop', q: "Viết phương trình chữ của quá trình quang hợp.", words: ["Nước", "+", "Carbon dioxide", "->", "Glucose", "+", "Oxygen"], a: "Nước + Carbon dioxide --> Glucose + Oxygen", e: "Diễn ra dưới điều kiện Ánh sáng và Diệp lục." },
-                    { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Hấp thụ khí... giúp cân bằng không khí.", words: ["Hấp thụ", "khí Carbon dioxide", "và thải ra", "Oxygen", "giúp cân bằng không khí", "và duy trì sự sống."], a: "Hấp thụ khí Carbon dioxide và thải ra Oxygen giúp cân bằng không khí và duy trì sự sống.", e: "Quang hợp giúp điều hòa thành phần khí quyển." },
-                    { type: 'arrange', topic: 'quanghop', q: "Vai trò của quang hợp: Tạo ra... làm cung cấp thức ăn.", words: ["Tạo ra glucose,", "làm nguồn", "cung cấp thức ăn", "cho hầu hết các sinh vật", "ở Trái Đất."], a: "Tạo ra glucose, làm nguồn cung cấp thức ăn cho hầu hết các sinh vật ở Trái Đất.", e: "Sản phẩm trung tâm của quang hợp là nguồn sống sơ cấp của hệ sinh thái." },
-                    { type: 'arrange', topic: 'hohap', q: "Viết phương trình chữ của quá trình hô hấp tế bào.", words: ["Glucose", "+", "Oxygen", "->", "Nước", "+", "Carbon dioxide", "+", "Năng lượng (ATP, nhiệt)"], a: "Glucose + Oxygen --> Nước + Carbon dioxide + Năng lượng (ATP, nhiệt)", e: "Quá trình phân giải chất hữu cơ." },
-                    { type: 'arrange', topic: 'hohap', q: "Vì sao vào ban đêm, không nên trồng nhiều cây xanh trong phòng ngủ kín cửa?", words: ["Nếu trồng nhiều cây", "trong phòng ngủ đóng kín,", "tối cây hô hấp", "lấy O2 và thải ra CO2", "và chúng ta sẽ bị ngộp."], a: "Nếu trồng nhiều cây trong phòng ngủ đóng kín, tối cây hô hấp lấy O2 và thải ra CO2 và chúng ta sẽ bị ngộp.", e: "Cây xanh không quang hợp vào ban đêm mà chỉ hô hấp cạnh tranh Oxygen." },
-                    { type: 'mc', topic: 'hohap', q: "Điền vào đoạn: 'Hô hấp tế bào là phân giải chất (1)... với sự tham gia của (2)... tạo thành (3)... và nước, sinh ra năng lượng cho (4)... sống.'", o: ["(1) hữu cơ, (2) Oxygen, (3) Carbon dioxide, (4) hoạt động", "(1) vô cơ, (2) Nitrogen, (3) Carbon dioxide, (4) sự", "(1) tổng hợp, (2) Oxygen, (3) Glucose, (4) tế bào"], a: 0, e: "Nguyên liệu là chất hữu cơ và O2, sản phẩm là CO2, nước và năng lượng cho hoạt động sống." },
-                    { type: 'mc', topic: 'hohap', q: "Hoàn thành sơ đồ quá trình hô hấp tế bào: (1)+(2) là sản phẩm thải ra, (3)+(4) là nguyên liệu đưa vào.", o: ["(1)+(2) là Carbon dioxide và Nước; (3)+(4) là Oxygen và Glucose", "(1)+(2) là Oxygen và Glucose; (3)+(4) là Carbon dioxide và Nước", "(1)+(2) là ATP và Nhiệt; (3)+(4) là Glucose và Vitamin"], a: 0, e: "Mũi tên đi vào ti thể mang Oxygen và Glucose, mũi tên đi ra mang Carbon dioxide và Nước." }
+                    { type: 'mc', topic: 'namcham', q: "CÃ¢u 1. Nam chÃ¢m Äiá»‡n cÃ³ cáº¥u táº¡o gá»“m:", o: ["A. má»™t lÃµi kim loáº¡i bÃªn trong má»™t á»‘ng dÃ¢y dáº«n cÃ³ dÃ²ng Ä‘iá»‡n cháº¡y qua, cÃ¡c dÃ¢y dáº«n cÃ³ lá»›p vá» cÃ¡ch Ä‘iá»‡n.", "B. má»™t lÃµi sáº¯t bÃªn trong má»™t á»‘ng dÃ¢y dáº«n cÃ³ dÃ²ng Ä‘iá»‡n cháº¡y qua, cÃ¡c dÃ¢y dáº«n cÃ³ lá»›p vá» cÃ¡ch Ä‘iá»‡n.", "C. má»™t lÃµi váº­t liá»‡u báº¥t kÃ¬ bÃªn trong má»™t á»‘ng dÃ¢y dáº«n cÃ³ dÃ²ng Ä‘iá»‡n cháº¡y qua, cÃ¡c dÃ¢y dáº«n cÃ³ lá»›p vá» cÃ¡ch Ä‘iá»‡n.", "D. má»™t lÃµi sáº¯t bÃªn trong má»™t á»‘ng dÃ¢y dáº«n cÃ³ dÃ²ng Ä‘iá»‡n cháº¡y qua, cÃ¡c dÃ¢y dáº«n khÃ´ng cÃ³ lá»›p vá» cÃ¡ch Ä‘iá»‡n."], a: 1, e: "Nam chÃ¢m Äiá»‡n thÆ°á»ng gá»“m má»™t lÃµi sáº¯t non Ä‘Æ°á»£c quáº¥n quanh bá»Ÿi nhiá»u vÃ²ng dÃ¢y dáº«n cÃ³ cÃ¡ch Ä‘iá»‡n, khi cÃ³ dÃ²ng Ä‘iá»‡n cháº¡y qua sáº½ sinh ra tá»« trÆ°á»ng." },
+                    { type: 'mc', topic: 'namcham', q: "CÃ¢u 2. CÃ¡ch lÃ m nÃ o dÆ°á»›i Ä‘Ã¢y giÃºp ta thu Ä‘Æ°á»£c hÃ¬nh áº£nh cá»§a tá»« phá»•?", o: ["A. DÃ¹ng kim nam chÃ¢m xáº¿p lÃªn táº¥m nhá»±a Ä‘áº·t trong tá»« trÆ°á»ng cá»§a nam chÃ¢m.", "B. Ráº¯c cÃ¡t lÃªn táº¥m nhá»±a Ä‘áº·t trong tá»« trÆ°á»ng cá»§a nam chÃ¢m vÃ  gÃµ nháº¹.", "C. Äáº·t thanh nam chÃ¢m gáº§n bá»©c tÆ°á»ng vÃ  rá»i Ä‘Ã¨n vÃ o thanh nam chÃ¢m.", "D. Ráº¯c máº¡t sáº¯t lÃªn táº¥m nhá»±a Ä‘áº·t trong tá»« trÆ°á»ng cá»§a nam chÃ¢m vÃ  gÃµ nháº¹."], a: 3, e: "HÃ¬nh áº£nh tá»« phá»• Ä‘Æ°á»£c táº¡o ra báº±ng cÃ¡ch gÃµ nháº¹ Ä‘á»ƒ cÃ¡c máº¡t sáº¯t tá»± sáº¯p xáº¿p theo cÃ¡c Ä‘Æ°á»ng sá»©c tá»«." },
+                    { type: 'mc', topic: 'quanghop', q: "CÃ¢u 3. NguyÃªn liá»‡u cá»§a quÃ¡ trÃ¬nh quang há»£p gá»“m cÃ¡c cháº¥t nÃ o sau Ä‘Ã¢y?", o: ["A. KhÃ­ oxygen vÃ  nÆ°á»›c.", "B. KhÃ­ oxygen vÃ  glucose.", "C. KhÃ­ carbon dioxide vÃ  nÆ°á»›c.", "D. KhÃ­ carbon dioxide vÃ  glucose."], a: 2, e: "CÃ¢y xanh láº¥y khÃ­ Carbon dioxide tá»« khÃ´ng khÃ­ vÃ  nÆ°á»›c tá»« rá»… Ä‘á»ƒ thá»±c hiá»‡n quang há»£p." },
+                    { type: 'mc', topic: 'hohap', q: "CÃ¢u 4. Äáº·c Ä‘iá»ƒm nÃ o sau Ä‘Ã¢y KHÃ”NG cÃ³ á»Ÿ hÃ´ háº¥p táº¿ bÃ o?", o: ["A. PhÃ¢n giáº£i cháº¥t há»¯u cÆ¡ Ä‘áº¿n sáº£n pháº©m cuá»‘i cÃ¹ng lÃ  CO2 vÃ  H2O.", "B. QuÃ¡ trÃ¬nh phÃ¢n giáº£i cháº¥t táº¡o ra nhiá»u sáº£n pháº©m trung gian.", "C. ToÃ n bá»™ nÄƒng lÆ°á»£ng Ä‘Æ°á»£c giáº£i phÃ³ng dÆ°á»›i dáº¡ng nhiá»‡t.", "D. Má»™t pháº§n nÄƒng lÆ°á»£ng giáº£i phÃ³ng ra Ä‘Æ°á»£c tÃ­ch lÅ©y trong ATP."], a: 2, e: "Chá»‰ má»™t pháº§n nÄƒng lÆ°á»£ng giáº£i phÃ³ng dÆ°á»›i dáº¡ng nhiá»‡t, pháº§n lá»›n nÄƒng lÆ°á»£ng há»¯u Ã­ch Ä‘Æ°á»£c tÃ­ch lÅ©y dÆ°á»›i dáº¡ng phÃ¢n tá»­ ATP." },
+                    { type: 'mc', topic: 'hohap', q: "CÃ¢u 5. Sáº£n pháº©m cá»§a hÃ´ háº¥p táº¿ bÃ o gá»“m:", o: ["A. Oxygen, nÆ°á»›c vÃ  nÄƒng lÆ°á»£ng (ATP + nhiá»‡t).", "B. NÆ°á»›c, Ä‘Æ°á»ng vÃ  nÄƒng lÆ°á»£ng (ATP + nhiá»‡t).", "C. NÆ°á»›c, khÃ­ carbon dioxide vÃ  Ä‘Æ°á»ng.", "D. KhÃ­ carbon dioxide, nÆ°á»›c vÃ  nÄƒng lÆ°á»£ng (ATP + nhiá»‡t)."], a: 3, e: "HÃ´ háº¥p táº¿ bÃ o sinh ra khÃ­ CO2, hÆ¡i nÆ°á»›c vÃ  nÄƒng lÆ°á»£ng (gá»“m ATP vÃ  nhiá»‡t nÄƒng)." },
+                    { type: 'mc', topic: 'traodoichat', q: "CÃ¢u 6. Trao Ä‘á»•i cháº¥t á»Ÿ sinh váº­t gá»“m:", o: ["A. quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a cÆ¡ thá»ƒ vá»›i mÃ´i trÆ°á»ng vÃ  chuyá»ƒn hÃ³a cÃ¡c cháº¥t diá»…n ra trong táº¿ bÃ o.", "B. quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a cÆ¡ thá»ƒ vá»›i mÃ´i trÆ°á»ng ngoÃ i vÃ  quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a táº¿ bÃ o vá»›i mÃ´i trÆ°á»ng trong.", "C. quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a táº¿ bÃ o vá»›i mÃ´i trÆ°á»ng trong vÃ  quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a táº¿ bÃ o vá»›i mÃ´i trÆ°á»ng ngoÃ i.", "D. quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t giá»¯a táº¿ bÃ o vá»›i mÃ´i trÆ°á»ng trong vÃ  chuyá»ƒn hÃ³a cÃ¡c cháº¥t diá»…n ra trong táº¿ bÃ o."], a: 0, e: "ÄÃ¢y lÃ  Ä‘á»‹nh nghÄ©a Ä‘áº§y Ä‘á»§ vá» quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t, káº¿t há»£p giá»¯a viá»‡c láº¥y/tháº£i cháº¥t vÃ  biáº¿n Ä‘á»•i hÃ³a há»c bÃªn trong." },
+                    { type: 'mc', topic: 'traodoichat', q: "CÃ¢u 7. VÃ¬ sao vÃ o mÃ¹a ÄÃ´ng khi nguá»“n thá»©c Äƒn khan hiáº¿m, nhiá»u loÃ i Ä‘á»™ng váº­t trong tá»± nhiÃªn cháº³ng háº¡n nhÆ° ráº¯n, gáº¥u láº¡i ngá»§ ÄÃ´ng?", o: ["A. Äá»ƒ sinh sáº£n", "B. Giáº£m cÄƒng tháº³ng", "C. LÃ m cháº­m quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t", "D. Äá»ƒ tÄƒng trÆ°á»Ÿng"], a: 2, e: "Ngá»§ ÄÃ´ng giÃºp giáº£m quÃ¡ trÃ¬nh trao Ä‘á»•i cháº¥t xuá»‘ng má»©c tháº¥p nháº¥t, nháº±m tiáº¿t kiá»‡m nÄƒng lÆ°á»£ng khi thá»©c Äƒn khan hiáº¿m." },
+                    { type: 'mc', topic: 'traodoichat', q: "CÃ¢u 8. NgÆ°á»i nuÃ´i cÃ¡ vÃ ng thÆ°á»ng Ä‘áº·t má»™t sá»‘ cÃ¢y thá»§y sinh vÃ o bá»ƒ. Má»¥c Ä‘Ã­ch lÃ :", o: ["A. tÄƒng cháº¥t dinh dÆ°á»¡ng cho cÃ¡.", "B. tÄƒng oxygen trong nÆ°á»›c.", "C. lÃ m thá»©c Äƒn cho cÃ¡.", "D. tÄƒng carbon dioxide trong nÆ°á»›c"], a: 1, e: "CÃ¢y thá»§y sinh quang há»£p dÆ°á»›i Ã¡nh sÃ¡ng sáº½ nháº£ ra khÃ­ Oxygen vÃ o nÆ°á»›c, giÃºp cÃ¡ hÃ´ háº¥p." },
+                    { type: 'mc', topic: 'quanghop', q: "CÃ¢u 9. VÃ o buá»•i trÆ°a hÃ¨ nÃ³ng ná»±c, Ã¡nh sÃ¡ng máº·t trá»i máº¡nh lÃ m cho khÃ­ khá»•ng Ä‘Ã³ng láº¡i, dáº«n Ä‘áº¿n tá»‘c Ä‘á»™ quang há»£p giáº£m. NguyÃªn nhÃ¢n lÃ :", o: ["A. CÃ¢y khÃ´ng háº¥p thá»¥ Ä‘Æ°á»£c Ã¡nh sÃ¡ng.", "B. NÆ°á»›c khÃ´ng Ä‘Æ°á»£c váº­n chuyá»ƒn lÃªn lÃ¡.", "C. CÃ¢y khÃ´ng thá»ƒ Ä‘Æ°á»£c háº¥p thá»¥ oxygen.", "D. CÃ¢y khÃ´ng thá»ƒ háº¥p thá»¥ Carbon dioxide."], a: 3, e: "KhÃ­ khá»•ng Ä‘Ã³ng láº¡i Ä‘á»ƒ giáº£m máº¥t nÆ°á»›c, nhÆ°ng há»‡ quáº£ lÃ  CO2 khÃ´ng thá»ƒ Ä‘i vÃ o lÃ¡ Ä‘á»ƒ lÃ m nguyÃªn liá»‡u quang há»£p." },
+                    { type: 'mc', topic: 'hohap', q: "CÃ¢u 10. Táº¡i sao hÃ´ háº¥p lÃ m giáº£m sÃºt khá»‘i lÆ°á»£ng vÃ  cháº¥t lÆ°á»£ng nÃ´ng sáº£n?", o: ["A. HÃ´ háº¥p phÃ¢n giáº£i cÃ¡c cháº¥t há»¯u cÆ¡ do Ä‘Ã³ lÃ m tiÃªu hao nÃ´ng sáº£n.", "B. HÃ´ háº¥p táº¡o ra nhiá»‡t Ä‘á»™ cao lÃ m chÃ­n nÃ´ng sáº£n quÃ¡ má»©c.", "C. HÃ´ háº¥p lÃ m tÄƒng Ä‘á»™ áº©m cá»§a nÃ´ng sáº£n.", "D. HÃ´ háº¥p lÃ m biáº¿n Ä‘á»•i hÃ¬nh dáº¡ng nÃ´ng sáº£n."], a: 0, e: "Trong quÃ¡ trÃ¬nh báº£o quáº£n, táº¿ bÃ o nÃ´ng sáº£n váº«n hÃ´ háº¥p tiÃªu thá»¥ cháº¥t há»¯u cÆ¡ (glucose, tinh bá»™t...), lÃ m giáº£m khá»‘i lÆ°á»£ng." },
+                    { type: 'mc', topic: 'hohap', q: "CÃ¢u 35. Trong cÆ¡ thá»ƒ sinh váº­t, dáº¡ng nÄƒng lÆ°á»£ng chá»§ yáº¿u dÃ¹ng Ä‘á»ƒ cung cáº¥p cho cÃ¡c hoáº¡t Ä‘á»™ng sá»‘ng cá»§a cÆ¡ thá»ƒ lÃ :", o: ["A. hÃ³a nÄƒng.", "B. cÆ¡ nÄƒng.", "C. nhiá»‡t nÄƒng.", "D. quang nÄƒng."], a: 0, e: "HÃ³a nÄƒng (chá»§ yáº¿u lÃ  ATP) lÃ  dáº¡ng nÄƒng lÆ°á»£ng trá»±c tiáº¿p cung cáº¥p cho cÃ¡c táº¿ bÃ o hoáº¡t Ä‘á»™ng." },
+                    { type: 'tf', topic: 'hohap', q: "ÄÃºng hay Sai: Nhiá»‡t Ä‘á»™ cÃ³ áº£nh hÆ°á»Ÿng Ä‘áº¿n cÆ°á»ng Ä‘á»™ hÃ´ háº¥p cá»§a thá»±c váº­t.", o: ["ÄÃºng", "Sai"], a: 0, e: "ÄÃšNG. Nhiá»‡t Ä‘á»™ áº£nh hÆ°á»Ÿng lá»›n Ä‘áº¿n quÃ¡ trÃ¬nh hÃ´ háº¥p do tÃ¡c Ä‘á»™ng Ä‘áº¿n hoáº¡t tÃ­nh cá»§a enzyme." },
+                    { type: 'tf', topic: 'hohap', q: "ÄÃºng hay Sai: Sá»± áº£nh hÆ°á»Ÿng cá»§a nhiá»‡t Ä‘á»™ Ä‘áº¿n hÃ´ háº¥p: Nhiá»‡t Ä‘á»™ cÃ ng tÄƒng thÃ¬ cÆ°á»ng Ä‘á»™ hÃ´ háº¥p cÃ ng tÄƒng.", o: ["ÄÃºng", "Sai"], a: 1, e: "SAI. Chá»‰ tÄƒng Ä‘áº¿n má»™t má»©c nhiá»‡t Ä‘á»™ tá»‘i Æ°u, náº¿u quÃ¡ cao (trÃªn 40Â°C) enzyme bá»‹ biáº¿n tÃ­nh vÃ  hÃ´ háº¥p giáº£m máº¡nh." },
+                    { type: 'tf', topic: 'hohap', q: "ÄÃºng hay Sai: Nhiá»‡t Ä‘á»™ thuáº­n lá»£i cho quÃ¡ trÃ¬nh hÃ´ háº¥p táº¿ bÃ o lÃ  tá»« 25Â°C - 40Â°C.", o: ["ÄÃºng", "Sai"], a: 0, e: "ÄÃšNG. ÄÃ¢y lÃ  khoáº£ng nhiá»‡t Ä‘á»™ tá»‘i Æ°u cho cÃ¡c pháº£n á»©ng sinh hÃ³a cá»§a Ä‘a sá»‘ sinh váº­t." },
+                    { type: 'tf', topic: 'hohap', q: "ÄÃºng hay Sai: Sá»± áº£nh hÆ°á»Ÿng cá»§a nhiá»‡t Ä‘á»™ Ä‘áº¿n hÃ´ háº¥p: Nhiá»‡t Ä‘á»™ cÃ ng giáº£m thÃ¬ cÆ°á»ng Ä‘á»™ hÃ´ háº¥p cÃ ng giáº£m.", o: ["ÄÃºng", "Sai"], a: 0, e: "ÄÃšNG. Nhiá»‡t Ä‘á»™ tháº¥p lÃ m giáº£m hoáº¡t tÃ­nh cá»§a enzyme, khiáº¿n quÃ¡ trÃ¬nh hÃ´ háº¥p cháº­m láº¡i." },
+                    { type: 'tf', topic: 'hohap', q: "ÄÃºng hay Sai: Tá»« 40Â°C - 50Â°C, cÆ°á»ng Ä‘á»™ hÃ´ háº¥p tá»‰ lá»‡ thuáº­n vá»›i nhiá»‡t Ä‘á»™.", o: ["ÄÃºng", "Sai"], a: 1, e: "SAI. Tá»« 40Â°C-50Â°C, cÆ°á»ng Ä‘á»™ hÃ´ háº¥p tá»‰ lá»‡ NGHá»ŠCH vá»›i nhiá»‡t Ä‘á»™ (nhiá»‡t Ä‘á»™ tÄƒng lÃ m hÃ´ háº¥p giáº£m) vÃ¬ táº¿ bÃ o bá»‹ tá»•n thÆ°Æ¡ng." },
+                    { type: 'arrange', topic: 'namcham', q: "TrÃ¬nh bÃ y cÃ¡ch xÃ¡c Ä‘á»‹nh cÃ¡c cá»±c cá»§a 1 thanh nam chÃ¢m khÃ´ng sÆ¡n mÃ u báº±ng la bÃ n.", words: ["ÄÆ°a la bÃ n", "gáº§n 1 Ä‘áº§u", "cá»§a nam chÃ¢m.", "Náº¿u Ä‘áº§u Báº¯c (N) cá»§a kim la bÃ n", "bá»‹ hÃºt vá» phÃ­a Ä‘Ã³", "thÃ¬ Ä‘áº§u nam chÃ¢m Ä‘Ã³ lÃ  cá»±c Nam (S)", "vÃ  cá»±c cÃ²n láº¡i lÃ  cá»±c Báº¯c (N)."], a: "ÄÆ°a la bÃ n gáº§n 1 Ä‘áº§u cá»§a nam chÃ¢m. Náº¿u Ä‘áº§u Báº¯c (N) cá»§a kim la bÃ n bá»‹ hÃºt vá» phÃ­a Ä‘Ã³ thÃ¬ Ä‘áº§u nam chÃ¢m Ä‘Ã³ lÃ  cá»±c Nam (S) vÃ  cá»±c cÃ²n láº¡i lÃ  cá»±c Báº¯c (N).", e: "Cá»±c tá»« khÃ¡c tÃªn thÃ¬ hÃºt nhau." },
+                    { type: 'arrange', topic: 'quanghop', q: "Viáº¿t phÆ°Æ¡ng trÃ¬nh chá»¯ cá»§a quÃ¡ trÃ¬nh quang há»£p.", words: ["NÆ°á»›c", "+", "Carbon dioxide", "->", "Glucose", "+", "Oxygen"], a: "NÆ°á»›c + Carbon dioxide --> Glucose + Oxygen", e: "Diá»…n ra dÆ°á»›i Ä‘iá»u kiá»‡n Ãnh sÃ¡ng vÃ  Diá»‡p lá»¥c." },
+                    { type: 'arrange', topic: 'quanghop', q: "Vai trÃ² cá»§a quang há»£p: Háº¥p thá»¥ khÃ­... giÃºp cÃ¢n báº±ng khÃ´ng khÃ­.", words: ["Háº¥p thá»¥", "khÃ­ Carbon dioxide", "vÃ  tháº£i ra", "Oxygen", "giÃºp cÃ¢n báº±ng khÃ´ng khÃ­", "vÃ  duy trÃ¬ sá»± sá»‘ng."], a: "Háº¥p thá»¥ khÃ­ Carbon dioxide vÃ  tháº£i ra Oxygen giÃºp cÃ¢n báº±ng khÃ´ng khÃ­ vÃ  duy trÃ¬ sá»± sá»‘ng.", e: "Quang há»£p giÃºp Ä‘iá»u hÃ²a thÃ nh pháº§n khÃ­ quyá»ƒn." },
+                    { type: 'arrange', topic: 'quanghop', q: "Vai trÃ² cá»§a quang há»£p: Táº¡o ra... lÃ m cung cáº¥p thá»©c Äƒn.", words: ["Táº¡o ra glucose,", "lÃ m nguá»“n", "cung cáº¥p thá»©c Äƒn", "cho háº§u háº¿t cÃ¡c sinh váº­t", "á»Ÿ TrÃ¡i Äáº¥t."], a: "Táº¡o ra glucose, lÃ m nguá»“n cung cáº¥p thá»©c Äƒn cho háº§u háº¿t cÃ¡c sinh váº­t á»Ÿ TrÃ¡i Äáº¥t.", e: "Sáº£n pháº©m trung tÃ¢m cá»§a quang há»£p lÃ  nguá»“n sá»‘ng sÆ¡ cáº¥p cá»§a há»‡ sinh thÃ¡i." },
+                    { type: 'arrange', topic: 'hohap', q: "Viáº¿t phÆ°Æ¡ng trÃ¬nh chá»¯ cá»§a quÃ¡ trÃ¬nh hÃ´ háº¥p táº¿ bÃ o.", words: ["Glucose", "+", "Oxygen", "->", "NÆ°á»›c", "+", "Carbon dioxide", "+", "NÄƒng lÆ°á»£ng (ATP, nhiá»‡t)"], a: "Glucose + Oxygen --> NÆ°á»›c + Carbon dioxide + NÄƒng lÆ°á»£ng (ATP, nhiá»‡t)", e: "QuÃ¡ trÃ¬nh phÃ¢n giáº£i cháº¥t há»¯u cÆ¡." },
+                    { type: 'arrange', topic: 'hohap', q: "VÃ¬ sao vÃ o ban Ä‘Ãªm, khÃ´ng nÃªn trá»“ng nhiá»u cÃ¢y xanh trong phÃ²ng ngá»§ kÃ­n cá»­a?", words: ["Náº¿u trá»“ng nhiá»u cÃ¢y", "trong phÃ²ng ngá»§ Ä‘Ã³ng kÃ­n,", "tá»‘i cÃ¢y hÃ´ háº¥p", "láº¥y O2 vÃ  tháº£i ra CO2", "vÃ  chÃºng ta sáº½ bá»‹ ngá»™p."], a: "Náº¿u trá»“ng nhiá»u cÃ¢y trong phÃ²ng ngá»§ Ä‘Ã³ng kÃ­n, tá»‘i cÃ¢y hÃ´ háº¥p láº¥y O2 vÃ  tháº£i ra CO2 vÃ  chÃºng ta sáº½ bá»‹ ngá»™p.", e: "CÃ¢y xanh khÃ´ng quang há»£p vÃ o ban Ä‘Ãªm mÃ  chá»‰ hÃ´ háº¥p cáº¡nh tranh Oxygen." },
+                    { type: 'mc', topic: 'hohap', q: "Äiá»n vÃ o Ä‘oáº¡n: 'HÃ´ háº¥p táº¿ bÃ o lÃ  phÃ¢n giáº£i cháº¥t (1)... vá»›i sá»± tham gia cá»§a (2)... táº¡o thÃ nh (3)... vÃ  nÆ°á»›c, sinh ra nÄƒng lÆ°á»£ng cho (4)... sá»‘ng.'", o: ["(1) há»¯u cÆ¡, (2) Oxygen, (3) Carbon dioxide, (4) hoáº¡t Ä‘á»™ng", "(1) vÃ´ cÆ¡, (2) Nitrogen, (3) Carbon dioxide, (4) sá»±", "(1) tá»•ng há»£p, (2) Oxygen, (3) Glucose, (4) táº¿ bÃ o"], a: 0, e: "NguyÃªn liá»‡u lÃ  cháº¥t há»¯u cÆ¡ vÃ  O2, sáº£n pháº©m lÃ  CO2, nÆ°á»›c vÃ  nÄƒng lÆ°á»£ng cho hoáº¡t Ä‘á»™ng sá»‘ng." },
+                    { type: 'mc', topic: 'hohap', q: "HoÃ n thÃ nh sÆ¡ Ä‘á»“ quÃ¡ trÃ¬nh hÃ´ háº¥p táº¿ bÃ o: (1)+(2) lÃ  sáº£n pháº©m tháº£i ra, (3)+(4) lÃ  nguyÃªn liá»‡u Ä‘Æ°a vÃ o.", o: ["(1)+(2) lÃ  Carbon dioxide vÃ  NÆ°á»›c; (3)+(4) lÃ  Oxygen vÃ  Glucose", "(1)+(2) lÃ  Oxygen vÃ  Glucose; (3)+(4) lÃ  Carbon dioxide vÃ  NÆ°á»›c", "(1)+(2) lÃ  ATP vÃ  Nhiá»‡t; (3)+(4) lÃ  Glucose vÃ  Vitamin"], a: 0, e: "MÅ©i tÃªn Ä‘i vÃ o ti thá»ƒ mang Oxygen vÃ  Glucose, mÅ©i tÃªn Ä‘i ra mang Carbon dioxide vÃ  NÆ°á»›c." }
                 ]
             },
             "lsdl7": {
-                name: "Lịch sử & Địa lý 7",
+                name: "Lá»‹ch sá»­ & Äá»‹a lÃ½ 7",
                 questions: [
-                    { type: 'tf', topic: 'ls_tran', q: "Đúng hay Sai: Nhà Trần được thành lập vào đầu năm 1226, khi Lý Chiêu Hoàng nhường ngôi cho Trần Cảnh.", o: ["Đúng", "Sai"], a: 0, e: "ĐÚNG. Đây là mốc quan trọng kết thúc nhà Lý và khởi đầu nhà Trần." },
-                    { type: 'mc', topic: 'ls_tran', q: "Nhà Trần được thành lập sau khi vị vua nào nhường ngôi cho Trần Cảnh?", o: ["Lý Huệ Tông", "Lý Chiêu Hoàng", "Lý Cao Tông", "Lý Anh Tông"], a: 1, e: "Năm 1226, Lý Chiêu Hoàng nhường ngôi cho chồng là Trần Cảnh, lập ra nhà Trần." },
-                    { type: 'mc', topic: 'dia_bacmy', q: "Dân cư Bắc Mỹ tập trung đông nhất ở khu vực nào?", o: ["Phía Bắc Canada", "Phía Nam Mexico", "Đông Bắc Hoa Kỳ và ven bờ Thái Bình Dương", "Vùng núi Rocky"], a: 2, e: "Đây là những vùng có điều kiện tự nhiên thuận lợi và kinh tế cực kỳ phát triển." }
+                    { type: 'tf', topic: 'ls_tran', q: "ÄÃºng hay Sai: NhÃ  Tráº§n Ä‘Æ°á»£c thÃ nh láº­p vÃ o Ä‘áº§u nÄƒm 1226, khi LÃ½ ChiÃªu HoÃ ng nhÆ°á»ng ngÃ´i cho Tráº§n Cáº£nh.", o: ["ÄÃºng", "Sai"], a: 0, e: "ÄÃšNG. ÄÃ¢y lÃ  má»‘c quan trá»ng káº¿t thÃºc nhÃ  LÃ½ vÃ  khá»Ÿi Ä‘áº§u nhÃ  Tráº§n." },
+                    { type: 'mc', topic: 'ls_tran', q: "NhÃ  Tráº§n Ä‘Æ°á»£c thÃ nh láº­p sau khi vá»‹ vua nÃ o nhÆ°á»ng ngÃ´i cho Tráº§n Cáº£nh?", o: ["LÃ½ Huá»‡ TÃ´ng", "LÃ½ ChiÃªu HoÃ ng", "LÃ½ Cao TÃ´ng", "LÃ½ Anh TÃ´ng"], a: 1, e: "NÄƒm 1226, LÃ½ ChiÃªu HoÃ ng nhÆ°á»ng ngÃ´i cho chá»“ng lÃ  Tráº§n Cáº£nh, láº­p ra nhÃ  Tráº§n." },
+                    { type: 'mc', topic: 'dia_bacmy', q: "DÃ¢n cÆ° Báº¯c Má»¹ táº­p trung Ä‘Ã´ng nháº¥t á»Ÿ khu vá»±c nÃ o?", o: ["PhÃ­a Báº¯c Canada", "PhÃ­a Nam Mexico", "ÄÃ´ng Báº¯c Hoa Ká»³ vÃ  ven bá» ThÃ¡i BÃ¬nh DÆ°Æ¡ng", "VÃ¹ng nÃºi Rocky"], a: 2, e: "ÄÃ¢y lÃ  nhá»¯ng vÃ¹ng cÃ³ Ä‘iá»u kiá»‡n tá»± nhiÃªn thuáº­n lá»£i vÃ  kinh táº¿ cá»±c ká»³ phÃ¡t triá»ƒn." }
                 ]
             },
             "en7": {
                 name: "English Friends Plus 7",
                 questions: [
-                    { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. leave 2. head 3. team 4. eat", o: ["leave", "head", "team", "eat"], a: 1, e: "'head' phát âm là /e/, các từ còn lại phát âm là /i:/." },
-                    { type: 'mc', topic: 'grammar', q: "How ____ sugar do you need for the cake?", o: ["much", "many", "few", "any"], a: 0, e: "Sugar không đếm được." },
-                    { type: 'mc', topic: 'vocabulary', q: "A person who is very good at a subject is an ____.", o: ["expert", "beginner", "student", "loser"], a: 0, e: "Expert (chuyên gia)." }
+                    { type: 'mc', topic: 'pronunciation', q: "Choose the word whose underlined part is pronounced differently: 1. leave 2. head 3. team 4. eat", o: ["leave", "head", "team", "eat"], a: 1, e: "'head' phÃ¡t Ã¢m lÃ  /e/, cÃ¡c tá»« cÃ²n láº¡i phÃ¡t Ã¢m lÃ  /i:/." },
+                    { type: 'mc', topic: 'grammar', q: "How ____ sugar do you need for the cake?", o: ["much", "many", "few", "any"], a: 0, e: "Sugar khÃ´ng Ä‘áº¿m Ä‘Æ°á»£c." },
+                    { type: 'mc', topic: 'vocabulary', q: "A person who is very good at a subject is an ____.", o: ["expert", "beginner", "student", "loser"], a: 0, e: "Expert (chuyÃªn gia)." }
                 ]
             },
             "math7": {
-                name: "Toán 7",
+                name: "ToÃ¡n 7",
                 questions: [
-                    { type: 'mc', topic: 'logic', q: "Câu 1: Cho tỉ lệ thức a/b = c/d. Khẳng định nào Đúng?", o: ["a-b = c-d", "a/d = b/c", "a+d = b+c", "ad = bc"], a: 3, e: "Tính chất cơ bản của tỉ lệ thức: Nếu a/b = c/d thì ad = bc." },
-                    { type: 'mc', topic: 'logic', q: "Câu 3: Cho x, y là hai đại lượng tỉ lệ thuận với nhau. Khẳng định nào sau đây là sai?", o: ["x1/y1 = x2/y2", "x1/x2 = y1/y2", "x1*y1 = x2*y2", "x2/y2 = x3/y3"], a: 2, e: "Tỉ lệ thuận thì thương không đổi (x/y = k), không phải tích không đổi." },
-                    { type: 'mc', topic: 'geometry', q: "Câu 21: Tổng số đo ba góc của một tam giác bằng bao nhiêu độ?", o: ["30°", "60°", "90°", "180°"], a: 3, e: "Định lý: Tổng ba góc trong một tam giác bằng 180°." },
-                    { type: 'mc', topic: 'geometry', q: "Câu 28: Cho tam giác ABC cân tại A. Khi đó:", o: ["Góc B = Góc C", "Góc A = Góc B", "Góc A = Góc C", "Góc A = Góc B = Góc C"], a: 0, e: "Trong tam giác cân, hai góc ở đáy bằng nhau." },
+                    { type: 'mc', topic: 'logic', q: "CÃ¢u 1: Cho tá»‰ lá»‡ thá»©c a/b = c/d. Kháº³ng Ä‘á»‹nh nÃ o ÄÃºng?", o: ["a-b = c-d", "a/d = b/c", "a+d = b+c", "ad = bc"], a: 3, e: "TÃ­nh cháº¥t cÆ¡ báº£n cá»§a tá»‰ lá»‡ thá»©c: Náº¿u a/b = c/d thÃ¬ ad = bc." },
+                    { type: 'mc', topic: 'logic', q: "CÃ¢u 3: Cho x, y lÃ  hai Ä‘áº¡i lÆ°á»£ng tá»‰ lá»‡ thuáº­n vá»›i nhau. Kháº³ng Ä‘á»‹nh nÃ o sau Ä‘Ã¢y lÃ  sai?", o: ["x1/y1 = x2/y2", "x1/x2 = y1/y2", "x1*y1 = x2*y2", "x2/y2 = x3/y3"], a: 2, e: "Tá»‰ lá»‡ thuáº­n thÃ¬ thÆ°Æ¡ng khÃ´ng Ä‘á»•i (x/y = k), khÃ´ng pháº£i tÃ­ch khÃ´ng Ä‘á»•i." },
+                    { type: 'mc', topic: 'geometry', q: "CÃ¢u 21: Tá»•ng sá»‘ Ä‘o ba gÃ³c cá»§a má»™t tam giÃ¡c báº±ng bao nhiÃªu Ä‘á»™?", o: ["30Â°", "60Â°", "90Â°", "180Â°"], a: 3, e: "Äá»‹nh lÃ½: Tá»•ng ba gÃ³c trong má»™t tam giÃ¡c báº±ng 180Â°." },
+                    { type: 'mc', topic: 'geometry', q: "CÃ¢u 28: Cho tam giÃ¡c ABC cÃ¢n táº¡i A. Khi Ä‘Ã³:", o: ["GÃ³c B = GÃ³c C", "GÃ³c A = GÃ³c B", "GÃ³c A = GÃ³c C", "GÃ³c A = GÃ³c B = GÃ³c C"], a: 0, e: "Trong tam giÃ¡c cÃ¢n, hai gÃ³c á»Ÿ Ä‘Ã¡y báº±ng nhau." },
                     {
                         type: 'arrange',
                         topic: 'essay',
-                        q: "Bài 2 (Tự luận - Đề 1): Một đội công nhân 20 người làm xong công trình trong 18 ngày. Nếu chỉ có 12 công nhân làm thì trong bao lâu? Sắp xếp các bước giải:",
+                        q: "BÃ i 2 (Tá»± luáº­n - Äá» 1): Má»™t Ä‘á»™i cÃ´ng nhÃ¢n 20 ngÆ°á»i lÃ m xong cÃ´ng trÃ¬nh trong 18 ngÃ y. Náº¿u chá»‰ cÃ³ 12 cÃ´ng nhÃ¢n lÃ m thÃ¬ trong bao lÃ¢u? Sáº¯p xáº¿p cÃ¡c bÆ°á»›c giáº£i:",
                         words: [
-                            "Gọi thời gian 12 công nhân làm xong là x (ngày).",
-                            "Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch:",
-                            "Ta có: 12 * x = 20 * 18",
+                            "Gá»i thá»i gian 12 cÃ´ng nhÃ¢n lÃ m xong lÃ  x (ngÃ y).",
+                            "VÃ¬ sá»‘ cÃ´ng nhÃ¢n vÃ  thá»i gian lÃ  Ä‘áº¡i lÆ°á»£ng tá»‰ lá»‡ nghá»‹ch:",
+                            "Ta cÃ³: 12 * x = 20 * 18",
                             "12 * x = 360",
                             "x = 360 / 12 = 30.",
-                            "Vậy 12 công nhân làm xong trong 30 ngày."
+                            "Váº­y 12 cÃ´ng nhÃ¢n lÃ m xong trong 30 ngÃ y."
                         ],
-                        a: "Gọi thời gian 12 công nhân làm xong là x (ngày). Vì số công nhân và thời gian là đại lượng tỉ lệ nghịch: Ta có: 12 * x = 20 * 18 12 * x = 360 x = 360 / 12 = 30. Vậy 12 công nhân làm xong trong 30 ngày.",
-                        e: "Bài toán tỉ lệ nghịch: Số công nhân giảm thì thời gian phải tăng lên."
+                        a: "Gá»i thá»i gian 12 cÃ´ng nhÃ¢n lÃ m xong lÃ  x (ngÃ y). VÃ¬ sá»‘ cÃ´ng nhÃ¢n vÃ  thá»i gian lÃ  Ä‘áº¡i lÆ°á»£ng tá»‰ lá»‡ nghá»‹ch: Ta cÃ³: 12 * x = 20 * 18 12 * x = 360 x = 360 / 12 = 30. Váº­y 12 cÃ´ng nhÃ¢n lÃ m xong trong 30 ngÃ y.",
+                        e: "BÃ i toÃ¡n tá»‰ lá»‡ nghá»‹ch: Sá»‘ cÃ´ng nhÃ¢n giáº£m thÃ¬ thá»i gian pháº£i tÄƒng lÃªn."
                     },
                     {
                         type: 'arrange',
                         topic: 'essay',
-                        q: "Bài 1 (Tự luận): Tìm x, y biết x/4 = y/6 và 2x + y = 28. Sắp xếp các bước giải đúng:",
+                        q: "BÃ i 1 (Tá»± luáº­n): TÃ¬m x, y biáº¿t x/4 = y/6 vÃ  2x + y = 28. Sáº¯p xáº¿p cÃ¡c bÆ°á»›c giáº£i Ä‘Ãºng:",
                         words: [
-                            "Áp dụng tính chất dãy tỉ số bằng nhau:",
+                            "Ãp dá»¥ng tÃ­nh cháº¥t dÃ£y tá»‰ sá»‘ báº±ng nhau:",
                             "x/4 = y/6 = (2x+y) / (2*4 + 6)",
                             "x/4 = y/6 = 28 / 14 = 2",
                             "Suy ra: x = 2 * 4 = 8",
-                            "và y = 2 * 6 = 12.",
-                            "Vậy x = 8, y = 12."
+                            "vÃ  y = 2 * 6 = 12.",
+                            "Váº­y x = 8, y = 12."
                         ],
-                        a: "Áp dụng tính chất dãy tỉ số bằng nhau: x/4 = y/6 = (2x+y) / (2*4 + 6) x/4 = y/6 = 28 / 14 = 2 Suy ra: x = 2 * 4 = 8 và y = 2 * 6 = 12. Vậy x = 8, y = 12.",
-                        e: "Đây là cách giải phổ biến bằng tính chất dãy tỉ số bằng nhau."
+                        a: "Ãp dá»¥ng tÃ­nh cháº¥t dÃ£y tá»‰ sá»‘ báº±ng nhau: x/4 = y/6 = (2x+y) / (2*4 + 6) x/4 = y/6 = 28 / 14 = 2 Suy ra: x = 2 * 4 = 8 vÃ  y = 2 * 6 = 12. Váº­y x = 8, y = 12.",
+                        e: "ÄÃ¢y lÃ  cÃ¡ch giáº£i phá»• biáº¿n báº±ng tÃ­nh cháº¥t dÃ£y tá»‰ sá»‘ báº±ng nhau."
                     }
                 ]
             }
@@ -735,7 +749,7 @@
         };
 
         let currentUser = null;
-        let myProfile = { displayName: 'Khách', photoURL: '' };
+        let myProfile = { displayName: 'KhÃ¡ch', photoURL: '' };
         let currentOutline = null;
         window.currentMode = 'quiz'; // Attached to window for inline onclick handlers
         let sessionWrongIndices = new Set();
@@ -752,9 +766,9 @@
         const streakKey = `engine_streak_${docId}`;
 
         onAuthStateChanged(auth, async (user) => {
-            if (!user) return showError("Vui lòng đăng nhập để xem nội dung!");
+            if (!user) return showError("Vui lÃ²ng Ä‘Äƒng nháº­p Ä‘á»ƒ xem ná»™i dung!");
             currentUser = user;
-            if (!docId) return showError("Không tìm thấy mã bài học!");
+            if (!docId) return showError("KhÃ´ng tÃ¬m tháº¥y mÃ£ bÃ i há»c!");
 
             try {
                 if (hardcodedSubjects[docId]) {
@@ -762,7 +776,7 @@
                     allQuestions = currentOutline.questions || [];
                 } else {
                     const snap = await getDoc(doc(db, 'outlines', docId));
-                    if (!snap.exists()) return showError("Bài học không tồn tại!");
+                    if (!snap.exists()) return showError("BÃ i há»c khÃ´ng tá»“n táº¡i!");
                     currentOutline = snap.data();
                     allQuestions = currentOutline.questions || [];
                 }
@@ -771,7 +785,7 @@
                 const uSnap = await getDoc(doc(db, 'users', user.uid));
                 if (uSnap.exists()) {
                     const d = uSnap.data();
-                    myProfile.displayName = d.displayName || 'Học viên';
+                    myProfile.displayName = d.displayName || 'Há»c viÃªn';
                     myProfile.photoURL = d.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(myProfile.displayName)}&background=random`;
                 }
 
@@ -781,7 +795,7 @@
                 renderMode();
             } catch (err) {
                 console.error(err);
-                showError("Lỗi kết nối dữ liệu. Vui lòng thử lại!");
+                showError("Lá»—i káº¿t ná»‘i dá»¯ liá»‡u. Vui lÃ²ng thá»­ láº¡i!");
             }
         });
 
@@ -789,13 +803,13 @@
             document.getElementById('stat-coins').textContent = stats.coins.toLocaleString();
             const invText = window.innerWidth < 600 
                 ? `${stats.pass1} Pass | ${stats.help} 50/50`
-                : `${stats.pass1} Thẻ Pass | ${stats.help} Thẻ 50/50`;
+                : `${stats.pass1} Tháº» Pass | ${stats.help} Tháº» 50/50`;
             document.getElementById('stat-inv').textContent = invText;
         }
 
         window.switchMode = (mode) => {
             if (soloRoomId && mode !== 'solo') {
-                if (!confirm("Bạn đang trong trận Solo, thoát sẽ bị trừ điểm uy tín. Tiếp tục?")) return;
+                if (!confirm("Báº¡n Ä‘ang trong tráº­n Solo, thoÃ¡t sáº½ bá»‹ trá»« Ä‘iá»ƒm uy tÃ­n. Tiáº¿p tá»¥c?")) return;
                 exitSoloRoom();
             }
             window.currentMode = mode;
@@ -870,28 +884,28 @@
         function renderShopMode(root) {
             root.innerHTML = `
                 <div class="hub-header" style="background:var(--primary); color:white; border-radius:25px; margin-bottom:20px; text-align:center; padding:30px;">
-                    <h2 style="margin:0;">Cửa hàng Thẻ Bài</h2>
-                    <p style="font-size:14px; opacity:0.9;">Hỗ trợ học tập hiệu quả hơn</p>
+                    <h2 style="margin:0;">Cá»­a hÃ ng Tháº» BÃ i</h2>
+                    <p style="font-size:14px; opacity:0.9;">Há»— trá»£ há»c táº­p hiá»‡u quáº£ hÆ¡n</p>
                 </div>
                 <div class="shop-grid">
                     <div class="shop-item">
                         <span class="material-symbols-rounded item-icon">fast_forward</span>
-                        <div class="item-name">Thẻ Pass Câu</div>
-                        <div class="item-desc">Vượt qua câu hỏi hiện tại ngay lập tức.</div>
+                        <div class="item-name">Tháº» Pass CÃ¢u</div>
+                        <div class="item-desc">VÆ°á»£t qua cÃ¢u há»i hiá»‡n táº¡i ngay láº­p tá»©c.</div>
                         <div class="item-price">500 Xu</div>
                         <button class="solo-btn" style="width:100%;" onclick="buyCard('pass1', 500)">Mua ngay</button>
                     </div>
                     <div class="shop-item">
                         <span class="material-symbols-rounded item-icon">query_stats</span>
-                        <div class="item-name">Thẻ 50/50</div>
-                        <div class="item-desc">Loại bỏ 2 đáp án sai trong câu trắc nghiệm.</div>
+                        <div class="item-name">Tháº» 50/50</div>
+                        <div class="item-desc">Loáº¡i bá» 2 Ä‘Ã¡p Ã¡n sai trong cÃ¢u tráº¯c nghiá»‡m.</div>
                         <div class="item-price">50 Xu</div>
                         <button class="solo-btn" style="width:100%;" onclick="buyCard('help', 50)">Mua ngay</button>
                     </div>
                     <div class="shop-item">
                         <span class="material-symbols-rounded item-icon">shield</span>
-                        <div class="item-name">Thẻ Bảo Vệ</div>
-                        <div class="item-desc">Không bị trừ Xu khi trả lời sai.</div>
+                        <div class="item-name">Tháº» Báº£o Vá»‡</div>
+                        <div class="item-desc">KhÃ´ng bá»‹ trá»« Xu khi tráº£ lá»i sai.</div>
                         <div class="item-price:150 Xu"></div>
                         <div class="item-price">150 Xu</div>
                         <button class="solo-btn" style="width:100%;" onclick="buyCard('protect', 150)">Mua ngay</button>
@@ -906,10 +920,10 @@
                 if (type === 'pass1') stats.pass1++;
                 else if (type === 'help') stats.help++;
                 else if (type === 'protect') stats.protect++;
-                showToast("Mua thành công!");
+                showToast("Mua thÃ nh cÃ´ng!");
                 syncStats();
             } else {
-                showToast("Không đủ Xu!");
+                showToast("KhÃ´ng Ä‘á»§ Xu!");
             }
         };
 
@@ -922,7 +936,7 @@
             if (questions.length === 0) {
                 root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">
                     <span class="material-symbols-rounded" style="font-size:60px; opacity:0.3;">task_alt</span>
-                    <p style="font-weight:700;">${window.currentMode === 'wrong' ? 'Bạn chưa có câu trả lời sai nào!' : 'Không có câu hỏi nào.'}</p>
+                    <p style="font-weight:700;">${window.currentMode === 'wrong' ? 'Báº¡n chÆ°a cÃ³ cÃ¢u tráº£ lá»i sai nÃ o!' : 'KhÃ´ng cÃ³ cÃ¢u há»i nÃ o.'}</p>
                 </div>`;
                 return;
             }
@@ -930,9 +944,9 @@
             if (quizIdx >= questions.length) {
                 root.innerHTML = `<div style="text-align:center; padding:100px 20px;">
                     <span class="material-symbols-rounded" style="font-size:80px; color:#10b981; margin-bottom:20px;">check_circle</span>
-                    <h2 style="font-weight:700; margin-bottom:10px;">Hoàn thành!</h2>
-                    <p style="color:var(--text-secondary); margin-bottom:30px;">Bạn đã trả lời xong tất cả câu hỏi.</p>
-                    <button class="solo-btn" style="padding: 15px 40px;" onclick="resetQuiz();">Làm lại từ đầu</button>
+                    <h2 style="font-weight:700; margin-bottom:10px;">HoÃ n thÃ nh!</h2>
+                    <p style="color:var(--text-secondary); margin-bottom:30px;">Báº¡n Ä‘Ã£ tráº£ lá»i xong táº¥t cáº£ cÃ¢u há»i.</p>
+                    <button class="solo-btn" style="padding: 15px 40px;" onclick="resetQuiz();">LÃ m láº¡i tá»« Ä‘áº§u</button>
                 </div>`;
                 return;
             }
@@ -945,7 +959,7 @@
             header.style.background = currentOutline.color || 'linear-gradient(135deg, #0084ff, #7c3aed)';
             header.innerHTML = `
                 <div style="font-size:12px; font-weight:700; opacity:0.8; margin-bottom:5px; text-transform:uppercase;">${currentOutline.title}</div>
-                <h1 style="margin:0; font-size:22px; font-weight:800;">Câu ${quizIdx + 1} / ${questions.length}</h1>
+                <h1 style="margin:0; font-size:22px; font-weight:800;">CÃ¢u ${quizIdx + 1} / ${questions.length}</h1>
             `;
             root.appendChild(header);
 
@@ -969,11 +983,11 @@
 
                 if (type === 'pass1' && stats.pass1 > 0) {
                     stats.pass1--;
-                    showToast("Đã dùng thẻ Pass!");
+                    showToast("ÄÃ£ dÃ¹ng tháº» Pass!");
                     syncStats();
                     
                     if (feedbackEl) {
-                        feedbackEl.textContent = "Bạn đã bỏ qua câu hỏi này.";
+                        feedbackEl.textContent = "Báº¡n Ä‘Ã£ bá» qua cÃ¢u há»i nÃ y.";
                         feedbackEl.className = 'feedback success';
                     }
                     // Disable all options
@@ -988,7 +1002,7 @@
                 } else if (type === 'help' && stats.help > 0) {
                     if (options.length >= 3) {
                         stats.help--;
-                        showToast("Đã dùng 50/50!");
+                        showToast("ÄÃ£ dÃ¹ng 50/50!");
                         syncStats();
                         
                         document.getElementById('tool-help').innerHTML = `<span class="material-symbols-rounded" style="color:#0ea5e9;">query_stats</span> 50/50 (${stats.help})`;
@@ -1013,7 +1027,7 @@
                             hidden++;
                         }
                     } else {
-                        showToast("Câu hỏi này không hỗ trợ 50/50!");
+                        showToast("CÃ¢u há»i nÃ y khÃ´ng há»— trá»£ 50/50!");
                     }
                 }
             };
@@ -1027,7 +1041,7 @@
             let contentHtml = `
                 <div class="q-header">
                     <div class="q-num">${quizIdx + 1}</div>
-                    <div class="q-type-badge">${q.type === 'image' ? 'Ảnh' : (q.type === 'mc' ? 'Trắc nghiệm' : 'Tự luận')}</div>
+                    <div class="q-type-badge">${q.type === 'image' ? 'áº¢nh' : (q.type === 'mc' ? 'Tráº¯c nghiá»‡m' : 'Tá»± luáº­n')}</div>
                 </div>
                 ${q.q ? `<div class="q-text">${q.q}</div>` : ''}
                 ${(q.type === 'image' || q.img) ? `
@@ -1056,7 +1070,7 @@
                                         </div>
                                     ` : (isEssay ? `
                                         <div class="essay-wrap">
-                                            <input type="text" class="input" id="inp-${globalIdx}-${sIdx}" placeholder="Đáp án..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${sq.a}', ${sIdx})">
+                                            <input type="text" class="input" id="inp-${globalIdx}-${sIdx}" placeholder="ÄÃ¡p Ã¡n..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${sq.a}', ${sIdx})">
                                             <button class="btn-send" onclick="checkEssay(${globalIdx}, '${sq.a}', ${sIdx})"><span class="material-symbols-rounded">send</span></button>
                                         </div>
                                     ` : '')}
@@ -1081,7 +1095,7 @@
                             </div>
                         ` : (isEssay ? `
                             <div class="essay-wrap">
-                                <input type="text" class="input" id="inp-${globalIdx}" placeholder="Đáp án..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${isV2 ? q.a : q.answer}')">
+                                <input type="text" class="input" id="inp-${globalIdx}" placeholder="ÄÃ¡p Ã¡n..." onkeyup="if(event.key==='Enter') checkEssay(${globalIdx}, '${isV2 ? q.a : q.answer}')">
                                 <button class="btn-send" onclick="checkEssay(${globalIdx}, '${isV2 ? q.a : q.answer}')"><span class="material-symbols-rounded">send</span></button>
                             </div>
                         ` : '')}
@@ -1100,7 +1114,7 @@
             nextBtn.style.display = 'none';
             nextBtn.style.marginTop = '20px';
             nextBtn.style.width = '100%';
-            nextBtn.innerHTML = `Tiếp theo <span class="material-symbols-rounded">arrow_forward</span>`;
+            nextBtn.innerHTML = `Tiáº¿p theo <span class="material-symbols-rounded">arrow_forward</span>`;
             nextBtn.onclick = () => {
                 quizIdx++;
                 renderMode();
@@ -1110,11 +1124,11 @@
 
 
         function renderMatchMode(root) {
-            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Chế độ này đã bị gỡ bỏ.</div>`;
+            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Cháº¿ Ä‘á»™ nÃ y Ä‘Ã£ bá»‹ gá»¡ bá».</div>`;
         }
 
         function renderSoloMode(root) {
-            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Chế độ này đã bị gỡ bỏ.</div>`;
+            root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Cháº¿ Ä‘á»™ nÃ y Ä‘Ã£ bá»‹ gá»¡ bá».</div>`;
         }
 
         window.submitSoloAns = () => {};
@@ -1131,13 +1145,13 @@
 
             if (isCorrect) {
                 fb.className = 'feedback success';
-                fb.innerHTML = 'Chính xác!';
+                fb.innerHTML = 'ChÃ­nh xÃ¡c!';
                 syncStats();
                 const nextBtn = document.getElementById('btn-next-q');
                 if (nextBtn) nextBtn.style.display = 'block';
             } else {
                 fb.className = 'feedback error';
-                fb.innerHTML = `Sai rồi. Đáp án là ${isV2 ? String.fromCharCode(65 + correct) : correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> Làm lại câu này</button>`;
+                fb.innerHTML = `Sai rá»“i. ÄÃ¡p Ã¡n lÃ  ${isV2 ? String.fromCharCode(65 + correct) : correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> LÃ m láº¡i cÃ¢u nÃ y</button>`;
                 sessionWrongIndices.add(idx);
             }
         };
@@ -1154,13 +1168,13 @@
 
             if (val === String(correct).toLowerCase()) {
                 fb.className = 'feedback success';
-                fb.innerHTML = 'Quá chuẩn!';
+                fb.innerHTML = 'QuÃ¡ chuáº©n!';
                 syncStats();
                 const nextBtn = document.getElementById('btn-next-q');
                 if (nextBtn) nextBtn.style.display = 'block';
             } else {
                 fb.className = 'feedback error';
-                fb.innerHTML = `Chưa đúng. Đáp án: ${correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> Làm lại câu này</button>`;
+                fb.innerHTML = `ChÆ°a Ä‘Ãºng. ÄÃ¡p Ã¡n: ${correct} <br><button onclick="window.renderMode()" class="solo-btn" style="margin-top:10px; background:#f59e0b; padding:8px 15px; font-size:14px; border:none; cursor:pointer; color:white; border-radius:12px;"><span class="material-symbols-rounded" style="font-size:16px; vertical-align:middle;">refresh</span> LÃ m láº¡i cÃ¢u nÃ y</button>`;
                 sessionWrongIndices.add(idx);
             }
         };
@@ -1180,11 +1194,11 @@
             
             if (userStr === correct) {
                 fb.className = 'feedback success';
-                fb.innerHTML = 'Tuyệt vời!';
+                fb.innerHTML = 'Tuyá»‡t vá»i!';
                 syncStats();
             } else {
                 fb.className = 'feedback error';
-                fb.innerHTML = `Chưa đúng. Hãy thử lại!`;
+                fb.innerHTML = `ChÆ°a Ä‘Ãºng. HÃ£y thá»­ láº¡i!`;
                 sessionWrongIndices.add(idx);
             }
             if (userStr !== correct) setTimeout(() => { fb.style.display = 'none'; fb.className = 'feedback'; }, 3000);
