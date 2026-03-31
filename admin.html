@@ -881,9 +881,11 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta name="description"
+        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
     <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:description"
+        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -980,6 +982,10 @@
                     class="material-symbols-rounded">description</span> Bài viết</button>
             <button class="nav-item" onclick="switchSection('outlines', this)"><span
                     class="material-symbols-rounded">verified_user</span> Duyệt Đề Cương</button>
+            <button class="nav-item" onclick="switchSection('level2', this)"><span
+                    class="material-symbols-rounded">gpp_good</span> Duyệt Cấp 2 <span id="badge-level2"
+                    class="badge-count"
+                    style="display:none; background: #f43f5e; color: white; padding: 2px 6px; border-radius: 8px; font-size: 10px; margin-left: 5px;">0</span></button>
             <button class="nav-item" onclick="switchSection('reports', this)"><span
                     class="material-symbols-rounded">report</span> Báo cáo</button>
             <button class="nav-item" onclick="switchSection('news-system', this)"><span
@@ -1136,18 +1142,43 @@
             </div>
         </div>
 
+        <!-- LEVEL 2 APPROVAL SECTION -->
+        <div id="section-level2" class="admin-section">
+            <div class="content-box">
+                <div class="box-title">
+                    <h2>Yêu cầu xác minh Level 2</h2>
+                    <div class="box-tools">
+                        <button class="action-btn" onclick="loadLevel2Requests()"><span
+                                class="material-symbols-rounded">refresh</span> Làm mới</button>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Người dùng</th>
+                            <th>Ngày gửi</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="level2-request-list"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- NEWS/ANNOUNCEMENTS SECTION -->
         <div id="section-news-system" class="admin-section">
             <div class="gen-container">
                 <div class="gen-card">
                     <h3><span class="material-symbols-rounded">campaign</span> Quản lý Thông báo hệ thống</h3>
-                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">Thông báo sẽ hiển thị trong tab "Thông Báo" của Bảng Tin.</p>
-                    
+                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">Thông báo sẽ hiển thị trong
+                        tab "Thông Báo" của Bảng Tin.</p>
+
                     <div id="ann-list-wrap">
                         <!-- Items injected here -->
                     </div>
 
-                    <button class="btn btn-ghost" onclick="addAnnItem()" style="width:100%; margin-top:15px; border-style:dashed;">
+                    <button class="btn btn-ghost" onclick="addAnnItem()"
+                        style="width:100%; margin-top:15px; border-style:dashed;">
                         <span class="material-symbols-rounded">add_circle</span> Thêm thông báo mới
                     </button>
                 </div>
@@ -1155,12 +1186,13 @@
                 <div class="gen-card">
                     <h3><span class="material-symbols-rounded">code</span> Cấu trúc JSON & Thao tác</h3>
                     <textarea id="ann-json" class="json-preview" readonly></textarea>
-                    
+
                     <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
                         <button class="btn btn-primary" onclick="applyAnnouncements()" style="justify-content:center;">
                             <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                         </button>
-                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">Lưu ý: Mọi thay đổi sẽ có hiệu lực ngay lập tức trên Bảng Tin News Board.</p>
+                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">Lưu ý: Mọi thay đổi sẽ có
+                            hiệu lực ngay lập tức trên Bảng Tin News Board.</p>
                     </div>
                 </div>
             </div>
@@ -1398,8 +1430,8 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
 
-            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', 'news-system': 'Thông báo hệ thống', system: 'Hệ thống' };
-            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', 'news-system': 'Quản lý nội dung hiển thị trong Bảng Tin News Board', system: 'Quản lý các tham số hệ thống từ xa' };
+            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', 'news-system': 'Thông báo hệ thống', system: 'Hệ thống', level2: 'Phê duyệt Cấp 2' };
+            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', 'news-system': 'Quản lý nội dung hiển thị trong Bảng Tin News Board', system: 'Quản lý các tham số hệ thống từ xa', level2: 'Phê duyệt tính toàn vẹn tài khoản cấp 2' };
             document.getElementById('screen-title').textContent = titles[id];
             document.getElementById('screen-subtitle').textContent = subs[id];
 
@@ -1409,6 +1441,7 @@
             if (id === 'outlines') loadPendingOutlines();
             if (id === 'reports') loadReports();
             if (id === 'system') loadSystemConfig();
+            if (id === 'level2') loadLevel2Requests();
         };
 
         // --- FILTER LOGIC ---
@@ -2091,6 +2124,87 @@
         };
 
         window.closeProfileModal = () => document.getElementById('userProfileModal').classList.remove('active');
+
+        window.loadLevel2Requests = async () => {
+            console.log("Admin: Loading Level 2 requests...");
+            const list = document.getElementById('level2-request-list');
+            list.innerHTML = '<tr><td colspan="3" style="text-align:center;">Đang tải...</td></tr>';
+            try {
+                const q = query(collection(db, "requests"), where("type", "==", "level2_verify"), where("status", "==", "pending"));
+                const snap = await getDocs(q);
+                console.log("Admin: Found Level 2 requests:", snap.size);
+                list.innerHTML = '';
+
+                if (snap.empty) {
+                    list.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:30px; color:var(--text-gray);">Không có yêu cầu nào cần duyệt.</td></tr>';
+                    return;
+                }
+
+                for (const d of snap.docs) {
+                    const req = d.data();
+                    const uSnap = await getDoc(doc(db, "users", req.uid));
+                    const u = uSnap.exists() ? uSnap.data() : { displayName: 'User Unnamed' };
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div class="user-cell">
+                                <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
+                                <div>
+                                    <strong>${u.displayName}</strong><br>
+                                    <span class="uid-pill">${req.uid}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${req.createdAt ? new Date(req.createdAt.seconds * 1000).toLocaleString('vi') : '---'}</td>
+                        <td>
+                            <div style="display:flex; gap:8px;">
+                                <button class="action-btn verify" onclick="approveLevel2Request('${d.id}', '${req.uid}')">
+                                    <span class="material-symbols-rounded">check</span> Duyệt
+                                </button>
+                                <button class="action-btn delete" onclick="rejectLevel2Request('${d.id}', '${req.uid}')">
+                                    <span class="material-symbols-rounded">close</span> Từ chối
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    list.appendChild(tr);
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Lỗi tải yêu cầu!", "error");
+            }
+        }
+
+        window.approveLevel2Request = async (reqId, uid) => {
+            const ok = await confConfirm("Phê duyệt Level 2", "Xác nhận nâng cấp tài khoản này lên Level 2?");
+            if (!ok) return;
+            try {
+                await updateDoc(doc(db, "users", uid), {
+                    verifiedLevel2: true,
+                    level2VerifiedAt: serverTimestamp(),
+                    level2ApprovalRequested: false
+                });
+                await updateDoc(doc(db, "requests", reqId), { status: 'accepted', handledAt: serverTimestamp() });
+                showToast("Đã phê duyệt thành công!");
+                loadLevel2Requests();
+            } catch (err) {
+                showToast("Lỗi: " + err.message, "error");
+            }
+        };
+
+        window.rejectLevel2Request = async (reqId, uid) => {
+            const ok = await confConfirm("Từ chối Level 2", "Từ chối yêu cầu này?", "danger");
+            if (!ok) return;
+            try {
+                await updateDoc(doc(db, "users", uid), { level2ApprovalRequested: false });
+                await updateDoc(doc(db, "requests", reqId), { status: 'rejected', handledAt: serverTimestamp() });
+                showToast("Đã từ chối yêu cầu.");
+                loadLevel2Requests();
+            } catch (err) {
+                showToast("Lỗi: " + err.message, "error");
+            }
+        };
 
         document.getElementById('btnLogout').onclick = () => signOut(auth);
     </script>

@@ -2426,7 +2426,7 @@
                 const createdAt = currentUser.createdAt ? new Date(currentUser.createdAt) : new Date(0);
                 const diffDaysL2 = Math.floor((new Date() - createdAt) / (1000 * 60 * 60 * 24));
                 if (currentUser.isVerified === true && diffDaysL2 >= 7 && currentUser.verifiedLevel2 !== true) {
-                    window.showToast("Bạn cần hoàn thành xác minh cấp 2 để vào phòng Cộng đồng.");
+                    window.showToast("Bạn cần hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng ! để vào phòng Cộng đồng.");
                     return;
                 }
             }

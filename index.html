@@ -1560,26 +1560,28 @@
             <div class="verify-v2-icon">
                 <span class="material-symbols-rounded">gpp_good</span>
             </div>
-            <h1 class="verify-v2-title">Xác minh tính toàn vẹn cấp 2!</h1>
+            <h1 class="verify-v2-title">Xác minh tính toàn vẹn của bạn đối với cộng đồng !</h1>
             <p class="verify-v2-desc">
-                Để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng, tài khoản của bạn cần có 2 người quen biết xác minh.
+                Để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng, tài khoản của bạn cần có 1 người quen biết xác minh, sau đó được Admin phê duyệt.
             </p>
             <ul style="text-align: left; font-size: 13px; color: #64748b; margin-bottom: 28px; padding-left: 20px; line-height: 1.6; font-weight: 600;">
-                <li>Tài khoản người xác minh cần tham gia trên 3 tháng.</li>
+                <li>Tài khoản người xác minh cần tham gia trên 3 tháng và đã xác minh.</li>
                 <li>Họ chưa xác minh cho ai khác trong 30 ngày qua.</li>
-                <li>Họ không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong 3 tháng gần đây.</li>
+                <li>Họ không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản gần đây.</li>
             </ul>
             <div class="verify-v2-deadline" id="l2VerifyProgress" style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">
-                Cần thêm 2 người xác minh
+                Cần thêm 1 người xác minh
             </div>
 
-            <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
-                <span class="material-symbols-rounded">content_copy</span>
-                Sao chép liên kết cấp 2
-            </button>
-            <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
-                Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
-            </p>
+            <div id="l2ActionWrapper">
+                <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
+                    <span class="material-symbols-rounded">content_copy</span>
+                    Sao chép liên kết cấp 2
+                </button>
+                <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
+                    Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
+                </p>
+            </div>
 
             <button onclick="document.getElementById('verifyLevel2Overlay').style.display = 'none';"
                 style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
@@ -1733,7 +1735,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
         import { startPresenceHeartbeat } from "./presence.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
@@ -1988,8 +1990,36 @@
                                         const verifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&level=2&utm_source=confe_app&utm_medium=referral&utm_campaign=user_verification&ref=auth_secure2`;
                                         window.currentVerifyLevel2Link = verifyLink;
                                         
-                                        const needed = 2 - (data.level2Verifiers ? data.level2Verifiers.length : 0);
-                                        document.getElementById('l2VerifyProgress').textContent = `Cần thêm ${needed} người xác minh`;
+                                        const verifierCount = data.level2Verifiers ? data.level2Verifiers.length : 0;
+                                        if (verifierCount >= 1) {
+                                            if (data.level2ApprovalRequested) {
+                                                document.getElementById('l2VerifyProgress').textContent = `Đang chờ Admin duyệt...`;
+                                                document.getElementById('l2VerifyProgress').style.background = '#fef3c7';
+                                                document.getElementById('l2VerifyProgress').style.color = '#b45309';
+                                                document.getElementById('l2VerifyProgress').style.borderColor = '#fde68a';
+                                                document.getElementById('l2ActionWrapper').innerHTML = '<p style="font-size: 13px; color: #64748b; margin-top: 16px; font-weight: 600; text-align: center;">Yêu cầu của bạn đang được xét duyệt.<br>Vui lòng chờ nhé!</p>';
+                                            } else {
+                                                document.getElementById('l2VerifyProgress').textContent = `Đã đủ 1 người xác minh`;
+                                                document.getElementById('l2VerifyProgress').style.background = '#dcfce7';
+                                                document.getElementById('l2VerifyProgress').style.color = '#166534';
+                                                document.getElementById('l2VerifyProgress').style.borderColor = '#bbf7d0';
+                                                document.getElementById('l2ActionWrapper').innerHTML = `
+                                                    <button class="btn-verify-v2" onclick="requestLevel2Approval()" style="background:var(--primary); color:white; border:none; margin-top:16px;">
+                                                        <span class="material-symbols-rounded">send</span> Gửi yêu cầu duyệt
+                                                    </button>
+                                                `;
+                                            }
+                                        } else {
+                                            document.getElementById('l2VerifyProgress').textContent = `Cần thêm 1 người xác minh`;
+                                            document.getElementById('l2ActionWrapper').innerHTML = `
+                                                <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
+                                                    <span class="material-symbols-rounded">content_copy</span> Sao chép liên kết cấp 2
+                                                </button>
+                                                <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
+                                                    Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
+                                                </p>
+                                            `;
+                                        }
                                     }
                                 } else {
                                     window.isLevel2Restricted = false;
@@ -2362,6 +2392,14 @@
         window.signOutAndReload = () => {
             auth.signOut().then(() => location.reload());
         }
+
+        // Expose Firestore helpers for use by the non-module script below
+        window._fbDb = db;
+        window._fbAddDoc = addDoc;
+        window._fbCollection = collection;
+        window._fbDoc = doc;
+        window._fbUpdateDoc = updateDoc;
+        window._fbServerTimestamp = serverTimestamp;
     </script>
 
     <script>
@@ -2408,8 +2446,37 @@
             const link = window.currentVerifyLevel2Link;
             if (!link) return;
             navigator.clipboard.writeText(link).then(() => {
-                window.showToast("Đã sao chép liên kết xác minh cấp 2!");
+                window.showToast("Đã sao chép liên kết xác minh tính toàn vẹn của bạn đối với cộng đồng !!");
             });
+        }
+
+        window.requestLevel2Approval = async () => {
+            const uid = localStorage.getItem('confe_current_uid');
+            if (!uid) return;
+            const btn = document.querySelector('#l2ActionWrapper button');
+            if (btn) { btn.disabled = true; btn.textContent = 'Đang gửi...'; }
+            try {
+                const db = window._fbDb;
+                const addDoc = window._fbAddDoc;
+                const collection = window._fbCollection;
+                const doc = window._fbDoc;
+                const updateDoc = window._fbUpdateDoc;
+                const serverTimestamp = window._fbServerTimestamp;
+                await addDoc(collection(db, "requests"), {
+                    type: 'level2_verify',
+                    uid: uid,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+                await updateDoc(doc(db, "users", uid), {
+                    level2ApprovalRequested: true
+                });
+                window.showToast("Đã gửi yêu cầu phê duyệt! Vui lòng chờ Admin xem xét.");
+            } catch (e) {
+                window.showToast("Lỗi khi gửi yêu cầu. Vui lòng thử lại sau.");
+                console.error(e);
+                if (btn) { btn.disabled = false; btn.textContent = 'Gửi yêu cầu duyệt'; }
+            }
         }
 
         window.copyDbgField = (spanId) => {
@@ -2424,7 +2491,7 @@
 
         window.loadPage = function (url, el, pushHash = true) {
             if (url === 'matchmaking.html' && window.isLevel2Restricted) {
-                window.showToast("Bạn cần hoàn thành xác minh cấp 2 để vào Ghép đôi.");
+                window.showToast("Bạn cần hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng ! để vào Ghép đôi.");
                 return;
             }
 

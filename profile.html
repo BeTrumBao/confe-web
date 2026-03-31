@@ -301,11 +301,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-            cursor: pointer;
+            gap: 4px;
             position: relative;
+            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
+
+        /* Verif level badges */
+        .verif-level-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 6px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            vertical-align: middle;
+        }
+        .level-1 { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .level-2 { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+        #verifyLevel2Overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 20000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+        .verify-v2-card { background: white; border-radius: 32px; padding: 32px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .verify-v2-icon { color: #16a34a; margin-bottom: 20px; }
+        .verify-v2-title { font-size: 20px; font-weight: 800; margin-bottom: 12px; color: #0f172a; }
+        .verify-v2-desc { font-size: 14px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+        .btn-verify-v2 { width: 100%; padding: 14px; border-radius: 16px; border: none; background: #16a34a; color: white; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         .badge-card.locked {
             filter: grayscale(1);
@@ -688,20 +712,6 @@
             });
         };
     </script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1032,6 +1042,11 @@
             <button id="btnVerifyRequest" onclick="document.getElementById('modalVerify').classList.add('active')"
                 style="width:100%; padding:12px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:14px; color:#0284c7; font-weight:700; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;">
                 <span class="material-symbols-rounded">verified</span> Đăng ký tích xanh
+            </button>
+
+            <button id="btnVerifyLevel2" onclick="openVerifyLevel2()"
+                style="width:100%; padding:14px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:16px; color:#16a34a; font-weight:700; cursor:pointer; margin-bottom:12px; display:none; align-items:center; justify-content:center; gap:8px;">
+                <span class="material-symbols-rounded">verified_user</span> Xác minh tính toàn vẹn của bạn đối với cộng đồng !
             </button>
 
             <button id="btnSave" class="btn-main">Lưu thay đổi</button>
@@ -1563,7 +1578,7 @@
                                 }
                                 
                                 const newOwned = [...owned, "matcha-fox"];
-                                await updateDoc(doc(db, "users", uid), { ownedBadges: newOwned });
+                                await updateDoc(doc(db, 'users', uid), { ownedBadges: newOwned });
                                 userData.ownedBadges = newOwned;
                                 window.showToast("Bạn đã nhận được huy hiệu 'Nấu xói Matcha'! 🦊", "🎁");
                                 renderUI(userData, uid);
@@ -1890,10 +1905,13 @@
             const isOwner = currentUser && (currentUser.uid === uid || currentUser.email === data.email);
             const showTickPrefer = data.showTickPrefer !== false;
             const isVerified = data.isTickVerified || (data.restrictedTick && isOwner);
+            const isLevel2 = data.verifiedLevel2;
 
             let tickHtml = '';
-            if (isVerified) {
-                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0084ff; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
+            if (isLevel2) {
+                tickHtml = ' <span class="verif-level-badge level-2" title="Xác minh cộng đồng"><span class="material-symbols-rounded" style="font-size:12px;">verified_user</span> Cấp 2</span>';
+            } else if (isVerified) {
+                tickHtml = ' <span class="verif-level-badge level-1" title="Đã xác minh"><span class="material-symbols-rounded" style="font-size:12px;">verified</span> Cấp 1</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
                 tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
             }
@@ -2072,6 +2090,14 @@
 
                     document.getElementById('modalSettings').classList.add('active');
                 };
+            }
+
+            // Level 2 Verify Button
+            const btnV2 = document.getElementById('btnVerifyLevel2');
+            if (isOwner && isVerified && !isLevel2) {
+                if (btnV2) btnV2.style.display = 'flex';
+            } else if (btnV2) {
+                btnV2.style.display = 'none';
             }
 
             // Calc Online Days (Mock)

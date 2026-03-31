@@ -123,21 +123,21 @@ module.exports = async (req, res) => {
                  return res.status(400).send({ success: false, error: "Tài khoản này chưa xác minh cấp 1." });
             }
             if (targetDoc.data().verifiedLevel2 === true) {
-                 return res.status(200).send({ success: true, message: "Tài khoản này đã hoàn thành xác minh cấp 2." });
+                 return res.status(200).send({ success: true, message: "Tài khoản này đã hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng !." });
             }
             const level2Verifiers = targetDoc.data().level2Verifiers || [];
             if (level2Verifiers.includes(verifierUid)) {
-                 return res.status(400).send({ success: false, error: "Bạn đã xác minh cấp 2 cho người này rồi!" });
+                 return res.status(400).send({ success: false, error: "Bạn đã xác minh tính toàn vẹn của bạn đối với cộng đồng ! cho người này rồi!" });
             }
             
             level2Verifiers.push(verifierUid);
             const updates = { level2Verifiers };
-            let msg = "Đã thêm 1 lượt xác minh. Cần thêm 1 lượt nữa.";
+            let msg = "Đã xác minh 1 lượt! Người dùng có thể gửi yêu cầu duyệt ngay bây giờ.";
             
-            if (level2Verifiers.length >= 2 || isAdmin) {
+            if (isAdmin) {
                  updates.verifiedLevel2 = true;
                  updates.level2VerifiedAt = admin.firestore.FieldValue.serverTimestamp();
-                 msg = "Xác minh cấp 2 thành công!";
+                 msg = "Xác minh tính toàn vẹn của bạn đối với cộng đồng ! thành công dưới quyền Admin!";
             }
             
             const batch = db.batch();

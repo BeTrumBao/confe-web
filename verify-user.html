@@ -7,8 +7,11 @@
     <title>Xác minh tài khoản - Confe</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
     <style>
         :root {
             --primary: #0057db;
@@ -507,9 +510,9 @@
         const skeletonCard = document.getElementById('skeletonCard');
 
         if (verifyLevel === 2) {
-            document.title = "Xác minh cấp 2 - Confe";
+            document.title = "Xác minh tính toàn vẹn của bạn đối với cộng đồng ! - Confe";
             const mainTitle = mainCard.querySelector('h1');
-            if (mainTitle) mainTitle.textContent = "Xác minh tính toàn vẹn cấp 2!";
+            if (mainTitle) mainTitle.textContent = "Xác minh tính toàn vẹn của bạn đối với cộng đồng !";
             const desc = mainCard.querySelector('.description');
             if (desc) desc.textContent = "Người dùng này đang cần bạn xác minh để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng. Hãy chắc chắn bạn quen biết họ!";
         }
@@ -553,11 +556,11 @@
                             return;
                         }
                         if (cData.verifiedLevel2 === true) {
-                            showError("Người dùng này đã hoàn thành xác minh cấp 2.");
+                            showError("Người dùng này đã hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng !.");
                             return;
                         }
                         if (cData.level2Verifiers && cData.level2Verifiers.includes(verifier.uid)) {
-                            showError("Bạn đã xác minh cấp 2 cho người dùng này rồi.");
+                            showError("Bạn đã xác minh tính toàn vẹn của bạn đối với cộng đồng ! cho người dùng này rồi.");
                             return;
                         }
                     }
