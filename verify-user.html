@@ -371,6 +371,22 @@
             background: #e2e8f0;
         }
     </style>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description"
+        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description"
+        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -482,12 +498,21 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const candidateUid = urlParams.get('uid');
+        const verifyLevel = urlParams.get('level') === '2' ? 2 : 1;
 
         const btn = document.getElementById('btnVerify');
         const statusMsg = document.getElementById('statusMsg');
         const loading = document.getElementById('loading');
         const mainCard = document.getElementById('mainCard');
         const skeletonCard = document.getElementById('skeletonCard');
+
+        if (verifyLevel === 2) {
+            document.title = "Xác minh cấp 2 - Confe";
+            const mainTitle = mainCard.querySelector('h1');
+            if (mainTitle) mainTitle.textContent = "Xác minh tính toàn vẹn cấp 2!";
+            const desc = mainCard.querySelector('.description');
+            if (desc) desc.textContent = "Người dùng này đang cần bạn xác minh để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng. Hãy chắc chắn bạn quen biết họ!";
+        }
 
         function showError(msg) {
             skeletonCard.style.display = 'none';
@@ -516,9 +541,25 @@
                         return;
                     }
                     const cData = cSnap.data();
-                    if (cData.isVerified === true) {
-                        showError("Người dùng này đã được xác minh trước đó rồi.");
-                        return;
+                    
+                    if (verifyLevel === 1) {
+                        if (cData.isVerified === true) {
+                            showError("Người dùng này đã được xác minh cấp 1 trước đó rồi.");
+                            return;
+                        }
+                    } else if (verifyLevel === 2) {
+                        if (cData.isVerified !== true) {
+                            showError("Người dùng này chưa hoàn thành xác minh cấp 1.");
+                            return;
+                        }
+                        if (cData.verifiedLevel2 === true) {
+                            showError("Người dùng này đã hoàn thành xác minh cấp 2.");
+                            return;
+                        }
+                        if (cData.level2Verifiers && cData.level2Verifiers.includes(verifier.uid)) {
+                            showError("Bạn đã xác minh cấp 2 cho người dùng này rồi.");
+                            return;
+                        }
                     }
 
                     document.getElementById('cName').textContent = cData.displayName || 'Cư dân mới';
@@ -554,6 +595,7 @@
                         if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
                         if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
                         if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
+                        if (vData.isVerified !== true) errors.push("Tài khoản của bạn chưa được xác minh.");
                     } else {
                         // Admin bypass: only check if banned
                         if (vData.isBanned === true) errors.push("Tài khoản Admin của bạn đang bị khóa.");
@@ -593,7 +635,7 @@
                                         'Content-Type': 'application/json',
                                         'Authorization': `Bearer ${idToken}`
                                     },
-                                    body: JSON.stringify({ targetUid: candidateUid })
+                                    body: JSON.stringify({ targetUid: candidateUid, level: verifyLevel })
                                 });
 
                                 const result = await response.json();

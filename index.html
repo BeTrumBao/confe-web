@@ -872,7 +872,7 @@
         }
 
         /* VERIFICATION OVERLAY */
-        #verifyOverlay {
+        #verifyOverlay, #verifyLevel2Overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1067,6 +1067,22 @@
             }, duration);
         };
     </script>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description"
+        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+    <meta property="og:description"
+        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1163,7 +1179,7 @@
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
                 <span>Trò chơi</span>
             </div>
-            <div class="nav-link" onclick="loadPage('matchmaking.html', this)">
+            <div id="navMatchmaking" class="nav-link" onclick="loadPage('matchmaking.html', this)">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">favorite</span></div>
                 <span>Ghép đôi</span>
             </div>
@@ -1524,6 +1540,50 @@
             <button onclick="signOutAndReload()"
                 style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
                 Đăng xuất
+            </button>
+        </div>
+    </div>
+
+    <div id="verifyLevel2Overlay">
+        <div class="verify-v2-card" id="skelVerifyL2Card">
+            <div class="skeleton-v2 skel-v2-icon"></div>
+            <div class="skeleton-v2 skel-v2-title"></div>
+            <div class="skeleton-v2 skel-v2-desc"></div>
+            <div class="skeleton-v2 skel-v2-desc" style="width: 80%;"></div>
+            <div class="skeleton-v2 skel-v2-list"></div>
+            <div class="skeleton-v2 skel-v2-deadline"></div>
+            <div class="skeleton-v2 skel-v2-btn"></div>
+            <div class="skeleton-v2 skel-v2-desc" style="width: 60%; margin: 0 auto;"></div>
+        </div>
+
+        <div class="verify-v2-card" id="mainVerifyL2Card" style="display:none;">
+            <div class="verify-v2-icon">
+                <span class="material-symbols-rounded">gpp_good</span>
+            </div>
+            <h1 class="verify-v2-title">Xác minh tính toàn vẹn cấp 2!</h1>
+            <p class="verify-v2-desc">
+                Để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng, tài khoản của bạn cần có 2 người quen biết xác minh.
+            </p>
+            <ul style="text-align: left; font-size: 13px; color: #64748b; margin-bottom: 28px; padding-left: 20px; line-height: 1.6; font-weight: 600;">
+                <li>Tài khoản người xác minh cần tham gia trên 3 tháng.</li>
+                <li>Họ chưa xác minh cho ai khác trong 30 ngày qua.</li>
+                <li>Họ không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản trong 3 tháng gần đây.</li>
+            </ul>
+            <div class="verify-v2-deadline" id="l2VerifyProgress" style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">
+                Cần thêm 2 người xác minh
+            </div>
+
+            <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
+                <span class="material-symbols-rounded">content_copy</span>
+                Sao chép liên kết cấp 2
+            </button>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
+                Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
+            </p>
+
+            <button onclick="document.getElementById('verifyLevel2Overlay').style.display = 'none';"
+                style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
+                Bỏ qua tạm thời (Ẩn một số chức năng)
             </button>
         </div>
     </div>
@@ -1900,6 +1960,50 @@
                                 const frame = document.getElementById('mainFrame');
                                 if (frame) frame.src = 'about:blank';
                                 return;
+                            } else if (isVerified) {
+                                document.getElementById('verifyOverlay').style.display = 'none';
+
+                                // Check Level 2
+                                const now = new Date();
+                                const diffDaysL2 = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+                                if (diffDaysL2 >= 7 && data.verifiedLevel2 !== true) {
+                                    window.isLevel2Restricted = true;
+                                    // Hide matchmaking
+                                    const navMatch = document.getElementById('navMatchmaking');
+                                    if (navMatch) navMatch.style.display = 'none';
+
+                                    // Show L2 overlay
+                                    const l2Overlay = document.getElementById('verifyLevel2Overlay');
+                                    if (l2Overlay) {
+                                        l2Overlay.style.display = 'flex';
+                                        
+                                        document.getElementById('skelVerifyL2Card').style.display = 'block';
+                                        document.getElementById('mainVerifyL2Card').style.display = 'none';
+
+                                        setTimeout(() => {
+                                            document.getElementById('skelVerifyL2Card').style.display = 'none';
+                                            document.getElementById('mainVerifyL2Card').style.display = 'block';
+                                        }, 800);
+
+                                        const verifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&level=2&utm_source=confe_app&utm_medium=referral&utm_campaign=user_verification&ref=auth_secure2`;
+                                        window.currentVerifyLevel2Link = verifyLink;
+                                        
+                                        const needed = 2 - (data.level2Verifiers ? data.level2Verifiers.length : 0);
+                                        document.getElementById('l2VerifyProgress').textContent = `Cần thêm ${needed} người xác minh`;
+                                    }
+                                } else {
+                                    window.isLevel2Restricted = false;
+                                    const navMatch = document.getElementById('navMatchmaking');
+                                    if (navMatch) navMatch.style.display = 'flex';
+
+                                    const l2Overlay = document.getElementById('verifyLevel2Overlay');
+                                    if (l2Overlay) l2Overlay.style.display = 'none';
+                                }
+
+                                const frame = document.getElementById('mainFrame');
+                                if (frame && frame.src.includes('about:blank')) {
+                                    frame.src = 'dashboard.html';
+                                }
                             } else {
                                 document.getElementById('verifyOverlay').style.display = 'none';
                                 const frame = document.getElementById('mainFrame');
@@ -2300,6 +2404,13 @@
             });
         }
 
+        window.copyVerifyLevel2Link = () => {
+            const link = window.currentVerifyLevel2Link;
+            if (!link) return;
+            navigator.clipboard.writeText(link).then(() => {
+                window.showToast("Đã sao chép liên kết xác minh cấp 2!");
+            });
+        }
 
         window.copyDbgField = (spanId) => {
             const el = document.getElementById(spanId);
@@ -2312,6 +2423,11 @@
         let isHandlingHashChange = false;
 
         window.loadPage = function (url, el, pushHash = true) {
+            if (url === 'matchmaking.html' && window.isLevel2Restricted) {
+                window.showToast("Bạn cần hoàn thành xác minh cấp 2 để vào Ghép đôi.");
+                return;
+            }
+
             if (url === 'chat.html' && window.innerWidth > 768) {
                 window.location.href = url;
                 return;

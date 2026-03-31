@@ -25,6 +25,7 @@ service cloud.firestore {
       // Allow any authenticated user (including anonymous) to create their own doc
       allow create: if isOwner(userId) && 
                       request.resource.data.get('isVerified', false) == false && 
+                      request.resource.data.get('verifiedLevel2', false) == false && 
                       request.resource.data.get('role', 'member') == 'member' && 
                       request.resource.data.get('isBanned', false) == false;
       
@@ -34,6 +35,8 @@ service cloud.firestore {
       allow update: if isAdmin() || (
         isOwner(userId) && 
         request.resource.data.get('isVerified', false) == resource.data.get('isVerified', false) &&
+        request.resource.data.get('verifiedLevel2', false) == resource.data.get('verifiedLevel2', false) &&
+        request.resource.data.get('level2Verifiers', []) == resource.data.get('level2Verifiers', []) &&
         request.resource.data.get('role', 'member') == resource.data.get('role', 'member') &&
         request.resource.data.get('isBanned', false) == resource.data.get('isBanned', false) &&
         request.resource.data.get('isChatMuted', false) == resource.data.get('isChatMuted', false)

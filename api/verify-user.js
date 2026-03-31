@@ -64,6 +64,10 @@ module.exports = async (req, res) => {
 
         // 3. Validation Logic
         if (!isAdmin) {
+            if (vData.isVerified !== true) {
+                return res.status(403).send({ success: false, error: "Tài khoản của bạn chưa được xác minh nên không thể xác minh cho người khác!" });
+            }
+
             // Check Account Age (90 days)
             const createdAt = vData.createdAt ? new Date(vData.createdAt) : new Date(decodedToken.auth_time * 1000);
             const now = new Date();
@@ -94,28 +98,57 @@ module.exports = async (req, res) => {
             return res.status(404).send({ success: false, error: "Không tìm thấy tài khoản cần xác minh." });
         }
 
-        if (targetDoc.data().isVerified === true) {
-            return res.status(200).send({ success: true, message: "Tài khoản này đã được xác minh rồi." });
+        const reqLevel = req.body.level === 2 ? 2 : 1;
+
+        if (reqLevel === 1) {
+            if (targetDoc.data().isVerified === true) {
+                return res.status(200).send({ success: true, message: "Tài khoản này đã được xác minh rồi." });
+            }
+
+            const batch = db.batch();
+            batch.update(targetRef, {
+                isVerified: true,
+                verifiedBy: verifierUid,
+                verifiedAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+
+            batch.update(db.collection('users').doc(verifierUid), {
+                lastVerifiedOthersAt: new Date().toISOString()
+            });
+            await batch.commit();
+            return res.status(200).send({ success: true, message: "Xác minh thành công cho người dùng!" });
+
+        } else if (reqLevel === 2) {
+            if (targetDoc.data().isVerified !== true) {
+                 return res.status(400).send({ success: false, error: "Tài khoản này chưa xác minh cấp 1." });
+            }
+            if (targetDoc.data().verifiedLevel2 === true) {
+                 return res.status(200).send({ success: true, message: "Tài khoản này đã hoàn thành xác minh cấp 2." });
+            }
+            const level2Verifiers = targetDoc.data().level2Verifiers || [];
+            if (level2Verifiers.includes(verifierUid)) {
+                 return res.status(400).send({ success: false, error: "Bạn đã xác minh cấp 2 cho người này rồi!" });
+            }
+            
+            level2Verifiers.push(verifierUid);
+            const updates = { level2Verifiers };
+            let msg = "Đã thêm 1 lượt xác minh. Cần thêm 1 lượt nữa.";
+            
+            if (level2Verifiers.length >= 2 || isAdmin) {
+                 updates.verifiedLevel2 = true;
+                 updates.level2VerifiedAt = admin.firestore.FieldValue.serverTimestamp();
+                 msg = "Xác minh cấp 2 thành công!";
+            }
+            
+            const batch = db.batch();
+            batch.update(targetRef, updates);
+            batch.update(db.collection('users').doc(verifierUid), {
+                lastVerifiedOthersAt: new Date().toISOString()
+            });
+            await batch.commit();
+            
+            return res.status(200).send({ success: true, message: msg });
         }
-
-        const batch = db.batch();
-        batch.update(targetRef, {
-            isVerified: true,
-            verifiedBy: verifierUid,
-            verifiedAt: admin.firestore.FieldValue.serverTimestamp()
-        });
-
-        // Update Verifier's last verify time
-        batch.update(db.collection('users').doc(verifierUid), {
-            lastVerifiedOthersAt: new Date().toISOString()
-        });
-
-        await batch.commit();
-
-        res.status(200).send({
-            success: true,
-            message: "Xác minh thành công cho người dùng!"
-        });
 
     } catch (error) {
         console.error('Verify-user API error:', error);
