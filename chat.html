@@ -1471,8 +1471,8 @@
                     oninput="searchLocalRooms(this.value)">
             </div>
             <div id="roomsList">
-                <!-- Public Chat Room (Always there) -->
-                <div class="room-item" id="publicChatRoomItem"
+                <!-- Public Chat Room (Initially hidden for security) -->
+                <div class="room-item" id="publicChatRoomItem" style="display: none;"
                     onclick="openChatRoom('public', 'Cộng đồng', 'assets/favicon.png', 'public')">
                     <img src="assets/favicon.png" class="room-avt">
                     <div class="room-info">
@@ -3213,13 +3213,16 @@
                     currentUser.isVerified = ud.isVerified;
                     currentUser.verifiedLevel2 = ud.verifiedLevel2;
 
-                    const createdAt = ud.createdAt ? new Date(ud.createdAt) : new Date(0);
+                    const createdAt = ud.createdAt ? (typeof ud.createdAt.toDate === 'function' ? ud.createdAt.toDate() : new Date(ud.createdAt)) : new Date(0);
                     const now = new Date();
                     const diffDaysL2 = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
                     const publicRoom = document.getElementById('publicChatRoomItem');
-                    if (ud.isVerified === true && diffDaysL2 >= 7 && ud.verifiedLevel2 !== true) {
+                    const isL2Skipped = sessionStorage.getItem(`confe_l2_skip_${u.uid}`) === 'true';
+                    
+                    if (ud.isVerified === true && diffDaysL2 >= 7 && ud.verifiedLevel2 !== true && !isL2Skipped) {
                         if (publicRoom) publicRoom.style.display = 'none';
                     } else {
+                        // Show if verified, not yet 7 days, or skipped
                         if (publicRoom) publicRoom.style.display = 'flex';
                     }
 

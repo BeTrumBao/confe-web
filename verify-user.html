@@ -598,7 +598,6 @@
                         if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
                         if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
                         if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
-                        if (vData.isVerified !== true) errors.push("Tài khoản của bạn chưa được xác minh.");
                     } else {
                         // Admin bypass: only check if banned
                         if (vData.isBanned === true) errors.push("Tài khoản Admin của bạn đang bị khóa.");

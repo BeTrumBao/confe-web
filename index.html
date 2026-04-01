@@ -1583,7 +1583,7 @@
                 </p>
             </div>
 
-            <button onclick="document.getElementById('verifyLevel2Overlay').style.display = 'none';"
+            <button onclick="skipLevel2Verify()"
                 style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
                 Bỏ qua tạm thời (Ẩn một số chức năng)
             </button>
@@ -1913,7 +1913,7 @@
                             // 2. Kiểm tra xác minh
                             // Fallback to Auth creation time if missing in Firestore
                             const rawCreatedAt = data.createdAt || u.metadata.creationTime;
-                            const createdAt = rawCreatedAt ? new Date(rawCreatedAt) : null;
+                            const createdAt = (rawCreatedAt && typeof rawCreatedAt.toDate === 'function') ? rawCreatedAt.toDate() : (rawCreatedAt ? new Date(rawCreatedAt) : null);
 
                             // Bật từ ngày 20/03/2026 (VN time)
                             const startDate = new Date('2026-03-19T17:00:00Z');
@@ -1968,7 +1968,9 @@
                                 // Check Level 2
                                 const now = new Date();
                                 const diffDaysL2 = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
-                                if (diffDaysL2 >= 7 && data.verifiedLevel2 !== true) {
+                                const isL2Skipped = sessionStorage.getItem(`confe_l2_skip_${u.uid}`) === 'true';
+                                
+                                if (diffDaysL2 >= 7 && data.verifiedLevel2 !== true && !isL2Skipped) {
                                     window.isLevel2Restricted = true;
                                     // Hide matchmaking
                                     const navMatch = document.getElementById('navMatchmaking');
@@ -2448,6 +2450,16 @@
             navigator.clipboard.writeText(link).then(() => {
                 window.showToast("Đã sao chép liên kết xác minh tính toàn vẹn của bạn đối với cộng đồng !!");
             });
+        }
+
+        window.skipLevel2Verify = () => {
+            const uid = localStorage.getItem('confe_current_uid');
+            if (uid) {
+                sessionStorage.setItem(`confe_l2_skip_${uid}`, 'true');
+            }
+            const overlay = document.getElementById('verifyLevel2Overlay');
+            if (overlay) overlay.style.display = 'none';
+            window.showToast("Đã tạm thời ẩn. Một số chức năng sẽ bị hạn chế.");
         }
 
         window.requestLevel2Approval = async () => {

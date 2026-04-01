@@ -1410,7 +1410,8 @@
                     serverTimestamp, updateDoc, doc,
                     ref, onValue, set, onDisconnect
                 });
-                loadProfile(targetUid || u.uid);
+                if (!targetUid) targetUid = u.uid;
+                loadProfile(targetUid);
 
                 // Show link section only for anonymous users
                 if (u && u.uid === targetUid && u.isAnonymous) {
