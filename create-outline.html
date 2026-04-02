@@ -578,7 +578,7 @@
         }
     </style>
     <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta name="description" content="Confe - Ná» n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
     <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
     <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
@@ -1310,17 +1310,24 @@
             if (q) { const sq = q.subQuestions.find(s => s.id === sId); if (sq) sq.options[idx] = val; }
         };
 
-        const IMG_HOST_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const CLOUD_NAME = "dtgeyitj1";
+        const UPLOAD_PRESET = "ml_default";
         async function uploadImage(base64) {
             if (!base64 || !base64.includes(",")) return "";
-            const file = base64.split(",")[1];
             const formData = new FormData();
-            formData.append("image", file);
+            formData.append("file", base64);
+            formData.append("upload_preset", UPLOAD_PRESET);
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMG_HOST_KEY}`, { method: "POST", body: formData });
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: "POST", body: formData });
                 const json = await res.json();
-                return json.success ? json.data.url : "";
+                if (!res.ok) {
+                    console.error("Cloudinary upload failed:", json);
+                    window.showToast?.("Lỗi tải ảnh (" + res.status + ")");
+                    return "";
+                }
+                return json.secure_url || "";
             } catch (e) {
+                console.error("Cloudinary network failed:", e);
                 return "";
             }
         }

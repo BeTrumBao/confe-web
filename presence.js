@@ -52,7 +52,7 @@ export function startPresenceHeartbeat(params) {
         } catch (e) {
             console.error("[Presence] Firestore heartbeat failed:", e);
         }
-    }, 60000);
+    }, 180000);
 
     return () => clearInterval(intervalId);
 }

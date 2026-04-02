@@ -10,9 +10,6 @@ import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasej
         const data = await response.json();
         const isp = (data.org || "").toLowerCase();
 
-        console.log("Tên Trạm Mạng (ISP) hiện tại:", data.org || "Không rõ");
-        console.log("Địa chỉ IP hiện tại:", data.ip);
-
         // --- ĐỊA CHỈ IP HOẶC TỪ KHÓA TÊN MẠNG MUỐN CHẶN ---
         const blockedNetworks = ["nha phuong", "nha phuong 5g"];
         const blockedIPs = ["58.187.188.149"];
@@ -103,13 +100,19 @@ onAuthStateChanged(auth, (user) => {
             // After setup is complete, verification becomes the next gate.
             if (!isVerified && !isPublicPage) {
                 console.log("[SecurityLock] Unverified user detected on sub-page, redirecting to index.html. Verification Data:", data.isVerified);
-                window.top.location.href = 'index.html?reason=unverified';
+                const topUrl = window.top.location.href;
+                if (!topUrl.includes('index.html') && !topUrl.includes('login.html')) {
+                    window.top.location.href = 'index.html?reason=unverified';
+                }
                 return;
             }
         } else {
             // User doc doesn't exist? (new user)
             if (!isPublicPage) {
-                window.top.location.href = 'index.html?reason=no_profile';
+                const topUrl = window.top.location.href;
+                if (!topUrl.includes('index.html') && !topUrl.includes('login.html')) {
+                    window.top.location.href = 'index.html?reason=no_profile';
+                }
             }
         }
     });

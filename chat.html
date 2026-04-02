@@ -1422,10 +1422,10 @@
     </script>
     <!-- Link Preview & SEO Meta Tags -->
     <meta name="description"
-        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+        content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
+    <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
     <meta property="og:description"
-        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -1433,7 +1433,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:description" content="Mạng xã hội mini Confe">
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
@@ -1856,7 +1856,7 @@
                     <circle cx="8.5" cy="8.5" r="1.5" />
                     <polyline points="21 15 16 10 5 21" />
                 </svg>
-                <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                <input type="file" id="fileInput" accept="image/*,video/*" multiple hidden>
             </label>
             <button class="action-btn" onclick="openPollModal()"><span
                     class="material-symbols-rounded">poll</span></button>
@@ -2191,7 +2191,8 @@
             apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web",
             storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
-        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const CLOUDINARY_CLOUD_NAME = "dtgeyitj1";
+        const CLOUDINARY_UPLOAD_PRESET = "ml_default";
 
         const app = initializeApp(cfg); const auth = getAuth(app);
 
@@ -2203,6 +2204,13 @@
         let CHAT_COL = "public_chat";
         let unsubscribeMessages = null;
         let unsubscribeRooms = null;
+
+        window.escapeHTML = (str) => {
+            if (!str) return "";
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        };
 
         // Gallery logic
         let galleryImages = [];
@@ -2337,7 +2345,7 @@
                         </div>
                         <div style="display:flex; gap:8px;">
                             <button class="btn btn-primary" onclick="window.sendFriendRequest('${d.id}')" style="padding:6px 12px; font-size:12px;">Kết bạn</button>
-                            <button class="btn" onclick="window.location.href='profile.html?uid=${d.id}'" style="padding:6px 12px; font-size:12px; background:#f1f5f9;">Trang cá nhân</button>
+                            <button class="btn" onclick="window.top.openProfilePopup && window.top.openProfilePopup('${d.id}')" style="padding:6px 12px; font-size:12px; background:#f1f5f9;">Trang cá nhân</button>
                         </div>
                     `;
                     res.appendChild(div);
@@ -2423,9 +2431,7 @@
 
         window.openChatRoom = (id, name, avatar, type) => {
             if (type === 'public' && currentUser) {
-                const createdAt = currentUser.createdAt ? new Date(currentUser.createdAt) : new Date(0);
-                const diffDaysL2 = Math.floor((new Date() - createdAt) / (1000 * 60 * 60 * 24));
-                if (currentUser.isVerified === true && diffDaysL2 >= 7 && currentUser.verifiedLevel2 !== true) {
+                if (currentUser.verifiedLevel2 !== true) {
                     window.showToast("Bạn cần hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng ! để vào phòng Cộng đồng.");
                     return;
                 }
@@ -2613,7 +2619,8 @@
 
             const pRoom = document.getElementById('publicChatRoomItem');
             if (pRoom) {
-                if ("cộng đồng public".includes(val)) pRoom.style.display = 'flex';
+                const isL2Verified = window.isL2Verified === true;
+                if (isL2Verified && "cộng đồng public".includes(val)) pRoom.style.display = 'flex';
                 else pRoom.style.display = 'none';
             }
 
@@ -2629,7 +2636,11 @@
 
             filtered.forEach(room => {
                 const html = `
-                    <div class="room-item" onclick="openChatRoom('${room.roomId}', '${room.name}', '${room.avatar}', '${room.roomType}')">
+                    <div class="room-item" 
+                         data-room-id="${room.roomId}" 
+                         data-name="${window.escapeHTML(room.name || 'Hội thoại')}" 
+                         data-avatar="${room.avatar || ANON_AVATAR}" 
+                         data-type="${room.roomType}">
                         <div style="position:relative;">
                             <img src="${room.avatar || ANON_AVATAR}" class="room-avt" onerror="this.src='${ANON_AVATAR}'">
                         </div>
@@ -2643,8 +2654,6 @@
                         </div>
                     </div>`;
                 container.insertAdjacentHTML('beforeend', html);
-
-
             });
         }
 
@@ -2665,15 +2674,19 @@
             }
             // Listen to active rooms for this user
             const q = query(collection(db, `users/${currentUser.uid}/chatRooms`), orderBy("lastTimestamp", "desc"));
+            let debounceTimer = null;
             unsubscribeRooms = onSnapshot(q, (snap) => {
                 hasLoadedRooms = true;
                 localRoomsData = [];
                 snap.forEach(doc => { localRoomsData.push(doc.data()); });
 
-                // Re-apply current search filter if any
-                const searchInput = document.getElementById('dbSearch');
-                const val = searchInput ? searchInput.value : '';
-                searchLocalRooms(val);
+                // Re-apply current search filter with debounce to avoid jumpy UI during click
+                if (debounceTimer) clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const searchInput = document.getElementById('dbSearch');
+                    const val = searchInput ? searchInput.value : '';
+                    searchLocalRooms(val);
+                }, 200);
             });
         }
 
@@ -2718,59 +2731,67 @@
             if (!currentUser) return;
             // Listen to friends
             const q = query(collection(db, "friendships"), where("users", "array-contains", currentUser.uid));
+            let debounceTimer = null;
             onSnapshot(q, async (snap) => {
-                const fList = document.getElementById('friendsList');
-                const pList = document.getElementById('pendingRequests');
-                const myLoadId = ++_friendLoadId;
+                if (debounceTimer) clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(async () => {
+                    const fList = document.getElementById('friendsList');
+                    const pList = document.getElementById('pendingRequests');
+                    const myLoadId = ++_friendLoadId;
 
-                let fHtml = '';
-                let pHtml = '';
+                    let fHtml = '';
+                    let pHtml = '';
 
-                for (const d of snap.docs) {
-                    const f = d.data();
-                    const otherUid = f.users.find(id => id !== currentUser.uid);
-                    if (!otherUid) continue;
+                    for (const d of snap.docs) {
+                        const f = d.data();
+                        const otherUid = f.users.find(id => id !== currentUser.uid);
+                        if (!otherUid) continue;
 
-                    const docSnap = await getDoc(doc(db, "users", otherUid));
-                    if (!docSnap.exists()) continue;
-                    const u = docSnap.data();
+                        const docSnap = await getDoc(doc(db, "users", otherUid));
+                        if (!docSnap.exists()) continue;
+                        const u = docSnap.data();
 
-                    if (f.status === 'accepted') {
-                        fHtml += `
-                            <div class="room-item" onclick="openChatRoom('${d.id}', '${u.displayName}', '${u.photoURL}', 'p2p')">
-                                <div style="position:relative;">
+                        if (f.status === 'accepted') {
+                            fHtml += `
+                                <div class="room-item" 
+                                     data-room-id="${d.id}" 
+                                     data-name="${window.escapeHTML(u.displayName)}" 
+                                     data-avatar="${u.photoURL}" 
+                                     data-type="p2p">
+                                    <div style="position:relative;">
+                                        <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
+                                    </div>
+                                    <div class="room-info">
+                                        <div class="room-name">${u.displayName}</div>
+                                    </div>
+                                    <div class="room-chat-action" style="background:#f1f5f9; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#3b82f6; transition:0.2s;">
+                                        <span class="material-symbols-rounded" style="font-size:18px;">chat</span>
+                                    </div>
+                                </div>
+                            `;
+                        } else if (f.status === 'pending' && f.requester !== currentUser.uid) {
+                            pHtml += `
+                                <div class="room-item" style="cursor:default; border-left:4px solid #3b82f6;">
                                     <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
+                                    <div class="room-info">
+                                        <div class="room-name">${u.displayName}</div>
+                                        <div class="room-msg" style="color:#64748b;">Đã gửi lời mời kết bạn</div>
+                                    </div>
+                                    <div style="display:flex; gap:6px;">
+                                        <button onclick="updateFriendStatus('${d.id}', 'accepted')" style="padding:8px 14px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='var(--primary)'">Chấp nhận</button>
+                                        <button onclick="updateFriendStatus('${d.id}', 'rejected')" style="padding:8px 14px; background:#f1f5f9; color:#ef4444; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Từ chối</button>
+                                    </div>
                                 </div>
-                                <div class="room-info">
-                                    <div class="room-name">${u.displayName}</div>
-                                </div>
-                                <div style="background:#f1f5f9; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#3b82f6; transition:0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
-                                    <span class="material-symbols-rounded" style="font-size:18px;">chat</span>
-                                </div>
-                            </div>
-                        `;
-                    } else if (f.status === 'pending' && f.requester !== currentUser.uid) {
-                        pHtml += `
-                            <div class="room-item" style="cursor:default; border-left:4px solid #3b82f6;">
-                                <img src="${u.photoURL || ANON_AVATAR}" class="room-avt">
-                                <div class="room-info">
-                                    <div class="room-name">${u.displayName}</div>
-                                    <div class="room-msg" style="color:#64748b;">Đã gửi lời mời kết bạn</div>
-                                </div>
-                                <div style="display:flex; gap:6px;">
-                                    <button onclick="updateFriendStatus('${d.id}', 'accepted')" style="padding:8px 14px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='var(--primary)'">Chấp nhận</button>
-                                    <button onclick="updateFriendStatus('${d.id}', 'rejected')" style="padding:8px 14px; background:#f1f5f9; color:#ef4444; border:none; border-radius:10px; cursor:pointer; font-size:12px; font-weight:700; transition:0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Từ chối</button>
-                                </div>
-                            </div>
-                        `;
+                            `;
+                        }
                     }
-                }
 
-                // Only render if this snapshot is still the latest one tracking
-                if (myLoadId === _friendLoadId) {
-                    fList.innerHTML = fHtml;
-                    pList.innerHTML = pHtml;
-                }
+                    // Only render if this snapshot is still the latest one tracking
+                    if (myLoadId === _friendLoadId) {
+                        if (fList) fList.innerHTML = fHtml;
+                        if (pList) pList.innerHTML = pHtml;
+                    }
+                }, 250);
             });
         }
         window.searchUsers = async (val) => {
@@ -2822,7 +2843,11 @@
                             <div class="room-msg" style="font-size:12px;">@${u.userName || 'user'}</div>
                         </div>
                         <div style="display:flex; gap:6px;">
-                            <button onclick="openChatRoom('${[currentUser.uid, u.uid].sort().join('_')}', '${u.displayName}', '${u.photoURL}', 'p2p'); document.getElementById('modalAddFriend').classList.remove('active');" 
+                            <button class="room-action-btn"
+                                    data-room-id="${[currentUser.uid, u.uid].sort().join('_')}" 
+                                    data-name="${window.escapeHTML(u.displayName)}" 
+                                    data-avatar="${u.photoURL}" 
+                                    data-type="p2p"
                                     style="padding:8px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer;">
                                 <span class="material-symbols-rounded" style="font-size:18px;">chat</span>
                             </button>
@@ -3176,6 +3201,55 @@
         }
 
 
+        // ===== PROFILE POPUP (LOCAL) =====
+        window.openProfilePopup = (uid) => {
+            if (!uid) return;
+            // Relay to parent if in iframe, otherwise show local popup
+            if (window.top !== window && window.top.openProfilePopup) {
+                window.top.openProfilePopup(uid);
+                return;
+            }
+            let overlay = document.getElementById('_profilePopupOverlay');
+            let sheet = document.getElementById('_profilePopupSheet');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = '_profilePopupOverlay';
+                overlay.onclick = window.closeProfilePopup;
+                overlay.style.cssText = 'position:fixed;inset:0;z-index:999990;background:rgba(15,23,42,0.55);backdrop-filter:blur(6px);';
+                sheet = document.createElement('div');
+                sheet.id = '_profilePopupSheet';
+                sheet.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:999991;background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,0.18);overflow:hidden;max-width:540px;margin:0 auto;display:flex;flex-direction:column;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);';
+                sheet.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:flex-end;padding:12px 16px 0;flex-shrink:0;">
+                        <div style="position:absolute;left:50%;transform:translateX(-50%);width:40px;height:5px;background:#e2e8f0;border-radius:9999px;"></div>
+                        <button onclick="window.closeProfilePopup()" style="background:none;border:none;color:#94a3b8;cursor:pointer;padding:8px;border-radius:50%;display:flex;"><span class="material-symbols-rounded" style="font-size:22px;">close</span></button>
+                    </div>
+                    <iframe id="_profilePopupFrame" src="about:blank" style="width:100%;height:82vh;border:none;display:block;"></iframe>
+                `;
+                document.body.appendChild(overlay);
+                document.body.appendChild(sheet);
+            }
+            const frame = document.getElementById('_profilePopupFrame');
+            frame.src = `profile.html?uid=${uid}&popup=1`;
+            overlay.style.display = 'block';
+            sheet.style.transform = 'translateY(100%)';
+            requestAnimationFrame(() => { sheet.style.transform = 'translateY(0)'; });
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeProfilePopup = () => {
+            const overlay = document.getElementById('_profilePopupOverlay');
+            const sheet = document.getElementById('_profilePopupSheet');
+            const frame = document.getElementById('_profilePopupFrame');
+            if (!sheet) return;
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                if (overlay) overlay.style.display = 'none';
+                if (frame) frame.src = 'about:blank';
+                document.body.style.overflow = '';
+            }, 350);
+        };
+        // ==================================
+
         onAuthStateChanged(auth, async (u) => {
             if (!u) { window.top.location.href = 'login.html'; return; }
             const rtdb = getDatabase(app);
@@ -3217,14 +3291,18 @@
                     const now = new Date();
                     const diffDaysL2 = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
                     const publicRoom = document.getElementById('publicChatRoomItem');
-                    const isL2Skipped = sessionStorage.getItem(`confe_l2_skip_${u.uid}`) === 'true';
+                    const isL2Verified = ud.verifiedLevel2 === true;
+                    window.isL2Verified = isL2Verified;
                     
-                    if (ud.isVerified === true && diffDaysL2 >= 7 && ud.verifiedLevel2 !== true && !isL2Skipped) {
-                        if (publicRoom) publicRoom.style.display = 'none';
-                    } else {
-                        // Show if verified, not yet 7 days, or skipped
+                    if (isL2Verified) {
                         if (publicRoom) publicRoom.style.display = 'flex';
+                    } else {
+                        // All others (Unverified, Level 1, Skipped but not L2) -> HIDE
+                        if (publicRoom) publicRoom.style.display = 'none';
                     }
+                    // Trigger search refresh to update room visibility
+                    const searchInput = document.getElementById('dbSearch');
+                    if (searchInput) searchLocalRooms(searchInput.value);
 
                     if (window.checkBlockStatus) window.checkBlockStatus();
                 } else {
@@ -3497,8 +3575,15 @@
                     const item = document.createElement('div');
                     item.className = 'preview-item';
 
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
+                    const isVideo = file.type.startsWith('video/');
+                    const media = document.createElement(isVideo ? 'video' : 'img');
+                    media.src = URL.createObjectURL(file);
+                    if (isVideo) {
+                        media.muted = true;
+                        media.style.objectFit = 'cover';
+                        media.style.width = '100%';
+                        media.style.height = '100%';
+                    }
 
                     const closeBtn = document.createElement('button');
                     closeBtn.className = 'preview-item-close';
@@ -3508,7 +3593,7 @@
                         removeImage(index);
                     };
 
-                    item.appendChild(img);
+                    item.appendChild(media);
                     item.appendChild(closeBtn);
                     container.appendChild(item);
                 });
@@ -3533,11 +3618,26 @@
         }
 
         async function uploadImage(file) {
-            const formData = new FormData(); formData.append("image", file);
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+            
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: formData });
-                const data = await res.json(); return data.data.url;
-            } catch (e) { return null; }
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    console.error("Cloudinary HTTP Error:", res.status, data);
+                    window.showToast("Lỗi tải ảnh (" + res.status + "): " + (data.error ? data.error.message : "Hãy thử lại!"), "❌");
+                    return null;
+                }
+                return data.secure_url;
+            } catch (err) {
+                console.error("Upload Catch Error:", err);
+                return null;
+            }
         }
 
         let targetSpoilerInputId = 'msgInput';
@@ -3639,7 +3739,35 @@
             }
         }
 
-        document.getElementById('btnSend').onclick = () => {
+        async function checkSpam(content) {
+            if (!currentUser) return true;
+            try {
+                const idToken = await currentUser.getIdToken();
+                const res = await fetch('/api/check-spam', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${idToken}`
+                    },
+                    body: JSON.stringify({ 
+                        content: content, 
+                        roomId: CHAT_COL // Pass the collection path as roomId context
+                    })
+                });
+                const data = await res.json();
+                if (res.status === 403 && data.banned) {
+                    window.showToast(data.error || "Tài khoản của bạn đã bị khóa do spam.");
+                    setTimeout(() => window.top.location.reload(), 2000);
+                    return false;
+                }
+                return data.success === true;
+            } catch (e) {
+                console.error("Spam check failed", e);
+                return true; // Soft fail - allow if API is down
+            }
+        }
+
+        document.getElementById('btnSend').onclick = async () => {
             if (currentUser && currentUser.isChatMuted) {
                 window.showToast("Bạn đang bị cấm chat! 🔇", "❌");
                 return;
@@ -3647,6 +3775,10 @@
             const input = document.getElementById('msgInput');
             const txt = input.value.trim();
             if (!txt && selectedFiles.length === 0) return;
+
+            // ANTI-SPAM CHECK
+            const canSend = await checkSpam(txt);
+            if (!canSend) return;
 
             // Clear UI immediately
             input.value = '';
@@ -3700,9 +3832,13 @@
             };
 
 
-            const sendSingleMsg = (imgUrl = "") => {
+            const sendSingleMsg = (mediaUrl = "", typeOverride = "") => {
+                let msgType = typeOverride;
+                if (!msgType) {
+                    msgType = mediaUrl ? 'image' : 'text';
+                }
                 const payload = {
-                    text: txt, image: imgUrl, type: (imgUrl ? 'image' : 'text'),
+                    text: txt, [msgType === 'video' ? 'video' : 'image']: mediaUrl, type: msgType,
                     uid: currentUser.uid, name: currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : 'Ẩn danh'), avatar: currentUser.photoURL,
                     isTickVerified: currentUser.isTickVerified || false,
                     nameColor: window.myNameColor || 'default', equippedBadge: currentUser.equippedBadge || null,
@@ -3713,16 +3849,23 @@
                 };
                 if (currentReply) payload.replyTo = currentReply;
                 return addDoc(collection(db, CHAT_COL), payload).then((docRef) => {
-                    syncChatRoom(txt);
-                    triggerPushNotification(txt, !!currentReply, currentReply, docRef.id);
+                    let previewTxt = txt;
+                    if (!previewTxt) {
+                        if (msgType === 'video') previewTxt = "[Video]";
+                        else if (msgType === 'image') previewTxt = "[Hình ảnh]";
+                    }
+                    syncChatRoom(previewTxt);
+                    triggerPushNotification(previewTxt, !!currentReply, currentReply, docRef.id);
                 });
             };
 
             if (filesToUpload.length > 0) {
                 filesToUpload.forEach((file, idx) => {
+                    const isVideo = file.type.startsWith('video/');
                     createTempMsg({
                         uid: currentUser.uid, avatar: currentUser.photoURL, name: currentUser.displayName,
-                        image: URL.createObjectURL(file), text: idx === 0 ? txt : "", type: 'image', createdAt: null
+                        [isVideo ? 'video' : 'image']: URL.createObjectURL(file),
+                        text: idx === 0 ? txt : "", type: isVideo ? 'video' : 'image', createdAt: null
                     }, idx);
                 });
 
@@ -3730,8 +3873,16 @@
                     try {
                         const urls = await Promise.all(filesToUpload.map(file => uploadImage(file)));
                         const validUrls = urls.filter(u => u !== null);
+                        
+                        // Detect first file type for simplified batching (usually all same in multi-select)
+                        const firstFileType = filesToUpload[0].type.startsWith('video/') ? 'video' : 'image';
+
                         if (validUrls.length > 1) await sendBatchedMsgs(validUrls);
-                        else if (validUrls.length === 1) await sendSingleMsg(validUrls[0]);
+                        else if (validUrls.length === 0) { /* error */ }
+                        else {
+                             // Correct type based on actual file
+                             await sendSingleMsg(validUrls[0], firstFileType);
+                        }
                     } catch (err) {
                         console.error("Upload/Send failed", err);
                         window.showToast("Lỗi khi gửi bản nháp!", "❌");
@@ -3968,6 +4119,12 @@
                     <img src="${msg.image}" style="width:120px;height:120px;object-fit:cover;border-radius:12px;pointer-events:none;user-select:none;display:block;" draggable="false">
                     ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
                 </div>`;
+            } else if (msg.type === 'video' || msg.video) {
+                const vUrl = msg.video || msg.image;
+                contentHtml += `<div style="margin-bottom:6px; position:relative; display:inline-block; max-width: 250px;">
+                    <video src="${vUrl}" class="msg-video" controls style="width:100%; border-radius:14px; border: 1px solid #eee; display:block;"></video>
+                    ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
+                </div>`;
             } else if (msg.image) {
                 contentHtml += `<div style="margin-bottom:6px; position:relative; display:inline-block;">
                     <img src="${msg.image}" class="msg-img" onclick="window.openMsgMenu('${docId}', '${msg.uid}', '${msg.type}', '${msg.image}')" onerror="this.src='https://placehold.co/400x300?text=Lỗi+ảnh'">
@@ -4049,9 +4206,9 @@
             }
 
             const html = `<div class="msg-row ${rowClass}" id="msg-${docId}">
-                ${!isMine ? `<div class="${msg.avatarFrame === 'vip' ? 'msg-avt-wrapper avatar-frame-vip' : ''}"><img src="${msg.avatar}" class="msg-avt" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'"></div>` : ''}
+                ${!isMine ? `<div class="${msg.avatarFrame === 'vip' ? 'msg-avt-wrapper avatar-frame-vip' : ''}"><img src="${msg.avatar}" class="msg-avt" onclick="window.openProfilePopup('${msg.uid}')" style="cursor:pointer;" onerror="this.src='${ANON_AVATAR}'"></div>` : ''}
                 <div class="msg-content-wrapper">
-                    ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.location.href='profile.html?uid=${msg.uid}'" style="cursor:pointer;">${msg.name}${nameExtraHtml}</div>` : ''}
+                    ${!isMine ? `<div class="msg-name ${nameColorClass}" onclick="window.openProfilePopup('${msg.uid}')" style="cursor:pointer;">${msg.name}${nameExtraHtml}</div>` : ''}
                     ${contentHtml}${statusHtml}
                 </div>
             </div>`;
@@ -4132,7 +4289,13 @@
                         loadedDocIds.add(d.id);
                     });
                     box.innerHTML = html;
-                    box.scrollTop = box.scrollHeight;
+                    const forceScroll = () => { box.scrollTop = box.scrollHeight; };
+                    forceScroll();
+                    setTimeout(forceScroll, 300);
+                    box.querySelectorAll('img, video').forEach(media => {
+                        media.addEventListener('load', forceScroll);
+                        media.addEventListener('loadeddata', forceScroll);
+                    });
                     isInitialLoad = false;
                     return;
                 }
@@ -4157,11 +4320,11 @@
                             div.innerHTML = renderMessage(docId, msg);
                             const msgEl = div.firstElementChild;
 
-                            // Watch for image loads to adjust scroll
-                            msgEl.querySelectorAll('img').forEach(img => {
-                                img.onload = () => {
-                                    if (wasAtBottom) box.scrollTop = box.scrollHeight;
-                                };
+                            // Watch for image/video loads to adjust scroll
+                            msgEl.querySelectorAll('img, video').forEach(media => {
+                                const checkScroll = () => { if (wasAtBottom) box.scrollTop = box.scrollHeight; };
+                                media.addEventListener('load', checkScroll);
+                                media.addEventListener('loadeddata', checkScroll);
                             });
 
                             box.appendChild(msgEl);
@@ -4271,8 +4434,36 @@
             };
         };
 
+        // EVENT DELEGATION FOR ROOM CLICKS (Prevents lost clicks during list rebuilds)
+        const initRoomClickDelegation = () => {
+            const containers = ['dynamicRooms', 'friendsList', 'findUsersResult', 'modalFriendSearchResults'];
+            containers.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('click', (e) => {
+                    // Check if clicked inside a button or action area that should NOT open the chat room
+                    if (e.target.closest('button') && !e.target.closest('.room-chat-action') && !e.target.closest('.room-action-btn')) return;
+
+                    const roomItem = e.target.closest('.room-item');
+                    if (roomItem && roomItem.dataset.roomId) {
+                        // Close modals if needed
+                        const addFriendModal = document.getElementById('modalAddFriend');
+                        if (addFriendModal) addFriendModal.classList.remove('active');
+                        
+                        openChatRoom(
+                            roomItem.dataset.roomId, 
+                            roomItem.dataset.name, 
+                            roomItem.dataset.avatar, 
+                            roomItem.dataset.type
+                        );
+                    }
+                });
+            });
+        };
+
         // Initialize immediately
         initScrollListener();
+        initRoomClickDelegation();
 
         // === STICKER LOGIC ===
 

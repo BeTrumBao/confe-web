@@ -1044,10 +1044,7 @@
                 <span class="material-symbols-rounded">verified</span> Đăng ký tích xanh
             </button>
 
-            <button id="btnVerifyLevel2" onclick="openVerifyLevel2()"
-                style="width:100%; padding:14px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:16px; color:#16a34a; font-weight:700; cursor:pointer; margin-bottom:12px; display:none; align-items:center; justify-content:center; gap:8px;">
-                <span class="material-symbols-rounded">verified_user</span> Xác minh tính toàn vẹn của bạn đối với cộng đồng !
-            </button>
+
 
             <button id="btnSave" class="btn-main">Lưu thay đổi</button>
 
@@ -1376,20 +1373,22 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, linkWithPopup, deleteUser, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, getCountFromServer, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
         import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { startPresenceHeartbeat } from "./presence.js";
 
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
+        const CLOUD_NAME = "dtgeyitj1";
+        const UPLOAD_PRESET = "ml_default";
         const app = initializeApp(cfg); const db = getFirestore(app); const auth = getAuth(app);
+
 
         const urlParams = new URLSearchParams(window.location.search);
         let targetUid = urlParams.get('uid') || urlParams.get('id');
         let currentUser = null, userData = null;
 
         window.showToast = (msg) => {
-            if (window.parent && window.parent.showToast) {
+            if (window.parent && window.parent !== window && window.parent.showToast) {
                 window.parent.showToast(msg);
                 return;
             }
@@ -1547,61 +1546,66 @@
         }
 
         async function loadProfile(uid) {
-            const snap = await getDoc(doc(db, "users", uid));
-            if (snap.exists()) {
-                userData = snap.data(); renderUI(userData, uid);
+            const userRef = doc(db, "users", uid);
+            if (currentUser && currentUser.uid === uid) {
+                onSnapshot(userRef, (snap) => {
+                    if (snap.exists()) {
+                        userData = snap.data();
+                        renderUI(userData, uid);
+                        if (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới") {
+                            isSetupRequired = true;
+                            document.getElementById('modalSettings').classList.add('active');
+                            markDirty();
+                            document.getElementById('inpName').value = "";
+                            document.getElementById('inpUser').value = userData.username || "";
+                        }
+                        loadFollowCounts(uid);
 
-                // CHECK SETUP
-                if (currentUser && currentUser.uid === uid && (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới")) {
-                    isSetupRequired = true;
-                    document.getElementById('modalSettings').classList.add('active');
-                    markDirty(); // Enable save button for new user forced setup
-                    // Fill data if exists
-                    document.getElementById('inpName').value = (userData.displayName === "Cư dân mới" || userData.displayName === "Người dùng mới") ? "" : (userData.displayName || "");
-                    document.getElementById('inpUser').value = userData.username || "";
-                }
-
-                // AUTO-GRANT "Nấu xói Matcha" badge
-                if (currentUser && currentUser.uid === uid && (userData.displayName || "").toLowerCase().includes("phương")) {
-                    const owned = userData.ownedBadges || [];
-                    if (!owned.includes("matcha-fox")) {
-                        (async () => {
-                            try {
-                                const bRef = doc(db, "badges", "matcha-fox");
-                                const bSnap = await getDoc(bRef);
-                                if (!bSnap.exists()) {
-                                    await setDoc(bRef, {
-                                        name: "Nấu xói Matcha",
-                                        icon: "fox",
-                                        desc: "Dành cho những người có 'Phương' trong tên",
-                                        color: "#22c55e"
-                                    });
-                                }
-                                
-                                const newOwned = [...owned, "matcha-fox"];
-                                await updateDoc(doc(db, 'users', uid), { ownedBadges: newOwned });
-                                userData.ownedBadges = newOwned;
-                                window.showToast("Bạn đã nhận được huy hiệu 'Nấu xói Matcha'! 🦊", "🎁");
-                                renderUI(userData, uid);
-                            } catch (e) { console.error("Grant badge error:", e); }
-                        })();
+                        // AUTO-GRANT "Nấu xói Matcha" badge
+                        if ((userData.displayName || "").toLowerCase().includes("phương")) {
+                            const owned = userData.ownedBadges || [];
+                            if (!owned.includes("matcha-fox")) {
+                                (async () => {
+                                    try {
+                                        const bRef = doc(db, "badges", "matcha-fox");
+                                        const bSnap = await getDoc(bRef);
+                                        if (!bSnap.exists()) {
+                                            await setDoc(bRef, {
+                                                name: "Nấu xói Matcha",
+                                                icon: "fox",
+                                                desc: "Dành cho những người có 'Phương' trong tên",
+                                                color: "#22c55e"
+                                            });
+                                        }
+                                        const newOwned = [...owned, "matcha-fox"];
+                                        await updateDoc(doc(db, 'users', uid), { ownedBadges: newOwned });
+                                        userData.ownedBadges = newOwned;
+                                        window.showToast("Bạn đã nhận được huy hiệu 'Nấu xói Matcha'! 🦊", "🎁");
+                                        renderUI(userData, uid);
+                                    } catch (e) { console.error("Grant badge error:", e); }
+                                })();
+                            }
+                        }
+                    } else {
+                        // New user without doc
+                        userData = { displayName: "Cư dân mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
+                        renderUI(userData, uid);
+                        isSetupRequired = true;
+                        document.getElementById('modalSettings').classList.add('active');
+                    }
+                });
+            } else {
+                const snap = await getDoc(userRef);
+                if (snap.exists()) {
+                    userData = snap.data();
+                    renderUI(userData, uid);
+                    loadFollowCounts(uid);
+                    // Show follow button if viewer is different user
+                    if (currentUser && currentUser.uid !== uid) {
+                        document.getElementById('followBtnWrap').style.display = 'block';
+                        checkIfFollowing(currentUser.uid, uid);
                     }
                 }
-
-                // Load follow counts
-                loadFollowCounts(uid);
-                // Show follow button if viewer is different user
-                if (currentUser && currentUser.uid !== uid) {
-                    document.getElementById('followBtnWrap').style.display = 'block';
-                    checkIfFollowing(currentUser.uid, uid);
-                }
-            } else if (currentUser && currentUser.uid === uid) {
-                // New user without doc (should not happen if registration works, but fallback)
-                userData = { displayName: "Cư dân mới", bio: "", photoURL: "", coverURL: "", email: currentUser.email, username: "", is_setup: false };
-                renderUI(userData, uid);
-                isSetupRequired = true;
-                document.getElementById('btnSettings').click();
-
             }
         }
 
@@ -1791,6 +1795,7 @@
                 window.croppedAvtBlob = null;
                 window.croppedCovBlob = null;
                 window.showToast("Cập nhật thành công!");
+                document.getElementById('modalSettings').classList.remove('active');
                 setTimeout(() => window.top.location.reload(), 500);
 
             } catch (e) {
@@ -1859,6 +1864,8 @@
             signOut(auth).then(() => window.top.location.href = 'index.html');
         }
 
+
+
         // Avatar Editor Popup
         window.openAppearanceModal = () => {
             document.getElementById('modalAppearance').classList.add('active');
@@ -1905,16 +1912,14 @@
 
             const isOwner = currentUser && (currentUser.uid === uid || currentUser.email === data.email);
             const showTickPrefer = data.showTickPrefer !== false;
-            const isVerified = data.isTickVerified || (data.restrictedTick && isOwner);
-            const isLevel2 = data.verifiedLevel2;
+            // Level 1 check
+            const isVerified = (data.isVerified === true) || data.isTickVerified || (data.restrictedTick && isOwner);
 
             let tickHtml = '';
-            if (isLevel2) {
-                tickHtml = ' <span class="verif-level-badge level-2" title="Xác minh cộng đồng"><span class="material-symbols-rounded" style="font-size:12px;">verified_user</span> Cấp 2</span>';
-            } else if (isVerified) {
-                tickHtml = ' <span class="verif-level-badge level-1" title="Đã xác minh"><span class="material-symbols-rounded" style="font-size:12px;">verified</span> Cấp 1</span>';
+            if (data.isTickVerified || (data.restrictedTick && isOwner)) {
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#0ea5e9 !important; font-variation-settings: \'FILL\' 1;" title="Đã xác minh">verified</span>';
             } else if (data.isCreator || data.isAdmin || data.role === 'admin') {
-                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444; font-variation-settings: \'FILL\' 1;" title="Nhà sáng tạo">verified</span>';
+                tickHtml = ' <span class="material-symbols-rounded verified-badge" style="color:#ef4444 !important; font-variation-settings: \'FILL\' 1;" title="Quản trị viên / Nhà sáng tạo">verified</span>';
             }
 
             let nameExtraHtml = '';
@@ -2093,13 +2098,7 @@
                 };
             }
 
-            // Level 2 Verify Button
-            const btnV2 = document.getElementById('btnVerifyLevel2');
-            if (isOwner && isVerified && !isLevel2) {
-                if (btnV2) btnV2.style.display = 'flex';
-            } else if (btnV2) {
-                btnV2.style.display = 'none';
-            }
+
 
             // Calc Online Days (Mock)
             if (currentUser && currentUser.uid === uid) {
@@ -2196,6 +2195,9 @@
                                         }
                                     };
                                 }
+                            }).catch(err => {
+                                console.error("Firestore Friend Request Query Error:", err);
+                                addFriendBtn.textContent = 'Lỗi tải';
                             });
                         }
                     });
@@ -2211,20 +2213,27 @@
         async function loadFollowCounts(uid) {
             try {
                 const [followers, following] = await Promise.all([
-                    getDocs(query(collection(db, "follows"), where("followingId", "==", uid))),
-                    getDocs(query(collection(db, "follows"), where("followerId", "==", uid)))
+                    getCountFromServer(query(collection(db, "follows"), where("followingId", "==", uid))),
+                    getCountFromServer(query(collection(db, "follows"), where("followerId", "==", uid)))
                 ]);
-                document.getElementById('followerCount').textContent = followers.size;
-                document.getElementById('followingCount').textContent = following.size;
-            } catch (e) { }
+                document.getElementById('followerCount').textContent = followers.data().count;
+                document.getElementById('followingCount').textContent = following.data().count;
+            } catch (e) {
+                console.error("Firestore Follow Count Error:", e);
+            }
         }
 
+        let _followListBusy = false;
         window.showFollowList = async (type) => {
+            if (_followListBusy) return;
+            _followListBusy = true;
+            setTimeout(() => _followListBusy = false, 1500);
+
             if (!userData) return;
             // Privacy guard for visitors
             const isOwner = currentUser && currentUser.uid === targetUid;
             if (!isOwner && userData.publicFollow === false) {
-                return window.showToast("Người dùng này đã ẩn danh sách " + (type === 'followers' ? "người theo dõi" : "đang theo dõi") + "!", "error");
+                return window.showToast("Người dùng này đã ẩn danh sách " + (type === 'followers' ? "người theo dõi" : "đang theo dõi") + "!");
             }
 
             const modal = document.getElementById('modalFollow');
@@ -2256,11 +2265,11 @@
                             const avtURL = data.photoURL || "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
                             const colorClass = data.nameColor ? `name-color-${data.nameColor}` : 'name-color-default';
                             const isListedUserOwner = currentUser && currentUser.uid === u;
-                            const verifiedTag = (data.isTickVerified || (data.restrictedTick && isListedUserOwner)) ? '<span class="material-symbols-rounded verified-badge" style="font-size:16px; margin-left:4px; color:#0084ff; vertical-align:middle; font-variation-settings: \'FILL\' 1;">verified</span>' : '';
+                            const verifiedTag = (data.isTickVerified || (data.restrictedTick && isListedUserOwner)) ? '<span class="material-symbols-rounded verified-badge" style="font-size:16px; margin-left:4px; color:#0ea5e9 !important; vertical-align:middle; font-variation-settings: \'FILL\' 1;">verified</span>' : '';
 
 
                             html += `
-                                <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9; cursor:pointer;" onclick="window.location.href='profile.html?uid=${u}'">
+                                <div style="display: flex; align-items: center; padding: 10px; gap: 12px; border-bottom: 1px solid #f1f5f9; cursor:pointer;" onclick="if(window.top && window.top.openProfilePopup){ window.top.openProfilePopup('${u}'); } else { window.location.href='profile.html?uid=${u}'; }">
                                     <img src="${avtURL}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                                     <div style="flex: 1; text-align: left; font-weight: 600; font-size: 15px;" class="${colorClass}">
                                         ${window.escapeHTML(data.displayName || 'Người dùng')} ${verifiedTag}
@@ -2273,7 +2282,7 @@
                 }
                 listBody.innerHTML = html;
             } catch (err) {
-                console.error(err);
+                console.error("Firestore Follow List Error:", err);
                 listBody.innerHTML = '<div style="padding: 20px; color: #ef4444;">Lỗi tải dữ liệu</div>';
             }
         };
@@ -2320,7 +2329,28 @@
 
 
 
-        async function upload(f) { const d = new FormData(); d.append("image", f); try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch (e) { return ""; } }
+        async function upload(f) {
+            const d = new FormData();
+            d.append("file", f);
+            d.append("upload_preset", UPLOAD_PRESET);
+            try {
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
+                    method: "POST",
+                    body: d
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    console.error("Cloudinary HTTP Error:", res.status, data);
+                    window.showToast("Lỗi tải ảnh (" + res.status + "): " + (data.error ? data.error.message : "Hãy thử lại!"), "❌");
+                    return "";
+                }
+                return data.secure_url || "";
+            } catch (e) {
+                console.error("Cloudinary network failed:", e);
+                window.showToast("Lỗi mạng khi tải ảnh lên!", "❌");
+                return "";
+            }
+        }
 
         // Removed Duplicate Handler
 

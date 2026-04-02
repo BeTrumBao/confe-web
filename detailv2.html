@@ -5,6 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đang tải...</title>
+    <!-- Link Preview & SEO Meta Tags -->
+    <meta name="description"
+        content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
+    <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
+    <meta property="og:description"
+        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="https://confe-web.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Confe">
+    <meta name="twitter:description" content="Mạng xã hội mini Confe">
+    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
     <script type="module" src="security-lock.js"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
@@ -1621,9 +1637,11 @@
         };
     </script>
     <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta name="description"
+        content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
+    <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
+    <meta property="og:description"
+        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -1631,7 +1649,6 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
@@ -1994,9 +2011,8 @@
 
         // CONFIG
         const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const IMG_KEY = "e6c2724ff8344c073410da4876c3d35f";
-
-        // APP INIT
+        const CLOUD_NAME = "dtgeyitj1";
+        const UPLOAD_PRESET = "ml_default";
         const app = initializeApp(cfg);
         const db = getFirestore(app);
 
@@ -2088,6 +2104,8 @@
         window.handleProfileClick = (uid) => {
             if (!uid || uid === 'null' || uid === 'undefined') {
                 window.showToast("Đây là tài khoản ẩn danh!", "️");
+            } else if (window.top && window.top.openProfilePopup) {
+                window.top.openProfilePopup(uid);
             } else {
                 location.href = `profile.html?uid=${uid}&src=detail`;
             }
@@ -2323,6 +2341,26 @@
             }
         }
 
+        async function up(f) {
+            const d = new FormData();
+            d.append("file", f);
+            d.append("upload_preset", UPLOAD_PRESET);
+            try {
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, { method: "POST", body: d });
+                const json = await res.json();
+                if (!res.ok) {
+                    console.error("Cloudinary HTTP Error:", res.status, json);
+                    window.showToast?.("Lỗi tải ảnh (" + res.status + "): " + (json.error ? json.error.message : ""));
+                    return "";
+                }
+                return json.secure_url || "";
+            } catch (e) {
+                console.error("Cloudinary network failed:", e);
+                window.showToast?.("Lỗi kết nối khi tải tệp", "❌");
+                return "";
+            }
+        }
+
         document.getElementById('btnEditTopic').onclick = () => {
             document.getElementById('editTitle').value = topicData.title;
             document.getElementById('editRules').value = topicData.rules;
@@ -2336,10 +2374,6 @@
             document.getElementById('modalEdit').classList.add('active');
         }
 
-        async function up(f) {
-            const d = new FormData(); d.append("image", f);
-            try { return (await (await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d })).json()).data.url; } catch (e) { return ""; }
-        }
 
         // Cropper Functionality
         const openCropper = (file, type) => {

@@ -1069,10 +1069,10 @@
     </script>
     <!-- Link Preview & SEO Meta Tags -->
     <meta name="description"
-        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
+        content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
+    <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
     <meta property="og:description"
-        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -1080,7 +1080,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
+    <meta name="twitter:description" content="Mạng xã hội mini Confe">
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
@@ -1179,7 +1179,7 @@
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
                 <span>Trò chơi</span>
             </div>
-            <div id="navMatchmaking" class="nav-link" onclick="loadPage('matchmaking.html', this)">
+            <div id="navMatchmaking" class="nav-link" onclick="loadPage('matchmaking.html', this)" style="display: none;">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">favorite</span></div>
                 <span>Ghép đôi</span>
             </div>
@@ -1455,7 +1455,7 @@
     </style>
 
     <div class="content-area">
-        <iframe name="contentFrame" id="mainFrame" src="dashboard.html"></iframe>
+        <iframe name="contentFrame" id="mainFrame" src="about:blank"></iframe>
     </div>
 
     <div class="toast-container" id="globalToastContainer"></div>
@@ -1544,51 +1544,46 @@
         </div>
     </div>
 
-    <div id="verifyLevel2Overlay">
-        <div class="verify-v2-card" id="skelVerifyL2Card">
-            <div class="skeleton-v2 skel-v2-icon"></div>
-            <div class="skeleton-v2 skel-v2-title"></div>
-            <div class="skeleton-v2 skel-v2-desc"></div>
-            <div class="skeleton-v2 skel-v2-desc" style="width: 80%;"></div>
-            <div class="skeleton-v2 skel-v2-list"></div>
-            <div class="skeleton-v2 skel-v2-deadline"></div>
-            <div class="skeleton-v2 skel-v2-btn"></div>
-            <div class="skeleton-v2 skel-v2-desc" style="width: 60%; margin: 0 auto;"></div>
-        </div>
 
-        <div class="verify-v2-card" id="mainVerifyL2Card" style="display:none;">
-            <div class="verify-v2-icon">
-                <span class="material-symbols-rounded">gpp_good</span>
-            </div>
-            <h1 class="verify-v2-title">Xác minh tính toàn vẹn của bạn đối với cộng đồng !</h1>
-            <p class="verify-v2-desc">
-                Để tiếp tục sử dụng tính năng Ghép đôi và Cộng đồng, tài khoản của bạn cần có 1 người quen biết xác minh, sau đó được Admin phê duyệt.
-            </p>
-            <ul style="text-align: left; font-size: 13px; color: #64748b; margin-bottom: 28px; padding-left: 20px; line-height: 1.6; font-weight: 600;">
-                <li>Tài khoản người xác minh cần tham gia trên 3 tháng và đã xác minh.</li>
-                <li>Họ chưa xác minh cho ai khác trong 30 ngày qua.</li>
-                <li>Họ không vi phạm tiêu chuẩn cộng đồng hoặc bị khóa tài khoản gần đây.</li>
-            </ul>
-            <div class="verify-v2-deadline" id="l2VerifyProgress" style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">
-                Cần thêm 1 người xác minh
-            </div>
-
-            <div id="l2ActionWrapper">
-                <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
-                    <span class="material-symbols-rounded">content_copy</span>
-                    Sao chép liên kết cấp 2
-                </button>
-                <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
-                    Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
-                </p>
-            </div>
-
-            <button onclick="skipLevel2Verify()"
-                style="margin-top: 32px; background: none; border: none; color: #64748b; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; transition: 0.2s;">
-                Bỏ qua tạm thời (Ẩn một số chức năng)
+    <!-- ===== PROFILE POPUP ===== -->
+    <div id="profilePopupOverlay" onclick="closeProfilePopup()" style="display:none; position:fixed; inset:0; z-index:999990; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center;"></div>
+    <div id="profilePopupSheet" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:999991; background:#fff; border-radius:28px 28px 0 0; box-shadow:0 -20px 60px rgba(0,0,0,0.18); overflow:hidden; max-width:540px; margin:0 auto; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px 0; flex-shrink:0;">
+            <div style="width:40px; height:5px; background:#e2e8f0; border-radius:9999px; margin:0 auto; position:absolute; left:50%; transform:translateX(-50%); top:10px;"></div>
+            <button onclick="closeProfilePopup()" style="margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; padding:8px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+                <span class="material-symbols-rounded" style="font-size:22px;">close</span>
             </button>
         </div>
+        <iframe id="profilePopupFrame" src="about:blank" style="width:100%; height:82vh; border:none; display:block;"></iframe>
     </div>
+
+    <script>
+        window.openProfilePopup = (uid) => {
+            if (!uid) return;
+            const overlay = document.getElementById('profilePopupOverlay');
+            const sheet = document.getElementById('profilePopupSheet');
+            const frame = document.getElementById('profilePopupFrame');
+            frame.src = `profile.html?uid=${uid}&popup=1`;
+            overlay.style.display = 'block';
+            sheet.style.display = 'flex';
+            sheet.style.flexDirection = 'column';
+            sheet.style.transform = 'translateY(100%)';
+            requestAnimationFrame(() => { sheet.style.transform = 'translateY(0)'; });
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeProfilePopup = () => {
+            const overlay = document.getElementById('profilePopupOverlay');
+            const sheet = document.getElementById('profilePopupSheet');
+            const frame = document.getElementById('profilePopupFrame');
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                sheet.style.display = 'none';
+                frame.src = 'about:blank';
+                document.body.style.overflow = '';
+            }, 350);
+        };
+    </script>
 
     <!-- MODALS & POPUPS (DE-NESTED FROM SIDEBAR) -->
     <div id="adPopup" class="ad-popup-overlay"
@@ -1813,44 +1808,54 @@
                 } catch (e) { return null; }
             };
 
-            // 1. Try DB-IP (Permissive)
-            let data = await tryDetailed('https://api.db-ip.com/v2/free/self', d => ({
-                ip: d.ipAddress,
-                detail: `${d.city || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
-            }));
-
-            // 2. Try FreeIPAPI
-            if (!data || !data.ip) {
-                data = await tryDetailed('https://freeipapi.com/api/json', d => ({
+            try {
+                // 1. Try DB-IP (Permissive)
+                let data = await tryDetailed('https://api.db-ip.com/v2/free/self', d => ({
                     ip: d.ipAddress,
-                    detail: `${d.cityName || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+                    detail: `${d.city || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
                 }));
-            }
 
-            if (data && data.ip) {
-                const deviceId = getDeviceId();
-                await updateDoc(doc(db, "users", uid), {
-                    lastIP: data.ip,
-                    lastLocation: data.detail || '',
-                    deviceId: deviceId, // Save deviceId to Firestore
-                    lastSeen: serverTimestamp()
-                });
-                console.log(`[System] User IP & Device updated: ${data.ip} (${deviceId})`);
-            } else {
-                // Final Fallback: ipify (very reliable)
-                try {
-                    const r = await fetch('https://api64.ipify.org?format=json');
-                    const d = await r.json();
-                    if (d.ip) {
-                        const deviceId = getDeviceId();
-                        await updateDoc(doc(db, "users", uid), {
-                            lastIP: d.ip,
-                            deviceId: deviceId,
-                            lastSeen: serverTimestamp()
-                        });
-                        console.log(`[System] User IP & Device updated (IP-only): ${d.ip} (${deviceId})`);
+                // 2. Try FreeIPAPI
+                if (!data || !data.ip) {
+                    data = await tryDetailed('https://freeipapi.com/api/json', d => ({
+                        ip: d.ipAddress,
+                        detail: `${d.cityName || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+                    }));
+                }
+
+                // 3. Final Fallback: ipify
+                if (!data || !data.ip) {
+                    try {
+                        const r = await fetch('https://api64.ipify.org?format=json');
+                        const d = await r.json();
+                        if (d.ip) data = { ip: d.ip, detail: '' };
+                    } catch (e) { }
+                }
+
+                if (data && data.ip) {
+                    const now = Date.now();
+                    const lastUpdate = localStorage.getItem('confe_last_ip_update');
+                    const lastIp = localStorage.getItem('confe_last_ip_val');
+                    
+                    // Throttle: Only update Firestore if IP changed OR it's been > 15 minutes
+                    if (lastIp === data.ip && lastUpdate && (now - parseInt(lastUpdate)) < 15 * 60 * 1000) {
+                        return;
                     }
-                } catch (e) { }
+
+                    const deviceId = getDeviceId();
+                    await updateDoc(doc(db, "users", uid), {
+                        lastIP: data.ip,
+                        lastLocation: data.detail || '',
+                        deviceId: deviceId,
+                        lastSeen: serverTimestamp()
+                    });
+                    
+                    localStorage.setItem('confe_last_ip_update', now.toString());
+                    localStorage.setItem('confe_last_ip_val', data.ip);
+                    console.log(`[System] User IP & Device updated: ${data.ip} (${deviceId})`);
+                }
+            } catch (e) {
+                console.error("updateUserIP Error:", e);
             }
         }
 
@@ -1912,136 +1917,67 @@
 
                             // 2. Kiểm tra xác minh
                             // Fallback to Auth creation time if missing in Firestore
+                            const now = new Date();
                             const rawCreatedAt = data.createdAt || u.metadata.creationTime;
                             const createdAt = (rawCreatedAt && typeof rawCreatedAt.toDate === 'function') ? rawCreatedAt.toDate() : (rawCreatedAt ? new Date(rawCreatedAt) : null);
-
-                            // Bật từ ngày 20/03/2026 (VN time)
                             const startDate = new Date('2026-03-19T17:00:00Z');
-
-                            // Nếu chưa có isVerified thì coi là false
                             const isVerified = data.isVerified === true;
 
-                            console.log("Verification check:", {
-                                uid: u.uid,
-                                rawCreatedAt: rawCreatedAt,
-                                isVerified: isVerified,
-                                startDate: startDate.toISOString(),
-                                isNewUser: createdAt && createdAt >= startDate,
-                                needsVerification: !isVerified
-                            });
+                            // VERIFICATION LOGIC REFACTORED
+                            const navMatch = document.getElementById('navMatchmaking');
+                            const l2Overlay = document.getElementById('verifyLevel2Overlay');
+                            const v1Overlay = document.getElementById('verifyOverlay');
+                            
+                            // 1. Initial State (Locked by default)
+                            if (navMatch) navMatch.style.display = 'none';
+                            if (v1Overlay) v1Overlay.style.display = 'none';
+                            if (l2Overlay) l2Overlay.style.display = 'none';
+                            window.isLevel2Restricted = false;
 
-                            if (createdAt && createdAt >= startDate && !isVerified) {
-                                const now = new Date();
-                                const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+                            const isSkipped = window.isL2Skipped === true;
 
-                                if (diffDays >= 10) {
-                                    // Quá 10 ngày chưa xác minh -> "Xóa" hoặc block vĩnh viễn
-                                    document.getElementById('banReasonText').textContent = "Tài khoản không được xác minh sau 10 ngày.";
-                                    document.getElementById('banUnbanDateText').textContent = "Vĩnh viễn";
-                                    document.getElementById('bannedOverlay').style.display = 'flex';
-                                    // Xóa dữ liệu user (tùy chọn, ở đây chỉ block)
-                                    return;
-                                }
-
-                                // Hiện popup xác minh
-                                document.getElementById('verifyOverlay').style.display = 'flex';
-
-                                // Simulate a brief loading effect to show the skeleton
-                                document.getElementById('skelVerifyOverlayCard').style.display = 'block';
-                                document.getElementById('mainVerifyOverlayCard').style.display = 'none';
-
-                                setTimeout(() => {
-                                    document.getElementById('skelVerifyOverlayCard').style.display = 'none';
-                                    document.getElementById('mainVerifyOverlayCard').style.display = 'block';
-                                }, 800); // 800ms shimmer display for UX consistency
-
-                                document.getElementById('verifyDeadlineText').textContent = `Thời hạn xác minh: Còn ${10 - diffDays} ngày`;
-                                const verifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&utm_source=confe_app&utm_medium=referral&utm_campaign=user_verification&ref=auth_secure`;
-                                window.currentVerifyLink = verifyLink;
-
-                                const frame = document.getElementById('mainFrame');
-                                if (frame) frame.src = 'about:blank';
-                                return;
-                            } else if (isVerified) {
-                                document.getElementById('verifyOverlay').style.display = 'none';
-
-                                // Check Level 2
-                                const now = new Date();
-                                const diffDaysL2 = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
-                                const isL2Skipped = sessionStorage.getItem(`confe_l2_skip_${u.uid}`) === 'true';
-                                
-                                if (diffDaysL2 >= 7 && data.verifiedLevel2 !== true && !isL2Skipped) {
-                                    window.isLevel2Restricted = true;
-                                    // Hide matchmaking
-                                    const navMatch = document.getElementById('navMatchmaking');
-                                    if (navMatch) navMatch.style.display = 'none';
-
-                                    // Show L2 overlay
-                                    const l2Overlay = document.getElementById('verifyLevel2Overlay');
-                                    if (l2Overlay) {
-                                        l2Overlay.style.display = 'flex';
-                                        
-                                        document.getElementById('skelVerifyL2Card').style.display = 'block';
-                                        document.getElementById('mainVerifyL2Card').style.display = 'none';
-
-                                        setTimeout(() => {
-                                            document.getElementById('skelVerifyL2Card').style.display = 'none';
-                                            document.getElementById('mainVerifyL2Card').style.display = 'block';
-                                        }, 800);
-
-                                        const verifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&level=2&utm_source=confe_app&utm_medium=referral&utm_campaign=user_verification&ref=auth_secure2`;
-                                        window.currentVerifyLevel2Link = verifyLink;
-                                        
-                                        const verifierCount = data.level2Verifiers ? data.level2Verifiers.length : 0;
-                                        if (verifierCount >= 1) {
-                                            if (data.level2ApprovalRequested) {
-                                                document.getElementById('l2VerifyProgress').textContent = `Đang chờ Admin duyệt...`;
-                                                document.getElementById('l2VerifyProgress').style.background = '#fef3c7';
-                                                document.getElementById('l2VerifyProgress').style.color = '#b45309';
-                                                document.getElementById('l2VerifyProgress').style.borderColor = '#fde68a';
-                                                document.getElementById('l2ActionWrapper').innerHTML = '<p style="font-size: 13px; color: #64748b; margin-top: 16px; font-weight: 600; text-align: center;">Yêu cầu của bạn đang được xét duyệt.<br>Vui lòng chờ nhé!</p>';
-                                            } else {
-                                                document.getElementById('l2VerifyProgress').textContent = `Đã đủ 1 người xác minh`;
-                                                document.getElementById('l2VerifyProgress').style.background = '#dcfce7';
-                                                document.getElementById('l2VerifyProgress').style.color = '#166534';
-                                                document.getElementById('l2VerifyProgress').style.borderColor = '#bbf7d0';
-                                                document.getElementById('l2ActionWrapper').innerHTML = `
-                                                    <button class="btn-verify-v2" onclick="requestLevel2Approval()" style="background:var(--primary); color:white; border:none; margin-top:16px;">
-                                                        <span class="material-symbols-rounded">send</span> Gửi yêu cầu duyệt
-                                                    </button>
-                                                `;
-                                            }
-                                        } else {
-                                            document.getElementById('l2VerifyProgress').textContent = `Cần thêm 1 người xác minh`;
-                                            document.getElementById('l2ActionWrapper').innerHTML = `
-                                                <button class="btn-verify-v2" onclick="copyVerifyLevel2Link()">
-                                                    <span class="material-symbols-rounded">content_copy</span> Sao chép liên kết cấp 2
-                                                </button>
-                                                <p style="font-size: 12px; color: #94a3b8; margin-top: 24px; font-weight: 600;">
-                                                    Bạn hiện không thể sử dụng Matchmaking và Cộng đồng cho đến khi hoàn tất!
-                                                </p>
-                                            `;
-                                        }
+                            if (!isVerified && !u.isAnonymous) {
+                                // Level 1 Required
+                                if (createdAt && createdAt >= startDate) {
+                                    const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+                                    if (diffDays >= 10) {
+                                        document.getElementById('banReasonText').textContent = "Tài khoản không được xác minh sau 10 ngày.";
+                                        document.getElementById('banUnbanDateText').textContent = "Vĩnh viễn";
+                                        document.getElementById('bannedOverlay').style.display = 'flex';
+                                        return;
                                     }
+                                    v1Overlay.style.display = 'flex';
+                                    document.getElementById('verifyDeadlineText').textContent = `Thời hạn xác minh: Còn ${10 - diffDays} ngày`;
+                                    window.currentVerifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&utm_source=confe_app&ref=auth_secure`;
+                                    
+                                    // Skeleton logic
+                                    document.getElementById('skelVerifyOverlayCard').style.display = 'block';
+                                    document.getElementById('mainVerifyOverlayCard').style.display = 'none';
+                                    setTimeout(() => {
+                                        if (document.getElementById('skelVerifyOverlayCard')) document.getElementById('skelVerifyOverlayCard').style.display = 'none';
+                                        if (document.getElementById('mainVerifyOverlayCard')) document.getElementById('mainVerifyOverlayCard').style.display = 'block';
+                                    }, 800);
+                                    
+                                    const frame = document.getElementById('mainFrame');
+                                    if (frame) frame.src = 'about:blank';
                                 } else {
-                                    window.isLevel2Restricted = false;
-                                    const navMatch = document.getElementById('navMatchmaking');
+                                    // Old user before March 19, bypass Level 1
                                     if (navMatch) navMatch.style.display = 'flex';
-
-                                    const l2Overlay = document.getElementById('verifyLevel2Overlay');
-                                    if (l2Overlay) l2Overlay.style.display = 'none';
                                 }
-
-                                const frame = document.getElementById('mainFrame');
-                                if (frame && frame.src.includes('about:blank')) {
-                                    frame.src = 'dashboard.html';
-                                }
+                            } else if (isVerified) {
+                                if (navMatch) navMatch.style.display = 'flex';
                             } else {
-                                document.getElementById('verifyOverlay').style.display = 'none';
-                                const frame = document.getElementById('mainFrame');
-                                if (frame && frame.src.includes('about:blank')) {
-                                    frame.src = 'dashboard.html';
-                                }
+                                // Default for anyone else (Anonymous, Level 0, Old users)
+                                // KEEP HIDDEN (navMatch remains none from line 1927)
+                            }
+
+                            // Auto-load dashboard if everything is clear
+                            const frame = document.getElementById('mainFrame');
+                            const isV1Visible = (v1Overlay && v1Overlay.style.display === 'flex');
+                            const isL2Visible = (l2Overlay && l2Overlay.style.display === 'flex');
+                            
+                            if (frame && frame.src.includes('about:blank') && !isV1Visible && !isL2Visible) {
+                                frame.src = 'dashboard.html';
                             }
                         }
                     });
@@ -2444,52 +2380,7 @@
             });
         }
 
-        window.copyVerifyLevel2Link = () => {
-            const link = window.currentVerifyLevel2Link;
-            if (!link) return;
-            navigator.clipboard.writeText(link).then(() => {
-                window.showToast("Đã sao chép liên kết xác minh tính toàn vẹn của bạn đối với cộng đồng !!");
-            });
-        }
 
-        window.skipLevel2Verify = () => {
-            const uid = localStorage.getItem('confe_current_uid');
-            if (uid) {
-                sessionStorage.setItem(`confe_l2_skip_${uid}`, 'true');
-            }
-            const overlay = document.getElementById('verifyLevel2Overlay');
-            if (overlay) overlay.style.display = 'none';
-            window.showToast("Đã tạm thời ẩn. Một số chức năng sẽ bị hạn chế.");
-        }
-
-        window.requestLevel2Approval = async () => {
-            const uid = localStorage.getItem('confe_current_uid');
-            if (!uid) return;
-            const btn = document.querySelector('#l2ActionWrapper button');
-            if (btn) { btn.disabled = true; btn.textContent = 'Đang gửi...'; }
-            try {
-                const db = window._fbDb;
-                const addDoc = window._fbAddDoc;
-                const collection = window._fbCollection;
-                const doc = window._fbDoc;
-                const updateDoc = window._fbUpdateDoc;
-                const serverTimestamp = window._fbServerTimestamp;
-                await addDoc(collection(db, "requests"), {
-                    type: 'level2_verify',
-                    uid: uid,
-                    status: 'pending',
-                    createdAt: serverTimestamp()
-                });
-                await updateDoc(doc(db, "users", uid), {
-                    level2ApprovalRequested: true
-                });
-                window.showToast("Đã gửi yêu cầu phê duyệt! Vui lòng chờ Admin xem xét.");
-            } catch (e) {
-                window.showToast("Lỗi khi gửi yêu cầu. Vui lòng thử lại sau.");
-                console.error(e);
-                if (btn) { btn.disabled = false; btn.textContent = 'Gửi yêu cầu duyệt'; }
-            }
-        }
 
         window.copyDbgField = (spanId) => {
             const el = document.getElementById(spanId);
@@ -2502,10 +2393,6 @@
         let isHandlingHashChange = false;
 
         window.loadPage = function (url, el, pushHash = true) {
-            if (url === 'matchmaking.html' && window.isLevel2Restricted) {
-                window.showToast("Bạn cần hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng ! để vào Ghép đôi.");
-                return;
-            }
 
             if (url === 'chat.html' && window.innerWidth > 768) {
                 window.location.href = url;
@@ -2654,6 +2541,29 @@
                 hiểu</button>
         </div>
     </div>
+
+    <!-- Level 1 Verification Overlay -->
+    <div id="verifyOverlay" class="verify-overlay" style="display: none; align-items: center; justify-content: center; z-index: 1000000; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);">
+        <div id="skelVerifyOverlayCard" style="width: 400px; padding: 32px; background: white; border-radius: 28px;">
+            <div class="skeleton" style="height: 32px; width: 60%; margin-bottom: 24px;"></div>
+            <div class="skeleton" style="height: 16px; width: 100%; margin-bottom: 12px;"></div>
+            <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 32px;"></div>
+            <div class="skeleton" style="height: 52px; width: 100%; border-radius: 16px;"></div>
+        </div>
+        <div id="mainVerifyOverlayCard" style="display: none; width: 100%; max-width: 420px; padding: 40px; background: white; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
+            <div style="width: 80px; height: 80px; background: #eff6ff; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: #2563eb;">
+                <span class="material-symbols-rounded" style="font-size: 48px;">verified_user</span>
+            </div>
+            <h2 style="font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.5px;">Xác minh danh tính</h2>
+            <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 32px;">Hệ thống yêu cầu bạn xác minh tài khoản để tham gia vào cộng đồng. Quá trình này giúp bảo vệ bạn và mọi người.</p>
+            <div id="verifyDeadlineText" style="padding: 12px; background: #fee2e2; color: #b91c1c; border-radius: 12px; font-weight: 700; font-size: 14px; margin-bottom: 32px;"></div>
+            <button onclick="window.open(window.currentVerifyLink, '_blank')" style="width: 100%; padding: 18px; background: #2563eb; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                Tiến hành xác minh <span class="material-symbols-rounded">arrow_forward</span>
+            </button>
+            <p style="margin-top: 24px; font-size: 13px; color: #94a3b8;">Sau khi hoàn thành, vui lòng tải lại trang bài viết.</p>
+        </div>
+    </div>
+
 
 </body>
 

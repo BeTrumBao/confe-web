@@ -13,7 +13,7 @@
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script>window.showToast=function(msg,d){d=d||2500;try{if(window.self!==window.top&&typeof window.top.showToast==='function'){window.top.showToast(msg,d);return;}}catch(e){}var b=document.body||document.documentElement;if(!b)return;var t=document.createElement('div');t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;';t.textContent=msg;b.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)';});setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(8px)';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},400);},d);};</script>
+    <script>window.showToast = (function() { let lastMsg = ""; let lastTime = 0; return function (msg, d) { const now = Date.now(); if (msg === lastMsg && now - lastTime < 2000) return; lastMsg = msg; lastTime = now; d = d || 2500; try { if (window.self !== window.top && typeof window.top.showToast === 'function') { window.top.showToast(msg, d); return; } } catch (e) { } var b = document.body || document.documentElement; if (!b) return; var exist = document.querySelector('.toast-msg-item'); if (exist) exist.remove(); var t = document.createElement('div'); t.className = 'toast-msg-item'; t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(10px);background:rgba(15,23,42,0.92);color:#fff;padding:12px 24px;border-radius:50px;z-index:999999;font-size:14px;font-family:"Be Vietnam Pro",sans-serif;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transition:opacity .35s,transform .35s;opacity:0;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;'; t.textContent = msg; b.appendChild(t); requestAnimationFrame(function () { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; }); setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(8px)'; setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400); }, d); }; })();</script>
     <style>
         :root {
             --primary: #0057db;
@@ -1710,34 +1710,60 @@
             padding: 16px;
             margin-bottom: 16px;
             border: 1px solid var(--surface-variant);
-            animation: sk-pulse 2s infinite ease-in-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
         }
 
         .skeleton-item {
-            background: #f1f5f9;
-            background: linear-gradient(90deg, 
-                var(--surface-container) 25%, 
-                #f8fafc 50%, 
-                var(--surface-container) 75%
-            );
-            background-size: 200% 100%;
-            animation: sk-shimmer 2s infinite linear;
+            background-color: #f1f5f9;
             border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton-item::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background-image: linear-gradient(
+                90deg, 
+                rgba(255, 255, 255, 0) 0, 
+                rgba(255, 255, 255, 0.6) 20%, 
+                rgba(255, 255, 255, 0.9) 50%, 
+                rgba(255, 255, 255, 0.6) 80%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: sk-shimmer 1.5s infinite linear;
         }
 
         @keyframes sk-shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            100% {
+                transform: translateX(100%);
+            }
         }
 
-        @keyframes sk-pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.995); opacity: 0.85; }
+        .sk-avt {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
         }
 
-        .sk-avt { width: 48px; height: 48px; border-radius: 50%; }
-        .sk-line { height: 12px; margin-bottom: 10px; }
-        .sk-img { width: 100%; height: 220px; border-radius: 16px; margin-top: 12px; }
+        .sk-line {
+            height: 12px;
+            margin-bottom: 10px;
+        }
+
+        .sk-img {
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            margin-top: 12px;
+        }
 
         /* IMAGE PREVIEW MODAL */
         .modal-img {
@@ -1868,7 +1894,6 @@
             transform: rotate(90deg);
         }
     </style>
-    <!-- Security Enhancements -->
     <script>
         window.escapeHTML = function (str) {
             if (!str) return '';
@@ -1883,20 +1908,6 @@
             });
         };
     </script>
-    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -1930,7 +1941,7 @@
                 <button class="compose-img-btn" onclick="document.getElementById('fPostImg').click()" title="Thêm ảnh">
                     <span class="material-symbols-rounded">add_photo_alternate</span>
                 </button>
-                <input type="file" id="fPostImg" hidden accept="image/*" multiple>
+                <input type="file" id="fPostImg" hidden accept="image/*,video/*" multiple>
             </div>
 
             <!-- Feed list -->
@@ -1945,7 +1956,7 @@
                     </div>
                     <div class="skeleton-item sk-line" style="width:90%;"></div>
                     <div class="skeleton-item sk-line" style="width:75%;"></div>
-                    <div class="skeleton-item sk-img"></div>
+                    <div class="skeleton-item sk-img" style="height:220px;"></div>
                 </div>
                 <div class="skeleton-card">
                     <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
@@ -1957,6 +1968,17 @@
                     </div>
                     <div class="skeleton-item sk-line" style="width:85%;"></div>
                     <div class="skeleton-item sk-img" style="height:150px;"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
+                        <div class="skeleton-item sk-avt"></div>
+                        <div style="flex:1">
+                            <div class="skeleton-item sk-line" style="width:45%; height:14px;"></div>
+                            <div class="skeleton-item sk-line" style="width:25%; height:10px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-item sk-line" style="width:60%;"></div>
+                    <div class="skeleton-item sk-line" style="width:80%;"></div>
                 </div>
             </div>
             <div id="feedList"></div>
@@ -1981,18 +2003,18 @@
             </div>
 
             <!-- IMAGE GALLERY MODAL -->
-            <div id="modalImg" class="modal-img">
-                <button class="close-img" onclick="document.getElementById('modalImg').classList.remove('active')">
+            <div id="modalImg" class="modal-img" onclick="closeGallery()">
+                <button class="close-img" onclick="closeGallery()">
                     <span class="material-symbols-rounded">close</span>
                 </button>
                 <div class="full-img-container">
                     <button class="gallery-nav prev" id="galleryPrev"><span
                             class="material-symbols-rounded">chevron_left</span></button>
-                    <img id="fullImg" class="full-img">
-                    <button class="gallery-nav next" id="galleryNext"><span
+                    <img id="fullImg" class="full-img" onclick="event.stopPropagation()">
+                    <button class="gallery-nav next" id="galleryNext" onclick="event.stopPropagation()"><span
                             class="material-symbols-rounded">chevron_right</span></button>
                 </div>
-                <div id="galleryThumbs" class="gallery-thumbs"></div>
+                <div id="galleryThumbs" class="gallery-thumbs" onclick="event.stopPropagation()"></div>
             </div>
         </div>
     </div>
@@ -2134,7 +2156,7 @@
                 </label>
                 <label class="post-opt-chip">
                     <input type="checkbox" id="chkAnon"
-                        onchange="this.parentElement.classList.toggle('active', this.checked)">
+                        onchange="this.parentElement.classList.toggle('active', this.checked); window.updateModalAnonymousUI();">
                     <span class="material-symbols-rounded" style="font-size:18px;">person_off</span> Ẩn danh
                 </label>
             </div>
@@ -2179,7 +2201,7 @@
                 <label for="fCmtImg" style="cursor:pointer; color:var(--primary); display:flex; align-items:center;">
                     <span class="material-symbols-rounded" style="font-size:24px;">image</span>
                 </label>
-                <input type="file" id="fCmtImg" accept="image/*" multiple hidden>
+                <input type="file" id="fCmtImg" accept="image/*,video/*" multiple hidden>
                 <input type="text" id="allCmtsInput" class="feed-cmt-input" placeholder="Viết bình luận...">
                 <button class="feed-cmt-send" onclick="sendAllCmtsComment()">
                     <span class="material-symbols-rounded" style="font-size:16px;">send</span>
@@ -2266,62 +2288,60 @@
                 fullImg.src = galleryImages[galleryIndex];
             }
             renderGallery();
+        };
 
-            // Background fetch full feed history to allow swiping through all posts
-            try {
-                // Fetch last 100 posts and filter by tid in JS to avoid composite index requirements
-                const q = query(collection(db, "posts"), orderBy("createdAt"), limitToLast(100));
-                const snap = await getDocs(q);
-                // Filter by tid and type === 'image'
-                const filteredDocs = snap.docs.filter(d => d.data().tid === 'home' && d.data().type === 'image');
-                const sortedDocs = filteredDocs.sort((a, b) => {
-                    const timeB = b.data().createdAt ? b.data().createdAt.toMillis() : 0;
-                    const timeA = a.data().createdAt ? a.data().createdAt.toMillis() : 0;
-                    return timeB - timeA;
-                });
-
-                let allFeedImgs = [];
-                sortedDocs.forEach(d => {
-                    const data = d.data();
-                    const pImgs = data.images || (data.image ? [data.image] : []);
-                    allFeedImgs = [...allFeedImgs, ...pImgs];
-                });
-
-                if (allFeedImgs.length > 0) {
-                    const targetImg = initialImgs[index || 0];
-                    // Ensure allFeedImgs contains the targetImg and deduplicate
-                    const set = new Set(allFeedImgs);
-                    initialImgs.forEach(ui => set.add(ui));
-                    const finalImgs = Array.from(set);
-
-                    // The order should ideally be chronological, but let's just make sure 
-                    // the target image is at the right index if we can find it.
-                    galleryImages = finalImgs;
-                    galleryIndex = finalImgs.indexOf(targetImg);
-                    if (galleryIndex === -1) galleryIndex = 0;
-
-                    renderGallery();
-                }
-            } catch (err) {
-                console.error("Home gallery history fetch error:", err);
+        window.closeGallery = () => {
+            const modal = document.getElementById('modalImg');
+            if (!modal) return;
+            modal.classList.remove('active');
+            const fullImg = document.getElementById('fullImg');
+            if (fullImg && fullImg.tagName === 'VIDEO') {
+                fullImg.pause();
+                fullImg.src = "";
+                fullImg.load();
             }
         };
         function renderGallery() {
-            const fullImg = document.getElementById('fullImg');
             const thumbContainer = document.getElementById('galleryThumbs');
             const prevBtn = document.getElementById('galleryPrev');
             const nextBtn = document.getElementById('galleryNext');
-            if (!fullImg || !galleryImages.length) return;
-            fullImg.src = galleryImages[galleryIndex];
+            const currentSrc = galleryImages[galleryIndex];
+            if (!currentSrc) return;
+
+            // Better video detection (Cloudinary adds /video/ in path or .mp4 extension)
+            const isVideo = currentSrc.match(/\.(mp4|mov|webm|ogg|m4v)($|\?)/i) || currentSrc.includes('/video/upload/');
+
+            let fullImg = document.getElementById('fullImg');
+            if (isVideo) {
+                if (fullImg.tagName !== 'VIDEO') {
+                    fullImg.outerHTML = `<video id="fullImg" controls autoplay playsinline style="max-width:100%; max-height:80vh; border-radius:12px;"></video>`;
+                    fullImg = document.getElementById('fullImg');
+                }
+            } else {
+                if (fullImg.tagName !== 'IMG') {
+                    fullImg.outerHTML = `<img id="fullImg" style="max-width:100%; max-height:80vh; object-fit:contain; border-radius:12px;">`;
+                    fullImg = document.getElementById('fullImg');
+                }
+            }
+
+            if (fullImg.src !== currentSrc) {
+                fullImg.src = currentSrc;
+                if (isVideo) fullImg.load();
+            }
             if (galleryImages.length > 1) {
                 thumbContainer.style.display = 'flex';
                 thumbContainer.innerHTML = '';
                 galleryImages.forEach((src, i) => {
-                    const thumb = document.createElement('img');
-                    thumb.src = src;
-                    thumb.className = `gallery-thumb-item ${i === galleryIndex ? 'active' : ''}`;
-                    thumb.onclick = (e) => { e.stopPropagation(); galleryIndex = i; renderGallery(); };
-                    thumbContainer.appendChild(thumb);
+                    const isVid = src.match(/\.(mp4|mov|webm|ogg|m4v)($|\?)/i) || src.includes('/video/upload/');
+                    const item = document.createElement('div');
+                    item.className = `gallery-thumb-item ${i === galleryIndex ? 'active' : ''}`;
+                    if (isVid) {
+                        item.innerHTML = `<video src="${src}" style="width:100%; height:100%; object-fit:cover;"></video>`;
+                    } else {
+                        item.innerHTML = `<img src="${src}" style="width:100%; height:100%; object-fit:cover;">`;
+                    }
+                    item.onclick = (e) => { e.stopPropagation(); galleryIndex = i; renderGallery(); };
+                    thumbContainer.appendChild(item);
                 });
                 prevBtn.style.display = 'flex';
                 nextBtn.style.display = 'flex';
@@ -2475,6 +2495,8 @@
         })();
 
 
+
+
         // ========== FEED (Đăng Bài) LOGIC ==========
         const ANON_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
         const MISSING_AVATAR = "https://www.galeriemichael.com/wp-content/uploads/2025/07/anh-meme-meo-cuoi.jpg";
@@ -2482,6 +2504,49 @@
         window.escapeHTML = (str) => {
             if (!str) return '';
             return String(str).replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": "&#39;", '"': '&quot;' }[t]));
+        };
+
+        window.generatePseudoName = (name, uid) => {
+            if (!name) return "Ẩn danh";
+            if (name.length <= 2) return name + "...";
+            
+            let seed = 0x811c9dc5;
+            if (uid) {
+                for (let i = 0; i < uid.length; i++) {
+                    seed ^= uid.charCodeAt(i);
+                    seed += (seed << 1) + (seed << 4) + (seed << 7) + (seed << 8) + (seed << 24);
+                }
+            } else {
+                seed = Math.floor(Math.random() * 1000000);
+            }
+            seed = seed >>> 0;
+            
+            const seededRandom = () => {
+                seed = (seed * 9301 + 49297) % 233280;
+                return seed / 233280;
+            };
+
+            let chars = name.split('');
+            const first = chars.shift();
+            const last = chars.pop();
+            
+            // Shuffle middle using seeded random
+            for (let i = chars.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom() * (i + 1));
+                [chars[i], chars[j]] = [chars[j], chars[i]];
+            }
+            
+            // Reconstruct with noise
+            let result = [first];
+            const noise = ['.', '*', '_', '~'];
+            chars.forEach((c, i) => {
+                result.push(c);
+                if (i % 2 === 0) {
+                    result.push(noise[Math.floor(seededRandom() * noise.length)]);
+                }
+            });
+            result.push(last);
+            return result.join('');
         };
 
         const selectedCommentFiles = {}; // { pid: [File, File, ...] }
@@ -2643,7 +2708,8 @@
         const userReactions = {};
         const userProfilesCache = {};
 
-        async function getLatestUserInfo(uid, fallbackName, fallbackAvt) {
+        async function getLatestUserInfo(uid, fallbackName, fallbackAvt, isAnonymous = false) {
+            if (isAnonymous) return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false, badge: null };
             if (!uid) return { name: fallbackName, avt: fallbackAvt, color: 'default', verified: false, badge: null };
             if (userProfilesCache[uid]) return userProfilesCache[uid];
             try {
@@ -2672,6 +2738,23 @@
             const modal = document.getElementById('modalPost');
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 1);
+
+            editingPostId = null;
+            editingPostExistingImg = "";
+            editingPostExistingImages = [];
+            selectedPostFiles = [];
+            document.getElementById('postContent').value = "";
+            document.getElementById('modalPostTitle').textContent = "Tạo bài viết";
+            document.getElementById('btnDeletePostInModal').style.display = 'none';
+
+            const chkAnon = document.getElementById('chkAnon');
+            if (chkAnon) {
+                chkAnon.checked = false;
+                chkAnon.parentElement.classList.remove('active');
+            }
+            window.updateModalAnonymousUI();
+
+            renderPostPreview();
         };
 
         window.closePostModal = async (force = false) => {
@@ -2720,7 +2803,19 @@
         let editingPostId = null;
         let editingPostExistingImg = "";
         let editingPostExistingImages = [];
-        window.openEditFeedPost = (pid, content, img, images = []) => {
+        window.updateModalAnonymousUI = () => {
+            const chk = document.getElementById('chkAnon');
+            const isAnon = chk ? chk.checked : false;
+            const originalAuthor = userData ? (userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới')) : 'Tác giả';
+            
+            const nameEl = document.getElementById('postModalName');
+            if (nameEl) nameEl.textContent = isAnon ? window.generatePseudoName(originalAuthor, user ? user.uid : null) : originalAuthor;
+            
+            const avtEl = document.getElementById('postModalAvt');
+            if (avtEl) avtEl.src = isAnon ? ANON_AVATAR : (userData ? (userData.photoURL || MISSING_AVATAR) : MISSING_AVATAR);
+        };
+
+        window.openEditFeedPost = (pid, content, img, images = [], isAnonymous = false) => {
             editingPostId = pid;
             editingPostExistingImg = img || "";
             editingPostExistingImages = images || [];
@@ -2729,6 +2824,13 @@
             const modal = document.getElementById('modalPost');
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 1);
+
+            const chkAnon = document.getElementById('chkAnon');
+            if (chkAnon) {
+                chkAnon.checked = isAnonymous;
+                chkAnon.parentElement.classList.toggle('active', isAnonymous);
+            }
+            window.updateModalAnonymousUI();
 
             document.getElementById('modalPostTitle').textContent = "Chỉnh sửa bài viết";
             document.getElementById('postContent').value = content;
@@ -2754,15 +2856,28 @@
             container.innerHTML = '';
             const allImages = [
                 ...editingPostExistingImages.map((src, i) => ({ src, index: i, isExisting: true })),
-                ...selectedPostFiles.map((file, i) => ({ src: URL.createObjectURL(file), index: i, isExisting: false }))
+                ...selectedPostFiles.map((file, i) => ({
+                    src: URL.createObjectURL(file),
+                    index: i,
+                    isExisting: false,
+                    type: file.type
+                }))
             ];
 
             if (allImages.length > 0) {
                 allImages.forEach(img => {
                     const item = document.createElement('div');
                     item.className = 'preview-item';
+                    const isVideo = img.type && img.type.startsWith('video/');
                     item.innerHTML = `
-                        <img src="${img.src}">
+                        ${isVideo ? `
+                            <div style="position:relative; width:100%; height:100%;">
+                                <video src="${img.src}" style="width:100%; height:100%; object-fit:cover;"></video>
+                                <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:white; background:rgba(0,0,0,0.2); pointer-events:none;">
+                                    <span class="material-symbols-rounded" style="font-size:24px;">play_circle</span>
+                                </div>
+                            </div>
+                        ` : `<img src="${img.src}">`}
                         <div class="preview-item-close" onclick="removePostImg(${img.index}, ${img.isExisting})">×</div>
                     `;
                     container.appendChild(item);
@@ -2860,7 +2975,6 @@
             document.getElementById('allCmtsAvt').src = avt;
         }
 
-
         // Submit post
         document.getElementById('btnSubmitPost').onclick = async function () {
             if (!user) return window.showToast("Đăng nhập để đăng bài!");
@@ -2871,21 +2985,26 @@
             this.disabled = true;
 
             try {
-                const uploadTasks = selectedPostFiles.map(f => uploadImg(f));
+                const uploadTasks = selectedPostFiles.map(f => uploadMedia(f));
                 const newUrls = (await Promise.all(uploadTasks)).filter(u => !!u);
                 const finalImages = [...editingPostExistingImages, ...newUrls];
                 const finalImg = finalImages[0] || "";
+
+                const isAnon = document.getElementById('chkAnon').checked;
+                const originalAuthor = userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới');
+                const authorName = isAnon ? window.generatePseudoName(originalAuthor, user.uid) : originalAuthor;
 
                 if (editingPostId) {
                     await updateDoc(doc(db, "posts", editingPostId), {
                         content: txt,
                         image: finalImg,
                         images: finalImages,
+                        isAnonymous: isAnon,
+                        author: authorName,
                         updatedAt: serverTimestamp()
                     });
                     window.showToast("Đã cập nhật bài viết!");
                 } else {
-                    const isAnon = document.getElementById('chkAnon').checked;
                     const blurImgEl = document.getElementById('chkBlurImg');
                     const blurImage = blurImgEl ? blurImgEl.checked : false;
 
@@ -2895,8 +3014,9 @@
                         image: finalImg,
                         images: finalImages,
                         blurImage: blurImage && finalImages.length > 0,
-                        author: isAnon ? "Ẩn danh" : (userData.displayName || (user.email ? user.email.split('@')[0] : 'Cư dân mới')),
-                        authorUid: isAnon ? null : user.uid,
+                        isAnonymous: isAnon,
+                        author: authorName,
+                        authorUid: user.uid,
                         authorAvatar: isAnon ? ANON_AVATAR : (userData.photoURL || MISSING_AVATAR),
                         createdAt: serverTimestamp(),
                         reactions: { heart: 0, sad: 0, laugh: 0 },
@@ -2917,19 +3037,23 @@
             }
         };
 
-        async function uploadImg(file) {
-            const d = new FormData(); d.append("image", file);
+        const CLOUDINARY_CLOUD_NAME = "dtgeyitj1";
+        const CLOUDINARY_UPLOAD_PRESET = "ml_default";
+        async function uploadMedia(file) {
+            const d = new FormData();
+            d.append("file", file);
+            d.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMG_KEY}`, { method: "POST", body: d });
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, { method: "POST", body: d });
+                const json = await res.json();
                 if (!res.ok) {
-                    const errTxt = await res.text();
-                    console.error("ImgBB Upload Error:", errTxt);
+                    console.error("Cloudinary HTTP Error:", res.status, json);
+                    window.showToast?.("Lỗi tải tệp (" + res.status + "): " + (json.error ? json.error.message : "Hãy thử lại!"));
                     return "";
                 }
-                const json = await res.json();
-                return (json.data ? json.data.url : "");
+                return json.secure_url || "";
             } catch (err) {
-                console.error("Upload Catch Error:", err);
+                console.error("Upload network Error:", err);
                 return "";
             }
         }
@@ -3035,7 +3159,11 @@
         window.handleProfileClick = (uid) => {
             if (!uid || uid === 'null' || uid === 'undefined') return window.showToast("Người dùng ẩn danh");
             if (user && user.isAnonymous) return window.showToast("Vui lòng đăng ký để xem profile & theo dõi");
-            window.location.href = `profile.html?uid=${uid}`;
+            if (window.top && window.top.openProfilePopup) {
+                window.top.openProfilePopup(uid);
+            } else {
+                window.location.href = `profile.html?uid=${uid}`;
+            }
         };
 
         let postAuthorUid = null;
@@ -3232,7 +3360,7 @@
             inp.value = '';
             clearCmtImage();
 
-            const uploadTasks = filesToUpload.map(f => uploadImg(f));
+            const uploadTasks = filesToUpload.map(f => uploadMedia(f));
             const imgUrls = (await Promise.all(uploadTasks)).filter(url => !!url);
 
             const payload = {
@@ -3264,7 +3392,7 @@
             if (selectedCommentFiles[pid]) delete selectedCommentFiles[pid];
             renderCommentPreview(pid);
 
-            const uploadTasks = filesToUpload.map(f => uploadImg(f));
+            const uploadTasks = filesToUpload.map(f => uploadMedia(f));
             const imgUrls = (await Promise.all(uploadTasks)).filter(url => !!url);
 
             await addDoc(collection(db, "comments"), {
@@ -3287,7 +3415,7 @@
             const sk = document.getElementById('feedSkeleton');
 
             if (sk) {
-                sk.innerHTML = Array(3).fill(0).map(() => `
+                sk.innerHTML = `
                     <div class="skeleton-card">
                         <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
                             <div class="skeleton-item sk-avt"></div>
@@ -3298,9 +3426,31 @@
                         </div>
                         <div class="skeleton-item sk-line" style="width:90%;"></div>
                         <div class="skeleton-item sk-line" style="width:75%;"></div>
-                        <div class="skeleton-item sk-img"></div>
+                        <div class="skeleton-item sk-img" style="height:220px;"></div>
                     </div>
-                `).join('');
+                    <div class="skeleton-card">
+                        <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
+                            <div class="skeleton-item sk-avt"></div>
+                            <div style="flex:1">
+                                <div class="skeleton-item sk-line" style="width:30%; height:14px;"></div>
+                                <div class="skeleton-item sk-line" style="width:15%; height:10px;"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-item sk-line" style="width:85%;"></div>
+                        <div class="skeleton-item sk-img" style="height:150px;"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div style="display:flex; gap:12px; margin-bottom:15px; align-items:center;">
+                            <div class="skeleton-item sk-avt"></div>
+                            <div style="flex:1">
+                                <div class="skeleton-item sk-line" style="width:45%; height:14px;"></div>
+                                <div class="skeleton-item sk-line" style="width:25%; height:10px;"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-item sk-line" style="width:60%;"></div>
+                        <div class="skeleton-item sk-line" style="width:80%;"></div>
+                    </div>
+                `;
                 sk.style.display = 'block';
             }
             list.innerHTML = '';
@@ -3308,7 +3458,7 @@
             feedUnsub = onSnapshot(
                 query(collection(db, "posts"), where("tid", "==", "home"), orderBy("createdAt", "desc")),
                 async (snap) => {
-                    if (sk) sk.style.display = 'none';
+                    setTimeout(() => { if (sk) sk.style.display = 'none'; }, 800);
                     if (snap.empty) { list.innerHTML = ''; empty.style.display = 'block'; return; }
                     empty.style.display = 'none';
 
@@ -3363,7 +3513,7 @@
         }
 
         async function renderFeedPost(p) {
-            const info = await getLatestUserInfo(p.authorUid, p.author, p.authorAvatar);
+            const info = await getLatestUserInfo(p.authorUid, p.author, p.authorAvatar, p.isAnonymous);
 
             // Badge lookup
             let badgeHtml = '';
@@ -3374,7 +3524,7 @@
                         const b = bSnap.data();
                         badgeHtml = `<span style="font-size:18px; margin-left:4px; vertical-align:middle;" title="${b.name}">${b.icon || '🏅'}</span>`;
                     }
-                } catch(e) { /* badge load failed, skip */ }
+                } catch (e) { /* badge load failed, skip */ }
             }
 
             let imgHtml = "";
@@ -3383,32 +3533,48 @@
                 const count = Math.min(imgs.length, 4);
                 const blurStyle = p.blurImage ? 'filter: blur(25px); transition: filter 0.3s;' : '';
 
-                imgHtml = `<div class="post-images-grid" data-count="${count}" style="${p.blurImage ? 'cursor:pointer;' : ''}" onclick="if(this.classList.contains('is-blurred-grid')) { this.classList.remove('is-blurred-grid'); Array.from(this.querySelectorAll('.post-img-item')).forEach(i=>i.style.filter='none'); event.stopPropagation(); }">`;
+                imgHtml = `<div class="post-images-grid" data-count="${count}" style="${p.blurImage ? 'cursor:pointer;' : ''}" onclick="if(this.classList.contains('is-blurred-grid')) { this.classList.remove('is-blurred-grid'); Array.from(this.querySelectorAll('.post-img-item, .post-video-item')).forEach(i=>i.style.filter='none'); event.stopPropagation(); }">`;
                 if (p.blurImage) imgHtml = imgHtml.replace('post-images-grid"', 'post-images-grid is-blurred-grid"');
 
                 const imgsJson = JSON.stringify(imgs).replace(/'/g, "&apos;");
                 imgs.slice(0, 4).forEach((img, i) => {
                     const isMore = i === 3 && imgs.length > 4;
-                    imgHtml += `
-                        <div class="post-img-more" data-imgs='${imgsJson}' onclick="if(!this.parentElement.classList.contains('is-blurred-grid')) { window.openGallery(JSON.parse(this.dataset.imgs), ${i}); event.stopPropagation(); }">
-                            <img src="${img}" class="post-img-item" style="${blurStyle}" loading="lazy">
-                            ${isMore ? `<div class="post-img-overlay">+${imgs.length - 3}</div>` : ''}
-                        </div>
-                    `;
+                    const isVideo = img.match(/\.(mp4|mov|webm|ogg|m4v)($|\?)/i) || img.includes('/video/upload/');
+
+                    if (isVideo) {
+                        imgHtml += `
+                            <div class="post-img-more" style="position:relative;">
+                                <video src="${img}" class="post-video-item" style="width:100%; border-radius:inherit; ${blurStyle}"></video>
+                                ${isMore ? `<div class="post-img-overlay" onclick="window.openGallery(JSON.parse(this.dataset.imgs), ${i}); event.stopPropagation();" data-imgs='${imgsJson}'>+${imgs.length - 3}</div>` : ''}
+                                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:white; pointer-events:none;">
+                                    <span class="material-symbols-rounded" style="font-size:48px; opacity:0.8; text-shadow:0 0 10px rgba(0,0,0,0.5);">play_circle</span>
+                                </div>
+                                <div style="position:absolute; inset:0; cursor:pointer;" onclick="if(!this.parentElement.parentElement.classList.contains('is-blurred-grid')) { window.openGallery(JSON.parse(this.dataset.imgs), ${i}); event.stopPropagation(); }" data-imgs='${imgsJson}'></div>
+                            </div>
+                        `;
+                    } else {
+                        imgHtml += `
+                            <div class="post-img-more" data-imgs='${imgsJson}' onclick="if(!this.parentElement.classList.contains('is-blurred-grid')) { window.openGallery(JSON.parse(this.dataset.imgs), ${i}); event.stopPropagation(); }">
+                                <img src="${img}" class="post-img-item" style="${blurStyle}" loading="lazy">
+                                ${isMore ? `<div class="post-img-overlay">+${imgs.length - 3}</div>` : ''}
+                            </div>
+                        `;
+                    }
                 });
                 imgHtml += `</div>`;
             }
 
             const canManage = user && (user.uid === p.authorUid || user.email === 'admin@gmail.com');
             const userAvtSrc = (userData && userData.photoURL) || MISSING_AVATAR;
+            const displayUid = p.isAnonymous ? null : p.authorUid;
             window.renderFeedPost = renderFeedPost;
 
             return `
             <div class="feed-post" id="post-${p.id}">
                 <div class="feed-post-header">
-                    <img src="${info.avt}" class="feed-post-avt" onclick="handleProfileClick('${p.authorUid}')" onerror="this.src='${ANON_AVATAR}'">
+                    <img src="${info.avt}" class="feed-post-avt" onclick="handleProfileClick(${displayUid ? `'${displayUid}'` : 'null'})" onerror="this.src='${ANON_AVATAR}'">
                     <div style="flex:1">
-                        <div class="feed-post-author name-color-${info.color}" onclick="handleProfileClick('${p.authorUid}')">
+                        <div class="feed-post-author name-color-${info.color}" onclick="handleProfileClick(${displayUid ? `'${displayUid}'` : 'null'})">
                             ${window.escapeHTML(info.name)}${badgeHtml}
                             ${info.verified ? '<span class="material-symbols-rounded" style="font-size:16px; color:#1d9bf0; vertical-align:middle; margin-left:4px; font-variation-settings: \'FILL\' 1;" title="Tài khoản xác thực">verified</span>' : ''}
                         </div>
@@ -3421,7 +3587,7 @@
                                     data-content="${p.content.replace(/"/g, '&quot;')}" 
                                     data-image="${p.image || ''}" 
                                     data-images='${JSON.stringify(p.images || []).replace(/'/g, "&apos;")}'
-                                    onclick="openEditFeedPost(this.dataset.pid, this.dataset.content, this.dataset.image, JSON.parse(this.dataset.images))" title="Sửa">
+                                    onclick="openEditFeedPost(this.dataset.pid, this.dataset.content, this.dataset.image, JSON.parse(this.dataset.images), ${!!p.isAnonymous})" title="Sửa">
                                 <span class="material-symbols-rounded" style="font-size:18px;">edit</span>
                             </button>
                         </div>
