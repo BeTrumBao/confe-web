@@ -1,6 +1,6 @@
 import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, getDocFromServer } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // --- TÍNH NĂNG CHẶN TRUY CẬP TỪ MẠNG CỤ THỂ ---
 (async function checkBlockedNetwork() {
@@ -76,25 +76,41 @@ onAuthStateChanged(auth, (user) => {
         return;
     }
 
-    // Subscribe to user changes to redirect immediately if verification is updated or revoked
-    onSnapshot(doc(db, "users", user.uid), (uSnap) => {
+    // 1. Force fresh initial check from server
+    getDocFromServer(doc(db, "users", user.uid)).then((uSnapServer) => {
+        if (uSnapServer.exists()) {
+             const sData = uSnapServer.data();
+             if (sData.role === 'admin') return;
+             const isSetup = sData.is_setup === true || sData.is_setup === "true";
+             if (!isSetup && !isPublicPage && !isIndexPage && !isSetupPage) {
+                 window.top.location.href = 'setup-user-data.html';
+                 return;
+             }
+             const isVerified = sData.isVerified === true || sData.isVerified === "true";
+             if (!isVerified && !isPublicPage) {
+                 const topUrl = window.top.location.href;
+                 if (!topUrl.includes('index.html') && !topUrl.includes('login.html')) {
+                     window.top.location.href = 'index.html?reason=unverified';
+                 }
+                 return;
+             }
+        }
+    }).catch(e => console.warn("SecurityLock: Initial server fetch failed, falling back to snapshot.", e));
+
+    // 2. Subscribe to user changes for real-time updates
+    onSnapshot(doc(db, "users", user.uid), { includeMetadataChanges: true }, (uSnap) => {
         if (uSnap.exists()) {
             const data = uSnap.data();
+            const isVerified = (data.isVerified === true || data.isVerified === "true");
 
+            // Optimization: Skip cached snapshot ONLY if it would cause a redirect (unverified) to avoid flash.
+            if (uSnap.metadata.fromCache && !isVerified) return;
+            
             // Bypass for Admin
             if (data.role === 'admin') return;
 
             // 1. Check if user has completed setup (Priority Step)
             const isSetup = data.is_setup === true || data.is_setup === "true";
-
-            // Redirect un-setup users to setup page (unless on public/setup pages)
-            if (!isSetup && !isPublicPage && !isIndexPage && !isSetupPage) {
-                window.top.location.href = 'setup-user-data.html';
-                return;
-            }
-
-            // 2. Check if user is verified
-            const isVerified = data.isVerified === true || data.isVerified === "true";
 
             // If not verified and trying to access protected sub-pages, redirect to index.html
             // After setup is complete, verification becomes the next gate.

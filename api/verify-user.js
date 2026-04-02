@@ -120,33 +120,33 @@ module.exports = async (req, res) => {
 
         } else if (reqLevel === 2) {
             if (targetDoc.data().isVerified !== true) {
-                 return res.status(400).send({ success: false, error: "Tài khoản này chưa xác minh cấp 1." });
+                return res.status(400).send({ success: false, error: "Tài khoản này chưa xác minh cấp 1." });
             }
             if (targetDoc.data().verifiedLevel2 === true) {
-                 return res.status(200).send({ success: true, message: "Tài khoản này đã hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng !." });
+                return res.status(200).send({ success: true, message: "Tài khoản này đã hoàn thành xác minh tính toàn vẹn của bạn đối với cộng đồng !." });
             }
             const level2Verifiers = targetDoc.data().level2Verifiers || [];
             if (level2Verifiers.includes(verifierUid)) {
-                 return res.status(400).send({ success: false, error: "Bạn đã xác minh tính toàn vẹn của bạn đối với cộng đồng ! cho người này rồi!" });
+                return res.status(400).send({ success: false, error: "Bạn đã xác minh tính toàn vẹn của bạn đối với cộng đồng ! cho người này rồi!" });
             }
-            
+
             level2Verifiers.push(verifierUid);
             const updates = { level2Verifiers };
             let msg = "Đã xác minh 1 lượt! Người dùng có thể gửi yêu cầu duyệt ngay bây giờ.";
-            
+
             if (isAdmin) {
-                 updates.verifiedLevel2 = true;
-                 updates.level2VerifiedAt = admin.firestore.FieldValue.serverTimestamp();
-                 msg = "Xác minh tính toàn vẹn của bạn đối với cộng đồng ! thành công dưới quyền Admin!";
+                updates.verifiedLevel2 = true;
+                updates.level2VerifiedAt = admin.firestore.FieldValue.serverTimestamp();
+                msg = "Xác minh tính toàn vẹn của bạn đối với cộng đồng ! thành công dưới quyền Admin!";
             }
-            
+
             const batch = db.batch();
             batch.update(targetRef, updates);
             batch.update(db.collection('users').doc(verifierUid), {
                 lastVerifiedOthersAt: new Date().toISOString()
             });
             await batch.commit();
-            
+
             return res.status(200).send({ success: true, message: msg });
         }
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Quản trị - Confe</title>
     <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description"
-        content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
-    <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Mạng xã hội mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -895,24 +880,6 @@
             background: var(--danger);
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></s    <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description"
-        content="Confe - Ná»n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
-    <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description"
-        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
-    <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:url" content="https://confe-web.vercel.app/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Confe">
-    <meta name="twitter:description" content="Máº¡ng xÃ£ há»™i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-¢i mini Confe">
-    <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -930,11 +897,11 @@
     <div id="conf-dialog" class="conf-dialog-overlay">
         <div class="conf-dialog-card">
             <div id="conf-dialog-icon-wrap" class="conf-dialog-icon"></div>
-            <h3 id="conf-dialog-title" class="conf-dialog-title">XÃ¡c nháº­n</h3>
-            <p id="conf-dialog-msg" class="conf-dialog-msg">Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n thá»±c hiá»‡n hÃ nh Ä‘á»™ng nÃ y?</p>
+            <h3 id="conf-dialog-title" class="conf-dialog-title">Xác nhận</h3>
+            <p id="conf-dialog-msg" class="conf-dialog-msg">Bạn có chắc chắn muốn thực hiện hành động này?</p>
             <div class="conf-dialog-actions">
-                <button id="conf-dialog-cancel" class="btn btn-ghost" style="flex: 1;">Há»§y</button>
-                <button id="conf-dialog-confirm" class="btn btn-primary" style="flex: 1;">XÃ¡c nháº­n</button>
+                <button id="conf-dialog-cancel" class="btn btn-ghost" style="flex: 1;">Hủy</button>
+                <button id="conf-dialog-confirm" class="btn btn-primary" style="flex: 1;">Xác nhận</button>
             </div>
         </div>
     </div>
@@ -946,7 +913,7 @@
     <div id="topicCommentsModal" class="modal-overlay">
         <div class="modal-card" style="max-width: 800px; max-height: 85vh; display: flex; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <h2 id="commentModalTitle">Quáº£n lÃ½ bÃ¬nh luáº­n</h2>
+                <h2 id="commentModalTitle">Quản lý bình luận</h2>
                 <button class="action-btn" onclick="closeCommentModal()"><span
                         class="material-symbols-rounded">close</span></button>
             </div>
@@ -994,21 +961,21 @@
             <button class="nav-item active" onclick="switchSection('dashboard', this)"><span
                     class="material-symbols-rounded">dashboard</span> Dashboard</button>
             <button class="nav-item" onclick="switchSection('users', this)"><span
-                    class="material-symbols-rounded">group</span> Quáº£n lÃ½ User</button>
+                    class="material-symbols-rounded">group</span> Quản lý User</button>
             <button class="nav-item" onclick="switchSection('topics', this)"><span
-                    class="material-symbols-rounded">description</span> BÃ i viáº¿t</button>
+                    class="material-symbols-rounded">description</span> Bài viết</button>
             <button class="nav-item" onclick="switchSection('outlines', this)"><span
                     class="material-symbols-rounded">verified_user</span> Duyá»‡t Äá» CÆ°Æ¡ng</button>
             <button class="nav-item" onclick="switchSection('level2', this)"><span
-                    class="material-symbols-rounded">gpp_good</span> Duyá»‡t Cáº¥p 2 <span id="badge-level2"
+                    class="material-symbols-rounded">gpp_good</span> Duyệt Cấp 2 <span id="badge-level2"
                     class="badge-count"
                     style="display:none; background: #f43f5e; color: white; padding: 2px 6px; border-radius: 8px; font-size: 10px; margin-left: 5px;">0</span></button>
             <button class="nav-item" onclick="switchSection('reports', this)"><span
-                    class="material-symbols-rounded">report</span> BÃ¡o cÃ¡o</button>
+                    class="material-symbols-rounded">report</span> Báo cáo</button>
             <button class="nav-item" onclick="switchSection('news-system', this)"><span
-                    class="material-symbols-rounded">campaign</span> ThÃ´ng bÃ¡o</button>
+                    class="material-symbols-rounded">campaign</span> Thông báo</button>
             <button class="nav-item" onclick="switchSection('system', this)"><span
-                    class="material-symbols-rounded">settings</span> Há»‡ thá»‘ng</button>
+                    class="material-symbols-rounded">settings</span> Hệ thống</button>
         </nav>
 
         <button class="btn-logout" id="btnLogout">
@@ -1020,8 +987,8 @@
     <main class="main">
         <header class="header">
             <div class="page-title">
-                <h1 id="screen-title">Tá»•ng quan há»‡ thá»‘ng</h1>
-                <p id="screen-subtitle">ChÃ o má»«ng quay trá»Ÿ láº¡i, Admin</p>
+                <h1 id="screen-title">Tổng quan hệ thống</h1>
+                <p id="screen-subtitle">Chào mừng quay trở lại, Admin</p>
             </div>
         </header>
 
@@ -1030,10 +997,11 @@
             <div class="top-stats-row">
                 <div class="chart-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h3 style="font-weight:800; font-size:16px;">Hoáº¡t Ä‘á»™ng 7 ngÃ y gáº§n nháº¥t</h3>
-                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hÆ°á»›ng ngÆ°á»i dÃ¹ng &amp;
-                            bÃ i
-                            viáº¿t</div>
+                        <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hÆ°á»›ng ngÆ°á»i dÃ¹ng
+                            &amp;
+                            bài
+                            viết</div>
                     </div>
                     <div id="activity-chart" style="min-height:280px;"></div>
                 </div>
@@ -1042,7 +1010,7 @@
                         <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span
                                 class="material-symbols-rounded">person</span></div>
                         <div class="stat-info">
-                            <p>Tá»•ng User</p>
+                            <p>Tổng User</p>
                             <h3 id="stat-users">...</h3>
                         </div>
                     </div>
@@ -1050,15 +1018,16 @@
                         <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span
                                 class="material-symbols-rounded">forum</span></div>
                         <div class="stat-info">
-                            <p>BÃ i viáº¿t</p>
+                            <p>Bài viết</p>
                             <h3 id="stat-topics">...</h3>
                         </div>
                     </div>
-                    <div class="stat-card" style="padding: 24px; cursor: pointer;" onclick="switchSection('level2', document.querySelector('.nav-item[onclick*=\'level2\']'))">
+                    <div class="stat-card" style="padding: 24px; cursor: pointer;"
+                        onclick="switchSection('level2', document.querySelector('.nav-item[onclick*=\'level2\']'))">
                         <div class="stat-icon" style="background:rgba(168, 85, 247, 0.1); color:#a855f7;"><span
                                 class="material-symbols-rounded">gpp_good</span></div>
                         <div class="stat-info">
-                            <p>YÃªu cáº§u Cáº¥p 2</p>
+                            <p>Yêu cầu Cấp 2</p>
                             <h3 id="stat-level2">0</h3>
                         </div>
                     </div>
@@ -1070,7 +1039,7 @@
                     <h2>NgÆ°á»i dÃ¹ng má»›i gáº§n Ä‘Ã¢y</h2>
                     <button class="action-btn"
                         onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem
-                        táº¥t cáº£ â€º</button>
+                        tất cả ›</button>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -1090,11 +1059,11 @@
         <div id="section-users" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Danh sÃ¡ch thÃ nh viÃªn</h2>
+                    <h2>Danh sách thành viên</h2>
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="user-search" placeholder="TÃ¬m theo tÃªn hoáº·c email..."
+                            <input type="text" id="user-search" placeholder="Tìm theo tên hoặc email..."
                                 oninput="filterTable('users')">
                         </div>
                     </div>
@@ -1102,10 +1071,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>UID / TÃªn hiá»ƒn thá»‹</th>
-                            <th>Email / Tráº¡ng thÃ¡i</th>
-                            <th>Vai trÃ²</th>
-                            <th>HÃ nh Ä‘á»™ng quáº£n lÃ½</th>
+                            <th>UID / Tên hiển thị</th>
+                            <th>Email / Trạng thái</th>
+                            <th>Vai trò</th>
+                            <th>Hành động quản lý</th>
                         </tr>
                     </thead>
                     <tbody id="full-user-list"></tbody>
@@ -1117,7 +1086,7 @@
         <div id="section-topics" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Quáº£n lÃ½ ná»™i dung tháº£o luáº­n</h2>
+                    <h2>Quản lý nội dung thảo luận</h2>
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
@@ -1163,7 +1132,7 @@
         <div id="section-level2" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>YÃªu cáº§u xÃ¡c minh Level 2</h2>
+                    <h2>Yêu cầu xác minh Level 2</h2>
                     <div class="box-tools">
                         <button class="action-btn" onclick="loadLevel2Requests()"><span
                                 class="material-symbols-rounded">refresh</span> LÃ m má»›i</button>
@@ -1186,9 +1155,10 @@
         <div id="section-news-system" class="admin-section">
             <div class="gen-container">
                 <div class="gen-card">
-                    <h3><span class="material-symbols-rounded">campaign</span> Quáº£n lÃ½ ThÃ´ng bÃ¡o há»‡ thá»‘ng</h3>
-                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">ThÃ´ng bÃ¡o sáº½ hiá»ƒn thá»‹ trong
-                        tab "ThÃ´ng BÃ¡o" cá»§a Báº£ng Tin.</p>
+                    <h3><span class="material-symbols-rounded">campaign</span> Quản lý Thông báo hệ thống</h3>
+                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">ThÃ´ng bÃ¡o sáº½ hiá»ƒn thá»‹
+                        trong
+                        tab "Thông Báo" của Bảng Tin.</p>
 
                     <div id="ann-list-wrap">
                         <!-- Items injected here -->
@@ -1196,19 +1166,20 @@
 
                     <button class="btn btn-ghost" onclick="addAnnItem()"
                         style="width:100%; margin-top:15px; border-style:dashed;">
-                        <span class="material-symbols-rounded">add_circle</span> ThÃªm thÃ´ng bÃ¡o má»›i
+                        <span class="material-symbols-rounded">add_circle</span> Thêm thông báo mới
                     </button>
                 </div>
 
                 <div class="gen-card">
-                    <h3><span class="material-symbols-rounded">code</span> Cáº¥u trÃºc JSON & Thao tÃ¡c</h3>
+                    <h3><span class="material-symbols-rounded">code</span> Cấu trúc JSON & Thao tác</h3>
                     <textarea id="ann-json" class="json-preview" readonly></textarea>
 
                     <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
                         <button class="btn btn-primary" onclick="applyAnnouncements()" style="justify-content:center;">
                             <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
                         </button>
-                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">LÆ°u Ã½: Má»i thay Ä‘á»•i sáº½ cÃ³
+                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">LÆ°u Ã½: Má»i thay Ä‘á»•i
+                            sáº½ cÃ³
                             hiá»‡u lá»±c ngay láº­p tá»©c trÃªn Báº£ng Tin News Board.</p>
                     </div>
                 </div>
@@ -1253,8 +1224,8 @@
                     <div class="form-row">
                         <label>Loáº¡i (Type)</label>
                         <select id="poll-type" class="inp" onchange="togglePollOpts(); updatePollJson()">
-                            <option value="binary">Tráº¯c nghiá»‡m (Binary)</option>
-                            <option value="survey">Kháº£o sÃ¡t (Survey)</option>
+                            <option value="binary">Trắc nghiệm (Binary)</option>
+                            <option value="survey">Khảo sát (Survey)</option>
                         </select>
                     </div>
                     <div id="poll-opts-wrap" class="form-row">
@@ -1266,8 +1237,8 @@
                     <div class="form-row">
                         <label>Tráº¡ng thÃ¡i</label>
                         <select id="poll-active" class="inp" onchange="updatePollJson()">
-                            <option value="true">Hoáº¡t Ä‘á»™ng (Active)</option>
-                            <option value="false">Táº¡m dá»«ng (Hidden)</option>
+                            <option value="true">Hoạt động (Active)</option>
+                            <option value="false">Tạm dừng (Hidden)</option>
                         </select>
                     </div>
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
@@ -1286,7 +1257,7 @@
                     </div>
                     <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
                         onclick="addNewsItem()">
-                        <span class="material-symbols-rounded">add</span> ThÃªm tin má»›i
+                        <span class="material-symbols-rounded">add</span> Thêm tin mới
                     </button>
 
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview (Copy to Remote
@@ -1299,32 +1270,32 @@
 
                 <!-- LOGIN REWARDS GENERATOR -->
                 <div class="gen-card" style="grid-column: 1 / -1;">
-                    <h3><span class="material-symbols-rounded">redeem</span> ThÆ°á»Ÿng Ä‘Äƒng nháº­p (JSON)</h3>
+                    <h3><span class="material-symbols-rounded">redeem</span> Thưởng đăng nhập (JSON)</h3>
                     <div class="form-row" style="margin-bottom:15px;">
-                        <label>Tá»•ng sá»‘ ngÃ y tiáº¿n trÃ¬nh hiá»ƒn thá»‹ (VD: 10, 30)</label>
-                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tá»•ng ngÃ y..."
+                        <label>Tổng số ngày tiến trình hiển thị (VD: 10, 30)</label>
+                        <input type="number" id="lr-total" class="inp" value="10" placeholder="Tổng ngày..."
                             oninput="updateLRJson()">
                     </div>
-                    <label>Danh sÃ¡ch má»‘c nháº­n thÆ°á»Ÿng</label>
+                    <label>Danh sách mốc nhận thưởng</label>
                     <div id="lr-list-wrap"
                         style="max-height: 400px; overflow-y: auto; padding-right: 8px; margin-bottom:10px;">
                         <!-- Reward items here -->
                     </div>
                     <button class="btn" style="width:100%; background:#f1f5f9; color:var(--text); margin-bottom:16px;"
                         onclick="addLRItem()">
-                        <span class="material-symbols-rounded">add</span> ThÃªm má»‘c thÆ°á»Ÿng
+                        <span class="material-symbols-rounded">add</span> Thêm mốc thưởng
                     </button>
 
                     <label style="font-size:12px; font-weight:700; color:var(--text-gray);">JSON Preview</label>
                     <textarea id="lr-json" class="json-preview" readonly style="height: 100px;"></textarea>
                     <button class="btn btn-primary" onclick="applyLR()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u cáº¥u hÃ¬nh vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore
                     </button>
                 </div>
 
                 <!-- FEATURES & MAINTENANCE -->
                 <div class="gen-card" style="grid-column: 1 / -1;">
-                    <h3><span class="material-symbols-rounded">settings_suggest</span> TÃ­nh nÄƒng &amp; Báº£o trÃ¬</h3>
+                    <h3><span class="material-symbols-rounded">settings_suggest</span> Tính năng &amp; Bảo trì</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div>
                             <div class="form-row">
@@ -1344,13 +1315,15 @@
                             <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
                                 <span class="material-symbols-rounded"
                                     style="font-size: 18px; vertical-align: middle;">info</span>
-                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Äang báº£o trÃ¬</b>, toÃ n bá»™ trang Ã”n táº­p
-                                thÃ´ng minh sáº½ bá»‹ khÃ³a vÃ  hiá»ƒn thá»‹ thÃ´ng bÃ¡o báº¡n Ä‘Ã£ nháº­p. Admin váº«n cÃ³ thá»ƒ vÃ o Ä‘á»ƒ kiá»ƒm
+                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Äang báº£o trÃ¬</b>, toÃ n
+                                bá»™ trang Ã”n táº­p
+                                thÃ´ng minh sáº½ bá»‹ khÃ³a vÃ  hiá»ƒn thá»‹ thÃ´ng bÃ¡o báº¡n Ä‘Ã£ nháº­p. Admin váº«n
+                                cÃ³ thá»ƒ vÃ o Ä‘á»ƒ kiá»ƒm
                                 tra náº¿u cáº§n (tÃ¹y cáº¥u hÃ¬nh logic).
                             </p>
                             <button class="btn btn-primary" onclick="applyFeaturesConfig()"
                                 style="width:100%; margin-top:20px;">
-                                <span class="material-symbols-rounded">save</span> Cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬
+                                <span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì
                             </button>
                         </div>
                     </div>
@@ -1516,7 +1489,7 @@
             const topics = await getDocs(collection(db, "topics"));
             const reports = await getDocs(collection(db, "reports"));
             const level2Reqs = await getDocs(query(collection(db, "requests"), where("type", "==", "level2_verify"), where("status", "==", "pending")));
-            
+
             document.getElementById('stat-users').textContent = users.size;
             document.getElementById('stat-topics').textContent = topics.size;
             document.getElementById('stat-reports').textContent = reports.size;

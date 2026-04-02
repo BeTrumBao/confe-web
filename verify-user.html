@@ -378,8 +378,7 @@
     <meta name="description"
         content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
     <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -398,7 +397,7 @@
         <div class="icon-box">
             <span class="material-symbols-rounded">verified_user</span>
         </div>
-        <h1>Xác minh rằng đó là bạn !</h1>
+        <h1>Xác minh tính toàn vẹn của bạn trong cộng đồng !</h1>
         <p class="description">
             Vui lòng kiểm tra kỹ thông tin trước khi xác nhận. Bạn đang giúp cộng đồng Confe trở nên trong sạch hơn!
         </p>
@@ -544,7 +543,7 @@
                         return;
                     }
                     const cData = cSnap.data();
-                    
+
                     if (verifyLevel === 1) {
                         if (cData.isVerified === true) {
                             showError("Người dùng này đã được xác minh cấp 1 trước đó rồi.");
@@ -594,8 +593,8 @@
                     }
 
                     if (!isAdmin) {
-                        if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng (90 ngày) tuổi.");
-                        if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây (phải đợi 30 ngày).");
+                        if (ageDays < 90) errors.push("Tài khoản của bạn cần trên 3 tháng.");
+                        if (cooldownDays < 30) errors.push("Bạn vừa xác minh cho người khác gần đây.");
                         if (vData.isBanned === true) errors.push("Tài khoản của bạn đang bị khóa.");
                         if (banRecentDays < 90) errors.push("Tài khoản của bạn có lịch sử bị cấm/khóa trong 3 tháng gần đây.");
                     } else {

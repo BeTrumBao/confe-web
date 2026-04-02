@@ -872,7 +872,8 @@
         }
 
         /* VERIFICATION OVERLAY */
-        #verifyOverlay, #verifyLevel2Overlay {
+        #verifyOverlay,
+        #verifyLevel2Overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -1071,8 +1072,7 @@
     <meta name="description"
         content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
     <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -1179,7 +1179,8 @@
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">stadia_controller</span></div>
                 <span>Trò chơi</span>
             </div>
-            <div id="navMatchmaking" class="nav-link" onclick="loadPage('matchmaking.html', this)" style="display: none;">
+            <div id="navMatchmaking" class="nav-link" onclick="loadPage('matchmaking.html', this)"
+                style="display: none;">
                 <div class="nav-icon-wrap"><span class="material-symbols-rounded">favorite</span></div>
                 <span>Ghép đôi</span>
             </div>
@@ -1497,7 +1498,7 @@
         </div>
     </div>
 
-    <div id="verifyOverlay">
+    <div id="verifyOverlay" style="display: none;">
         <div class="verify-v2-card" id="skelVerifyOverlayCard">
             <div class="skeleton-v2 skel-v2-icon"></div>
             <div class="skeleton-v2 skel-v2-title"></div>
@@ -1513,7 +1514,7 @@
             <div class="verify-v2-icon">
                 <span class="material-symbols-rounded">verified_user</span>
             </div>
-            <h1 class="verify-v2-title">Xác minh rằng đó là bạn !</h1>
+            <h1 class="verify-v2-title">Xác minh tính toàn vẹn của bạn trong cộng đồng !</h1>
             <p class="verify-v2-desc">
                 Để đảm bảo an toàn và tính toàn vẹn của cộng đồng . Bạn hãy nhờ một người dùng mà bạn quen biết đáp ứng
                 các
@@ -1546,15 +1547,24 @@
 
 
     <!-- ===== PROFILE POPUP ===== -->
-    <div id="profilePopupOverlay" onclick="closeProfilePopup()" style="display:none; position:fixed; inset:0; z-index:999990; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center;"></div>
-    <div id="profilePopupSheet" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:999991; background:#fff; border-radius:28px 28px 0 0; box-shadow:0 -20px 60px rgba(0,0,0,0.18); overflow:hidden; max-width:540px; margin:0 auto; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);">
-        <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px 0; flex-shrink:0;">
-            <div style="width:40px; height:5px; background:#e2e8f0; border-radius:9999px; margin:0 auto; position:absolute; left:50%; transform:translateX(-50%); top:10px;"></div>
-            <button onclick="closeProfilePopup()" style="margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; padding:8px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+    <div id="profilePopupOverlay" onclick="closeProfilePopup()"
+        style="display:none; position:fixed; inset:0; z-index:999990; background:rgba(15,23,42,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center;">
+    </div>
+    <div id="profilePopupSheet"
+        style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:999991; background:#fff; border-radius:28px 28px 0 0; box-shadow:0 -20px 60px rgba(0,0,0,0.18); overflow:hidden; max-width:540px; margin:0 auto; transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);">
+        <div
+            style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px 0; flex-shrink:0;">
+            <div
+                style="width:40px; height:5px; background:#e2e8f0; border-radius:9999px; margin:0 auto; position:absolute; left:50%; transform:translateX(-50%); top:10px;">
+            </div>
+            <button onclick="closeProfilePopup()"
+                style="margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; padding:8px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;"
+                onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
                 <span class="material-symbols-rounded" style="font-size:22px;">close</span>
             </button>
         </div>
-        <iframe id="profilePopupFrame" src="about:blank" style="width:100%; height:82vh; border:none; display:block;"></iframe>
+        <iframe id="profilePopupFrame" src="about:blank"
+            style="width:100%; height:82vh; border:none; display:block;"></iframe>
     </div>
 
     <script>
@@ -1704,339 +1714,347 @@
                 <!-- Tài khoản & Xử lý -->
                 <div
                     style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
-                    <div
-                        style="font-weight:800; color:#92400e; font-size:13px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <span class="material-symbols-rounded"
-                            style="color: #92400e; font-size: 16px;">account_circle</span> TÀI KHOẢN & XỬ LÝ VI PHẠM
-                    </div>
-                    <ul style="margin:0; padding-left:18px; font-size:13px; color:#374151; line-height:1.9;">
-                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
-                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
-                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
-                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
-                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
-                    </ul>
-                </div>
+                        <span class="material-symbols-rounded">info</span>
+                        <ul>
+                            <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
+                            <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
+                            <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
+                            <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
+                            <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
+                        </ul>
 
-                <div style="height:10px;"></div>
-            </div>
-            <div class="actions-area" style="margin-top:16px;">
-                <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để đồng
-                    ý</button>
+                    <div style="height:10px;"></div>
+                </div>
+                <div class="actions-area" style="margin-top:16px;">
+                    <button id="btnAgree" class="btn-agree disabled" onclick="closeGuidelines()" disabled>Đọc hết để
+                        đồng
+                        ý</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-        import { startPresenceHeartbeat } from "./presence.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-        import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
-        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
-        import { onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+            import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp, getDocFromServer } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+            import { startPresenceHeartbeat } from "./presence.js";
+            import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+            import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
+            import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
+            import { onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
-        const app = initializeApp(cfg);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const rtdb = getDatabase(app);
-        const remoteConfig = getRemoteConfig(app);
-        const messaging = getMessaging(app);
+            const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
+            const app = initializeApp(cfg);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
+            const rtdb = getDatabase(app);
+            const remoteConfig = getRemoteConfig(app);
+            const messaging = getMessaging(app);
 
-        let unsubJoin = null, unsubFriend = null, unsubUserDoc = null;
-        const dot = document.getElementById('profileBadge');
+            let unsubJoin = null, unsubFriend = null, unsubUserDoc = null;
+            const dot = document.getElementById('profileBadge');
 
-        // Register Service Worker for FCM
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Register PWA Service Worker
-                navigator.serviceWorker.register('sw.js').then(reg => {
-                    console.log('PWA Service Worker registered:', reg.scope);
-                }).catch(err => {
-                    console.warn('PWA Service Worker registration failed:', err);
-                });
-
-                // Register FCM Service Worker
-                navigator.serviceWorker.register('/firebase-messaging-sw.js').then(reg => {
-                    console.log('FCM Service Worker registered:', reg.scope);
-                }).catch(err => {
-                    console.warn('FCM Service Worker registration failed:', err);
-                });
-            });
-        }
-
-        async function requestNotificationPermission(user) {
-            try {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    // Wait for service worker to be ready
-                    const registration = await navigator.serviceWorker.ready;
-                    const token = await getToken(messaging, {
-                        vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo',
-                        serviceWorkerRegistration: registration
+            // Register Service Worker for FCM
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    // Register PWA Service Worker
+                    navigator.serviceWorker.register('sw.js').then(reg => {
+                        console.log('PWA Service Worker registered:', reg.scope);
+                    }).catch(err => {
+                        console.warn('PWA Service Worker registration failed:', err);
                     });
-                    if (token) {
-                        await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
-                        console.log("FCM Token saved to Firestore");
 
-                        // Subscribe to public chat notifications (Skip on localhost as there is no backend)
-                        if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== 'localhost') {
-                            fetch('/api/subscribe', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ token: token, topic: 'public-chat' })
-                            }).then(r => r.text()).then(t => t ? JSON.parse(t) : {}).then(d => console.log("Subscribed:", d)).catch(e => console.error(e));
-                        } else {
-                            console.log("[System] Localhost detected, skipping FCM subscription backend call.");
+                    // Register FCM Service Worker
+                    navigator.serviceWorker.register('/firebase-messaging-sw.js').then(reg => {
+                        console.log('FCM Service Worker registered:', reg.scope);
+                    }).catch(err => {
+                        console.warn('FCM Service Worker registration failed:', err);
+                    });
+                });
+            }
+
+            async function requestNotificationPermission(user) {
+                try {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        // Wait for service worker to be ready
+                        const registration = await navigator.serviceWorker.ready;
+                        const token = await getToken(messaging, {
+                            vapidKey: 'BG2sKwmdmwi2jnEUqghcL6Ca33XaxZ0GpaMCMh1EmsX22oB0PZToYRGqetsk1z5-A1GjMW9E9f3WGwCglXl_kIo',
+                            serviceWorkerRegistration: registration
+                        });
+                        if (token) {
+                            await setDoc(doc(db, "users", user.uid), { fcmToken: token }, { merge: true });
+                            console.log("FCM Token saved to Firestore");
+
+                            // Subscribe to public chat notifications (Skip on localhost as there is no backend)
+                            if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== 'localhost') {
+                                fetch('/api/subscribe', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ token: token, topic: 'public-chat' })
+                                }).then(r => r.text()).then(t => t ? JSON.parse(t) : {}).then(d => console.log("Subscribed:", d)).catch(e => console.error(e));
+                            } else {
+                                console.log("[System] Localhost detected, skipping FCM subscription backend call.");
+                            }
                         }
                     }
+                } catch (err) {
+                    console.error("FCM Permission/Token error:", err);
                 }
-            } catch (err) {
-                console.error("FCM Permission/Token error:", err);
             }
-        }
 
-        async function updateUserIP(uid) {
-            const tryDetailed = async (url, mapFn) => {
-                try {
-                    const r = await fetch(url, { mode: 'cors' });
-                    if (!r.ok) return null;
-                    const d = await r.json();
-                    return mapFn(d);
-                } catch (e) { return null; }
-            };
-
-            try {
-                // 1. Try DB-IP (Permissive)
-                let data = await tryDetailed('https://api.db-ip.com/v2/free/self', d => ({
-                    ip: d.ipAddress,
-                    detail: `${d.city || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
-                }));
-
-                // 2. Try FreeIPAPI
-                if (!data || !data.ip) {
-                    data = await tryDetailed('https://freeipapi.com/api/json', d => ({
-                        ip: d.ipAddress,
-                        detail: `${d.cityName || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
-                    }));
-                }
-
-                // 3. Final Fallback: ipify
-                if (!data || !data.ip) {
+            async function updateUserIP(uid) {
+                const tryDetailed = async (url, mapFn) => {
                     try {
-                        const r = await fetch('https://api64.ipify.org?format=json');
+                        const r = await fetch(url, { mode: 'cors' });
+                        if (!r.ok) return null;
                         const d = await r.json();
-                        if (d.ip) data = { ip: d.ip, detail: '' };
-                    } catch (e) { }
-                }
+                        return mapFn(d);
+                    } catch (e) { return null; }
+                };
 
-                if (data && data.ip) {
-                    const now = Date.now();
-                    const lastUpdate = localStorage.getItem('confe_last_ip_update');
-                    const lastIp = localStorage.getItem('confe_last_ip_val');
-                    
-                    // Throttle: Only update Firestore if IP changed OR it's been > 15 minutes
-                    if (lastIp === data.ip && lastUpdate && (now - parseInt(lastUpdate)) < 15 * 60 * 1000) {
-                        return;
+                try {
+                    // 1. Try DB-IP (Permissive)
+                    let data = await tryDetailed('https://api.db-ip.com/v2/free/self', d => ({
+                        ip: d.ipAddress,
+                        detail: `${d.city || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+                    }));
+
+                    // 2. Try FreeIPAPI
+                    if (!data || !data.ip) {
+                        data = await tryDetailed('https://freeipapi.com/api/json', d => ({
+                            ip: d.ipAddress,
+                            detail: `${d.cityName || ''}, ${d.countryName || ''}`.replace(/^, |, $/g, '')
+                        }));
                     }
 
-                    const deviceId = getDeviceId();
-                    await updateDoc(doc(db, "users", uid), {
-                        lastIP: data.ip,
-                        lastLocation: data.detail || '',
-                        deviceId: deviceId,
-                        lastSeen: serverTimestamp()
-                    });
-                    
-                    localStorage.setItem('confe_last_ip_update', now.toString());
-                    localStorage.setItem('confe_last_ip_val', data.ip);
-                    console.log(`[System] User IP & Device updated: ${data.ip} (${deviceId})`);
+                    // 3. Final Fallback: ipify
+                    if (!data || !data.ip) {
+                        try {
+                            const r = await fetch('https://api64.ipify.org?format=json');
+                            const d = await r.json();
+                            if (d.ip) data = { ip: d.ip, detail: '' };
+                        } catch (e) { }
+                    }
+
+                    if (data && data.ip) {
+                        const now = Date.now();
+                        const lastUpdate = localStorage.getItem('confe_last_ip_update');
+                        const lastIp = localStorage.getItem('confe_last_ip_val');
+
+                        // Throttle: Only update Firestore if IP changed OR it's been > 15 minutes
+                        if (lastIp === data.ip && lastUpdate && (now - parseInt(lastUpdate)) < 15 * 60 * 1000) {
+                            return;
+                        }
+
+                        const deviceId = getDeviceId();
+                        await updateDoc(doc(db, "users", uid), {
+                            lastIP: data.ip,
+                            lastLocation: data.detail || '',
+                            deviceId: deviceId,
+                            lastSeen: serverTimestamp()
+                        });
+
+                        localStorage.setItem('confe_last_ip_update', now.toString());
+                        localStorage.setItem('confe_last_ip_val', data.ip);
+                        console.log(`[System] User IP & Device updated: ${data.ip} (${deviceId})`);
+                    }
+                } catch (e) {
+                    console.error("updateUserIP Error:", e);
                 }
-            } catch (e) {
-                console.error("updateUserIP Error:", e);
             }
-        }
 
 
 
-        // Handle foreground notifications
-        onMessage(messaging, (payload) => {
-            console.log('Message received. ', payload);
-            const currentUid = localStorage.getItem('confe_current_uid');
-            if (payload.data && payload.data.senderUid && currentUid && payload.data.senderUid === currentUid) {
-                console.log("Self-notification suppressed");
-                return;
-            }
-            // Show a browser notification manually since browsers don't show it automatically in foreground
-            if (Notification.permission === 'granted') {
-                new Notification(payload.notification.title, {
-                    body: payload.notification.body,
-                    icon: '/assets/favicon.png'
-                });
-            }
-        });
+            // Handle foreground notifications
+            onMessage(messaging, (payload) => {
+                console.log('Message received. ', payload);
+                const currentUid = localStorage.getItem('confe_current_uid');
+                if (payload.data && payload.data.senderUid && currentUid && payload.data.senderUid === currentUid) {
+                    console.log("Self-notification suppressed");
+                    return;
+                }
+                // Show a browser notification manually since browsers don't show it automatically in foreground
+                if (Notification.permission === 'granted') {
+                    new Notification(payload.notification.title, {
+                        body: payload.notification.body,
+                        icon: '/assets/favicon.png'
+                    });
+                }
+            });
 
-        onAuthStateChanged(auth, async (u) => {
-            // Auth state
-            if (u) {
-                localStorage.setItem('confe_current_uid', u.uid);
-                requestNotificationPermission(u); // Ask for permission after login
-                updateUserIP(u.uid); // Save user IP to database
-                startPresenceHeartbeat({
-                    db, rtdb, uid: u.uid,
-                    serverTimestamp, updateDoc, doc,
-                    ref, onValue, set, onDisconnect
-                });
+            onAuthStateChanged(auth, async (u) => {
+                // Auth state
+                if (u) {
+                    localStorage.setItem('confe_current_uid', u.uid);
+                    requestNotificationPermission(u); // Ask for permission after login
+                    updateUserIP(u.uid); // Save user IP to database
+                    startPresenceHeartbeat({
+                        db, rtdb, uid: u.uid,
+                        serverTimestamp, updateDoc, doc,
+                        ref, onValue, set, onDisconnect
+                    });
 
-                // --- KIỂM TRA TRẠNG THÁI BAN ---
-                try {
-                    if (unsubUserDoc) { unsubUserDoc(); unsubUserDoc = null; }
+                    // --- KIỂM TRA TRẠNG THÁI BAN ---
+                    try {
+                        if (unsubUserDoc) { unsubUserDoc(); unsubUserDoc = null; }
 
-                    unsubUserDoc = onSnapshot(doc(db, "users", u.uid), (uSnap) => {
-                        if (uSnap.exists()) {
-                            const data = uSnap.data();
 
-                            // 1. Kiểm tra Ban
-                            if (data.isBanned === true) {
-                                document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
-                                document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
+                        unsubUserDoc = onSnapshot(doc(db, "users", u.uid), { includeMetadataChanges: true }, (uSnap) => {
+                            if (uSnap.exists()) {
+                                const data = uSnap.data();
+                                const isVerified = (data.isVerified === true || data.isVerified === "true");
+                                const isBanned = data.isBanned === true;
 
-                                document.getElementById('bannedOverlay').style.display = 'flex';
-                                const frame = document.getElementById('mainFrame');
-                                if (frame) frame.src = 'about:blank';
-                                const sb = document.getElementById('sidebar');
-                                if (sb) sb.style.display = 'none';
-                                return;
-                            } else {
-                                document.getElementById('bannedOverlay').style.display = 'none';
-                                const sb = document.getElementById('sidebar');
-                                if (sb) sb.style.display = 'flex';
-                            }
+                                // Optimization: Skip cached data ONLY if it shows a restricted state (to avoid flash)
+                                // If cached data shows everything is OK, we can proceed early.
+                                if (uSnap.metadata.fromCache && (!isVerified || isBanned)) return;
 
-                            // 2. Kiểm tra xác minh
-                            // Fallback to Auth creation time if missing in Firestore
-                            const now = new Date();
-                            const rawCreatedAt = data.createdAt || u.metadata.creationTime;
-                            const createdAt = (rawCreatedAt && typeof rawCreatedAt.toDate === 'function') ? rawCreatedAt.toDate() : (rawCreatedAt ? new Date(rawCreatedAt) : null);
-                            const startDate = new Date('2026-03-19T17:00:00Z');
-                            const isVerified = data.isVerified === true;
+                                // 1. Kiểm tra Ban
+                                if (data.isBanned === true) {
+                                    document.getElementById('banReasonText').textContent = data.banReason || "Vi phạm tiêu chuẩn cộng đồng";
+                                    document.getElementById('banUnbanDateText').textContent = data.dateUnban || "Vĩnh viễn";
 
-                            // VERIFICATION LOGIC REFACTORED
-                            const navMatch = document.getElementById('navMatchmaking');
-                            const l2Overlay = document.getElementById('verifyLevel2Overlay');
-                            const v1Overlay = document.getElementById('verifyOverlay');
-                            
-                            // 1. Initial State (Locked by default)
-                            if (navMatch) navMatch.style.display = 'none';
-                            if (v1Overlay) v1Overlay.style.display = 'none';
-                            if (l2Overlay) l2Overlay.style.display = 'none';
-                            window.isLevel2Restricted = false;
-
-                            const isSkipped = window.isL2Skipped === true;
-
-                            if (!isVerified && !u.isAnonymous) {
-                                // Level 1 Required
-                                if (createdAt && createdAt >= startDate) {
-                                    const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
-                                    if (diffDays >= 10) {
-                                        document.getElementById('banReasonText').textContent = "Tài khoản không được xác minh sau 10 ngày.";
-                                        document.getElementById('banUnbanDateText').textContent = "Vĩnh viễn";
-                                        document.getElementById('bannedOverlay').style.display = 'flex';
-                                        return;
-                                    }
-                                    v1Overlay.style.display = 'flex';
-                                    document.getElementById('verifyDeadlineText').textContent = `Thời hạn xác minh: Còn ${10 - diffDays} ngày`;
-                                    window.currentVerifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&utm_source=confe_app&ref=auth_secure`;
-                                    
-                                    // Skeleton logic
-                                    document.getElementById('skelVerifyOverlayCard').style.display = 'block';
-                                    document.getElementById('mainVerifyOverlayCard').style.display = 'none';
-                                    setTimeout(() => {
-                                        if (document.getElementById('skelVerifyOverlayCard')) document.getElementById('skelVerifyOverlayCard').style.display = 'none';
-                                        if (document.getElementById('mainVerifyOverlayCard')) document.getElementById('mainVerifyOverlayCard').style.display = 'block';
-                                    }, 800);
-                                    
+                                    document.getElementById('bannedOverlay').style.display = 'flex';
                                     const frame = document.getElementById('mainFrame');
                                     if (frame) frame.src = 'about:blank';
+                                    const sb = document.getElementById('sidebar');
+                                    if (sb) sb.style.display = 'none';
+                                    return;
                                 } else {
-                                    // Old user before March 19, bypass Level 1
-                                    if (navMatch) navMatch.style.display = 'flex';
+                                    document.getElementById('bannedOverlay').style.display = 'none';
+                                    const sb = document.getElementById('sidebar');
+                                    if (sb) sb.style.display = 'flex';
                                 }
-                            } else if (isVerified) {
-                                if (navMatch) navMatch.style.display = 'flex';
-                            } else {
-                                // Default for anyone else (Anonymous, Level 0, Old users)
-                                // KEEP HIDDEN (navMatch remains none from line 1927)
+
+                                // 2. Kiểm tra xác minh
+                                // Fallback to Auth creation time if missing in Firestore
+                                const now = new Date();
+                                const rawCreatedAt = data.createdAt || u.metadata.creationTime;
+                                const createdAt = (rawCreatedAt && typeof rawCreatedAt.toDate === 'function') ? rawCreatedAt.toDate() : (rawCreatedAt ? new Date(rawCreatedAt) : null);
+                                const startDate = new Date('2026-03-19T17:00:00Z');
+
+                                // VERIFICATION LOGIC REFACTORED
+                                const navMatch = document.getElementById('navMatchmaking');
+                                const l2Overlay = document.getElementById('verifyLevel2Overlay');
+                                const v1Overlay = document.getElementById('verifyOverlay');
+
+                                // 1. Initial State (Locked by default)
+                                if (navMatch) navMatch.style.display = 'none';
+                                if (v1Overlay) v1Overlay.style.display = 'none';
+                                if (l2Overlay) l2Overlay.style.display = 'none';
+                                window.isLevel2Restricted = false;
+
+                                const isSkipped = window.isL2Skipped === true;
+
+                                if (!isVerified && !u.isAnonymous) {
+                                    // Level 1 Required
+                                    if (createdAt && createdAt >= startDate) {
+                                        const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+                                        if (diffDays >= 10) {
+                                            document.getElementById('banReasonText').textContent = "Tài khoản không được xác minh sau 10 ngày.";
+                                            document.getElementById('banUnbanDateText').textContent = "Vĩnh viễn";
+                                            document.getElementById('bannedOverlay').style.display = 'flex';
+                                            return;
+                                        }
+                                        v1Overlay.style.display = 'flex';
+                                        document.getElementById('verifyDeadlineText').textContent = `Thời hạn xác minh: Còn ${10 - diffDays} ngày`;
+                                        window.currentVerifyLink = `${window.location.origin}/verify-user.html?uid=${u.uid}&utm_source=confe_app&ref=auth_secure`;
+
+                                        // Skeleton logic
+                                        document.getElementById('skelVerifyOverlayCard').style.display = 'block';
+                                        document.getElementById('mainVerifyOverlayCard').style.display = 'none';
+                                        setTimeout(() => {
+                                            if (document.getElementById('skelVerifyOverlayCard')) document.getElementById('skelVerifyOverlayCard').style.display = 'none';
+                                            if (document.getElementById('mainVerifyOverlayCard')) document.getElementById('mainVerifyOverlayCard').style.display = 'block';
+                                        }, 800);
+
+                                        const frame = document.getElementById('mainFrame');
+                                        if (frame) frame.src = 'about:blank';
+                                    } else {
+                                        // Old user before March 19, bypass Level 1
+                                        if (navMatch) navMatch.style.display = 'flex';
+                                    }
+                                } else if (isVerified) {
+                                    if (navMatch) navMatch.style.display = 'flex';
+                                } else {
+                                    // Default for anyone else (Anonymous, Level 0, Old users)
+                                    // KEEP HIDDEN (navMatch remains none from line 1927)
+                                }
+
+                                // Auto-load dashboard if everything is clear
+                                const frame = document.getElementById('mainFrame');
+                                const isV1Visible = (v1Overlay && v1Overlay.style.display === 'flex');
+                                const isL2Visible = (l2Overlay && l2Overlay.style.display === 'flex');
+
+                                if (frame && frame.src.includes('about:blank') && !isV1Visible && !isL2Visible) {
+                                    frame.src = 'dashboard.html';
+                                }
+
+                                // Hide splash screen immediately when data is ready
+                                const splash = document.getElementById('splash-screen');
+                                if (splash && !splash.classList.contains('hidden')) {
+                                    splash.classList.add('hidden');
+                                }
                             }
+                        });
+                    } catch (e) { console.error("Check status fail:", e); }
+                    // ------------------------------
 
-                            // Auto-load dashboard if everything is clear
-                            const frame = document.getElementById('mainFrame');
-                            const isV1Visible = (v1Overlay && v1Overlay.style.display === 'flex');
-                            const isL2Visible = (l2Overlay && l2Overlay.style.display === 'flex');
-                            
-                            if (frame && frame.src.includes('about:blank') && !isV1Visible && !isL2Visible) {
-                                frame.src = 'dashboard.html';
-                            }
-                        }
-                    });
-                } catch (e) { console.error("Check status fail:", e); }
-                // ------------------------------
+                    // Auto-navigate logic removed as requested
+                } else {
+                    localStorage.removeItem('confe_current_uid');
+                    window.top.location.href = 'login.html';
+                    return;
+                }
 
-                // Auto-navigate logic removed as requested
-            } else {
-                localStorage.removeItem('confe_current_uid');
-                window.top.location.href = 'login.html';
-                return;
-            }
+                // Profile badge dot — cleanup previous listeners
+                if (unsubJoin) { unsubJoin(); unsubJoin = null; }
+                if (unsubFriend) { unsubFriend(); unsubFriend = null; }
+                if (!u || !dot) return;
 
-            // Profile badge dot — cleanup previous listeners
-            if (unsubJoin) { unsubJoin(); unsubJoin = null; }
-            if (unsubFriend) { unsubFriend(); unsubFriend = null; }
-            if (!u || !dot) return;
+                let hasJoin = false, hasFriend = false;
+                const show = () => { dot.style.display = (hasJoin || hasFriend) ? 'block' : 'none'; };
 
-            let hasJoin = false, hasFriend = false;
-            const show = () => { dot.style.display = (hasJoin || hasFriend) ? 'block' : 'none'; };
+                if (u.email) {
+                    const qJoin = query(collection(db, 'requests'), where('ownerEmail', '==', u.email), where('status', '==', 'pending'));
+                    unsubJoin = onSnapshot(qJoin, (snap) => { hasJoin = !snap.empty; show(); });
+                }
+                const qFriend = query(collection(db, 'friend_requests'), where('to_uid', '==', u.uid), where('status', '==', 'pending'));
+                unsubFriend = onSnapshot(qFriend, (snap) => { hasFriend = !snap.empty; show(); });
+            });
 
-            if (u.email) {
-                const qJoin = query(collection(db, 'requests'), where('ownerEmail', '==', u.email), where('status', '==', 'pending'));
-                unsubJoin = onSnapshot(qJoin, (snap) => { hasJoin = !snap.empty; show(); });
-            }
-            const qFriend = query(collection(db, 'friend_requests'), where('to_uid', '==', u.uid), where('status', '==', 'pending'));
-            unsubFriend = onSnapshot(qFriend, (snap) => { hasFriend = !snap.empty; show(); });
-        });
+            // Remote Config
+            remoteConfig.settings.minimumFetchIntervalMillis = 3600;
 
-        // Remote Config
-        remoteConfig.settings.minimumFetchIntervalMillis = 3600;
+            // Ad Functions
+            let currentAdMedia = null;
 
-        // Ad Functions
-        let currentAdMedia = null;
+            window.closeAdPopup = () => {
+                if (currentAdMedia) {
+                    try {
+                        currentAdMedia.pause();
+                        currentAdMedia.currentTime = 0;
+                    } catch (e) { }
+                    currentAdMedia = null;
+                }
+                const popup = document.getElementById('adPopup');
+                if (popup) popup.classList.remove('show');
+                // Clear content to stop any background activity
+                const slot = document.getElementById('adPopupSlot');
+                if (slot) slot.innerHTML = '';
+            };
 
-        window.closeAdPopup = () => {
-            if (currentAdMedia) {
-                try {
-                    currentAdMedia.pause();
-                    currentAdMedia.currentTime = 0;
-                } catch (e) { }
-                currentAdMedia = null;
-            }
-            const popup = document.getElementById('adPopup');
-            if (popup) popup.classList.remove('show');
-            // Clear content to stop any background activity
-            const slot = document.getElementById('adPopupSlot');
-            if (slot) slot.innerHTML = '';
-        };
+            const setAdHeader = (action, target) => {
+                const el = document.getElementById('adHeaderTitle');
+                if (el) el.innerHTML = `Hãy ${action} ${target} để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web này</span>, nhé! ❤️`;
+            };
 
-        const setAdHeader = (action, target) => {
-            const el = document.getElementById('adHeaderTitle');
-            if (el) el.innerHTML = `Hãy ${action} ${target} để ủng hộ cho <span style="color: #0084ff; font-weight: 800;">thằng làm web này</span>, nhé! ❤️`;
-        };
-
-        window.showGoogleAd = () => {
-            setAdHeader("coi", "quảng cáo");
-            const slot = document.getElementById('adPopupSlot');
-            slot.innerHTML = `
+            window.showGoogleAd = () => {
+                setAdHeader("coi", "quảng cáo");
+                const slot = document.getElementById('adPopupSlot');
+                slot.innerHTML = `
                 <div class="ads-container" style="background: transparent; border: none; margin-bottom: 0; min-height: 280px; width: 100%; display: flex; align-items: center; justify-content: center;">
                     <ins class="adsbygoogle"
                          style="display:block; width: 100%;"
@@ -2046,15 +2064,15 @@
                          data-full-width-responsive="true"></ins>
                 </div>
             `;
-            try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }
-            document.getElementById('adCloseBtn').style.display = 'flex';
-        };
+                try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }
+                document.getElementById('adCloseBtn').style.display = 'flex';
+            };
 
-        window.showVideoAd = () => {
-            try {
-                setAdHeader("coi", "video");
-                const slot = document.getElementById('adPopupSlot');
-                slot.innerHTML = `
+            window.showVideoAd = () => {
+                try {
+                    setAdHeader("coi", "video");
+                    const slot = document.getElementById('adPopupSlot');
+                    slot.innerHTML = `
                     <div class="ad-video-container" style="border-radius: 24px; margin-bottom: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; background: #000;">
                         <video id="adVideo" src="ads/ads.mp4?v=${Date.now()}" playsinline style="width:100%; border-radius: 24px; display: block;"></video>
                         <div id="unlockTimer" class="ad-unlock-timer">30s</div>
@@ -2063,66 +2081,66 @@
                         </button>
                     </div>
                 `;
-                const video = document.getElementById('adVideo');
-                const timer = document.getElementById('unlockTimer');
-                const closeBtn = document.getElementById('adCloseBtn');
-                const unmuteBtn = document.getElementById('unmuteBtn');
-                closeBtn.style.display = 'none';
+                    const video = document.getElementById('adVideo');
+                    const timer = document.getElementById('unlockTimer');
+                    const closeBtn = document.getElementById('adCloseBtn');
+                    const unmuteBtn = document.getElementById('unmuteBtn');
+                    closeBtn.style.display = 'none';
 
-                video.onerror = () => {
-                    console.error("[AdSystem] Video load error, falling back to Google");
-                    window.showGoogleAd();
-                };
+                    video.onerror = () => {
+                        console.error("[AdSystem] Video load error, falling back to Google");
+                        window.showGoogleAd();
+                    };
 
-                video.muted = true;
-                video.volume = 1.0;
-                currentAdMedia = video;
+                    video.muted = true;
+                    video.volume = 1.0;
+                    currentAdMedia = video;
 
-                const attemptPlay = () => {
-                    video.play().catch(e => {
-                        console.log("[AdSystem] Video play blocked/failed:", e);
-                    });
-                };
+                    const attemptPlay = () => {
+                        video.play().catch(e => {
+                            console.log("[AdSystem] Video play blocked/failed:", e);
+                        });
+                    };
 
-                attemptPlay();
+                    attemptPlay();
 
-                unmuteBtn.onclick = () => {
-                    video.muted = !video.muted;
-                    unmuteBtn.innerHTML = `<span class="material-symbols-rounded" style="font-size: 18px;">${video.muted ? 'volume_off' : 'volume_up'}</span> ${video.muted ? 'Tắt tiếng' : 'Âm thanh'}`;
-                    if (!video.muted) video.play();
-                };
+                    unmuteBtn.onclick = () => {
+                        video.muted = !video.muted;
+                        unmuteBtn.innerHTML = `<span class="material-symbols-rounded" style="font-size: 18px;">${video.muted ? 'volume_off' : 'volume_up'}</span> ${video.muted ? 'Tắt tiếng' : 'Âm thanh'}`;
+                        if (!video.muted) video.play();
+                    };
 
-                let timeLeft = 30;
-                const interval = setInterval(() => {
-                    timeLeft--;
-                    if (timer) timer.textContent = timeLeft + 's';
-                    if (timeLeft <= 0) {
+                    let timeLeft = 30;
+                    const interval = setInterval(() => {
+                        timeLeft--;
+                        if (timer) timer.textContent = timeLeft + 's';
+                        if (timeLeft <= 0) {
+                            clearInterval(interval);
+                            if (timer) timer.style.display = 'none';
+                            closeBtn.style.display = 'flex';
+                        }
+                    }, 1000);
+
+                    video.onended = () => {
                         clearInterval(interval);
                         if (timer) timer.style.display = 'none';
                         closeBtn.style.display = 'flex';
-                    }
-                }, 1000);
+                    };
+                } catch (e) {
+                    console.error("[AdSystem] Video ad setup error:", e);
+                    window.showGoogleAd();
+                }
+            };
 
-                video.onended = () => {
-                    clearInterval(interval);
-                    if (timer) timer.style.display = 'none';
-                    closeBtn.style.display = 'flex';
-                };
-            } catch (e) {
-                console.error("[AdSystem] Video ad setup error:", e);
-                window.showGoogleAd();
-            }
-        };
+            window.showListeningAd = async () => {
+                setAdHeader("nghe", "listening IELTS");
+                const slot = document.getElementById('adPopupSlot');
+                try {
+                    const response = await fetch('ads/listening_ads.json?v=' + Date.now(), { cache: 'no-store' });
+                    const ads = await response.json();
+                    const randomAd = ads[Math.floor(Math.random() * ads.length)];
 
-        window.showListeningAd = async () => {
-            setAdHeader("nghe", "listening IELTS");
-            const slot = document.getElementById('adPopupSlot');
-            try {
-                const response = await fetch('ads/listening_ads.json?v=' + Date.now(), { cache: 'no-store' });
-                const ads = await response.json();
-                const randomAd = ads[Math.floor(Math.random() * ads.length)];
-
-                slot.innerHTML = `
+                    slot.innerHTML = `
                     <div class="ad-listening-container" id="listeningUnit" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 28px; margin-bottom: 0; width: 100%; padding: 20px;">
                         <button class="btn-listen" id="btnListen" style="margin-bottom: 20px;">
                             <span class="material-symbols-rounded" style="font-size:32px;">volume_up</span>
@@ -2136,66 +2154,66 @@
                     </div>
                 `;
 
-                const audio = new Audio(randomAd.audio + '?v=' + Date.now());
-                audio.volume = 1.0;
-                currentAdMedia = audio;
+                    const audio = new Audio(randomAd.audio + '?v=' + Date.now());
+                    audio.volume = 1.0;
+                    currentAdMedia = audio;
 
-                audio.onerror = () => {
-                    console.error("[AdSystem] Audio load error:", randomAd.audio);
-                    window.showToast("Lỗi tải âm thanh, đang dùng quảng cáo thay thế...");
+                    audio.onerror = () => {
+                        console.error("[AdSystem] Audio load error:", randomAd.audio);
+                        window.showToast("Lỗi tải âm thanh, đang dùng quảng cáo thay thế...");
+                        window.showGoogleAd();
+                    };
+
+                    document.getElementById('btnListen').onclick = () => {
+                        if (randomAd.startTime !== undefined) {
+                            audio.currentTime = randomAd.startTime;
+                        }
+                        audio.play().catch(e => {
+                            console.error("[AdSystem] Audio play blocked:", e);
+                            window.showToast("Bấm vào loa để nghe lại nhé!");
+                        });
+                    };
+                    document.getElementById('adCloseBtn').style.display = 'none';
+                } catch (e) {
+                    console.error("[AdSystem] Listening ad error:", e);
                     window.showGoogleAd();
-                };
+                }
+            };
 
-                document.getElementById('btnListen').onclick = () => {
-                    if (randomAd.startTime !== undefined) {
-                        audio.currentTime = randomAd.startTime;
-                    }
-                    audio.play().catch(e => {
-                        console.error("[AdSystem] Audio play blocked:", e);
-                        window.showToast("Bấm vào loa để nghe lại nhé!");
-                    });
-                };
+            window.checkListeningAnswer = (selected, correct, el) => {
+                // Disable all options immediately
+                const options = el.parentElement.querySelectorAll('.listening-opt');
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                    opt.onclick = null;
+                });
+
+                if (selected === correct) {
+                    el.classList.add('correct');
+                    window.showToast("Chính xác! Bạn có thể đóng quảng cáo.");
+                    document.getElementById('adCloseBtn').style.display = 'flex';
+                    // Stop audio when answered correctly
+                    if (currentAdMedia) currentAdMedia.pause();
+                } else {
+                    el.classList.add('wrong');
+                    window.showToast("Sai rồi! Đang tải lại trang để xem quảng cáo khác...");
+                    // Pause audio on failure
+                    if (currentAdMedia) currentAdMedia.pause();
+                    // Reload after delay
+                    setTimeout(() => location.reload(), 2000);
+                }
+            };
+
+            window.triggerAdPush = () => {
+                console.log("[AdSystem] Triggering Spin Wheel");
+                const popup = document.getElementById('adPopup');
+                if (popup) popup.classList.add('show');
+
+                const slot = document.getElementById('adPopupSlot');
+                setAdHeader("quay", "vòng quay");
                 document.getElementById('adCloseBtn').style.display = 'none';
-            } catch (e) {
-                console.error("[AdSystem] Listening ad error:", e);
-                window.showGoogleAd();
-            }
-        };
 
-        window.checkListeningAnswer = (selected, correct, el) => {
-            // Disable all options immediately
-            const options = el.parentElement.querySelectorAll('.listening-opt');
-            options.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-                opt.onclick = null;
-            });
-
-            if (selected === correct) {
-                el.classList.add('correct');
-                window.showToast("Chính xác! Bạn có thể đóng quảng cáo.");
-                document.getElementById('adCloseBtn').style.display = 'flex';
-                // Stop audio when answered correctly
-                if (currentAdMedia) currentAdMedia.pause();
-            } else {
-                el.classList.add('wrong');
-                window.showToast("Sai rồi! Đang tải lại trang để xem quảng cáo khác...");
-                // Pause audio on failure
-                if (currentAdMedia) currentAdMedia.pause();
-                // Reload after delay
-                setTimeout(() => location.reload(), 2000);
-            }
-        };
-
-        window.triggerAdPush = () => {
-            console.log("[AdSystem] Triggering Spin Wheel");
-            const popup = document.getElementById('adPopup');
-            if (popup) popup.classList.add('show');
-
-            const slot = document.getElementById('adPopupSlot');
-            setAdHeader("quay", "vòng quay");
-            document.getElementById('adCloseBtn').style.display = 'none';
-
-            slot.innerHTML = `
+                slot.innerHTML = `
                 <div class="wheel-container">
                     <div class="wheel-wrapper">
                         <div class="wheel-needle"></div>
@@ -2210,359 +2228,369 @@
                     <p style="font-size:12px; color:#64748b; margin-top:10px; font-weight:600;">Quay trúng "May mắn" để không phải xem quảng cáo!</p>
                 </div>
             `;
-        };
+            };
 
-        window.startSpin = () => {
-            const wheel = document.getElementById('mainWheel');
-            const btn = document.getElementById('spinBtn');
-            if (!wheel || !btn || btn.classList.contains('disabled')) return;
+            window.startSpin = () => {
+                const wheel = document.getElementById('mainWheel');
+                const btn = document.getElementById('spinBtn');
+                if (!wheel || !btn || btn.classList.contains('disabled')) return;
 
-            btn.classList.add('disabled');
-            btn.textContent = "...";
+                btn.classList.add('disabled');
+                btn.textContent = "...";
 
-            // Random rotation (at least 5 full circles + random degree)
-            const randomDegree = Math.floor(Math.random() * 360);
-            const totalRotation = 1800 + randomDegree;
+                // Random rotation (at least 5 full circles + random degree)
+                const randomDegree = Math.floor(Math.random() * 360);
+                const totalRotation = 1800 + randomDegree;
 
-            wheel.style.transform = `rotate(${totalRotation}deg)`;
+                wheel.style.transform = `rotate(${totalRotation}deg)`;
 
-            setTimeout(() => {
-                // Determine result (0.4s buffer for the 4s animation)
-                const finalDegree = randomDegree % 360;
+                setTimeout(() => {
+                    // Determine result (0.4s buffer for the 4s animation)
+                    const finalDegree = randomDegree % 360;
 
-                // Conic gradient mapping (clockwise from top):
-                // 0-90: Google (Red)
-                // 90-180: Video (Blue)
-                // 180-270: Listening (Yellow)
-                // 270-360: None (Light Blue)
+                    // Conic gradient mapping (clockwise from top):
+                    // 0-90: Google (Red)
+                    // 90-180: Video (Blue)
+                    // 180-270: Listening (Yellow)
+                    // 270-360: None (Light Blue)
 
-                // Since the wheel rotates clockwise, the degree R at top comes from initial index (360-R)
-                // BUT, it's easier to think: if we rotate by X, the part that was at -X is now at top.
-                // Needle is at top (0 deg).
-                // Part at top after rotation R is the one that was at (360 - (R % 360)) initially.
+                    // Since the wheel rotates clockwise, the degree R at top comes from initial index (360-R)
+                    // BUT, it's easier to think: if we rotate by X, the part that was at -X is now at top.
+                    // Needle is at top (0 deg).
+                    // Part at top after rotation R is the one that was at (360 - (R % 360)) initially.
 
-                const normalized = (360 - finalDegree) % 360;
+                    const normalized = (360 - finalDegree) % 360;
 
-                if (normalized >= 0 && normalized < 90) {
-                    window.showGoogleAd();
-                } else if (normalized >= 90 && normalized < 180) {
-                    window.showVideoAd();
-                } else if (normalized >= 180 && normalized < 270) {
-                    window.showListeningAd();
-                } else {
-                    window.showToast("Duyệt! Bạn quá may mắn, không cần xem quảng cáo lần này. ❤️");
-                    window.closeAdPopup();
-                }
-            }, 4200);
-        };
-
-        window.closeAnnounce = () => {
-            if (document.getElementById('chkNoShow').checked) {
-                localStorage.setItem('ann_hide_date', new Date().toDateString());
-            }
-            document.getElementById('modalAnnounce').classList.remove('active');
-        }
-
-        fetchAndActivate(remoteConfig).then(() => {
-            try {
-                const configVer = getValue(remoteConfig, 'config_version').asString();
-                const configVerEl = document.getElementById('configVerText');
-                if (configVerEl && configVer) configVerEl.textContent = configVer;
-            } catch (e) { }
-
-            const siteDown = getValue(remoteConfig, 'site_down').asBoolean();
-            if (siteDown) {
-                const siteDownMsg = getValue(remoteConfig, 'site_down_message').asString();
-                if (siteDownMsg) document.getElementById('siteDownMessage').textContent = siteDownMsg;
-                const overlay = document.getElementById('siteDownOverlay');
-                overlay.style.display = 'flex';
-                // Block iframe and sidebar
-                const frame = document.getElementById('mainFrame');
-                if (frame) frame.src = 'about:blank';
-                return;
-            }
-
-            const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-            if (maintenanceMode && !isLocal) {
-                const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
-                if (customMessage) document.getElementById('maintenanceMessage').textContent = customMessage;
-                document.getElementById('modalMaintenance').classList.add('active');
-                return;
-            }
-
-            try {
-                const adEnabled = getValue(remoteConfig, "ad_popup_enabled").asBoolean();
-                if (adEnabled) {
-                    const lastAdTime = localStorage.getItem('last_ad_time');
-                    const now = Date.now();
-                    const COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
-
-                    if (!lastAdTime || (now - parseInt(lastAdTime)) > COOLDOWN_MS) {
-                        setTimeout(() => {
-                            const popup = document.getElementById('adPopup');
-                            if (popup) {
-                                popup.classList.add('show');
-                                if (window.triggerAdPush) window.triggerAdPush();
-                                localStorage.setItem('last_ad_time', now.toString());
-                            }
-                        }, 1000);
+                    if (normalized >= 0 && normalized < 90) {
+                        window.showGoogleAd();
+                    } else if (normalized >= 90 && normalized < 180) {
+                        window.showVideoAd();
+                    } else if (normalized >= 180 && normalized < 270) {
+                        window.showListeningAd();
                     } else {
-                        console.log("[AdSystem] Ad cooling down. Next in:", Math.ceil((COOLDOWN_MS - (now - parseInt(lastAdTime))) / 60000), "min");
+                        window.showToast("Duyệt! Bạn quá may mắn, không cần xem quảng cáo lần này. ❤️");
+                        window.closeAdPopup();
                     }
+                }, 4200);
+            };
+
+            window.closeAnnounce = () => {
+                if (document.getElementById('chkNoShow').checked) {
+                    localStorage.setItem('ann_hide_date', new Date().toDateString());
                 }
-            } catch (e) { console.log("Ad popup config error"); }
-
-            const today = new Date().toDateString();
-            if (localStorage.getItem('ann_hide_date') === today) return;
-            try {
-                const data = JSON.parse(getValue(remoteConfig, "announcement_data").asString());
-                if (data && data.show) {
-                    const img = document.getElementById('annImg');
-                    if (data.image) { img.src = data.image; img.style.display = 'block'; } else { img.style.display = 'none'; }
-                    document.getElementById('annText').textContent = data.text || "Thông báo từ hệ thống.";
-                    document.getElementById('modalAnnounce').classList.add('active');
-                }
-            } catch (e) { console.log("No announcement or parse error"); }
-        });
-
-        window.signOutAndReload = () => {
-            auth.signOut().then(() => location.reload());
-        }
-
-        // Expose Firestore helpers for use by the non-module script below
-        window._fbDb = db;
-        window._fbAddDoc = addDoc;
-        window._fbCollection = collection;
-        window._fbDoc = doc;
-        window._fbUpdateDoc = updateDoc;
-        window._fbServerTimestamp = serverTimestamp;
-    </script>
-
-    <script>
-        window.addEventListener('load', () => {
-            const hash = window.location.hash.slice(1);
-            if (hash) {
-                const targetUrl = hash + '.html';
-                window.loadPage(targetUrl, null, false);
+                document.getElementById('modalAnnounce').classList.remove('active');
             }
 
+            fetchAndActivate(remoteConfig).then(() => {
+                try {
+                    const configVer = getValue(remoteConfig, 'config_version').asString();
+                    const configVerEl = document.getElementById('configVerText');
+                    if (configVerEl && configVer) configVerEl.textContent = configVer;
+                } catch (e) { }
+
+                const siteDown = getValue(remoteConfig, 'site_down').asBoolean();
+                if (siteDown) {
+                    const siteDownMsg = getValue(remoteConfig, 'site_down_message').asString();
+                    if (siteDownMsg) document.getElementById('siteDownMessage').textContent = siteDownMsg;
+                    const overlay = document.getElementById('siteDownOverlay');
+                    overlay.style.display = 'flex';
+                    // Block iframe and sidebar
+                    const frame = document.getElementById('mainFrame');
+                    if (frame) frame.src = 'about:blank';
+                    return;
+                }
+
+                const maintenanceMode = getValue(remoteConfig, 'maintenance_mode').asBoolean();
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+                if (maintenanceMode && !isLocal) {
+                    const customMessage = getValue(remoteConfig, 'maintenance_message').asString();
+                    if (customMessage) document.getElementById('maintenanceMessage').textContent = customMessage;
+                    document.getElementById('modalMaintenance').classList.add('active');
+                    return;
+                }
+
+                try {
+                    const adEnabled = getValue(remoteConfig, "ad_popup_enabled").asBoolean();
+                    if (adEnabled) {
+                        const lastAdTime = localStorage.getItem('last_ad_time');
+                        const now = Date.now();
+                        const COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
+
+                        if (!lastAdTime || (now - parseInt(lastAdTime)) > COOLDOWN_MS) {
+                            setTimeout(() => {
+                                const popup = document.getElementById('adPopup');
+                                if (popup) {
+                                    popup.classList.add('show');
+                                    if (window.triggerAdPush) window.triggerAdPush();
+                                    localStorage.setItem('last_ad_time', now.toString());
+                                }
+                            }, 1000);
+                        } else {
+                            console.log("[AdSystem] Ad cooling down. Next in:", Math.ceil((COOLDOWN_MS - (now - parseInt(lastAdTime))) / 60000), "min");
+                        }
+                    }
+                } catch (e) { console.log("Ad popup config error"); }
+
+                const today = new Date().toDateString();
+                if (localStorage.getItem('ann_hide_date') === today) return;
+                try {
+                    const data = JSON.parse(getValue(remoteConfig, "announcement_data").asString());
+                    if (data && data.show) {
+                        const img = document.getElementById('annImg');
+                        if (data.image) { img.src = data.image; img.style.display = 'block'; } else { img.style.display = 'none'; }
+                        document.getElementById('annText').textContent = data.text || "Thông báo từ hệ thống.";
+                        document.getElementById('modalAnnounce').classList.add('active');
+                    }
+                } catch (e) { console.log("No announcement or parse error"); }
+            });
+
+            window.signOutAndReload = () => {
+                auth.signOut().then(() => location.reload());
+            }
+
+            // Expose Firestore helpers for use by the non-module script below
+            window._fbDb = db;
+            window._fbAddDoc = addDoc;
+            window._fbCollection = collection;
+            window._fbDoc = doc;
+            window._fbUpdateDoc = updateDoc;
+            window._fbServerTimestamp = serverTimestamp;
+        </script>
+
+        <script>
+            window.addEventListener('load', () => {
+                const hash = window.location.hash.slice(1);
+                if (hash) {
+                    const targetUrl = hash + '.html';
+                    window.loadPage(targetUrl, null, false);
+                }
+            });
+
+            // Splash screen 3s fallback hider
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                if (splash) splash.classList.add('hidden');
-            }, 1000);
-        });
+                if (splash && !splash.classList.contains('hidden')) {
+                    splash.classList.add('hidden');
+                }
+            }, 3000);
 
-        // Splash screen 3s fallback hider
-        setTimeout(() => {
-            const splash = document.getElementById('splash-screen');
-            if (splash && !splash.classList.contains('hidden')) {
-                splash.classList.add('hidden');
+            window.setUid = (uid) => { const el = document.getElementById('uidText'); if (el) el.textContent = uid || '—'; }
+
+            function getDeviceId() {
+                let did = localStorage.getItem('confe_device_id');
+                if (!did) { did = 'dev-' + Math.random().toString(36).slice(2, 10); localStorage.setItem('confe_device_id', did); }
+                const el = document.getElementById('deviceText');
+                if (el) el.textContent = did;
             }
-        }, 3000);
+            getDeviceId();
 
-        window.setUid = (uid) => { const el = document.getElementById('uidText'); if (el) el.textContent = uid || '—'; }
-
-        function getDeviceId() {
-            let did = localStorage.getItem('confe_device_id');
-            if (!did) { did = 'dev-' + Math.random().toString(36).slice(2, 10); localStorage.setItem('confe_device_id', did); }
-            const el = document.getElementById('deviceText');
-            if (el) el.textContent = did;
-        }
-        getDeviceId();
-
-        window.copyVerifyLink = () => {
-            const link = window.currentVerifyLink;
-            if (!link) return;
-            navigator.clipboard.writeText(link).then(() => {
-                window.showToast("Đã sao chép liên kết xác minh!");
-            });
-        }
-
-
-
-        window.copyDbgField = (spanId) => {
-            const el = document.getElementById(spanId);
-            if (!el) return;
-            navigator.clipboard.writeText(el.textContent).then(() => {
-                const orig = el.textContent; el.textContent = 'Đã chép!'; setTimeout(() => el.textContent = orig, 1200);
-            });
-        }
-
-        let isHandlingHashChange = false;
-
-        window.loadPage = function (url, el, pushHash = true) {
-
-            if (url === 'chat.html' && window.innerWidth > 768) {
-                window.location.href = url;
-                return;
+            window.copyVerifyLink = () => {
+                const link = window.currentVerifyLink;
+                if (!link) return;
+                navigator.clipboard.writeText(link).then(() => {
+                    window.showToast("Đã sao chép liên kết xác minh!");
+                });
             }
 
-            if (pushHash) {
-                const hashName = url.split('.')[0];
-                if (window.location.hash !== '#' + hashName) {
-                    isHandlingHashChange = true;
-                    window.location.hash = hashName;
-                    setTimeout(() => isHandlingHashChange = false, 50);
+
+
+            window.copyDbgField = (spanId) => {
+                const el = document.getElementById(spanId);
+                if (!el) return;
+                navigator.clipboard.writeText(el.textContent).then(() => {
+                    const orig = el.textContent; el.textContent = 'Đã chép!'; setTimeout(() => el.textContent = orig, 1200);
+                });
+            }
+
+            let isHandlingHashChange = false;
+
+            window.loadPage = function (url, el, pushHash = true) {
+
+                if (url === 'chat.html' && window.innerWidth > 768) {
+                    window.location.href = url;
+                    return;
+                }
+
+                if (pushHash) {
+                    const hashName = url.split('.')[0];
+                    if (window.location.hash !== '#' + hashName) {
+                        isHandlingHashChange = true;
+                        window.location.hash = hashName;
+                        setTimeout(() => isHandlingHashChange = false, 50);
+                    }
+                }
+
+                document.getElementById('mainFrame').src = url;
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+                if (el) {
+                    el.classList.add('active');
+                } else {
+                    Array.from(document.querySelectorAll('.nav-link')).find(nav => {
+                        const onclickStr = nav.getAttribute('onclick') || '';
+                        if (onclickStr.includes("'" + url) || onclickStr.includes('"' + url)) {
+                            nav.classList.add('active');
+                            return true;
+                        }
+                        return false;
+                    });
                 }
             }
 
-            document.getElementById('mainFrame').src = url;
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            window.addEventListener('hashchange', () => {
+                if (isHandlingHashChange) return;
+                const hash = window.location.hash.slice(1);
+                if (hash) {
+                    const targetUrl = hash + '.html';
+                    window.loadPage(targetUrl, null, false);
+                }
+            });
 
-            if (el) {
-                el.classList.add('active');
-            } else {
-                Array.from(document.querySelectorAll('.nav-link')).find(nav => {
-                    const onclickStr = nav.getAttribute('onclick') || '';
-                    if (onclickStr.includes("'" + url) || onclickStr.includes('"' + url)) {
-                        nav.classList.add('active');
-                        return true;
-                    }
-                    return false;
-                });
+            window.closeGuidelines = () => {
+                localStorage.setItem('confe_guidelines_last_seen', new Date().getTime().toString());
+                document.getElementById('modalGuidelines').classList.remove('active');
             }
-        }
 
-        window.addEventListener('hashchange', () => {
-            if (isHandlingHashChange) return;
-            const hash = window.location.hash.slice(1);
-            if (hash) {
-                const targetUrl = hash + '.html';
-                window.loadPage(targetUrl, null, false);
-            }
-        });
-
-        window.closeGuidelines = () => {
-            localStorage.setItem('confe_guidelines_last_seen', new Date().getTime().toString());
-            document.getElementById('modalGuidelines').classList.remove('active');
-        }
-
-        window.checkScroll = (el) => {
-            const btn = document.getElementById('btnAgree');
-            if (el.scrollHeight - el.scrollTop <= el.clientHeight + 20) {
-                btn.classList.remove('disabled'); btn.removeAttribute('disabled'); btn.textContent = "Tôi đã hiểu và đồng ý";
-            } else {
-                btn.classList.add('disabled'); btn.setAttribute('disabled', 'true'); btn.textContent = "Đọc hết để đồng ý";
-            }
-        }
-
-        function checkGuidelines() {
-            const lastSeen = localStorage.getItem('confe_guidelines_last_seen');
-            if (!lastSeen || (Date.now() - parseInt(lastSeen)) > 7 * 24 * 60 * 60 * 1000) {
-                document.getElementById('modalGuidelines').classList.add('active');
+            window.checkScroll = (el) => {
                 const btn = document.getElementById('btnAgree');
-                btn.classList.add('disabled'); btn.setAttribute('disabled', 'true'); btn.textContent = "Đọc hết để đồng ý";
-                const gc = document.getElementById('guideContent');
-                if (gc) setTimeout(() => checkScroll(gc), 100);
+                if (el.scrollHeight - el.scrollTop <= el.clientHeight + 20) {
+                    btn.classList.remove('disabled'); btn.removeAttribute('disabled'); btn.textContent = "Tôi đã hiểu và đồng ý";
+                } else {
+                    btn.classList.add('disabled'); btn.setAttribute('disabled', 'true'); btn.textContent = "Đọc hết để đồng ý";
+                }
             }
-        }
-        checkGuidelines();
 
-        // Sidebar resizer
-        const sidebar = document.getElementById('sidebar');
-        const resizer = document.getElementById('resizer');
-        const iframe = document.getElementById('mainFrame');
-        let isResizing = false;
-        resizer.addEventListener('mousedown', () => { isResizing = true; resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none'; iframe.style.pointerEvents = 'none'; });
-        document.addEventListener('mousemove', (e) => { if (!isResizing) return; let w = Math.max(180, Math.min(500, e.clientX)); sidebar.style.width = w + 'px'; });
-        document.addEventListener('mouseup', () => { if (isResizing) { isResizing = false; resizer.classList.remove('dragging'); document.body.style.cursor = 'default'; document.body.style.userSelect = 'auto'; iframe.style.pointerEvents = 'auto'; } });
-
-        // Deep link
-        window.addEventListener('DOMContentLoaded', () => {
-            const p = new URLSearchParams(window.location.search);
-            const uid = p.get('uid'), chat = p.get('chat'), errCode = p.get('error');
-            const f = document.getElementById('mainFrame');
-            if (uid) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); f.src = `profile.html?uid=${uid}`; }
-            else if (chat) { f.src = `chat.html?chat=${chat}`; }
-
-            if (errCode) {
-                setTimeout(() => window.showErrorDictionary(errCode), 1000);
+            function checkGuidelines() {
+                const lastSeen = localStorage.getItem('confe_guidelines_last_seen');
+                if (!lastSeen || (Date.now() - parseInt(lastSeen)) > 7 * 24 * 60 * 60 * 1000) {
+                    document.getElementById('modalGuidelines').classList.add('active');
+                    const btn = document.getElementById('btnAgree');
+                    btn.classList.add('disabled'); btn.setAttribute('disabled', 'true'); btn.textContent = "Đọc hết để đồng ý";
+                    const gc = document.getElementById('guideContent');
+                    if (gc) setTimeout(() => checkScroll(gc), 100);
+                }
             }
-        });
+            checkGuidelines();
+
+            // Sidebar resizer
+            const sidebar = document.getElementById('sidebar');
+            const resizer = document.getElementById('resizer');
+            const iframe = document.getElementById('mainFrame');
+            let isResizing = false;
+            resizer.addEventListener('mousedown', () => { isResizing = true; resizer.classList.add('dragging'); document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none'; iframe.style.pointerEvents = 'none'; });
+            document.addEventListener('mousemove', (e) => { if (!isResizing) return; let w = Math.max(180, Math.min(500, e.clientX)); sidebar.style.width = w + 'px'; });
+            document.addEventListener('mouseup', () => { if (isResizing) { isResizing = false; resizer.classList.remove('dragging'); document.body.style.cursor = 'default'; document.body.style.userSelect = 'auto'; iframe.style.pointerEvents = 'auto'; } });
+
+            // Deep link
+            window.addEventListener('DOMContentLoaded', () => {
+                const p = new URLSearchParams(window.location.search);
+                const uid = p.get('uid'), chat = p.get('chat'), errCode = p.get('error');
+                const f = document.getElementById('mainFrame');
+                if (uid) { document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active')); f.src = `profile.html?uid=${uid}`; }
+                else if (chat) { f.src = `chat.html?chat=${chat}`; }
+
+                if (errCode) {
+                    setTimeout(() => window.showErrorDictionary(errCode), 1000);
+                }
+            });
 
 
-        // Error Dictionary Logic
-        window.showErrorDictionary = (code) => {
-            const overlay = document.getElementById('errorOverlay');
-            const codeEl = document.getElementById('errorTargetCode');
-            if (codeEl) codeEl.textContent = code || "Chưa xác định";
-            if (overlay) overlay.classList.add('active');
-        }
-        window.closeErrorDictionary = () => {
-            const overlay = document.getElementById('errorOverlay');
-            if (overlay) overlay.classList.remove('active');
-        }
-    </script>
+            // Error Dictionary Logic
+            window.showErrorDictionary = (code) => {
+                const overlay = document.getElementById('errorOverlay');
+                const codeEl = document.getElementById('errorTargetCode');
+                if (codeEl) codeEl.textContent = code || "Chưa xác định";
+                if (overlay) overlay.classList.add('active');
+            }
+            window.closeErrorDictionary = () => {
+                const overlay = document.getElementById('errorOverlay');
+                if (overlay) overlay.classList.remove('active');
+            }
+        </script>
 
-    <!-- Error Dictionary Overlay -->
-    <div id="errorOverlay" class="modal-overlay" onclick="closeErrorDictionary()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+        <!-- Error Dictionary Overlay -->
+        <div id="errorOverlay" class="modal-overlay" onclick="closeErrorDictionary()">
+            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 500px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <h2
+                        style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #ef4444;">
+                        <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi Hệ Thống
+                    </h2>
+                    <button onclick="closeErrorDictionary()"
+                        style="background: none; border: none; cursor: pointer; color: #94a3b8;">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+                <div
+                    style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+                    <p style="font-size: 14px; color: #b91c1c; font-weight: 600; text-align: center;">
+                        Phát hiện lỗi hệ thống: <span id="errorTargetCode"
+                            style="font-size: 18px; font-weight: 900;">-</span>
+                    </p>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #f1f5f9;">
+                            <th style="padding: 12px; color: #64748b; font-weight: 700;">Mã Lỗi</th>
+                            <th style="padding: 12px; color: #64748b; font-weight: 700;">Ý Nghĩa & Khắc Phục</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 1</td>
+                            <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng
+                                hoặc
+                                tải lại trang.</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 2</td>
+                            <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và
+                                đăng
+                                nhập lại.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="closeErrorDictionary()" class="nav-link active"
+                    style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; font-weight: 700; border-radius: 16px; padding: 14px;">Đã
+                    hiểu</button>
+            </div>
+        </div>
+
+        <!-- Level 1 Verification Overlay -->
+        <div id="verifyOverlay" class="verify-overlay"
+            style="display: none; align-items: center; justify-content: center; z-index: 1000000; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);">
+            <div id="skelVerifyOverlayCard"
+                style="width: 400px; padding: 32px; background: white; border-radius: 28px;">
+                <div class="skeleton" style="height: 32px; width: 60%; margin-bottom: 24px;"></div>
+                <div class="skeleton" style="height: 16px; width: 100%; margin-bottom: 12px;"></div>
+                <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 32px;"></div>
+                <div class="skeleton" style="height: 52px; width: 100%; border-radius: 16px;"></div>
+            </div>
+            <div id="mainVerifyOverlayCard"
+                style="display: none; width: 100%; max-width: 420px; padding: 40px; background: white; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
+                <div
+                    style="width: 80px; height: 80px; background: #eff6ff; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: #2563eb;">
+                    <span class="material-symbols-rounded" style="font-size: 48px;">verified_user</span>
+                </div>
                 <h2
-                    style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #ef4444;">
-                    <span class="material-symbols-rounded">menu_book</span> Từ Điển Lỗi Hệ Thống
-                </h2>
-                <button onclick="closeErrorDictionary()"
-                    style="background: none; border: none; cursor: pointer; color: #94a3b8;">
-                    <span class="material-symbols-rounded">close</span>
+                    style="font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.5px;">
+                    Xác minh danh tính</h2>
+                <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 32px;">Hệ thống yêu cầu bạn
+                    xác
+                    minh tài khoản để tham gia vào cộng đồng. Quá trình này giúp bảo vệ bạn và mọi người.</p>
+                <div id="verifyDeadlineText"
+                    style="padding: 12px; background: #fee2e2; color: #b91c1c; border-radius: 12px; font-weight: 700; font-size: 14px; margin-bottom: 32px;">
+                </div>
+                <button onclick="window.open(window.currentVerifyLink, '_blank')"
+                    style="width: 100%; padding: 18px; background: #2563eb; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    Tiến hành xác minh <span class="material-symbols-rounded">arrow_forward</span>
                 </button>
+                <p style="margin-top: 24px; font-size: 13px; color: #94a3b8;">Sau khi hoàn thành, vui lòng tải lại trang
+                    bài
+                    viết.</p>
             </div>
-            <div
-                style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
-                <p style="font-size: 14px; color: #b91c1c; font-weight: 600; text-align: center;">
-                    Phát hiện lỗi hệ thống: <span id="errorTargetCode"
-                        style="font-size: 18px; font-weight: 900;">-</span>
-                </p>
-            </div>
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
-                <thead>
-                    <tr style="border-bottom: 2px solid #f1f5f9;">
-                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Mã Lỗi</th>
-                        <th style="padding: 12px; color: #64748b; font-weight: 700;">Ý Nghĩa & Khắc Phục</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 1</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc
-                            tải lại trang.</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">Code 2</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng
-                            nhập lại.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="closeErrorDictionary()" class="nav-link active"
-                style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; font-weight: 700; border-radius: 16px; padding: 14px;">Đã
-                hiểu</button>
         </div>
-    </div>
-
-    <!-- Level 1 Verification Overlay -->
-    <div id="verifyOverlay" class="verify-overlay" style="display: none; align-items: center; justify-content: center; z-index: 1000000; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);">
-        <div id="skelVerifyOverlayCard" style="width: 400px; padding: 32px; background: white; border-radius: 28px;">
-            <div class="skeleton" style="height: 32px; width: 60%; margin-bottom: 24px;"></div>
-            <div class="skeleton" style="height: 16px; width: 100%; margin-bottom: 12px;"></div>
-            <div class="skeleton" style="height: 16px; width: 80%; margin-bottom: 32px;"></div>
-            <div class="skeleton" style="height: 52px; width: 100%; border-radius: 16px;"></div>
-        </div>
-        <div id="mainVerifyOverlayCard" style="display: none; width: 100%; max-width: 420px; padding: 40px; background: white; border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
-            <div style="width: 80px; height: 80px; background: #eff6ff; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: #2563eb;">
-                <span class="material-symbols-rounded" style="font-size: 48px;">verified_user</span>
-            </div>
-            <h2 style="font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.5px;">Xác minh danh tính</h2>
-            <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 32px;">Hệ thống yêu cầu bạn xác minh tài khoản để tham gia vào cộng đồng. Quá trình này giúp bảo vệ bạn và mọi người.</p>
-            <div id="verifyDeadlineText" style="padding: 12px; background: #fee2e2; color: #b91c1c; border-radius: 12px; font-weight: 700; font-size: 14px; margin-bottom: 32px;"></div>
-            <button onclick="window.open(window.currentVerifyLink, '_blank')" style="width: 100%; padding: 18px; background: #2563eb; color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                Tiến hành xác minh <span class="material-symbols-rounded">arrow_forward</span>
-            </button>
-            <p style="margin-top: 24px; font-size: 13px; color: #94a3b8;">Sau khi hoàn thành, vui lòng tải lại trang bài viết.</p>
-        </div>
-    </div>
 
 
 </body>

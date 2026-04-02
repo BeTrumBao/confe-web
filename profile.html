@@ -1913,7 +1913,7 @@
             const isOwner = currentUser && (currentUser.uid === uid || currentUser.email === data.email);
             const showTickPrefer = data.showTickPrefer !== false;
             // Level 1 check
-            const isVerified = (data.isVerified === true) || data.isTickVerified || (data.restrictedTick && isOwner);
+            const isVerified = (data.isVerified === true || data.isVerified === "true") || data.isTickVerified || (data.restrictedTick && isOwner);
 
             let tickHtml = '';
             if (data.isTickVerified || (data.restrictedTick && isOwner)) {
