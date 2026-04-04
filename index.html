@@ -21,6 +21,30 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="toast.js?v=2"></script>
+    <script>
+        // Programmatic Rate Limit Popup Injection
+        window.showRateLimitPopup = () => {
+            console.log("[Index] showRateLimitPopup invoked programmatically!");
+            let overlay = document.getElementById('forceRateLimitOverlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'forceRateLimitOverlay';
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:2147483647;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);';
+
+                overlay.innerHTML = `
+                    <div style="background:white;padding:32px 24px;border-radius:24px;text-align:center;max-width:380px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);transform:translateY(0);font-family:sans-serif;">
+                        <div style="width:72px;height:72px;background:#fee2e2;border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                            <span style="font-size:36px;color:#ef4444;">⚠️</span>
+                        </div>
+                        <h2 style="font-size:22px;color:#0f172a;margin-bottom:12px;font-weight:800;line-height:1.4;">Nhắc nhở</h2>
+                        <p style="color:#64748b;margin-bottom:24px;line-height:1.5;font-size:15px;">Thao tác qua nhanh , vui lòng thử lại sau (e2)</p>
+                        <button onclick="document.getElementById('forceRateLimitOverlay').remove()" style="background:#ef4444;color:white;border:none;padding:14px 24px;border-radius:14px;font-weight:700;cursor:pointer;width:100%;font-size:16px;">Đóng</button>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+    </script>
     <style>
         :root {
             --primary: #0084ff;
@@ -121,7 +145,6 @@
             transition: background 0.2s;
         }
 
-        .resizer:hover,
         .resizer.dragging {
             background: var(--primary);
         }
@@ -169,12 +192,6 @@
             border: 1px solid transparent;
         }
 
-        .nav-link:hover {
-            background: #f1f5f9;
-            color: var(--primary);
-            transform: translateX(6px) scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
 
         .nav-link.active {
             background: var(--primary-light);
@@ -192,7 +209,6 @@
             transition: font-variation-settings 0.3s, transform 0.3s;
         }
 
-        .nav-link:hover .material-symbols-rounded,
         .nav-link.active .material-symbols-rounded {
             font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
             transform: scale(1.1);
@@ -228,63 +244,7 @@
             overflow-y: auto;
         }
 
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #ffffff;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            transition: opacity 0.5s ease-out, visibility 0.5s;
-        }
 
-        #splash-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .splash-logo {
-            width: 80px;
-            height: 80px;
-            animation: rotateIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            margin-bottom: 20px;
-            opacity: 0;
-        }
-
-        @keyframes rotateIn {
-            0% {
-                transform: rotate(-90deg) scale(0.8);
-                opacity: 0;
-            }
-
-            100% {
-                transform: rotate(0deg) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .splash-text {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out forwards 0.5s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         @media (max-width: 768px) {
             body {
@@ -543,11 +503,6 @@
             z-index: 2;
         }
 
-        .ad-close-btn:hover {
-            background: white;
-            color: #1e293b;
-            transform: rotate(90deg);
-        }
 
         .ad-popup-body {
             padding: 24px;
@@ -689,11 +644,6 @@
             text-transform: uppercase;
         }
 
-        .spin-btn:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: #1e293b;
-            color: #fff;
-        }
 
         .spin-btn:active {
             transform: translate(-50%, -50%) scale(0.9);
@@ -786,10 +736,6 @@
             transition: all 0.2s;
         }
 
-        .listening-opt:hover {
-            border-color: var(--primary);
-            background: var(--primary-bg);
-        }
 
         .listening-opt.correct {
             background: #10b981;
@@ -817,11 +763,6 @@
             box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
         }
 
-        .btn-ad-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
-            filter: brightness(1.1);
-        }
 
         /* BANNED OVERLAY */
         #bannedOverlay {
@@ -1083,13 +1024,10 @@
     <meta name="twitter:description" content="Mạng xã hội mini Confe">
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
-    <div id="splash-screen">
-        <img src="assets/favicon.png" class="splash-logo">
-        <div class="splash-text">Confe</div>
-    </div>
 
     <script>
         // Custom Viewport Height for iOS
@@ -1348,9 +1286,6 @@
             border-radius: 10px;
         }
 
-        .guide-content-scroll::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
 
         .rule-list {
             list-style: none;
@@ -1391,10 +1326,6 @@
             box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
         }
 
-        .btn-agree:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 132, 255, 0.4);
-        }
 
         .btn-agree.disabled {
             background: #cbd5e1;
@@ -1453,7 +1384,188 @@
                 opacity: 0.2;
             }
         }
+
+        /* Premium Splash Screen */
+        #appSplashScreen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f8fafc, #eff6ff, #f1f5f9);
+            z-index: 2147483647;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #appSplashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.6s ease-out, visibility 0.6s;
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background: #ffffff;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Container for Logo + Text to handle transition to Row */
+        .splash-brand-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 10vh;
+        }
+
+        /* Class added after animations to shift to horizontal */
+        .splash-brand-header.is-horizontal {
+            flex-direction: row;
+            gap: 16px;
+        }
+
+        .splash-logo {
+            width: 80px;
+            height: 80px;
+            animation: rotateIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes rotateIn {
+            0% { transform: rotate(-90deg) scale(0.8); opacity: 0; }
+            100% { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+
+        .splash-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0084ff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards 0.5s;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Adjust logo and text size when horizontal */
+        .is-horizontal .splash-logo {
+            width: 50px;
+            height: 50px;
+            animation: logoSwipeLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes logoSwipeLeft {
+            0% { transform: translateX(80px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .is-horizontal .splash-text {
+            font-size: 28px;
+            margin-bottom: 0;
+            animation: textSwipeRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes textSwipeRight {
+            0% { transform: translateX(-40px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .splash-bottom-area {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            max-width: 440px;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .splash-loader-container {
+            display: none;
+        }
+
+        #splashMessage {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+            text-align: center;
+        }
     </style>
+
+    <!-- Premium Splash Screen -->
+    <div id="appSplashScreen">
+        <div class="splash-content">
+            <div class="splash-brand-header" id="splashBrandHeader">
+                <img src="assets/favicon.png" alt="Logo" class="splash-logo">
+                <div class="splash-text">Confe</div>
+            </div>
+            
+            <div class="splash-bottom-area">
+                <div id="splashMessage">System loading , please wait a momment...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Trigger Layout Horizontal shift after animations
+        setTimeout(() => {
+            const header = document.getElementById('splashBrandHeader');
+            if (header) header.classList.add('is-horizontal');
+        }, 1800);
+
+        // Splash Screen Controller
+        window.updateSplashScreen = function (percent, message) {
+            const bar = document.getElementById('splashProgressBar');
+            const msg = document.getElementById('splashMessage');
+            if (bar) bar.style.width = percent + '%';
+            if (msg && message) msg.textContent = message;
+            console.log(`[Splash] ${percent}% - ${message}`);
+        };
+
+        window.hideSplashScreen = function (message = "") {
+            const splash = document.getElementById('appSplashScreen');
+            if (splash && !splash.classList.contains('hidden')) {
+                console.log("[Splash] Hiding splash screen...");
+                if (message) window.updateSplashScreen(100, message);
+
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    // Completely remove after animation
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        splash.remove();
+                    }, 800);
+                }, 400);
+            }
+        };
+
+        // Initial progress
+        window.updateSplashScreen(15, "");
+
+        // Safety Timeout: Force hide if still showing after 10s
+        setTimeout(() => {
+            const splash = document.getElementById('appSplashScreen');
+            if (splash && !splash.classList.contains('hidden')) {
+                console.warn("[Splash] Safety timeout reached. Forcing hide.");
+                window.hideSplashScreen("Ready!");
+            }
+        }, 10000);
+    </script>
 
     <div class="content-area">
         <iframe name="contentFrame" id="mainFrame" src="about:blank"></iframe>
@@ -1558,8 +1670,7 @@
                 style="width:40px; height:5px; background:#e2e8f0; border-radius:9999px; margin:0 auto; position:absolute; left:50%; transform:translateX(-50%); top:10px;">
             </div>
             <button onclick="closeProfilePopup()"
-                style="margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; padding:8px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;"
-                onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+                style="margin-left:auto; background:none; border:none; color:#94a3b8; cursor:pointer; padding:8px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">
                 <span class="material-symbols-rounded" style="font-size:22px;">close</span>
             </button>
         </div>
@@ -1714,14 +1825,14 @@
                 <!-- Tài khoản & Xử lý -->
                 <div
                     style="background:#fefce8; border:1px solid #fde68a; border-radius:14px; padding:16px; margin-bottom:20px;">
-                        <span class="material-symbols-rounded">info</span>
-                        <ul>
-                            <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
-                            <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
-                            <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
-                            <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
-                            <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
-                        </ul>
+                    <span class="material-symbols-rounded">info</span>
+                    <ul>
+                        <li><b>Tài khoản:</b> Bạn chịu trách nhiệm hoàn toàn về hoạt động trên tài khoản.</li>
+                        <li><b>Bug/Lỗi:</b> Báo cáo Admin, không lợi dụng để phá hoại.</li>
+                        <li><b>Xử lý vi phạm:</b> Khóa tạm thời hoặc vĩnh viễn tùy mức độ, không báo trước.</li>
+                        <li><b>Hợp tác:</b> Hợp tác với Mod/Admin khi được yêu cầu.</li>
+                        <li><b>Sửa đổi:</b> Quy tắc có thể cập nhật bất cứ lúc nào. Tiếp tục dùng = đồng ý.</li>
+                    </ul>
 
                     <div style="height:10px;"></div>
                 </div>
@@ -1734,22 +1845,24 @@
         </div>
 
         <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+            import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
             import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-            import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp, getDocFromServer } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+            import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, updateDoc, serverTimestamp, getDocFromServer, checkRateLimit } from "./fire-safety.js";
             import { startPresenceHeartbeat } from "./presence.js";
             import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
             import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
             import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging.js";
             import { onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+            import { getPerformance } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-performance.js";
 
-            const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
-            const app = initializeApp(cfg);
+            const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.vercel.app", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069", databaseURL: "https://confe-web-default-rtdb.firebaseio.com" };
+            const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
             const auth = getAuth(app);
             const db = getFirestore(app);
             const rtdb = getDatabase(app);
             const remoteConfig = getRemoteConfig(app);
             const messaging = getMessaging(app);
+            const performance = getPerformance(app);
 
             let unsubJoin = null, unsubFriend = null, unsubUserDoc = null;
             const dot = document.getElementById('profileBadge');
@@ -1887,6 +2000,9 @@
             onAuthStateChanged(auth, async (u) => {
                 // Auth state
                 if (u) {
+                    if (typeof window.updateSplashScreen === 'function') {
+                        window.updateSplashScreen(45, "Xác thực danh tính...");
+                    }
                     localStorage.setItem('confe_current_uid', u.uid);
                     requestNotificationPermission(u); // Ask for permission after login
                     updateUserIP(u.uid); // Save user IP to database
@@ -1989,14 +2105,12 @@
                                 const isL2Visible = (l2Overlay && l2Overlay.style.display === 'flex');
 
                                 if (frame && frame.src.includes('about:blank') && !isV1Visible && !isL2Visible) {
+                                    if (typeof window.updateSplashScreen === 'function') {
+                                        window.updateSplashScreen(65, "Đang tải tài nguyên cho trang chủ ...");
+                                    }
                                     frame.src = 'dashboard.html';
                                 }
 
-                                // Hide splash screen immediately when data is ready
-                                const splash = document.getElementById('splash-screen');
-                                if (splash && !splash.classList.contains('hidden')) {
-                                    splash.classList.add('hidden');
-                                }
                             }
                         });
                     } catch (e) { console.error("Check status fail:", e); }
@@ -2356,6 +2470,7 @@
             window._fbDoc = doc;
             window._fbUpdateDoc = updateDoc;
             window._fbServerTimestamp = serverTimestamp;
+            window.checkRateLimit = checkRateLimit;
         </script>
 
         <script>
@@ -2367,13 +2482,6 @@
                 }
             });
 
-            // Splash screen 3s fallback hider
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                if (splash && !splash.classList.contains('hidden')) {
-                    splash.classList.add('hidden');
-                }
-            }, 3000);
 
             window.setUid = (uid) => { const el = document.getElementById('uidText'); if (el) el.textContent = uid || '—'; }
 
@@ -2406,6 +2514,16 @@
             let isHandlingHashChange = false;
 
             window.loadPage = function (url, el, pushHash = true) {
+                console.log("[Navigation] loadPage intercept for:", url);
+                // Prevent spamming navigation
+                if (typeof window.checkRateLimit === 'function') {
+                    if (!window.checkRateLimit()) {
+                        console.warn("[Navigation] Rate limit triggered for:", url);
+                        return;
+                    }
+                } else {
+                    console.warn("[Navigation] window.checkRateLimit is not yet available");
+                }
 
                 if (url === 'chat.html' && window.innerWidth > 768) {
                     window.location.href = url;
@@ -2494,6 +2612,8 @@
                     setTimeout(() => window.showErrorDictionary(errCode), 1000);
                 }
             });
+
+
 
 
             // Error Dictionary Logic
@@ -2592,6 +2712,7 @@
             </div>
         </div>
 
+        <!-- Static rate limit overlay removed in favor of programmatic injection -->
 
 </body>
 

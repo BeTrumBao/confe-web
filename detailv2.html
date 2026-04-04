@@ -1987,33 +1987,17 @@
         </div>
     </div>
 
-    <!-- Cropper Modal -->
-    <div id="modalCropper" class="modal" style="z-index:9999;">
-        <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
-            <h3 style="margin-bottom:15px; font-size:18px;">Cắt ảnh</h3>
-            <div
-                style="width:100%; max-height:400px; background:#f1f5f9; border-radius:15px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;">
-                <img id="cropperImage" src="" style="max-width:100%; display:block;">
-            </div>
-            <div style="display:flex; gap:10px;">
-                <button id="btnCropConfirm" class="btn-main" style="flex:1;">Cắt & Xem trước</button>
-                <button onclick="document.getElementById('modalCropper').classList.remove('active')" class="btn-main"
-                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
-            </div>
-        </div>
-    </div>
-
     <div class="toast-container" id="toastContainer"></div>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, doc, getDoc, setDoc, updateDoc, deleteDoc, increment, getDocs, runTransaction, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, doc, getDoc, setDoc, updateDoc, deleteDoc, increment, getDocs, runTransaction, enableIndexedDbPersistence } from "./fire-safety.js";
 
         // CONFIG
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.vercel.app", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
         const CLOUD_NAME = "dtgeyitj1";
         const UPLOAD_PRESET = "ml_default";
-        const app = initializeApp(cfg);
+        const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
         const db = getFirestore(app);
 
         // ENABLE CACHE FIRST

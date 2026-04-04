@@ -700,35 +700,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">1</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi kết nối máy chủ. Vui lòng kiểm tra lại mạng hoặc
-                            tải lại trang.</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 12px; font-weight: 800; color: #0f172a;">2</td>
-                        <td style="padding: 12px; color: #475569;">Lỗi xác thực người dùng. Hãy thử đăng xuất và đăng
-                            nhập lại.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="closeErrorDictionary()" class="btn-main"
-                style="width: 100%; justify-content: center; margin-top: 24px; background: #ef4444; color: white; border: none; border-radius: 16px; font-weight: 800;">Đã
-                hiểu</button>
-        </div>
-    </div>
-
-
-
-    <div class="toast-container" id="toastContainer"></div>
+<div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc } from "./fire-safety.js";
 
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const app = initializeApp(cfg);
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.vercel.app", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
         const auth = getAuth(app);
         const db = getFirestore(app);
 

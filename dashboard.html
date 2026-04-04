@@ -1703,21 +1703,25 @@
     </style>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp, setDoc, updateDoc, arrayUnion, arrayRemove } from "./fire-safety.js";
         import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-remote-config.js";
         import { startPresenceHeartbeat } from "./presence.js";
 
-        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.firebaseapp.com", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
-        const app = initializeApp(cfg);
+        const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.vercel.app", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+        const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
         const auth = getAuth(app);
         const db = getFirestore(app);
         const rtdb = getDatabase(app);
         let user = null;
         const remoteConfig = getRemoteConfig(app);
         remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
+
+        if (window.parent && typeof window.parent.updateSplashScreen === 'function') {
+            window.parent.updateSplashScreen(75, "Đang kết nối dữ liệu...");
+        }
 
         window.showToast = (msg) => {
             if (window.parent && window.parent.showToast) {
@@ -2069,7 +2073,12 @@
         onAuthStateChanged(auth, async (u) => {
             user = u;
             if (!u) { window.top.location.href = 'login.html'; return; }
-            loadCommunityPoll();
+
+            if (window.parent && typeof window.parent.updateSplashScreen === 'function') {
+                window.parent.updateSplashScreen(85, "Đang tải cấu hình hệ thống...");
+            }
+
+            await loadCommunityPoll();
 
             // Handle 10-Day Login Reward & Ruby Sticker
             checkLoginStreakAndRewards(u);
@@ -2097,6 +2106,11 @@
                 doc,
                 serverTimestamp
             });
+
+            if (window.parent && typeof window.parent.hideSplashScreen === 'function') {
+                window.parent.updateSplashScreen(100, "Sắp xong rồi...");
+                setTimeout(() => window.parent.hideSplashScreen(), 500);
+            }
         });
 
         // EVENT: Direct Claim Limited Collection (March 30 - April 5, 2026)

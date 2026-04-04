@@ -1315,7 +1315,7 @@
                             <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
                                 <span class="material-symbols-rounded"
                                     style="font-size: 18px; vertical-align: middle;">info</span>
-                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Äang báº£o trÃ¬</b>, toÃ n
+                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Ä ang báº£o trÃ¬</b>, toÃ n
                                 bá»™ trang Ã”n táº­p
                                 thÃ´ng minh sáº½ bá»‹ khÃ³a vÃ  hiá»ƒn thá»‹ thÃ´ng bÃ¡o báº¡n Ä‘Ã£ nháº­p. Admin váº«n
                                 cÃ³ thá»ƒ vÃ o Ä‘á»ƒ kiá»ƒm
@@ -1337,20 +1337,20 @@
     </main>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, arrayUnion, arrayRemove, doc, getDoc, collection, getDocs, query, limit, orderBy, where, deleteDoc, updateDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, arrayUnion, arrayRemove, doc, getDoc, collection, getDocs, query, limit, orderBy, where, deleteDoc, updateDoc, setDoc, serverTimestamp } from "./fire-safety.js";
 
         // Firebase Config
         const cfg = {
             apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
-            authDomain: "confe-web.firebaseapp.com",
+            authDomain: "confe-web.vercel.app",
             projectId: "confe-web",
             storageBucket: "confe-web.firebasestorage.app",
             messagingSenderId: "677778119372",
             appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
-        const app = initializeApp(cfg);
+        const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
         const auth = getAuth(app);
         const db = getFirestore(app);
 

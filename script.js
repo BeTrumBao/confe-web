@@ -1,17 +1,11 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, getDocs, collection, query, where, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, arrayUnion, arrayRemove, orderBy, limit, Timestamp, writeBatch, increment } from "./fire-safety.js";
+import { startPresenceHeartbeat } from "./presence.js";
 
-const firebaseConfig = {
-      apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
-  authDomain: "confe-web.firebaseapp.com",
-  projectId: "confe-web",
-  storageBucket: "confe-web.firebasestorage.app",
-  messagingSenderId: "677778119372",
-  appId: "1:677778119372:web:ee3f1132871332743b0069"
-};
-
-const app = initializeApp(firebaseConfig);
+// Firebase Config
+const cfg = { apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", authDomain: "confe-web.vercel.app", projectId: "confe-web", storageBucket: "confe-web.firebasestorage.app", messagingSenderId: "677778119372", appId: "1:677778119372:web:ee3f1132871332743b0069" };
+const app = getApps().length === 0 ? initializeApp(cfg) : getApp();
 const auth = getAuth(app);
 const db = getFirestore(app);
 

@@ -3,7 +3,7 @@ importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-comp
 
 firebase.initializeApp({
     apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
-    authDomain: "confe-web.firebaseapp.com",
+    authDomain: "confe-web.vercel.app",
     projectId: "confe-web",
     storageBucket: "confe-web.firebasestorage.app",
     messagingSenderId: "677778119372",

@@ -838,20 +838,20 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "./fire-safety.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
-            authDomain: "confe-web.firebaseapp.com",
+            authDomain: "confe-web.vercel.app",
             projectId: "confe-web",
             storageBucket: "confe-web.firebasestorage.app",
             messagingSenderId: "677778119372",
             appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
 
-        const app = initializeApp(firebaseConfig);
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         const auth = getAuth(app);
         const firestore = getFirestore(app);
 

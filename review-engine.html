@@ -632,13 +632,13 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, arrayUnion } from "./fire-safety.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getDatabase, ref, set, get, onValue, update, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
         const firebaseConfig = { 
             apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", 
-            authDomain: "confe-web.firebaseapp.com", 
+            authDomain: "confe-web.vercel.app", 
             projectId: "confe-web", 
             storageBucket: "confe-web.firebasestorage.app", 
             messagingSenderId: "677778119372", 
