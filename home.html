@@ -1908,6 +1908,7 @@
             });
         };
     </script>
+
 </head>
 
 <body>
@@ -2010,6 +2011,7 @@
                 <div class="full-img-container">
                     <button class="gallery-nav prev" id="galleryPrev"><span
                             class="material-symbols-rounded">chevron_left</span></button>
+                    <button id="btnZoomVideo" style="display:none; position:absolute; top:20px; left:20px; z-index:9001; background:rgba(0,0,0,0.6); color:white; border:none; padding:10px; border-radius:50%; cursor:pointer; align-items:center; justify-content:center;" onclick="event.stopPropagation(); const v = document.getElementById('fullImg'); if(v.requestFullscreen) v.requestFullscreen(); else if(v.webkitEnterFullscreen) v.webkitEnterFullscreen(); if(v.videoWidth > v.videoHeight && screen.orientation && window.innerWidth <= 768) screen.orientation.lock('landscape').catch(()=>{});"><span class="material-symbols-rounded">fullscreen</span></button>
                     <img id="fullImg" class="full-img" onclick="event.stopPropagation()">
                     <button class="gallery-nav next" id="galleryNext" onclick="event.stopPropagation()"><span
                             class="material-symbols-rounded">chevron_right</span></button>
@@ -2311,13 +2313,17 @@
             // Better video detection (Cloudinary adds /video/ in path or .mp4 extension)
             const isVideo = currentSrc.match(/\.(mp4|mov|webm|ogg|m4v)($|\?)/i) || currentSrc.includes('/video/upload/');
 
+            const btnZoomVideo = document.getElementById('btnZoomVideo');
+
             let fullImg = document.getElementById('fullImg');
             if (isVideo) {
+                if (btnZoomVideo) btnZoomVideo.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
                 if (fullImg.tagName !== 'VIDEO') {
                     fullImg.outerHTML = `<video id="fullImg" controls autoplay playsinline style="max-width:100%; max-height:80vh; border-radius:12px;"></video>`;
                     fullImg = document.getElementById('fullImg');
                 }
             } else {
+                if (btnZoomVideo) btnZoomVideo.style.display = 'none';
                 if (fullImg.tagName !== 'IMG') {
                     fullImg.outerHTML = `<img id="fullImg" style="max-width:100%; max-height:80vh; object-fit:contain; border-radius:12px;">`;
                     fullImg = document.getElementById('fullImg');

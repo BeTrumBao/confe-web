@@ -578,9 +578,11 @@
         }
     </style>
     <!-- Link Preview & SEO Meta Tags -->
-    <meta name="description" content="Confe - Ná» n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
+    <meta name="description"
+        content="Confe - Ná» n táº£ng máº¡ng xÃ£ há»™i mini dÃ nh riÃªng cho báº¡n. Káº¿t ná»‘i vÃ  trÃ² chuyá»‡n ngay hÃ´m nay!">
     <meta property="og:title" content="Confe - Máº¡ng xÃ£ há»™i tháº¿ há»‡ má»›i">
-    <meta property="og:description" content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
+    <meta property="og:description"
+        content="CÃ¹ng tham gia Confe Ä‘á»ƒ khÃ¡m phÃ¡ nhá»¯ng tÃ­nh nÄƒng káº¿t ná»‘i thÃº vá»‹!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -601,8 +603,8 @@
                 <span class="material-symbols-rounded">arrow_back</span>
             </button>
             <div class="title-group">
-                <h1>Tạo Đề Cương Của Riêng Bạn !</h1>
-                <p>Nâng cao hiệu quả ôn tập với nội dung ôn tập của riêng bạn</p>
+                <h1>Tạo</h1>
+                <p>Nâng cao hiệu quả học tập của bạn với Tạo !</p>
             </div>
         </div>
 
@@ -611,14 +613,15 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">category</span>
-                    1. Định dạng Đề Cương
+                    1. Thể loại đề cương
                 </div>
                 <div class="input-group">
-                    <label class="label">Chọn Dạng Đề Cương</label>
+                    <label class="label">Chọn Thể Loại Đề Cương</label>
                     <select id="outline-format" class="input" onchange="updatePreview(); handleFormatChange();"
                         style="border: 2px solid var(--primary); background: white;">
-                        <option value="1">Dạng 1: Trắc nghiệm + Tự luận từ Ảnh</option>
-                        <option value="2">Dạng 2: Trắc nghiệm + Tự luận từ Chữ</option>
+                        <option value="2">Loại 2: Trắc nghiệm + Tự luận từ Chữ</option>
+                        <option value="3">Loại 3: Tải lên Ảnh (Chia sẻ đáp án)</option>
+                        <option value="1">Loại 1: Trắc nghiệm + Tự luận từ Ảnh</option>
                     </select>
                 </div>
             </div>
@@ -653,18 +656,19 @@
                     3. Thông tin hiển thị
                 </div>
                 <div class="input-group">
-                    <label class="label">Tiêu đề đề cương</label>
-                    <input type="text" id="outline-title" class="input"
-                        placeholder="Ví dụ: Ôn tập Unit 7 - Tiếng Anh (Friends Plus)" oninput="updatePreview()">
+                    <label class="label">Tiêu đề</label>
+                    <input type="text" id="outline-title" class="input" placeholder="Ví dụ: Ôn tập / Đáp án ?"
+                        oninput="updatePreview()">
                 </div>
                 <div class="input-group">
                     <label class="label">Mô tả ngắn</label>
-                    <textarea id="outline-desc" class="input" placeholder="Tóm tắt nội dung chính cần ôn tập..."
+                    <textarea id="outline-desc" class="input"
+                        placeholder="Tóm tắt nội dung chính của Ôn tập / Đáp án ..."
                         oninput="updatePreview()"></textarea>
                 </div>
                 <div class="grid-2">
                     <div class="input-group">
-                        <label class="label">Chủ đề / Môn học</label>
+                        <label class="label">Chủ đề</label>
                         <input type="text" id="outline-subject" class="input" placeholder="Toán, Tiếng Anh..."
                             oninput="updatePreview()">
                     </div>
@@ -688,7 +692,7 @@
             <div class="section-card">
                 <div class="section-title">
                     <span class="material-symbols-rounded">palette</span>
-                    Tùy chỉnh giao diện
+                    Tùy chỉnh cách hiển thị đề cương
                 </div>
 
                 <label class="label">Chọn Logo biểu tượng</label>
@@ -721,7 +725,7 @@
                 <input type="file" id="logo-upload" accept="image/*" style="display:none"
                     onchange="handleImageUpload(event, 'logo')">
 
-                <label class="label">Màu sắc chủ đạo / Background</label>
+                <label class="label">Màu nền của đề cương / Background</label>
                 <div class="img-picker" id="bg-picker">
                     <div class="img-option active" data-color="linear-gradient(135deg, #0084ff, #7c3aed)"
                         onclick="selectColor('linear-gradient(135deg, #0084ff, #7c3aed)')"
@@ -751,7 +755,7 @@
                         style="width: 22px; height: 22px; cursor: pointer; accent-color: var(--primary);">
                     <label for="outline-public"
                         style="margin: 0; font-weight: 700; color: #475569; cursor: pointer;">Công khai cho cộng đồng
-                        ( Cần duyệt )</label>
+                        ( Cần duyệt để được xuất hiện ở mục Cộng Đồng ! )</label>
                 </div>
             </div>
 
@@ -759,7 +763,7 @@
             <div class="actions">
                 <button class="btn btn-ghost" onclick="history.back()">Hủy bỏ</button>
                 <button class="btn btn-primary" id="btn-save" onclick="saveOutline()">
-                    Lưu đề cương
+                    Lưu
                 </button>
             </div>
         </div>
@@ -767,7 +771,7 @@
         <!-- --- Right Column: Preview --- -->
         <div class="preview-side">
             <div class="preview-sticky">
-                <div class="preview-label">Xem trước đề cương</div>
+                <div class="preview-label">Xem trước</div>
                 <div class="preview-card" id="card-preview">
                     <!-- Background layer -->
                     <div id="preview-bg"
@@ -780,8 +784,8 @@
                             <span class="material-symbols-rounded"
                                 style="color:white; font-size: 35px;">psychology</span>
                         </div>
-                        <div class="preview-title" id="preview-title-text">Tiêu đề đề cương</div>
-                        <div class="preview-desc" id="preview-desc-text">Mô tả ngắn gọn về nội dung ôn tập bạn muốn chia
+                        <div class="preview-title" id="preview-title-text">Tiêu đề</div>
+                        <div class="preview-desc" id="preview-desc-text">Mô tả ngắn gọn về nội dung bạn muốn chia
                             sẻ...</div>
 
                         <div class="preview-footer">
@@ -977,8 +981,10 @@
                         { id: Date.now() + 1, text: '', subType: extra.subType || 'mcq', options: ['', '', '', ''], correct: 0, answer: '' }
                     ]
                 };
+            } else if (type === 'image_only') {
+                q = { id, type: 'image_only', img: extra.img };
             } else {
-                q = { id, type, text: '', answer: '', options: ['', '', '', ''], correct: 0 };
+                q = { id, type, text: '', answer: '', options: ['', '', '', ''], correct: 0, attachedFile: null, attachedFileType: null, attachedName: null };
             }
             questions.push(q);
             renderQuestions();
@@ -991,14 +997,16 @@
             if (!btn) return;
             if (format === '1') {
                 btn.innerHTML = `<span class="material-symbols-rounded">image</span> Thêm Ảnh (Trắc nghiệm/Tự luận)`;
-            } else {
+            } else if (format === '2') {
                 btn.innerHTML = `<span class="material-symbols-rounded">add_circle</span> Thêm Câu hỏi (Dạng chữ)`;
+            } else if (format === '3') {
+                btn.innerHTML = `<span class="material-symbols-rounded">collections</span> Tải lên các Hình Ảnh (Tài liệu/Đáp án)`;
             }
         };
 
         window.handleAddByFormat = () => {
             const format = document.getElementById('outline-format').value;
-            if (format === '1') {
+            if (format === '1' || format === '3') {
                 triggerImgUpload();
             } else {
                 addQuestion('mcq');
@@ -1028,11 +1036,15 @@
                 reader.onload = (event) => {
                     const img = new Image();
                     img.onload = () => {
-                        addQuestion('image', {
-                            img: event.target.result,
-                            subType: defaultSubType,
-                            masks: []
-                        });
+                        if (format === '3') {
+                            addQuestion('image_only', { img: event.target.result });
+                        } else {
+                            addQuestion('image', {
+                                img: event.target.result,
+                                subType: defaultSubType,
+                                masks: []
+                            });
+                        }
                     };
                     img.src = event.target.result;
                 };
@@ -1243,6 +1255,18 @@
                             `).join('')}
                         </div>
                     `;
+                } else if (q.type === 'image_only') {
+                    item.innerHTML = `
+                        <div class="q-header" style="margin-bottom: 12px;">
+                            <span class="q-number">Ảnh ${idx + 1}</span>
+                            <button class="btn-remove-q" onclick="removeQuestion(${q.id})">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
+                        <div style="border-radius:15px; overflow:hidden; border:1.5px solid #e2e8f0; max-height: 400px; text-align: center;">
+                            <img src="${q.img}" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                    `;
                 } else {
                     item.innerHTML = `
                         <div class="q-header" style="margin-bottom: 12px;">
@@ -1261,6 +1285,18 @@
                         <div class="input-group">
                             <label class="label">Nội dung câu hỏi</label>
                             <textarea class="input" rows="2" placeholder="Nhập câu hỏi..." oninput="updateQText(${q.id}, this.value)">${q.text}</textarea>
+                        </div>
+                        <div class="input-group" style="background:#f8fafc; padding:15px; border-radius:15px; border: 1px dashed #cbd5e1;">
+                            <label class="label">Đính kèm Ảnh / Video (Tùy chọn)</label>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <button class="btn btn-ghost" style="padding:10px; font-size:13px; background: white; border: 1px solid #e2e8f0; color: var(--primary);" onclick="document.getElementById('file-upload-${q.id}').click()">
+                                    <span class="material-symbols-rounded">attach_file</span> Thêm Ảnh/Video
+                                </button>
+                                <span id="file-name-${q.id}" style="font-size:13px; color:#64748b; word-break: break-all;">${q.attachedName || 'Chưa có file'}</span>
+                            </div>
+                            <input type="file" id="file-upload-${q.id}" accept="image/*,video/*" style="display:none" onchange="handleQuestionFile(event, ${q.id})">
+                            ${parseFloat(q.id) ? (q.attachedFile ? (q.attachedFileType && q.attachedFileType.startsWith('video') ? '<video src="' + q.attachedFile + '" controls style="max-width:100%; margin-top:10px; border-radius:10px;"></video>' : '<img src="' + q.attachedFile + '" style="max-width:100%; margin-top:10px; border-radius:10px;">') : '') : ''}
+                            ${parseFloat(q.id) ? (q.attachedFile ? '<br><button class="btn-remove-q" style="margin-top:10px; width:auto; padding: 0 15px; gap:5px;" onclick="removeQuestionFile(' + q.id + ')"><span class="material-symbols-rounded">delete</span> Xóa File</button>' : '') : ''}
                         </div>
                         ${q.type === 'mcq' ? `
                             <div class="mcq-options">
@@ -1288,6 +1324,32 @@
         window.updateQAnswer = (id, val) => { const q = questions.find(q => q.id === id); if (q) q.answer = val; };
         window.updateQCorrect = (id, idx) => { const q = questions.find(q => q.id === id); if (q) q.correct = idx; };
         window.updateQOption = (id, idx, val) => { const q = questions.find(q => q.id === id); if (q) q.options[idx] = val; };
+
+        window.handleQuestionFile = (e, qId) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const q = questions.find(q => q.id === qId);
+                if (q) {
+                    q.attachedFile = event.target.result;
+                    q.attachedFileType = file.type;
+                    q.attachedName = file.name;
+                    renderQuestions();
+                }
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.removeQuestionFile = (qId) => {
+            const q = questions.find(q => q.id === qId);
+            if (q) {
+                q.attachedFile = null;
+                q.attachedFileType = null;
+                q.attachedName = null;
+                renderQuestions();
+            }
+        };
 
         window.updateSubQText = (pId, sId, val) => {
             const q = questions.find(q => q.id === pId);
@@ -1354,10 +1416,17 @@
                 if (customBg) bgUrl = await uploadImage(customBg);
 
                 const finalQuestions = await Promise.all(questions.map(async q => {
+                    let fileUrl = "";
+                    let fileType = "";
+                    if (q.attachedFile) {
+                        fileUrl = await uploadImage(q.attachedFile);
+                        fileType = q.attachedFileType;
+                    }
+
                     if (q.type === 'mcq') {
-                        return { type: 'mc', q: q.text, o: q.options, a: q.correct, e: 'Đáp án đúng là ' + String.fromCharCode(65 + q.correct) };
+                        return { type: 'mc', q: q.text, o: q.options, a: q.correct, e: 'Đáp án đúng là ' + String.fromCharCode(65 + q.correct), attachedFile: fileUrl, attachedFileType: fileType };
                     } else if (q.type === 'essay') {
-                        return { type: 'essay', q: q.text, a: q.answer, e: 'Giải thích: ' + q.answer };
+                        return { type: 'essay', q: q.text, a: q.answer, e: 'Giải thích: ' + q.answer, attachedFile: fileUrl, attachedFileType: fileType };
                     } else if (q.type === 'image') {
                         const imgUrl = await uploadImage(q.img);
                         return {
@@ -1377,6 +1446,9 @@
                                 return res;
                             })
                         };
+                    } else if (q.type === 'image_only') {
+                        const imgUrl = await uploadImage(q.img);
+                        return { type: 'image', img: imgUrl, masks: [], questions: [{ type: 'view', q: 'Tài liệu / Đáp án', e: '' }] };
                     }
                     return null;
                 }));

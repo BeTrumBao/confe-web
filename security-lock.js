@@ -33,7 +33,7 @@ function showReverifyModal(user, auth, db) {
             <h2 style="font-size:22px;font-weight:800;color:#0f172a;margin-bottom:12px;">Xác minh bảo mật</h2>
             <p style="color:#64748b;font-size:15px;line-height:1.6;margin-bottom:32px;">
                 Để giúp bạn nhớ mât khẩu ở phương thức đăng nhập <b> ${providerName}</b> hay nhập mật khẩu / đăng nhập lại để tiếp tục. 
-                <br><span style="font-size:12px;opacity:0.8;">(Yêu cầu định kỳ hàng tuần giúp bạn nhớ mật khẩu)</span>
+                <br><span style="font-size:12px;opacity:0.8;">(Yêu cầu định kỳ khi có thay đổi bảo mật quan trọng)</span>
             </p>
             
             ${!isSocial ? `
@@ -113,6 +113,153 @@ function showReverifyModal(user, auth, db) {
     btn.onmouseout = () => { if (!btn.disabled) btn.style.transform = 'translateY(0)'; };
 }
 
+function show2FAModal(user, correctPin, db) {
+    const topDoc = window.top.document;
+    if (topDoc.getElementById('twoFactorOverlay')) return;
+
+    const overlay = topDoc.createElement('div');
+    overlay.id = 'twoFactorOverlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:99999999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:"Be Vietnam Pro",sans-serif;animation:fadeIn2FA 0.5s ease;';
+
+    const styleTag = topDoc.createElement('style');
+    styleTag.textContent = `
+        @keyframes fadeIn2FA { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalPop2FA { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .pin-input::-webkit-outer-spin-button, .pin-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    `;
+    topDoc.head.appendChild(styleTag);
+
+    overlay.innerHTML = `
+        <div style="background:white;width:100%;max-width:380px;border-radius:32px;padding:40px;text-align:center;box-shadow:0 25px 60px -12px rgba(0,0,0,0.6);animation:modalPop2FA 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <div style="width:72px;height:72px;background:#f0f9ff;border-radius:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;border:1px solid #bae6fd;">
+                <span class="material-symbols-rounded" style="font-size:36px;color:#0ea5e9;">domain_verification</span>
+            </div>
+            <h2 style="font-size:22px;font-weight:800;color:#0f172a;margin-bottom:12px;">Xác minh 2 bước</h2>
+            <p style="color:#64748b;font-size:14px;line-height:1.6;margin-bottom:28px;">
+                Tài khoản của bạn đã được bảo vệ. Vui lòng nhập <b>Mã PIN 6 số</b> để tiếp tục.
+            </p>
+            
+            <div style="display:flex; gap:8px; justify-content:center; margin-bottom:24px;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-input" style="width:45px; height:55px; text-align:center; font-size:24px; font-weight:800; border:2px solid #f1f5f9; border-radius:14px; background:#f8fafc; outline:none; transition:0.2s;">
+            </div>
+            
+            <div id="pinError" style="color:#ef4444;font-size:13px;margin-bottom:20px;font-weight:600;display:none;">Mã PIN không chính xác!</div>
+            
+            <button id="btnVerify2FA" disabled style="width:100%;padding:16px;background:#0ea5e9;color:white;border:none;border-radius:18px;font-weight:700;font-size:16px;cursor:pointer;opacity:0.5;transition:0.3s;box-shadow:0 10px 15px -3px rgba(14, 165, 233, 0.3);">
+                Xác nhận
+            </button>
+            <button id="btn2FALogout" style="width:100%;padding:14px;background:white;color:#64748b;border:none;border-radius:18px;font-weight:600;font-size:13px;cursor:pointer;margin-top:10px;">Đăng xuất</button>
+        </div>
+    `;
+
+    topDoc.body.appendChild(overlay);
+
+    const inputs = overlay.querySelectorAll('.pin-input');
+    const btn = overlay.querySelector('#btnVerify2FA');
+    const err = overlay.querySelector('#pinError');
+    const btnLogout = overlay.querySelector('#btn2FALogout');
+
+    inputs.forEach((inp, idx) => {
+        inp.oninput = (e) => {
+            if (checkLockout()) return;
+            err.style.display = 'none';
+            if (e.inputType === "deleteContentBackward") return;
+            if (inp.value && idx < inputs.length - 1) inputs[idx + 1].focus();
+            checkReady();
+        };
+        inp.onkeydown = (e) => {
+            if (e.key === "Backspace" && !inp.value && idx > 0) inputs[idx - 1].focus();
+        };
+        inp.onfocus = () => {
+            inp.style.borderColor = '#0ea5e9';
+            inp.style.background = 'white';
+        };
+        inp.onblur = () => {
+            inp.style.borderColor = '#f1f5f9';
+            inp.style.background = '#f8fafc';
+        };
+    });
+
+    const checkReady = () => {
+        const fullPin = Array.from(inputs).map(i => i.value).join('');
+        btn.disabled = fullPin.length !== 6;
+        btn.style.opacity = fullPin.length === 6 ? '1' : '0.5';
+        if (fullPin.length === 6) {
+            verifyPIN(fullPin);
+        }
+    };
+
+    const lockoutKey = `confe_2fa_lockout_${user.uid}`;
+    const attemptsKey = `confe_2fa_attempts_${user.uid}`;
+
+    const checkLockout = () => {
+        const lockoutUntil = localStorage.getItem(lockoutKey);
+        if (lockoutUntil && Date.now() < parseInt(lockoutUntil)) {
+            const remaining = Math.ceil((parseInt(lockoutUntil) - Date.now()) / 60000);
+            err.innerHTML = `Thử sai quá 5 lần. <br>Vui lòng đợi <b>${remaining} phút</b> nữa nhen.`;
+            err.style.display = 'block';
+            inputs.forEach(i => { i.disabled = true; i.style.opacity = '0.5'; });
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            return true;
+        }
+        return false;
+    };
+
+    const verifyPIN = async (enteredPin) => {
+        if (checkLockout()) return;
+
+        if (enteredPin === correctPin) {
+            localStorage.removeItem(lockoutKey);
+            localStorage.removeItem(attemptsKey);
+            sessionStorage.setItem('confe_2fa_verified', 'true');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 500);
+        } else {
+            let attempts = parseInt(localStorage.getItem(attemptsKey) || "0") + 1;
+            localStorage.setItem(attemptsKey, attempts);
+
+            if (attempts >= 5) {
+                const until = Date.now() + 5 * 60 * 1000; // 5 minutes
+                localStorage.setItem(lockoutKey, until);
+                checkLockout();
+            } else {
+                err.innerHTML = `Mã PIN không chính xác! <br>(Còn <b>${5 - attempts} lần thử</b>)`;
+                err.style.display = 'block';
+            }
+            
+            inputs.forEach(i => {
+                i.value = '';
+                i.style.borderColor = '#ef4444';
+            });
+            inputs[0].focus();
+            checkReady();
+        }
+    };
+
+    // Initial lockout check
+    checkLockout();
+
+    btn.onclick = () => {
+        const enteredPin = Array.from(inputs).map(i => i.value).join('');
+        verifyPIN(enteredPin);
+    };
+
+    btnLogout.onclick = () => {
+        signOut(auth).then(() => {
+            window.top.location.href = 'login.html';
+        });
+    };
+    
+    // Auto focus first input
+    setTimeout(() => inputs[0].focus(), 100);
+}
+
 // --- TÍNH NĂNG CHẶN TRUY CẬP TỪ MẠNG CỤ THỂ ---
 // ... existing checkBlockedNetwork ...
 (async function checkBlockedNetwork() {
@@ -153,6 +300,7 @@ onAuthStateChanged(auth, (user) => {
             console.log("[Auth] Clearing reverify overlay on logout");
             existingOverlay.remove();
         }
+        sessionStorage.removeItem('confe_2fa_verified');
 
         if (!isPublicPage) {
             const currentUrl = encodeURIComponent(window.location.href);
@@ -161,40 +309,35 @@ onAuthStateChanged(auth, (user) => {
         return;
     }
 
-    // Weekly Re-verification Logic for all supported providers
+    // Weekly Re-verification Logic (Disabled by user)
     const checkUserReverify = (data) => {
         // Robust provider detection
         const providers = user.providerData.map(p => p.providerId);
         const isSocial = providers.includes('google.com') || providers.includes('facebook.com');
         const isPassword = providers.includes('password');
 
-        console.log("[Auth] Checking reverify for user:", user.uid, "Providers:", providers);
-
         if (isSocial || isPassword) {
             const lastVerified = data.lastPasswordVerifiedAt;
             const now = Date.now();
             const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-
-            // Safely convert Firestore Timestamp or number to milliseconds
             const lastVerifiedMillis = (lastVerified && typeof lastVerified.toMillis === 'function')
                 ? lastVerified.toMillis()
                 : (typeof lastVerified === 'number' ? lastVerified : 0);
 
-            console.log("[Auth] Last verified:", lastVerifiedMillis, "Now:", now, "Diff:", now - lastVerifiedMillis);
-
-            if (lastVerifiedMillis === 0 || (now - lastVerifiedMillis > SEVEN_DAYS)) {
-                // If it's a new account and timestamp is not set, set it now to avoid immediate prompt
-                if (lastVerifiedMillis === 0 && data.createdAt) {
-                    const createdMillis = typeof data.createdAt.toMillis === 'function' ? data.createdAt.toMillis() : data.createdAt;
-                    const accountAge = now - createdMillis;
-                    if (accountAge < SEVEN_DAYS) {
-                        console.log("[Auth] New account detected (<7d), setting initial verified timestamp");
-                        updateDoc(doc(db, "users", user.uid), { lastPasswordVerifiedAt: serverTimestamp() });
-                        return;
-                    }
-                }
-                console.log("[Auth] Triggering reverify modal");
+            // Disabled 1-week re-verification as requested by user
+            if (false && (lastVerifiedMillis === 0 || (now - lastVerifiedMillis > SEVEN_DAYS))) {
                 showReverifyModal(user, auth, db);
+            }
+        }
+    };
+
+    // 2FA Enforcement Logic
+    const check2FA = (data) => {
+        if ((data.twoFactorEnabled === true || String(data.twoFactorEnabled) === 'true') && data.twoFactorPin) {
+            const isVerified = sessionStorage.getItem('confe_2fa_verified');
+            if (!isVerified) {
+                console.log("[Auth] 2FA required for user:", user.uid);
+                show2FAModal(user, String(data.twoFactorPin), db);
             }
         }
     };
@@ -202,8 +345,9 @@ onAuthStateChanged(auth, (user) => {
     getDocFromServer(doc(db, "users", user.uid)).then((uSnapServer) => {
         if (uSnapServer.exists()) {
             const sData = uSnapServer.data();
-            console.log("[Auth] User data loaded for reverify check");
+            console.log("[Auth] User data loaded for security checks");
             checkUserReverify(sData);
+            check2FA(sData);
 
             if (sData.role === 'admin') return;
             const isSetup = sData.is_setup === true || sData.is_setup === "true";
@@ -226,8 +370,9 @@ onAuthStateChanged(auth, (user) => {
         if (uSnap.exists()) {
             const data = uSnap.data();
 
-            // Also run in snapshot for real-time compliance if needed, but mainly server fetch covers it
+            // Also run in snapshot for real-time compliance
             checkUserReverify(data);
+            check2FA(data);
 
             const isVerified = (data.isVerified === true || data.isVerified === "true");
 

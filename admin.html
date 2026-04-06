@@ -9,28 +9,42 @@
     <script type="module" src="security-lock.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-light: rgba(99, 102, 241, 0.1);
-            --primary-glow: rgba(99, 102, 241, 0.25);
-            --bg: #020617;
-            /* Deep Slate Black */
-            --surface: rgba(15, 23, 42, 0.6);
-            --text: #f8fafc;
-            --text-gray: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
+            /* Material 3 White & Blue (Light Mode) */
+            --primary: #0061a4;
+            --on-primary: #ffffff;
+            --primary-container: #d1e4ff;
+            --on-primary-container: #001d36;
+            
+            --secondary: #535f70;
+            --secondary-container: #d7e3f7;
+            
+            --surface: #fdfbff;
+            --on-surface: #1a1c1e;
+            --surface-container: #f2f4f8; /* M3 Surface Container */
+            --surface-container-high: #eceef4;
+            
+            --bg: #f8f9fc;
+            --text: #1a1c1e;
+            --text-gray: #43474e;
+            --border: #c4c6cf;
+            --outline-variant: #dfe2eb;
+            
+            --danger: #ba1a1a;
+            --success: #006e33;
+            
             --sidebar-width: 280px;
-            --danger: #f43f5e;
-            --success: #10b981;
-            --glass: rgba(15, 23, 42, 0.7);
-            --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
-            --radius-xl: 32px;
-            --radius-l: 22px;
-            --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.4);
+            --radius-xl: 28px;
+            --radius-l: 16px;
+            --radius-m: 12px;
+            
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --primary-glow: rgba(0, 97, 164, 0.12);
         }
 
         * {
@@ -59,7 +73,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #020617;
+            background: #ffffff;
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -106,33 +120,28 @@
         /* --- SIDEBAR GLASSMORPHISM --- */
         .sidebar {
             width: var(--sidebar-width);
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border-right: 1px solid var(--border);
+            background: var(--surface-container);
+            border-right: 1px solid var(--outline-variant);
             display: flex;
             flex-direction: column;
-            padding: 40px 24px;
+            padding: 24px 12px;
             z-index: 100;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 800;
+            font-size: 22px;
+            font-weight: 700;
             color: var(--primary);
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 45px;
+            margin-bottom: 32px;
             text-decoration: none;
-            padding-left: 8px;
+            padding-left: 16px;
         }
 
         .logo span {
-            background: linear-gradient(135deg, var(--primary), #4f46e5);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .nav-list {
@@ -143,35 +152,35 @@
         }
 
         .nav-item {
-            padding: 16px 20px;
-            border-radius: var(--radius-l);
+            padding: 14px 24px;
+            border-radius: 100px; /* M3 Pill shape */
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-weight: 600;
+            gap: 12px;
+            font-weight: 500;
             color: var(--text-gray);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease-out;
             text-decoration: none;
-            border: 1px solid transparent;
+            border: none;
             background: transparent;
             width: 100%;
             text-align: left;
             position: relative;
+            margin-bottom: 4px;
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            transform: translateX(8px);
-            border-color: var(--border);
+            background: rgba(0, 97, 164, 0.08);
+            color: var(--primary);
+            transform: none;
         }
 
         .nav-item.active {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--primary-container);
+            color: var(--on-primary-container);
+            box-shadow: none;
+            font-weight: 700;
         }
 
         .nav-item .material-symbols-rounded {
@@ -200,10 +209,10 @@
         }
 
         .page-title h1 {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
         }
 
         .page-title p {
@@ -214,11 +223,11 @@
 
         /* --- SECTIONS --- */
         .admin-section {
-            display: none;
+            display: none !important;
         }
 
         .admin-section.active {
-            display: block;
+            display: block !important;
             animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -244,6 +253,8 @@
             transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            line-height: 1;
             gap: 10px;
             box-shadow: var(--shadow-sm);
         }
@@ -281,50 +292,35 @@
         .chart-box {
             background: var(--surface);
             border-radius: var(--radius-xl);
-            padding: 30px;
-            border: 1px solid var(--border);
+            padding: 24px;
+            border: 1px solid var(--outline-variant);
             box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
         }
 
         .stat-card {
             background: var(--surface);
-            padding: 32px;
+            padding: 24px;
             border-radius: var(--radius-xl);
-            border: 1px solid var(--border);
+            border: 1px solid var(--outline-variant);
             display: flex;
             align-items: center;
-            gap: 20px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 16px;
+            transition: all 0.2s ease-out;
             box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
             position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
-            pointer-events: none;
         }
 
         .stat-card:hover {
-            transform: translateY(-10px) scale(1.02);
             box-shadow: var(--shadow-lg);
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(30, 41, 59, 0.8);
+            border-color: var(--primary);
+            background: var(--surface);
         }
 
         .stat-icon {
@@ -419,23 +415,23 @@
         }
 
         .data-table th {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--surface-container);
             text-align: left;
-            padding: 24px 40px;
-            font-size: 11px;
+            padding: 16px 24px;
+            font-size: 12px;
             color: var(--text-gray);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--outline-variant);
         }
 
         .data-table td {
-            padding: 24px 40px;
-            border-bottom: 1px solid var(--border);
-            font-size: 15px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--outline-variant);
+            font-size: 14px;
             vertical-align: middle;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .data-table tr:last-child td {
@@ -443,7 +439,7 @@
         }
 
         .data-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--primary-glow);
         }
 
         .user-cell {
@@ -482,50 +478,50 @@
         }
 
         .badge.admin {
-            background: rgba(244, 63, 94, 0.15);
-            color: #fb7185;
-            border: 1px solid rgba(244, 63, 94, 0.2);
+            background: #ffebe9;
+            color: #d73a49;
+            border: 1px solid #ffcfcc;
         }
 
         .badge.user {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: #e1e4e8;
+            color: #24292e;
+            border: 1px solid #d1d5da;
         }
 
         .badge.verified {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: #dcffe4;
+            color: #1a7f37;
+            border: 1px solid #bef5cb;
         }
 
         .badge.banned {
-            background: rgba(148, 163, 184, 0.15);
-            color: #cbd5e1;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: #f6f8fa;
+            color: #57606a;
+            border: 1px solid #d0d7de;
         }
 
         .action-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            padding: 12px 18px;
-            border-radius: 14px;
+            background: var(--surface);
+            border: 1px solid var(--outline-variant);
+            padding: 8px 16px;
+            border-radius: 100px;
             cursor: pointer;
             color: var(--text-gray);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease-out;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .action-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: var(--primary-glow);
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: none;
+            box-shadow: none;
         }
 
         .action-btn.delete:hover {
@@ -543,15 +539,15 @@
         }
 
         .badge.unverified {
-            background: rgba(244, 63, 94, 0.1);
-            color: #fb7185;
-            border: 1px solid rgba(244, 63, 94, 0.2);
+            background: #fff4e5;
+            color: #bc6c00;
+            border: 1px solid #ffe1b5;
         }
 
         .badge.muted {
-            background: rgba(148, 163, 184, 0.1);
-            color: #94a3b8;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: #fff8c5;
+            color: #9a6700;
+            border: 1px solid #f9e0a2;
         }
 
         .action-btn .material-symbols-rounded {
@@ -608,21 +604,21 @@
 
         .inp {
             width: 100%;
-            padding: 14px 20px;
-            border-radius: 16px;
-            border: 1.5px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             outline: none;
-            transition: 0.3s;
-            background: rgba(255, 255, 255, 0.03);
+            transition: 0.2s;
+            background: var(--surface-container);
             color: var(--text);
         }
 
         .inp:focus {
             border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 5px var(--primary-light);
+            background: var(--surface);
+            box-shadow: 0 0 0 2px var(--primary-container);
         }
 
         .json-preview {
@@ -707,13 +703,13 @@
         }
 
         .modal-card {
-            background: rgba(15, 23, 42, 0.9);
-            border-radius: 32px;
-            padding: 45px;
-            width: 90%;
-            max-width: 550px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            width: 95%;
+            max-width: 600px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--outline-variant);
             color: var(--text);
         }
 
@@ -780,15 +776,14 @@
         }
 
         .conf-dialog-card {
-            background: rgba(15, 23, 42, 0.95);
-            border-radius: 32px;
-            padding: 40px;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 32px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--outline-variant);
             text-align: center;
-            backdrop-filter: blur(20px);
         }
 
         .conf-dialog-icon {
@@ -802,10 +797,67 @@
             font-size: 32px;
         }
 
-        .conf-dialog-title {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 12px;
+        /* --- UTILS --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+ 
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+ 
+        ::-webkit-scrollbar-thumb {
+            background: var(--outline-variant);
+            border-radius: 10px;
+        }
+ 
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border);
+        }
+ 
+        #toast-container {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 12000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+ 
+        .toast {
+            background: var(--surface);
+            color: var(--text);
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--outline-variant);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+ 
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+ 
+        .toast.success {
+            border-left: 6px solid var(--success);
+        }
+ 
+        .toast.error {
+            border-left: 6px solid var(--danger);
         }
 
         .conf-dialog-msg {
@@ -888,8 +940,8 @@
         <div class="lock-icon">
             <span class="material-symbols-rounded">shield_lock</span>
         </div>
-        <h2 style="font-weight: 800; margin-bottom: 8px;">Äang xÃ¡c thá»±c báº£o máº­t...</h2>
-        <p style="color: var(--text-gray);">Chá»‰ dÃ nh cho quáº£n trá»‹ viÃªn há»‡ thá»‘ng</p>
+        <h2 style="font-weight: 800; margin-bottom: 8px;">Đang xác thực bảo mật...</h2>
+        <p style="color: var(--text-gray);">Chỉ dành cho quản trị viên hệ thống</p>
     </div>
 
 
@@ -922,10 +974,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>NgÆ°á»i dÃ¹ng</th>
-                            <th>Ná»™i dung bÃ¬nh luáº­n</th>
-                            <th>NgÃ y Ä‘Äƒng</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Người dùng</th>
+                            <th>Nội dung bình luận</th>
+                            <th>Ngày đăng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="comment-list"></tbody>
@@ -933,7 +985,7 @@
             </div>
 
             <div style="margin-top: 30px; text-align: right;">
-                <button class="btn btn-ghost" onclick="closeCommentModal()">ÄÃ³ng</button>
+                <button class="btn btn-ghost" onclick="closeCommentModal()">Đóng</button>
             </div>
         </div>
     </div>
@@ -941,13 +993,13 @@
     <!-- USER PROFILE MODAL -->
     <div id="userProfileModal" class="modal-overlay">
         <div class="modal-card" style="max-width: 600px;">
-            <h2 style="margin-bottom: 24px;">ThÃ´ng tin ngÆ°á»i dÃ¹ng</h2>
+            <h2 style="margin-bottom: 24px;">Thông tin người dùng</h2>
             <div id="profileBody" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <!-- Content injected via JS -->
             </div>
             <div style="margin-top: 30px; text-align: right;">
                 <button class="btn" style="background:#f1f5f9; color:var(--text);"
-                    onclick="closeProfileModal()">ÄÃ³ng</button>
+                    onclick="closeProfileModal()">Đóng</button>
             </div>
         </div>
     </div>
@@ -964,23 +1016,19 @@
                     class="material-symbols-rounded">group</span> Quản lý User</button>
             <button class="nav-item" onclick="switchSection('topics', this)"><span
                     class="material-symbols-rounded">description</span> Bài viết</button>
-            <button class="nav-item" onclick="switchSection('outlines', this)"><span
-                    class="material-symbols-rounded">verified_user</span> Duyá»‡t Äá» CÆ°Æ¡ng</button>
-            <button class="nav-item" onclick="switchSection('level2', this)"><span
-                    class="material-symbols-rounded">gpp_good</span> Duyệt Cấp 2 <span id="badge-level2"
-                    class="badge-count"
-                    style="display:none; background: #f43f5e; color: white; padding: 2px 6px; border-radius: 8px; font-size: 10px; margin-left: 5px;">0</span></button>
             <button class="nav-item" onclick="switchSection('reports', this)"><span
                     class="material-symbols-rounded">report</span> Báo cáo</button>
             <button class="nav-item" onclick="switchSection('news-system', this)"><span
                     class="material-symbols-rounded">campaign</span> Thông báo</button>
-            <button class="nav-item" onclick="switchSection('system', this)"><span
-                    class="material-symbols-rounded">settings</span> Hệ thống</button>
+            <button class="nav-item" onclick="switchSection('system', this)" style="position: relative;">
+                <span class="material-symbols-rounded">settings</span> Hệ thống
+                <span id="badge-level2" class="badge-dot" style="display: none; position: absolute; top: 10px; right: 20px; background: var(--danger); width: 8px; height: 8px; border-radius: 50%; border: 2px solid #fff;"></span>
+            </button>
         </nav>
 
         <button class="btn-logout" id="btnLogout">
             <span class="material-symbols-rounded">logout</span>
-            ÄÄƒng xuáº¥t
+            Đăng xuất
         </button>
     </aside>
 
@@ -998,36 +1046,40 @@
                 <div class="chart-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                         <h3 style="font-weight:800; font-size:16px;">Hoạt động 7 ngày gần nhất</h3>
-                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hÆ°á»›ng ngÆ°á»i dÃ¹ng
-                            &amp;
-                            bài
-                            viết</div>
+                        <div style="font-size:12px; color:var(--text-gray); font-weight:600;">Xu hướng người dùng &amp; bài viết</div>
                     </div>
                     <div id="activity-chart" style="min-height:280px;"></div>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:24px;">
                     <div class="stat-card" style="padding: 24px;">
-                        <div class="stat-icon" style="background:rgba(37, 99, 235, 0.1); color:#2563eb;"><span
-                                class="material-symbols-rounded">person</span></div>
+                        <div class="stat-icon" style="background:var(--primary-container); color:var(--primary);"><span
+                                class="material-symbols-rounded">group</span></div>
                         <div class="stat-info">
                             <p>Tổng User</p>
                             <h3 id="stat-users">...</h3>
                         </div>
                     </div>
-                    <div class="stat-card" style="padding: 24px;">
-                        <div class="stat-icon" style="background:rgba(22, 163, 74, 0.1); color:#16a34a;"><span
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:var(--secondary-container); color:var(--secondary);"><span
                                 class="material-symbols-rounded">forum</span></div>
                         <div class="stat-info">
                             <p>Bài viết</p>
                             <h3 id="stat-topics">...</h3>
                         </div>
                     </div>
-                    <div class="stat-card" style="padding: 24px; cursor: pointer;"
-                        onclick="switchSection('level2', document.querySelector('.nav-item[onclick*=\'level2\']'))">
-                        <div class="stat-icon" style="background:rgba(168, 85, 247, 0.1); color:#a855f7;"><span
-                                class="material-symbols-rounded">gpp_good</span></div>
+                    <div class="stat-card" style="cursor: pointer;"
+                        onclick="switchSection('reports', document.querySelector('.nav-item[onclick*=\'reports\']'))">
+                        <div class="stat-icon" style="background:#f9dbe1; color:var(--danger);"><span
+                                class="material-symbols-rounded">report</span></div>
                         <div class="stat-info">
-                            <p>Yêu cầu Cấp 2</p>
+                            <p>Báo cáo vi phạm</p>
+                            <h3 id="stat-reports">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="cursor: pointer;" onclick="loadLevel2Requests()">
+                        <div class="stat-icon" style="background: #ecfdf5; color: #059669;"><span class="material-symbols-rounded">verified_user</span></div>
+                        <div class="stat-info">
+                            <p>Yêu cầu Level 2</p>
                             <h3 id="stat-level2">0</h3>
                         </div>
                     </div>
@@ -1036,7 +1088,7 @@
 
             <div class="content-box">
                 <div class="box-title">
-                    <h2>NgÆ°á»i dÃ¹ng má»›i gáº§n Ä‘Ã¢y</h2>
+                    <h2>Người dùng mới gần đây</h2>
                     <button class="action-btn"
                         onclick="switchSection('users', document.querySelector('.nav-item[onclick*=\'users\']'))">Xem
                         tất cả ›</button>
@@ -1045,9 +1097,9 @@
                     <thead>
                         <tr>
                             <th>UID</th>
-                            <th>NgÆ°á»i dÃ¹ng</th>
-                            <th>Vai trÃ²</th>
-                            <th>NgÃ y táº¡o</th>
+                            <th>Người dùng</th>
+                            <th>Vai trò</th>
+                            <th>Ngày tạo</th>
                         </tr>
                     </thead>
                     <tbody id="dash-user-list"></tbody>
@@ -1090,7 +1142,7 @@
                     <div class="box-tools">
                         <div class="search-wrapper">
                             <span class="material-symbols-rounded">search</span>
-                            <input type="text" id="topic-search" placeholder="TÃ¬m tiÃªu Ä‘á» hoáº·c tÃ¡c giáº£..."
+                            <input type="text" id="topic-search" placeholder="Tìm tiêu đề hoặc tác giả..."
                                 oninput="filterTable('topics')">
                         </div>
                     </div>
@@ -1098,10 +1150,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>TiÃªu Ä‘á» bÃ i viáº¿t</th>
-                            <th>TÃ¡c giáº£</th>
-                            <th>NgÃ y Ä‘Äƒng</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Tiêu đề bài viết</th>
+                            <th>Tác giả</th>
+                            <th>Ngày đăng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="full-topic-list"></tbody>
@@ -1113,14 +1165,13 @@
         <div id="section-reports" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>BÃ¡o cÃ¡o vi pháº¡m Ä‘ang chá»</h2>
+                    <h2>Báo cáo vi phạm</h2>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>LÃ½ do bÃ¡o cÃ¡o</th>
-                            <th>ID má»¥c / NgÆ°á»i bÃ¡o cÃ¡o</th>
-                            <th>HÃ nh Ä‘á»™ng xá»­ lÃ½</th>
+                            <th>ID mục / Người báo cáo</th>
+                            <th>Hành động xử lý</th>
                         </tr>
                     </thead>
                     <tbody id="full-report-list"></tbody>
@@ -1132,18 +1183,14 @@
         <div id="section-level2" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Yêu cầu xác minh Level 2</h2>
-                    <div class="box-tools">
-                        <button class="action-btn" onclick="loadLevel2Requests()"><span
-                                class="material-symbols-rounded">refresh</span> LÃ m má»›i</button>
-                    </div>
+                    <h2>Phê duyệt Xác minh Level 2</h2>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>NgÆ°á»i dÃ¹ng</th>
-                            <th>NgÃ y gá»­i</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Người dùng</th>
+                            <th>Ngày gửi</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="level2-request-list"></tbody>
@@ -1156,9 +1203,7 @@
             <div class="gen-container">
                 <div class="gen-card">
                     <h3><span class="material-symbols-rounded">campaign</span> Quản lý Thông báo hệ thống</h3>
-                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">ThÃ´ng bÃ¡o sáº½ hiá»ƒn thá»‹
-                        trong
-                        tab "Thông Báo" của Bảng Tin.</p>
+                    <p style="color:var(--text-gray); font-size:13px; margin-bottom:20px;">Thông báo sẽ hiển thị trong tab "Thông Báo" của Bảng Tin.</p>
 
                     <div id="ann-list-wrap">
                         <!-- Items injected here -->
@@ -1176,11 +1221,11 @@
 
                     <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
                         <button class="btn btn-primary" onclick="applyAnnouncements()" style="justify-content:center;">
-                            <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                            <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                         </button>
-                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">LÆ°u Ã½: Má»i thay Ä‘á»•i
-                            sáº½ cÃ³
-                            hiá»‡u lá»±c ngay láº­p tá»©c trÃªn Báº£ng Tin News Board.</p>
+                        <p style="font-size:11px; color:var(--text-gray); text-align:center;">Lưu ý: Mọi thay đổi
+                            sẽ có
+                            hiệu lực ngay lập tức trên Bảng Tin News Board.</p>
                     </div>
                 </div>
             </div>
@@ -1190,19 +1235,15 @@
         <div id="section-outlines" class="admin-section">
             <div class="content-box">
                 <div class="box-title">
-                    <h2>Duyá»‡t Äá» CÆ°Æ¡ng Cá»™ng Äá»“ng</h2>
-                    <div class="box-tools">
-                        <button class="action-btn" onclick="loadPendingOutlines()"><span
-                                class="material-symbols-rounded">refresh</span> LÃ m má»›i</button>
-                    </div>
+                    <h2>Duyệt Đề cương nội dung</h2>
                 </div>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>TiÃªu Ä‘á» / TÃ¡c giáº£</th>
-                            <th>áº¢nh Ä‘á» cÆ°Æ¡ng</th>
-                            <th>Tráº¡ng thÃ¡i</th>
-                            <th>HÃ nh Ä‘á»™ng</th>
+                            <th>Tiêu đề / Tác giả</th>
+                            <th>Ảnh đề cương</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody id="pending-outline-list"></tbody>
@@ -1217,25 +1258,25 @@
                 <div class="gen-card">
                     <h3><span class="material-symbols-rounded">poll</span> Community Poll (JSON)</h3>
                     <div class="form-row">
-                        <label>CÃ¢u há»i (Question)</label>
-                        <input type="text" id="poll-q" class="inp" placeholder="Báº¡n tháº¥y tháº¿ nÃ o vá»...?"
+                        <label>Câu hỏi (Question)</label>
+                        <input type="text" id="poll-q" class="inp" placeholder="Bạn thấy thế nào về...?"
                             oninput="updatePollJson()">
                     </div>
                     <div class="form-row">
-                        <label>Loáº¡i (Type)</label>
+                        <label>Loại (Type)</label>
                         <select id="poll-type" class="inp" onchange="togglePollOpts(); updatePollJson()">
                             <option value="binary">Trắc nghiệm (Binary)</option>
                             <option value="survey">Khảo sát (Survey)</option>
                         </select>
                     </div>
                     <div id="poll-opts-wrap" class="form-row">
-                        <label>Lá»±a chá»n (Chá»‰ cho Binary)</label>
+                        <label>Lựa chọn (Chỉ cho Binary)</label>
                         <div id="poll-opts-list"></div>
                         <button class="action-btn" onclick="addPollOpt()"
-                            style="margin-top:8px; color:var(--primary);">+ ThÃªm lá»±a chá»n</button>
+                            style="margin-top:8px; color:var(--primary);">+ Thêm lựa chọn</button>
                     </div>
                     <div class="form-row">
-                        <label>Tráº¡ng thÃ¡i</label>
+                        <label>Trạng thái</label>
                         <select id="poll-active" class="inp" onchange="updatePollJson()">
                             <option value="true">Hoạt động (Active)</option>
                             <option value="false">Tạm dừng (Hidden)</option>
@@ -1245,7 +1286,7 @@
                         Config)</label>
                     <textarea id="poll-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyPoll()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                     </button>
                 </div>
 
@@ -1264,7 +1305,7 @@
                         Config)</label>
                     <textarea id="news-json" class="json-preview" readonly></textarea>
                     <button class="btn btn-primary" onclick="applyNews()" style="width:100%; margin-top:16px;">
-                        <span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore
+                        <span class="material-symbols-rounded">save</span> Lưu vào Firestore
                     </button>
                 </div>
 
@@ -1299,27 +1340,27 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div>
                             <div class="form-row">
-                                <label>Tráº¡ng thÃ¡i má»¥c "Äá» cÆ°Æ¡ng"</label>
+                                <label>Trạng thái mục "Đề cương"</label>
                                 <select id="feat-outline-status" class="inp">
-                                    <option value="active">Hoáº¡t Ä‘á»™ng bÃ¬nh thÆ°á»ng</option>
-                                    <option value="maintenance">Äang báº£o trÃ¬</option>
+                                    <option value="active">Hoạt động bình thường</option>
+                                    <option value="maintenance">Đang bảo trì</option>
                                 </select>
                             </div>
                             <div class="form-row">
-                                <label>ThÃ´ng bÃ¡o báº£o trÃ¬ (Hiá»ƒn thá»‹ cho ngÆ°á»i dÃ¹ng)</label>
+                                <label>Thông báo bảo trì (Hiển thị cho người dùng)</label>
                                 <textarea id="feat-outline-msg" class="inp" style="height: 100px;"
-                                    placeholder="VÃ­ dá»¥: TÃ­nh nÄƒng Ä‘ang Ä‘Æ°á»£c nÃ¢ng cáº¥p, vui lÃ²ng quay láº¡i sau..."></textarea>
+                                    placeholder="Ví dụ: Tính năng đang được nâng cấp, vui lòng quay lại sau..."></textarea>
                             </div>
                         </div>
                         <div style="background: var(--bg); padding: 20px; border-radius: 16px;">
                             <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">
                                 <span class="material-symbols-rounded"
                                     style="font-size: 18px; vertical-align: middle;">info</span>
-                                <b>HÆ°á»›ng dáº«n:</b> Khi chuyá»ƒn sang tráº¡ng thÃ¡i <b>Ä ang báº£o trÃ¬</b>, toÃ n
-                                bá»™ trang Ã”n táº­p
-                                thÃ´ng minh sáº½ bá»‹ khÃ³a vÃ  hiá»ƒn thá»‹ thÃ´ng bÃ¡o báº¡n Ä‘Ã£ nháº­p. Admin váº«n
-                                cÃ³ thá»ƒ vÃ o Ä‘á»ƒ kiá»ƒm
-                                tra náº¿u cáº§n (tÃ¹y cáº¥u hÃ¬nh logic).
+                                <b>Hướng dẫn:</b> Khi chuyển sang trạng thái <b>Ä ang bảo trì</b>, toàn
+                                bộ trang Ãâ€n tập
+                                thông minh sẽ bị khóa và hiển thị thông báo bạn đã nhập. Admin vẫn
+                                có thể vào để kiểm
+                                tra nếu cần (tùy cấu hình logic).
                             </p>
                             <button class="btn btn-primary" onclick="applyFeaturesConfig()"
                                 style="width:100%; margin-top:20px;">
@@ -1331,8 +1372,6 @@
 
 
             </div>
-        </div>
-        </div>
         </div>
     </main>
 
@@ -1403,7 +1442,7 @@
             try {
                 const uSnap = await getDoc(doc(db, "users", user.uid));
                 if (!uSnap.exists() || uSnap.data().role !== 'admin') {
-                    alert("Báº¡n khÃ´ng cÃ³ quyá»n quáº£n trá»‹!");
+                    alert("Bạn không có quyền quản trị!");
                     window.location.href = 'index.html';
                 } else {
                     document.getElementById('secure-overlay').classList.add('hidden');
@@ -1416,22 +1455,25 @@
         // --- TAB SWITCHING ---
         window.switchSection = (id, el) => {
             document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(`section-${id}`).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
+            const target = document.getElementById(`section-${id}`);
+            if (target) target.classList.add('active');
 
-            const titles = { dashboard: 'Tá»•ng quan', users: 'ThÃ nh viÃªn', topics: 'BÃ i tháº£o luáº­n', reports: 'BÃ¡o cÃ¡o vi pháº¡m', 'news-system': 'ThÃ´ng bÃ¡o há»‡ thá»‘ng', system: 'Há»‡ thá»‘ng', level2: 'PhÃª duyá»‡t Cáº¥p 2' };
-            const subs = { dashboard: 'Thá»‘ng kÃª hoáº¡t Ä‘á»™ng cá»§a trang web', users: 'Quáº£n lÃ½ ngÆ°á»i dÃ¹ng, cáº¥p tick xanh vÃ  ban nick', topics: 'Quáº£n lÃ½ ná»™i dung cá»™ng Ä‘á»“ng', reports: 'Xá»­ lÃ½ pháº£n há»“i tá»« ngÆ°á»i dÃ¹ng', 'news-system': 'Quáº£n lÃ½ ná»™i dung hiá»ƒn thá»‹ trong Báº£ng Tin News Board', system: 'Quáº£n lÃ½ cÃ¡c tham sá»‘ há»‡ thá»‘ng tá»« xa', level2: 'PhÃª duyá»‡t tÃ­nh toÃ n váº¹n tÃ i khoáº£n cáº¥p 2' };
-            document.getElementById('screen-title').textContent = titles[id];
-            document.getElementById('screen-subtitle').textContent = subs[id];
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const titles = { dashboard: 'Tổng quan', users: 'Thành viên', topics: 'Bài thảo luận', reports: 'Báo cáo vi phạm', 'news-system': 'Thông báo hệ thống', system: 'Hệ thống', level2: 'Duyệt xác minh Level 2', outlines: 'Duyệt đề cương' };
+            const subs = { dashboard: 'Thống kê hoạt động của trang web', users: 'Quản lý người dùng, cấp tick xanh và ban nick', topics: 'Quản lý nội dung cộng đồng', reports: 'Xử lý phản hồi từ người dùng', 'news-system': 'Quản lý nội dung hiển thị trong Bảng Tin News Board', system: 'Quản lý các tham số hệ thống từ xa', level2: 'Xem xét và phê duyệt yêu cầu xác minh danh tính cấp 2', outlines: 'Xem và duyệt các đề cương bài viết công khai' };
+            
+            if (document.getElementById('screen-title')) document.getElementById('screen-title').textContent = titles[id] || id;
+            if (document.getElementById('screen-subtitle')) document.getElementById('screen-subtitle').textContent = subs[id] || '';
 
             if (id === 'dashboard') loadDashboard();
             if (id === 'users') loadUsers();
             if (id === 'topics') loadTopics();
-            if (id === 'outlines') loadPendingOutlines();
             if (id === 'reports') loadReports();
             if (id === 'system') loadSystemConfig();
-            if (id === 'level2') loadLevel2Requests();
+            if (id === 'level2') loadLevel2Requests(false); // don't re-switch if called from here
+            if (id === 'outlines') loadPendingOutlines();
         };
 
         // --- FILTER LOGIC ---
@@ -1465,16 +1507,16 @@
             }
 
             const options = {
-                series: [{ name: 'NgÆ°á»i dÃ¹ng má»›i', data: userCounts }, { name: 'BÃ i viáº¿t má»›i', data: topicCounts }],
-                chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans', foreColor: '#94a3b8' },
-                theme: { mode: 'dark' },
-                colors: ['#6366f1', '#10b981'],
+                series: [{ name: 'Người dùng mới', data: userCounts }, { name: 'Bài viết mới', data: topicCounts }],
+                chart: { height: 300, type: 'area', toolbar: { show: false }, zoom: { enabled: false }, fontFamily: 'Plus Jakarta Sans', foreColor: '#43474e' },
+                theme: { mode: 'light' },
+                colors: ['#0061a4', '#535f70'],
                 dataLabels: { enabled: false },
                 stroke: { curve: 'smooth', width: 3 },
-                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.45, opacityTo: 0.05, stops: [20, 100] } },
+                fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.25, opacityTo: 0.05, stops: [20, 100] } },
                 xaxis: { categories: days, axisBorder: { show: false }, axisTicks: { show: false } },
                 yaxis: { show: false },
-                grid: { borderColor: 'rgba(255, 255, 255, 0.05)', strokeDashArray: 4 },
+                grid: { borderColor: 'rgba(0, 0, 0, 0.05)', strokeDashArray: 4 },
                 legend: { position: 'top', horizontalAlign: 'right' }
             };
 
@@ -1508,7 +1550,7 @@
             const snap = await getDocs(qRecent);
             renderTable('dash-user-list', snap, (ud, id) => `
                 <td><span class="uid-pill">${id.substring(0, 8)}...</span></td>
-                <td><div class="user-cell"><img src="${ud.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" class="user-avt"><strong>${ud.displayName || 'KhÃ¡ch'}</strong></div></td>
+                <td><div class="user-cell"><img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt"><strong>${ud.displayName || 'Khách'}</strong></div></td>
                 <td><span class="badge ${ud.role === 'admin' ? 'admin' : 'user'}">${ud.role || 'user'}</span></td>
                 <td>${ud.createdAt ? new Date(ud.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
             `);
@@ -1523,8 +1565,8 @@
                 <td>
                     <div style="font-size:12px; opacity:0.6; margin-bottom:4px">UID: <span class="uid-pill">${id}</span></div>
                     <div class="user-cell">
-                        <img src="${ud.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" class="user-avt">
-                        <strong>${ud.displayName || 'KhÃ¡ch'}</strong>
+                        <img src="${ud.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
+                        <strong>${ud.displayName || 'Khách'}</strong>
                         ${isTickVerified ? '<span class="material-symbols-rounded" style="color:#2563eb; font-size:18px; font-variation-settings: \'FILL\' 1">verified</span>' : '<span class="material-symbols-rounded" style="color:#94a3b8; font-size:18px;">help_outline</span>'}
                     </div>
                 </td>
@@ -1545,7 +1587,7 @@
                     <td>
                         <div style="display:flex; gap:8px;">
                             <button class="action-btn" onclick="viewUser('${id}')">
-                                <span class="material-symbols-rounded">visibility</span> Chi tiáº¿t & Quáº£n lÃ½
+                                <span class="material-symbols-rounded">visibility</span> Chi tiết & Quản lý
                             </button>
                         </div>
                     </td>
@@ -1555,7 +1597,7 @@
 
         async function loadPendingOutlines() {
             const list = document.getElementById('pending-outline-list');
-            list.innerHTML = '<tr><td colspan="4" style="text-align:center;">Äang táº£i...</td></tr>';
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center;">Đang tải...</td></tr>';
             try {
                 // Simplified query to avoid immediate need for composite index (isPublic + createdAt)
                 // We will sort in memory for now to ensure it works even without index
@@ -1579,23 +1621,23 @@
                     tr.innerHTML = `
                         <td>
                             <div style="font-weight:800; color:var(--primary);">${d.title}</div>
-                            <div style="font-size:12px; color:var(--text-gray);">TÃ¡c giáº£: <strong>${d.authorName || 'N/A'}</strong></div>
+                            <div style="font-size:12px; color:var(--text-gray);">Tác giả: <strong>${d.authorName || 'N/A'}</strong></div>
                         </td>
                         <td>
                             <img src="${d.imageUrl}" style="width:80px; height:50px; border-radius:8px; object-fit:cover; cursor:pointer;" onclick="window.open('${d.imageUrl}', '_blank')">
                         </td>
                         <td>
-                            <span class="badge ${isApproved ? 'verified' : 'user'}">${isApproved ? 'ÄÃƒ DUYá»†T' : 'CHá»œ DUYá»†T'}</span>
+                            <span class="badge ${isApproved ? 'verified' : 'user'}">${isApproved ? 'ĐÃ DUYỆT' : 'CHỜ DUYỆT'}</span>
                         </td>
                         <td>
                             <div style="display:flex; gap:8px;">
                                 ${!isApproved ? `
                                     <button class="action-btn verify" onclick="approveOutline('${d.id}')">
-                                        <span class="material-symbols-rounded">check</span> Duyá»‡t ngay
+                                        <span class="material-symbols-rounded">check</span> Duyệt ngay
                                     </button>
                                 ` : ''}
                                 <button class="action-btn delete" onclick="deleteOutline('${d.id}')">
-                                    <span class="material-symbols-rounded">delete</span> XÃ³a
+                                    <span class="material-symbols-rounded">delete</span> Xóa
                                 </button>
                             </div>
                         </td>
@@ -1603,40 +1645,40 @@
                     list.appendChild(tr);
                 });
                 if (snap.empty) {
-                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-gray);">KhÃ´ng cÃ³ Ä‘á» cÆ°Æ¡ng nÃ o cáº§n duyá»‡t.</td></tr>';
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-gray);">Không có đề cương nào cần duyệt.</td></tr>';
                 }
             } catch (err) {
                 console.error("Load outlines error:", err);
                 list.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--danger); padding:20px;">
-                    Lá»—i táº£i dá»¯ liá»‡u: ${err.message}<br>
-                    <small style="opacity:0.7;">Vui lÃ²ng kiá»ƒm tra Index trong Firestore Console náº¿u báº¡n vá»«a thÃªm tÃ­nh nÄƒng nÃ y.</small>
+                    Lỗi tải dữ liệu: ${err.message}<br>
+                    <small style="opacity:0.7;">Vui lòng kiểm tra Index trong Firestore Console nếu bạn vừa thêm tính năng này.</small>
                 </td></tr>`;
             }
         }
 
         window.approveOutline = async (id) => {
-            const ok = await confConfirm("PhÃª duyá»‡t", "Báº¡n cÃ³ cháº¯c muá»‘n phÃª duyá»‡t Ä‘á» cÆ°Æ¡ng nÃ y lÃªn cá»™ng Ä‘á»“ng?");
+            const ok = await confConfirm("Phê duyệt", "Bạn có chắc muốn phê duyệt đề cương này lên cộng đồng?");
             if (!ok) return;
             try {
                 await updateDoc(doc(db, "outlines", id), { isApproved: true });
-                showToast("ÄÃ£ phÃª duyá»‡t thÃ nh cÃ´ng!");
+                showToast("Đã phê duyệt thành công!");
                 loadPendingOutlines();
             } catch (err) {
                 console.error("Approve outline error:", err);
-                showToast("Lá»—i khi duyá»‡t: " + err.message, "error");
+                showToast("Lỗi khi duyệt: " + err.message, "error");
             }
         };
 
         window.deleteOutline = async (id) => {
-            const ok = await confConfirm("XÃ³a Ä‘á» cÆ°Æ¡ng", "XÃ³a vÄ©nh viá»…n Ä‘á» cÆ°Æ¡ng nÃ y?", "danger");
+            const ok = await confConfirm("Xóa đề cương", "Xóa vĩnh viễn đề cương này?", "danger");
             if (!ok) return;
             try {
                 await deleteDoc(doc(db, "outlines", id));
-                showToast("ÄÃ£ xÃ³a Ä‘á» cÆ°Æ¡ng.");
+                showToast("Đã xóa đề cương.");
                 loadPendingOutlines();
             } catch (err) {
                 console.error("Delete outline error:", err);
-                showToast("Lá»—i khi xÃ³a: " + err.message, "error");
+                showToast("Lỗi khi xóa: " + err.message, "error");
             }
         };
 
@@ -1644,15 +1686,15 @@
             const snap = await getDocs(query(collection(db, "topics"), orderBy("createdAt", "desc")));
             renderTable('full-topic-list', snap, (td, id) => `
                 <td><div style="font-weight:700; max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${td.title}</div></td>
-                <td><div class="user-cell"><strong>${td.authorName || 'áº¨n danh'}</strong></div></td>
+                <td><div class="user-cell"><strong>${td.authorName || 'Ẩn danh'}</strong></div></td>
                 <td>${td.createdAt ? new Date(td.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
                 <td>
                     <div style="display:flex; gap:8px;">
-                        <button class="action-btn" onclick="viewComments('${id}', '${(td.title || "BÃ i viáº¿t").replace(/'/g, "\\'")}')">
-                            <span class="material-symbols-rounded">chat</span> BÃ¬nh luáº­n
+                        <button class="action-btn" onclick="viewComments('${id}', '${(td.title || "Bài viết").replace(/'/g, "\\'")}')">
+                            <span class="material-symbols-rounded">chat</span> Bình luận
                         </button>
                         <button class="action-btn delete" onclick="deleteItem('topics', '${id}')">
-                            <span class="material-symbols-rounded">delete</span> Gá»¡ bÃ i
+                            <span class="material-symbols-rounded">delete</span> Gỡ bài
                         </button>
                     </div>
                 </td>
@@ -1661,22 +1703,22 @@
 
         window.viewComments = async (topicId, title) => {
             const modal = document.getElementById('topicCommentsModal');
-            document.getElementById('commentModalTitle').innerText = `BÃ¬nh luáº­n: ${title}`;
+            document.getElementById('commentModalTitle').innerText = `Bình luận: ${title}`;
             const list = document.getElementById('comment-list');
-            list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Äang táº£i bÃ¬nh luáº­n...</td></tr>';
+            list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Đang tải bình luận...</td></tr>';
             modal.classList.add('active');
 
             try {
                 const cSnap = await getDocs(collection(db, "topics", topicId, "comments"));
                 list.innerHTML = '';
                 if (cSnap.empty) {
-                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">ChÆ°a cÃ³ bÃ¬nh luáº­n nÃ o</td></tr>';
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:40px;">Chưa có bình luận nào</td></tr>';
                 } else {
                     cSnap.forEach(d => {
                         const c = d.data();
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td><div class="user-cell"><strong>${c.authorName || 'áº¨n danh'}</strong></div></td>
+                            <td><div class="user-cell"><strong>${c.authorName || 'Ẩn danh'}</strong></div></td>
                             <td><div style="max-width:300px; font-size:13px; line-height:1.4;">${c.text}</div></td>
                             <td>${c.createdAt ? new Date(c.createdAt.seconds * 1000).toLocaleDateString('vi') : '---'}</td>
                             <td>
@@ -1694,11 +1736,11 @@
         window.closeCommentModal = () => document.getElementById('topicCommentsModal').classList.remove('active');
 
         window.deleteComment = async (topicId, commentId) => {
-            const ok = await confConfirm("XÃ¡c nháº­n xÃ³a", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a bÃ¬nh luáº­n nÃ y?", "danger");
+            const ok = await confConfirm("Xác nhận xóa", "Bạn có chắc chắn muốn xóa bình luận này?", "danger");
             if (ok) {
                 try {
                     await deleteDoc(doc(db, "topics", topicId, "comments", commentId));
-                    showToast("ÄÃ£ xÃ³a bÃ¬nh luáº­n!");
+                    showToast("Đã xóa bình luận!");
                     viewComments(topicId, "..."); // Refresh
                 } catch (e) { showToast(e.message, 'error'); }
             }
@@ -1712,7 +1754,7 @@
                     <div style="font-size:12px; opacity:0.6;">Target: <span class="uid-pill">${rd.targetId}</span></div>
                     <div style="font-size:12px; margin-top:4px;">Reporter: <span class="uid-pill">${rd.reporter}</span></div>
                 </td>
-                <td><button class="action-btn verify" onclick="deleteItem('reports', '${id}')"><span class="material-symbols-rounded">check_circle</span> Giáº£i quyáº¿t</button></td>
+                <td><button class="action-btn verify" onclick="deleteItem('reports', '${id}')"><span class="material-symbols-rounded">check_circle</span> Giải quyết</button></td>
             `);
         }
 
@@ -1720,7 +1762,7 @@
         function renderTable(tbodyId, snap, rowFn) {
             const tbody = document.getElementById(tbodyId);
             tbody.innerHTML = '';
-            if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:#999;">KhÃ´ng cÃ³ dá»¯ liá»‡u hiá»ƒn thá»‹</td></tr>'; return; }
+            if (snap.empty) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:#999;">Không có dữ liệu hiển thị</td></tr>'; return; }
             snap.forEach(d => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = rowFn(d.data(), d.id);
@@ -1730,11 +1772,11 @@
 
         // --- ACTIONS ---
         window.deleteItem = async (col, id) => {
-            const ok = await confConfirm("XÃ¡c nháº­n xÃ³a", "HÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c. Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a má»¥c nÃ y?", "danger");
+            const ok = await confConfirm("Xác nhận xóa", "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa mục này?", "danger");
             if (ok) {
                 try {
                     await deleteDoc(doc(db, col, id));
-                    showToast("ÄÃ£ xÃ³a má»¥c thÃ nh cÃ´ng!");
+                    showToast("Đã xóa mục thành công!");
                     if (col === 'users') loadUsers();
                     if (col === 'topics') loadTopics();
                     if (col === 'reports') loadReports();
@@ -1746,14 +1788,14 @@
         window.updateRole = async (id, role) => {
             try {
                 await updateDoc(doc(db, "users", id), { role });
-                showToast("ÄÃ£ cáº­p nháº­t quyá»n thÃ nh cÃ´ng!");
+                showToast("Đã cập nhật quyền thành công!");
             } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleChatMute = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { isChatMuted: !current });
-                showToast(current ? "ÄÃ£ gá»¡ cáº¥m chat" : "ÄÃ£ cáº¥m chat ngÆ°á»i dÃ¹ng nÃ y!");
+                showToast(current ? "Đã gỡ cấm chat" : "Đã cấm chat người dùng này!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
@@ -1761,7 +1803,7 @@
         window.toggleVerify = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { isTickVerified: !current });
-                showToast(current ? "ÄÃ£ há»§y tick xanh cÃ´ng khai" : "ÄÃ£ cáº¥p tick xanh cÃ´ng khai thÃ nh cÃ´ng!");
+                showToast(current ? "Đã hủy tick xanh công khai" : "Đã cấp tick xanh công khai thành công!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
@@ -1769,36 +1811,36 @@
         window.toggleRestrictedTick = async (id, current) => {
             try {
                 await updateDoc(doc(db, "users", id), { restrictedTick: !current });
-                showToast(current ? "ÄÃ£ há»§y tick xanh háº¡n cháº¿" : "ÄÃ£ cáº¥p tick xanh háº¡n cháº¿ thÃ nh cÃ´ng!");
+                showToast(current ? "Đã hủy tick xanh hạn chế" : "Đã cấp tick xanh hạn chế thành công!");
                 loadUsers();
             } catch (e) { showToast(e.message, 'error'); }
         };
 
         window.toggleBan = async (id, current) => {
-            const title = current ? "Gá»¡ Ban" : "Ban Nick";
-            const msg = current ? "XÃ¡c nháº­n gá»¡ gáº­y cho ngÆ°á»i dÃ¹ng nÃ y?" : "Cáº¥m tÃ i khoáº£n ngÆ°á»i dÃ¹ng nÃ y khá»i há»‡ thá»‘ng?";
+            const title = current ? "Gỡ Ban" : "Ban Nick";
+            const msg = current ? "Xác nhận gỡ gậy cho người dùng này?" : "Cấm tài khoản người dùng này khỏi hệ thống?";
             const ok = await confConfirm(title, msg, current ? 'info' : 'danger');
             if (ok) {
                 try {
                     let updateData = { isBanned: !current };
 
-                    if (!current) { // Náº¿u lÃ  Ban nick
-                        const reason = prompt("LÃ½ do ban?", "Vi pháº¡m tiÃªu chuáº©n cá»™ng Ä‘á»“ng");
-                        if (reason === null) return; // Há»§y
+                    if (!current) { // Nếu là Ban nick
+                        const reason = prompt("Lý do ban?", "Vi phạm tiêu chuẩn cộng đồng");
+                        if (reason === null) return; // Hủy
 
-                        const dateUnban = prompt("NgÃ y má»Ÿ ban? (VD: 20/03/2026 hoáº·c 'VÄ©nh viá»…n')", "VÄ©nh viá»…n");
-                        if (dateUnban === null) return; // Há»§y
+                        const dateUnban = prompt("Ngày mở ban? (VD: 20/03/2026 hoặc 'Vĩnh viễn')", "Vĩnh viễn");
+                        if (dateUnban === null) return; // Hủy
 
                         updateData.banReason = reason;
                         updateData.dateUnban = dateUnban;
                         updateData.lastBannedAt = new Date().toISOString();
-                    } else { // Náº¿u lÃ  Gá»¡ ban
+                    } else { // Nếu là Gỡ ban
                         updateData.banReason = "";
                         updateData.dateUnban = "";
                     }
 
                     await updateDoc(doc(db, "users", id), updateData);
-                    showToast(current ? "ÄÃ£ gá»¡ ban thÃ nh cÃ´ng" : "NgÆ°á»i dÃ¹ng Ä‘Ã£ bá»‹ ban!");
+                    showToast(current ? "Đã gỡ ban thành công" : "Người dùng đã bị ban!");
                     loadUsers();
                 } catch (e) { showToast(e.message, 'error'); }
             }
@@ -1818,7 +1860,7 @@
             row.style.display = 'flex';
             row.style.gap = '8px';
             row.innerHTML = `
-                <input type="text" class="inp poll-opt-val" value="${val}" placeholder="NhÃ£n lá»±a chá»n" oninput="updatePollJson()">
+                <input type="text" class="inp poll-opt-val" value="${val}" placeholder="Nhãn lựa chọn" oninput="updatePollJson()">
                 <button class="action-btn delete" onclick="this.parentElement.remove(); updatePollJson()"><span class="material-symbols-rounded">delete</span></button>
             `;
             container.appendChild(row);
@@ -1846,17 +1888,17 @@
 
         window.applyPoll = async () => {
             const poll = updatePollJson();
-            if (!poll.question) return showToast("Vui lÃ²ng nháº­p cÃ¢u há»i!", 'error');
+            if (!poll.question) return showToast("Vui lòng nhập câu hỏi!", 'error');
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "community_poll"), {
                     json: JSON.stringify(poll),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh Poll thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Poll thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         window.addNewsItem = (data = {}) => {
@@ -1865,12 +1907,12 @@
             div.className = 'item-row';
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" onclick="this.parentElement.remove(); updateNewsJson()">delete</span>
-                <div class="form-row"><label>Icon (Emoji/Text)</label><input type="text" class="news-icon inp" value="${data.icon || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>TiÃªu Ä‘á»</label><input type="text" class="news-title inp" value="${data.title || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>MÃ´ táº£ ngáº¯n</label><input type="text" class="news-short inp" value="${data.short || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>Chi tiáº¿t</label><textarea class="news-detail inp" oninput="updateNewsJson()">${data.detail || ''}</textarea></div>
+                <div class="form-row"><label>Biểu tượng (Icon)</label><input type="text" class="news-icon inp" value="${data.icon || 'campaign'}" placeholder="VD: star, info, ..." oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Tiêu đề</label><input type="text" class="news-title inp" value="${data.title || ''}" placeholder="Nhập tiêu đề tin tức..." oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Mô tả ngắn</label><input type="text" class="news-short inp" value="${data.short || ''}" oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Chi tiết</label><textarea class="news-detail inp" oninput="updateNewsJson()">${data.detail || ''}</textarea></div>
                 <div class="form-row"><label>Link (URL)</label><input type="text" class="news-link inp" value="${data.link || ''}" oninput="updateNewsJson()"></div>
-                <div class="form-row"><label>Tag (mÃ u Ä‘á»)</label><input type="text" class="news-tag inp" value="${data.tag || ''}" oninput="updateNewsJson()"></div>
+                <div class="form-row"><label>Tag (màu đỏ)</label><input type="text" class="news-tag inp" value="${data.tag || ''}" oninput="updateNewsJson()"></div>
             `;
             container.prepend(div);
             updateNewsJson();
@@ -1878,7 +1920,7 @@
 
         window.updateNewsJson = () => {
             const items = [];
-            document.querySelectorAll('.item-row').forEach(row => {
+            document.querySelectorAll('#news-list-wrap .item-row').forEach(row => {
                 const title = row.querySelector('.news-title').value;
                 if (!title) return;
                 items.push({
@@ -1897,15 +1939,15 @@
         window.applyNews = async () => {
             const news = updateNewsJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "dashboard_news"), {
                     json: JSON.stringify(news),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh Tin tá»©c thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Tin tức thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         window.addLRItem = (data = {}) => {
@@ -1917,10 +1959,10 @@
             div.style.gap = '10px';
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" style="z-index: 10;" onclick="this.parentElement.remove(); updateLRJson()">delete</span>
-                <div class="form-row"><label>NgÃ y thÆ°á»Ÿng (VD: 3, 10)</label><input type="number" class="lr-day inp" value="${data.day || ''}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>Icon pháº§n thÆ°á»Ÿng (Emoji)</label><input type="text" class="lr-icon inp" value="${data.icon || 'ðŸŽ'}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>MÃ´ táº£ pháº§n thÆ°á»Ÿng hiá»ƒn thá»‹</label><input type="text" class="lr-text inp" value="${data.text || ''}" oninput="updateLRJson()"></div>
-                <div class="form-row"><label>MÃ£ há»‡ thá»‘ng (VIP thÃ¬ ghi <b>vip</b>)</label><input type="text" class="lr-type inp" value="${data.type || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Ngày thưởng (VD: 3, 10)</label><input type="number" class="lr-day inp" value="${data.day || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Icon phần thưởng (Emoji)</label><input type="text" class="lr-icon inp" value="${data.icon || 'ðŸŽ'}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mô tả phần thưởng hiển thị</label><input type="text" class="lr-text inp" value="${data.text || ''}" oninput="updateLRJson()"></div>
+                <div class="form-row"><label>Mã hệ thống (VIP thì ghi <b>vip</b>)</label><input type="text" class="lr-type inp" value="${data.type || ''}" oninput="updateLRJson()"></div>
             `;
             container.appendChild(div);
             updateLRJson();
@@ -1947,15 +1989,15 @@
         window.applyLR = async () => {
             const lr = updateLRJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "login_rewards"), {
                     json: JSON.stringify(lr),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u cáº¥u hÃ¬nh ThÆ°á»Ÿng ÄÄƒng nháº­p thÃ nh cÃ´ng!");
+                showToast("Đã lưu cấu hình Thưởng Đăng nhập thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u cáº¥u hÃ¬nh vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu cấu hình vào Firestore';
         };
 
         window.addAnnItem = (data = {}) => {
@@ -1964,9 +2006,9 @@
             div.className = 'item-row';
             div.innerHTML = `
                 <span class="material-symbols-rounded item-del" onclick="this.parentElement.remove(); updateAnnJson()">delete</span>
-                <div class="form-row"><label>TiÃªu Ä‘á»</label><input type="text" class="ann-title inp" value="${data.title || ''}" oninput="updateAnnJson()"></div>
-                <div class="form-row"><label>Ná»™i dung chi tiáº¿t</label><textarea class="ann-content inp" style="height:100px;" oninput="updateAnnJson()">${data.content || ''}</textarea></div>
-                <div class="form-row"><label>NgÃ y hiá»ƒn thá»‹ (VD: HÃ´m nay, 30/04)</label><input type="text" class="ann-date inp" value="${data.date || ''}" oninput="updateAnnJson()"></div>
+                <div class="form-row"><label>Tiêu đề</label><input type="text" class="ann-title inp" value="${data.title || ''}" oninput="updateAnnJson()"></div>
+                <div class="form-row"><label>Nội dung chi tiết</label><textarea class="ann-content inp" style="height:100px;" oninput="updateAnnJson()">${data.content || ''}</textarea></div>
+                <div class="form-row"><label>Ngày hiển thị (VD: Hôm nay, 30/04)</label><input type="text" class="ann-date inp" value="${data.date || ''}" oninput="updateAnnJson()"></div>
             `;
             container.prepend(div);
             updateAnnJson();
@@ -1990,15 +2032,15 @@
         window.applyAnnouncements = async () => {
             const list = updateAnnJson();
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "announcements"), {
                     json: JSON.stringify({ list }),
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ lÆ°u ThÃ´ng bÃ¡o thÃ nh cÃ´ng!");
+                showToast("Đã lưu Thông báo thành công!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> LÆ°u vÃ o Firestore';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Lưu vào Firestore';
         };
 
         async function loadSystemConfig() {
@@ -2058,23 +2100,23 @@
             const status = document.getElementById('feat-outline-status').value;
             const msg = document.getElementById('feat-outline-msg').value;
             const btn = event.currentTarget;
-            btn.disabled = true; btn.textContent = "Äang lÆ°u...";
+            btn.disabled = true; btn.textContent = "Đang lưu...";
             try {
                 await setDoc(doc(db, "system", "features_config"), {
                     outlineStatus: status,
                     outlineMaintenanceMsg: msg,
                     updatedAt: serverTimestamp()
                 });
-                showToast("ÄÃ£ cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬!");
+                showToast("Đã cập nhật cấu hình bảo trì!");
             } catch (e) { showToast(e.message, 'error'); }
-            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cáº­p nháº­t cáº¥u hÃ¬nh báº£o trÃ¬';
+            btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded">save</span> Cập nhật cấu hình bảo trì';
         };
 
 
 
         window.viewUser = async (uid) => {
             const snap = await getDoc(doc(db, "users", uid));
-            if (!snap.exists()) return showToast("User khÃ´ng tá»“n táº¡i!", 'error');
+            if (!snap.exists()) return showToast("User không tồn tại!", 'error');
             const u = snap.data();
             const isTickVerified = u.isTickVerified === true;
             const isBanned = u.isBanned === true;
@@ -2082,48 +2124,48 @@
             const body = document.getElementById('profileBody');
             body.innerHTML = `
                 <div style="grid-column: span 2; display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid var(--border);">
-                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" style="width: 80px; height: 80px; border-radius: 24px; object-fit: cover; border: 2px solid var(--primary);">
+                    <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" style="width: 80px; height: 80px; border-radius: 24px; object-fit: cover; border: 2px solid var(--primary);">
                     <div>
-                        <h3 style="font-weight: 800; font-size: 20px;">${u.displayName || 'KhÃ¡ch'}</h3>
+                        <h3 style="font-weight: 800; font-size: 20px;">${u.displayName || 'Khách'}</h3>
                         <p style="color: var(--text-gray); font-size: 14px;">@${u.username || 'n/a'}</p>
                     </div>
                 </div>
                 <div class="input-group"><label>UID</label><div class="uid-pill" style="padding: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);">${uid}</div></div>
                 <div class="input-group"><label>Email</label><input type="text" class="inp" value="${u.email || 'N/A'}" readonly></div>
-                <div class="input-group"><label>Vai trÃ²</label>
+                <div class="input-group"><label>Vai trò</label>
                     <select onchange="updateRole('${uid}', this.value)" class="inp">
                         <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
                         <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
                     </select>
                 </div>
-                <div class="input-group"><label>NgÃ y tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
-                <div class="input-group"><label>Tráº¡ng thÃ¡i xÃ¡c minh</label><input type="text" class="inp" value="${isTickVerified ? 'ÄÃ£ xÃ¡c minh' : 'ChÆ°a xÃ¡c minh'}" style="color: ${isTickVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
-                <div class="input-group"><label>Tick xanh cÃ¡ nhÃ¢n</label><input type="text" class="inp" value="${u.restrictedTick ? 'Báº­t' : 'Táº¯t'}" style="color: ${u.restrictedTick ? 'var(--primary)' : 'var(--text-gray)'}; font-weight: 800;" readonly></div>
+                <div class="input-group"><label>Ngày tham gia</label><input type="text" class="inp" value="${u.createdAt ? new Date(u.createdAt).toLocaleString('vi') : '---'}" readonly></div>
+                <div class="input-group"><label>Trạng thái xác minh</label><input type="text" class="inp" value="${isTickVerified ? 'Đã xác minh' : 'Chưa xác minh'}" style="color: ${isTickVerified ? 'var(--success)' : 'var(--danger)'}; font-weight: 800;" readonly></div>
+                <div class="input-group"><label>Tick xanh cá nhân</label><input type="text" class="inp" value="${u.restrictedTick ? 'Bật' : 'Tắt'}" style="color: ${u.restrictedTick ? 'var(--primary)' : 'var(--text-gray)'}; font-weight: 800;" readonly></div>
 
                 <div style="grid-column: span 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
                     <button class="btn ${isTickVerified ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleVerify('${uid}', ${isTickVerified}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isTickVerified ? 'verified_user' : 'verified'}</span>
-                        ${isTickVerified ? 'Há»§y Tick CÃ´ng Khai' : 'Cáº¥p Tick CÃ´ng Khai'}
+                        ${isTickVerified ? 'Hủy Tick Công Khai' : 'Cấp Tick Công Khai'}
                     </button>
                     <button class="btn ${u.restrictedTick ? 'btn-ghost' : 'btn-primary'}" style="flex: 1; min-width: 120px; font-size: 13px;" onclick="toggleRestrictedTick('${uid}', ${!!u.restrictedTick}); closeProfileModal();">
                         <span class="material-symbols-rounded">${u.restrictedTick ? 'verified_user' : 'verified'}</span>
-                        ${u.restrictedTick ? 'Há»§y Tick CÃ¡ NhÃ¢n' : 'Cáº¥p Tick CÃ¡ NhÃ¢n'}
+                        ${u.restrictedTick ? 'Hủy Tick Cá Nhân' : 'Cấp Tick Cá Nhân'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${isBanned ? '#f1f5f9' : '#fff1f2'}; color: ${isBanned ? 'var(--text)' : 'red'};" onclick="toggleBan('${uid}', ${isBanned}); closeProfileModal();">
                         <span class="material-symbols-rounded">${isBanned ? 'check_circle' : 'block'}</span>
-                        ${isBanned ? 'Gá»¡ Ban' : 'Ban Nick'}
+                        ${isBanned ? 'Gỡ Ban' : 'Ban Nick'}
                     </button>
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: ${u.isChatMuted ? '#f1f5f9' : '#fef3c7'}; color: ${u.isChatMuted ? 'var(--text)' : '#92400e'};" onclick="toggleChatMute('${uid}', ${!!u.isChatMuted}); closeProfileModal();">
                         <span class="material-symbols-rounded">${u.isChatMuted ? 'chat' : 'comments_disabled'}</span>
-                        ${u.isChatMuted ? 'Gá»¡ Cáº¥m Chat' : 'Cáº¥m Chat'}
+                        ${u.isChatMuted ? 'Gỡ Cấm Chat' : 'Cấm Chat'}
                     </button>
                     ${u.verifiedLevel2 ? '' : `
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: #dcfce7; color: #166534;" onclick="quickApproveLevel2('${uid}')">
-                        <span class="material-symbols-rounded">gpp_good</span> XÃ¡c minh Cáº¥p 2
+                        <span class="material-symbols-rounded">gpp_good</span> Xác minh Cấp 2
                     </button>
                     `}
                     <button class="btn" style="flex: 1; min-width: 120px; font-size: 13px; background: #fee2e2; color: #991b1b;" onclick="deleteItem('users', '${uid}'); closeProfileModal();">
-                        <span class="material-symbols-rounded">delete</span> XÃ³a User
+                        <span class="material-symbols-rounded">delete</span> Xóa User
                     </button>
                 </div>
             `;
@@ -2132,10 +2174,11 @@
 
         window.closeProfileModal = () => document.getElementById('userProfileModal').classList.remove('active');
 
-        window.loadLevel2Requests = async () => {
+        window.loadLevel2Requests = async (doSwitch = true) => {
+            if (doSwitch) switchSection('level2');
             console.log("Admin: Loading Level 2 requests...");
             const list = document.getElementById('level2-request-list');
-            list.innerHTML = '<tr><td colspan="3" style="text-align:center;">Äang táº£i...</td></tr>';
+            list.innerHTML = '<tr><td colspan="3" style="text-align:center;">Đang tải...</td></tr>';
             try {
                 const q = query(collection(db, "requests"), where("type", "==", "level2_verify"), where("status", "==", "pending"));
                 const snap = await getDocs(q);
@@ -2143,7 +2186,7 @@
                 list.innerHTML = '';
 
                 if (snap.empty) {
-                    list.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:30px; color:var(--text-gray);">KhÃ´ng cÃ³ yÃªu cáº§u nÃ o cáº§n duyá»‡t.</td></tr>';
+                    list.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:30px; color:var(--text-gray);">Không có yêu cầu nào cần duyệt.</td></tr>';
                     return;
                 }
 
@@ -2156,7 +2199,7 @@
                     tr.innerHTML = `
                         <td>
                             <div class="user-cell">
-                                <img src="${u.photoURL || 'https://placehold.co/100x100?text=ðŸ‘¤'}" class="user-avt">
+                                <img src="${u.photoURL || 'https://placehold.co/100x100?text=👤'}" class="user-avt">
                                 <div>
                                     <strong>${u.displayName}</strong><br>
                                     <span class="uid-pill">${req.uid}</span>
@@ -2167,10 +2210,10 @@
                         <td>
                             <div style="display:flex; gap:8px;">
                                 <button class="action-btn verify" onclick="approveLevel2Request('${d.id}', '${req.uid}')">
-                                    <span class="material-symbols-rounded">check</span> Duyá»‡t
+                                    <span class="material-symbols-rounded">check</span> Duyệt
                                 </button>
                                 <button class="action-btn delete" onclick="rejectLevel2Request('${d.id}', '${req.uid}')">
-                                    <span class="material-symbols-rounded">close</span> Tá»« chá»‘i
+                                    <span class="material-symbols-rounded">close</span> Từ chối
                                 </button>
                             </div>
                         </td>
@@ -2179,12 +2222,12 @@
                 }
             } catch (err) {
                 console.error(err);
-                showToast("Lá»—i táº£i yÃªu cáº§u!", "error");
+                showToast("Lỗi tải yêu cầu!", "error");
             }
         }
 
         window.approveLevel2Request = async (reqId, uid) => {
-            const ok = await confConfirm("PhÃª duyá»‡t Level 2", "XÃ¡c nháº­n nÃ¢ng cáº¥p tÃ i khoáº£n nÃ y lÃªn Level 2?");
+            const ok = await confConfirm("Phê duyệt Level 2", "Xác nhận nâng cấp tài khoàn này lên Level 2?");
             if (!ok) return;
             try {
                 await updateDoc(doc(db, "users", uid), {
@@ -2193,28 +2236,28 @@
                     level2ApprovalRequested: false
                 });
                 await updateDoc(doc(db, "requests", reqId), { status: 'accepted', handledAt: serverTimestamp() });
-                showToast("ÄÃ£ phÃª duyá»‡t thÃ nh cÃ´ng!");
+                showToast("Đã phê duyệt thành công!");
                 loadLevel2Requests();
             } catch (err) {
-                showToast("Lá»—i: " + err.message, "error");
+                showToast("Lỗi: " + err.message, "error");
             }
         };
 
         window.rejectLevel2Request = async (reqId, uid) => {
-            const ok = await confConfirm("Tá»« chá»‘i Level 2", "Tá»« chá»‘i yÃªu cáº§u nÃ y?", "danger");
+            const ok = await confConfirm("Từ chối Level 2", "Từ chối yêu cầu này?", "danger");
             if (!ok) return;
             try {
                 await updateDoc(doc(db, "users", uid), { level2ApprovalRequested: false });
                 await updateDoc(doc(db, "requests", reqId), { status: 'rejected', handledAt: serverTimestamp() });
-                showToast("ÄÃ£ tá»« chá»‘i yÃªu cáº§u.");
+                showToast("Đã từ chối yêu cầu.");
                 loadLevel2Requests();
             } catch (err) {
-                showToast("Lá»—i: " + err.message, "error");
+                showToast("Lỗi: " + err.message, "error");
             }
         };
 
         window.quickApproveLevel2 = async (uid) => {
-            const ok = await confConfirm("XÃ¡c minh Cáº¥p 2", "XÃ¡c nháº­n cáº¥p tráº¡ng thÃ¡i Level 2 cho ngÆ°á»i dÃ¹ng nÃ y?");
+            const ok = await confConfirm("Xác minh Cấp 2", "Xác nhận cấp trạng thái Level 2 cho người dùng này?");
             if (!ok) return;
             try {
                 await updateDoc(doc(db, "users", uid), {
@@ -2228,12 +2271,12 @@
                 for (const d of snap.docs) {
                     await updateDoc(doc(db, "requests", d.id), { status: 'accepted', handledAt: serverTimestamp() });
                 }
-                showToast("ÄÃ£ xÃ¡c minh Cáº¥p 2 thÃ nh cÃ´ng!");
+                showToast("Đã xác minh Cấp 2 thành công!");
                 closeProfileModal();
                 loadUsers();
                 loadDashboard();
             } catch (err) {
-                showToast("Lá»—i: " + err.message, "error");
+                showToast("Lỗi: " + err.message, "error");
             }
         }
 

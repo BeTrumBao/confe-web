@@ -1435,6 +1435,7 @@
     <meta name="twitter:description" content="Mạng xã hội mini Confe">
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
+
 </head>
 
 <body>
@@ -4094,6 +4095,9 @@
                 const vUrl = msg.video || msg.image;
                 contentHtml += `<div style="margin-bottom:6px; position:relative; display:inline-block; max-width: 250px;">
                     <video src="${vUrl}" class="msg-video" controls style="width:100%; border-radius:14px; border: 1px solid #eee; display:block;"></video>
+                    ${window.innerWidth <= 768 ? `<button onclick="event.stopPropagation(); const v = this.previousElementSibling; if(v.requestFullscreen) v.requestFullscreen(); else if(v.webkitEnterFullscreen) v.webkitEnterFullscreen(); if(v.videoWidth>v.videoHeight && screen.orientation && window.innerWidth <= 768) screen.orientation.lock('landscape').catch(()=>{});" style="position:absolute; top:8px; right:8px; z-index:10; background:rgba(0,0,0,0.6); color:white; border:none; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer;" title="Zoom / Phóng to">
+                        <span class="material-symbols-rounded" style="font-size:20px;">fullscreen</span>
+                    </button>` : ''}
                     ${msg.likes && msg.likes.length > 0 ? `<span class="msg-heart"><span class="material-symbols-rounded" style='font-variation-settings: "FILL" 1; font-size: inherit;'>favorite</span></span>` : ''}
                 </div>`;
             } else if (msg.image) {
@@ -4439,30 +4443,43 @@
         // === STICKER LOGIC ===
 
         const STICKERS = [
-            "stickers/Ruby.png", // New Ruby Sticker
+            "stickers/Ruby.png",
             "https://i.ibb.co/Gvzh84k7/D-i-D-y-Img.png",
-            "https://i.ibb.co/Vc1PQcYT/8019bbfd3690.jpg",
-            "https://i.ibb.co/Bk7BHLC/889311144247.jpg",
-            "https://i.ibb.co/HTMzBSRx/15285f3f009f.jpg",
-            "https://i.ibb.co/7tbXVb10/03096273fee6.jpg",
-            "https://i.ibb.co/67HRMM1d/9698c548e2e0.jpg",
-            "https://i.ibb.co/fzVZqVTf/c2d92b2e79da.jpg",
-            "https://i.ibb.co/4ZDf6bj1/971bef06cccc.jpg",
-            "https://i.ibb.co/yn6R3JM5/68b3a39c5cc7.jpg",
-            "https://i.ibb.co/LzyCP6RR/ada607c99874.jpg",
-            "https://i.ibb.co/LzcjPt8P/ac8333cbef00.jpg",
-            "https://i.ibb.co/bgdgPrp0/f0ac5dd0124a.jpg",
-            "https://i.ibb.co/DP7zZRyj/df179c94077a.jpg",
-            "https://i.ibb.co/qYx139cM/9860a0039918.jpg",
-            "https://i.ibb.co/Kz0v5qVZ/38825818772c.jpg",
-            "https://i.ibb.co/zhGjscxg/bbe5b2339e38.jpg",
-            "https://i.ibb.co/ZRYSMMwm/53ebed867f22.jpg",
-            "https://i.ibb.co/whJWLy7P/19dd295f28c0.jpg",
-            "https://i.ibb.co/rL2V0Yq/145ca17d33a7.jpg",
-            "https://i.ibb.co/nssYKBbJ/1427ef3678a4.jpg",
-            "https://i.ibb.co/Wp7fnJvV/a2091982b62f.jpg",
-            "https://i.ibb.co/LXz4WWZt/b71fa2bb010a.jpg",
-            "https://i.ibb.co/svmVjJK1/3894c6701767.jpg"
+            "stickers/z7619748181494_1bd575797c560facfad795e1da6ea566.jpg",
+            "stickers/z7619748191153_4143d35fea978083f565c8fa971b68f0.jpg",
+            "stickers/z7619748206712_81e3eb5899971cea0f675799466e87c5.jpg",
+            "stickers/z7619748206798_b78a7c2e91631ff068d55aa5f4b43556.jpg",
+            "stickers/z7619748216610_d2b674cede3970ba02b48c482032b523.jpg",
+            "stickers/z7619748217806_1b5ca5327bcdb720e4b0013262f43504.jpg",
+            "stickers/z7619748257365_5012d6f1105d5b3490d4e4976ff50a85.jpg",
+            "stickers/z7619748257479_5c1863ea9266791f7804514821825771.jpg",
+            "stickers/z7619748257592_1b3cbcfd9d6bc87fdf884b8836884662.jpg",
+            "stickers/z7619748258491_7ccf7fa4c9f59eb1b19030ac14debc97.jpg",
+            "stickers/z7619748267743_b79d2949319fda6e45221021862e940d.jpg",
+            "stickers/z7619748270900_8a7d7c41b45bf1f1b2c57d5c47610f0d.jpg",
+            "stickers/z7619748325977_a51bd65051b297edf980260ba31bb143.jpg",
+            "stickers/z7619748328911_528ee4f59c5cd1332670132e03ff55ab.jpg",
+            "stickers/z7619748336014_a0f4b6f7ff17be69dc6735ab67244aad.jpg",
+            "stickers/z7619748339217_73096f5745c64c79c10243b9a4b08325.jpg",
+            "stickers/z7619748342286_2d3203eb325cf83bd68c96376885d1f5.jpg",
+            "stickers/z7619748343741_e609e0ecd90e2916ec274dff39165204.jpg",
+            "stickers/z7619748346426_facd334b3ae8d560a4e5bad523a6ddeb.jpg",
+            "stickers/z7619748346544_cf85a45f60cbd9e751737a0a7fe0cf7c.jpg",
+            "stickers/z7619748351233_d012db743eabf941e449d26921a10934.jpg",
+            "stickers/z7619748352045_029d61af3d3792623f0a5f81c066f174.jpg",
+            "stickers/z7634514215405_65216f08cb8c834d8c349756d74b2377.jpg",
+            "stickers/z7634514218068_ecf5def4702e7de78bb5cab5a19e5d89.jpg",
+            "stickers/z7634514230578_e977cfae897f2a3a58300ac53cca9f7b.jpg",
+            "stickers/z7634514235466_7138ffefb8da8f4fb52cf839f5d41d91.jpg",
+            "stickers/z7634514252637_4638e2cf066d02459b42bb87189e85cc.jpg",
+            "stickers/z7634514252777_0d7c4350b7d8b91b58c5ea6e293cf378.jpg",
+            "stickers/z7634514253608_7639f6327615b5409603b1ff62269db1.jpg",
+            "stickers/z7634514259279_93519ae4e2fda3455d52e58297198c0c.jpg",
+            "stickers/z7634516630858_fb0815a71bb2071242e53b3637092d34.jpg",
+            "stickers/z7634516633120_a20b87a50f29ecd8602101f768ac3add.jpg",
+            "stickers/z7634516646481_058b300a19a57655716579631cbc3c10.jpg",
+            "stickers/z7634516647682_c80aefe30a7aed4c33018bf8e09b385e.jpg",
+            "stickers/z7634516659622_b791d409d87cbdd7c77bc86465947f5c.jpg"
         ];
 
         function renderStickerGrid() {

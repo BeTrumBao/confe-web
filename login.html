@@ -227,7 +227,7 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 9999;
+            z-index: 200005;
         }
 
         .toast {
@@ -700,7 +700,20 @@
                     </tr>
                 </thead>
                 <tbody>
-<div class="toast-container" id="toastContainer"></div>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #f1f5f9;"><b>e-1</b></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #f1f5f9;">Lỗi kết nối (kiểm tra mạng).</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px;"><b>e-2</b></td>
+                        <td style="padding: 12px;">Thao tác quá nhanh.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
 
     <script type="module">
         import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,7 @@
     <meta name="description"
         content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
     <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -21,8 +21,10 @@
     <meta name="twitter:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
     <script type="module" src="security-lock.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #0084ff;
@@ -51,8 +53,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- Quiz Block --- */
@@ -116,7 +125,10 @@
             background: #0f172a;
         }
 
-        .q-media-wrap img { width: 100%; display: block; }
+        .q-media-wrap img {
+            width: 100%;
+            display: block;
+        }
 
         .mask-overlay {
             position: absolute;
@@ -131,8 +143,15 @@
             font-weight: 600;
         }
 
-        .mask-overlay:hover { background: rgba(15, 23, 42, 0.85); }
-        .mask-overlay.revealed { opacity: 0; pointer-events: none; transform: scale(0.95); }
+        .mask-overlay:hover {
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .mask-overlay.revealed {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
 
         /* --- MCQ Options --- */
         .options-list {
@@ -183,6 +202,7 @@
             border-color: #10b981;
             color: #065f46;
         }
+
         .mcq-btn.wrong {
             background: #fef2f2;
             border-color: #ef4444;
@@ -229,7 +249,10 @@
             box-shadow: 0 8px 20px rgba(0, 132, 255, 0.3);
         }
 
-        .btn-send:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .btn-send:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
 
         /* --- Feedback --- */
         .feedback {
@@ -242,10 +265,28 @@
             animation: slideIn 0.3s ease;
         }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
 
-        .feedback.success { background: #ecfdf5; color: #059669; display: flex; align-items: center; gap: 8px; }
-        .feedback.error { background: #fef2f2; color: #ef4444; display: flex; align-items: center; gap: 8px; }
+        .feedback.success {
+            background: #ecfdf5;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback.error {
+            background: #fef2f2;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
         /* --- Loader --- */
         .loader-wrap {
@@ -266,7 +307,11 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         .nav-actions {
             margin-top: 40px;
@@ -290,8 +335,14 @@
             gap: 10px;
         }
 
-        .btn-exit { background: #f1f5f9; color: #475569; }
-        .btn-exit:hover { background: #e2e8f0; }
+        .btn-exit {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-exit:hover {
+            background: #e2e8f0;
+        }
 
         /* --- Subject Hub UI --- */
         .hub-header {
@@ -323,7 +374,10 @@
             border-radius: 12px;
         }
 
-        .stat-item span { font-size: 16px; color: var(--primary); }
+        .stat-item span {
+            font-size: 16px;
+            color: var(--primary);
+        }
 
         .mode-bar {
             display: flex;
@@ -334,7 +388,10 @@
             border-bottom: 1px solid #e2e8f0;
             scrollbar-width: none;
         }
-        .mode-bar::-webkit-scrollbar { display: none; }
+
+        .mode-bar::-webkit-scrollbar {
+            display: none;
+        }
 
         .mode-btn {
             white-space: nowrap;
@@ -351,8 +408,16 @@
             gap: 8px;
         }
 
-        .mode-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(0, 132, 255, 0.3); }
-        .mode-btn:not(.active) { background: #f1f5f9; color: #64748b; }
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 132, 255, 0.3);
+        }
+
+        .mode-btn:not(.active) {
+            background: #f1f5f9;
+            color: #64748b;
+        }
 
         /* -- Match Mode -- */
         .match-grid {
@@ -377,9 +442,22 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .match-card:hover { transform: translateY(-3px); border-color: var(--primary); }
-        .match-card.selected { background: var(--primary-bg); border-color: var(--primary); color: var(--primary); }
-        .match-card.hidden { opacity: 0; pointer-events: none; }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .match-card.selected {
+            background: var(--primary-bg);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .match-card.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         /* -- Memory Mode -- */
         .memory-wrap {
@@ -387,6 +465,7 @@
             margin: 40px auto;
             perspective: 1000px;
         }
+
         .flashcard {
             width: 100%;
             height: 350px;
@@ -395,7 +474,11 @@
             transform-style: preserve-3d;
             cursor: pointer;
         }
-        .flashcard.flipped { transform: rotateY(180deg); }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
         .card-face {
             position: absolute;
             width: 100%;
@@ -409,10 +492,15 @@
             border-radius: 30px;
             background: white;
             border: 2px solid #e2e8f0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             text-align: center;
         }
-        .card-back { transform: rotateY(180deg); background: var(--primary-bg); border-color: var(--primary); }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: var(--primary-bg);
+            border-color: var(--primary);
+        }
 
         .memory-nav {
             display: flex;
@@ -427,7 +515,7 @@
             color: white;
             margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         /* --- Solo BO3 & Shop UI --- */
@@ -444,7 +532,7 @@
             background: white;
             padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             width: 100%;
             max-width: 400px;
             display: flex;
@@ -465,7 +553,11 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
             transition: 0.3s;
         }
-        .solo-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        .solo-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
 
         .room-code-input {
             padding: 16px;
@@ -477,7 +569,11 @@
             outline: none;
             transition: 0.2s;
         }
-        .room-code-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-bg); }
+
+        .room-code-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-bg);
+        }
 
         .progress-area {
             background: #f8fafc;
@@ -487,10 +583,29 @@
             border: 1px solid #e2e8f0;
         }
 
-        .p-bar-wrap { margin-bottom: 12px; }
-        .p-label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; font-size: 13px; }
-        .p-bar { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-        .p-fill { height: 100%; transition: width 0.4s ease; }
+        .p-bar-wrap {
+            margin-bottom: 12px;
+        }
+
+        .p-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .p-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .p-fill {
+            height: 100%;
+            transition: width 0.4s ease;
+        }
 
         .podium-container {
             display: flex;
@@ -500,12 +615,42 @@
             margin: 40px 0;
             height: 200px;
         }
-        .podium-item { display: flex; flex-direction: column; align-items: center; width: 80px; }
-        .podium-avatar { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 5px; }
-        .podium-base { width: 100%; border-radius: 10px 10px 0 0; }
-        .first .podium-base { height: 100px; background: #fbbf24; }
-        .second .podium-base { height: 70px; background: #94a3b8; }
-        .third .podium-base { height: 50px; background: #cd7f32; }
+
+        .podium-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+        }
+
+        .podium-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 5px;
+        }
+
+        .podium-base {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .first .podium-base {
+            height: 100px;
+            background: #fbbf24;
+        }
+
+        .second .podium-base {
+            height: 70px;
+            background: #94a3b8;
+        }
+
+        .third .podium-base {
+            height: 50px;
+            background: #cd7f32;
+        }
 
         .shop-grid {
             display: grid;
@@ -513,6 +658,7 @@
             gap: 20px;
             padding: 20px;
         }
+
         .shop-item {
             background: white;
             border-radius: 24px;
@@ -528,10 +674,31 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        .item-icon { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
-        .item-name { font-weight: 800; font-size: 16px; margin-bottom: 10px; }
-        .item-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
-        .item-price { font-weight: 800; color: #059669; font-size: 15px; margin-bottom: 20px; }
+        .item-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .item-price {
+            font-weight: 800;
+            color: #059669;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
 
         /* -- Quiz Item Buttons -- */
         .quiz-tools {
@@ -540,6 +707,7 @@
             margin-bottom: 20px;
             justify-content: center;
         }
+
         .tool-btn {
             padding: 8px 15px;
             border-radius: 12px;
@@ -553,8 +721,17 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .tool-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--primary); color: var(--primary); }
-        .tool-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .tool-btn:hover:not(:disabled) {
+            background: #f8fafc;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
         .toast {
             position: fixed;
@@ -568,10 +745,16 @@
             font-weight: 700;
             font-size: 14px;
             z-index: 9999;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             animation: toastIn 0.3s ease-out;
         }
-        @keyframes toastIn { from { bottom: 0; opacity: 0; } }
+
+        @keyframes toastIn {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
 
         .modal-overlay {
             position: fixed;
@@ -588,39 +771,104 @@
 
         /* --- Mobile Optimization --- */
         @media (max-width: 600px) {
-            body { padding: 12px; }
-            .hub-header { padding: 10px 15px; padding-right: 70px; }
-            .user-stats { gap: 8px; font-size: 11px; }
-            .stat-item { padding: 4px 8px; border-radius: 8px; }
-            .stat-item span { font-size: 14px; }
-            .q-card { padding: 20px; border-radius: 20px; margin-bottom: 20px; }
-            .q-text { font-size: 16px; margin-bottom: 15px; }
-            .mcq-btn { padding: 14px 16px; border-radius: 14px; font-size: 14px; }
-            .essay-wrap { flex-direction: column; }
-            .btn-send { width: 100%; height: 50px; }
-            .btn-nav { padding: 15px; font-size: 14px; }
-            .achievement-overlay .achievement-text { font-size: 32px !important; }
-            .flashcard { height: 280px; }
-            .card-face { padding: 20px; border-radius: 20px; }
-            .q-mode-header { padding: 25px 20px; border-radius: 20px; }
-            .q-media-wrap img { max-height: 250px; object-fit: contain; background: #000; }
+            body {
+                padding: 12px;
+            }
+
+            .hub-header {
+                padding: 10px 15px;
+                padding-right: 70px;
+            }
+
+            .user-stats {
+                gap: 8px;
+                font-size: 11px;
+            }
+
+            .stat-item {
+                padding: 4px 8px;
+                border-radius: 8px;
+            }
+
+            .stat-item span {
+                font-size: 14px;
+            }
+
+            .q-card {
+                padding: 20px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+
+            .q-text {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .mcq-btn {
+                padding: 14px 16px;
+                border-radius: 14px;
+                font-size: 14px;
+            }
+
+            .essay-wrap {
+                flex-direction: column;
+            }
+
+            .btn-send {
+                width: 100%;
+                height: 50px;
+            }
+
+            .btn-nav {
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .achievement-overlay .achievement-text {
+                font-size: 32px !important;
+            }
+
+            .flashcard {
+                height: 280px;
+            }
+
+            .card-face {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .q-mode-header {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .q-media-wrap img {
+                max-height: 250px;
+                object-fit: contain;
+                background: #000;
+            }
         }
-        </style>
+    </style>
 </head>
+
 <body>
     <!-- Subject Hub Header -->
     <div class="hub-header" id="hub-header" style="display:none;">
         <div class="user-stats">
-            <div class="stat-item"><span class="material-symbols-rounded">payments</span> <b id="stat-coins">0</b> Xu</div>
+            <div class="stat-item"><span class="material-symbols-rounded">payments</span> <b id="stat-coins">0</b> Xu
+            </div>
         </div>
-        <div class="stat-item" style="font-size:11px;"><span class="material-symbols-rounded">inventory_2</span> <b id="stat-inv">0 Thẻ</b></div>
+        <div class="stat-item" style="font-size:11px;"><span class="material-symbols-rounded">inventory_2</span> <b
+                id="stat-inv">0 Thẻ</b></div>
     </div>
 
     <!-- Mode Selector Bar -->
     <div class="mode-bar" id="mode-bar" style="display:none;">
-        <button class="mode-btn active" id="mode-quiz" onclick="switchMode('quiz')"><span class="material-symbols-rounded">quiz</span> Học tập</button>
-        <button class="mode-btn" id="mode-wrong" onclick="switchMode('wrong')"><span class="material-symbols-rounded">error</span> Ôn Câu Sai</button>
-        <button class="mode-btn" style="background:#f0f9ff; color:#0369a1;" onclick="switchMode('shop')"><span class="material-symbols-rounded">shopping_cart</span> Cửa hàng</button>
+        <button class="mode-btn active" id="mode-quiz" onclick="switchMode('quiz')"><span
+                class="material-symbols-rounded">quiz</span> Học tập</button>
+        <button class="mode-btn" id="mode-wrong" onclick="switchMode('wrong')"><span
+                class="material-symbols-rounded">error</span> Ôn Câu Sai</button>
     </div>
 
     <div class="engine-container" id="engine-root">
@@ -636,13 +884,13 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getDatabase, ref, set, get, onValue, update, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-        const firebaseConfig = { 
-            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y", 
-            authDomain: "confe-web.vercel.app", 
-            projectId: "confe-web", 
-            storageBucket: "confe-web.firebasestorage.app", 
-            messagingSenderId: "677778119372", 
-            appId: "1:677778119372:web:ee3f1132871332743b0069" 
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPEMno1uZFg4uVXZjz-PbBR37gH6-3t5Y",
+            authDomain: "confe-web.vercel.app",
+            projectId: "confe-web",
+            storageBucket: "confe-web.firebasestorage.app",
+            messagingSenderId: "677778119372",
+            appId: "1:677778119372:web:ee3f1132871332743b0069"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -740,7 +988,7 @@
 
         const params = new URLSearchParams(window.location.search);
         const docId = params.get('docId');
-        
+
         // Stats from URL
         let stats = {
             coins: parseInt(params.get('coins')) || 0,
@@ -782,7 +1030,7 @@
                     currentOutline = snap.data();
                     allQuestions = currentOutline.questions || [];
                 }
-                
+
                 // Fetch profile
                 const uSnap = await getDoc(doc(db, 'users', user.uid));
                 if (uSnap.exists()) {
@@ -791,7 +1039,7 @@
                     myProfile.photoURL = d.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(myProfile.displayName)}&background=random`;
                 }
 
-                document.getElementById('hub-header').style.display = 'flex';
+                // document.getElementById('hub-header').style.display = 'flex'; // Hiding user stats
                 document.getElementById('mode-bar').style.display = 'flex';
                 updateStatsUI();
                 renderMode();
@@ -803,7 +1051,7 @@
 
         function updateStatsUI() {
             document.getElementById('stat-coins').textContent = stats.coins.toLocaleString();
-            const invText = window.innerWidth < 600 
+            const invText = window.innerWidth < 600
                 ? `${stats.pass1} Pass | ${stats.help} 50/50`
                 : `${stats.pass1} Thẻ Pass | ${stats.help} Thẻ 50/50`;
             document.getElementById('stat-inv').textContent = invText;
@@ -841,13 +1089,13 @@
 
         async function syncStats() {
             updateStatsUI();
-            window.parent.postMessage({ 
-                type: 'syncStats', 
-                coins: stats.coins, 
+            window.parent.postMessage({
+                type: 'syncStats',
+                coins: stats.coins,
                 rep: stats.rep,
                 inv: { pass1: stats.pass1, help: stats.help, protect: stats.protect }
             }, '*');
-            
+
             // Also update Firestore
             if (currentUser) {
                 try {
@@ -859,19 +1107,19 @@
                             protect: stats.protect
                         }
                     });
-                } catch(e) {}
+                } catch (e) { }
             }
         }
 
         // Attach to window so it can be called from onclick handlers
-        window.renderMode = function() {
+        window.renderMode = function () {
             renderMode();
         };
 
         function renderMode() {
             const root = document.getElementById('engine-root');
             root.innerHTML = '';
-            
+
             if (window.currentMode === 'quiz' || window.currentMode === 'wrong') {
                 renderQuizMode(root);
             } else if (window.currentMode === 'match') {
@@ -968,6 +1216,7 @@
             // Item Buttons
             const tools = document.createElement('div');
             tools.className = 'quiz-tools';
+            tools.style.display = 'none'; // Hidden items
             tools.innerHTML = `
                 <button class="tool-btn" id="tool-pass" onclick="useItem('pass1')" ${stats.pass1 <= 0 ? 'disabled' : ''}>
                     <span class="material-symbols-rounded" style="color:#f59e0b;">fast_forward</span> Pass (${stats.pass1})
@@ -987,7 +1236,7 @@
                     stats.pass1--;
                     showToast("Đã dùng thẻ Pass!");
                     syncStats();
-                    
+
                     if (feedbackEl) {
                         feedbackEl.textContent = "Bạn đã bỏ qua câu hỏi này.";
                         feedbackEl.className = 'feedback success';
@@ -997,7 +1246,7 @@
                     // Show Next button
                     const nextBtn = document.getElementById('next-btn');
                     if (nextBtn) nextBtn.style.display = 'block';
-                    
+
                     document.getElementById('tool-pass').innerHTML = `<span class="material-symbols-rounded" style="color:#f59e0b;">fast_forward</span> Pass (${stats.pass1})`;
                     if (stats.pass1 <= 0) document.getElementById('tool-pass').disabled = true;
 
@@ -1006,7 +1255,7 @@
                         stats.help--;
                         showToast("Đã dùng 50/50!");
                         syncStats();
-                        
+
                         document.getElementById('tool-help').innerHTML = `<span class="material-symbols-rounded" style="color:#0ea5e9;">query_stats</span> 50/50 (${stats.help})`;
                         if (stats.help <= 0) document.getElementById('tool-help').disabled = true;
 
@@ -1037,9 +1286,9 @@
             const card = document.createElement('div');
             card.className = 'q-card';
             const isV2 = currentOutline.type === 'user_outline_v2';
-            
+
             const hasSub = q.questions && q.questions.length > 0;
-            
+
             let contentHtml = `
                 <div class="q-header">
                     <div class="q-num">${quizIdx + 1}</div>
@@ -1056,15 +1305,15 @@
             if (hasSub) {
                 contentHtml += `<div class="sub-questions-wrap" style="margin-top:20px;">
                     ${q.questions.map((sq, sIdx) => {
-                        const isMC = sq.type === 'mc';
-                        const isEssay = sq.type === 'essay';
-                        return `
+                    const isMC = sq.type === 'mc';
+                    const isEssay = sq.type === 'essay';
+                    return `
                             <div class="sub-q-item" style="border-top:1px solid #eee; padding-top:15px; margin-top:15px;">
                                 <div class="q-text" style="font-size:14px; font-weight:600; margin-bottom:10px;">${quizIdx + 1}.${sIdx + 1}. ${sq.q || ''}</div>
                                 <div id="q-input-${globalIdx}-${sIdx}">
                                     ${isMC ? `
                                         <div class="options-list">
-                                            ${(sq.o || ['A','B','C','D']).map((opt, oIdx) => `
+                                            ${(sq.o || ['A', 'B', 'C', 'D']).map((opt, oIdx) => `
                                                 <button class="mcq-btn" onclick="checkAnswer(${globalIdx}, ${oIdx}, ${sq.a}, true, ${sIdx})">
                                                     <div class="opt-char">${String.fromCharCode(65 + oIdx)}</div> ${opt}
                                                 </button>
@@ -1080,7 +1329,7 @@
                                 </div>
                             </div>
                         `;
-                    }).join('')}
+                }).join('')}
                 </div>`;
             } else {
                 const isMC = q.type === 'mc' || q.type === 'mcq' || (q.type === 'image' && q.o);
@@ -1089,7 +1338,7 @@
                     <div id="q-input-${globalIdx}">
                         ${isMC ? `
                             <div class="options-list">
-                                ${(q.o || ['A','B','C','D']).map((opt, oIdx) => `
+                                ${(q.o || ['A', 'B', 'C', 'D']).map((opt, oIdx) => `
                                     <button class="mcq-btn" onclick="checkAnswer(${globalIdx}, ${isV2 ? oIdx : `'${opt}'`}, ${isV2 ? q.a : `'${q.answer}'`}${isV2 ? ', true' : ''})">
                                         <div class="opt-char">${String.fromCharCode(65 + oIdx)}</div> ${opt}
                                     </button>
@@ -1133,14 +1382,14 @@
             root.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--text-secondary);">Chế độ này đã bị gỡ bỏ.</div>`;
         }
 
-        window.submitSoloAns = () => {};
-        window.exitSoloRoom = () => {};
+        window.submitSoloAns = () => { };
+        window.exitSoloRoom = () => { };
 
         window.checkAnswer = (idx, val, correct, isV2 = false, subIdx = -1) => {
             const isCorrect = isV2 ? (parseInt(val) === parseInt(correct)) : (String(val).toUpperCase() === String(correct).toUpperCase());
             const feedbackId = subIdx === -1 ? `fb-${idx}` : `fb-${idx}-${subIdx}`;
             const inputId = subIdx === -1 ? `q-input-${idx}` : `q-input-${idx}-${subIdx}`;
-            
+
             const fb = document.getElementById(feedbackId);
             const btns = document.querySelectorAll(`#${inputId} .mcq-btn`);
             btns.forEach(b => b.disabled = true);
@@ -1161,7 +1410,7 @@
         window.checkEssay = (idx, correct, subIdx = -1) => {
             const inputFieldId = subIdx === -1 ? `inp-${idx}` : `inp-${idx}-${subIdx}`;
             const feedbackId = subIdx === -1 ? `fb-${idx}` : `fb-${idx}-${subIdx}`;
-            
+
             const inp = document.getElementById(inputFieldId);
             const fb = document.getElementById(feedbackId);
             const val = inp.value.trim().toLowerCase();
@@ -1193,7 +1442,7 @@
             const fb = document.getElementById(`fb-${idx}`);
             const btns = ansDiv.querySelectorAll('button');
             const userStr = Array.from(btns).map(b => b.textContent).join(' ');
-            
+
             if (userStr === correct) {
                 fb.className = 'feedback success';
                 fb.innerHTML = 'Tuyệt vời!';
@@ -1212,4 +1461,5 @@
         }
     </script>
 </body>
+
 </html>

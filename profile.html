@@ -318,18 +318,78 @@
             display: inline-flex;
             align-items: center;
             gap: 2px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             vertical-align: middle;
         }
-        .level-1 { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
-        .level-2 { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
 
-        #verifyLevel2Overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 20000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
-        .verify-v2-card { background: white; border-radius: 32px; padding: 32px; max-width: 400px; width: 100%; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .verify-v2-icon { color: #16a34a; margin-bottom: 20px; }
-        .verify-v2-title { font-size: 20px; font-weight: 800; margin-bottom: 12px; color: #0f172a; }
-        .verify-v2-desc { font-size: 14px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
-        .btn-verify-v2 { width: 100%; padding: 14px; border-radius: 16px; border: none; background: #16a34a; color: white; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .level-1 {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+        .level-2 {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        #verifyLevel2Overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 20000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .verify-v2-card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .verify-v2-icon {
+            color: #16a34a;
+            margin-bottom: 20px;
+        }
+
+        .verify-v2-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .verify-v2-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .btn-verify-v2 {
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            background: #16a34a;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
         .badge-card.locked {
             filter: grayscale(1);
@@ -547,20 +607,23 @@
             font-weight: 700;
             cursor: pointer;
             z-index: 99999;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             transform: translateX(calc(100% + 30px));
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             max-width: 260px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             user-select: none;
         }
+
         #uploadDoneChip.show {
             transform: translateX(0);
         }
+
         #uploadDoneChip .chip-icon {
             font-size: 20px;
             flex-shrink: 0;
         }
+
         #uploadDoneChip .chip-close {
             margin-left: auto;
             opacity: 0.6;
@@ -568,7 +631,10 @@
             flex-shrink: 0;
             padding: 2px;
         }
-        #uploadDoneChip .chip-close:hover { opacity: 1; }
+
+        #uploadDoneChip .chip-close:hover {
+            opacity: 1;
+        }
 
         .request-item {
             padding: 12px;
@@ -942,7 +1008,8 @@
                     <span class="material-symbols-rounded" style="font-size: 24px; color:#10b981;">military_tech</span>
                     <span style="font-weight:700;">Huy Hiệu</span>
                 </button>
-                <label id="btnOpenAvatarEditor" class="upload-btn" style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
+                <label id="btnOpenAvatarEditor" class="upload-btn"
+                    style="cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px;">
                     <span class="material-symbols-rounded" style="font-size: 24px;">photo_camera</span>
                     <span style="font-weight:700;">Ảnh Đại Diện</span>
                     <input type="file" id="fAvtFile" hidden accept="image/*">
@@ -980,6 +1047,36 @@
             </div>
 
 
+            <div
+                style="margin-top:16px; border:1px solid #e2e8f0; border-radius:16px; overflow:hidden; margin-bottom:12px;">
+                <button type="button" onclick="toggleSection('securitySectionBody', 'securitySectionArrow')"
+                    style="width:100%; padding:14px 16px; background:#fafafa; border:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-weight:800; font-size:14px;">
+                    <span style="display:flex; align-items:center; gap:8px;">
+                        <span class="material-symbols-rounded" style="font-size:18px; color:#0ea5e9;">shield_lock</span>
+                        Bảo mật & Tài khoản
+                    </span>
+                    <span id="securitySectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
+                </button>
+                <div id="securitySectionBody"
+                    style="display:none; padding:16px; border-top:1px solid #f1f5f9; background:white; flex-direction:column; gap:16px;">
+                    <!-- Change Password -->
+                    <button onclick="document.getElementById('modalChangePassword').classList.add('active')"
+                        style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:12px; background:white; color:#0f172a; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:10px; font-size:13px;">
+                        <span class="material-symbols-rounded" style="font-size:18px;">lock_reset</span> Đổi mật khẩu
+                    </button>
+
+                    <!-- 2FA Toggle -->
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding:4px 0;">
+                        <div style="display:flex; flex-direction:column; gap:2px;">
+                            <span style="font-size:13px; font-weight:700; color:#0f172a;">Xác minh 2 bước</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="chk2FA" onchange="handle2FAToggle()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
             <!-- Privacy Accordion -->
             <div id="privacySection"
@@ -992,47 +1089,70 @@
                     </span>
                     <span id="privacySectionArrow" style="transition:.2s; font-size:12px;">&#9660;</span>
                 </button>
-                <div id="privacySectionBody" style="display:none; padding:16px; border-top:1px solid #f1f5f9; background:white; display:flex; flex-direction:column; gap:20px;">
+                <div id="privacySectionBody"
+                    style="display:none; padding:16px; border-top:1px solid #f1f5f9; background:white; flex-direction:column; gap:20px;">
                     <!-- Phần bắt buộc -->
                     <div>
-                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN BẮT BUỘC ĐỂ VẬN HÀNH</h4>
+                        <h4
+                            style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">
+                            THÔNG TIN BẮT BUỘC ĐỂ VẬN HÀNH</h4>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
                                 <div style="display:flex; align-items:center; gap:8px;">
-                                    <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">badge</span>
-                                    <span style="font-size:13px; font-weight:600; color:#475569;">Tên hiển thị & Ảnh đại diện</span>
+                                    <span class="material-symbols-rounded"
+                                        style="font-size:16px; color:#64748b;">badge</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Tên hiển thị & Ảnh đại
+                                        diện</span>
                                 </div>
-                                <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
+                                <span class="material-symbols-rounded"
+                                    style="font-size:16px; color:#94a3b8;">lock</span>
                             </div>
                             <div style="display:flex; align-items:center; justify-content:space-between; opacity:0.6;">
                                 <div style="display:flex; align-items:center; gap:8px;">
-                                    <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">devices</span>
-                                    <span style="font-size:13px; font-weight:600; color:#475569;">Dữ liệu thiết bị (Bảo mật)</span>
+                                    <span class="material-symbols-rounded"
+                                        style="font-size:16px; color:#64748b;">devices</span>
+                                    <span style="font-size:13px; font-weight:600; color:#475569;">Dữ liệu thiết bị (Bảo
+                                        mật)</span>
                                 </div>
-                                <span class="material-symbols-rounded" style="font-size:16px; color:#94a3b8;">lock</span>
+                                <span class="material-symbols-rounded"
+                                    style="font-size:16px; color:#94a3b8;">lock</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Phần tùy chỉnh -->
                     <div>
-                        <h4 style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">THÔNG TIN CÓ THỂ ĐỔI/TẮT</h4>
+                        <h4
+                            style="margin:0 0 10px 0; font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">
+                            THÔNG TIN CÓ THỂ ĐỔI/TẮT</h4>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div style="display:flex; align-items:center; gap:10px;">
-                                <input type="checkbox" id="chkPublicFollow" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkPublicFollow" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai danh sách Follow</label>
+                                <input type="checkbox" id="chkPublicFollow"
+                                    style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkPublicFollow"
+                                    style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai
+                                    danh sách Follow</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
-                                <input type="checkbox" id="chkPublicEmail" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkPublicEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai Email trên hồ sơ</label>
+                                <input type="checkbox" id="chkPublicEmail"
+                                    style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkPublicEmail"
+                                    style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Công khai
+                                    Email trên hồ sơ</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
-                                <input type="checkbox" id="chkShowActivity" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkShowActivity" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Hiển thị trạng thái hoạt động</label>
+                                <input type="checkbox" id="chkShowActivity"
+                                    style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkShowActivity"
+                                    style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Hiển thị
+                                    trạng thái hoạt động</label>
                             </div>
                             <div style="display:flex; align-items:center; gap:10px;">
-                                <input type="checkbox" id="chkSearchByEmail" style="width:18px; height:18px; cursor:pointer;">
-                                <label for="chkSearchByEmail" style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Cho phép tìm thấy tôi qua Email</label>
+                                <input type="checkbox" id="chkSearchByEmail"
+                                    style="width:18px; height:18px; cursor:pointer;">
+                                <label for="chkSearchByEmail"
+                                    style="font-size:13px; font-weight:600; cursor:pointer; color:#475569;">Cho phép tìm
+                                    thấy tôi qua Email</label>
                             </div>
                         </div>
                     </div>
@@ -1076,8 +1196,9 @@
                 </div>
             </div>
 
+            <!-- Security Section -->
             <button id="btnLogout"
-                style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:12px; transition:0.2s;">
+                style="width:100%; padding:12px; background:rgba(239, 68, 68, 0.1); border-radius:14px; border:none; color:var(--danger); font-weight:700; cursor:pointer; margin-top:4px; transition:0.2s;">
                 <span class="material-symbols-rounded" style="vertical-align: middle;">logout</span> Đăng xuất
             </button>
 
@@ -1087,13 +1208,10 @@
                 <span class="material-symbols-rounded">login</span> Liên kết tài khoản Google
             </button>
 
-            <!-- Delete account -->
-            <button onclick="document.getElementById('modalDeleteAccount').classList.add('active')"
-                style="width:100%; padding:11px; background:none; border:1px solid rgba(239,68,68,0.3); border-radius:14px; color:#ef4444; font-weight:600; cursor:pointer; margin-top:8px; font-size:13px;">
-                <span class="material-symbols-rounded"
-                    style="vertical-align:middle; font-size:16px;">delete_forever</span> Xóa tài khoản
-            </button>
-            <div id="uidDisplay" style="font-size:11px; color:#94a3b8; text-align:center; margin-top:12px; font-family:monospace; cursor:pointer;" onclick="copyUID()" title="Bấm để sao chép UID">UID: ---</div>
+
+            <div id="uidDisplay"
+                style="font-size:11px; color:#94a3b8; text-align:center; margin-top:12px; font-family:monospace; cursor:pointer;"
+                onclick="copyUID()" title="Bấm để sao chép UID">UID: ---</div>
         </div>
     </div>
     <div id="modalAnonLogout" class="modal" style="z-index:9999;">
@@ -1134,6 +1252,57 @@
         </div>
     </div>
 
+    <!-- Change Password Modal -->
+    <div id="modalChangePassword" class="modal" style="z-index:10002;">
+        <div class="box" style="max-width:360px;">
+            <button class="close-x" onclick="this.closest('.modal').classList.remove('active')">
+                <span class="material-symbols-rounded">close</span>
+            </button>
+            <h3 style="margin-bottom:20px; font-size:18px; font-weight:800; text-align:center;">Đổi mật khẩu</h3>
+            <div class="inp-group">
+                <label class="inp-label">Mật khẩu hiện tại</label>
+                <input type="password" id="oldPass" class="inp" placeholder="••••••••">
+            </div>
+            <div class="inp-group">
+                <label class="inp-label">Mật khẩu mới</label>
+                <input type="password" id="newPass" class="inp" placeholder="Ít nhất 6 ký tự">
+            </div>
+            <div class="inp-group">
+                <label class="inp-label">Nhập lại mật khẩu mới</label>
+                <input type="password" id="newPassConfirm" class="inp" placeholder="Nhập lại mật khẩu mới">
+            </div>
+            <button onclick="saveNewPassword()" class="btn-main" style="margin-top:10px;">Cập nhật mật khẩu</button>
+        </div>
+    </div>
+
+    <!-- 2FA PIN Modal -->
+    <div id="modal2FASetup" class="modal" style="z-index:10003;">
+        <div class="box" style="max-width:340px; text-align:center;">
+            <h3 style="margin-bottom:12px; font-size:18px; font-weight:800;" id="title2FA">Cài đặt mã PIN 2FA</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:20px;" id="desc2FA">Nhập 6 số để bảo vệ tài khoản của
+                bạn.</p>
+            <div style="display:flex; gap:8px; justify-content:center; margin-bottom:24px;" id="pinSetupContainer">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+                <input type="password" maxlength="1" class="pin-setup-input"
+                    style="width:40px; height:50px; text-align:center; font-size:22px; font-weight:800; border:2px solid #f1f5f9; border-radius:12px; background:#f8fafc; outline:none; transition:0.2s;">
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="btnSave2FA" onclick="save2FAPin()" class="btn-main" style="flex:1;">Lưu mã PIN</button>
+                <button onclick="cancel2FASetup()" class="btn-main"
+                    style="flex:1; background:#f1f5f9; color:#475569;">Hủy</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Cropper Modal -->
     <div id="modalCropper" class="modal" style="z-index:10001;">
         <div class="box" style="text-align:center; max-width:500px; padding: 20px;">
@@ -1153,7 +1322,8 @@
     <!-- modalAvatarEditor removed: clicking the avatar button now directly opens file picker -->
 
     <div id="modalAppearance" class="modal">
-        <div class="box" style="padding:0; overflow:hidden; border-radius:32px; max-width:420px; display:flex; flex-direction:column; max-height:90vh;">
+        <div class="box"
+            style="padding:0; overflow:hidden; border-radius:32px; max-width:420px; display:flex; flex-direction:column; max-height:90vh;">
             <div
                 style="padding:24px; background:linear-gradient(to right, #f8fafc, #ffffff); border-bottom:1px solid #f1f5f9; position:relative; flex-shrink:0;">
                 <h3 style="margin:0; font-size:18px; font-weight:800; text-align:center;">Tùy chỉnh Giao diện</h3>
@@ -1164,19 +1334,22 @@
             </div>
             <div style="padding:24px; overflow-y:auto; flex:1; min-height:0;">
                 <!-- ALL PREVIEWS AT THE TOP -->
-                <div class="inp-group" style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:28px;">
+                <div class="inp-group"
+                    style="background:#f8fafc; border-radius:20px; padding:16px; border:1px solid #f1f5f9; margin-bottom:28px;">
                     <label class="inp-label" style="margin-bottom:16px; display:flex; align-items:center; gap:6px;">
                         <span class="material-symbols-rounded" style="font-size:16px; color:#64748b;">visibility</span>
                         Xem trước thay đổi
                     </label>
                     <div style="display:flex; flex-direction:column; gap:16px;">
-                        
+
                         <!-- Profile Avatar & Name Preview -->
-                        <div id="profilePreviewMsg" style="display:flex; align-items:center; gap:12px; justify-content:center; padding-bottom:16px; border-bottom:1px dashed #e2e8f0;">
+                        <div id="profilePreviewMsg"
+                            style="display:flex; align-items:center; gap:12px; justify-content:center; padding-bottom:16px; border-bottom:1px dashed #e2e8f0;">
                             <div id="prevAvatarWrap" style="flex-shrink:0;">
                                 <div id="prevAvatarInner"
                                     style="width:54px; height:54px; border-radius:50%; background:#e2e8f0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:24px;">
-                                    <img id="prevAvtImg" style="width:100%; height:100%; object-fit:cover; display:none;" />
+                                    <img id="prevAvtImg"
+                                        style="width:100%; height:100%; object-fit:cover; display:none;" />
                                     <span id="prevAvtPlaceholder">👤</span>
                                 </div>
                             </div>
@@ -1195,27 +1368,38 @@
                         <div id="prevCardAppearance" class="profile-card"
                             style="padding: 20px 10px; border-radius: 20px; transition: 0.3s; min-height: 80px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transform: scale(0.95); margin-top:-8px;">
                             <div class="card-border-anim"></div>
-                            <span style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ hồ sơ của bạn</span>
+                            <span
+                                style="font-size: 13px; font-weight: 800; color: #0f172a; position: relative; z-index: 1;">Thẻ
+                                hồ sơ của bạn</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- SELECTORS GO BELOW -->
-                
+
                 <!-- Name Color Picker -->
                 <div class="inp-group" style="margin-bottom:28px;">
                     <label class="inp-label" style="display:flex; align-items:center; gap:8px;">
-                        <span class="material-symbols-rounded" style="font-size:18px; color:#ec4899;">format_color_text</span>
+                        <span class="material-symbols-rounded"
+                            style="font-size:18px; color:#ec4899;">format_color_text</span>
                         Màu tên
                     </label>
-                    <div class="color-picker" id="nameColorPicker" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
-                        <div class="color-opt active" data-color="default" style="flex:1 1 70px; background:var(--bg);">Mặc định</div>
-                        <div class="color-opt" data-color="blue" style="color:#2563eb; flex:1 1 70px; background:var(--bg);">Lam</div>
-                        <div class="color-opt" data-color="red" style="color:#dc2626; flex:1 1 70px; background:var(--bg);">Đỏ</div>
-                        <div class="color-opt" data-color="green" style="color:#16a34a; flex:1 1 70px; background:var(--bg);">Lục</div>
-                        <div class="color-opt" data-color="purple" style="color:#9333ea; flex:1 1 70px; background:var(--bg);">Tím</div>
-                        <div class="color-opt" data-color="orange" style="color:#ea580c; flex:1 1 70px; background:var(--bg);">Cam</div>
-                        <div class="color-opt" data-color="pink" style="color:#f472b6; flex:1 1 70px; background:var(--bg);">Hồng</div>
+                    <div class="color-picker" id="nameColorPicker"
+                        style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+                        <div class="color-opt active" data-color="default" style="flex:1 1 70px; background:var(--bg);">
+                            Mặc định</div>
+                        <div class="color-opt" data-color="blue"
+                            style="color:#2563eb; flex:1 1 70px; background:var(--bg);">Lam</div>
+                        <div class="color-opt" data-color="red"
+                            style="color:#dc2626; flex:1 1 70px; background:var(--bg);">Đỏ</div>
+                        <div class="color-opt" data-color="green"
+                            style="color:#16a34a; flex:1 1 70px; background:var(--bg);">Lục</div>
+                        <div class="color-opt" data-color="purple"
+                            style="color:#9333ea; flex:1 1 70px; background:var(--bg);">Tím</div>
+                        <div class="color-opt" data-color="orange"
+                            style="color:#ea580c; flex:1 1 70px; background:var(--bg);">Cam</div>
+                        <div class="color-opt" data-color="pink"
+                            style="color:#f472b6; flex:1 1 70px; background:var(--bg);">Hồng</div>
                     </div>
                 </div>
 
@@ -1228,16 +1412,20 @@
                     <div class="frame-picker" id="framePicker" style="grid-template-columns: repeat(2, 1fr);">
                         <div class="frame-opt active" data-frame="default" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; height: auto; min-height: 56px;">
-                            <div style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; border:2px solid white; flex-shrink:0;"></div>
+                            <div
+                                style="width:36px; height:36px; border-radius:50%; background:#e2e8f0; border:2px solid white; flex-shrink:0;">
+                            </div>
                             <span style="font-weight:600;">Không có</span>
                         </div>
                         <div class="frame-opt" data-frame="gold" onclick="updateProfilePreview()"
                             style="display:flex; align-items:center; justify-content:center; gap:12px; padding:12px; border-radius:16px; position:relative; height: auto; min-height: 56px;">
-                            <div style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; flex-shrink:0;">
+                            <div
+                                style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#fbbf24,#f59e0b,#fde68a,#d97706); padding:3px; flex-shrink:0;">
                                 <div style="width:100%;height:100%;border-radius:50%;background:#e2e8f0;"></div>
                             </div>
                             <span style="color:#d97706; font-weight:700;">Khung Vàng</span>
-                            <span id="lockGoldInAppearance" class="card-lock" style="position:absolute; right:8px; display:none;">🔒</span>
+                            <span id="lockGoldInAppearance" class="card-lock"
+                                style="position:absolute; right:8px; display:none;">🔒</span>
                         </div>
                     </div>
                 </div>
@@ -1261,7 +1449,7 @@
                             <div
                                 style="min-width:60px; padding:8px 12px; border-radius:12px; background:linear-gradient(135deg,#fffbeb,#fef3c7); font-size:12px; border:1px solid #f59e0b; color:#78350f; text-align:center;">
                                 Tin nhắn</div>
-                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng</span>
                         </div>
                     </div>
                 </div>
@@ -1285,7 +1473,7 @@
                             <div
                                 style="width:50px; height:32px; border-radius:10px; background:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.5); backdrop-filter:blur(4px); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
                             </div>
-                            <span style="font-weight:700;">Trong suốt 💎</span>
+                            <span style="font-weight:700;">Trong suốt</span>
                             <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
                         <div class="frame-opt" data-cardbg="gold" onclick="updateProfilePreview()"
@@ -1293,7 +1481,7 @@
                             <div
                                 style="width:50px; height:32px; border-radius:10px; background:linear-gradient(135deg,rgba(255,251,235,0.9),rgba(254,243,199,0.85)); border:1px solid rgba(251,191,36,0.4); box-shadow:0 2px 4px rgba(0,0,0,0.05); flex-shrink: 0;">
                             </div>
-                            <span style="color:#d97706; font-weight:700;">Nền Vàng ✨</span>
+                            <span style="color:#d97706; font-weight:700;">Nền Vàng</span>
                             <span class="card-lock" style="margin-left:auto; display:none;">🔒</span>
                         </div>
                     </div>
@@ -1302,18 +1490,56 @@
 
                 <style>
                     /* Basic switch toggle */
-                    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-                    .switch input { opacity: 0; width: 0; height: 0; }
-                    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #cbd5e1; transition: .4s; border-radius: 24px; }
-                    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-                    input:checked + .slider { background-color: var(--primary); }
-                    input:checked + .slider:before { transform: translateX(20px); }
+                    .switch {
+                        position: relative;
+                        display: inline-block;
+                        width: 44px;
+                        height: 24px;
+                    }
+
+                    .switch input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
+
+                    .slider {
+                        position: absolute;
+                        cursor: pointer;
+                        inset: 0;
+                        background-color: #cbd5e1;
+                        transition: .4s;
+                        border-radius: 24px;
+                    }
+
+                    .slider:before {
+                        position: absolute;
+                        content: "";
+                        height: 18px;
+                        width: 18px;
+                        left: 3px;
+                        bottom: 3px;
+                        background-color: white;
+                        transition: .4s;
+                        border-radius: 50%;
+                    }
+
+                    input:checked+.slider {
+                        background-color: var(--primary);
+                    }
+
+                    input:checked+.slider:before {
+                        transform: translateX(20px);
+                    }
                 </style>
 
             </div>
-            <div style="padding:20px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; background:white; flex-shrink:0;">
-                <button onclick="document.getElementById('modalAppearance').classList.remove('active'); markDirty(); document.getElementById('btnSave').click();"
-                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác nhận & Lưu</button>
+            <div
+                style="padding:20px 24px; border-top:1px solid #f1f5f9; display:flex; justify-content:center; background:white; flex-shrink:0;">
+                <button
+                    onclick="document.getElementById('modalAppearance').classList.remove('active'); markDirty(); document.getElementById('btnSave').click();"
+                    style="padding:12px 32px; border-radius:9999px; border:none; background:#0f172a; color:white; font-weight:800; cursor:pointer; font-size:14px; box-shadow:0 10px 20px -5px rgba(0,0,0,0.2);">Xác
+                    nhận & Lưu</button>
             </div>
         </div>
     </div>
@@ -1341,18 +1567,26 @@
         </div>
     </div>
 
-    <!-- Delete Account Confirm Modal -->
-    <div id="modalDeleteAccount" class="modal" style="z-index:9999;">
-        <div class="box" style="text-align:center; max-width:340px;">
+    </div>
+    </div>
+    </div>
+
+
+
+    <!-- 2FA Warning Modal -->
+    <div id="modal2FAWarning" class="modal" style="z-index:10004;">
+        <div class="box" style="text-align:center; max-width:360px;">
             <div style="font-size:48px; margin-bottom:10px;">⚠️</div>
-            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800; color:#ef4444;">Xóa tài khoản?</h3>
-            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Hành động này <b
-                    style="color:#ef4444;">không thể hoàn tác</b>. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
+            <h3 style="margin-bottom:10px; font-size:18px; font-weight:800; color:#f59e0b;">Cảnh báo bảo mật</h3>
+            <p style="color:#64748b; margin-bottom:20px; font-size:14px; line-height:1.6;">Nếu bạn bật xác minh 2 bước
+                thì tài khoản của bạn sẽ được bảo mật hơn nhưng nếu <b>quên mã PIN</b>, bạn sẽ <b>không thể truy cập</b>
+                vào tài khoản của mình. Nếu cần khôi phục mã PIN, vui lòng liên
+                hệ admin qua: <br><b style="color:#0ea5e9;">betrumbaodeptraivippro@gmail.com</b></p>
             <div style="display:flex; gap:10px;">
-                <button id="btnDeleteConfirm" onclick="deleteMyAccount()"
-                    style="flex:1; padding:12px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Xóa
-                    ngay</button>
-                <button onclick="document.getElementById('modalDeleteAccount').classList.remove('active')"
+                <button onclick="confirmEnable2FA()"
+                    style="flex:1; padding:12px; background:#0ea5e9; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Tôi
+                    đã hiểu</button>
+                <button onclick="cancel2FAWarning()"
                     style="flex:1; padding:12px; background:#f1f5f9; color:#475569; border:none; border-radius:12px; font-weight:700; cursor:pointer;">Hủy</button>
             </div>
         </div>
@@ -1364,15 +1598,17 @@
     <div id="uploadDoneChip" onclick="uploadChipClick()" title="Bấm để chỉnh sửa hồ sơ">
         <span class="chip-icon material-symbols-rounded" id="uploadChipIcon">manage_accounts</span>
         <div>
-            <div style="font-size:11px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Hồ sơ</div>
+            <div style="font-size:11px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">
+                Hồ sơ</div>
             <div id="uploadChipMsg" style="font-size:13px;">Chỉnh sửa hồ sơ</div>
         </div>
-        <span class="chip-close material-symbols-rounded" onclick="event.stopPropagation(); hideUploadChip();">close</span>
+        <span class="chip-close material-symbols-rounded"
+            onclick="event.stopPropagation(); hideUploadChip();">close</span>
     </div>
 
     <script type="module">
         import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, linkWithPopup, deleteUser, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, linkWithPopup, deleteUser, EmailAuthProvider, linkWithCredential, updateEmail, updatePassword, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, getCountFromServer, onSnapshot, updateDoc, arrayUnion, deleteDoc, addDoc, increment } from "./fire-safety.js";
         import { getDatabase, ref, onValue, set, onDisconnect } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
         import { startPresenceHeartbeat } from "./presence.js";
@@ -1444,6 +1680,149 @@
             }
         }
 
+        window.toggleSection = (bodyId, arrowId) => {
+            const body = document.getElementById(bodyId);
+            const arrow = document.getElementById(arrowId);
+            const isHidden = body.style.display === 'none';
+            body.style.display = isHidden ? 'flex' : 'none';
+            arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0)';
+        };
+
+        window.saveNewPassword = async () => {
+            const oldP = document.getElementById('oldPass').value;
+            const newP = document.getElementById('newPass').value;
+            const newPC = document.getElementById('newPassConfirm').value;
+
+            if (!oldP || !newP) return showToast("Vui lòng nhập đầy đủ thông tin!");
+            if (newP.length < 6) return showToast("Mật khẩu mới phải từ 6 ký tự!");
+            if (newP !== newPC) return showToast("Mật khẩu mới không khớp!");
+
+            try {
+                const credential = EmailAuthProvider.credential(currentUser.email, oldP);
+                await reauthenticateWithCredential(currentUser, credential);
+                await updatePassword(currentUser, newP);
+                showToast("Đã đổi mật khẩu thành công! ✅");
+                document.getElementById('modalChangePassword').classList.remove('active');
+                document.getElementById('oldPass').value = '';
+                document.getElementById('newPass').value = '';
+                document.getElementById('newPassConfirm').value = '';
+            } catch (err) {
+                console.error(err);
+                if (err.code === 'auth/wrong-password') showToast("Mật khẩu hiện tại không đúng!");
+                else showToast("Lỗi: " + err.message);
+            }
+        };
+
+        window.handle2FAToggle = () => {
+            const chk = document.getElementById('chk2FA');
+            if (chk.checked) {
+                // Show Warning first when turning ON
+                document.getElementById('modal2FAWarning').classList.add('active');
+            } else {
+                // Directly to PIN entry when turning OFF
+                const modal = document.getElementById('modal2FASetup');
+                const btn = document.getElementById('btnSave2FA');
+                modal.classList.add('active');
+                document.getElementById('title2FA').textContent = "Tắt xác minh 2 bước";
+                document.getElementById('desc2FA').textContent = "Nhập mã PIN hiện tại để xác nhận tắt.";
+                btn.textContent = "Xác nhận tắt";
+                setTimeout(() => {
+                    const first = modal.querySelector('.pin-setup-input');
+                    if (first) first.focus();
+                }, 300);
+            }
+        };
+
+        window.confirmEnable2FA = () => {
+            document.getElementById('modal2FAWarning').classList.remove('active');
+            const modal = document.getElementById('modal2FASetup');
+            const btn = document.getElementById('btnSave2FA');
+            modal.classList.add('active');
+            document.getElementById('title2FA').textContent = "Bật xác minh 2 bước";
+            document.getElementById('desc2FA').textContent = "Nhập mã PIN 6 số mà bạn muốn sử dụng.";
+            btn.textContent = "Lưu mã PIN";
+            setTimeout(() => {
+                const first = modal.querySelector('.pin-setup-input');
+                if (first) first.focus();
+            }, 300);
+        };
+
+        window.cancel2FAWarning = () => {
+            document.getElementById('modal2FAWarning').classList.remove('active');
+            document.getElementById('chk2FA').checked = (userData.twoFactorEnabled === true);
+        };
+
+        window.save2FAPin = async () => {
+            const inputs = document.querySelectorAll('.pin-setup-input');
+            const pin = Array.from(inputs).map(i => i.value).join('');
+            const chk = document.getElementById('chk2FA');
+
+            if (pin.length !== 6 || isNaN(pin)) return; // Auto-verify only when full
+
+            try {
+                if (chk.checked) {
+                    // Enabling 2FA
+                    await updateDoc(doc(db, "users", currentUser.uid), {
+                        twoFactorEnabled: true,
+                        twoFactorPin: pin
+                    });
+                    userData.twoFactorEnabled = true;
+                    userData.twoFactorPin = pin;
+                    sessionStorage.setItem('confe_2fa_verified', 'true');
+                    showToast("Đã bật xác minh 2 bước! 🛡️");
+                } else {
+                    // Disabling 2FA - Check if correct PIN
+                    if (pin === String(userData.twoFactorPin)) {
+                        await updateDoc(doc(db, "users", currentUser.uid), {
+                            twoFactorEnabled: false
+                        });
+                        userData.twoFactorEnabled = false;
+                        showToast("Đã tắt xác minh 2 bước.");
+                    } else {
+                        chk.checked = true; // Re-check
+                        inputs.forEach(i => { i.value = ''; i.style.borderColor = '#ef4444'; });
+                        inputs[0].focus();
+                        return showToast("Mã PIN không chính xác!");
+                    }
+                }
+                document.getElementById('modal2FASetup').classList.remove('active');
+                inputs.forEach(i => i.value = '');
+            } catch (err) {
+                console.error(err);
+                showToast("Lỗi: " + err.message);
+            }
+        };
+
+        window.cancel2FASetup = () => {
+            document.getElementById('chk2FA').checked = userData.twoFactorEnabled === true;
+            document.getElementById('modal2FASetup').classList.remove('active');
+            document.querySelectorAll('.pin-setup-input').forEach(i => {
+                i.value = '';
+                i.style.borderColor = '#f1f5f9';
+            });
+        };
+
+        // 2FA Digit Input Logic Initialization
+        const initPinInputs = () => {
+            const setupPinInputs = document.querySelectorAll('.pin-setup-input');
+            setupPinInputs.forEach((inp, idx) => {
+                inp.oninput = (e) => {
+                    if (e.inputType === "deleteContentBackward") return;
+                    if (inp.value && idx < setupPinInputs.length - 1) setupPinInputs[idx + 1].focus();
+                    if (Array.from(setupPinInputs).every(i => i.value.length === 1)) {
+                        window.save2FAPin();
+                    }
+                };
+                inp.onkeydown = (e) => {
+                    if (e.key === "Backspace" && !inp.value && idx > 0) setupPinInputs[idx - 1].focus();
+                };
+                inp.onfocus = () => { inp.style.borderColor = '#0ea5e9'; inp.style.background = 'white'; };
+                inp.onblur = () => { inp.style.borderColor = '#f1f5f9'; inp.style.background = '#f8fafc'; };
+            });
+        };
+        setTimeout(initPinInputs, 500); // Small delay to ensure DOM is ready
+
+
         // ===== BADGE SYSTEM =====
         let allBadges = [];
         window.openBadgePicker = async () => {
@@ -1505,7 +1884,7 @@
                 await updateDoc(doc(db, "users", currentUser.uid), { equippedBadge: badgeId });
                 userData.equippedBadge = badgeId;
                 window.showToast(badgeId ? "Đã trang bị thẻ mới!" : "Đã gỡ trang bị huy hiệu!");
-                
+
                 // Refresh list and UI
                 window.openBadgePicker();
                 renderUI(userData, currentUser.uid);
@@ -1558,6 +1937,10 @@
                             markDirty();
                             document.getElementById('inpName').value = "";
                             document.getElementById('inpUser').value = userData.username || "";
+                        }
+                        // Initialize 2FA checkbox
+                        if (document.getElementById('chk2FA')) {
+                            document.getElementById('chk2FA').checked = userData.twoFactorEnabled === true;
                         }
                         loadFollowCounts(uid);
 
@@ -1646,7 +2029,7 @@
         })();
 
         // Watch text inputs & textarea
-        ['inpName','inpUser','inpBio'].forEach(id => {
+        ['inpName', 'inpUser', 'inpBio'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', markDirty);
         });
@@ -1684,13 +2067,13 @@
             chip.classList.add('show');
         }
 
-        window.hideUploadChip = function() {
+        window.hideUploadChip = function () {
             const chip = document.getElementById('uploadDoneChip');
             if (chip) chip.classList.remove('show');
         };
 
         // Chip click opens settings modal WITHOUT hiding chip
-        window.uploadChipClick = function() {
+        window.uploadChipClick = function () {
             document.getElementById('modalSettings').classList.add('active');
         };
 
@@ -1826,15 +2209,21 @@
         }
 
         document.getElementById('btnConfirmYes').onclick = () => {
+            sessionStorage.removeItem('confe_2fa_verified');
             signOut(auth).then(() => window.top.location.href = 'index.html');
         }
 
+        window.toggleSection = (id, arrowId) => {
+            const el = document.getElementById(id);
+            const arrow = document.getElementById(arrowId);
+            const isFlex = id.includes('privacySectionBody') || id.includes('securitySectionBody');
+            const open = el.style.display === (isFlex ? 'flex' : 'block');
+            el.style.display = open ? 'none' : (isFlex ? 'flex' : 'block');
+            if (arrow) arrow.style.transform = open ? '' : 'rotate(180deg)';
+        }
+
         window.togglePrivacySection = () => {
-            const body = document.getElementById('privacySectionBody');
-            const arrow = document.getElementById('privacySectionArrow');
-            const open = body.style.display === 'flex';
-            body.style.display = open ? 'none' : 'flex';
-            arrow.style.transform = open ? '' : 'rotate(180deg)';
+            window.toggleSection('privacySectionBody', 'privacySectionArrow');
         }
 
         window.toggleGuestSection = () => {
@@ -1861,6 +2250,7 @@
 
         window.forceLogout = () => {
             document.getElementById('modalAnonLogout').classList.remove('active');
+            sessionStorage.removeItem('confe_2fa_verified');
             signOut(auth).then(() => window.top.location.href = 'index.html');
         }
 
@@ -1887,21 +2277,7 @@
             }
         };
 
-        window.deleteMyAccount = async () => {
-            const btn = document.getElementById('btnDeleteConfirm');
-            if (!currentUser) return;
-            btn.disabled = true; btn.textContent = 'Đang xóa...';
-            try {
-                // Delete Firestore doc first
-                await deleteDoc(doc(db, 'users', currentUser.uid));
-                // Delete Firebase Auth user
-                await deleteUser(currentUser);
-                window.top.location.href = 'index.html';
-            } catch (e) {
-                window.showToast('Lỗi xóa tài khoản: ' + e.message);
-                btn.disabled = false; btn.textContent = 'Xóa ngay';
-            }
-        };
+
         function renderUI(data, uid) {
             document.getElementById('profileSkeleton').style.display = 'none';
             document.getElementById('profileContent').style.display = 'block';
@@ -1947,7 +2323,7 @@
             if (badgesSec && badgesList) {
                 const owned = data.ownedBadges || [];
                 const equipped = data.equippedBadge || '';
-                
+
                 // Fetch all badges if not already
                 if (allBadges.length === 0) {
                     getDocs(collection(db, 'badges')).then(snap => {
@@ -2053,43 +2429,48 @@
                     // Call preview after unlocking
                     setTimeout(updateProfilePreview, 100);
 
-                    // Sync Color Picker
+                    // Reset dropdowns to collapsed
+                    const secBody = document.getElementById('securitySectionBody');
+                    const secArrow = document.getElementById('securitySectionArrow');
+                    if (secBody) secBody.style.display = 'none';
+                    if (secArrow) secArrow.style.transform = '';
+
+                    const privBody = document.getElementById('privacySectionBody');
+                    const privArrow = document.getElementById('privacySectionArrow');
+                    if (privBody) privBody.style.display = 'none';
+                    if (privArrow) privArrow.style.transform = '';
+
+                    // Restoring original sync logic
                     const color = data.nameColor || 'default';
                     document.querySelectorAll('.color-opt').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.color === color);
                     });
 
-                    // Sync Avatar Frame Picker
                     const frame = data.avatarFrame || 'default';
                     document.querySelectorAll('.frame-opt[data-frame]').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.frame === frame);
                     });
 
-                    // Sync Chat Bg Picker
                     const chatBg = data.chatBackground || 'default';
                     document.querySelectorAll('.frame-opt[data-bg]').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.bg === chatBg);
                     });
 
-                    // Sync Card Bg Picker
                     const cardBg = data.cardBackground || 'default';
                     document.querySelectorAll('.frame-opt[data-cardbg]').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.cardbg === cardBg);
                     });
 
-                    // Sync Privacy Settings
                     document.getElementById('chkPublicFollow').checked = data.publicFollow !== false;
                     document.getElementById('chkPublicEmail').checked = !!data.publicEmail;
                     document.getElementById('chkShowActivity').checked = data.showActivity !== false;
                     document.getElementById('chkSearchByEmail').checked = data.searchByEmail !== false;
 
-
-                    // Hide verification button if already verified
                     const verifyBtn = document.getElementById('btnVerifyRequest');
                     if (data.isTickVerified) {
-                        verifyBtn.style.display = 'none';
+                        if (verifyBtn) verifyBtn.style.display = 'none';
                     } else {
-                        verifyBtn.style.display = 'flex';
+                        if (verifyBtn) verifyBtn.style.display = 'flex';
                     }
 
                     document.getElementById('modalSettings').classList.add('active');
@@ -2455,14 +2836,40 @@
         document.getElementById('nameColorPicker').onclick = (e) => {
             const opt = e.target.closest('.color-opt');
             if (!opt) return;
+
+            const color = opt.dataset.color;
+            if (color === 'vip' && !userData.has10DayReward) {
+                window.showToast("🔒 Bạn cần mở khóa để sử dụng màu này!", "error");
+                return;
+            }
+
             document.querySelectorAll('.color-opt').forEach(i => i.classList.remove('active'));
             opt.classList.add('active');
+            setTimeout(updateProfilePreview, 10);
         };
 
         // Frame/Bg Picker Logic
         document.body.addEventListener('click', (e) => {
             const frameOpt = e.target.closest('.frame-opt');
             if (!frameOpt) return;
+
+            // Ownership Check
+            const frame = frameOpt.dataset.frame;
+            const bg = frameOpt.dataset.bg;
+            const cardBg = frameOpt.dataset.cardbg;
+
+            let isLocked = false;
+            if (frame === 'gold' && !userData.hasVipFrameGold) isLocked = true;
+            if (frame === 'vip' && !userData.hasVipFrame) isLocked = true;
+            if (bg === 'gold' && !userData.hasVipChatBgGold) isLocked = true;
+            if (bg === 'vip' && !userData.hasVipChatBg) isLocked = true;
+            if ((cardBg === 'glass' || cardBg === 'gold') && !userData.hasCardBg) isLocked = true;
+
+            if (isLocked) {
+                window.showToast("🔒 Bạn cần mở khóa để sử dụng vật phẩm này!", "error");
+                return;
+            }
+
             const parent = frameOpt.closest('.frame-picker');
             if (parent) {
                 parent.querySelectorAll('.frame-opt').forEach(i => i.classList.remove('active'));

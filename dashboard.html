@@ -9,8 +9,7 @@
     <meta name="description"
         content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
     <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -1102,7 +1101,10 @@
                 border-bottom: 1px solid var(--md-sys-color-outline-variant);
                 scrollbar-width: none;
             }
-            .nb-sidebar::-webkit-scrollbar { display: none; }
+
+            .nb-sidebar::-webkit-scrollbar {
+                display: none;
+            }
 
             .nb-cat-btn {
                 min-width: 72px;
@@ -1122,7 +1124,10 @@
                 border-bottom: 1px solid var(--md-sys-color-outline-variant);
                 scrollbar-width: none;
             }
-            .nb-subnav::-webkit-scrollbar { display: none; }
+
+            .nb-subnav::-webkit-scrollbar {
+                display: none;
+            }
 
             .nb-item-btn {
                 white-space: nowrap;
@@ -1449,8 +1454,7 @@
     <meta name="description"
         content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
     <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-    <meta property="og:description"
-        content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+    <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
     <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -2095,12 +2099,12 @@
             applyGreeting(displayName, window.uSnapData);
 
             startPresenceHeartbeat({
-                db, 
-                rtdb, 
-                ref, 
-                onValue, 
-                set, 
-                onDisconnect, 
+                db,
+                rtdb,
+                ref,
+                onValue,
+                set,
+                onDisconnect,
                 uid: u.uid,
                 updateDoc,
                 doc,
@@ -2525,18 +2529,20 @@
                             {
                                 id: 'hoi_dap', name: 'Hỏi & Đáp', icon: 'help',
                                 events: [
-                                    { title: "Câu hỏi thường gặp", time: "Cập nhật mới nhất", isQA: true, qaItems: [
-                                        { q: "Confe là gì?", a: "Confe là nền tảng mạng xã hội học tập dành riêng cho học sinh, sinh viên. Đây là nơi bạn có thể trao đổi kiến thức, làm bài tập và kết nối với bạn bè một cách thú vị hơn qua các mini games." },
-                                        { q: "Làm sao để kiếm Coin?", a: "Bạn có thể kiếm Coin bằng cách hoàn thành các bài ôn tập trong mục \"Ôn tập\", chiến thắng các trò chơi, hoặc tham gia vào các hoạt động cộng đồng trên chat." },
-                                        { q: "Làm sao để đổi màu tên chat?", a: "Hãy vào phần \"Tôi\" -> \"Cài đặt\" (biểu tượng bánh răng). Tại đây bạn có thể chọn màu tên yêu thích trong bảng màu \"Màu tên hiển thị\". Đừng quên nhấn \"Lưu thay đổi\"!" },
-                                        { q: "Verified (Tick xanh) là gì?", a: "Tick xanh là danh hiệu dành cho những thành viên tích cực, admin hoặc những người đóng góp nội dung chất lượng cao. Bạn có thể gửi đơn đăng ký trong phần Cài đặt hồ sơ nếu cảm thấy bản thân xứng đáng." },
-                                        { q: "Dữ liệu của tôi có an toàn không?", a: "Confe cam kết bảo mật thông tin cá nhân của bạn. Chúng tôi khuyến khích bạn sử dụng tính năng \"Liên kết tài khoản\" trong phần Cài đặt để đảm bảo dữ liệu không bị mất khi bạn chuyển thiết bị." },
-                                        { q: "Làm sao để đấu 1v1?", a: "Bạn hãy vào mục \"Ôn tập\" -> \"Trận đấu 1v1\". Ở đây bạn có thể \"Tạo phòng\" để lấy mã gửi cho bạn bè, hoặc \"Vào phòng\" bằng cách nhập mã mà bạn bè đã gửi." },
-                                        { q: "Làm sao để tạo Chủ đề mới?", a: "Bạn có thể tạo Chủ đề hoàn toàn miễn phí! Chỉ cần vào trang chủ, nhấn vào nút \"+\" ở góc dưới màn hình để bắt đầu tạo chủ đề của riêng mình." },
-                                        { q: "Coin dùng để làm gì?", a: "Coin là đơn vị tiền tệ chính trong Confe. Bạn có thể dùng Coin để mua các thẻ trợ giúp trong Cửa hàng thẻ bài (ở mục Ôn tập), hoặc dùng để tạo các Chủ đề thảo luận mới." },
-                                        { q: "Tại sao không gửi được tin nhắn?", a: "Nếu bạn không gửi được tin nhắn, có thể là do kết nối mạng yếu, hoặc tài khoản của bạn đang bị hạn chế do vi phạm quy tắc cộng đồng. Hãy kiểm tra lại kết nối hoặc liên hệ admin nếu cần." },
-                                        { q: "Làm sao để báo cáo vi phạm?", a: "Trong phòng chat, bạn nhấn giữ vào tin nhắn vi phạm và chọn \"Báo cáo\". Đối với người dùng, bạn có thể vào trang cá nhân của họ và chọn nút báo cáo ở menu cài đặt." }
-                                    ]}
+                                    {
+                                        title: "Câu hỏi thường gặp", time: "Cập nhật mới nhất", isQA: true, qaItems: [
+                                            { q: "Confe là gì?", a: "Confe là nền tảng mạng xã hội học tập dành riêng cho học sinh, sinh viên. Đây là nơi bạn có thể trao đổi kiến thức, làm bài tập và kết nối với bạn bè một cách thú vị hơn qua các mini games." },
+                                            { q: "Làm sao để kiếm Coin?", a: "Bạn có thể kiếm Coin bằng cách hoàn thành các bài ôn tập trong mục \"Ôn tập\", chiến thắng các trò chơi, hoặc tham gia vào các hoạt động cộng đồng trên chat." },
+                                            { q: "Làm sao để đổi màu tên chat?", a: "Hãy vào phần \"Tôi\" -> \"Cài đặt\" (biểu tượng bánh răng). Tại đây bạn có thể chọn màu tên yêu thích trong bảng màu \"Màu tên hiển thị\". Đừng quên nhấn \"Lưu thay đổi\"!" },
+                                            { q: "Verified (Tick xanh) là gì?", a: "Tick xanh là danh hiệu dành cho những thành viên tích cực, admin hoặc những người đóng góp nội dung chất lượng cao. Bạn có thể gửi đơn đăng ký trong phần Cài đặt hồ sơ nếu cảm thấy bản thân xứng đáng." },
+                                            { q: "Dữ liệu của tôi có an toàn không?", a: "Confe cam kết bảo mật thông tin cá nhân của bạn. Chúng tôi khuyến khích bạn sử dụng tính năng \"Liên kết tài khoản\" trong phần Cài đặt để đảm bảo dữ liệu không bị mất khi bạn chuyển thiết bị." },
+                                            { q: "Làm sao để đấu 1v1?", a: "Bạn hãy vào mục \"Ôn tập\" -> \"Trận đấu 1v1\". Ở đây bạn có thể \"Tạo phòng\" để lấy mã gửi cho bạn bè, hoặc \"Vào phòng\" bằng cách nhập mã mà bạn bè đã gửi." },
+                                            { q: "Làm sao để tạo Chủ đề mới?", a: "Bạn có thể tạo Chủ đề hoàn toàn miễn phí! Chỉ cần vào trang chủ, nhấn vào nút \"+\" ở góc dưới màn hình để bắt đầu tạo chủ đề của riêng mình." },
+                                            { q: "Coin dùng để làm gì?", a: "Coin là đơn vị tiền tệ chính trong Confe. Bạn có thể dùng Coin để mua các thẻ trợ giúp trong Cửa hàng thẻ bài (ở mục Ôn tập), hoặc dùng để tạo các Chủ đề thảo luận mới." },
+                                            { q: "Tại sao không gửi được tin nhắn?", a: "Nếu bạn không gửi được tin nhắn, có thể là do kết nối mạng yếu, hoặc tài khoản của bạn đang bị hạn chế do vi phạm quy tắc cộng đồng. Hãy kiểm tra lại kết nối hoặc liên hệ admin nếu cần." },
+                                            { q: "Làm sao để báo cáo vi phạm?", a: "Trong phòng chat, bạn nhấn giữ vào tin nhắn vi phạm và chọn \"Báo cáo\". Đối với người dùng, bạn có thể vào trang cá nhân của họ và chọn nút báo cáo ở menu cài đặt." }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
@@ -2628,7 +2634,7 @@
 
             document.getElementById('nbTitle').textContent = ev.title;
             document.getElementById('nbTime').textContent = ev.time;
-            
+
             const artContainer = document.querySelector('.nb-art');
             if (artContainer) artContainer.style.display = 'none';
 
@@ -2810,6 +2816,10 @@
         </div>
     </div>
 
+</body>
+
+</html>
+</div>
 </body>
 
 </html>

@@ -125,7 +125,7 @@ module.exports = async (req, res) => {
 
             await userRef.update({
                 isBanned: true,
-                banReason: "Anti-Spam: " + reason,
+                banReason: reason,
                 bannedUntil: bannedUntil,
                 dateUnban: dateUnban + " (Tự động mở sau 10 ngày)"
             });

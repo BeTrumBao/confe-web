@@ -9,8 +9,7 @@
   <meta name="description"
     content="Confe - Nền tảng mạng xã hội mini dành riêng cho bạn. Kết nối và trò chuyện ngay hôm nay!">
   <meta property="og:title" content="Confe - Mạng xã hội thế hệ mới">
-  <meta property="og:description"
-    content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
+  <meta property="og:description" content="Cùng tham gia Confe để khám phá những tính năng kết nối thú vị!">
   <meta property="og:image" content="https://confe-web.vercel.app/assets/favicon.png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
@@ -2474,6 +2473,7 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
+
     .hidden-option {
       visibility: hidden !important;
       opacity: 0 !important;
@@ -2554,25 +2554,21 @@
         <div class="dashboard-header-inner"
           style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 15px;">
           <div>
-            <h1 id="main-title" class="dashboard-title" style="margin: 0; font-size: 28px;">Ôn tập with Confe</h1>
+            <h1 id="main-title" class="dashboard-title" style="margin: 0; font-size: 28px;">Học tập with Confe</h1>
             <p style="color: #64748b; font-weight: 500; margin-top: 5px;">Học tập hiệu quả với đề cương tự chọn và của
               cộng đồng</p>
           </div>
           <div style="display: flex; gap: 10px;">
-            <button class="feedback-btn" onclick="openSyllabusModal()"
-              style="margin: 0; background: #f1f5f9; color: #475569; border: none;">
-              <span class="material-symbols-rounded">edit_note</span> Góp ý
-            </button>
             <button class="feedback-btn" onclick="openOutlineCreator()"
               style="margin: 0; background: #0084ff; color: white; border-color: #0084ff;">
-              <span class="material-symbols-rounded">add_circle</span> Tạo Đề Cương
+              <span class="material-symbols-rounded">add_circle</span> Tạo
             </button>
           </div>
         </div>
 
         <div class="outline-tabs" style="width: 100%; margin: 0;">
-          <div class="outline-tab active" id="tab-my" onclick="switchOutlineTab('my')">Đề cương của tôi</div>
-          <div class="outline-tab" id="tab-community" onclick="switchOutlineTab('community')">Cộng đồng shared</div>
+          <div class="outline-tab active" id="tab-my" onclick="switchOutlineTab('my')">Của tôi</div>
+          <div class="outline-tab" id="tab-community" onclick="switchOutlineTab('community')">Cộng đồng</div>
         </div>
       </div>
 
@@ -2685,7 +2681,8 @@
             <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
               <input type="number" id="q-count" class="inp" value="0" min="0" oninput="generateAnsInputs()"
                 placeholder="Số lượng cÃ¢u hỏ i." style="flex: 1;">
-              <div style="font-size: 13px; font-weight: 600; color: #64748b; flex: 1.5;">Nhập số lượng cÃ¢u hỏ i củ a Đ‘ỏ  cương nÃ y</div>
+              <div style="font-size: 13px; font-weight: 600; color: #64748b; flex: 1.5;">Nhập số lượng cÃ¢u hỏ i củ a
+                Đ‘ỏ cương nÃ y</div>
             </div>
             <div id="ans-keys-container" class="ans-grid">
               <!-- Dynamically generated inputs -->
@@ -2899,8 +2896,8 @@
 
             card.innerHTML = `
             <div class="subject-card-header">
-              <div class="subject-icon" style="background: ${data.color || 'linear-gradient(135deg, #0084ff, #00c6ff)'}">
-                <span class="material-symbols-rounded">${data.icon || 'description'}</span>
+              <<di<div class="subject-icon" style="background: ${(data.icon && (data.icon.startsWith('http') || data.icon.startsWith('data'))) ? 'transparent' : (data.color || 'linear-gradient(135deg, #0084ff, #00c6ff)')}; overflow:hidden;">
+                ${(data.icon && (data.icon.startsWith('http') || data.icon.startsWith('data'))) ? '<img src=\"' + data.icon + '\" style=\"width:100%;height:100%;object-fit:cover;border-radius:12px;\">' : '<span class=\"material-symbols-rounded\">' + (data.icon || 'description') + '</span>'}
               </div>
               <div class="subject-name" style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
                 ${data.name || data.title || 'Môn học mới'}
@@ -5486,7 +5483,7 @@
             remakeBtn.style.color = 'white';
             remakeBtn.style.borderColor = '#f59e0b';
             remakeBtn.innerHTML = '<span class="material-symbols-rounded" style="font-size:20px; vertical-align:middle; margin-right:5px;">refresh</span> Làm lại câu này (Remake)';
-            remakeBtn.onclick = function() {
+            remakeBtn.onclick = function () {
               if (window.quizTimer) clearInterval(window.quizTimer);
               currentQuestionAnswered = false;
               currentSelection = null;
@@ -5673,6 +5670,9 @@
         reviewTitle.style.display = 'none';
         resultDiv.style.display = 'none';
 
+        window.userFormAnswers = {};
+        window.currentOutlineType = outline.type;
+
         const pages = outline.pages || [{ imageUrl: outline.imageUrl, masks: outline.masks }];
         const isV2 = outline.type === 'user_outline_v2';
         const app = document.getElementById('app');
@@ -5730,7 +5730,7 @@
               const correctVal = isV2 ? q.a : q.answer;
               return `
                                 <button class="mcq-btn" 
-                                  onclick="checkPlaybackAnsMcq(${qidx}, ${isV2 ? val : `'${val}'`}, ${isV2 ? correctVal : `'${correctVal}'`}${isV2 ? ', true' : ''})" 
+                                  onclick="selectFormMcq(this, ${qidx}, ${isV2 ? val : `'${val}'`}, ${isV2 ? correctVal : `'${correctVal}'`})" 
                                   id="ans-btn-${qidx}-${val}" 
                                   style="${isV2 ? 'width:100%; text-align:left; padding:15px 18px; justify-content:flex-start; font-size:14px;' : ''}"
                                 >
@@ -5749,8 +5749,7 @@
                           <div style="margin-top:8px; font-size:12px; color:#64748b; font-weight:600; text-align:center;">Bấm vào vùng đen để hiện đáp án</div>
                         ` : `
                           <div style="display:flex; gap:10px;">
-                            <input type="text" class="ans-input" placeholder="Nhập đáp án." id="ans-inp-${qidx}" style="flex:1; text-align:left; padding:12px 18px; font-size:15px; border-radius:15px; border:2px solid #e2e8f0; transition:all 0.2s;">
-                            <button class="btn-primary" onclick="checkPlaybackAnsShort(${qidx}, '${isV2 ? q.a : q.answer}')" style="width:48px; height:48px; min-width:48px; border-radius:15px; display:flex; align-items:center; justify-content:center;"><span class="material-symbols-rounded">send</span></button>
+                            <input type="text" class="ans-input" placeholder="Nhập đáp án." id="ans-inp-${qidx}" oninput="window.userFormAnswers[${qidx}] = { type: 'short', selected: this.value, correct: '${isV2 ? q.a : q.answer}' }" style="flex:1; text-align:left; padding:12px 18px; font-size:15px; border-radius:15px; border:2px solid #e2e8f0; transition:all 0.2s;">
                           </div>
                           <div id="fb-text-${qidx}" style="margin-top:10px; font-size:13px; font-weight:700;"></div>
                         `)}
@@ -5764,6 +5763,10 @@
                   <span class="material-symbols-rounded">visibility</span> Chế độ xem: Tự ôn tập với các vùng đã che!
                 </div>
               `}
+
+              ${isQuiz ? `
+                <button class="btn-primary" id="btnSubmitFormOutline" onclick="submitUserFormOutline()" style="width:100%; padding:18px; border-radius:20px; font-weight:700; margin-bottom: 15px; box-shadow: 0 10px 25px rgba(0,132,255,0.3); font-size: 16px;">Nộp Bài & Xem Điểm</button>
+              ` : ''}
 
               <button class="btn-ghost" onclick="exitToDashboard()" style="width:100%; padding:18px; border-radius:20px; border:1px solid #e2e8f0; font-weight:700;">
                 <span class="material-symbols-rounded">arrow_back</span> Quay lại Dashboard
@@ -5803,50 +5806,56 @@
         renderPage(0);
       };
 
-      window.checkPlaybackAnsMcq = (idx, opt, correct, isV2 = false) => {
-        const isCorrect = isV2 ? (parseInt(opt) === parseInt(correct)) : (String(opt).toUpperCase() === String(correct).toUpperCase());
-        const btns = document.querySelectorAll(`[id^="ans-btn-${idx}-"]`);
-        btns.forEach(b => {
-          b.disabled = true;
-          const btnVal = isV2 ? parseInt(b.id.split('-').pop()) : b.id.split('-').pop();
-          const correctVal = isV2 ? parseInt(correct) : String(correct).toUpperCase();
-
-          if ((!isV2 && String(btnVal) === correctVal) || (isV2 && btnVal === correctVal)) {
-            b.style.background = '#22c55e';
-            b.style.color = 'white';
-            b.style.borderColor = '#22c55e';
-            b.style.boxShadow = '0 8px 15px rgba(34, 197, 94, 0.3)';
-          }
-        });
-        if (isCorrect) {
-          window.showToast('Chính xác! +1 Uy tín');
-          updateReputation(1);
-        } else {
-          const wrongBtn = document.getElementById(`ans-btn-${idx}-${opt}`);
-          if (wrongBtn) {
-            wrongBtn.style.background = '#ef4444';
-            wrongBtn.style.color = 'white';
-            wrongBtn.style.borderColor = '#ef4444';
-          }
-          window.showToast('Chưa đúng rồi!', 'error');
-        }
+      window.selectFormMcq = (btn, qidx, opt, correctVal) => {
+        const btns = document.querySelectorAll(`[id^="ans-btn-${qidx}-"]`);
+        btns.forEach(b => { b.style.background = ''; b.style.color = ''; b.style.borderColor = ''; b.classList.remove('selected-ans'); });
+        btn.style.background = 'rgba(0,132,255,0.12)'; btn.style.color = '#0084ff'; btn.style.borderColor = '#0084ff'; btn.classList.add('selected-ans');
+        window.userFormAnswers[qidx] = { type: 'mcq', selected: opt, correct: correctVal };
       };
 
-      window.checkPlaybackAnsShort = (idx, correct) => {
-        const inp = document.getElementById(`ans-inp-${idx}`);
-        const fb = document.getElementById(`fb-text-${idx}`);
-        if (!inp.value.trim()) return;
-        const isCorrect = inp.value.trim().toLowerCase() === String(correct).toLowerCase();
-        if (isCorrect) {
-          fb.style.color = '#10b981';
-          fb.innerHTML = '✅ Tuyỏ‡t vỏi! Bả¡n Đã trả£ lỏi Đ‘Ãºng.';
-          inp.disabled = true;
-          inp.style.borderColor = '#10b981';
-          updateReputation(2);
-        } else {
-          fb.style.color = '#ef4444';
-          fb.innerHTML = `âŒ Sai rồi! ĐÃ¡p Ã¡n lÃ : <strong>${correct}</strong>`;
-          inp.style.borderColor = '#ef4444';
+      window.submitUserFormOutline = () => {
+        let correctCount = 0;
+        for (let qidx in window.userFormAnswers) {
+          const ans = window.userFormAnswers[qidx];
+          const isV2 = window.currentOutlineType === 'user_outline_v2';
+          if (ans.type === 'mcq') {
+            const isCorrect = isV2 ? (parseInt(ans.selected) === parseInt(ans.correct)) : (String(ans.selected).toUpperCase() === String(ans.correct).toUpperCase());
+            const btns = document.querySelectorAll(`[id^="ans-btn-${qidx}-"]`);
+            btns.forEach(b => { b.disabled = true; });
+            const correctVal2 = isV2 ? parseInt(ans.correct) : String(ans.correct).toUpperCase();
+            btns.forEach(b => {
+              const raw = b.id.split('-').pop();
+              const bv = isV2 ? parseInt(raw) : raw;
+              if ((!isV2 && String(bv) === correctVal2) || (isV2 && bv === correctVal2)) {
+                b.style.background = '#22c55e'; b.style.color = 'white';
+                b.style.borderColor = '#22c55e'; b.style.boxShadow = '0 8px 15px rgba(34,197,94,0.3)';
+              }
+            });
+            if (isCorrect) { correctCount++; }
+            else { const wb = document.getElementById(`ans-btn-${qidx}-${ans.selected}`); if (wb) { wb.style.background = '#ef4444'; wb.style.color = 'white'; wb.style.borderColor = '#ef4444'; } }
+          } else if (ans.type === 'short') {
+            const inp = document.getElementById(`ans-inp-${qidx}`);
+            const fb = document.getElementById(`fb-text-${qidx}`);
+            if (inp) inp.disabled = true;
+            const isCorrect = String(ans.selected || '').trim().toLowerCase() === String(ans.correct || '').trim().toLowerCase();
+            if (isCorrect) {
+              correctCount++;
+              if (fb) { fb.style.color = '#10b981'; fb.innerHTML = '✅ Tuyệt vời! Chính xác.'; }
+              if (inp) inp.style.borderColor = '#10b981';
+            } else {
+              if (fb) { fb.style.color = '#ef4444'; fb.innerHTML = '❌ Sai rồi! Đáp án: <strong>' + ans.correct + '</strong>'; }
+              if (inp) inp.style.borderColor = '#ef4444';
+            }
+          }
+        }
+        window.showToast('Đã nộp bài! Bạn đúng ' + correctCount + ' câu.');
+        if (correctCount > 0) updateReputation(correctCount);
+        const btnSub = document.getElementById('btnSubmitFormOutline');
+        if (btnSub) {
+          btnSub.innerHTML = '<span class="material-symbols-rounded" style="vertical-align:middle;">task_alt</span> Kết quả: Đúng ' + correctCount + ' câu';
+          btnSub.disabled = true;
+          btnSub.style.background = '#10b981';
+          btnSub.style.borderColor = '#10b981';
         }
       };
 
